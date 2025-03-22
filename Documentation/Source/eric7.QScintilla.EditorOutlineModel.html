@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.EditorOutlineModel</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.EditorOutlineModel</h1>
+<p>
+Module implementing the editor outline model.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EditorOutlineModel">EditorOutlineModel</a></td>
+<td>Class implementing the editor outline model.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineSortFilterProxyModel">EditorOutlineSortFilterProxyModel</a></td>
+<td>Class implementing the editor outline sort filter proxy model.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EditorOutlineModel" ID="EditorOutlineModel"></a>
+<h2>EditorOutlineModel</h2>
+<p>
+    Class implementing the editor outline model.
+</p>
+
+<h3>Derived from</h3>
+BrowserModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>SupportedLanguages</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#EditorOutlineModel.getSupportedLanguages">getSupportedLanguages</a></td>
+<td>Class method to get the list of supported programming languages.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EditorOutlineModel.__init__">EditorOutlineModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineModel.__populateModel">__populateModel</a></td>
+<td>Private slot to populate the model.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineModel.editor">editor</a></td>
+<td>Public method to retrieve a reference to the editor.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineModel.fileName">fileName</a></td>
+<td>Public method to retrieve the file name of the editor.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineModel.findItem">findItem</a></td>
+<td>Function to iteratively search for an item containing the given line.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineModel.isPopulated">isPopulated</a></td>
+<td>Public method to check, if the model is populated.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineModel.itemIndexByLine">itemIndexByLine</a></td>
+<td>Public method to find an item's index given a line number.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineModel.repopulate">repopulate</a></td>
+<td>Public slot to repopulate the model.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EditorOutlineModel.getSupportedLanguages" ID="EditorOutlineModel.getSupportedLanguages"></a>
+<h4>EditorOutlineModel.getSupportedLanguages (class method)</h4>
+<b>getSupportedLanguages</b>(<i></i>)
+<p>
+        Class method to get the list of supported programming languages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of supported programming languages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EditorOutlineModel.__init__" ID="EditorOutlineModel.__init__"></a>
+<h4>EditorOutlineModel (Constructor)</h4>
+<b>EditorOutlineModel</b>(<i>editor, populate=True</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor containing the source text
+</dd>
+<dt><i>populate</i> (bool)</dt>
+<dd>
+flag indicating to populate the outline
+</dd>
+</dl>
+<a NAME="EditorOutlineModel.__populateModel" ID="EditorOutlineModel.__populateModel"></a>
+<h4>EditorOutlineModel.__populateModel</h4>
+<b>__populateModel</b>(<i>repopulate=False</i>)
+<p>
+        Private slot to populate the model.
+</p>
+
+<dl>
+
+<dt><i>repopulate</i> (bool)</dt>
+<dd>
+flag indicating a repopulation
+</dd>
+</dl>
+<a NAME="EditorOutlineModel.editor" ID="EditorOutlineModel.editor"></a>
+<h4>EditorOutlineModel.editor</h4>
+<b>editor</b>(<i></i>)
+<p>
+        Public method to retrieve a reference to the editor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor
+</dd>
+</dl>
+<a NAME="EditorOutlineModel.fileName" ID="EditorOutlineModel.fileName"></a>
+<h4>EditorOutlineModel.fileName</h4>
+<b>fileName</b>(<i></i>)
+<p>
+        Public method to retrieve the file name of the editor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+file name of the editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EditorOutlineModel.findItem" ID="EditorOutlineModel.findItem"></a>
+<h4>EditorOutlineModel.findItem</h4>
+<b>findItem</b>(<i>parent</i>)
+<p>
+            Function to iteratively search for an item containing the given
+            line.
+</p>
+
+<dl>
+
+<dt><i>lineno</i> (int)</dt>
+<dd>
+one based line number of the item
+</dd>
+<dt><i>parent</i> (BrowserItem)</dt>
+<dd>
+reference to the parent item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+found item or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BrowserItem
+</dd>
+</dl>
+<a NAME="EditorOutlineModel.isPopulated" ID="EditorOutlineModel.isPopulated"></a>
+<h4>EditorOutlineModel.isPopulated</h4>
+<b>isPopulated</b>(<i></i>)
+<p>
+        Public method to check, if the model is populated.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a populated model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EditorOutlineModel.itemIndexByLine" ID="EditorOutlineModel.itemIndexByLine"></a>
+<h4>EditorOutlineModel.itemIndexByLine</h4>
+<b>itemIndexByLine</b>(<i>lineno</i>)
+<p>
+        Public method to find an item's index given a line number.
+</p>
+
+<dl>
+
+<dt><i>lineno</i> (int)</dt>
+<dd>
+one based line number of the item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the item found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="EditorOutlineModel.repopulate" ID="EditorOutlineModel.repopulate"></a>
+<h4>EditorOutlineModel.repopulate</h4>
+<b>repopulate</b>(<i></i>)
+<p>
+        Public slot to repopulate the model.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EditorOutlineSortFilterProxyModel" ID="EditorOutlineSortFilterProxyModel"></a>
+<h2>EditorOutlineSortFilterProxyModel</h2>
+<p>
+    Class implementing the editor outline sort filter proxy model.
+</p>
+
+<h3>Derived from</h3>
+BrowserSortFilterProxyModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EditorOutlineSortFilterProxyModel.__init__">EditorOutlineSortFilterProxyModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineSortFilterProxyModel.filterAcceptsRow">filterAcceptsRow</a></td>
+<td>Public method to filter rows.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EditorOutlineSortFilterProxyModel.__init__" ID="EditorOutlineSortFilterProxyModel.__init__"></a>
+<h4>EditorOutlineSortFilterProxyModel (Constructor)</h4>
+<b>EditorOutlineSortFilterProxyModel</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="EditorOutlineSortFilterProxyModel.filterAcceptsRow" ID="EditorOutlineSortFilterProxyModel.filterAcceptsRow"></a>
+<h4>EditorOutlineSortFilterProxyModel.filterAcceptsRow</h4>
+<b>filterAcceptsRow</b>(<i>_source_row, _source_parent</i>)
+<p>
+        Public method to filter rows.
+</p>
+<p>
+        This overrides the filtering of the parent class by always accept
+        the row.
+</p>
+
+<dl>
+
+<dt><i>_source_row</i> (int)</dt>
+<dd>
+row number (in the source model) of item
+</dd>
+<dt><i>_source_parent</i> (QModelIndex)</dt>
+<dd>
+index of parent item (in the source model)
+            of item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the item should be shown
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

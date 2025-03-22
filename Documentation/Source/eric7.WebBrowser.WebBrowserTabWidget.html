@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.WebBrowserTabWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.WebBrowserTabWidget</h1>
+<p>
+Module implementing the central widget showing the web pages.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserTabWidget">WebBrowserTabWidget</a></td>
+<td>Class implementing the central widget showing the web pages.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="WebBrowserTabWidget" ID="WebBrowserTabWidget"></a>
+<h2>WebBrowserTabWidget</h2>
+<p>
+    Class implementing the central widget showing the web pages.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>browserClosed(QWidget)</dt>
+<dd>
+emitted after a browser was closed
+</dd>
+<dt>browserOpened(QWidget)</dt>
+<dd>
+emitted after a new browser was created
+</dd>
+<dt>browserZoomValueChanged(int)</dt>
+<dd>
+emitted to signal a change of the
+        current browser's zoom level
+</dd>
+<dt>currentUrlChanged(QUrl)</dt>
+<dd>
+emitted after the URL of the current
+        browser has changed
+</dd>
+<dt>showMessage(str)</dt>
+<dd>
+emitted to show a message in the main window
+        status bar
+</dd>
+<dt>sourceChanged(WebBrowserView, QUrl)</dt>
+<dd>
+emitted after the URL of a
+        browser has changed
+</dd>
+<dt>titleChanged(WebBrowserView, str)</dt>
+<dd>
+emitted after the title of a
+        browser has changed
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricTabWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserTabWidget.__init__">WebBrowserTabWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__aboutToShowClosedTabsMenu">__aboutToShowClosedTabsMenu</a></td>
+<td>Private slot to populate the closed tabs menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__closedTabAvailable">__closedTabAvailable</a></td>
+<td>Private slot to handle changes of the availability of closed tabs.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__currentChanged">__currentChanged</a></td>
+<td>Private slot to handle an index change.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__elide">__elide</a></td>
+<td>Private method to elide some text.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__guessUrlFromPath">__guessUrlFromPath</a></td>
+<td>Private method to guess an URL given a path string.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__iconChanged">__iconChanged</a></td>
+<td>Private slot to handle a change of the web site icon.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__initTabContextMenu">__initTabContextMenu</a></td>
+<td>Private method to create the tab context menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__lineEditReturnPressed">__lineEditReturnPressed</a></td>
+<td>Private slot to handle the entering of an URL.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__loadFinished">__loadFinished</a></td>
+<td>Private method to handle the loadFinished signal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__loadProgress">__loadProgress</a></td>
+<td>Private method to handle the loadProgress signal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__navigationMenuTriggered">__navigationMenuTriggered</a></td>
+<td>Private slot called to handle the navigation button menu selection.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__newBrowser">__newBrowser</a></td>
+<td>Private slot to open a new browser tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__pathSelected">__pathSelected</a></td>
+<td>Private slot called when a URL is selected from the completer.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__recentlyAudibleChanged">__recentlyAudibleChanged</a></td>
+<td>Private slot to react on the audible state of a page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the tab context menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__showNavigationMenu">__showNavigationMenu</a></td>
+<td>Private slot to show the navigation button menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__sourceChanged">__sourceChanged</a></td>
+<td>Private slot to handle a change of a browsers source.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__tabContextMenuAudioMute">__tabContextMenuAudioMute</a></td>
+<td>Private method to mute or unmute the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__tabContextMenuClone">__tabContextMenuClone</a></td>
+<td>Private method to clone the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__tabContextMenuClose">__tabContextMenuClose</a></td>
+<td>Private method to close the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__tabContextMenuCloseOthers">__tabContextMenuCloseOthers</a></td>
+<td>Private slot to close all other tabs.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__tabContextMenuMoveLeft">__tabContextMenuMoveLeft</a></td>
+<td>Private method to move a tab one position to the left.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__tabContextMenuMoveRight">__tabContextMenuMoveRight</a></td>
+<td>Private method to move a tab one position to the right.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__tabContextMenuPrint">__tabContextMenuPrint</a></td>
+<td>Private method to print the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__tabContextMenuPrintPdf">__tabContextMenuPrintPdf</a></td>
+<td>Private method to print the selected tab as PDF.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__tabContextMenuPrintPreview">__tabContextMenuPrintPreview</a></td>
+<td>Private method to show a print preview of the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__titleChanged">__titleChanged</a></td>
+<td>Private slot to handle a change of a browsers title.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.__windowCloseRequested">__windowCloseRequested</a></td>
+<td>Private slot to handle the windowCloseRequested signal of a browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.browserAt">browserAt</a></td>
+<td>Public method to get a reference to the browser with the given index.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.browsers">browsers</a></td>
+<td>Public method to get a list of references to all browsers.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.canRestoreClosedTab">canRestoreClosedTab</a></td>
+<td>Public method to check, if closed tabs can be restored.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.clearClosedTabsList">clearClosedTabsList</a></td>
+<td>Public slot to clear the list of closed tabs.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.closeAllBrowsers">closeAllBrowsers</a></td>
+<td>Public slot called to handle the close all action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.closeBrowser">closeBrowser</a></td>
+<td>Public slot called to handle the close action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.closeBrowserAt">closeBrowserAt</a></td>
+<td>Public slot to close a browser based on its index.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.closeBrowserView">closeBrowserView</a></td>
+<td>Public method to close the given browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.closedTabsManager">closedTabsManager</a></td>
+<td>Public slot to get a reference to the closed tabs manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.currentBrowser">currentBrowser</a></td>
+<td>Public method to get a reference to the current browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.currentUrlBar">currentUrlBar</a></td>
+<td>Public method to get a reference to the current url bar.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.getSessionData">getSessionData</a></td>
+<td>Public method to populate the session data.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.getSourceFileList">getSourceFileList</a></td>
+<td>Public method to get a list of all opened Qt help files.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.loadFromSessionData">loadFromSessionData</a></td>
+<td>Public method to load the session data.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.newBrowser">newBrowser</a></td>
+<td>Public method to create a new web browser tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.newBrowserAfter">newBrowserAfter</a></td>
+<td>Public method to create a new web browser tab after a given one.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.printBrowser">printBrowser</a></td>
+<td>Public slot called to print the displayed page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.printBrowserPdf">printBrowserPdf</a></td>
+<td>Public slot called to print the displayed page to PDF.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.printPreviewBrowser">printPreviewBrowser</a></td>
+<td>Public slot called to show a print preview of the displayed file.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.reloadAllBrowsers">reloadAllBrowsers</a></td>
+<td>Public slot to reload all browsers.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.restoreAllClosedTabs">restoreAllClosedTabs</a></td>
+<td>Public slot to restore all closed tabs.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.restoreClosedTab">restoreClosedTab</a></td>
+<td>Public slot to restore the most recently closed tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.shallShutDown">shallShutDown</a></td>
+<td>Public method to check, if the application should be shut down.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.stackedUrlBar">stackedUrlBar</a></td>
+<td>Public method to get a reference to the stacked url bar.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserTabWidget.urlBarForView">urlBarForView</a></td>
+<td>Public method to get a reference to the UrlBar associated with the given view.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WebBrowserTabWidget.__init__" ID="WebBrowserTabWidget.__init__"></a>
+<h4>WebBrowserTabWidget (Constructor)</h4>
+<b>WebBrowserTabWidget</b>(<i>parent</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__aboutToShowClosedTabsMenu" ID="WebBrowserTabWidget.__aboutToShowClosedTabsMenu"></a>
+<h4>WebBrowserTabWidget.__aboutToShowClosedTabsMenu</h4>
+<b>__aboutToShowClosedTabsMenu</b>(<i></i>)
+<p>
+        Private slot to populate the closed tabs menu.
+</p>
+
+<a NAME="WebBrowserTabWidget.__closedTabAvailable" ID="WebBrowserTabWidget.__closedTabAvailable"></a>
+<h4>WebBrowserTabWidget.__closedTabAvailable</h4>
+<b>__closedTabAvailable</b>(<i>avail</i>)
+<p>
+        Private slot to handle changes of the availability of closed tabs.
+</p>
+
+<dl>
+
+<dt><i>avail</i> (bool)</dt>
+<dd>
+flag indicating the availability of closed tabs
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__currentChanged" ID="WebBrowserTabWidget.__currentChanged"></a>
+<h4>WebBrowserTabWidget.__currentChanged</h4>
+<b>__currentChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle an index change.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+new index
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__elide" ID="WebBrowserTabWidget.__elide"></a>
+<h4>WebBrowserTabWidget.__elide</h4>
+<b>__elide</b>(<i>txt, mode=Qt.TextElideMode.ElideRight, length=40</i>)
+<p>
+        Private method to elide some text.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be elided
+</dd>
+<dt><i>mode</i> (Qt.TextElideMode)</dt>
+<dd>
+elide mode
+</dd>
+<dt><i>length</i> (int)</dt>
+<dd>
+amount of characters to be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the elided text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__guessUrlFromPath" ID="WebBrowserTabWidget.__guessUrlFromPath"></a>
+<h4>WebBrowserTabWidget.__guessUrlFromPath</h4>
+<b>__guessUrlFromPath</b>(<i>path</i>)
+<p>
+        Private method to guess an URL given a path string.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path string to guess an URL for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+guessed URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__iconChanged" ID="WebBrowserTabWidget.__iconChanged"></a>
+<h4>WebBrowserTabWidget.__iconChanged</h4>
+<b>__iconChanged</b>(<i>browser</i>)
+<p>
+        Private slot to handle a change of the web site icon.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the web browser
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__initTabContextMenu" ID="WebBrowserTabWidget.__initTabContextMenu"></a>
+<h4>WebBrowserTabWidget.__initTabContextMenu</h4>
+<b>__initTabContextMenu</b>(<i></i>)
+<p>
+        Private method to create the tab context menu.
+</p>
+
+<a NAME="WebBrowserTabWidget.__lineEditReturnPressed" ID="WebBrowserTabWidget.__lineEditReturnPressed"></a>
+<h4>WebBrowserTabWidget.__lineEditReturnPressed</h4>
+<b>__lineEditReturnPressed</b>(<i>edit</i>)
+<p>
+        Private slot to handle the entering of an URL.
+</p>
+
+<dl>
+
+<dt><i>edit</i> (UrlBar)</dt>
+<dd>
+reference to the line edit
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__loadFinished" ID="WebBrowserTabWidget.__loadFinished"></a>
+<h4>WebBrowserTabWidget.__loadFinished</h4>
+<b>__loadFinished</b>(<i>ok, _browser</i>)
+<p>
+        Private method to handle the loadFinished signal.
+</p>
+
+<dl>
+
+<dt><i>ok</i> (bool)</dt>
+<dd>
+flag indicating the result
+</dd>
+<dt><i>_browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the web browser (unused)
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__loadProgress" ID="WebBrowserTabWidget.__loadProgress"></a>
+<h4>WebBrowserTabWidget.__loadProgress</h4>
+<b>__loadProgress</b>(<i>progress, browser</i>)
+<p>
+        Private method to handle the loadProgress signal.
+</p>
+<p>
+        Note: This works around wegengine not sending a loadFinished
+        signal for navigation on the same page.
+</p>
+
+<dl>
+
+<dt><i>progress</i> (int)</dt>
+<dd>
+load progress in percent
+</dd>
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the web browser
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__navigationMenuTriggered" ID="WebBrowserTabWidget.__navigationMenuTriggered"></a>
+<h4>WebBrowserTabWidget.__navigationMenuTriggered</h4>
+<b>__navigationMenuTriggered</b>(<i>act</i>)
+<p>
+        Private slot called to handle the navigation button menu selection.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the selected action
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__newBrowser" ID="WebBrowserTabWidget.__newBrowser"></a>
+<h4>WebBrowserTabWidget.__newBrowser</h4>
+<b>__newBrowser</b>(<i></i>)
+<p>
+        Private slot to open a new browser tab.
+</p>
+
+<a NAME="WebBrowserTabWidget.__pathSelected" ID="WebBrowserTabWidget.__pathSelected"></a>
+<h4>WebBrowserTabWidget.__pathSelected</h4>
+<b>__pathSelected</b>(<i>path</i>)
+<p>
+        Private slot called when a URL is selected from the completer.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path to be shown
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__recentlyAudibleChanged" ID="WebBrowserTabWidget.__recentlyAudibleChanged"></a>
+<h4>WebBrowserTabWidget.__recentlyAudibleChanged</h4>
+<b>__recentlyAudibleChanged</b>(<i>recentlyAudible, page</i>)
+<p>
+        Private slot to react on the audible state of a page.
+</p>
+
+<dl>
+
+<dt><i>recentlyAudible</i> (bool)</dt>
+<dd>
+flag indicating the new audible state
+</dd>
+<dt><i>page</i> (WebBrowserPage)</dt>
+<dd>
+reference to the web page
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__showContextMenu" ID="WebBrowserTabWidget.__showContextMenu"></a>
+<h4>WebBrowserTabWidget.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord, index</i>)
+<p>
+        Private slot to show the tab context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the tab the menu is requested for
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__showNavigationMenu" ID="WebBrowserTabWidget.__showNavigationMenu"></a>
+<h4>WebBrowserTabWidget.__showNavigationMenu</h4>
+<b>__showNavigationMenu</b>(<i></i>)
+<p>
+        Private slot to show the navigation button menu.
+</p>
+
+<a NAME="WebBrowserTabWidget.__sourceChanged" ID="WebBrowserTabWidget.__sourceChanged"></a>
+<h4>WebBrowserTabWidget.__sourceChanged</h4>
+<b>__sourceChanged</b>(<i>url, browser</i>)
+<p>
+        Private slot to handle a change of a browsers source.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of the new site
+</dd>
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the web browser
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__tabContextMenuAudioMute" ID="WebBrowserTabWidget.__tabContextMenuAudioMute"></a>
+<h4>WebBrowserTabWidget.__tabContextMenuAudioMute</h4>
+<b>__tabContextMenuAudioMute</b>(<i></i>)
+<p>
+        Private method to mute or unmute the selected tab.
+</p>
+
+<a NAME="WebBrowserTabWidget.__tabContextMenuClone" ID="WebBrowserTabWidget.__tabContextMenuClone"></a>
+<h4>WebBrowserTabWidget.__tabContextMenuClone</h4>
+<b>__tabContextMenuClone</b>(<i></i>)
+<p>
+        Private method to clone the selected tab.
+</p>
+
+<a NAME="WebBrowserTabWidget.__tabContextMenuClose" ID="WebBrowserTabWidget.__tabContextMenuClose"></a>
+<h4>WebBrowserTabWidget.__tabContextMenuClose</h4>
+<b>__tabContextMenuClose</b>(<i></i>)
+<p>
+        Private method to close the selected tab.
+</p>
+
+<a NAME="WebBrowserTabWidget.__tabContextMenuCloseOthers" ID="WebBrowserTabWidget.__tabContextMenuCloseOthers"></a>
+<h4>WebBrowserTabWidget.__tabContextMenuCloseOthers</h4>
+<b>__tabContextMenuCloseOthers</b>(<i></i>)
+<p>
+        Private slot to close all other tabs.
+</p>
+
+<a NAME="WebBrowserTabWidget.__tabContextMenuMoveLeft" ID="WebBrowserTabWidget.__tabContextMenuMoveLeft"></a>
+<h4>WebBrowserTabWidget.__tabContextMenuMoveLeft</h4>
+<b>__tabContextMenuMoveLeft</b>(<i></i>)
+<p>
+        Private method to move a tab one position to the left.
+</p>
+
+<a NAME="WebBrowserTabWidget.__tabContextMenuMoveRight" ID="WebBrowserTabWidget.__tabContextMenuMoveRight"></a>
+<h4>WebBrowserTabWidget.__tabContextMenuMoveRight</h4>
+<b>__tabContextMenuMoveRight</b>(<i></i>)
+<p>
+        Private method to move a tab one position to the right.
+</p>
+
+<a NAME="WebBrowserTabWidget.__tabContextMenuPrint" ID="WebBrowserTabWidget.__tabContextMenuPrint"></a>
+<h4>WebBrowserTabWidget.__tabContextMenuPrint</h4>
+<b>__tabContextMenuPrint</b>(<i></i>)
+<p>
+        Private method to print the selected tab.
+</p>
+
+<a NAME="WebBrowserTabWidget.__tabContextMenuPrintPdf" ID="WebBrowserTabWidget.__tabContextMenuPrintPdf"></a>
+<h4>WebBrowserTabWidget.__tabContextMenuPrintPdf</h4>
+<b>__tabContextMenuPrintPdf</b>(<i></i>)
+<p>
+        Private method to print the selected tab as PDF.
+</p>
+
+<a NAME="WebBrowserTabWidget.__tabContextMenuPrintPreview" ID="WebBrowserTabWidget.__tabContextMenuPrintPreview"></a>
+<h4>WebBrowserTabWidget.__tabContextMenuPrintPreview</h4>
+<b>__tabContextMenuPrintPreview</b>(<i></i>)
+<p>
+        Private method to show a print preview of the selected tab.
+</p>
+
+<a NAME="WebBrowserTabWidget.__titleChanged" ID="WebBrowserTabWidget.__titleChanged"></a>
+<h4>WebBrowserTabWidget.__titleChanged</h4>
+<b>__titleChanged</b>(<i>title, browser</i>)
+<p>
+        Private slot to handle a change of a browsers title.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+new title
+</dd>
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the web browser
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.__windowCloseRequested" ID="WebBrowserTabWidget.__windowCloseRequested"></a>
+<h4>WebBrowserTabWidget.__windowCloseRequested</h4>
+<b>__windowCloseRequested</b>(<i>page</i>)
+<p>
+        Private slot to handle the windowCloseRequested signal of a browser.
+</p>
+
+<dl>
+
+<dt><i>page</i> (WebBrowserPage)</dt>
+<dd>
+reference to the web page
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.browserAt" ID="WebBrowserTabWidget.browserAt"></a>
+<h4>WebBrowserTabWidget.browserAt</h4>
+<b>browserAt</b>(<i>index</i>)
+<p>
+        Public method to get a reference to the browser with the given index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the browser to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the indexed browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.browsers" ID="WebBrowserTabWidget.browsers"></a>
+<h4>WebBrowserTabWidget.browsers</h4>
+<b>browsers</b>(<i></i>)
+<p>
+        Public method to get a list of references to all browsers.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of references to browsers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.canRestoreClosedTab" ID="WebBrowserTabWidget.canRestoreClosedTab"></a>
+<h4>WebBrowserTabWidget.canRestoreClosedTab</h4>
+<b>canRestoreClosedTab</b>(<i></i>)
+<p>
+        Public method to check, if closed tabs can be restored.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that closed tabs can be restored
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.clearClosedTabsList" ID="WebBrowserTabWidget.clearClosedTabsList"></a>
+<h4>WebBrowserTabWidget.clearClosedTabsList</h4>
+<b>clearClosedTabsList</b>(<i></i>)
+<p>
+        Public slot to clear the list of closed tabs.
+</p>
+
+<a NAME="WebBrowserTabWidget.closeAllBrowsers" ID="WebBrowserTabWidget.closeAllBrowsers"></a>
+<h4>WebBrowserTabWidget.closeAllBrowsers</h4>
+<b>closeAllBrowsers</b>(<i>shutdown=False</i>)
+<p>
+        Public slot called to handle the close all action.
+</p>
+
+<dl>
+
+<dt><i>shutdown</i> (bool)</dt>
+<dd>
+flag indicating a shutdown action
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.closeBrowser" ID="WebBrowserTabWidget.closeBrowser"></a>
+<h4>WebBrowserTabWidget.closeBrowser</h4>
+<b>closeBrowser</b>(<i></i>)
+<p>
+        Public slot called to handle the close action.
+</p>
+
+<a NAME="WebBrowserTabWidget.closeBrowserAt" ID="WebBrowserTabWidget.closeBrowserAt"></a>
+<h4>WebBrowserTabWidget.closeBrowserAt</h4>
+<b>closeBrowserAt</b>(<i>index, shutdown=False</i>)
+<p>
+        Public slot to close a browser based on its index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of browser to close
+</dd>
+<dt><i>shutdown</i> (bool)</dt>
+<dd>
+flag indicating a shutdown action
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.closeBrowserView" ID="WebBrowserTabWidget.closeBrowserView"></a>
+<h4>WebBrowserTabWidget.closeBrowserView</h4>
+<b>closeBrowserView</b>(<i>browser</i>)
+<p>
+        Public method to close the given browser.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the web browser view to be closed
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.closedTabsManager" ID="WebBrowserTabWidget.closedTabsManager"></a>
+<h4>WebBrowserTabWidget.closedTabsManager</h4>
+<b>closedTabsManager</b>(<i></i>)
+<p>
+        Public slot to get a reference to the closed tabs manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the closed tabs manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ClosedTabsManager
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.currentBrowser" ID="WebBrowserTabWidget.currentBrowser"></a>
+<h4>WebBrowserTabWidget.currentBrowser</h4>
+<b>currentBrowser</b>(<i></i>)
+<p>
+        Public method to get a reference to the current browser.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.currentUrlBar" ID="WebBrowserTabWidget.currentUrlBar"></a>
+<h4>WebBrowserTabWidget.currentUrlBar</h4>
+<b>currentUrlBar</b>(<i></i>)
+<p>
+        Public method to get a reference to the current url bar.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current url bar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+UrlBar
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.getSessionData" ID="WebBrowserTabWidget.getSessionData"></a>
+<h4>WebBrowserTabWidget.getSessionData</h4>
+<b>getSessionData</b>(<i></i>)
+<p>
+        Public method to populate the session data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the session data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.getSourceFileList" ID="WebBrowserTabWidget.getSourceFileList"></a>
+<h4>WebBrowserTabWidget.getSourceFileList</h4>
+<b>getSourceFileList</b>(<i></i>)
+<p>
+        Public method to get a list of all opened Qt help files.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with tab id as key and host/namespace as value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.loadFromSessionData" ID="WebBrowserTabWidget.loadFromSessionData"></a>
+<h4>WebBrowserTabWidget.loadFromSessionData</h4>
+<b>loadFromSessionData</b>(<i>sessionData</i>)
+<p>
+        Public method to load the session data.
+</p>
+
+<dl>
+
+<dt><i>sessionData</i> (dict)</dt>
+<dd>
+dictionary containing the session data as
+            generated by getSessionData()
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.newBrowser" ID="WebBrowserTabWidget.newBrowser"></a>
+<h4>WebBrowserTabWidget.newBrowser</h4>
+<b>newBrowser</b>(<i>link=None, position=-1, background=False, restoreSession=False</i>)
+<p>
+        Public method to create a new web browser tab.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str or QUrl)</dt>
+<dd>
+link to be shown
+</dd>
+<dt><i>position</i> (int)</dt>
+<dd>
+position to create the new tab at or -1 to add it
+            to the end
+</dd>
+<dt><i>background</i> (bool)</dt>
+<dd>
+flag indicating to open the tab in the
+            background
+</dd>
+<dt><i>restoreSession</i> (bool)</dt>
+<dd>
+flag indicating a restore session action
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the new browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.newBrowserAfter" ID="WebBrowserTabWidget.newBrowserAfter"></a>
+<h4>WebBrowserTabWidget.newBrowserAfter</h4>
+<b>newBrowserAfter</b>(<i>browser, link=None, background=False</i>)
+<p>
+        Public method to create a new web browser tab after a given one.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the browser to add after
+</dd>
+<dt><i>link</i> (str or QUrl)</dt>
+<dd>
+link to be shown
+</dd>
+<dt><i>background</i> (bool)</dt>
+<dd>
+flag indicating to open the tab in the background
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the new browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.preferencesChanged" ID="WebBrowserTabWidget.preferencesChanged"></a>
+<h4>WebBrowserTabWidget.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<a NAME="WebBrowserTabWidget.printBrowser" ID="WebBrowserTabWidget.printBrowser"></a>
+<h4>WebBrowserTabWidget.printBrowser</h4>
+<b>printBrowser</b>(<i>browser=None</i>)
+<p>
+        Public slot called to print the displayed page.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the browser to be printed
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.printBrowserPdf" ID="WebBrowserTabWidget.printBrowserPdf"></a>
+<h4>WebBrowserTabWidget.printBrowserPdf</h4>
+<b>printBrowserPdf</b>(<i>browser=None</i>)
+<p>
+        Public slot called to print the displayed page to PDF.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the browser to be printed
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.printPreviewBrowser" ID="WebBrowserTabWidget.printPreviewBrowser"></a>
+<h4>WebBrowserTabWidget.printPreviewBrowser</h4>
+<b>printPreviewBrowser</b>(<i>browser=None</i>)
+<p>
+        Public slot called to show a print preview of the displayed file.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the browser to be printed
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.reloadAllBrowsers" ID="WebBrowserTabWidget.reloadAllBrowsers"></a>
+<h4>WebBrowserTabWidget.reloadAllBrowsers</h4>
+<b>reloadAllBrowsers</b>(<i></i>)
+<p>
+        Public slot to reload all browsers.
+</p>
+
+<a NAME="WebBrowserTabWidget.restoreAllClosedTabs" ID="WebBrowserTabWidget.restoreAllClosedTabs"></a>
+<h4>WebBrowserTabWidget.restoreAllClosedTabs</h4>
+<b>restoreAllClosedTabs</b>(<i></i>)
+<p>
+        Public slot to restore all closed tabs.
+</p>
+
+<a NAME="WebBrowserTabWidget.restoreClosedTab" ID="WebBrowserTabWidget.restoreClosedTab"></a>
+<h4>WebBrowserTabWidget.restoreClosedTab</h4>
+<b>restoreClosedTab</b>(<i>act</i>)
+<p>
+        Public slot to restore the most recently closed tab.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.shallShutDown" ID="WebBrowserTabWidget.shallShutDown"></a>
+<h4>WebBrowserTabWidget.shallShutDown</h4>
+<b>shallShutDown</b>(<i></i>)
+<p>
+        Public method to check, if the application should be shut down.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a shut down
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.stackedUrlBar" ID="WebBrowserTabWidget.stackedUrlBar"></a>
+<h4>WebBrowserTabWidget.stackedUrlBar</h4>
+<b>stackedUrlBar</b>(<i></i>)
+<p>
+        Public method to get a reference to the stacked url bar.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the stacked url bar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+StackedUrlBar
+</dd>
+</dl>
+<a NAME="WebBrowserTabWidget.urlBarForView" ID="WebBrowserTabWidget.urlBarForView"></a>
+<h4>WebBrowserTabWidget.urlBarForView</h4>
+<b>urlBarForView</b>(<i>view</i>)
+<p>
+        Public method to get a reference to the UrlBar associated with the
+        given view.
+</p>
+
+<dl>
+
+<dt><i>view</i> (WebBrowserView)</dt>
+<dd>
+reference to the view to get the urlbar for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the associated urlbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+UrlBar
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

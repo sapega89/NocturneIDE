@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Network.EricSchemeHandler</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Network.EricSchemeHandler</h1>
+<p>
+Module implementing a scheme handler for the eric: scheme.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_SupportedPages</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricSchemeHandler">EricSchemeHandler</a></td>
+<td>Class implementing a scheme handler for the eric: scheme.</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeReply">EricSchemeReply</a></td>
+<td>Class implementing a reply for a requested eric: page.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricSchemeHandler" ID="EricSchemeHandler"></a>
+<h2>EricSchemeHandler</h2>
+<p>
+    Class implementing a scheme handler for the eric: scheme.
+</p>
+
+<h3>Derived from</h3>
+QWebEngineUrlSchemeHandler
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricSchemeHandler.__init__">EricSchemeHandler</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeHandler.__replyClosed">__replyClosed</a></td>
+<td>Private slot handling the closed signal of a reply.</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeHandler.requestStarted">requestStarted</a></td>
+<td>Public method handling the URL request.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricSchemeHandler.__init__" ID="EricSchemeHandler.__init__"></a>
+<h4>EricSchemeHandler (Constructor)</h4>
+<b>EricSchemeHandler</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="EricSchemeHandler.__replyClosed" ID="EricSchemeHandler.__replyClosed"></a>
+<h4>EricSchemeHandler.__replyClosed</h4>
+<b>__replyClosed</b>(<i>reply</i>)
+<p>
+        Private slot handling the closed signal of a reply.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (EricSchemeReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="EricSchemeHandler.requestStarted" ID="EricSchemeHandler.requestStarted"></a>
+<h4>EricSchemeHandler.requestStarted</h4>
+<b>requestStarted</b>(<i>job</i>)
+<p>
+        Public method handling the URL request.
+</p>
+
+<dl>
+
+<dt><i>job</i> (QWebEngineUrlRequestJob)</dt>
+<dd>
+URL request job
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricSchemeReply" ID="EricSchemeReply"></a>
+<h2>EricSchemeReply</h2>
+<p>
+    Class implementing a reply for a requested eric: page.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>closed</dt>
+<dd>
+emitted to signal that the web engine has read
+        the data
+</dd>
+</dl>
+<h3>Derived from</h3>
+QIODevice
+<h3>Class Attributes</h3>
+<table>
+<tr><td>_speedDialPage</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricSchemeReply.__init__">EricSchemeReply</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeReply.__adBlockPage">__adBlockPage</a></td>
+<td>Private method to build the AdBlock page.</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeReply.__errorPage">__errorPage</a></td>
+<td>Private method to build the Error page.</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeReply.__loadPage">__loadPage</a></td>
+<td>Private method to load the requested page.</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeReply.__speedDialPage">__speedDialPage</a></td>
+<td>Private method to create the Speeddial page.</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeReply.__startPage">__startPage</a></td>
+<td>Private method to build the Start page.</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeReply.bytesAvailable">bytesAvailable</a></td>
+<td>Public method to get the number of available bytes.</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeReply.close">close</a></td>
+<td>Public method used to cloase the reply.</td>
+</tr>
+<tr>
+<td><a href="#EricSchemeReply.readData">readData</a></td>
+<td>Public method to retrieve data from the reply object.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricSchemeReply.__init__" ID="EricSchemeReply.__init__"></a>
+<h4>EricSchemeReply (Constructor)</h4>
+<b>EricSchemeReply</b>(<i>job, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>job</i> (QWebEngineUrlRequestJob)</dt>
+<dd>
+reference to the URL request
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="EricSchemeReply.__adBlockPage" ID="EricSchemeReply.__adBlockPage"></a>
+<h4>EricSchemeReply.__adBlockPage</h4>
+<b>__adBlockPage</b>(<i></i>)
+<p>
+        Private method to build the AdBlock page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+built AdBlock page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricSchemeReply.__errorPage" ID="EricSchemeReply.__errorPage"></a>
+<h4>EricSchemeReply.__errorPage</h4>
+<b>__errorPage</b>(<i></i>)
+<p>
+        Private method to build the Error page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+built Error page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricSchemeReply.__loadPage" ID="EricSchemeReply.__loadPage"></a>
+<h4>EricSchemeReply.__loadPage</h4>
+<b>__loadPage</b>(<i></i>)
+<p>
+        Private method to load the requested page.
+</p>
+
+<a NAME="EricSchemeReply.__speedDialPage" ID="EricSchemeReply.__speedDialPage"></a>
+<h4>EricSchemeReply.__speedDialPage</h4>
+<b>__speedDialPage</b>(<i></i>)
+<p>
+        Private method to create the Speeddial page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+prepared speeddial page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricSchemeReply.__startPage" ID="EricSchemeReply.__startPage"></a>
+<h4>EricSchemeReply.__startPage</h4>
+<b>__startPage</b>(<i></i>)
+<p>
+        Private method to build the Start page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+built Start page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricSchemeReply.bytesAvailable" ID="EricSchemeReply.bytesAvailable"></a>
+<h4>EricSchemeReply.bytesAvailable</h4>
+<b>bytesAvailable</b>(<i></i>)
+<p>
+        Public method to get the number of available bytes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of available bytes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricSchemeReply.close" ID="EricSchemeReply.close"></a>
+<h4>EricSchemeReply.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public method used to cloase the reply.
+</p>
+
+<a NAME="EricSchemeReply.readData" ID="EricSchemeReply.readData"></a>
+<h4>EricSchemeReply.readData</h4>
+<b>readData</b>(<i>maxlen</i>)
+<p>
+        Public method to retrieve data from the reply object.
+</p>
+
+<dl>
+
+<dt><i>maxlen</i> (int)</dt>
+<dd>
+maximum number of bytes to read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string containing the data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

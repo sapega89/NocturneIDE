@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricNetwork.EricJsonServer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricNetwork.EricJsonServer</h1>
+<p>
+Module implementing the JSON based server base class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricJsonServer">EricJsonServer</a></td>
+<td>Class implementing a JSON based server base class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricJsonServer" ID="EricJsonServer"></a>
+<h2>EricJsonServer</h2>
+<p>
+    Class implementing a JSON based server base class.
+</p>
+
+<h3>Derived from</h3>
+QTcpServer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricJsonServer.__init__">EricJsonServer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricJsonServer.__handleDisconnect">__handleDisconnect</a></td>
+<td>Private slot handling a disconnect of the client.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonServer.__receiveJson">__receiveJson</a></td>
+<td>Private slot handling received data from the client.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonServer.connectionNames">connectionNames</a></td>
+<td>Public method to get the list of active connection names.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonServer.handleCall">handleCall</a></td>
+<td>Public method to handle a method call from the client.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonServer.handleNewConnection">handleNewConnection</a></td>
+<td>Public slot for new incoming connections from a client.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonServer.sendJson">sendJson</a></td>
+<td>Public method to send a single command to a client.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonServer.startClient">startClient</a></td>
+<td>Public method to start a client process.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonServer.stopAllClients">stopAllClients</a></td>
+<td>Public method to stop all clients.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonServer.stopClient">stopClient</a></td>
+<td>Public method to stop a client process.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricJsonServer.__init__" ID="EricJsonServer.__init__"></a>
+<h4>EricJsonServer (Constructor)</h4>
+<b>EricJsonServer</b>(<i>name="", interface="127.0.0.1", multiplex=False, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str (optional))</dt>
+<dd>
+name of the server (used for output only) (defaults to "")
+</dd>
+<dt><i>interface</i> (str (optional))</dt>
+<dd>
+network interface to be used (IP address or one of "all",
+            "allv4", "allv6", "localv4" or "localv6") (defaults to "127.0.0.1")
+</dd>
+<dt><i>multiplex</i> (bool (optional))</dt>
+<dd>
+flag indicating a multiplexing server (defaults to False)
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="EricJsonServer.__handleDisconnect" ID="EricJsonServer.__handleDisconnect"></a>
+<h4>EricJsonServer.__handleDisconnect</h4>
+<b>__handleDisconnect</b>(<i>idString</i>)
+<p>
+        Private slot handling a disconnect of the client.
+</p>
+
+<dl>
+
+<dt><i>idString</i> (str)</dt>
+<dd>
+id of the connection been disconnected
+</dd>
+</dl>
+<a NAME="EricJsonServer.__receiveJson" ID="EricJsonServer.__receiveJson"></a>
+<h4>EricJsonServer.__receiveJson</h4>
+<b>__receiveJson</b>(<i>idString</i>)
+<p>
+        Private slot handling received data from the client.
+</p>
+
+<dl>
+
+<dt><i>idString</i> (str)</dt>
+<dd>
+id of the connection
+</dd>
+</dl>
+<a NAME="EricJsonServer.connectionNames" ID="EricJsonServer.connectionNames"></a>
+<h4>EricJsonServer.connectionNames</h4>
+<b>connectionNames</b>(<i></i>)
+<p>
+        Public method to get the list of active connection names.
+</p>
+<p>
+        If this is not a multiplexing server, an empty list is returned.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of active connection names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricJsonServer.handleCall" ID="EricJsonServer.handleCall"></a>
+<h4>EricJsonServer.handleCall</h4>
+<b>handleCall</b>(<i>method, params</i>)
+<p>
+        Public method to handle a method call from the client.
+</p>
+<p>
+        Note: This is an empty implementation that must be overridden in
+        derived classes.
+</p>
+
+<dl>
+
+<dt><i>method</i> (str)</dt>
+<dd>
+requested method name
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary with method specific parameters
+</dd>
+</dl>
+<a NAME="EricJsonServer.handleNewConnection" ID="EricJsonServer.handleNewConnection"></a>
+<h4>EricJsonServer.handleNewConnection</h4>
+<b>handleNewConnection</b>(<i></i>)
+<p>
+        Public slot for new incoming connections from a client.
+</p>
+
+<a NAME="EricJsonServer.sendJson" ID="EricJsonServer.sendJson"></a>
+<h4>EricJsonServer.sendJson</h4>
+<b>sendJson</b>(<i>command, params, flush=False, idString=""</i>)
+<p>
+        Public method to send a single command to a client.
+</p>
+
+<dl>
+
+<dt><i>command</i> (str)</dt>
+<dd>
+command name to be sent
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary of named parameters for the command
+</dd>
+<dt><i>flush</i> (bool)</dt>
+<dd>
+flag indicating to flush the data to the socket
+</dd>
+<dt><i>idString</i> (str)</dt>
+<dd>
+id of the connection to send data to
+</dd>
+</dl>
+<a NAME="EricJsonServer.startClient" ID="EricJsonServer.startClient"></a>
+<h4>EricJsonServer.startClient</h4>
+<b>startClient</b>(<i>interpreter, clientScript, clientArgs, idString="", environment=None</i>)
+<p>
+        Public method to start a client process.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for the client
+</dd>
+<dt><i>clientScript</i> (str)</dt>
+<dd>
+path to the client script
+</dd>
+<dt><i>clientArgs</i> (list of str)</dt>
+<dd>
+list of arguments for the client
+</dd>
+<dt><i>idString</i> (str)</dt>
+<dd>
+id of the client to be started
+</dd>
+<dt><i>environment</i> (dict)</dt>
+<dd>
+dictionary of environment settings to pass
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful client start and the exit code
+            in case of an issue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool, int
+</dd>
+</dl>
+<a NAME="EricJsonServer.stopAllClients" ID="EricJsonServer.stopAllClients"></a>
+<h4>EricJsonServer.stopAllClients</h4>
+<b>stopAllClients</b>(<i></i>)
+<p>
+        Public method to stop all clients.
+</p>
+
+<a NAME="EricJsonServer.stopClient" ID="EricJsonServer.stopClient"></a>
+<h4>EricJsonServer.stopClient</h4>
+<b>stopClient</b>(<i>idString=""</i>)
+<p>
+        Public method to stop a client process.
+</p>
+
+<dl>
+
+<dt><i>idString</i> (str)</dt>
+<dd>
+id of the client to be stopped
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

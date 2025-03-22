@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.DebugClientBase</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.DebugClientBase</h1>
+<p>
+Module implementing a debug client base class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>DebugClientInstance</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#DebugClientBase">DebugClientBase</a></td>
+<td>Class implementing the client side of the debugger.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#DebugClientClose">DebugClientClose</a></td>
+<td>Replacement for the standard os.close(fd).</td>
+</tr>
+<tr>
+<td><a href="#DebugClientInput">DebugClientInput</a></td>
+<td>Replacement for the standard input() builtin.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientSetRecursionLimit">DebugClientSetRecursionLimit</a></td>
+<td>Replacement for the standard sys.setrecursionlimit(limit).</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="DebugClientBase" ID="DebugClientBase"></a>
+<h2>DebugClientBase</h2>
+<p>
+    Class implementing the client side of the debugger.
+</p>
+<p>
+    It provides access to the Python interpeter from a debugger running in
+    another process.
+</p>
+<p>
+    The protocol between the debugger and the client is based on JSONRPC 2.0
+    PDUs. Each one is sent on a single line, i.e. commands or responses are
+    separated by a linefeed character.
+</p>
+<p>
+    If the debugger closes the session there is no response from the client.
+    The client may close the session at any time as a result of the script
+    being debugged closing or crashing.
+</p>
+<p>
+    <b>Note</b>: This class is meant to be subclassed by individual
+    DebugClient classes. Do not instantiate it directly.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Type2Indicators</td></tr>
+<tr><td>clientCapabilities</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DebugClientBase.__init__">DebugClientBase</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__clientCapabilities">__clientCapabilities</a></td>
+<td>Private method to determine the clients capabilities.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__compileCommand">__compileCommand</a></td>
+<td>Private method to compile source code.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__compileFileSource">__compileFileSource</a></td>
+<td>Private method to compile source code read from a file.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__completionList">__completionList</a></td>
+<td>Private slot to handle the request for a commandline completion list.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__dumpVariable">__dumpVariable</a></td>
+<td>Private method to return the variables of a frame to the debug server.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__dumpVariables">__dumpVariables</a></td>
+<td>Private method to return the variables of a frame to the debug server.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__formatVariablesList">__formatVariablesList</a></td>
+<td>Private method to produce a formated variables list.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__generateFilterObjects">__generateFilterObjects</a></td>
+<td>Private slot to convert a filter string to a list of filter objects.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__getCompletionList">__getCompletionList</a></td>
+<td>Private method to create a completions list.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__getSysPath">__getSysPath</a></td>
+<td>Private slot to calculate a path list including the PYTHONPATH environment variable.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__interact">__interact</a></td>
+<td>Private method to interact with the debugger.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__interceptSignals">__interceptSignals</a></td>
+<td>Private method to intercept common signals.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__resolveHost">__resolveHost</a></td>
+<td>Private method to resolve a hostname to an IP address.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__setCoding">__setCoding</a></td>
+<td>Private method to set the coding used by a python file.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__signalHandler">__signalHandler</a></td>
+<td>Private method to handle signals.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.__unhandled_exception">__unhandled_exception</a></td>
+<td>Private method called to report an uncaught exception.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.absPath">absPath</a></td>
+<td>Public method to convert a filename to an absolute name.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.checkExceptionHook">checkExceptionHook</a></td>
+<td>Public method to check, that 'sys.excepthook' is still our hook.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.close">close</a></td>
+<td>Public method implementing a close method as a replacement for os.close().</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.connectDebugger">connectDebugger</a></td>
+<td>Public method to establish a session with the debugger.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.eventLoop">eventLoop</a></td>
+<td>Public method implementing our event loop.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.eventPoll">eventPoll</a></td>
+<td>Public method to poll for events like 'set break point'.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.getCoding">getCoding</a></td>
+<td>Public method to return the current coding.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.getRunning">getRunning</a></td>
+<td>Public method to return the main script we are currently running.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.handleJsonCommand">handleJsonCommand</a></td>
+<td>Public method to handle a command serialized as a JSON string.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.input">input</a></td>
+<td>Public method to implement input() using the event loop.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.main">main</a></td>
+<td>Public method implementing the main method.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.progTerminated">progTerminated</a></td>
+<td>Public method to tell the debugger that the program has terminated.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.readReady">readReady</a></td>
+<td>Public method called when there is data ready to be read.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.run_call">run_call</a></td>
+<td>Public method used to start the remote debugger and call a function.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sendCallTrace">sendCallTrace</a></td>
+<td>Public method to send a call trace entry.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sendClearTemporaryBreakpoint">sendClearTemporaryBreakpoint</a></td>
+<td>Public method to signal the deletion of a temporary breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sendClearTemporaryWatch">sendClearTemporaryWatch</a></td>
+<td>Public method to signal the deletion of a temporary watch expression.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sendDebuggerId">sendDebuggerId</a></td>
+<td>Public method to send the debug client id.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sendException">sendException</a></td>
+<td>Public method to send information for an exception.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sendJsonCommand">sendJsonCommand</a></td>
+<td>Public method to send a single command or response to the IDE.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sendPassiveStartup">sendPassiveStartup</a></td>
+<td>Public method to send the passive start information.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sendResponseLine">sendResponseLine</a></td>
+<td>Public method to send the current call stack.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sendSyntaxError">sendSyntaxError</a></td>
+<td>Public method to send information for a syntax error.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.sessionClose">sessionClose</a></td>
+<td>Public method to close the session with the debugger and optionally terminate.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.setDisassembly">setDisassembly</a></td>
+<td>Public method to store a disassembly of the code object raising an exception.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.skipMultiProcessDebugging">skipMultiProcessDebugging</a></td>
+<td>Public method to check, if the given script is eligible for debugging.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.startDebugger">startDebugger</a></td>
+<td>Public method used to start the remote debugger.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.startProgInDebugger">startProgInDebugger</a></td>
+<td>Public method used to start the remote debugger.</td>
+</tr>
+<tr>
+<td><a href="#DebugClientBase.writeReady">writeReady</a></td>
+<td>Public method called when we are ready to write data.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DebugClientBase.__init__" ID="DebugClientBase.__init__"></a>
+<h4>DebugClientBase (Constructor)</h4>
+<b>DebugClientBase</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="DebugClientBase.__clientCapabilities" ID="DebugClientBase.__clientCapabilities"></a>
+<h4>DebugClientBase.__clientCapabilities</h4>
+<b>__clientCapabilities</b>(<i></i>)
+<p>
+        Private method to determine the clients capabilities.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+client capabilities
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DebugClientBase.__compileCommand" ID="DebugClientBase.__compileCommand"></a>
+<h4>DebugClientBase.__compileCommand</h4>
+<b>__compileCommand</b>(<i>statement, filename="<string>", mode="exec"</i>)
+<p>
+        Private method to compile source code.
+</p>
+
+<dl>
+
+<dt><i>statement</i> (str)</dt>
+<dd>
+source code string to be compiled
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>mode</i> (str)</dt>
+<dd>
+kind of code to be generated (exec or eval)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+compiled code object (None in case of errors)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Code
+</dd>
+</dl>
+<a NAME="DebugClientBase.__compileFileSource" ID="DebugClientBase.__compileFileSource"></a>
+<h4>DebugClientBase.__compileFileSource</h4>
+<b>__compileFileSource</b>(<i>filename, mode="exec"</i>)
+<p>
+        Private method to compile source code read from a file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>mode</i> (str)</dt>
+<dd>
+kind of code to be generated (exec or eval)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+compiled code object (None in case of errors)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Code
+</dd>
+</dl>
+<a NAME="DebugClientBase.__completionList" ID="DebugClientBase.__completionList"></a>
+<h4>DebugClientBase.__completionList</h4>
+<b>__completionList</b>(<i>text</i>)
+<p>
+        Private slot to handle the request for a commandline completion list.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+the text to be completed
+</dd>
+</dl>
+<a NAME="DebugClientBase.__dumpVariable" ID="DebugClientBase.__dumpVariable"></a>
+<h4>DebugClientBase.__dumpVariable</h4>
+<b>__dumpVariable</b>(<i>var, frmnr, scope, filterList</i>)
+<p>
+        Private method to return the variables of a frame to the debug server.
+</p>
+
+<dl>
+
+<dt><i>var</i> (list of str and int)</dt>
+<dd>
+list encoded name of the requested variable
+</dd>
+<dt><i>frmnr</i> (int)</dt>
+<dd>
+distance of frame reported on. 0 is the current frame
+</dd>
+<dt><i>scope</i> (int)</dt>
+<dd>
+1 to report global variables, 0 for local variables
+</dd>
+<dt><i>filterList</i> (list of int)</dt>
+<dd>
+list of variable types to be filtered
+</dd>
+</dl>
+<a NAME="DebugClientBase.__dumpVariables" ID="DebugClientBase.__dumpVariables"></a>
+<h4>DebugClientBase.__dumpVariables</h4>
+<b>__dumpVariables</b>(<i>frmnr, scope, filterList</i>)
+<p>
+        Private method to return the variables of a frame to the debug server.
+</p>
+
+<dl>
+
+<dt><i>frmnr</i> (int)</dt>
+<dd>
+distance of frame reported on. 0 is the current frame
+</dd>
+<dt><i>scope</i> (int)</dt>
+<dd>
+1 to report global variables, 0 for local variables
+</dd>
+<dt><i>filterList</i> (list of str)</dt>
+<dd>
+list of variable types to be filtered
+</dd>
+</dl>
+<a NAME="DebugClientBase.__formatVariablesList" ID="DebugClientBase.__formatVariablesList"></a>
+<h4>DebugClientBase.__formatVariablesList</h4>
+<b>__formatVariablesList</b>(<i>variables, scope, filterList=None, var=None</i>)
+<p>
+        Private method to produce a formated variables list.
+</p>
+<p>
+        The dictionary passed in to it is scanned. Variables are
+        only added to the list, if their type is not contained
+        in the filter list and their name doesn't match any of the filter
+        expressions. The formated variables list (a list of tuples of 3
+        values) is returned.
+</p>
+
+<dl>
+
+<dt><i>variables</i> (list of tuple of (str, Any) or (str, str, Any))</dt>
+<dd>
+variables list to be processed
+</dd>
+<dt><i>scope</i> (int)</dt>
+<dd>
+1 to filter using the globals filter, 0 using the locals
+            filter.
+            Variables are only added to the list, if their access path does not match
+            any of the filter expressions and the 'show/no show' indication.
+</dd>
+<dt><i>filterList</i> (list of str (optional))</dt>
+<dd>
+list of variable types to be filtered.
+            Variables are only added to the list, if their type is not
+            contained in the filter list. (defaults to None)
+</dd>
+<dt><i>var</i> (list of str and int (optional))</dt>
+<dd>
+list encoded name of the requested variable (access path) (defaults
+            to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+A tuple consisting of a list of formatted variables. Each
+            variable entry is a tuple of three elements, the variable name,
+            its type and value.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (str, str, str)
+</dd>
+</dl>
+<a NAME="DebugClientBase.__generateFilterObjects" ID="DebugClientBase.__generateFilterObjects"></a>
+<h4>DebugClientBase.__generateFilterObjects</h4>
+<b>__generateFilterObjects</b>(<i>scope, filterString</i>)
+<p>
+        Private slot to convert a filter string to a list of filter objects.
+</p>
+
+<dl>
+
+<dt><i>scope</i> (int)</dt>
+<dd>
+1 to generate filter for global variables, 0 for local
+            variables
+</dd>
+<dt><i>filterString</i> (str)</dt>
+<dd>
+string of filter patterns separated by ';'
+</dd>
+</dl>
+<a NAME="DebugClientBase.__getCompletionList" ID="DebugClientBase.__getCompletionList"></a>
+<h4>DebugClientBase.__getCompletionList</h4>
+<b>__getCompletionList</b>(<i>text, completer, completions</i>)
+<p>
+        Private method to create a completions list.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to complete
+</dd>
+<dt><i>completer</i> (function)</dt>
+<dd>
+completer method
+</dd>
+<dt><i>completions</i> (set)</dt>
+<dd>
+set where to add new completions strings
+</dd>
+</dl>
+<a NAME="DebugClientBase.__getSysPath" ID="DebugClientBase.__getSysPath"></a>
+<h4>DebugClientBase.__getSysPath</h4>
+<b>__getSysPath</b>(<i>firstEntry</i>)
+<p>
+        Private slot to calculate a path list including the PYTHONPATH
+        environment variable.
+</p>
+
+<dl>
+
+<dt><i>firstEntry</i> (str)</dt>
+<dd>
+entry to be put first in sys.path
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path list for use as sys.path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="DebugClientBase.__interact" ID="DebugClientBase.__interact"></a>
+<h4>DebugClientBase.__interact</h4>
+<b>__interact</b>(<i></i>)
+<p>
+        Private method to interact with the debugger.
+</p>
+
+<a NAME="DebugClientBase.__interceptSignals" ID="DebugClientBase.__interceptSignals"></a>
+<h4>DebugClientBase.__interceptSignals</h4>
+<b>__interceptSignals</b>(<i></i>)
+<p>
+        Private method to intercept common signals.
+</p>
+
+<a NAME="DebugClientBase.__resolveHost" ID="DebugClientBase.__resolveHost"></a>
+<h4>DebugClientBase.__resolveHost</h4>
+<b>__resolveHost</b>(<i>host</i>)
+<p>
+        Private method to resolve a hostname to an IP address.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+hostname of the debug server
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+IP address
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugClientBase.__setCoding" ID="DebugClientBase.__setCoding"></a>
+<h4>DebugClientBase.__setCoding</h4>
+<b>__setCoding</b>(<i>filename</i>)
+<p>
+        Private method to set the coding used by a python file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to inspect
+</dd>
+</dl>
+<a NAME="DebugClientBase.__signalHandler" ID="DebugClientBase.__signalHandler"></a>
+<h4>DebugClientBase.__signalHandler</h4>
+<b>__signalHandler</b>(<i>signalNumber, stackFrame</i>)
+<p>
+        Private method to handle signals.
+</p>
+
+<dl>
+
+<dt><i>signalNumber</i> (int)</dt>
+<dd>
+number of the signal to be handled
+</dd>
+<dt><i>stackFrame</i> (frame object)</dt>
+<dd>
+current stack frame
+</dd>
+</dl>
+<a NAME="DebugClientBase.__unhandled_exception" ID="DebugClientBase.__unhandled_exception"></a>
+<h4>DebugClientBase.__unhandled_exception</h4>
+<b>__unhandled_exception</b>(<i>exctype, excval, exctb</i>)
+<p>
+        Private method called to report an uncaught exception.
+</p>
+
+<dl>
+
+<dt><i>exctype</i> (type)</dt>
+<dd>
+class of the exception
+</dd>
+<dt><i>excval</i> (Exception)</dt>
+<dd>
+exception instance
+</dd>
+<dt><i>exctb</i> (traceback)</dt>
+<dd>
+traceback for the exception
+</dd>
+</dl>
+<a NAME="DebugClientBase.absPath" ID="DebugClientBase.absPath"></a>
+<h4>DebugClientBase.absPath</h4>
+<b>absPath</b>(<i>fn</i>)
+<p>
+        Public method to convert a filename to an absolute name.
+</p>
+<p>
+        sys.path is used as a set of possible prefixes. The name stays
+        relative if a file could not be found.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the converted filename
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugClientBase.checkExceptionHook" ID="DebugClientBase.checkExceptionHook"></a>
+<h4>DebugClientBase.checkExceptionHook</h4>
+<b>checkExceptionHook</b>(<i></i>)
+<p>
+        Public method to check, that 'sys.excepthook' is still our hook.
+</p>
+<p>
+        If the exception hook has been changed by the program being debugger, save
+        that hook and set it to ours again. The program's hook is called in our
+        '__unhandled_exception()' method.
+</p>
+
+<a NAME="DebugClientBase.close" ID="DebugClientBase.close"></a>
+<h4>DebugClientBase.close</h4>
+<b>close</b>(<i>fd</i>)
+<p>
+        Public method implementing a close method as a replacement for
+        os.close().
+</p>
+<p>
+        It prevents the debugger connections from being closed.
+</p>
+
+<dl>
+
+<dt><i>fd</i> (int)</dt>
+<dd>
+file descriptor to be closed
+</dd>
+</dl>
+<a NAME="DebugClientBase.connectDebugger" ID="DebugClientBase.connectDebugger"></a>
+<h4>DebugClientBase.connectDebugger</h4>
+<b>connectDebugger</b>(<i>port, remoteAddress=None, redirect=True, name=""</i>)
+<p>
+        Public method to establish a session with the debugger.
+</p>
+<p>
+        It opens a network connection to the debugger, connects it to stdin,
+        stdout and stderr and saves these file objects in case the application
+        being debugged redirects them itself.
+</p>
+
+<dl>
+
+<dt><i>port</i> (int)</dt>
+<dd>
+the port number to connect to
+</dd>
+<dt><i>remoteAddress</i> (str)</dt>
+<dd>
+the network address of the debug server host
+</dd>
+<dt><i>redirect</i> (bool)</dt>
+<dd>
+flag indicating redirection of stdin, stdout and
+            stderr
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name to be attached to the debugger ID
+</dd>
+</dl>
+<a NAME="DebugClientBase.eventLoop" ID="DebugClientBase.eventLoop"></a>
+<h4>DebugClientBase.eventLoop</h4>
+<b>eventLoop</b>(<i>disablePolling=False</i>)
+<p>
+        Public method implementing our event loop.
+</p>
+
+<dl>
+
+<dt><i>disablePolling</i> (bool)</dt>
+<dd>
+flag indicating to enter an event loop with
+            polling disabled
+</dd>
+</dl>
+<a NAME="DebugClientBase.eventPoll" ID="DebugClientBase.eventPoll"></a>
+<h4>DebugClientBase.eventPoll</h4>
+<b>eventPoll</b>(<i></i>)
+<p>
+        Public method to poll for events like 'set break point'.
+</p>
+
+<a NAME="DebugClientBase.getCoding" ID="DebugClientBase.getCoding"></a>
+<h4>DebugClientBase.getCoding</h4>
+<b>getCoding</b>(<i></i>)
+<p>
+        Public method to return the current coding.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+codec name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugClientBase.getRunning" ID="DebugClientBase.getRunning"></a>
+<h4>DebugClientBase.getRunning</h4>
+<b>getRunning</b>(<i></i>)
+<p>
+        Public method to return the main script we are currently running.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a running debug session
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebugClientBase.handleJsonCommand" ID="DebugClientBase.handleJsonCommand"></a>
+<h4>DebugClientBase.handleJsonCommand</h4>
+<b>handleJsonCommand</b>(<i>jsonStr</i>)
+<p>
+        Public method to handle a command serialized as a JSON string.
+</p>
+
+<dl>
+
+<dt><i>jsonStr</i> (str)</dt>
+<dd>
+string containing the command received from the IDE
+</dd>
+</dl>
+<a NAME="DebugClientBase.input" ID="DebugClientBase.input"></a>
+<h4>DebugClientBase.input</h4>
+<b>input</b>(<i>prompt, echo=True</i>)
+<p>
+        Public method to implement input() using the event loop.
+</p>
+
+<dl>
+
+<dt><i>prompt</i> (str)</dt>
+<dd>
+prompt to be shown
+</dd>
+<dt><i>echo</i> (bool)</dt>
+<dd>
+flag indicating echoing of the input
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the entered string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugClientBase.main" ID="DebugClientBase.main"></a>
+<h4>DebugClientBase.main</h4>
+<b>main</b>(<i></i>)
+<p>
+        Public method implementing the main method.
+</p>
+
+<a NAME="DebugClientBase.progTerminated" ID="DebugClientBase.progTerminated"></a>
+<h4>DebugClientBase.progTerminated</h4>
+<b>progTerminated</b>(<i>status, message="", closeSession=True</i>)
+<p>
+        Public method to tell the debugger that the program has terminated.
+</p>
+
+<dl>
+
+<dt><i>status</i> (int)</dt>
+<dd>
+return status
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+status message
+</dd>
+<dt><i>closeSession</i> (bool)</dt>
+<dd>
+flag indicating to close the debugger session
+</dd>
+</dl>
+<a NAME="DebugClientBase.readReady" ID="DebugClientBase.readReady"></a>
+<h4>DebugClientBase.readReady</h4>
+<b>readReady</b>(<i>stream</i>)
+<p>
+        Public method called when there is data ready to be read.
+</p>
+
+<dl>
+
+<dt><i>stream</i> (file like)</dt>
+<dd>
+file like object that has data to be read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an error condition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebugClientBase.run_call" ID="DebugClientBase.run_call"></a>
+<h4>DebugClientBase.run_call</h4>
+<b>run_call</b>(<i>scriptname, func, *args</i>)
+<p>
+        Public method used to start the remote debugger and call a function.
+</p>
+
+<dl>
+
+<dt><i>scriptname</i> (str)</dt>
+<dd>
+name of the script to be debugged
+</dd>
+<dt><i>func</i> (function)</dt>
+<dd>
+function to be called
+</dd>
+<dt><i>*args</i> (list)</dt>
+<dd>
+arguments being passed to func
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+result of the function call
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="DebugClientBase.sendCallTrace" ID="DebugClientBase.sendCallTrace"></a>
+<h4>DebugClientBase.sendCallTrace</h4>
+<b>sendCallTrace</b>(<i>event, fromInfo, toInfo</i>)
+<p>
+        Public method to send a call trace entry.
+</p>
+
+<dl>
+
+<dt><i>event</i> (str)</dt>
+<dd>
+trace event (call or return)
+</dd>
+<dt><i>fromInfo</i> (dict with 'filename', 'linenumber' and 'codename')</dt>
+<dd>
+dictionary containing the origin info
+            as keys
+</dd>
+<dt><i>toInfo</i> (dict with 'filename', 'linenumber' and 'codename')</dt>
+<dd>
+dictionary containing the target info
+            as keys
+</dd>
+</dl>
+<a NAME="DebugClientBase.sendClearTemporaryBreakpoint" ID="DebugClientBase.sendClearTemporaryBreakpoint"></a>
+<h4>DebugClientBase.sendClearTemporaryBreakpoint</h4>
+<b>sendClearTemporaryBreakpoint</b>(<i>filename, lineno</i>)
+<p>
+        Public method to signal the deletion of a temporary breakpoint.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file the bp belongs to
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the bp
+</dd>
+</dl>
+<a NAME="DebugClientBase.sendClearTemporaryWatch" ID="DebugClientBase.sendClearTemporaryWatch"></a>
+<h4>DebugClientBase.sendClearTemporaryWatch</h4>
+<b>sendClearTemporaryWatch</b>(<i>condition</i>)
+<p>
+        Public method to signal the deletion of a temporary watch expression.
+</p>
+
+<dl>
+
+<dt><i>condition</i> (str)</dt>
+<dd>
+condition of the watch expression to be cleared
+</dd>
+</dl>
+<a NAME="DebugClientBase.sendDebuggerId" ID="DebugClientBase.sendDebuggerId"></a>
+<h4>DebugClientBase.sendDebuggerId</h4>
+<b>sendDebuggerId</b>(<i></i>)
+<p>
+        Public method to send the debug client id.
+</p>
+
+<a NAME="DebugClientBase.sendException" ID="DebugClientBase.sendException"></a>
+<h4>DebugClientBase.sendException</h4>
+<b>sendException</b>(<i>exceptionType, exceptionMessage, stack, threadName</i>)
+<p>
+        Public method to send information for an exception.
+</p>
+
+<dl>
+
+<dt><i>exceptionType</i> (str)</dt>
+<dd>
+type of exception raised
+</dd>
+<dt><i>exceptionMessage</i> (str)</dt>
+<dd>
+message of the exception
+</dd>
+<dt><i>stack</i> (list)</dt>
+<dd>
+stack trace information
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread sending the event
+</dd>
+</dl>
+<a NAME="DebugClientBase.sendJsonCommand" ID="DebugClientBase.sendJsonCommand"></a>
+<h4>DebugClientBase.sendJsonCommand</h4>
+<b>sendJsonCommand</b>(<i>method, params</i>)
+<p>
+        Public method to send a single command or response to the IDE.
+</p>
+
+<dl>
+
+<dt><i>method</i> (str)</dt>
+<dd>
+command or response command name to be sent
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary of named parameters for the command or
+            response
+</dd>
+</dl>
+<a NAME="DebugClientBase.sendPassiveStartup" ID="DebugClientBase.sendPassiveStartup"></a>
+<h4>DebugClientBase.sendPassiveStartup</h4>
+<b>sendPassiveStartup</b>(<i>filename, reportAllExceptions</i>)
+<p>
+        Public method to send the passive start information.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the script
+</dd>
+<dt><i>reportAllExceptions</i> (bool)</dt>
+<dd>
+flag to enable reporting of all exceptions
+</dd>
+</dl>
+<a NAME="DebugClientBase.sendResponseLine" ID="DebugClientBase.sendResponseLine"></a>
+<h4>DebugClientBase.sendResponseLine</h4>
+<b>sendResponseLine</b>(<i>stack, threadName</i>)
+<p>
+        Public method to send the current call stack.
+</p>
+
+<dl>
+
+<dt><i>stack</i> (list)</dt>
+<dd>
+call stack
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread sending the event
+</dd>
+</dl>
+<a NAME="DebugClientBase.sendSyntaxError" ID="DebugClientBase.sendSyntaxError"></a>
+<h4>DebugClientBase.sendSyntaxError</h4>
+<b>sendSyntaxError</b>(<i>message, filename, lineno, charno, threadName</i>)
+<p>
+        Public method to send information for a syntax error.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+syntax error message
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the faulty file
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number info
+</dd>
+<dt><i>charno</i> (int)</dt>
+<dd>
+character number info
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread sending the event
+</dd>
+</dl>
+<a NAME="DebugClientBase.sessionClose" ID="DebugClientBase.sessionClose"></a>
+<h4>DebugClientBase.sessionClose</h4>
+<b>sessionClose</b>(<i>terminate=True</i>)
+<p>
+        Public method to close the session with the debugger and optionally
+        terminate.
+</p>
+
+<dl>
+
+<dt><i>terminate</i> (bool)</dt>
+<dd>
+flag indicating to terminate
+</dd>
+</dl>
+<a NAME="DebugClientBase.setDisassembly" ID="DebugClientBase.setDisassembly"></a>
+<h4>DebugClientBase.setDisassembly</h4>
+<b>setDisassembly</b>(<i>disassembly</i>)
+<p>
+        Public method to store a disassembly of the code object raising an
+        exception.
+</p>
+
+<dl>
+
+<dt><i>disassembly</i> (dict)</dt>
+<dd>
+dictionary containing the disassembly information
+</dd>
+</dl>
+<a NAME="DebugClientBase.skipMultiProcessDebugging" ID="DebugClientBase.skipMultiProcessDebugging"></a>
+<h4>DebugClientBase.skipMultiProcessDebugging</h4>
+<b>skipMultiProcessDebugging</b>(<i>scriptName</i>)
+<p>
+        Public method to check, if the given script is eligible for debugging.
+</p>
+
+<dl>
+
+<dt><i>scriptName</i> (str)</dt>
+<dd>
+name of the script to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating eligibility
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebugClientBase.startDebugger" ID="DebugClientBase.startDebugger"></a>
+<h4>DebugClientBase.startDebugger</h4>
+<b>startDebugger</b>(<i>filename=None, host=None, port=None, enableTrace=True, reportAllExceptions=False, tracePython=False, redirect=True, passive=True, multiprocessSupport=False, </i>)
+<p>
+        Public method used to start the remote debugger.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+the program to be debugged
+</dd>
+<dt><i>host</i> (str)</dt>
+<dd>
+hostname of the debug server
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+portnumber of the debug server
+</dd>
+<dt><i>enableTrace</i> (bool)</dt>
+<dd>
+flag to enable the tracing function
+</dd>
+<dt><i>reportAllExceptions</i> (bool)</dt>
+<dd>
+flag indicating to report all exceptions
+            instead of unhandled exceptions only
+</dd>
+<dt><i>tracePython</i> (bool)</dt>
+<dd>
+flag to enable tracing into the Python library
+</dd>
+<dt><i>redirect</i> (bool)</dt>
+<dd>
+flag indicating redirection of stdin, stdout and
+            stderr
+</dd>
+<dt><i>passive</i> (bool)</dt>
+<dd>
+flag indicating a passive debugging session
+</dd>
+<dt><i>multiprocessSupport</i> (bool)</dt>
+<dd>
+flag indicating to enable multiprocess
+            debugging support (unused)
+</dd>
+</dl>
+<a NAME="DebugClientBase.startProgInDebugger" ID="DebugClientBase.startProgInDebugger"></a>
+<h4>DebugClientBase.startProgInDebugger</h4>
+<b>startProgInDebugger</b>(<i>progargs, wd="", host=None, port=None, tracePython=False, redirect=True, passive=True, multiprocessSupport=False, reportAllExceptions=False, callTraceOptimization=False, codeStr="", scriptModule="", </i>)
+<p>
+        Public method used to start the remote debugger.
+</p>
+
+<dl>
+
+<dt><i>progargs</i> (list of str)</dt>
+<dd>
+commandline for the program to be debugged
+</dd>
+<dt><i>wd</i> (str)</dt>
+<dd>
+working directory for the program execution
+</dd>
+<dt><i>host</i> (str)</dt>
+<dd>
+hostname of the debug server
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+portnumber of the debug server
+</dd>
+<dt><i>tracePython</i> (bool)</dt>
+<dd>
+flag to enable tracing into the Python library
+</dd>
+<dt><i>redirect</i> (bool)</dt>
+<dd>
+flag indicating redirection of stdin, stdout and
+            stderr
+</dd>
+<dt><i>passive</i> (bool)</dt>
+<dd>
+flag indicating a passive debugging session
+</dd>
+<dt><i>multiprocessSupport</i> (bool)</dt>
+<dd>
+flag indicating to enable multiprocess
+            debugging support
+</dd>
+<dt><i>reportAllExceptions</i> (bool)</dt>
+<dd>
+flag indicating to report all exceptions instead
+            of unhandled exceptions only
+</dd>
+<dt><i>callTraceOptimization</i> (bool)</dt>
+<dd>
+flag indicating to speed up function/method
+            call tracing
+</dd>
+<dt><i>codeStr</i> (str)</dt>
+<dd>
+string containing Python code to execute
+</dd>
+<dt><i>scriptModule</i> (str)</dt>
+<dd>
+name of a module to be executed as a script
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+exit code of the debugged program
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DebugClientBase.writeReady" ID="DebugClientBase.writeReady"></a>
+<h4>DebugClientBase.writeReady</h4>
+<b>writeReady</b>(<i>stream</i>)
+<p>
+        Public method called when we are ready to write data.
+</p>
+
+<dl>
+
+<dt><i>stream</i> (file like)</dt>
+<dd>
+file like object that has data to be written
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DebugClientClose" ID="DebugClientClose"></a>
+<h2>DebugClientClose</h2>
+<b>DebugClientClose</b>(<i>fd</i>)
+<p>
+    Replacement for the standard os.close(fd).
+</p>
+
+<dl>
+
+<dt><i>fd</i> (int)</dt>
+<dd>
+open file descriptor to be closed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DebugClientInput" ID="DebugClientInput"></a>
+<h2>DebugClientInput</h2>
+<b>DebugClientInput</b>(<i>prompt="", echo=True</i>)
+<p>
+    Replacement for the standard input() builtin.
+</p>
+<p>
+    This function works with the split debugger.
+</p>
+
+<dl>
+
+<dt><i>prompt</i> (str)</dt>
+<dd>
+prompt to be shown
+</dd>
+<dt><i>echo</i> (bool)</dt>
+<dd>
+flag indicating echoing of the input
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+result of the input() call
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DebugClientSetRecursionLimit" ID="DebugClientSetRecursionLimit"></a>
+<h2>DebugClientSetRecursionLimit</h2>
+<b>DebugClientSetRecursionLimit</b>(<i>limit</i>)
+<p>
+    Replacement for the standard sys.setrecursionlimit(limit).
+</p>
+
+<dl>
+
+<dt><i>limit</i> (int)</dt>
+<dd>
+recursion limit
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

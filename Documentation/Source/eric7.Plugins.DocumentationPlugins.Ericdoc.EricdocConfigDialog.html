@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.DocumentationPlugins.Ericdoc.EricdocConfigDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.DocumentationPlugins.Ericdoc.EricdocConfigDialog</h1>
+<p>
+Module implementing a dialog to enter the parameters for eric7_doc.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricdocConfigDialog">EricdocConfigDialog</a></td>
+<td>Class implementing a dialog to enter the parameters for eric7_doc.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricdocConfigDialog" ID="EricdocConfigDialog"></a>
+<h2>EricdocConfigDialog</h2>
+<p>
+    Class implementing a dialog to enter the parameters for eric7_doc.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_EricdocConfigDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricdocConfigDialog.__init__">EricdocConfigDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.__checkQtHelpOptions">__checkQtHelpOptions</a></td>
+<td>Private slot to check the QtHelp options and set the ok button accordingly.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.__initializeDefaults">__initializeDefaults</a></td>
+<td>Private method to set the default values.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.__selectColor">__selectColor</a></td>
+<td>Private method to select a color.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.accept">accept</a></td>
+<td>Public slot called by the Ok button.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.generateParameters">generateParameters</a></td>
+<td>Public method that generates the commandline parameters.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_addButton_clicked">on_addButton_clicked</a></td>
+<td>Private slot to add the directory displayed to the listview.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_bodyBgButton_clicked">on_bodyBgButton_clicked</a></td>
+<td>Private slot to select the body background color.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_bodyFgButton_clicked">on_bodyFgButton_clicked</a></td>
+<td>Private slot to select the body foreground color.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_cfBgButton_clicked">on_cfBgButton_clicked</a></td>
+<td>Private slot to select the class/function header background color.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_cfFgButton_clicked">on_cfFgButton_clicked</a></td>
+<td>Private slot to select the class/function header foreground color.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_cssPicker_pathSelected">on_cssPicker_pathSelected</a></td>
+<td>Private slot handling the selection of a css style sheet.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_deleteButton_clicked">on_deleteButton_clicked</a></td>
+<td>Private slot to delete the currently selected directory of the listbox.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_ignoreDirPicker_pathSelected">on_ignoreDirPicker_pathSelected</a></td>
+<td>Private slot handling the selection of a directory to be ignored.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_l1BgButton_clicked">on_l1BgButton_clicked</a></td>
+<td>Private slot to select the level 1 header background color.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_l1FgButton_clicked">on_l1FgButton_clicked</a></td>
+<td>Private slot to select the level 1 header foreground color.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_l2BgButton_clicked">on_l2BgButton_clicked</a></td>
+<td>Private slot to select the level 2 header background color.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_l2FgButton_clicked">on_l2FgButton_clicked</a></td>
+<td>Private slot to select the level 2 header foreground color.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_linkFgButton_clicked">on_linkFgButton_clicked</a></td>
+<td>Private slot to select the foreground color of links.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_outputDirPicker_pathSelected">on_outputDirPicker_pathSelected</a></td>
+<td>Private slot handling the selection of an output directory.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_qtHelpDirPicker_pathSelected">on_qtHelpDirPicker_pathSelected</a></td>
+<td>Private slot handling the selection of the output directory for the QtHelp files.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_qtHelpFolderEdit_textChanged">on_qtHelpFolderEdit_textChanged</a></td>
+<td>Private slot to check the virtual folder.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_qtHelpGroup_toggled">on_qtHelpGroup_toggled</a></td>
+<td>Private slot to toggle the generation of QtHelp files.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_qtHelpNamespaceEdit_textChanged">on_qtHelpNamespaceEdit_textChanged</a></td>
+<td>Private slot to check the namespace.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_qtHelpTitleEdit_textChanged">on_qtHelpTitleEdit_textChanged</a></td>
+<td>Private slot to check the title.</td>
+</tr>
+<tr>
+<td><a href="#EricdocConfigDialog.on_startDirPicker_pathSelected">on_startDirPicker_pathSelected</a></td>
+<td>Private slot handling the selection of a start directory.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricdocConfigDialog.__init__" ID="EricdocConfigDialog.__init__"></a>
+<h4>EricdocConfigDialog (Constructor)</h4>
+<b>EricdocConfigDialog</b>(<i>project, parms=None, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parms</i> (dict)</dt>
+<dd>
+parameters to set in the dialog
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this dialog
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.__checkQtHelpOptions" ID="EricdocConfigDialog.__checkQtHelpOptions"></a>
+<h4>EricdocConfigDialog.__checkQtHelpOptions</h4>
+<b>__checkQtHelpOptions</b>(<i></i>)
+<p>
+        Private slot to check the QtHelp options and set the ok button
+        accordingly.
+</p>
+
+<a NAME="EricdocConfigDialog.__initializeDefaults" ID="EricdocConfigDialog.__initializeDefaults"></a>
+<h4>EricdocConfigDialog.__initializeDefaults</h4>
+<b>__initializeDefaults</b>(<i></i>)
+<p>
+        Private method to set the default values.
+</p>
+<p>
+        These are needed later on to generate the commandline
+        parameters.
+</p>
+
+<a NAME="EricdocConfigDialog.__selectColor" ID="EricdocConfigDialog.__selectColor"></a>
+<h4>EricdocConfigDialog.__selectColor</h4>
+<b>__selectColor</b>(<i>colorKey</i>)
+<p>
+        Private method to select a color.
+</p>
+
+<dl>
+
+<dt><i>colorKey</i> (str)</dt>
+<dd>
+key of the color to select
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.accept" ID="EricdocConfigDialog.accept"></a>
+<h4>EricdocConfigDialog.accept</h4>
+<b>accept</b>(<i></i>)
+<p>
+        Public slot called by the Ok button.
+</p>
+<p>
+        It saves the values in the parameters dictionary.
+</p>
+
+<a NAME="EricdocConfigDialog.generateParameters" ID="EricdocConfigDialog.generateParameters"></a>
+<h4>EricdocConfigDialog.generateParameters</h4>
+<b>generateParameters</b>(<i></i>)
+<p>
+        Public method that generates the commandline parameters.
+</p>
+<p>
+        It generates a list of strings to be used
+        to set the QProcess arguments for the ericdoc call and
+        a dictionary containing the non default parameters. This
+        dictionary can be passed back upon object generation to overwrite
+        the default settings.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a tuple containing the commandline parameters, non default
+            parameters and the start directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, dict, str)
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.on_addButton_clicked" ID="EricdocConfigDialog.on_addButton_clicked"></a>
+<h4>EricdocConfigDialog.on_addButton_clicked</h4>
+<b>on_addButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add the directory displayed to the listview.
+</p>
+<p>
+        The directory in the ignore directories
+        line edit is moved to the listbox above and the edit is cleared.
+</p>
+
+<a NAME="EricdocConfigDialog.on_bodyBgButton_clicked" ID="EricdocConfigDialog.on_bodyBgButton_clicked"></a>
+<h4>EricdocConfigDialog.on_bodyBgButton_clicked</h4>
+<b>on_bodyBgButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the body background color.
+</p>
+
+<a NAME="EricdocConfigDialog.on_bodyFgButton_clicked" ID="EricdocConfigDialog.on_bodyFgButton_clicked"></a>
+<h4>EricdocConfigDialog.on_bodyFgButton_clicked</h4>
+<b>on_bodyFgButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the body foreground color.
+</p>
+
+<a NAME="EricdocConfigDialog.on_cfBgButton_clicked" ID="EricdocConfigDialog.on_cfBgButton_clicked"></a>
+<h4>EricdocConfigDialog.on_cfBgButton_clicked</h4>
+<b>on_cfBgButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the class/function header background color.
+</p>
+
+<a NAME="EricdocConfigDialog.on_cfFgButton_clicked" ID="EricdocConfigDialog.on_cfFgButton_clicked"></a>
+<h4>EricdocConfigDialog.on_cfFgButton_clicked</h4>
+<b>on_cfFgButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the class/function header foreground color.
+</p>
+
+<a NAME="EricdocConfigDialog.on_cssPicker_pathSelected" ID="EricdocConfigDialog.on_cssPicker_pathSelected"></a>
+<h4>EricdocConfigDialog.on_cssPicker_pathSelected</h4>
+<b>on_cssPicker_pathSelected</b>(<i>path</i>)
+<p>
+        Private slot handling the selection of a css style sheet.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the css style sheet
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.on_deleteButton_clicked" ID="EricdocConfigDialog.on_deleteButton_clicked"></a>
+<h4>EricdocConfigDialog.on_deleteButton_clicked</h4>
+<b>on_deleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the currently selected directory of the listbox.
+</p>
+
+<a NAME="EricdocConfigDialog.on_ignoreDirPicker_pathSelected" ID="EricdocConfigDialog.on_ignoreDirPicker_pathSelected"></a>
+<h4>EricdocConfigDialog.on_ignoreDirPicker_pathSelected</h4>
+<b>on_ignoreDirPicker_pathSelected</b>(<i>path</i>)
+<p>
+        Private slot handling the selection of a directory to be ignored.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the directory to be ignored
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.on_l1BgButton_clicked" ID="EricdocConfigDialog.on_l1BgButton_clicked"></a>
+<h4>EricdocConfigDialog.on_l1BgButton_clicked</h4>
+<b>on_l1BgButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the level 1 header background color.
+</p>
+
+<a NAME="EricdocConfigDialog.on_l1FgButton_clicked" ID="EricdocConfigDialog.on_l1FgButton_clicked"></a>
+<h4>EricdocConfigDialog.on_l1FgButton_clicked</h4>
+<b>on_l1FgButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the level 1 header foreground color.
+</p>
+
+<a NAME="EricdocConfigDialog.on_l2BgButton_clicked" ID="EricdocConfigDialog.on_l2BgButton_clicked"></a>
+<h4>EricdocConfigDialog.on_l2BgButton_clicked</h4>
+<b>on_l2BgButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the level 2 header background color.
+</p>
+
+<a NAME="EricdocConfigDialog.on_l2FgButton_clicked" ID="EricdocConfigDialog.on_l2FgButton_clicked"></a>
+<h4>EricdocConfigDialog.on_l2FgButton_clicked</h4>
+<b>on_l2FgButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the level 2 header foreground color.
+</p>
+
+<a NAME="EricdocConfigDialog.on_linkFgButton_clicked" ID="EricdocConfigDialog.on_linkFgButton_clicked"></a>
+<h4>EricdocConfigDialog.on_linkFgButton_clicked</h4>
+<b>on_linkFgButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the foreground color of links.
+</p>
+
+<a NAME="EricdocConfigDialog.on_outputDirPicker_pathSelected" ID="EricdocConfigDialog.on_outputDirPicker_pathSelected"></a>
+<h4>EricdocConfigDialog.on_outputDirPicker_pathSelected</h4>
+<b>on_outputDirPicker_pathSelected</b>(<i>path</i>)
+<p>
+        Private slot handling the selection of an output directory.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the output directory
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.on_qtHelpDirPicker_pathSelected" ID="EricdocConfigDialog.on_qtHelpDirPicker_pathSelected"></a>
+<h4>EricdocConfigDialog.on_qtHelpDirPicker_pathSelected</h4>
+<b>on_qtHelpDirPicker_pathSelected</b>(<i>path</i>)
+<p>
+        Private slot handling the selection of the output directory for the
+        QtHelp files.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the the output directory for the QtHelp files
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.on_qtHelpFolderEdit_textChanged" ID="EricdocConfigDialog.on_qtHelpFolderEdit_textChanged"></a>
+<h4>EricdocConfigDialog.on_qtHelpFolderEdit_textChanged</h4>
+<b>on_qtHelpFolderEdit_textChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to check the virtual folder.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the line edit (unused)
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.on_qtHelpGroup_toggled" ID="EricdocConfigDialog.on_qtHelpGroup_toggled"></a>
+<h4>EricdocConfigDialog.on_qtHelpGroup_toggled</h4>
+<b>on_qtHelpGroup_toggled</b>(<i>_enabled</i>)
+<p>
+        Private slot to toggle the generation of QtHelp files.
+</p>
+
+<dl>
+
+<dt><i>_enabled</i> (bool)</dt>
+<dd>
+flag indicating the state (unused)
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.on_qtHelpNamespaceEdit_textChanged" ID="EricdocConfigDialog.on_qtHelpNamespaceEdit_textChanged"></a>
+<h4>EricdocConfigDialog.on_qtHelpNamespaceEdit_textChanged</h4>
+<b>on_qtHelpNamespaceEdit_textChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to check the namespace.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the line edit (unused)
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.on_qtHelpTitleEdit_textChanged" ID="EricdocConfigDialog.on_qtHelpTitleEdit_textChanged"></a>
+<h4>EricdocConfigDialog.on_qtHelpTitleEdit_textChanged</h4>
+<b>on_qtHelpTitleEdit_textChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to check the title.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the line edit (unused)
+</dd>
+</dl>
+<a NAME="EricdocConfigDialog.on_startDirPicker_pathSelected" ID="EricdocConfigDialog.on_startDirPicker_pathSelected"></a>
+<h4>EricdocConfigDialog.on_startDirPicker_pathSelected</h4>
+<b>on_startDirPicker_pathSelected</b>(<i>path</i>)
+<p>
+        Private slot handling the selection of a start directory.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the start directory
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

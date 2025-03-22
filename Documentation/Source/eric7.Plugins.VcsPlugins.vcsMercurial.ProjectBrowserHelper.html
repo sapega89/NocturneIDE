@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.ProjectBrowserHelper</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.ProjectBrowserHelper</h1>
+<p>
+Module implementing the VCS project browser helper for Mercurial.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgProjectBrowserHelper">HgProjectBrowserHelper</a></td>
+<td>Class implementing the VCS project browser helper for Mercurial.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgProjectBrowserHelper" ID="HgProjectBrowserHelper"></a>
+<h2>HgProjectBrowserHelper</h2>
+<p>
+    Class implementing the VCS project browser helper for Mercurial.
+</p>
+
+<h3>Derived from</h3>
+VcsProjectBrowserHelper
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__init__">HgProjectBrowserHelper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgAnnotate">__HgAnnotate</a></td>
+<td>Private slot called by the context menu to show the annotations of a file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgAnnotateSkip">__HgAnnotateSkip</a></td>
+<td>Private slot called by the context menu to show the annotations of a file with a project specific skip list.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgAnnotateSkipListFile">__HgAnnotateSkipListFile</a></td>
+<td>Private method to create an empty 'hg annotate' skip list file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgConfigure">__HgConfigure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgCopy">__HgCopy</a></td>
+<td>Private slot called by the context menu to copy the selected file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgExtendedDiff">__HgExtendedDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file to the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgForget">__HgForget</a></td>
+<td>Private slot called by the context menu to remove the selected file from the Mercurial repository leaving a copy in the project directory.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgMove">__HgMove</a></td>
+<td>Private slot called by the context menu to move the selected file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgReMerge">__HgReMerge</a></td>
+<td>Private slot called by the context menu to re-merge a file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgResolved">__HgResolved</a></td>
+<td>Private slot called by the context menu to mark conflicts of a file as being resolved.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgRevert">__HgRevert</a></td>
+<td>Private slot called by the context menu to revert changes made.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgSbsDiff">__HgSbsDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file to the repository side-by-side.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgSbsExtendedDiff">__HgSbsExtendedDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file to the repository side-by-side.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__HgUnresolved">__HgUnresolved</a></td>
+<td>Private slot called by the context menu to mark conflicts of a file as being unresolved.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__addBuiltinsMenu">__addBuiltinsMenu</a></td>
+<td>Private method to add a 'Other Functions' menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__addExtensionsMenu">__addExtensionsMenu</a></td>
+<td>Private method to add an extension menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__showBuiltinsMenu">__showBuiltinsMenu</a></td>
+<td>Private slot showing the 'Other Functions' menu.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__showExtensionMenu">__showExtensionMenu</a></td>
+<td>Private slot showing the extensions menu.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.__skipListFileName">__skipListFileName</a></td>
+<td>Private method to generate the file name for a 'hg annotate' skip list file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper._addVCSMenu">_addVCSMenu</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper._addVCSMenuBack">_addVCSMenuBack</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper._addVCSMenuDir">_addVCSMenuDir</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper._addVCSMenuDirMulti">_addVCSMenuDirMulti</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper._addVCSMenuMulti">_addVCSMenuMulti</a></td>
+<td>Protected method used to add the VCS menu for multi selection to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.showContextMenu">showContextMenu</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.showContextMenuDir">showContextMenuDir</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.showContextMenuDirMulti">showContextMenuDirMulti</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectBrowserHelper.showContextMenuMulti">showContextMenuMulti</a></td>
+<td>Public slot called before the context menu (multiple selections) is shown.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgProjectBrowserHelper.__init__" ID="HgProjectBrowserHelper.__init__"></a>
+<h4>HgProjectBrowserHelper (Constructor)</h4>
+<b>HgProjectBrowserHelper</b>(<i>vcsObject, browserObject, projectObject, isTranslationsBrowser, parent=None, name=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcsObject</i> (Hg)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>browserObject</i> (ProjectBaseBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>projectObject</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>isTranslationsBrowser</i> (bool)</dt>
+<dd>
+flag indicating, the helper is requested
+            for the translations browser (this needs some special treatment)
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper.__HgAnnotate" ID="HgProjectBrowserHelper.__HgAnnotate"></a>
+<h4>HgProjectBrowserHelper.__HgAnnotate</h4>
+<b>__HgAnnotate</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the annotations of a
+        file.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgAnnotateSkip" ID="HgProjectBrowserHelper.__HgAnnotateSkip"></a>
+<h4>HgProjectBrowserHelper.__HgAnnotateSkip</h4>
+<b>__HgAnnotateSkip</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the annotations of a
+        file with a project specific skip list.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgAnnotateSkipListFile" ID="HgProjectBrowserHelper.__HgAnnotateSkipListFile"></a>
+<h4>HgProjectBrowserHelper.__HgAnnotateSkipListFile</h4>
+<b>__HgAnnotateSkipListFile</b>(<i></i>)
+<p>
+        Private method to create an empty 'hg annotate' skip list file.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgConfigure" ID="HgProjectBrowserHelper.__HgConfigure"></a>
+<h4>HgProjectBrowserHelper.__HgConfigure</h4>
+<b>__HgConfigure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgCopy" ID="HgProjectBrowserHelper.__HgCopy"></a>
+<h4>HgProjectBrowserHelper.__HgCopy</h4>
+<b>__HgCopy</b>(<i></i>)
+<p>
+        Private slot called by the context menu to copy the selected file.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgExtendedDiff" ID="HgProjectBrowserHelper.__HgExtendedDiff"></a>
+<h4>HgProjectBrowserHelper.__HgExtendedDiff</h4>
+<b>__HgExtendedDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file to the repository.
+</p>
+<p>
+        This gives the chance to enter the revisions to compare.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgForget" ID="HgProjectBrowserHelper.__HgForget"></a>
+<h4>HgProjectBrowserHelper.__HgForget</h4>
+<b>__HgForget</b>(<i></i>)
+<p>
+        Private slot called by the context menu to remove the selected file
+        from the Mercurial repository leaving a copy in the project directory.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgMove" ID="HgProjectBrowserHelper.__HgMove"></a>
+<h4>HgProjectBrowserHelper.__HgMove</h4>
+<b>__HgMove</b>(<i></i>)
+<p>
+        Private slot called by the context menu to move the selected file.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgReMerge" ID="HgProjectBrowserHelper.__HgReMerge"></a>
+<h4>HgProjectBrowserHelper.__HgReMerge</h4>
+<b>__HgReMerge</b>(<i></i>)
+<p>
+        Private slot called by the context menu to re-merge a file.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgResolved" ID="HgProjectBrowserHelper.__HgResolved"></a>
+<h4>HgProjectBrowserHelper.__HgResolved</h4>
+<b>__HgResolved</b>(<i></i>)
+<p>
+        Private slot called by the context menu to mark conflicts of a file
+        as being resolved.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgRevert" ID="HgProjectBrowserHelper.__HgRevert"></a>
+<h4>HgProjectBrowserHelper.__HgRevert</h4>
+<b>__HgRevert</b>(<i></i>)
+<p>
+        Private slot called by the context menu to revert changes made.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgSbsDiff" ID="HgProjectBrowserHelper.__HgSbsDiff"></a>
+<h4>HgProjectBrowserHelper.__HgSbsDiff</h4>
+<b>__HgSbsDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file to the repository side-by-side.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgSbsExtendedDiff" ID="HgProjectBrowserHelper.__HgSbsExtendedDiff"></a>
+<h4>HgProjectBrowserHelper.__HgSbsExtendedDiff</h4>
+<b>__HgSbsExtendedDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file to the repository side-by-side.
+</p>
+<p>
+        It allows the selection of revisions to compare.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__HgUnresolved" ID="HgProjectBrowserHelper.__HgUnresolved"></a>
+<h4>HgProjectBrowserHelper.__HgUnresolved</h4>
+<b>__HgUnresolved</b>(<i></i>)
+<p>
+        Private slot called by the context menu to mark conflicts of a file
+        as being unresolved.
+</p>
+
+<a NAME="HgProjectBrowserHelper.__addBuiltinsMenu" ID="HgProjectBrowserHelper.__addBuiltinsMenu"></a>
+<h4>HgProjectBrowserHelper.__addBuiltinsMenu</h4>
+<b>__addBuiltinsMenu</b>(<i>menu, key</i>)
+<p>
+        Private method to add a 'Other Functions' menu entry.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+menu to add it to
+</dd>
+<dt><i>key</i> (str)</dt>
+<dd>
+menu key (one of 'mainMenu', 'multiMenu', 'backMenu', 'dirMenu'
+            or 'dirMultiMenu')
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the menu action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAction
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper.__addExtensionsMenu" ID="HgProjectBrowserHelper.__addExtensionsMenu"></a>
+<h4>HgProjectBrowserHelper.__addExtensionsMenu</h4>
+<b>__addExtensionsMenu</b>(<i>menu, key</i>)
+<p>
+        Private method to add an extension menu entry.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+menu to add it to
+</dd>
+<dt><i>key</i> (str)</dt>
+<dd>
+menu key (one of 'mainMenu', 'multiMenu', 'backMenu', 'dirMenu'
+            or 'dirMultiMenu')
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the menu action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAction
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper.__showBuiltinsMenu" ID="HgProjectBrowserHelper.__showBuiltinsMenu"></a>
+<h4>HgProjectBrowserHelper.__showBuiltinsMenu</h4>
+<b>__showBuiltinsMenu</b>(<i>key, controlled</i>)
+<p>
+        Private slot showing the 'Other Functions' menu.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+menu key (one of 'mainMenu', 'multiMenu', 'backMenu', 'dirMenu'
+            or 'dirMultiMenu')
+</dd>
+<dt><i>controlled</i> (bool)</dt>
+<dd>
+flag indicating to show the menu for a
+            version controlled entry or a non-version controlled entry
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper.__showExtensionMenu" ID="HgProjectBrowserHelper.__showExtensionMenu"></a>
+<h4>HgProjectBrowserHelper.__showExtensionMenu</h4>
+<b>__showExtensionMenu</b>(<i>key, controlled</i>)
+<p>
+        Private slot showing the extensions menu.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+menu key (one of 'mainMenu', 'multiMenu', 'backMenu', 'dirMenu'
+            or 'dirMultiMenu')
+</dd>
+<dt><i>controlled</i> (bool)</dt>
+<dd>
+flag indicating to show the menu for a
+            version controlled entry or a non-version controlled entry
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper.__skipListFileName" ID="HgProjectBrowserHelper.__skipListFileName"></a>
+<h4>HgProjectBrowserHelper.__skipListFileName</h4>
+<b>__skipListFileName</b>(<i></i>)
+<p>
+        Private method to generate the file name for a 'hg annotate' skip list file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the skip list file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper._addVCSMenu" ID="HgProjectBrowserHelper._addVCSMenu"></a>
+<h4>HgProjectBrowserHelper._addVCSMenu</h4>
+<b>_addVCSMenu</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper._addVCSMenuBack" ID="HgProjectBrowserHelper._addVCSMenuBack"></a>
+<h4>HgProjectBrowserHelper._addVCSMenuBack</h4>
+<b>_addVCSMenuBack</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper._addVCSMenuDir" ID="HgProjectBrowserHelper._addVCSMenuDir"></a>
+<h4>HgProjectBrowserHelper._addVCSMenuDir</h4>
+<b>_addVCSMenuDir</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper._addVCSMenuDirMulti" ID="HgProjectBrowserHelper._addVCSMenuDirMulti"></a>
+<h4>HgProjectBrowserHelper._addVCSMenuDirMulti</h4>
+<b>_addVCSMenuDirMulti</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper._addVCSMenuMulti" ID="HgProjectBrowserHelper._addVCSMenuMulti"></a>
+<h4>HgProjectBrowserHelper._addVCSMenuMulti</h4>
+<b>_addVCSMenuMulti</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu for multi selection to all
+        project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper.showContextMenu" ID="HgProjectBrowserHelper.showContextMenu"></a>
+<h4>HgProjectBrowserHelper.showContextMenu</h4>
+<b>showContextMenu</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the file status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper.showContextMenuDir" ID="HgProjectBrowserHelper.showContextMenuDir"></a>
+<h4>HgProjectBrowserHelper.showContextMenuDir</h4>
+<b>showContextMenuDir</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper.showContextMenuDirMulti" ID="HgProjectBrowserHelper.showContextMenuDirMulti"></a>
+<h4>HgProjectBrowserHelper.showContextMenuDirMulti</h4>
+<b>showContextMenuDirMulti</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+list of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<a NAME="HgProjectBrowserHelper.showContextMenuMulti" ID="HgProjectBrowserHelper.showContextMenuMulti"></a>
+<h4>HgProjectBrowserHelper.showContextMenuMulti</h4>
+<b>showContextMenuMulti</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu (multiple selections) is
+        shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the files status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricUtilities.crypto.py3AES</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricUtilities.crypto.py3AES</h1>
+<p>
+Module implementing classes for encryption according
+Advanced Encryption Standard.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AES">AES</a></td>
+<td>Class implementing the Advanced Encryption Standard algorithm.</td>
+</tr>
+<tr>
+<td><a href="#AESModeOfOperation">AESModeOfOperation</a></td>
+<td>Class implementing the different AES mode of operations.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#append_PKCS7_padding">append_PKCS7_padding</a></td>
+<td>Function to pad the given data to a multiple of 16-bytes by PKCS7 padding.</td>
+</tr>
+<tr>
+<td><a href="#decryptData">decryptData</a></td>
+<td>Module function to decrypt the given data with the given key.</td>
+</tr>
+<tr>
+<td><a href="#encryptData">encryptData</a></td>
+<td>Module function to encrypt the given data with the given key.</td>
+</tr>
+<tr>
+<td><a href="#strip_PKCS7_padding">strip_PKCS7_padding</a></td>
+<td>Function to strip off PKCS7 padding.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AES" ID="AES"></a>
+<h2>AES</h2>
+<p>
+    Class implementing the Advanced Encryption Standard algorithm.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>KeySize</td></tr>
+<tr><td>Rcon</td></tr>
+<tr><td>rsbox</td></tr>
+<tr><td>sbox</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AES.__addRoundKey">__addRoundKey</a></td>
+<td>Private method to add (XORs) the round key to the state.</td>
+</tr>
+<tr>
+<td><a href="#AES.__aes_invMain">__aes_invMain</a></td>
+<td>Private method to do the inverse AES encryption for one round.</td>
+</tr>
+<tr>
+<td><a href="#AES.__aes_invRound">__aes_invRound</a></td>
+<td>Private method to apply the 4 operations of the inverse round in sequence.</td>
+</tr>
+<tr>
+<td><a href="#AES.__aes_main">__aes_main</a></td>
+<td>Private method to do the AES encryption for one round.</td>
+</tr>
+<tr>
+<td><a href="#AES.__aes_round">__aes_round</a></td>
+<td>Private method to apply the 4 operations of the forward round in sequence.</td>
+</tr>
+<tr>
+<td><a href="#AES.__core">__core</a></td>
+<td>Private method performing the key schedule core operation.</td>
+</tr>
+<tr>
+<td><a href="#AES.__createRoundKey">__createRoundKey</a></td>
+<td>Private method to create a round key.</td>
+</tr>
+<tr>
+<td><a href="#AES.__expandKey">__expandKey</a></td>
+<td>Private method performing Rijndael's key expansion.</td>
+</tr>
+<tr>
+<td><a href="#AES.__galois_multiplication">__galois_multiplication</a></td>
+<td>Private method to perform a Galois multiplication of 8 bit characters a and b.</td>
+</tr>
+<tr>
+<td><a href="#AES.__getRconValue">__getRconValue</a></td>
+<td>Private method to retrieve a given Rcon value.</td>
+</tr>
+<tr>
+<td><a href="#AES.__getSBoxInvert">__getSBoxInvert</a></td>
+<td>Private method to retrieve a given Inverted S-Box value.</td>
+</tr>
+<tr>
+<td><a href="#AES.__getSBoxValue">__getSBoxValue</a></td>
+<td>Private method to retrieve a given S-Box value.</td>
+</tr>
+<tr>
+<td><a href="#AES.__mixColumn">__mixColumn</a></td>
+<td>Private method to perform a galois multiplication of 1 column the 4x4 matrix.</td>
+</tr>
+<tr>
+<td><a href="#AES.__mixColumns">__mixColumns</a></td>
+<td>Private method to perform a galois multiplication of the 4x4 matrix.</td>
+</tr>
+<tr>
+<td><a href="#AES.__rotate">__rotate</a></td>
+<td>Private method performing Rijndael's key schedule rotate operation.</td>
+</tr>
+<tr>
+<td><a href="#AES.__shiftRow">__shiftRow</a></td>
+<td>Private method to shift the bytes of a row to the left.</td>
+</tr>
+<tr>
+<td><a href="#AES.__shiftRows">__shiftRows</a></td>
+<td>Private method to iterate over the 4 rows and call __shiftRow() with that row.</td>
+</tr>
+<tr>
+<td><a href="#AES.__subBytes">__subBytes</a></td>
+<td>Private method to substitute all the values from the state with the value in the SBox using the state value as index for the SBox.</td>
+</tr>
+<tr>
+<td><a href="#AES.decrypt">decrypt</a></td>
+<td>Public method to decrypt a 128 bit input block against the given key of size specified.</td>
+</tr>
+<tr>
+<td><a href="#AES.encrypt">encrypt</a></td>
+<td>Public method to encrypt a 128 bit input block against the given key of size specified.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AES.__addRoundKey" ID="AES.__addRoundKey"></a>
+<h4>AES.__addRoundKey</h4>
+<b>__addRoundKey</b>(<i>state, roundKey</i>)
+<p>
+        Private method to add (XORs) the round key to the state.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bytearray)</dt>
+<dd>
+state to be changed
+</dd>
+<dt><i>roundKey</i> (bytearray)</dt>
+<dd>
+key to be used for the modification
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__aes_invMain" ID="AES.__aes_invMain"></a>
+<h4>AES.__aes_invMain</h4>
+<b>__aes_invMain</b>(<i>state, expandedKey, nbrRounds</i>)
+<p>
+        Private method to do the inverse AES encryption for one round.
+</p>
+<p>
+        Perform the initial operations, the standard round, and the
+        final operations of the inverse AES, creating a round key for
+        each round.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bytearray)</dt>
+<dd>
+state to be worked on
+</dd>
+<dt><i>expandedKey</i> (bytearray)</dt>
+<dd>
+expanded key to be used
+</dd>
+<dt><i>nbrRounds</i> (int)</dt>
+<dd>
+number of rounds to be done
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__aes_invRound" ID="AES.__aes_invRound"></a>
+<h4>AES.__aes_invRound</h4>
+<b>__aes_invRound</b>(<i>state, roundKey</i>)
+<p>
+        Private method to apply the 4 operations of the inverse round in
+        sequence.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bytearray)</dt>
+<dd>
+state to be worked on
+</dd>
+<dt><i>roundKey</i> (bytearray)</dt>
+<dd>
+round key to be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__aes_main" ID="AES.__aes_main"></a>
+<h4>AES.__aes_main</h4>
+<b>__aes_main</b>(<i>state, expandedKey, nbrRounds</i>)
+<p>
+        Private method to do the AES encryption for one round.
+</p>
+<p>
+        Perform the initial operations, the standard round, and the
+        final operations of the forward AES, creating a round key for
+        each round.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bytearray)</dt>
+<dd>
+state to be worked on
+</dd>
+<dt><i>expandedKey</i> (bytearray)</dt>
+<dd>
+expanded key to be used
+</dd>
+<dt><i>nbrRounds</i> (int)</dt>
+<dd>
+number of rounds to be done
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__aes_round" ID="AES.__aes_round"></a>
+<h4>AES.__aes_round</h4>
+<b>__aes_round</b>(<i>state, roundKey</i>)
+<p>
+        Private method to apply the 4 operations of the forward round in
+        sequence.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bytearray)</dt>
+<dd>
+state to be worked on
+</dd>
+<dt><i>roundKey</i> (bytearray)</dt>
+<dd>
+round key to be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__core" ID="AES.__core"></a>
+<h4>AES.__core</h4>
+<b>__core</b>(<i>data, iteration</i>)
+<p>
+        Private method performing the key schedule core operation.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytearray)</dt>
+<dd>
+data to operate on
+</dd>
+<dt><i>iteration</i> (int)</dt>
+<dd>
+iteration counter
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__createRoundKey" ID="AES.__createRoundKey"></a>
+<h4>AES.__createRoundKey</h4>
+<b>__createRoundKey</b>(<i>expandedKey, roundKeyPointer</i>)
+<p>
+        Private method to create a round key.
+</p>
+
+<dl>
+
+<dt><i>expandedKey</i> (bytearray)</dt>
+<dd>
+expanded key to be used
+</dd>
+<dt><i>roundKeyPointer</i> (int)</dt>
+<dd>
+position within the expanded key
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+round key
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__expandKey" ID="AES.__expandKey"></a>
+<h4>AES.__expandKey</h4>
+<b>__expandKey</b>(<i>key, size, expandedKeySize</i>)
+<p>
+        Private method performing Rijndael's key expansion.
+</p>
+<p>
+        Expands a 128, 192 or 256 bit key into a 176, 208 or 240 bit key.
+</p>
+
+<dl>
+
+<dt><i>key</i> (bytes or bytearray)</dt>
+<dd>
+key to be expanded
+</dd>
+<dt><i>size</i> (int)</dt>
+<dd>
+size of the key in bytes (16, 24 or 32)
+</dd>
+<dt><i>expandedKeySize</i> (int)</dt>
+<dd>
+size of the expanded key
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+expanded key
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__galois_multiplication" ID="AES.__galois_multiplication"></a>
+<h4>AES.__galois_multiplication</h4>
+<b>__galois_multiplication</b>(<i>a, b</i>)
+<p>
+        Private method to perform a Galois multiplication of 8 bit characters
+        a and b.
+</p>
+
+<dl>
+
+<dt><i>a</i> (bytes)</dt>
+<dd>
+first factor
+</dd>
+<dt><i>b</i> (bytes)</dt>
+<dd>
+second factor
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+result
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="AES.__getRconValue" ID="AES.__getRconValue"></a>
+<h4>AES.__getRconValue</h4>
+<b>__getRconValue</b>(<i>num</i>)
+<p>
+        Private method to retrieve a given Rcon value.
+</p>
+
+<dl>
+
+<dt><i>num</i> (int)</dt>
+<dd>
+position of the value
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+Rcon value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="AES.__getSBoxInvert" ID="AES.__getSBoxInvert"></a>
+<h4>AES.__getSBoxInvert</h4>
+<b>__getSBoxInvert</b>(<i>num</i>)
+<p>
+        Private method to retrieve a given Inverted S-Box value.
+</p>
+
+<dl>
+
+<dt><i>num</i> (int)</dt>
+<dd>
+position of the value
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the Inverted S-Box
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="AES.__getSBoxValue" ID="AES.__getSBoxValue"></a>
+<h4>AES.__getSBoxValue</h4>
+<b>__getSBoxValue</b>(<i>num</i>)
+<p>
+        Private method to retrieve a given S-Box value.
+</p>
+
+<dl>
+
+<dt><i>num</i> (int)</dt>
+<dd>
+position of the value
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the S-Box
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="AES.__mixColumn" ID="AES.__mixColumn"></a>
+<h4>AES.__mixColumn</h4>
+<b>__mixColumn</b>(<i>column, isInv</i>)
+<p>
+        Private method to perform a galois multiplication of 1 column the
+        4x4 matrix.
+</p>
+
+<dl>
+
+<dt><i>column</i> (bytearray)</dt>
+<dd>
+column to be worked on
+</dd>
+<dt><i>isInv</i> (bool)</dt>
+<dd>
+flag indicating an inverse operation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified column
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__mixColumns" ID="AES.__mixColumns"></a>
+<h4>AES.__mixColumns</h4>
+<b>__mixColumns</b>(<i>state, isInv</i>)
+<p>
+        Private method to perform a galois multiplication of the 4x4 matrix.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bytearray)</dt>
+<dd>
+state to be worked on
+</dd>
+<dt><i>isInv</i> (bool)</dt>
+<dd>
+flag indicating an inverse operation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__rotate" ID="AES.__rotate"></a>
+<h4>AES.__rotate</h4>
+<b>__rotate</b>(<i>data</i>)
+<p>
+        Private method performing Rijndael's key schedule rotate operation.
+</p>
+<p>
+        Rotate the data word eight bits to the left: eg,
+        rotate(1d2c3a4f) == 2c3a4f1d.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytearray)</dt>
+<dd>
+data of size 4
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+rotated data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__shiftRow" ID="AES.__shiftRow"></a>
+<h4>AES.__shiftRow</h4>
+<b>__shiftRow</b>(<i>state, statePointer, nbr, isInv</i>)
+<p>
+        Private method to shift the bytes of a row to the left.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bytearray)</dt>
+<dd>
+state to be worked on
+</dd>
+<dt><i>statePointer</i> (int)</dt>
+<dd>
+index into the state
+</dd>
+<dt><i>nbr</i> (int)</dt>
+<dd>
+number of positions to shift
+</dd>
+<dt><i>isInv</i> (bool)</dt>
+<dd>
+flag indicating an inverse operation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__shiftRows" ID="AES.__shiftRows"></a>
+<h4>AES.__shiftRows</h4>
+<b>__shiftRows</b>(<i>state, isInv</i>)
+<p>
+        Private method to iterate over the 4 rows and call __shiftRow() with
+        that row.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bytearray)</dt>
+<dd>
+state to be worked on
+</dd>
+<dt><i>isInv</i> (bool)</dt>
+<dd>
+flag indicating an inverse operation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.__subBytes" ID="AES.__subBytes"></a>
+<h4>AES.__subBytes</h4>
+<b>__subBytes</b>(<i>state, isInv</i>)
+<p>
+        Private method to substitute all the values from the state with the
+        value in the SBox using the state value as index for the SBox.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bytearray)</dt>
+<dd>
+state to be worked on
+</dd>
+<dt><i>isInv</i> (bool)</dt>
+<dd>
+flag indicating an inverse operation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AES.decrypt" ID="AES.decrypt"></a>
+<h4>AES.decrypt</h4>
+<b>decrypt</b>(<i>iput, key, size</i>)
+<p>
+        Public method to decrypt a 128 bit input block against the given key
+        of size specified.
+</p>
+
+<dl>
+
+<dt><i>iput</i> (bytearray)</dt>
+<dd>
+input data
+</dd>
+<dt><i>key</i> (bytes or bytearray)</dt>
+<dd>
+key to be used
+</dd>
+<dt><i>size</i> (int)</dt>
+<dd>
+key size (16, 24 or 32)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+decrypted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+key size is invalid
+</dd>
+</dl>
+<a NAME="AES.encrypt" ID="AES.encrypt"></a>
+<h4>AES.encrypt</h4>
+<b>encrypt</b>(<i>iput, key, size</i>)
+<p>
+        Public method to encrypt a 128 bit input block against the given key
+        of size specified.
+</p>
+
+<dl>
+
+<dt><i>iput</i> (bytearray)</dt>
+<dd>
+input data
+</dd>
+<dt><i>key</i> (bytes or bytearray)</dt>
+<dd>
+key to be used
+</dd>
+<dt><i>size</i> (int)</dt>
+<dd>
+key size (16, 24 or 32)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+encrypted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+key size is invalid
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="AESModeOfOperation" ID="AESModeOfOperation"></a>
+<h2>AESModeOfOperation</h2>
+<p>
+    Class implementing the different AES mode of operations.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ModeOfOperation</td></tr>
+<tr><td>aes</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AESModeOfOperation.__extractBytes">__extractBytes</a></td>
+<td>Private method to extract a range of bytes from the input.</td>
+</tr>
+<tr>
+<td><a href="#AESModeOfOperation.decrypt">decrypt</a></td>
+<td>Public method to perform the decryption operation.</td>
+</tr>
+<tr>
+<td><a href="#AESModeOfOperation.encrypt">encrypt</a></td>
+<td>Public method to perform the encryption operation.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AESModeOfOperation.__extractBytes" ID="AESModeOfOperation.__extractBytes"></a>
+<h4>AESModeOfOperation.__extractBytes</h4>
+<b>__extractBytes</b>(<i>inputData, start, end, mode</i>)
+<p>
+        Private method to extract a range of bytes from the input.
+</p>
+
+<dl>
+
+<dt><i>inputData</i> (bytes)</dt>
+<dd>
+input data
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start index
+</dd>
+<dt><i>end</i> (int)</dt>
+<dd>
+end index
+</dd>
+<dt><i>mode</i> (int)</dt>
+<dd>
+mode of operation (0, 1, 2)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+extracted bytes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="AESModeOfOperation.decrypt" ID="AESModeOfOperation.decrypt"></a>
+<h4>AESModeOfOperation.decrypt</h4>
+<b>decrypt</b>(<i>cipherIn, originalsize, mode, key, size, IV</i>)
+<p>
+        Public method to perform the decryption operation.
+</p>
+
+<dl>
+
+<dt><i>cipherIn</i> (bytes)</dt>
+<dd>
+data to be decrypted
+</dd>
+<dt><i>originalsize</i> (int)</dt>
+<dd>
+unencrypted string length (required for CBC)
+</dd>
+<dt><i>mode</i> (int)</dt>
+<dd>
+mode of operation (0, 1 or 2)
+</dd>
+<dt><i>key</i> (bytes)</dt>
+<dd>
+key to be used
+</dd>
+<dt><i>size</i> (int)</dt>
+<dd>
+length of the key (16, 24 or 32)
+</dd>
+<dt><i>IV</i> (bytearray)</dt>
+<dd>
+initialisation vector
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+decrypted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+key size is invalid or decrypted data is invalid
+</dd>
+</dl>
+<a NAME="AESModeOfOperation.encrypt" ID="AESModeOfOperation.encrypt"></a>
+<h4>AESModeOfOperation.encrypt</h4>
+<b>encrypt</b>(<i>inputData, mode, key, size, IV</i>)
+<p>
+        Public method to perform the encryption operation.
+</p>
+
+<dl>
+
+<dt><i>inputData</i> (bytes)</dt>
+<dd>
+data to be encrypted
+</dd>
+<dt><i>mode</i> (int)</dt>
+<dd>
+mode of operation (0, 1 or 2)
+</dd>
+<dt><i>key</i> (bytes)</dt>
+<dd>
+key to be used
+</dd>
+<dt><i>size</i> (int)</dt>
+<dd>
+length of the key (16, 24 or 32)
+</dd>
+<dt><i>IV</i> (bytearray)</dt>
+<dd>
+initialisation vector
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with mode of operation, length of the input data and
+            the encrypted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, bytes)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+key size is invalid or decrypted data is invalid
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="append_PKCS7_padding" ID="append_PKCS7_padding"></a>
+<h2>append_PKCS7_padding</h2>
+<b>append_PKCS7_padding</b>(<i>b</i>)
+<p>
+    Function to pad the given data to a multiple of 16-bytes by PKCS7 padding.
+</p>
+
+<dl>
+
+<dt><i>b</i> (bytes)</dt>
+<dd>
+data to be padded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+padded data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="decryptData" ID="decryptData"></a>
+<h2>decryptData</h2>
+<b>decryptData</b>(<i>key, data, mode=AESModeOfOperation.ModeOfOperation["CBC"]</i>)
+<p>
+    Module function to decrypt the given data with the given key.
+</p>
+
+<dl>
+
+<dt><i>key</i> (bytes)</dt>
+<dd>
+key to be used for decryption
+</dd>
+<dt><i>data</i> (bytes)</dt>
+<dd>
+data to be decrypted (with initialization vector prepended)
+</dd>
+<dt><i>mode</i> (int)</dt>
+<dd>
+mode of operations (0, 1 or 2)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+decrypted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid key size
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="encryptData" ID="encryptData"></a>
+<h2>encryptData</h2>
+<b>encryptData</b>(<i>key, data, mode=AESModeOfOperation.ModeOfOperation["CBC"]</i>)
+<p>
+    Module function to encrypt the given data with the given key.
+</p>
+
+<dl>
+
+<dt><i>key</i> (bytes)</dt>
+<dd>
+key to be used for encryption
+</dd>
+<dt><i>data</i> (bytes)</dt>
+<dd>
+data to be encrypted
+</dd>
+<dt><i>mode</i> (int)</dt>
+<dd>
+mode of operations (0, 1 or 2)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+encrypted data prepended with the initialization vector
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid key size
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="strip_PKCS7_padding" ID="strip_PKCS7_padding"></a>
+<h2>strip_PKCS7_padding</h2>
+<b>strip_PKCS7_padding</b>(<i>b</i>)
+<p>
+    Function to strip off PKCS7 padding.
+</p>
+
+<dl>
+
+<dt><i>b</i> (bytes)</dt>
+<dd>
+data to be stripped
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+stripped data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+data padding is invalid
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

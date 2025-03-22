@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.GitStashBrowserDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.GitStashBrowserDialog</h1>
+<p>
+Module implementing a dialog to show the stashes.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitStashBrowserDialog">GitStashBrowserDialog</a></td>
+<td>Class implementing a dialog to show the stashes.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitStashBrowserDialog" ID="GitStashBrowserDialog"></a>
+<h2>GitStashBrowserDialog</h2>
+<p>
+    Class implementing a dialog to show the stashes.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_GitStashBrowserDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DateColumn</td></tr>
+<tr><td>FileStatisticsRole</td></tr>
+<tr><td>MessageColumn</td></tr>
+<tr><td>NameColumn</td></tr>
+<tr><td>Separator</td></tr>
+<tr><td>TotalStatisticsRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitStashBrowserDialog.__init__">GitStashBrowserDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__apply">__apply</a></td>
+<td>Private slot to apply the selected stash but keep it.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__branch">__branch</a></td>
+<td>Private slot to create a branch from the selected stash.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__clear">__clear</a></td>
+<td>Private slot to delete all stashes.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__drop">__drop</a></td>
+<td>Private slot to delete the selected stash.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__generateStashEntry">__generateStashEntry</a></td>
+<td>Private method to generate the stash items.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__getStashEntries">__getStashEntries</a></td>
+<td>Private method to retrieve the list of stashes.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__pop">__pop</a></td>
+<td>Private slot to apply the selected stash and delete it.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__procFinished">__procFinished</a></td>
+<td>Private slot connected to the finished signal.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__processBuffer">__processBuffer</a></td>
+<td>Private method to process the buffered output of the git stash command.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__readStderr">__readStderr</a></td>
+<td>Private slot to handle the readyReadStandardError signal.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__readStdout">__readStdout</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__resetUI">__resetUI</a></td>
+<td>Private method to reset the user interface.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__resizeColumnsStashes">__resizeColumnsStashes</a></td>
+<td>Private method to resize the shelve list columns.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.__showPatch">__showPatch</a></td>
+<td>Private slot to show the contents of the selected stash.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.keyPressEvent">keyPressEvent</a></td>
+<td>Protected slot to handle a key press event.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.on_input_returnPressed">on_input_returnPressed</a></td>
+<td>Private slot to handle the press of the return key in the input field.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.on_passwordCheckBox_toggled">on_passwordCheckBox_toggled</a></td>
+<td>Private slot to handle the password checkbox toggled.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the list of shelves.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.on_sendButton_clicked">on_sendButton_clicked</a></td>
+<td>Private slot to send the input to the git process.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.on_stashList_currentItemChanged">on_stashList_currentItemChanged</a></td>
+<td>Private slot called, when the current item of the stash list changes.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.on_stashList_customContextMenuRequested">on_stashList_customContextMenuRequested</a></td>
+<td>Private slot to show the context menu of the stash list.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+<tr>
+<td><a href="#GitStashBrowserDialog.start">start</a></td>
+<td>Public slot to start the git stash command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitStashBrowserDialog.__init__" ID="GitStashBrowserDialog.__init__"></a>
+<h4>GitStashBrowserDialog (Constructor)</h4>
+<b>GitStashBrowserDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Git)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="GitStashBrowserDialog.__apply" ID="GitStashBrowserDialog.__apply"></a>
+<h4>GitStashBrowserDialog.__apply</h4>
+<b>__apply</b>(<i></i>)
+<p>
+        Private slot to apply the selected stash but keep it.
+</p>
+
+<a NAME="GitStashBrowserDialog.__branch" ID="GitStashBrowserDialog.__branch"></a>
+<h4>GitStashBrowserDialog.__branch</h4>
+<b>__branch</b>(<i></i>)
+<p>
+        Private slot to create a branch from the selected stash.
+</p>
+
+<a NAME="GitStashBrowserDialog.__clear" ID="GitStashBrowserDialog.__clear"></a>
+<h4>GitStashBrowserDialog.__clear</h4>
+<b>__clear</b>(<i></i>)
+<p>
+        Private slot to delete all stashes.
+</p>
+
+<a NAME="GitStashBrowserDialog.__drop" ID="GitStashBrowserDialog.__drop"></a>
+<h4>GitStashBrowserDialog.__drop</h4>
+<b>__drop</b>(<i></i>)
+<p>
+        Private slot to delete the selected stash.
+</p>
+
+<a NAME="GitStashBrowserDialog.__finish" ID="GitStashBrowserDialog.__finish"></a>
+<h4>GitStashBrowserDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="GitStashBrowserDialog.__generateStashEntry" ID="GitStashBrowserDialog.__generateStashEntry"></a>
+<h4>GitStashBrowserDialog.__generateStashEntry</h4>
+<b>__generateStashEntry</b>(<i>name, date, message</i>)
+<p>
+        Private method to generate the stash items.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the stash
+</dd>
+<dt><i>date</i> (str)</dt>
+<dd>
+date the stash was created
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+stash message
+</dd>
+</dl>
+<a NAME="GitStashBrowserDialog.__getStashEntries" ID="GitStashBrowserDialog.__getStashEntries"></a>
+<h4>GitStashBrowserDialog.__getStashEntries</h4>
+<b>__getStashEntries</b>(<i></i>)
+<p>
+        Private method to retrieve the list of stashes.
+</p>
+
+<a NAME="GitStashBrowserDialog.__pop" ID="GitStashBrowserDialog.__pop"></a>
+<h4>GitStashBrowserDialog.__pop</h4>
+<b>__pop</b>(<i></i>)
+<p>
+        Private slot to apply the selected stash and delete it.
+</p>
+
+<a NAME="GitStashBrowserDialog.__procFinished" ID="GitStashBrowserDialog.__procFinished"></a>
+<h4>GitStashBrowserDialog.__procFinished</h4>
+<b>__procFinished</b>(<i>_exitCode, _exitStatus</i>)
+<p>
+        Private slot connected to the finished signal.
+</p>
+
+<dl>
+
+<dt><i>_exitCode</i> (int)</dt>
+<dd>
+exit code of the process (unused)
+</dd>
+<dt><i>_exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process (unused)
+</dd>
+</dl>
+<a NAME="GitStashBrowserDialog.__processBuffer" ID="GitStashBrowserDialog.__processBuffer"></a>
+<h4>GitStashBrowserDialog.__processBuffer</h4>
+<b>__processBuffer</b>(<i></i>)
+<p>
+        Private method to process the buffered output of the git stash command.
+</p>
+
+<a NAME="GitStashBrowserDialog.__readStderr" ID="GitStashBrowserDialog.__readStderr"></a>
+<h4>GitStashBrowserDialog.__readStderr</h4>
+<b>__readStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardError signal.
+</p>
+<p>
+        It reads the error output of the process and inserts it into the
+        error pane.
+</p>
+
+<a NAME="GitStashBrowserDialog.__readStdout" ID="GitStashBrowserDialog.__readStdout"></a>
+<h4>GitStashBrowserDialog.__readStdout</h4>
+<b>__readStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal.
+</p>
+<p>
+        It reads the output of the process and inserts it into a buffer.
+</p>
+
+<a NAME="GitStashBrowserDialog.__resetUI" ID="GitStashBrowserDialog.__resetUI"></a>
+<h4>GitStashBrowserDialog.__resetUI</h4>
+<b>__resetUI</b>(<i></i>)
+<p>
+        Private method to reset the user interface.
+</p>
+
+<a NAME="GitStashBrowserDialog.__resizeColumnsStashes" ID="GitStashBrowserDialog.__resizeColumnsStashes"></a>
+<h4>GitStashBrowserDialog.__resizeColumnsStashes</h4>
+<b>__resizeColumnsStashes</b>(<i></i>)
+<p>
+        Private method to resize the shelve list columns.
+</p>
+
+<a NAME="GitStashBrowserDialog.__showPatch" ID="GitStashBrowserDialog.__showPatch"></a>
+<h4>GitStashBrowserDialog.__showPatch</h4>
+<b>__showPatch</b>(<i></i>)
+<p>
+        Private slot to show the contents of the selected stash.
+</p>
+
+<a NAME="GitStashBrowserDialog.closeEvent" ID="GitStashBrowserDialog.closeEvent"></a>
+<h4>GitStashBrowserDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="GitStashBrowserDialog.keyPressEvent" ID="GitStashBrowserDialog.keyPressEvent"></a>
+<h4>GitStashBrowserDialog.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected slot to handle a key press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+the key press event
+</dd>
+</dl>
+<a NAME="GitStashBrowserDialog.on_buttonBox_clicked" ID="GitStashBrowserDialog.on_buttonBox_clicked"></a>
+<h4>GitStashBrowserDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="GitStashBrowserDialog.on_input_returnPressed" ID="GitStashBrowserDialog.on_input_returnPressed"></a>
+<h4>GitStashBrowserDialog.on_input_returnPressed</h4>
+<b>on_input_returnPressed</b>(<i></i>)
+<p>
+        Private slot to handle the press of the return key in the input field.
+</p>
+
+<a NAME="GitStashBrowserDialog.on_passwordCheckBox_toggled" ID="GitStashBrowserDialog.on_passwordCheckBox_toggled"></a>
+<h4>GitStashBrowserDialog.on_passwordCheckBox_toggled</h4>
+<b>on_passwordCheckBox_toggled</b>(<i>checked</i>)
+<p>
+        Private slot to handle the password checkbox toggled.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+flag indicating the status of the check box
+</dd>
+</dl>
+<a NAME="GitStashBrowserDialog.on_refreshButton_clicked" ID="GitStashBrowserDialog.on_refreshButton_clicked"></a>
+<h4>GitStashBrowserDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the list of shelves.
+</p>
+
+<a NAME="GitStashBrowserDialog.on_sendButton_clicked" ID="GitStashBrowserDialog.on_sendButton_clicked"></a>
+<h4>GitStashBrowserDialog.on_sendButton_clicked</h4>
+<b>on_sendButton_clicked</b>(<i></i>)
+<p>
+        Private slot to send the input to the git process.
+</p>
+
+<a NAME="GitStashBrowserDialog.on_stashList_currentItemChanged" ID="GitStashBrowserDialog.on_stashList_currentItemChanged"></a>
+<h4>GitStashBrowserDialog.on_stashList_currentItemChanged</h4>
+<b>on_stashList_currentItemChanged</b>(<i>current, _previous</i>)
+<p>
+        Private slot called, when the current item of the stash list changes.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the new current item
+</dd>
+<dt><i>_previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the old current item (unused)
+</dd>
+</dl>
+<a NAME="GitStashBrowserDialog.on_stashList_customContextMenuRequested" ID="GitStashBrowserDialog.on_stashList_customContextMenuRequested"></a>
+<h4>GitStashBrowserDialog.on_stashList_customContextMenuRequested</h4>
+<b>on_stashList_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu of the stash list.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position of the mouse pointer
+</dd>
+</dl>
+<a NAME="GitStashBrowserDialog.show" ID="GitStashBrowserDialog.show"></a>
+<h4>GitStashBrowserDialog.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<a NAME="GitStashBrowserDialog.start" ID="GitStashBrowserDialog.start"></a>
+<h4>GitStashBrowserDialog.start</h4>
+<b>start</b>(<i>projectDir</i>)
+<p>
+        Public slot to start the git stash command.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

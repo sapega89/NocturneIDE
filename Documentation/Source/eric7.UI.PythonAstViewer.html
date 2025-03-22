@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.PythonAstViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.PythonAstViewer</h1>
+<p>
+Module implementing a widget to visualize the Python AST for some Python
+sources.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PythonAstViewer">PythonAstViewer</a></td>
+<td>Class implementing a widget to visualize the Python AST for some Python sources.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PythonAstViewer" ID="PythonAstViewer"></a>
+<h2>PythonAstViewer</h2>
+<p>
+    Class implementing a widget to visualize the Python AST for some Python
+    sources.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>EndIndexRole</td></tr>
+<tr><td>EndLineRole</td></tr>
+<tr><td>StartIndexRole</td></tr>
+<tr><td>StartLineRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PythonAstViewer.__init__">PythonAstViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__astItemClicked">__astItemClicked</a></td>
+<td>Private slot handling a user click on an AST node item.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__astViewerStateChanged">__astViewerStateChanged</a></td>
+<td>Private slot to toggle the display of the AST viewer.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__clearSelection">__clearSelection</a></td>
+<td>Private method to clear all selected items.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__createErrorItem">__createErrorItem</a></td>
+<td>Private method to create a top level error item.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__editorChanged">__editorChanged</a></td>
+<td>Private slot to handle a change of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__editorDoubleClicked">__editorDoubleClicked</a></td>
+<td>Private slot to handle a mouse button double click in the editor.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__editorLanguageChanged">__editorLanguageChanged</a></td>
+<td>Private slot to handle a change of the editor language.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__editorSaved">__editorSaved</a></td>
+<td>Private slot to reload the AST after the connected editor was saved.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__findClosestContainingItem">__findClosestContainingItem</a></td>
+<td>Private method to search for the tree item that contains a range closest.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__findClosestContainingNode">__findClosestContainingNode</a></td>
+<td>Private method to search for the AST node that contains a range closest.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__grabFocus">__grabFocus</a></td>
+<td>Private method to grab the input focus.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__lastEditorClosed">__lastEditorClosed</a></td>
+<td>Private slot to handle the last editor closed signal of the view manager.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__loadAST">__loadAST</a></td>
+<td>Private method to generate the AST from the source of the current editor and visualize it.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__markTextRanges">__markTextRanges</a></td>
+<td>Private method to modify the AST nodes with end_lineno and end_col_offset information.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__populateNode">__populateNode</a></td>
+<td>Private method to populate the tree view with a node.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__rangeContainsSmaller">__rangeContainsSmaller</a></td>
+<td>Private method to check, if second is contained in first.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__rangeContainsSmallerOrEqual">__rangeContainsSmallerOrEqual</a></td>
+<td>Private method to check, if second is contained in or equal to first.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the columns to suitable values.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.__selectItemForEditorSelection">__selectItemForEditorSelection</a></td>
+<td>Private slot to select the item corresponding to an editor selection.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.hide">hide</a></td>
+<td>Public slot to hide the AST viewer.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot handling changes of the AST viewer settings.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.resizeEvent">resizeEvent</a></td>
+<td>Protected method to handle resize events.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.show">show</a></td>
+<td>Public slot to show the AST viewer.</td>
+</tr>
+<tr>
+<td><a href="#PythonAstViewer.shutdown">shutdown</a></td>
+<td>Public method to perform shutdown actions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PythonAstViewer.__init__" ID="PythonAstViewer.__init__"></a>
+<h4>PythonAstViewer (Constructor)</h4>
+<b>PythonAstViewer</b>(<i>viewmanager, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>viewmanager</i> (ViewManager)</dt>
+<dd>
+reference to the viewmanager object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__astItemClicked" ID="PythonAstViewer.__astItemClicked"></a>
+<h4>PythonAstViewer.__astItemClicked</h4>
+<b>__astItemClicked</b>(<i>itm, _column</i>)
+<p>
+        Private slot handling a user click on an AST node item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the clicked item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column number of the click (unused)
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__astViewerStateChanged" ID="PythonAstViewer.__astViewerStateChanged"></a>
+<h4>PythonAstViewer.__astViewerStateChanged</h4>
+<b>__astViewerStateChanged</b>(<i>on</i>)
+<p>
+        Private slot to toggle the display of the AST viewer.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating to show the AST
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__clearSelection" ID="PythonAstViewer.__clearSelection"></a>
+<h4>PythonAstViewer.__clearSelection</h4>
+<b>__clearSelection</b>(<i></i>)
+<p>
+        Private method to clear all selected items.
+</p>
+
+<a NAME="PythonAstViewer.__createErrorItem" ID="PythonAstViewer.__createErrorItem"></a>
+<h4>PythonAstViewer.__createErrorItem</h4>
+<b>__createErrorItem</b>(<i>error</i>)
+<p>
+        Private method to create a top level error item.
+</p>
+
+<dl>
+
+<dt><i>error</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__editorChanged" ID="PythonAstViewer.__editorChanged"></a>
+<h4>PythonAstViewer.__editorChanged</h4>
+<b>__editorChanged</b>(<i>editor</i>)
+<p>
+        Private slot to handle a change of the current editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the current editor
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__editorDoubleClicked" ID="PythonAstViewer.__editorDoubleClicked"></a>
+<h4>PythonAstViewer.__editorDoubleClicked</h4>
+<b>__editorDoubleClicked</b>(<i>editor, _pos, buttons</i>)
+<p>
+        Private slot to handle a mouse button double click in the editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor, that emitted the signal
+</dd>
+<dt><i>_pos</i> (QPoint)</dt>
+<dd>
+position of the double click (unused)
+</dd>
+<dt><i>buttons</i> (Qt.MouseButton)</dt>
+<dd>
+mouse buttons that were double clicked
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__editorLanguageChanged" ID="PythonAstViewer.__editorLanguageChanged"></a>
+<h4>PythonAstViewer.__editorLanguageChanged</h4>
+<b>__editorLanguageChanged</b>(<i>editor</i>)
+<p>
+        Private slot to handle a change of the editor language.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor which changed language
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__editorSaved" ID="PythonAstViewer.__editorSaved"></a>
+<h4>PythonAstViewer.__editorSaved</h4>
+<b>__editorSaved</b>(<i>editor</i>)
+<p>
+        Private slot to reload the AST after the connected editor was saved.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor that performed a save action
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__findClosestContainingItem" ID="PythonAstViewer.__findClosestContainingItem"></a>
+<h4>PythonAstViewer.__findClosestContainingItem</h4>
+<b>__findClosestContainingItem</b>(<i>itm, textRange</i>)
+<p>
+        Private method to search for the tree item that contains a range
+        closest.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+tree item to start searching at
+</dd>
+<dt><i>textRange</i> (tuple of (int, int, int, int))</dt>
+<dd>
+tuple giving the start and end positions
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+best matching tree item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__findClosestContainingNode" ID="PythonAstViewer.__findClosestContainingNode"></a>
+<h4>PythonAstViewer.__findClosestContainingNode</h4>
+<b>__findClosestContainingNode</b>(<i>node, textRange</i>)
+<p>
+        Private method to search for the AST node that contains a range
+        closest.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+AST node to start searching at
+</dd>
+<dt><i>textRange</i> (tuple of (int, int, int, int))</dt>
+<dd>
+tuple giving the start and end positions
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+best matching node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.AST
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__grabFocus" ID="PythonAstViewer.__grabFocus"></a>
+<h4>PythonAstViewer.__grabFocus</h4>
+<b>__grabFocus</b>(<i></i>)
+<p>
+        Private method to grab the input focus.
+</p>
+
+<a NAME="PythonAstViewer.__lastEditorClosed" ID="PythonAstViewer.__lastEditorClosed"></a>
+<h4>PythonAstViewer.__lastEditorClosed</h4>
+<b>__lastEditorClosed</b>(<i></i>)
+<p>
+        Private slot to handle the last editor closed signal of the view
+        manager.
+</p>
+
+<a NAME="PythonAstViewer.__loadAST" ID="PythonAstViewer.__loadAST"></a>
+<h4>PythonAstViewer.__loadAST</h4>
+<b>__loadAST</b>(<i></i>)
+<p>
+        Private method to generate the AST from the source of the current
+        editor and visualize it.
+</p>
+
+<a NAME="PythonAstViewer.__markTextRanges" ID="PythonAstViewer.__markTextRanges"></a>
+<h4>PythonAstViewer.__markTextRanges</h4>
+<b>__markTextRanges</b>(<i>tree, source</i>)
+<p>
+        Private method to modify the AST nodes with end_lineno and
+        end_col_offset information.
+</p>
+<p>
+        Note: The modifications are only done for nodes containing lineno and
+        col_offset attributes.
+</p>
+
+<dl>
+
+<dt><i>tree</i> (ast.AST)</dt>
+<dd>
+reference to the AST to be modified
+</dd>
+<dt><i>source</i> (str)</dt>
+<dd>
+source code the AST was created from
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__populateNode" ID="PythonAstViewer.__populateNode"></a>
+<h4>PythonAstViewer.__populateNode</h4>
+<b>__populateNode</b>(<i>name, nodeOrFields, parent</i>)
+<p>
+        Private method to populate the tree view with a node.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the node
+</dd>
+<dt><i>nodeOrFields</i> (ast.AST or list)</dt>
+<dd>
+reference to the node or a list node fields
+</dd>
+<dt><i>parent</i> (QTreeWidget or QTreeWidgetItem)</dt>
+<dd>
+reference to the parent item
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__rangeContainsSmaller" ID="PythonAstViewer.__rangeContainsSmaller"></a>
+<h4>PythonAstViewer.__rangeContainsSmaller</h4>
+<b>__rangeContainsSmaller</b>(<i>first, second</i>)
+<p>
+        Private method to check, if second is contained in first.
+</p>
+
+<dl>
+
+<dt><i>first</i> (tuple of (int, int, int, int))</dt>
+<dd>
+text range to check against
+</dd>
+<dt><i>second</i> (tuple of (int, int, int, int))</dt>
+<dd>
+text range to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating second is contained in first
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__rangeContainsSmallerOrEqual" ID="PythonAstViewer.__rangeContainsSmallerOrEqual"></a>
+<h4>PythonAstViewer.__rangeContainsSmallerOrEqual</h4>
+<b>__rangeContainsSmallerOrEqual</b>(<i>first, second</i>)
+<p>
+        Private method to check, if second is contained in or equal to first.
+</p>
+
+<dl>
+
+<dt><i>first</i> (tuple of (int, int, int, int))</dt>
+<dd>
+text range to check against
+</dd>
+<dt><i>second</i> (tuple of (int, int, int, int))</dt>
+<dd>
+text range to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating second is contained in or equal to first
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PythonAstViewer.__resizeColumns" ID="PythonAstViewer.__resizeColumns"></a>
+<h4>PythonAstViewer.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the columns to suitable values.
+</p>
+
+<a NAME="PythonAstViewer.__selectItemForEditorSelection" ID="PythonAstViewer.__selectItemForEditorSelection"></a>
+<h4>PythonAstViewer.__selectItemForEditorSelection</h4>
+<b>__selectItemForEditorSelection</b>(<i></i>)
+<p>
+        Private slot to select the item corresponding to an editor selection.
+</p>
+
+<a NAME="PythonAstViewer.hide" ID="PythonAstViewer.hide"></a>
+<h4>PythonAstViewer.hide</h4>
+<b>hide</b>(<i></i>)
+<p>
+        Public slot to hide the AST viewer.
+</p>
+
+<a NAME="PythonAstViewer.preferencesChanged" ID="PythonAstViewer.preferencesChanged"></a>
+<h4>PythonAstViewer.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot handling changes of the AST viewer settings.
+</p>
+
+<a NAME="PythonAstViewer.resizeEvent" ID="PythonAstViewer.resizeEvent"></a>
+<h4>PythonAstViewer.resizeEvent</h4>
+<b>resizeEvent</b>(<i>_evt</i>)
+<p>
+        Protected method to handle resize events.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QResizeEvent)</dt>
+<dd>
+resize event (unused)
+</dd>
+</dl>
+<a NAME="PythonAstViewer.show" ID="PythonAstViewer.show"></a>
+<h4>PythonAstViewer.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the AST viewer.
+</p>
+
+<a NAME="PythonAstViewer.shutdown" ID="PythonAstViewer.shutdown"></a>
+<h4>PythonAstViewer.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to perform shutdown actions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

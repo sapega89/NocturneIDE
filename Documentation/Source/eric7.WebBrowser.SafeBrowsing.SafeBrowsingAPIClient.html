@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.SafeBrowsing.SafeBrowsingAPIClient</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.SafeBrowsing.SafeBrowsingAPIClient</h1>
+<p>
+Module implementing the low level interface for Google Safe Browsing.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingAPIClient">SafeBrowsingAPIClient</a></td>
+<td>Class implementing the low level interface for Google Safe Browsing.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SafeBrowsingAPIClient" ID="SafeBrowsingAPIClient"></a>
+<h2>SafeBrowsingAPIClient</h2>
+<p>
+    Class implementing the low level interface for Google Safe Browsing.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>networkError(str)</dt>
+<dd>
+emitted to indicate a network error
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ClientId</td></tr>
+<tr><td>ClientVersion</td></tr>
+<tr><td>GsbUrlTemplate</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.definedPlatformTypes">definedPlatformTypes</a></td>
+<td>Class method to get all platform types defined in API v4.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.definedThreatEntryTypes">definedThreatEntryTypes</a></td>
+<td>Class method to get all threat entry types defined in API v4.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.definedThreatTypes">definedThreatTypes</a></td>
+<td>Class method to get all threat types defined in API v4.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.getPlatformString">getPlatformString</a></td>
+<td>Class method to get the platform string for a given platform type.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.getPlatformTypes">getPlatformTypes</a></td>
+<td>Class method to get the platform types for a given platform.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.getThreatEntryString">getThreatEntryString</a></td>
+<td>Class method to get the threat entry string.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.getThreatMessage">getThreatMessage</a></td>
+<td>Class method to get a warning message for the given threat type.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.getThreatType">getThreatType</a></td>
+<td>Class method to get a display string for a given threat type.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.__init__">SafeBrowsingAPIClient</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.__extractData">__extractData</a></td>
+<td>Private method to extract the data of a network reply.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.__setWaitDuration">__setWaitDuration</a></td>
+<td>Private method to set the minimum wait duration.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.fairUseDelayExpired">fairUseDelayExpired</a></td>
+<td>Public method to check, if the fair use wait period has expired.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.getFairUseDelayExpirationDateTime">getFairUseDelayExpirationDateTime</a></td>
+<td>Public method to get the date and time the fair use delay will expire.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.getFullHashes">getFullHashes</a></td>
+<td>Public method to find full hashes matching hash prefixes.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.getThreatLists">getThreatLists</a></td>
+<td>Public method to retrieve all available threat lists.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.getThreatsUpdate">getThreatsUpdate</a></td>
+<td>Public method to fetch hash prefix updates for the given threat list.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.lookupUrl">lookupUrl</a></td>
+<td>Public method to send an URL to Google for checking.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingAPIClient.setApiKey">setApiKey</a></td>
+<td>Public method to set the API key.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SafeBrowsingAPIClient.definedPlatformTypes" ID="SafeBrowsingAPIClient.definedPlatformTypes"></a>
+<h4>SafeBrowsingAPIClient.definedPlatformTypes (class method)</h4>
+<b>definedPlatformTypes</b>(<i></i>)
+<p>
+        Class method to get all platform types defined in API v4.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all defined platform types
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.definedThreatEntryTypes" ID="SafeBrowsingAPIClient.definedThreatEntryTypes"></a>
+<h4>SafeBrowsingAPIClient.definedThreatEntryTypes (class method)</h4>
+<b>definedThreatEntryTypes</b>(<i></i>)
+<p>
+        Class method to get all threat entry types defined in API v4.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all defined threat entry types
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.definedThreatTypes" ID="SafeBrowsingAPIClient.definedThreatTypes"></a>
+<h4>SafeBrowsingAPIClient.definedThreatTypes (class method)</h4>
+<b>definedThreatTypes</b>(<i></i>)
+<p>
+        Class method to get all threat types defined in API v4.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of defined threat types
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.getPlatformString" ID="SafeBrowsingAPIClient.getPlatformString"></a>
+<h4>SafeBrowsingAPIClient.getPlatformString (class method)</h4>
+<b>getPlatformString</b>(<i>platformType</i>)
+<p>
+        Class method to get the platform string for a given platform type.
+</p>
+
+<dl>
+
+<dt><i>platformType</i> (str)</dt>
+<dd>
+platform type as defined in the v4 API
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+platform string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.getPlatformTypes" ID="SafeBrowsingAPIClient.getPlatformTypes"></a>
+<h4>SafeBrowsingAPIClient.getPlatformTypes (class method)</h4>
+<b>getPlatformTypes</b>(<i>platform</i>)
+<p>
+        Class method to get the platform types for a given platform.
+</p>
+
+<dl>
+
+<dt><i>platform</i> (str (one of 'linux', 'windows', 'macos'))</dt>
+<dd>
+platform string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of platform types as defined in the v4 API for the
+            given platform
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid platform string
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.getThreatEntryString" ID="SafeBrowsingAPIClient.getThreatEntryString"></a>
+<h4>SafeBrowsingAPIClient.getThreatEntryString (class method)</h4>
+<b>getThreatEntryString</b>(<i>threatEntry</i>)
+<p>
+        Class method to get the threat entry string.
+</p>
+
+<dl>
+
+<dt><i>threatEntry</i> (str)</dt>
+<dd>
+threat entry type as defined in the v4 API
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+threat entry string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.getThreatMessage" ID="SafeBrowsingAPIClient.getThreatMessage"></a>
+<h4>SafeBrowsingAPIClient.getThreatMessage (class method)</h4>
+<b>getThreatMessage</b>(<i>threatType</i>)
+<p>
+        Class method to get a warning message for the given threat type.
+</p>
+
+<dl>
+
+<dt><i>threatType</i> (str)</dt>
+<dd>
+threat type to get the message for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+threat message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.getThreatType" ID="SafeBrowsingAPIClient.getThreatType"></a>
+<h4>SafeBrowsingAPIClient.getThreatType (class method)</h4>
+<b>getThreatType</b>(<i>threatType</i>)
+<p>
+        Class method to get a display string for a given threat type.
+</p>
+
+<dl>
+
+<dt><i>threatType</i> (str)</dt>
+<dd>
+threat type to get display string for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+display string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.__init__" ID="SafeBrowsingAPIClient.__init__"></a>
+<h4>SafeBrowsingAPIClient (Constructor)</h4>
+<b>SafeBrowsingAPIClient</b>(<i>apiKey, fairUse=True, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>apiKey</i> (str)</dt>
+<dd>
+API key to be used
+</dd>
+<dt><i>fairUse</i> (bool)</dt>
+<dd>
+flag indicating to follow the fair use policy
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.__extractData" ID="SafeBrowsingAPIClient.__extractData"></a>
+<h4>SafeBrowsingAPIClient.__extractData</h4>
+<b>__extractData</b>(<i>reply</i>)
+<p>
+        Private method to extract the data of a network reply.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+extracted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list or dict
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.__setWaitDuration" ID="SafeBrowsingAPIClient.__setWaitDuration"></a>
+<h4>SafeBrowsingAPIClient.__setWaitDuration</h4>
+<b>__setWaitDuration</b>(<i>minimumWaitDuration</i>)
+<p>
+        Private method to set the minimum wait duration.
+</p>
+
+<dl>
+
+<dt><i>minimumWaitDuration</i> (str)</dt>
+<dd>
+duration to be set
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.fairUseDelayExpired" ID="SafeBrowsingAPIClient.fairUseDelayExpired"></a>
+<h4>SafeBrowsingAPIClient.fairUseDelayExpired</h4>
+<b>fairUseDelayExpired</b>(<i></i>)
+<p>
+        Public method to check, if the fair use wait period has expired.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating expiration
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.getFairUseDelayExpirationDateTime" ID="SafeBrowsingAPIClient.getFairUseDelayExpirationDateTime"></a>
+<h4>SafeBrowsingAPIClient.getFairUseDelayExpirationDateTime</h4>
+<b>getFairUseDelayExpirationDateTime</b>(<i></i>)
+<p>
+        Public method to get the date and time the fair use delay will expire.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+fair use delay expiration date and time
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QDateTime
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.getFullHashes" ID="SafeBrowsingAPIClient.getFullHashes"></a>
+<h4>SafeBrowsingAPIClient.getFullHashes</h4>
+<b>getFullHashes</b>(<i>prefixes, clientState</i>)
+<p>
+        Public method to find full hashes matching hash prefixes.
+</p>
+
+<dl>
+
+<dt><i>prefixes</i> (list of bytes)</dt>
+<dd>
+list of hash prefixes to find
+</dd>
+<dt><i>clientState</i> (dict)</dt>
+<dd>
+dictionary of client states with keys like
+            (threatType, platformType, threatEntryType)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the list of found hashes and the
+            negative cache duration
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.getThreatLists" ID="SafeBrowsingAPIClient.getThreatLists"></a>
+<h4>SafeBrowsingAPIClient.getThreatLists</h4>
+<b>getThreatLists</b>(<i></i>)
+<p>
+        Public method to retrieve all available threat lists.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing list of threat lists and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of dict containing 'threatType', 'platformType'
+            and 'threatEntryType', bool)
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.getThreatsUpdate" ID="SafeBrowsingAPIClient.getThreatsUpdate"></a>
+<h4>SafeBrowsingAPIClient.getThreatsUpdate</h4>
+<b>getThreatsUpdate</b>(<i>clientStates</i>)
+<p>
+        Public method to fetch hash prefix updates for the given threat list.
+</p>
+
+<dl>
+
+<dt><i>clientStates</i> (dict)</dt>
+<dd>
+dictionary of client states with keys like
+            (threatType, platformType, threatEntryType)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the list of threat updates and an error
+            message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of dict, bool)
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.lookupUrl" ID="SafeBrowsingAPIClient.lookupUrl"></a>
+<h4>SafeBrowsingAPIClient.lookupUrl</h4>
+<b>lookupUrl</b>(<i>url, platforms</i>)
+<p>
+        Public method to send an URL to Google for checking.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be checked
+</dd>
+<dt><i>platforms</i> (list of str)</dt>
+<dd>
+list of platform types to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the list of threat list info objects and
+            an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of ThreatList, str)
+</dd>
+</dl>
+<a NAME="SafeBrowsingAPIClient.setApiKey" ID="SafeBrowsingAPIClient.setApiKey"></a>
+<h4>SafeBrowsingAPIClient.setApiKey</h4>
+<b>setApiKey</b>(<i>apiKey</i>)
+<p>
+        Public method to set the API key.
+</p>
+
+<dl>
+
+<dt><i>apiKey</i> (str)</dt>
+<dd>
+API key to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

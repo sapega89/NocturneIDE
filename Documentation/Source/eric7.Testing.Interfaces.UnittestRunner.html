@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Testing.Interfaces.UnittestRunner</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Testing.Interfaces.UnittestRunner</h1>
+<p>
+Module implementing the test runner script for the 'unittest' framework.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>command</td></tr>
+<tr><td>versions</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricTestResult">EricTestResult</a></td>
+<td>Class implementing a TestResult derivative to send the data via a network connection.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_assembleTestCasesList">_assembleTestCasesList</a></td>
+<td>Protected function to assemble a list of test cases included in a test suite.</td>
+</tr>
+<tr>
+<td><a href="#runtest">runtest</a></td>
+<td>Function to run and/or discover the tests.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricTestResult" ID="EricTestResult"></a>
+<h2>EricTestResult</h2>
+<p>
+    Class implementing a TestResult derivative to send the data via a network
+    connection.
+</p>
+
+<h3>Derived from</h3>
+unittest.TestResult
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricTestResult.__init__">EricTestResult</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.addError">addError</a></td>
+<td>Public method called if a test errored.</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.addExpectedFailure">addExpectedFailure</a></td>
+<td>Public method called if a test failed expected.</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.addFailure">addFailure</a></td>
+<td>Public method called if a test failed.</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.addSkip">addSkip</a></td>
+<td>Public method called if a test was skipped.</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.addSubTest">addSubTest</a></td>
+<td>Public method called for each subtest to record its result.</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.addUnexpectedSuccess">addUnexpectedSuccess</a></td>
+<td>Public method called if a test succeeded expectedly.</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.startTest">startTest</a></td>
+<td>Public method called at the start of a test.</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.startTestRun">startTestRun</a></td>
+<td>Public method called once before any tests are executed.</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.stopTest">stopTest</a></td>
+<td>Public method called at the end of a test.</td>
+</tr>
+<tr>
+<td><a href="#EricTestResult.stopTestRun">stopTestRun</a></td>
+<td>Public method called once after all tests are executed.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricTestResult.__init__" ID="EricTestResult.__init__"></a>
+<h4>EricTestResult (Constructor)</h4>
+<b>EricTestResult</b>(<i>writer, failfast</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>writer</i> (EricJsonWriter)</dt>
+<dd>
+reference to the object to write the results to
+</dd>
+<dt><i>failfast</i> (bool)</dt>
+<dd>
+flag indicating to stop at the first error
+</dd>
+</dl>
+<a NAME="EricTestResult.addError" ID="EricTestResult.addError"></a>
+<h4>EricTestResult.addError</h4>
+<b>addError</b>(<i>test, err</i>)
+<p>
+        Public method called if a test errored.
+</p>
+
+<dl>
+
+<dt><i>test</i> (TestCase)</dt>
+<dd>
+reference to the test object
+</dd>
+<dt><i>err</i> (tuple)</dt>
+<dd>
+tuple containing the exception data like sys.exc_info
+            (exception type, exception instance, traceback)
+</dd>
+</dl>
+<a NAME="EricTestResult.addExpectedFailure" ID="EricTestResult.addExpectedFailure"></a>
+<h4>EricTestResult.addExpectedFailure</h4>
+<b>addExpectedFailure</b>(<i>test, err</i>)
+<p>
+        Public method called if a test failed expected.
+</p>
+
+<dl>
+
+<dt><i>test</i> (TestCase)</dt>
+<dd>
+reference to the test object
+</dd>
+<dt><i>err</i> (tuple)</dt>
+<dd>
+tuple containing the exception data like sys.exc_info
+            (exception type, exception instance, traceback)
+</dd>
+</dl>
+<a NAME="EricTestResult.addFailure" ID="EricTestResult.addFailure"></a>
+<h4>EricTestResult.addFailure</h4>
+<b>addFailure</b>(<i>test, err</i>)
+<p>
+        Public method called if a test failed.
+</p>
+
+<dl>
+
+<dt><i>test</i> (TestCase)</dt>
+<dd>
+reference to the test object
+</dd>
+<dt><i>err</i> (tuple)</dt>
+<dd>
+tuple containing the exception data like sys.exc_info
+            (exception type, exception instance, traceback)
+</dd>
+</dl>
+<a NAME="EricTestResult.addSkip" ID="EricTestResult.addSkip"></a>
+<h4>EricTestResult.addSkip</h4>
+<b>addSkip</b>(<i>test, reason</i>)
+<p>
+        Public method called if a test was skipped.
+</p>
+
+<dl>
+
+<dt><i>test</i> (TestCase)</dt>
+<dd>
+reference to the test object
+</dd>
+<dt><i>reason</i> (str)</dt>
+<dd>
+reason for skipping the test
+</dd>
+</dl>
+<a NAME="EricTestResult.addSubTest" ID="EricTestResult.addSubTest"></a>
+<h4>EricTestResult.addSubTest</h4>
+<b>addSubTest</b>(<i>test, subtest, err</i>)
+<p>
+        Public method called for each subtest to record its result.
+</p>
+
+<dl>
+
+<dt><i>test</i> (TestCase)</dt>
+<dd>
+reference to the test object
+</dd>
+<dt><i>subtest</i> (TestCase)</dt>
+<dd>
+reference to the subtest object
+</dd>
+<dt><i>err</i> (tuple)</dt>
+<dd>
+tuple containing the exception data like sys.exc_info
+            (exception type, exception instance, traceback)
+</dd>
+</dl>
+<a NAME="EricTestResult.addUnexpectedSuccess" ID="EricTestResult.addUnexpectedSuccess"></a>
+<h4>EricTestResult.addUnexpectedSuccess</h4>
+<b>addUnexpectedSuccess</b>(<i>test</i>)
+<p>
+        Public method called if a test succeeded expectedly.
+</p>
+
+<dl>
+
+<dt><i>test</i> (TestCase)</dt>
+<dd>
+reference to the test object
+</dd>
+</dl>
+<a NAME="EricTestResult.startTest" ID="EricTestResult.startTest"></a>
+<h4>EricTestResult.startTest</h4>
+<b>startTest</b>(<i>test</i>)
+<p>
+        Public method called at the start of a test.
+</p>
+
+<dl>
+
+<dt><i>test</i> (TestCase)</dt>
+<dd>
+reference to the test object
+</dd>
+</dl>
+<a NAME="EricTestResult.startTestRun" ID="EricTestResult.startTestRun"></a>
+<h4>EricTestResult.startTestRun</h4>
+<b>startTestRun</b>(<i></i>)
+<p>
+        Public method called once before any tests are executed.
+</p>
+
+<a NAME="EricTestResult.stopTest" ID="EricTestResult.stopTest"></a>
+<h4>EricTestResult.stopTest</h4>
+<b>stopTest</b>(<i>test</i>)
+<p>
+        Public method called at the end of a test.
+</p>
+
+<dl>
+
+<dt><i>test</i> (TestCase)</dt>
+<dd>
+reference to the test object
+</dd>
+</dl>
+<a NAME="EricTestResult.stopTestRun" ID="EricTestResult.stopTestRun"></a>
+<h4>EricTestResult.stopTestRun</h4>
+<b>stopTestRun</b>(<i></i>)
+<p>
+        Public method called once after all tests are executed.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_assembleTestCasesList" ID="_assembleTestCasesList"></a>
+<h2>_assembleTestCasesList</h2>
+<b>_assembleTestCasesList</b>(<i>suite, start</i>)
+<p>
+    Protected function to assemble a list of test cases included in a test
+    suite.
+</p>
+
+<dl>
+
+<dt><i>suite</i> (unittest.TestSuite)</dt>
+<dd>
+test suite to be inspected
+</dd>
+<dt><i>start</i> (str)</dt>
+<dd>
+name of directory discovery was started at
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the test case ID, the string representation,
+        a short description and the path of the test file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, str, str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="runtest" ID="runtest"></a>
+<h2>runtest</h2>
+<b>runtest</b>(<i>argv, discoverOnly=False</i>)
+<p>
+    Function to run and/or discover the tests.
+</p>
+
+<dl>
+
+<dt><i>argv</i> (list of str)</dt>
+<dd>
+list of command line parameters.
+</dd>
+<dt><i>discoverOnly</i> (bool (optional))</dt>
+<dd>
+flag indicating to just discover the available test cases
+        (defaults to False)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

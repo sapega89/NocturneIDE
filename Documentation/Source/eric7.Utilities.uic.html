@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Utilities.uic</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Utilities.uic</h1>
+<p>
+Module implementing a function to compile all user interface files of a
+directory or directory tree.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#__compileUi">__compileUi</a></td>
+<td>Function to create a Python module from a Qt Designer .ui file.</td>
+</tr>
+<tr>
+<td><a href="#__pyName">__pyName</a></td>
+<td>Local function to create the Python source file name for the compiled .ui file.</td>
+</tr>
+<tr>
+<td><a href="#compileOneUi">compileOneUi</a></td>
+<td>Function to compile a single form file to Python code.</td>
+</tr>
+<tr>
+<td><a href="#compileUiFiles">compileUiFiles</a></td>
+<td>Module function to compile the .ui files of a directory tree to Python sources.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="__compileUi" ID="__compileUi"></a>
+<h2>__compileUi</h2>
+<b>__compileUi</b>(<i>uifile, pyfile, execute=False, indent=4, uiheadername=""</i>)
+<p>
+    Function to create a Python module from a Qt Designer .ui file.
+</p>
+
+<dl>
+
+<dt><i>uifile</i> (str or file)</dt>
+<dd>
+file name or file-like object containing the .ui file
+</dd>
+<dt><i>pyfile</i> (file)</dt>
+<dd>
+file-like object to which the Python code will be written to
+</dd>
+<dt><i>execute</i> (bool (optional))</dt>
+<dd>
+flag indicating to generate extra Python code that allows the
+        code to be run as a standalone application (defaults to False)
+</dd>
+<dt><i>indent</i> (int (optional))</dt>
+<dd>
+indentation width using spaces. If it is 0 then a tab is used.
+        (defaults to 4)
+</dd>
+<dt><i>uiheadername</i> (str ((optional))</dt>
+<dd>
+UI file name to be placed in the header (defaults to "")
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="__pyName" ID="__pyName"></a>
+<h2>__pyName</h2>
+<b>__pyName</b>(<i>py_dir, py_file</i>)
+<p>
+    Local function to create the Python source file name for the compiled
+    .ui file.
+</p>
+
+<dl>
+
+<dt><i>py_dir</i> (str)</dt>
+<dd>
+suggested name of the directory
+</dd>
+<dt><i>py_file</i> (str)</dt>
+<dd>
+suggested name for the compiled source file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of directory name and source file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="compileOneUi" ID="compileOneUi"></a>
+<h2>compileOneUi</h2>
+<b>compileOneUi</b>(<i>ui_path, mapFunc=None, execute=False, indent=4, uiheadername=""</i>)
+<p>
+    Function to compile a single form file to Python code.
+</p>
+
+<dl>
+
+<dt><i>ui_path</i> (str)</dt>
+<dd>
+path of the Qt form file
+</dd>
+<dt><i>mapFunc</i> (func (optional))</dt>
+<dd>
+function to change directory and/or name of the resulting Python file
+        (defaults to None)
+</dd>
+<dt><i>execute</i> (bool (optional))</dt>
+<dd>
+flag indicating to generate code to execute the form in standalone
+        mode (defaults to False)
+</dd>
+<dt><i>indent</i> (int (optional))</dt>
+<dd>
+indentation width using spaces (defaults to 4)
+</dd>
+<dt><i>uiheadername</i> (str ((optional))</dt>
+<dd>
+UI file name to be placed in the header (defaults to "")
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="compileUiFiles" ID="compileUiFiles"></a>
+<h2>compileUiFiles</h2>
+<b>compileUiFiles</b>(<i>directory, recurse=False</i>)
+<p>
+    Module function to compile the .ui files of a directory tree to Python
+    sources.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+name of a directory to scan for .ui files
+</dd>
+<dt><i>recurse</i> (boolean))</dt>
+<dd>
+flag indicating to recurse into subdirectories
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

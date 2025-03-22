@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MipLocalInstaller</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MipLocalInstaller</h1>
+<p>
+Module implementing a MicroPython package installer for devices missing the onboard
+'mip' package.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>MicroPythonPackageIndex</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MipLocalInstaller">MipLocalInstaller</a></td>
+<td>Class implementing a MicroPython package installer ('mip' replacement).</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MipLocalInstaller" ID="MipLocalInstaller"></a>
+<h2>MipLocalInstaller</h2>
+<p>
+    Class implementing a MicroPython package installer ('mip' replacement).
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MipLocalInstaller.__init__">MipLocalInstaller</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MipLocalInstaller.__getFile">__getFile</a></td>
+<td>Private method to download the requested file.</td>
+</tr>
+<tr>
+<td><a href="#MipLocalInstaller.__installFile">__installFile</a></td>
+<td>Private method to download a file and copy the data to the given target directory.</td>
+</tr>
+<tr>
+<td><a href="#MipLocalInstaller.__installJson">__installJson</a></td>
+<td>Private method to install a package and its dependencies as defined by the package JSON file.</td>
+</tr>
+<tr>
+<td><a href="#MipLocalInstaller.__rewriteUrl">__rewriteUrl</a></td>
+<td>Private method to rewrite the given URL in case of a Github URL.</td>
+</tr>
+<tr>
+<td><a href="#MipLocalInstaller.errorString">errorString</a></td>
+<td>Public method to get the last error as a string.</td>
+</tr>
+<tr>
+<td><a href="#MipLocalInstaller.installPackage">installPackage</a></td>
+<td>Public method to install a MicroPython package.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MipLocalInstaller.__init__" ID="MipLocalInstaller.__init__"></a>
+<h4>MipLocalInstaller (Constructor)</h4>
+<b>MipLocalInstaller</b>(<i>device, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>device</i> (BaseDevice)</dt>
+<dd>
+reference to the connected device
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="MipLocalInstaller.__getFile" ID="MipLocalInstaller.__getFile"></a>
+<h4>MipLocalInstaller.__getFile</h4>
+<b>__getFile</b>(<i>fileUrl</i>)
+<p>
+        Private method to download the requested file.
+</p>
+
+<dl>
+
+<dt><i>fileUrl</i> (QUrl)</dt>
+<dd>
+URL of the requested file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+package data or an error message and a success flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bytes or str, bool)
+</dd>
+</dl>
+<a NAME="MipLocalInstaller.__installFile" ID="MipLocalInstaller.__installFile"></a>
+<h4>MipLocalInstaller.__installFile</h4>
+<b>__installFile</b>(<i>fileUrl, targetDir, targetFile</i>)
+<p>
+        Private method to download a file and copy the data to the given target
+        directory.
+</p>
+
+<dl>
+
+<dt><i>fileUrl</i> (str)</dt>
+<dd>
+URL of the file to be downloaded and installed
+</dd>
+<dt><i>targetDir</i> (str)</dt>
+<dd>
+target directory on the device
+</dd>
+<dt><i>targetFile</i> (str)</dt>
+<dd>
+file name on the device
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MipLocalInstaller.__installJson" ID="MipLocalInstaller.__installJson"></a>
+<h4>MipLocalInstaller.__installJson</h4>
+<b>__installJson</b>(<i>packageJson, version, mpy, target, index</i>)
+<p>
+        Private method to install a package and its dependencies as defined by the
+        package JSON file.
+</p>
+
+<dl>
+
+<dt><i>packageJson</i> (dict)</dt>
+<dd>
+dictionary containing the package data
+</dd>
+<dt><i>version</i> (str)</dt>
+<dd>
+package version
+</dd>
+<dt><i>mpy</i> (bool)</dt>
+<dd>
+flag indicating to install as '.mpy' file
+</dd>
+<dt><i>target</i> (str)</dt>
+<dd>
+target directory on the device
+</dd>
+<dt><i>index</i> (str)</dt>
+<dd>
+URL of the package index to be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MipLocalInstaller.__rewriteUrl" ID="MipLocalInstaller.__rewriteUrl"></a>
+<h4>MipLocalInstaller.__rewriteUrl</h4>
+<b>__rewriteUrl</b>(<i>url, branch=None</i>)
+<p>
+        Private method to rewrite the given URL in case of a Github URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to be checked and potentially changed
+</dd>
+<dt><i>branch</i> (str (optional))</dt>
+<dd>
+branch name (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+rewritten URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MipLocalInstaller.errorString" ID="MipLocalInstaller.errorString"></a>
+<h4>MipLocalInstaller.errorString</h4>
+<b>errorString</b>(<i></i>)
+<p>
+        Public method to get the last error as a string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+latest error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MipLocalInstaller.installPackage" ID="MipLocalInstaller.installPackage"></a>
+<h4>MipLocalInstaller.installPackage</h4>
+<b>installPackage</b>(<i>package, index=None, target=None, version=None, mpy=True</i>)
+<p>
+        Public method to install a MicroPython package.
+</p>
+
+<dl>
+
+<dt><i>package</i> (str)</dt>
+<dd>
+package name
+</dd>
+<dt><i>index</i> (str (optional))</dt>
+<dd>
+URL of the package index to be used (defaults to None)
+</dd>
+<dt><i>target</i> (str (optional))</dt>
+<dd>
+target directory on the device (defaults to None)
+</dd>
+<dt><i>version</i> (str (optional))</dt>
+<dd>
+package version (defaults to None)
+</dd>
+<dt><i>mpy</i> (bool (optional))</dt>
+<dd>
+flag indicating to install as '.mpy' file (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

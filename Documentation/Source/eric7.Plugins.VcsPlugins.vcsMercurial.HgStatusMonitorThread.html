@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.HgStatusMonitorThread</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.HgStatusMonitorThread</h1>
+<p>
+Module implementing the VCS status monitor thread class for Mercurial.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgStatusMonitorThread">HgStatusMonitorThread</a></td>
+<td>Class implementing the VCS status monitor thread class for Mercurial.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgStatusMonitorThread" ID="HgStatusMonitorThread"></a>
+<h2>HgStatusMonitorThread</h2>
+<p>
+    Class implementing the VCS status monitor thread class for Mercurial.
+</p>
+
+<h3>Derived from</h3>
+VcsStatusMonitorThread
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgStatusMonitorThread.__init__">HgStatusMonitorThread</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgStatusMonitorThread.__initClient">__initClient</a></td>
+<td>Private method to initialize the Mercurial client.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusMonitorThread._getInfo">_getInfo</a></td>
+<td>Protected method implementing the real info action.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusMonitorThread._performMonitor">_performMonitor</a></td>
+<td>Protected method implementing the monitoring action.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusMonitorThread._shutdown">_shutdown</a></td>
+<td>Protected method performing shutdown actions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgStatusMonitorThread.__init__" ID="HgStatusMonitorThread.__init__"></a>
+<h4>HgStatusMonitorThread (Constructor)</h4>
+<b>HgStatusMonitorThread</b>(<i>interval, project, vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>interval</i> (int)</dt>
+<dd>
+new interval in seconds
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the version control object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="HgStatusMonitorThread.__initClient" ID="HgStatusMonitorThread.__initClient"></a>
+<h4>HgStatusMonitorThread.__initClient</h4>
+<b>__initClient</b>(<i></i>)
+<p>
+        Private method to initialize the Mercurial client.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing an OK flag and potentially an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="HgStatusMonitorThread._getInfo" ID="HgStatusMonitorThread._getInfo"></a>
+<h4>HgStatusMonitorThread._getInfo</h4>
+<b>_getInfo</b>(<i></i>)
+<p>
+        Protected method implementing the real info action.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+short info message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgStatusMonitorThread._performMonitor" ID="HgStatusMonitorThread._performMonitor"></a>
+<h4>HgStatusMonitorThread._performMonitor</h4>
+<b>_performMonitor</b>(<i></i>)
+<p>
+        Protected method implementing the monitoring action.
+</p>
+<p>
+        This method populates the statusList member variable with a list of
+        strings giving the status in the first column and the path relative
+        to the project directory starting with the third column. The allowed
+        status flags are:
+        <ul>
+            <li>"A" path was added but not yet committed</li>
+            <li>"M" path has local changes</li>
+            <li>"O" path was removed</li>
+            <li>"R" path was deleted and then re-added</li>
+            <li>"U" path needs an update</li>
+            <li>"Z" path contains a conflict</li>
+            <li>"?" path is not tracked</li>
+            <li>"!" path is missing</li>
+            <li>" " path is back at normal</li>
+        </ul>
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of flag indicating successful operation and a status
+            message in case of non successful operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="HgStatusMonitorThread._shutdown" ID="HgStatusMonitorThread._shutdown"></a>
+<h4>HgStatusMonitorThread._shutdown</h4>
+<b>_shutdown</b>(<i></i>)
+<p>
+        Protected method performing shutdown actions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

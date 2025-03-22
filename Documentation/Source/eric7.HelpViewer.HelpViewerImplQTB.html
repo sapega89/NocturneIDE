@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HelpViewer.HelpViewerImplQTB</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HelpViewer.HelpViewerImplQTB</h1>
+<p>
+Module implementing the QTextBrowser based help viewer class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>AboutBlank</td></tr>
+<tr><td>PageNotFound</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HelpViewerImplQTB">HelpViewerImplQTB</a></td>
+<td>Class implementing the QTextBrowser based help viewer class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HelpViewerImplQTB" ID="HelpViewerImplQTB"></a>
+<h2>HelpViewerImplQTB</h2>
+<p>
+    Class implementing the QTextBrowser based help viewer class.
+</p>
+
+<h3>Derived from</h3>
+HelpViewerImpl, QTextBrowser
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HelpViewerImplQTB.__init__">HelpViewerImplQTB</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.__bookmarkPage">__bookmarkPage</a></td>
+<td>Private method called by the context menu to bookmark the page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.__canLoadResource">__canLoadResource</a></td>
+<td>Private method to check, if the given resource can be loaded.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.__closeOtherPages">__closeOtherPages</a></td>
+<td>Private method called by the context menu to close all other pages.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.__closePage">__closePage</a></td>
+<td>Private method called by the context menu to close the current page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.__copyLink">__copyLink</a></td>
+<td>Private method called by the context menu to copy a link to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.__createLinkContextMenu">__createLinkContextMenu</a></td>
+<td>Private method to populate the context menu for URLs.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.__openLinkInBackgroundPage">__openLinkInBackgroundPage</a></td>
+<td>Private method called by the context menu to open a link in a background page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.__openLinkInNewPage">__openLinkInNewPage</a></td>
+<td>Private method called by the context menu to open a link in a new page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.doSetSource">doSetSource</a></td>
+<td>Public method to load the data and show it.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.event">event</a></td>
+<td>Public method handling events.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.gestureEvent">gestureEvent</a></td>
+<td>Protected method handling gesture events.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.gotoHistory">gotoHistory</a></td>
+<td>Public method to step through the history.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.isBackwardAvailable">isBackwardAvailable</a></td>
+<td>Public method to check, if stepping backward through the history is available.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.isEmptyPage">isEmptyPage</a></td>
+<td>Public method to check, if the current page is the empty page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.isForwardAvailable">isForwardAvailable</a></td>
+<td>Public method to check, if stepping forward through the history is available.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.isScaleDownAvailable">isScaleDownAvailable</a></td>
+<td>Public method to check, if the min.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.isScaleUpAvailable">isScaleUpAvailable</a></td>
+<td>Public method to check, if the max.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method to handle key press events.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.link">link</a></td>
+<td>Public method to get the URL of the shown document.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.loadResource">loadResource</a></td>
+<td>Public method to load data of the specified type from the resource with the given name.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method called by a mouse press event.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.mouseReleaseEvent">mouseReleaseEvent</a></td>
+<td>Protected method called by a mouse release event.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.pageTitle">pageTitle</a></td>
+<td>Public method get the page title.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.resetScale">resetScale</a></td>
+<td>Public method to reset the zoom level.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.scale">scale</a></td>
+<td>Public method to get the zoom level.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.scaleDown">scaleDown</a></td>
+<td>Public method to zoom out.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.scaleUp">scaleUp</a></td>
+<td>Public method to zoom in.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.setLink">setLink</a></td>
+<td>Public method to set the URL of the document to be shown.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.setScale">setScale</a></td>
+<td>Public method to set the zoom level.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQTB.wheelEvent">wheelEvent</a></td>
+<td>Protected method to handle wheel event to zoom.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HelpViewerImplQTB.__init__" ID="HelpViewerImplQTB.__init__"></a>
+<h4>HelpViewerImplQTB (Constructor)</h4>
+<b>HelpViewerImplQTB</b>(<i>engine, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>engine</i> (QHelpEngine)</dt>
+<dd>
+reference to the help engine
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.__bookmarkPage" ID="HelpViewerImplQTB.__bookmarkPage"></a>
+<h4>HelpViewerImplQTB.__bookmarkPage</h4>
+<b>__bookmarkPage</b>(<i>act</i>)
+<p>
+        Private method called by the context menu to bookmark the page.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.__canLoadResource" ID="HelpViewerImplQTB.__canLoadResource"></a>
+<h4>HelpViewerImplQTB.__canLoadResource</h4>
+<b>__canLoadResource</b>(<i>url</i>)
+<p>
+        Private method to check, if the given resource can be loaded.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of resource to be loaded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the given URL can be handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.__closeOtherPages" ID="HelpViewerImplQTB.__closeOtherPages"></a>
+<h4>HelpViewerImplQTB.__closeOtherPages</h4>
+<b>__closeOtherPages</b>(<i></i>)
+<p>
+        Private method called by the context menu to close all other pages.
+</p>
+
+<a NAME="HelpViewerImplQTB.__closePage" ID="HelpViewerImplQTB.__closePage"></a>
+<h4>HelpViewerImplQTB.__closePage</h4>
+<b>__closePage</b>(<i></i>)
+<p>
+        Private method called by the context menu to close the current page.
+</p>
+
+<a NAME="HelpViewerImplQTB.__copyLink" ID="HelpViewerImplQTB.__copyLink"></a>
+<h4>HelpViewerImplQTB.__copyLink</h4>
+<b>__copyLink</b>(<i>act</i>)
+<p>
+        Private method called by the context menu to copy a link to the
+        clipboard.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.__createLinkContextMenu" ID="HelpViewerImplQTB.__createLinkContextMenu"></a>
+<h4>HelpViewerImplQTB.__createLinkContextMenu</h4>
+<b>__createLinkContextMenu</b>(<i>menu, linkUrl</i>)
+<p>
+        Private method to populate the context menu for URLs.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+<dt><i>linkUrl</i> (QUrl)</dt>
+<dd>
+URL to create the menu part for
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.__openLinkInBackgroundPage" ID="HelpViewerImplQTB.__openLinkInBackgroundPage"></a>
+<h4>HelpViewerImplQTB.__openLinkInBackgroundPage</h4>
+<b>__openLinkInBackgroundPage</b>(<i>act</i>)
+<p>
+        Private method called by the context menu to open a link in a
+        background page.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.__openLinkInNewPage" ID="HelpViewerImplQTB.__openLinkInNewPage"></a>
+<h4>HelpViewerImplQTB.__openLinkInNewPage</h4>
+<b>__openLinkInNewPage</b>(<i>act</i>)
+<p>
+        Private method called by the context menu to open a link in a new page.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.__showContextMenu" ID="HelpViewerImplQTB.__showContextMenu"></a>
+<h4>HelpViewerImplQTB.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position to show the context menu at
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.doSetSource" ID="HelpViewerImplQTB.doSetSource"></a>
+<h4>HelpViewerImplQTB.doSetSource</h4>
+<b>doSetSource</b>(<i>url, type_</i>)
+<p>
+        Public method to load the data and show it.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of resource to load
+</dd>
+<dt><i>type_</i> (QTextDocument.ResourceType)</dt>
+<dd>
+type of the resource to load
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.event" ID="HelpViewerImplQTB.event"></a>
+<h4>HelpViewerImplQTB.event</h4>
+<b>event</b>(<i>evt</i>)
+<p>
+        Public method handling events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.gestureEvent" ID="HelpViewerImplQTB.gestureEvent"></a>
+<h4>HelpViewerImplQTB.gestureEvent</h4>
+<b>gestureEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling gesture events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QGestureEvent)</dt>
+<dd>
+reference to the gesture event
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.gotoHistory" ID="HelpViewerImplQTB.gotoHistory"></a>
+<h4>HelpViewerImplQTB.gotoHistory</h4>
+<b>gotoHistory</b>(<i>index</i>)
+<p>
+        Public method to step through the history.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+history index (<0 backward, >0 forward)
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.isBackwardAvailable" ID="HelpViewerImplQTB.isBackwardAvailable"></a>
+<h4>HelpViewerImplQTB.isBackwardAvailable</h4>
+<b>isBackwardAvailable</b>(<i></i>)
+<p>
+        Public method to check, if stepping backward through the history is
+        available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating backward stepping is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.isEmptyPage" ID="HelpViewerImplQTB.isEmptyPage"></a>
+<h4>HelpViewerImplQTB.isEmptyPage</h4>
+<b>isEmptyPage</b>(<i></i>)
+<p>
+        Public method to check, if the current page is the empty page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an empty page is loaded
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.isForwardAvailable" ID="HelpViewerImplQTB.isForwardAvailable"></a>
+<h4>HelpViewerImplQTB.isForwardAvailable</h4>
+<b>isForwardAvailable</b>(<i></i>)
+<p>
+        Public method to check, if stepping forward through the history is
+        available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating forward stepping is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.isScaleDownAvailable" ID="HelpViewerImplQTB.isScaleDownAvailable"></a>
+<h4>HelpViewerImplQTB.isScaleDownAvailable</h4>
+<b>isScaleDownAvailable</b>(<i></i>)
+<p>
+        Public method to check, if the min. zoom level is reached.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating scale down is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.isScaleUpAvailable" ID="HelpViewerImplQTB.isScaleUpAvailable"></a>
+<h4>HelpViewerImplQTB.isScaleUpAvailable</h4>
+<b>isScaleUpAvailable</b>(<i></i>)
+<p>
+        Public method to check, if the max. zoom level is reached.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating scale up is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.keyPressEvent" ID="HelpViewerImplQTB.keyPressEvent"></a>
+<h4>HelpViewerImplQTB.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle key press events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key event
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.link" ID="HelpViewerImplQTB.link"></a>
+<h4>HelpViewerImplQTB.link</h4>
+<b>link</b>(<i></i>)
+<p>
+        Public method to get the URL of the shown document.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+URL of the document
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.loadResource" ID="HelpViewerImplQTB.loadResource"></a>
+<h4>HelpViewerImplQTB.loadResource</h4>
+<b>loadResource</b>(<i>type_, name</i>)
+<p>
+        Public method to load data of the specified type from the resource with
+        the given name.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (int)</dt>
+<dd>
+resource type
+</dd>
+<dt><i>name</i> (QUrl)</dt>
+<dd>
+resource name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+byte array containing the loaded data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QByteArray
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.mousePressEvent" ID="HelpViewerImplQTB.mousePressEvent"></a>
+<h4>HelpViewerImplQTB.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a mouse press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.mouseReleaseEvent" ID="HelpViewerImplQTB.mouseReleaseEvent"></a>
+<h4>HelpViewerImplQTB.mouseReleaseEvent</h4>
+<b>mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a mouse release event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.pageTitle" ID="HelpViewerImplQTB.pageTitle"></a>
+<h4>HelpViewerImplQTB.pageTitle</h4>
+<b>pageTitle</b>(<i></i>)
+<p>
+        Public method get the page title.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+page title
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.resetScale" ID="HelpViewerImplQTB.resetScale"></a>
+<h4>HelpViewerImplQTB.resetScale</h4>
+<b>resetScale</b>(<i></i>)
+<p>
+        Public method to reset the zoom level.
+</p>
+
+<a NAME="HelpViewerImplQTB.scale" ID="HelpViewerImplQTB.scale"></a>
+<h4>HelpViewerImplQTB.scale</h4>
+<b>scale</b>(<i></i>)
+<p>
+        Public method to get the zoom level.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current zoom level
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.scaleDown" ID="HelpViewerImplQTB.scaleDown"></a>
+<h4>HelpViewerImplQTB.scaleDown</h4>
+<b>scaleDown</b>(<i></i>)
+<p>
+        Public method to zoom out.
+</p>
+
+<a NAME="HelpViewerImplQTB.scaleUp" ID="HelpViewerImplQTB.scaleUp"></a>
+<h4>HelpViewerImplQTB.scaleUp</h4>
+<b>scaleUp</b>(<i></i>)
+<p>
+        Public method to zoom in.
+</p>
+
+<a NAME="HelpViewerImplQTB.setLink" ID="HelpViewerImplQTB.setLink"></a>
+<h4>HelpViewerImplQTB.setLink</h4>
+<b>setLink</b>(<i>url</i>)
+<p>
+        Public method to set the URL of the document to be shown.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+source of the document
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.setScale" ID="HelpViewerImplQTB.setScale"></a>
+<h4>HelpViewerImplQTB.setScale</h4>
+<b>setScale</b>(<i>scale</i>)
+<p>
+        Public method to set the zoom level.
+</p>
+
+<dl>
+
+<dt><i>scale</i> (int)</dt>
+<dd>
+zoom level to set
+</dd>
+</dl>
+<a NAME="HelpViewerImplQTB.wheelEvent" ID="HelpViewerImplQTB.wheelEvent"></a>
+<h4>HelpViewerImplQTB.wheelEvent</h4>
+<b>wheelEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle wheel event to zoom.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QWheelEvent)</dt>
+<dd>
+reference to the event object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

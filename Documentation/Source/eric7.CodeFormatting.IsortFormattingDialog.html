@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.CodeFormatting.IsortFormattingDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.CodeFormatting.IsortFormattingDialog</h1>
+<p>
+Module implementing a dialog showing the isort code formatting progress and the results.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#IsortFormattingDialog">IsortFormattingDialog</a></td>
+<td>Class implementing a dialog showing the isort code formatting progress and the results.</td>
+</tr>
+<tr>
+<td><a href="#IsortResult">IsortResult</a></td>
+<td>Class containing the isort result data.</td>
+</tr>
+<tr>
+<td><a href="#IsortStatistics">IsortStatistics</a></td>
+<td>Class containing the isort statistic data.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="IsortFormattingDialog" ID="IsortFormattingDialog"></a>
+<h2>IsortFormattingDialog</h2>
+<p>
+    Class implementing a dialog showing the isort code formatting progress and the
+    results.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_IsortFormattingDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DataRole</td></tr>
+<tr><td>DataTypeRole</td></tr>
+<tr><td>FileNameColumn</td></tr>
+<tr><td>FileNameRole</td></tr>
+<tr><td>StatusColumn</td></tr>
+<tr><td>StatusRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IsortFormattingDialog.__init__">IsortFormattingDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__filterFiles">__filterFiles</a></td>
+<td>Private method to filter the given list of files according the configuration parameters.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__finish">__finish</a></td>
+<td>Private method to perform some actions after the run was performed or canceled.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__handleIsortResult">__handleIsortResult</a></td>
+<td>Private method to handle an isort sorting result.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__performAction">__performAction</a></td>
+<td>Private method to execute the requested sorting action.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__populateStatusFilterCombo">__populateStatusFilterCombo</a></td>
+<td>Private method to populate the status filter combo box with allowed selections.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the columns of the result list.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__resort">__resort</a></td>
+<td>Private method to resort the result list.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__sortImportsButtonClicked">__sortImportsButtonClicked</a></td>
+<td>Private slot handling the selection of the 'Sort Imports' button.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__sortManyFiles">__sortManyFiles</a></td>
+<td>Private method to sort imports of the list of files according the configuration using multiple processes in parallel.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__sortOneFile">__sortOneFile</a></td>
+<td>Private method to sort the imports of the list of files according the configuration.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__updateStatistics">__updateStatistics</a></td>
+<td>Private method to update the statistics about the recent sorting run and make them visible.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot to handle button presses of the dialog buttons.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.on_resultsList_itemDoubleClicked">on_resultsList_itemDoubleClicked</a></td>
+<td>Private slot handling a double click of a result item.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.on_statusFilterComboBox_currentTextChanged">on_statusFilterComboBox_currentTextChanged</a></td>
+<td>Private slot handling the selection of a status for items to be shown.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr>
+<td><a href="#IsortFormattingDialog.__isortCheckFile">__isortCheckFile</a></td>
+<td>Static method to check, if a file's import statements need to be changed.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.__isortSortFile">__isortSortFile</a></td>
+<td>Static method to sort the import statements of a file.</td>
+</tr>
+<tr>
+<td><a href="#IsortFormattingDialog.sortingWorkerTask">sortingWorkerTask</a></td>
+<td>Static method acting as the parallel worker for the formatting task.</td>
+</tr>
+</table>
+
+
+<a NAME="IsortFormattingDialog.__init__" ID="IsortFormattingDialog.__init__"></a>
+<h4>IsortFormattingDialog (Constructor)</h4>
+<b>IsortFormattingDialog</b>(<i>configuration, filesList, project=None, action=IsortFormattingAction.Sort, parent=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>configuration</i> (dict)</dt>
+<dd>
+dictionary containing the configuration parameters
+</dd>
+<dt><i>filesList</i> (list of str)</dt>
+<dd>
+list of absolute file paths to be processed
+</dd>
+<dt><i>project</i> (Project (optional))</dt>
+<dd>
+reference to the project object (defaults to None)
+</dd>
+<dt><i>action</i> (IsortFormattingAction (optional))</dt>
+<dd>
+action to be performed (defaults to IsortFormattingAction.Sort)
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.__filterFiles" ID="IsortFormattingDialog.__filterFiles"></a>
+<h4>IsortFormattingDialog.__filterFiles</h4>
+<b>__filterFiles</b>(<i>filesList</i>)
+<p>
+        Private method to filter the given list of files according the
+        configuration parameters.
+</p>
+
+<dl>
+
+<dt><i>filesList</i> (list of str)</dt>
+<dd>
+list of files
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of filtered files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.__finish" ID="IsortFormattingDialog.__finish"></a>
+<h4>IsortFormattingDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private method to perform some actions after the run was performed or canceled.
+</p>
+
+<a NAME="IsortFormattingDialog.__handleIsortResult" ID="IsortFormattingDialog.__handleIsortResult"></a>
+<h4>IsortFormattingDialog.__handleIsortResult</h4>
+<b>__handleIsortResult</b>(<i>filename, status, data=""</i>)
+<p>
+        Private method to handle an isort sorting result.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the processed file
+</dd>
+<dt><i>status</i> (str)</dt>
+<dd>
+status of the performed action (one of 'changed', 'failed',
+            'skipped' or 'unchanged')
+</dd>
+<dt><i>data</i> (str (optional))</dt>
+<dd>
+action data (error message or unified diff) (defaults to "")
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.__performAction" ID="IsortFormattingDialog.__performAction"></a>
+<h4>IsortFormattingDialog.__performAction</h4>
+<b>__performAction</b>(<i></i>)
+<p>
+        Private method to execute the requested sorting action.
+</p>
+
+<a NAME="IsortFormattingDialog.__populateStatusFilterCombo" ID="IsortFormattingDialog.__populateStatusFilterCombo"></a>
+<h4>IsortFormattingDialog.__populateStatusFilterCombo</h4>
+<b>__populateStatusFilterCombo</b>(<i></i>)
+<p>
+        Private method to populate the status filter combo box with allowed selections.
+</p>
+
+<a NAME="IsortFormattingDialog.__resizeColumns" ID="IsortFormattingDialog.__resizeColumns"></a>
+<h4>IsortFormattingDialog.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the columns of the result list.
+</p>
+
+<a NAME="IsortFormattingDialog.__resort" ID="IsortFormattingDialog.__resort"></a>
+<h4>IsortFormattingDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the result list.
+</p>
+
+<a NAME="IsortFormattingDialog.__sortImportsButtonClicked" ID="IsortFormattingDialog.__sortImportsButtonClicked"></a>
+<h4>IsortFormattingDialog.__sortImportsButtonClicked</h4>
+<b>__sortImportsButtonClicked</b>(<i></i>)
+<p>
+        Private slot handling the selection of the 'Sort Imports' button.
+</p>
+
+<a NAME="IsortFormattingDialog.__sortManyFiles" ID="IsortFormattingDialog.__sortManyFiles"></a>
+<h4>IsortFormattingDialog.__sortManyFiles</h4>
+<b>__sortManyFiles</b>(<i>files</i>)
+<p>
+        Private method to sort imports of the list of files according the configuration
+        using multiple processes in parallel.
+</p>
+
+<dl>
+
+<dt><i>files</i> (list of str)</dt>
+<dd>
+list of files to be processed
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.__sortOneFile" ID="IsortFormattingDialog.__sortOneFile"></a>
+<h4>IsortFormattingDialog.__sortOneFile</h4>
+<b>__sortOneFile</b>(<i>file</i>)
+<p>
+        Private method to sort the imports of the list of files according the
+        configuration.
+</p>
+
+<dl>
+
+<dt><i>file</i> (str)</dt>
+<dd>
+name of the file to be processed
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.__updateStatistics" ID="IsortFormattingDialog.__updateStatistics"></a>
+<h4>IsortFormattingDialog.__updateStatistics</h4>
+<b>__updateStatistics</b>(<i></i>)
+<p>
+        Private method to update the statistics about the recent sorting run and
+        make them visible.
+</p>
+
+<a NAME="IsortFormattingDialog.closeEvent" ID="IsortFormattingDialog.closeEvent"></a>
+<h4>IsortFormattingDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>evt</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the close event
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.on_buttonBox_clicked" ID="IsortFormattingDialog.on_buttonBox_clicked"></a>
+<h4>IsortFormattingDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot to handle button presses of the dialog buttons.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+reference to the pressed button
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.on_resultsList_itemDoubleClicked" ID="IsortFormattingDialog.on_resultsList_itemDoubleClicked"></a>
+<h4>IsortFormattingDialog.on_resultsList_itemDoubleClicked</h4>
+<b>on_resultsList_itemDoubleClicked</b>(<i>item, _column</i>)
+<p>
+        Private slot handling a double click of a result item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the double clicked item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column number that was double clicked (unused)
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.on_statusFilterComboBox_currentTextChanged" ID="IsortFormattingDialog.on_statusFilterComboBox_currentTextChanged"></a>
+<h4>IsortFormattingDialog.on_statusFilterComboBox_currentTextChanged</h4>
+<b>on_statusFilterComboBox_currentTextChanged</b>(<i>status</i>)
+<p>
+        Private slot handling the selection of a status for items to be shown.
+</p>
+
+<dl>
+
+<dt><i>status</i> (str)</dt>
+<dd>
+selected status
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.__isortCheckFile" ID="IsortFormattingDialog.__isortCheckFile"></a>
+<h4>IsortFormattingDialog.__isortCheckFile (static)</h4>
+<b>__isortCheckFile</b>(<i>isortConfig, withDiff=True</i>)
+<p>
+        Static method to check, if a file's import statements need to be changed.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to be processed
+</dd>
+<dt><i>isortConfig</i> (isort.Config)</dt>
+<dd>
+config object for isort
+</dd>
+<dt><i>withDiff</i> (bool (optional))</dt>
+<dd>
+flag indicating to return a unified diff, if the file needs to
+            be changed (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+result object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+IsortResult
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.__isortSortFile" ID="IsortFormattingDialog.__isortSortFile"></a>
+<h4>IsortFormattingDialog.__isortSortFile (static)</h4>
+<b>__isortSortFile</b>(<i>isortConfig</i>)
+<p>
+        Static method to sort the import statements of a file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to be processed
+</dd>
+<dt><i>isortConfig</i> (isort.Config)</dt>
+<dd>
+config object for isort
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+result object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+IsortResult
+</dd>
+</dl>
+<a NAME="IsortFormattingDialog.sortingWorkerTask" ID="IsortFormattingDialog.sortingWorkerTask"></a>
+<h4>IsortFormattingDialog.sortingWorkerTask (static)</h4>
+<b>sortingWorkerTask</b>(<i>outputQueue, isortConfig</i>)
+<p>
+        Static method acting as the parallel worker for the formatting task.
+</p>
+
+<dl>
+
+<dt><i>inputQueue</i> (multiprocessing.Queue)</dt>
+<dd>
+input queue
+</dd>
+<dt><i>outputQueue</i> (multiprocessing.Queue)</dt>
+<dd>
+output queue
+</dd>
+<dt><i>isortConfig</i> (isort.Config)</dt>
+<dd>
+config object for isort
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="IsortResult" ID="IsortResult"></a>
+<h2>IsortResult</h2>
+<p>
+    Class containing the isort result data.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>data</td></tr>
+<tr><td>filename</td></tr>
+<tr><td>status</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="IsortStatistics" ID="IsortStatistics"></a>
+<h2>IsortStatistics</h2>
+<p>
+    Class containing the isort statistic data.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>changeCount</td></tr>
+<tr><td>failureCount</td></tr>
+<tr><td>processedCount</td></tr>
+<tr><td>sameCount</td></tr>
+<tr><td>skippedCount</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

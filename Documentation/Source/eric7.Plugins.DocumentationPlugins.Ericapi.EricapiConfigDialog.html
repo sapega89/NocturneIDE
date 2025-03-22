@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.DocumentationPlugins.Ericapi.EricapiConfigDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.DocumentationPlugins.Ericapi.EricapiConfigDialog</h1>
+<p>
+Module implementing a dialog to enter the parameters for eric7_api.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricapiConfigDialog">EricapiConfigDialog</a></td>
+<td>Class implementing a dialog to enter the parameters for eric7_api.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricapiConfigDialog" ID="EricapiConfigDialog"></a>
+<h2>EricapiConfigDialog</h2>
+<p>
+    Class implementing a dialog to enter the parameters for eric7_api.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_EricapiConfigDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricapiConfigDialog.__init__">EricapiConfigDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.__initializeDefaults">__initializeDefaults</a></td>
+<td>Private method to set the default values.</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.accept">accept</a></td>
+<td>Public slot called by the Ok button.</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.generateParameters">generateParameters</a></td>
+<td>Public method that generates the command line parameters.</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.on_addButton_clicked">on_addButton_clicked</a></td>
+<td>Private slot to add the directory displayed to the listview.</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.on_deleteButton_clicked">on_deleteButton_clicked</a></td>
+<td>Private slot to delete the currently selected directory of the listbox.</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.on_ignoreDirPicker_pathSelected">on_ignoreDirPicker_pathSelected</a></td>
+<td>Private slot handling the selection of a directory to be ignored.</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.on_outputFilePicker_aboutToShowPathPickerDialog">on_outputFilePicker_aboutToShowPathPickerDialog</a></td>
+<td>Private slot called before the file selection dialog is shown.</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.on_outputFilePicker_pathSelected">on_outputFilePicker_pathSelected</a></td>
+<td>Private slot handling the selection of an output file.</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.on_outputFilePicker_textChanged">on_outputFilePicker_textChanged</a></td>
+<td>Private slot to enable/disable the "OK" button.</td>
+</tr>
+<tr>
+<td><a href="#EricapiConfigDialog.on_startDirPicker_pathSelected">on_startDirPicker_pathSelected</a></td>
+<td>Private slot handling the selection of a start directory.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricapiConfigDialog.__init__" ID="EricapiConfigDialog.__init__"></a>
+<h4>EricapiConfigDialog (Constructor)</h4>
+<b>EricapiConfigDialog</b>(<i>project, parms=None, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parms</i> (dict)</dt>
+<dd>
+parameters to set in the dialog
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this dialog
+</dd>
+</dl>
+<a NAME="EricapiConfigDialog.__initializeDefaults" ID="EricapiConfigDialog.__initializeDefaults"></a>
+<h4>EricapiConfigDialog.__initializeDefaults</h4>
+<b>__initializeDefaults</b>(<i></i>)
+<p>
+        Private method to set the default values.
+</p>
+<p>
+        These are needed later on to generate the commandline
+        parameters.
+</p>
+
+<a NAME="EricapiConfigDialog.accept" ID="EricapiConfigDialog.accept"></a>
+<h4>EricapiConfigDialog.accept</h4>
+<b>accept</b>(<i></i>)
+<p>
+        Public slot called by the Ok button.
+</p>
+<p>
+        It saves the values in the parameters dictionary.
+</p>
+
+<a NAME="EricapiConfigDialog.generateParameters" ID="EricapiConfigDialog.generateParameters"></a>
+<h4>EricapiConfigDialog.generateParameters</h4>
+<b>generateParameters</b>(<i></i>)
+<p>
+        Public method that generates the command line parameters.
+</p>
+<p>
+        It generates a list of strings to be used
+        to set the QProcess arguments for the ericapi call and
+        a dictionary containing the non default parameters. This
+        dictionary can be passed back upon object generation to overwrite
+        the default settings.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a tuple containing the commandline parameters, non default
+            parameters and the start directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, dict, str)
+</dd>
+</dl>
+<a NAME="EricapiConfigDialog.on_addButton_clicked" ID="EricapiConfigDialog.on_addButton_clicked"></a>
+<h4>EricapiConfigDialog.on_addButton_clicked</h4>
+<b>on_addButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add the directory displayed to the listview.
+</p>
+<p>
+        The directory in the ignore directories
+        line edit is moved to the listbox above and the edit is cleared.
+</p>
+
+<a NAME="EricapiConfigDialog.on_deleteButton_clicked" ID="EricapiConfigDialog.on_deleteButton_clicked"></a>
+<h4>EricapiConfigDialog.on_deleteButton_clicked</h4>
+<b>on_deleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the currently selected directory of the listbox.
+</p>
+
+<a NAME="EricapiConfigDialog.on_ignoreDirPicker_pathSelected" ID="EricapiConfigDialog.on_ignoreDirPicker_pathSelected"></a>
+<h4>EricapiConfigDialog.on_ignoreDirPicker_pathSelected</h4>
+<b>on_ignoreDirPicker_pathSelected</b>(<i>path</i>)
+<p>
+        Private slot handling the selection of a directory to be ignored.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the directory to be ignored
+</dd>
+</dl>
+<a NAME="EricapiConfigDialog.on_outputFilePicker_aboutToShowPathPickerDialog" ID="EricapiConfigDialog.on_outputFilePicker_aboutToShowPathPickerDialog"></a>
+<h4>EricapiConfigDialog.on_outputFilePicker_aboutToShowPathPickerDialog</h4>
+<b>on_outputFilePicker_aboutToShowPathPickerDialog</b>(<i></i>)
+<p>
+        Private slot called before the file selection dialog is shown.
+</p>
+
+<a NAME="EricapiConfigDialog.on_outputFilePicker_pathSelected" ID="EricapiConfigDialog.on_outputFilePicker_pathSelected"></a>
+<h4>EricapiConfigDialog.on_outputFilePicker_pathSelected</h4>
+<b>on_outputFilePicker_pathSelected</b>(<i>path</i>)
+<p>
+        Private slot handling the selection of an output file.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the output file
+</dd>
+</dl>
+<a NAME="EricapiConfigDialog.on_outputFilePicker_textChanged" ID="EricapiConfigDialog.on_outputFilePicker_textChanged"></a>
+<h4>EricapiConfigDialog.on_outputFilePicker_textChanged</h4>
+<b>on_outputFilePicker_textChanged</b>(<i>filename</i>)
+<p>
+        Private slot to enable/disable the "OK" button.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+</dl>
+<a NAME="EricapiConfigDialog.on_startDirPicker_pathSelected" ID="EricapiConfigDialog.on_startDirPicker_pathSelected"></a>
+<h4>EricapiConfigDialog.on_startDirPicker_pathSelected</h4>
+<b>on_startDirPicker_pathSelected</b>(<i>path</i>)
+<p>
+        Private slot handling the selection of a start directory.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the start directory
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

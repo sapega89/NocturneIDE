@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.AdBlock.AdBlockSubscription</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.AdBlock.AdBlockSubscription</h1>
+<p>
+Module implementing the AdBlock subscription class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AdBlockSubscription">AdBlockSubscription</a></td>
+<td>Class implementing the AdBlock subscription.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AdBlockSubscription" ID="AdBlockSubscription"></a>
+<h2>AdBlockSubscription</h2>
+<p>
+    Class implementing the AdBlock subscription.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>changed()</dt>
+<dd>
+emitted after the subscription has changed
+</dd>
+<dt>enabledChanged(bool)</dt>
+<dd>
+emitted after the enabled state was changed
+</dd>
+<dt>rulesChanged()</dt>
+<dd>
+emitted after the subscription's rules have changed
+</dd>
+<dt>rulesEnabledChanged()</dt>
+<dd>
+emitted after a rule enabled state was
+        changed
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AdBlockSubscription.__init__">AdBlockSubscription</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.__loadRules">__loadRules</a></td>
+<td>Private method to load the rules of the subscription.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.__parseUrl">__parseUrl</a></td>
+<td>Private method to parse the AdBlock URL for the subscription.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.__rulesDownloaded">__rulesDownloaded</a></td>
+<td>Private slot to deal with the downloaded rules.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.__validateCheckSum">__validateCheckSum</a></td>
+<td>Private method to check the subscription file's checksum.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.addRule">addRule</a></td>
+<td>Public method to add a rule.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.allRules">allRules</a></td>
+<td>Public method to get the list of rules.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.canBeRemoved">canBeRemoved</a></td>
+<td>Public method to check, if the subscription can be removed.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.canEditRules">canEditRules</a></td>
+<td>Public method to check, if rules can be edited.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.checkForUpdate">checkForUpdate</a></td>
+<td>Public method to check for an update.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.isEnabled">isEnabled</a></td>
+<td>Public method to check, if the subscription is enabled.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.lastUpdate">lastUpdate</a></td>
+<td>Public method to get the date and time of the last update.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.location">location</a></td>
+<td>Public method to get the subscription location.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.removeRule">removeRule</a></td>
+<td>Public method to remove a rule given the offset.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.replaceRule">replaceRule</a></td>
+<td>Public method to replace a rule given the offset.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.requiresLocation">requiresLocation</a></td>
+<td>Public method to get the location of a required subscription.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.rule">rule</a></td>
+<td>Public method to get a specific rule.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.rulesFileName">rulesFileName</a></td>
+<td>Public method to get the name of the rules file.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.saveRules">saveRules</a></td>
+<td>Public method to save the subscription rules.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.setEnabled">setEnabled</a></td>
+<td>Public method to set the enabled status.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.setLocation">setLocation</a></td>
+<td>Public method to set the subscription location.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.setRuleEnabled">setRuleEnabled</a></td>
+<td>Public method to enable a specific rule.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.setTitle">setTitle</a></td>
+<td>Public method to set the subscription title.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.title">title</a></td>
+<td>Public method to get the subscription title.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.updateNow">updateNow</a></td>
+<td>Public method to update the subscription immediately.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSubscription.url">url</a></td>
+<td>Public method to generate the URL for this subscription.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AdBlockSubscription.__init__" ID="AdBlockSubscription.__init__"></a>
+<h4>AdBlockSubscription (Constructor)</h4>
+<b>AdBlockSubscription</b>(<i>url, custom, parent=None, default=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+AdBlock URL for the subscription
+</dd>
+<dt><i>custom</i> (bool)</dt>
+<dd>
+flag indicating a custom subscription
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+<dt><i>default</i> (bool)</dt>
+<dd>
+flag indicating a default subscription
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.__loadRules" ID="AdBlockSubscription.__loadRules"></a>
+<h4>AdBlockSubscription.__loadRules</h4>
+<b>__loadRules</b>(<i></i>)
+<p>
+        Private method to load the rules of the subscription.
+</p>
+
+<a NAME="AdBlockSubscription.__parseUrl" ID="AdBlockSubscription.__parseUrl"></a>
+<h4>AdBlockSubscription.__parseUrl</h4>
+<b>__parseUrl</b>(<i>url</i>)
+<p>
+        Private method to parse the AdBlock URL for the subscription.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+AdBlock URL for the subscription
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.__rulesDownloaded" ID="AdBlockSubscription.__rulesDownloaded"></a>
+<h4>AdBlockSubscription.__rulesDownloaded</h4>
+<b>__rulesDownloaded</b>(<i>reply</i>)
+<p>
+        Private slot to deal with the downloaded rules.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.__validateCheckSum" ID="AdBlockSubscription.__validateCheckSum"></a>
+<h4>AdBlockSubscription.__validateCheckSum</h4>
+<b>__validateCheckSum</b>(<i>fileName</i>)
+<p>
+        Private method to check the subscription file's checksum.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file containing the subscription
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a valid file. A file is considered
+            valid, if the checksum is OK, the file does not contain a
+            checksum (i.e. cannot be checked) or we are using the limited
+            EasyList (because we fiddled with the original).
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.addRule" ID="AdBlockSubscription.addRule"></a>
+<h4>AdBlockSubscription.addRule</h4>
+<b>addRule</b>(<i>rule</i>)
+<p>
+        Public method to add a rule.
+</p>
+
+<dl>
+
+<dt><i>rule</i> (AdBlockRule)</dt>
+<dd>
+reference to the rule to add
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+offset of the rule
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.allRules" ID="AdBlockSubscription.allRules"></a>
+<h4>AdBlockSubscription.allRules</h4>
+<b>allRules</b>(<i></i>)
+<p>
+        Public method to get the list of rules.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of rules
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of AdBlockRule
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.canBeRemoved" ID="AdBlockSubscription.canBeRemoved"></a>
+<h4>AdBlockSubscription.canBeRemoved</h4>
+<b>canBeRemoved</b>(<i></i>)
+<p>
+        Public method to check, if the subscription can be removed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating removal is allowed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.canEditRules" ID="AdBlockSubscription.canEditRules"></a>
+<h4>AdBlockSubscription.canEditRules</h4>
+<b>canEditRules</b>(<i></i>)
+<p>
+        Public method to check, if rules can be edited.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating rules may be edited
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.checkForUpdate" ID="AdBlockSubscription.checkForUpdate"></a>
+<h4>AdBlockSubscription.checkForUpdate</h4>
+<b>checkForUpdate</b>(<i></i>)
+<p>
+        Public method to check for an update.
+</p>
+
+<a NAME="AdBlockSubscription.isEnabled" ID="AdBlockSubscription.isEnabled"></a>
+<h4>AdBlockSubscription.isEnabled</h4>
+<b>isEnabled</b>(<i></i>)
+<p>
+        Public method to check, if the subscription is enabled.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the enabled status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.lastUpdate" ID="AdBlockSubscription.lastUpdate"></a>
+<h4>AdBlockSubscription.lastUpdate</h4>
+<b>lastUpdate</b>(<i></i>)
+<p>
+        Public method to get the date and time of the last update.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+date and time of the last update
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QDateTime
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.location" ID="AdBlockSubscription.location"></a>
+<h4>AdBlockSubscription.location</h4>
+<b>location</b>(<i></i>)
+<p>
+        Public method to get the subscription location.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+URL of the subscription location
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.removeRule" ID="AdBlockSubscription.removeRule"></a>
+<h4>AdBlockSubscription.removeRule</h4>
+<b>removeRule</b>(<i>offset</i>)
+<p>
+        Public method to remove a rule given the offset.
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+offset of the rule to remove
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.replaceRule" ID="AdBlockSubscription.replaceRule"></a>
+<h4>AdBlockSubscription.replaceRule</h4>
+<b>replaceRule</b>(<i>rule, offset</i>)
+<p>
+        Public method to replace a rule given the offset.
+</p>
+
+<dl>
+
+<dt><i>rule</i> (AdBlockRule)</dt>
+<dd>
+reference to the rule to set
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+offset of the rule to remove
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested rule
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockRule
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.requiresLocation" ID="AdBlockSubscription.requiresLocation"></a>
+<h4>AdBlockSubscription.requiresLocation</h4>
+<b>requiresLocation</b>(<i></i>)
+<p>
+        Public method to get the location of a required subscription.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+location of a required subscription
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.rule" ID="AdBlockSubscription.rule"></a>
+<h4>AdBlockSubscription.rule</h4>
+<b>rule</b>(<i>offset</i>)
+<p>
+        Public method to get a specific rule.
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+offset of the rule
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested rule
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockRule
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.rulesFileName" ID="AdBlockSubscription.rulesFileName"></a>
+<h4>AdBlockSubscription.rulesFileName</h4>
+<b>rulesFileName</b>(<i></i>)
+<p>
+        Public method to get the name of the rules file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the rules file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.saveRules" ID="AdBlockSubscription.saveRules"></a>
+<h4>AdBlockSubscription.saveRules</h4>
+<b>saveRules</b>(<i></i>)
+<p>
+        Public method to save the subscription rules.
+</p>
+
+<a NAME="AdBlockSubscription.setEnabled" ID="AdBlockSubscription.setEnabled"></a>
+<h4>AdBlockSubscription.setEnabled</h4>
+<b>setEnabled</b>(<i>enabled</i>)
+<p>
+        Public method to set the enabled status.
+</p>
+
+<dl>
+
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating the enabled status
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.setLocation" ID="AdBlockSubscription.setLocation"></a>
+<h4>AdBlockSubscription.setLocation</h4>
+<b>setLocation</b>(<i>url</i>)
+<p>
+        Public method to set the subscription location.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of the subscription location
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.setRuleEnabled" ID="AdBlockSubscription.setRuleEnabled"></a>
+<h4>AdBlockSubscription.setRuleEnabled</h4>
+<b>setRuleEnabled</b>(<i>offset, enabled</i>)
+<p>
+        Public method to enable a specific rule.
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+offset of the rule
+</dd>
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+new enabled state
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the changed rule
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockRule
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.setTitle" ID="AdBlockSubscription.setTitle"></a>
+<h4>AdBlockSubscription.setTitle</h4>
+<b>setTitle</b>(<i>title</i>)
+<p>
+        Public method to set the subscription title.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+subscription title
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.title" ID="AdBlockSubscription.title"></a>
+<h4>AdBlockSubscription.title</h4>
+<b>title</b>(<i></i>)
+<p>
+        Public method to get the subscription title.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+subscription title
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+string
+</dd>
+</dl>
+<a NAME="AdBlockSubscription.updateNow" ID="AdBlockSubscription.updateNow"></a>
+<h4>AdBlockSubscription.updateNow</h4>
+<b>updateNow</b>(<i></i>)
+<p>
+        Public method to update the subscription immediately.
+</p>
+
+<a NAME="AdBlockSubscription.url" ID="AdBlockSubscription.url"></a>
+<h4>AdBlockSubscription.url</h4>
+<b>url</b>(<i></i>)
+<p>
+        Public method to generate the URL for this subscription.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+AdBlock URL for the subscription
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Logging.LoggingVisitor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Logging.LoggingVisitor</h1>
+<p>
+Module implementing a node visitor to check for logging issues.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_LoggerMethods</td></tr>
+<tr><td>_LogrecordAttributes</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#LoggingVisitor">LoggingVisitor</a></td>
+<td>Class implementing a node visitor to check for logging issues.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_modnamedPlaceholderRe">_modnamedPlaceholderRe</a></td>
+<td>Function to generate a regular expression object for '%' formatting codes using names.</td>
+</tr>
+<tr>
+<td><a href="#_modposPlaceholderRe">_modposPlaceholderRe</a></td>
+<td>Function to generate a regular expression object for '%' formatting codes.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="LoggingVisitor" ID="LoggingVisitor"></a>
+<h2>LoggingVisitor</h2>
+<p>
+    Class implementing a node visitor to check for logging issues.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>GetLoggerNames</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#LoggingVisitor.__init__">LoggingVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.__atModuleLevel">__atModuleLevel</a></td>
+<td>Private method to check, if we are on the module level.</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.__checkMsgAndArgs">__checkMsgAndArgs</a></td>
+<td>Private method to check the message and arguments a given Call node.</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.__currentExceptHandler">__currentExceptHandler</a></td>
+<td>Private method to determine the current exception handler node.</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.__flattenStrChain">__flattenStrChain</a></td>
+<td>Private method to flatten the given string chain.</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.__isAddChainWithNonStr">__isAddChainWithNonStr</a></td>
+<td>Private method to check, if the node is an Add with a non string argument.</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.__keywordPos">__keywordPos</a></td>
+<td>Private method determine line number and column offset of a given keyword node.</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.visit">visit</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.visit_Attribute">visit_Attribute</a></td>
+<td>Public method to handle  Attribute nodes.</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.visit_Call">visit_Call</a></td>
+<td>Public method to handle Call nodes.</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.visit_Import">visit_Import</a></td>
+<td>Public method to handle Import nodes.</td>
+</tr>
+<tr>
+<td><a href="#LoggingVisitor.visit_ImportFrom">visit_ImportFrom</a></td>
+<td>Public method to handle ImportFrom nodes.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="LoggingVisitor.__init__" ID="LoggingVisitor.__init__"></a>
+<h4>LoggingVisitor (Constructor)</h4>
+<b>LoggingVisitor</b>(<i>errorCallback</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>errorCallback</i> (func)</dt>
+<dd>
+callback function to register an error
+</dd>
+</dl>
+<a NAME="LoggingVisitor.__atModuleLevel" ID="LoggingVisitor.__atModuleLevel"></a>
+<h4>LoggingVisitor.__atModuleLevel</h4>
+<b>__atModuleLevel</b>(<i></i>)
+<p>
+        Private method to check, if we are on the module level.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the module level
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LoggingVisitor.__checkMsgAndArgs" ID="LoggingVisitor.__checkMsgAndArgs"></a>
+<h4>LoggingVisitor.__checkMsgAndArgs</h4>
+<b>__checkMsgAndArgs</b>(<i>node, msgArg, msg</i>)
+<p>
+        Private method to check the message and arguments a given Call node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the Call node
+</dd>
+<dt><i>msgArg</i> (ast.AST)</dt>
+<dd>
+message argument nodes
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message
+</dd>
+</dl>
+<a NAME="LoggingVisitor.__currentExceptHandler" ID="LoggingVisitor.__currentExceptHandler"></a>
+<h4>LoggingVisitor.__currentExceptHandler</h4>
+<b>__currentExceptHandler</b>(<i></i>)
+<p>
+        Private method to determine the current exception handler node.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current exception handler node or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.ExceptHandler
+</dd>
+</dl>
+<a NAME="LoggingVisitor.__flattenStrChain" ID="LoggingVisitor.__flattenStrChain"></a>
+<h4>LoggingVisitor.__flattenStrChain</h4>
+<b>__flattenStrChain</b>(<i>node</i>)
+<p>
+        Private method to flatten the given string chain.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the AST node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flattened string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LoggingVisitor.__isAddChainWithNonStr" ID="LoggingVisitor.__isAddChainWithNonStr"></a>
+<h4>LoggingVisitor.__isAddChainWithNonStr</h4>
+<b>__isAddChainWithNonStr</b>(<i>node</i>)
+<p>
+        Private method to check, if the node is an Add with a non string argument.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BinOp)</dt>
+<dd>
+reference to the binary operator node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an Add with a non string argument
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LoggingVisitor.__keywordPos" ID="LoggingVisitor.__keywordPos"></a>
+<h4>LoggingVisitor.__keywordPos</h4>
+<b>__keywordPos</b>(<i>node</i>)
+<p>
+        Private method determine line number and column offset of a given keyword node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.keyword)</dt>
+<dd>
+reference to the keyword node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the line number and the column offset
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="LoggingVisitor.visit" ID="LoggingVisitor.visit"></a>
+<h4>LoggingVisitor.visit</h4>
+<b>visit</b>(<i></i>)
+
+<a NAME="LoggingVisitor.visit_Attribute" ID="LoggingVisitor.visit_Attribute"></a>
+<h4>LoggingVisitor.visit_Attribute</h4>
+<b>visit_Attribute</b>(<i>node</i>)
+<p>
+        Public method to handle  Attribute nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Attribute)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="LoggingVisitor.visit_Call" ID="LoggingVisitor.visit_Call"></a>
+<h4>LoggingVisitor.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+<p>
+        Public method to handle Call nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="LoggingVisitor.visit_Import" ID="LoggingVisitor.visit_Import"></a>
+<h4>LoggingVisitor.visit_Import</h4>
+<b>visit_Import</b>(<i>node</i>)
+<p>
+        Public method to handle Import nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Import)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="LoggingVisitor.visit_ImportFrom" ID="LoggingVisitor.visit_ImportFrom"></a>
+<h4>LoggingVisitor.visit_ImportFrom</h4>
+<b>visit_ImportFrom</b>(<i>node</i>)
+<p>
+        Public method to handle ImportFrom nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ImportFrom)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_modnamedPlaceholderRe" ID="_modnamedPlaceholderRe"></a>
+<h2>_modnamedPlaceholderRe</h2>
+<b>_modnamedPlaceholderRe</b>(<i></i>)
+<p>
+    Function to generate a regular expression object for '%' formatting codes using
+    names.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+regular expression object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+re.Pattern
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_modposPlaceholderRe" ID="_modposPlaceholderRe"></a>
+<h2>_modposPlaceholderRe</h2>
+<b>_modposPlaceholderRe</b>(<i></i>)
+<p>
+    Function to generate a regular expression object for '%' formatting codes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+regular expression object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+re.Pattern
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

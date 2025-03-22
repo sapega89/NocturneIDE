@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Utilities.ModuleParser</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Utilities.ModuleParser</h1>
+<p>
+Parse a Python module file.
+</p>
+<p>
+<b>BUGS</b> (from pyclbr.py)
+<ul>
+<li>Code that doesn't pass tabnanny or python -t will confuse it, unless
+  you set the module TABWIDTH variable (default 8) to the correct tab width
+  for the file.</li>
+</ul>
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>PTL_SOURCE</td></tr>
+<tr><td>PY_SOURCE</td></tr>
+<tr><td>RB_SOURCE</td></tr>
+<tr><td>SUPPORTED_TYPES</td></tr>
+<tr><td>TABWIDTH</td></tr>
+<tr><td>TYPE_MAPPING</td></tr>
+<tr><td>__all__</td></tr>
+<tr><td>_commentsub</td></tr>
+<tr><td>_hashsub</td></tr>
+<tr><td>_modules</td></tr>
+<tr><td>_py_getnext</td></tr>
+<tr><td>_rb_getnext</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Attribute">Attribute</a></td>
+<td>Class to represent a Python function or method.</td>
+</tr>
+<tr>
+<td><a href="#Class">Class</a></td>
+<td>Class to represent a Python class.</td>
+</tr>
+<tr>
+<td><a href="#Function">Function</a></td>
+<td>Class to represent a Python function or method.</td>
+</tr>
+<tr>
+<td><a href="#Module">Module</a></td>
+<td>Class to represent a Python module.</td>
+</tr>
+<tr>
+<td><a href="#RbModule">RbModule</a></td>
+<td>Class to represent a Ruby module.</td>
+</tr>
+<tr>
+<td><a href="#VisibilityBase">VisibilityBase</a></td>
+<td>Class implementing the visibility aspect of all objects.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_indent">_indent</a></td>
+<td>Protected function to determine the indent width of a whitespace string.</td>
+</tr>
+<tr>
+<td><a href="#find_module">find_module</a></td>
+<td>Module function to extend the Python module finding mechanism.</td>
+</tr>
+<tr>
+<td><a href="#getTypeFromTypeName">getTypeFromTypeName</a></td>
+<td>Module function to determine the module type given the module type name.</td>
+</tr>
+<tr>
+<td><a href="#readModule">readModule</a></td>
+<td>Function to read a module file and parse it.</td>
+</tr>
+<tr>
+<td><a href="#resetParsedModule">resetParsedModule</a></td>
+<td>Module function to clear one module from the list of parsed modules.</td>
+</tr>
+<tr>
+<td><a href="#resetParsedModules">resetParsedModules</a></td>
+<td>Module function to reset the list of modules already parsed.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Attribute" ID="Attribute"></a>
+<h2>Attribute</h2>
+<p>
+    Class to represent a Python function or method.
+</p>
+
+<h3>Derived from</h3>
+VisibilityBase
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Attribute.__init__">Attribute</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Attribute.addAssignment">addAssignment</a></td>
+<td>Public method to add another assignment line number.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Attribute.__init__" ID="Attribute.__init__"></a>
+<h4>Attribute (Constructor)</h4>
+<b>Attribute</b>(<i>module, name, file, lineno, isSignal=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of module containing this function
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the function
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+name of file containing this function
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+linenumber of the first attribute assignment
+</dd>
+<dt><i>isSignal</i> (bool)</dt>
+<dd>
+flag indicating a signal definition
+</dd>
+</dl>
+<a NAME="Attribute.addAssignment" ID="Attribute.addAssignment"></a>
+<h4>Attribute.addAssignment</h4>
+<b>addAssignment</b>(<i>lineno</i>)
+<p>
+        Public method to add another assignment line number.
+</p>
+
+<dl>
+
+<dt><i>lineno</i> (int)</dt>
+<dd>
+linenumber of the additional attribute assignment
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Class" ID="Class"></a>
+<h2>Class</h2>
+<p>
+    Class to represent a Python class.
+</p>
+
+<h3>Derived from</h3>
+VisibilityBase
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Class.__init__">Class</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Class.addAttribute">addAttribute</a></td>
+<td>Public method to add information about attributes.</td>
+</tr>
+<tr>
+<td><a href="#Class.addDescription">addDescription</a></td>
+<td>Public method to store the class docstring.</td>
+</tr>
+<tr>
+<td><a href="#Class.addGlobal">addGlobal</a></td>
+<td>Public method to add information about global (class) variables.</td>
+</tr>
+<tr>
+<td><a href="#Class.addMethod">addMethod</a></td>
+<td>Public method to add information about a method.</td>
+</tr>
+<tr>
+<td><a href="#Class.getAttribute">getAttribute</a></td>
+<td>Public method to retrieve an attribute by name.</td>
+</tr>
+<tr>
+<td><a href="#Class.getMethod">getMethod</a></td>
+<td>Public method to retrieve a method by name.</td>
+</tr>
+<tr>
+<td><a href="#Class.setEndLine">setEndLine</a></td>
+<td>Public method to record the number of the last line of a class.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Class.__init__" ID="Class.__init__"></a>
+<h4>Class (Constructor)</h4>
+<b>Class</b>(<i>module, name, superClasses, file, lineno</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of module containing this class
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the class
+</dd>
+<dt><i>superClasses</i> (list of str)</dt>
+<dd>
+list of classnames this class is inherited from
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+name of file containing this class
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+linenumber of the class definition
+</dd>
+</dl>
+<a NAME="Class.addAttribute" ID="Class.addAttribute"></a>
+<h4>Class.addAttribute</h4>
+<b>addAttribute</b>(<i>name, attr</i>)
+<p>
+        Public method to add information about attributes.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the attribute to add
+</dd>
+<dt><i>attr</i> (Attribute)</dt>
+<dd>
+Attribute object to be added
+</dd>
+</dl>
+<a NAME="Class.addDescription" ID="Class.addDescription"></a>
+<h4>Class.addDescription</h4>
+<b>addDescription</b>(<i>description</i>)
+<p>
+        Public method to store the class docstring.
+</p>
+
+<dl>
+
+<dt><i>description</i> (str)</dt>
+<dd>
+the docstring to be stored
+</dd>
+</dl>
+<a NAME="Class.addGlobal" ID="Class.addGlobal"></a>
+<h4>Class.addGlobal</h4>
+<b>addGlobal</b>(<i>name, attr</i>)
+<p>
+        Public method to add information about global (class) variables.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the global to add
+</dd>
+<dt><i>attr</i> (Attribute)</dt>
+<dd>
+Attribute object to be added
+</dd>
+</dl>
+<a NAME="Class.addMethod" ID="Class.addMethod"></a>
+<h4>Class.addMethod</h4>
+<b>addMethod</b>(<i>name, function</i>)
+<p>
+        Public method to add information about a method.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of method to be added
+</dd>
+<dt><i>function</i> (Function)</dt>
+<dd>
+Function object to be added
+</dd>
+</dl>
+<a NAME="Class.getAttribute" ID="Class.getAttribute"></a>
+<h4>Class.getAttribute</h4>
+<b>getAttribute</b>(<i>name</i>)
+<p>
+        Public method to retrieve an attribute by name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the named attribute or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Attribute
+</dd>
+</dl>
+<a NAME="Class.getMethod" ID="Class.getMethod"></a>
+<h4>Class.getMethod</h4>
+<b>getMethod</b>(<i>name</i>)
+<p>
+        Public method to retrieve a method by name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the method
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the named method or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Function
+</dd>
+</dl>
+<a NAME="Class.setEndLine" ID="Class.setEndLine"></a>
+<h4>Class.setEndLine</h4>
+<b>setEndLine</b>(<i>endLineNo</i>)
+<p>
+        Public method to record the number of the last line of a class.
+</p>
+
+<dl>
+
+<dt><i>endLineNo</i> (int)</dt>
+<dd>
+number of the last line
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Function" ID="Function"></a>
+<h2>Function</h2>
+<p>
+    Class to represent a Python function or method.
+</p>
+
+<h3>Derived from</h3>
+VisibilityBase
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Class</td></tr>
+<tr><td>General</td></tr>
+<tr><td>Static</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Function.__init__">Function</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Function.addDescription">addDescription</a></td>
+<td>Public method to store the functions docstring.</td>
+</tr>
+<tr>
+<td><a href="#Function.setEndLine">setEndLine</a></td>
+<td>Public method to record the number of the last line of a class.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Function.__init__" ID="Function.__init__"></a>
+<h4>Function (Constructor)</h4>
+<b>Function</b>(<i>module, name, file, lineno, signature="", pyqtSignature=None, modifierType=General, annotation="", </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of module containing this function
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the function
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+name of file containing this function
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+linenumber of the function definition
+</dd>
+<dt><i>signature</i> (str)</dt>
+<dd>
+the functions call signature
+</dd>
+<dt><i>pyqtSignature</i> (str)</dt>
+<dd>
+the functions PyQt signature
+</dd>
+<dt><i>modifierType</i> (int)</dt>
+<dd>
+type of the function
+</dd>
+<dt><i>annotation</i> (str)</dt>
+<dd>
+return annotation
+</dd>
+</dl>
+<a NAME="Function.addDescription" ID="Function.addDescription"></a>
+<h4>Function.addDescription</h4>
+<b>addDescription</b>(<i>description</i>)
+<p>
+        Public method to store the functions docstring.
+</p>
+
+<dl>
+
+<dt><i>description</i> (str)</dt>
+<dd>
+the docstring to be stored
+</dd>
+</dl>
+<a NAME="Function.setEndLine" ID="Function.setEndLine"></a>
+<h4>Function.setEndLine</h4>
+<b>setEndLine</b>(<i>endLineNo</i>)
+<p>
+        Public method to record the number of the last line of a class.
+</p>
+
+<dl>
+
+<dt><i>endLineNo</i> (int)</dt>
+<dd>
+number of the last line
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Module" ID="Module"></a>
+<h2>Module</h2>
+<p>
+    Class to represent a Python module.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Module.__init__">Module</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Module.__py_scan">__py_scan</a></td>
+<td>Private method to scan the source text of a Python module and retrieve the relevant information.</td>
+</tr>
+<tr>
+<td><a href="#Module.__py_setVisibility">__py_setVisibility</a></td>
+<td>Private method to set the visibility of an object.</td>
+</tr>
+<tr>
+<td><a href="#Module.__rb_scan">__rb_scan</a></td>
+<td>Private method to scan the source text of a Python module and retrieve the relevant information.</td>
+</tr>
+<tr>
+<td><a href="#Module.addClass">addClass</a></td>
+<td>Public method to add information about a class.</td>
+</tr>
+<tr>
+<td><a href="#Module.addDescription">addDescription</a></td>
+<td>Public method to store the modules docstring.</td>
+</tr>
+<tr>
+<td><a href="#Module.addFunction">addFunction</a></td>
+<td>Public method to add information about a function.</td>
+</tr>
+<tr>
+<td><a href="#Module.addGlobal">addGlobal</a></td>
+<td>Public method to add information about global variables.</td>
+</tr>
+<tr>
+<td><a href="#Module.addModule">addModule</a></td>
+<td>Public method to add information about a Ruby module.</td>
+</tr>
+<tr>
+<td><a href="#Module.addPathToHierarchy">addPathToHierarchy</a></td>
+<td>Public method to put the exhausted path into the result dictionary.</td>
+</tr>
+<tr>
+<td><a href="#Module.assembleHierarchy">assembleHierarchy</a></td>
+<td>Public method to assemble the inheritance hierarchy.</td>
+</tr>
+<tr>
+<td><a href="#Module.calculateEndline">calculateEndline</a></td>
+<td>Function to calculate the end line of a class or method/function.</td>
+</tr>
+<tr>
+<td><a href="#Module.createHierarchy">createHierarchy</a></td>
+<td>Public method to build the inheritance hierarchy for all classes of this module.</td>
+</tr>
+<tr>
+<td><a href="#Module.getFileName">getFileName</a></td>
+<td>Public method to retrieve the modules filename.</td>
+</tr>
+<tr>
+<td><a href="#Module.getName">getName</a></td>
+<td>Public method to retrieve the modules name.</td>
+</tr>
+<tr>
+<td><a href="#Module.getType">getType</a></td>
+<td>Public method to get the type of the module's source.</td>
+</tr>
+<tr>
+<td><a href="#Module.scan">scan</a></td>
+<td>Public method to scan the source text and retrieve the relevant information.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Module.__init__" ID="Module.__init__"></a>
+<h4>Module (Constructor)</h4>
+<b>Module</b>(<i>name, file=None, moduleType=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this module
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+filename of file containing this module
+</dd>
+<dt><i>moduleType</i> (int)</dt>
+<dd>
+type of this module
+</dd>
+</dl>
+<a NAME="Module.__py_scan" ID="Module.__py_scan"></a>
+<h4>Module.__py_scan</h4>
+<b>__py_scan</b>(<i>src</i>)
+<p>
+        Private method to scan the source text of a Python module and retrieve
+        the relevant information.
+</p>
+
+<dl>
+
+<dt><i>src</i> (str)</dt>
+<dd>
+the source text to be scanned
+</dd>
+</dl>
+<a NAME="Module.__py_setVisibility" ID="Module.__py_setVisibility"></a>
+<h4>Module.__py_setVisibility</h4>
+<b>__py_setVisibility</b>(<i>objectRef</i>)
+<p>
+        Private method to set the visibility of an object.
+</p>
+
+<dl>
+
+<dt><i>objectRef</i> (Attribute, Class or Function)</dt>
+<dd>
+reference to the object
+</dd>
+</dl>
+<a NAME="Module.__rb_scan" ID="Module.__rb_scan"></a>
+<h4>Module.__rb_scan</h4>
+<b>__rb_scan</b>(<i>src</i>)
+<p>
+        Private method to scan the source text of a Python module and retrieve
+        the relevant information.
+</p>
+
+<dl>
+
+<dt><i>src</i> (str)</dt>
+<dd>
+the source text to be scanned
+</dd>
+</dl>
+<a NAME="Module.addClass" ID="Module.addClass"></a>
+<h4>Module.addClass</h4>
+<b>addClass</b>(<i>name, _class</i>)
+<p>
+        Public method to add information about a class.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of class to be added
+</dd>
+<dt><i>_class</i> (Class)</dt>
+<dd>
+Class object to be added
+</dd>
+</dl>
+<a NAME="Module.addDescription" ID="Module.addDescription"></a>
+<h4>Module.addDescription</h4>
+<b>addDescription</b>(<i>description</i>)
+<p>
+        Public method to store the modules docstring.
+</p>
+
+<dl>
+
+<dt><i>description</i> (str)</dt>
+<dd>
+the docstring to be stored
+</dd>
+</dl>
+<a NAME="Module.addFunction" ID="Module.addFunction"></a>
+<h4>Module.addFunction</h4>
+<b>addFunction</b>(<i>name, function</i>)
+<p>
+        Public method to add information about a function.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of function to be added
+</dd>
+<dt><i>function</i> (Function)</dt>
+<dd>
+Function object to be added
+</dd>
+</dl>
+<a NAME="Module.addGlobal" ID="Module.addGlobal"></a>
+<h4>Module.addGlobal</h4>
+<b>addGlobal</b>(<i>name, attr</i>)
+<p>
+        Public method to add information about global variables.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the global to add
+</dd>
+<dt><i>attr</i> (Attribute)</dt>
+<dd>
+Attribute object to be added
+</dd>
+</dl>
+<a NAME="Module.addModule" ID="Module.addModule"></a>
+<h4>Module.addModule</h4>
+<b>addModule</b>(<i>name, module</i>)
+<p>
+        Public method to add information about a Ruby module.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of module to be added
+</dd>
+<dt><i>module</i> (Module)</dt>
+<dd>
+Module object to be added
+</dd>
+</dl>
+<a NAME="Module.addPathToHierarchy" ID="Module.addPathToHierarchy"></a>
+<h4>Module.addPathToHierarchy</h4>
+<b>addPathToHierarchy</b>(<i>path, result, fn</i>)
+<p>
+        Public method to put the exhausted path into the result dictionary.
+</p>
+
+<dl>
+
+<dt><i>path</i> (list of str)</dt>
+<dd>
+the exhausted path of classes
+</dd>
+<dt><i>result</i> (dict)</dt>
+<dd>
+the result dictionary
+</dd>
+<dt><i>fn</i> (function)</dt>
+<dd>
+function to call for classe that are already part of the
+            result dictionary
+</dd>
+</dl>
+<a NAME="Module.assembleHierarchy" ID="Module.assembleHierarchy"></a>
+<h4>Module.assembleHierarchy</h4>
+<b>assembleHierarchy</b>(<i>name, classes, path, result</i>)
+<p>
+        Public method to assemble the inheritance hierarchy.
+</p>
+<p>
+        This method will traverse the class hierarchy, from a given class
+        and build up a nested dictionary of super-classes. The result is
+        intended to be inverted, i.e. the highest level are the super classes.
+</p>
+<p>
+        This code is borrowed from Boa Constructor.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of class to assemble hierarchy
+</dd>
+<dt><i>classes</i> (dict)</dt>
+<dd>
+A dictionary of classes to look in.
+</dd>
+<dt><i>path</i> (list of str)</dt>
+<dd>
+path of classes
+</dd>
+<dt><i>result</i> (dict)</dt>
+<dd>
+The resultant hierarchy
+</dd>
+</dl>
+<a NAME="Module.calculateEndline" ID="Module.calculateEndline"></a>
+<h4>Module.calculateEndline</h4>
+<b>calculateEndline</b>(<i>lines, indent</i>)
+<p>
+            Function to calculate the end line of a class or method/function.
+</p>
+
+<dl>
+
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number to start at (one based)
+</dd>
+<dt><i>lines</i> (list of str)</dt>
+<dd>
+list of source lines
+</dd>
+<dt><i>indent</i> (int)</dt>
+<dd>
+indent length the class/method/function definition
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+end line of the class/method/function (one based)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Module.createHierarchy" ID="Module.createHierarchy"></a>
+<h4>Module.createHierarchy</h4>
+<b>createHierarchy</b>(<i></i>)
+<p>
+        Public method to build the inheritance hierarchy for all classes of
+        this module.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+A dictionary with inheritance hierarchies.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="Module.getFileName" ID="Module.getFileName"></a>
+<h4>Module.getFileName</h4>
+<b>getFileName</b>(<i></i>)
+<p>
+        Public method to retrieve the modules filename.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+module filename
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Module.getName" ID="Module.getName"></a>
+<h4>Module.getName</h4>
+<b>getName</b>(<i></i>)
+<p>
+        Public method to retrieve the modules name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+module name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Module.getType" ID="Module.getType"></a>
+<h4>Module.getType</h4>
+<b>getType</b>(<i></i>)
+<p>
+        Public method to get the type of the module's source.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+type of the modules's source
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Module.scan" ID="Module.scan"></a>
+<h4>Module.scan</h4>
+<b>scan</b>(<i>src</i>)
+<p>
+        Public method to scan the source text and retrieve the relevant
+        information.
+</p>
+
+<dl>
+
+<dt><i>src</i> (str)</dt>
+<dd>
+the source text to be scanned
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="RbModule" ID="RbModule"></a>
+<h2>RbModule</h2>
+<p>
+    Class to represent a Ruby module.
+</p>
+
+<h3>Derived from</h3>
+Class
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#RbModule.__init__">RbModule</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#RbModule.addClass">addClass</a></td>
+<td>Public method to add information about a class.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="RbModule.__init__" ID="RbModule.__init__"></a>
+<h4>RbModule (Constructor)</h4>
+<b>RbModule</b>(<i>module, name, file, lineno</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of module containing this class
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the class
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+name of file containing this class
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+linenumber of the class definition
+</dd>
+</dl>
+<a NAME="RbModule.addClass" ID="RbModule.addClass"></a>
+<h4>RbModule.addClass</h4>
+<b>addClass</b>(<i>name, _class</i>)
+<p>
+        Public method to add information about a class.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of class to be added
+</dd>
+<dt><i>_class</i> (Class)</dt>
+<dd>
+Class object to be added
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="VisibilityBase" ID="VisibilityBase"></a>
+<h2>VisibilityBase</h2>
+<p>
+    Class implementing the visibility aspect of all objects.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VisibilityBase.isPrivate">isPrivate</a></td>
+<td>Public method to check, if the visibility is Private.</td>
+</tr>
+<tr>
+<td><a href="#VisibilityBase.isProtected">isProtected</a></td>
+<td>Public method to check, if the visibility is Protected.</td>
+</tr>
+<tr>
+<td><a href="#VisibilityBase.isPublic">isPublic</a></td>
+<td>Public method to check, if the visibility is Public.</td>
+</tr>
+<tr>
+<td><a href="#VisibilityBase.setPrivate">setPrivate</a></td>
+<td>Public method to set the visibility to Private.</td>
+</tr>
+<tr>
+<td><a href="#VisibilityBase.setProtected">setProtected</a></td>
+<td>Public method to set the visibility to Protected.</td>
+</tr>
+<tr>
+<td><a href="#VisibilityBase.setPublic">setPublic</a></td>
+<td>Public method to set the visibility to Public.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VisibilityBase.isPrivate" ID="VisibilityBase.isPrivate"></a>
+<h4>VisibilityBase.isPrivate</h4>
+<b>isPrivate</b>(<i></i>)
+<p>
+        Public method to check, if the visibility is Private.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating Private visibility
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VisibilityBase.isProtected" ID="VisibilityBase.isProtected"></a>
+<h4>VisibilityBase.isProtected</h4>
+<b>isProtected</b>(<i></i>)
+<p>
+        Public method to check, if the visibility is Protected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating Protected visibility
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VisibilityBase.isPublic" ID="VisibilityBase.isPublic"></a>
+<h4>VisibilityBase.isPublic</h4>
+<b>isPublic</b>(<i></i>)
+<p>
+        Public method to check, if the visibility is Public.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating Public visibility
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VisibilityBase.setPrivate" ID="VisibilityBase.setPrivate"></a>
+<h4>VisibilityBase.setPrivate</h4>
+<b>setPrivate</b>(<i></i>)
+<p>
+        Public method to set the visibility to Private.
+</p>
+
+<a NAME="VisibilityBase.setProtected" ID="VisibilityBase.setProtected"></a>
+<h4>VisibilityBase.setProtected</h4>
+<b>setProtected</b>(<i></i>)
+<p>
+        Public method to set the visibility to Protected.
+</p>
+
+<a NAME="VisibilityBase.setPublic" ID="VisibilityBase.setPublic"></a>
+<h4>VisibilityBase.setPublic</h4>
+<b>setPublic</b>(<i></i>)
+<p>
+        Public method to set the visibility to Public.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_indent" ID="_indent"></a>
+<h2>_indent</h2>
+<b>_indent</b>(<i>ws</i>)
+<p>
+    Protected function to determine the indent width of a whitespace string.
+</p>
+
+<dl>
+
+<dt><i>ws</i> (str)</dt>
+<dd>
+The whitespace string to be cheked.
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+length of the whitespace string after tab expansion
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="find_module" ID="find_module"></a>
+<h2>find_module</h2>
+<b>find_module</b>(<i>name, path, extensions</i>)
+<p>
+    Module function to extend the Python module finding mechanism.
+</p>
+<p>
+    This function searches for files in the given path. If the filename
+    doesn't have an extension or an extension of .py, the normal search
+    implemented in the imp module is used. For all other supported files
+    only path is searched.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+filename or modulename to search for
+</dd>
+<dt><i>path</i> (list of str)</dt>
+<dd>
+search path
+</dd>
+<dt><i>extensions</i> (list of str)</dt>
+<dd>
+list of extensions, which should be considered valid
+        source file extensions
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of the open file, pathname and description. Description
+        is a tuple of file suffix, file mode and file type)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ImportError</b>:</dt>
+<dd>
+The file or module wasn't found.
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getTypeFromTypeName" ID="getTypeFromTypeName"></a>
+<h2>getTypeFromTypeName</h2>
+<b>getTypeFromTypeName</b>(<i>name</i>)
+<p>
+    Module function to determine the module type given the module type name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+module type name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+module type or -1 for failure
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="readModule" ID="readModule"></a>
+<h2>readModule</h2>
+<b>readModule</b>(<i>module, path=None, inpackage=False, basename="", extensions=None, caching=True, ignoreBuiltinModules=False, </i>)
+<p>
+    Function to read a module file and parse it.
+</p>
+<p>
+    The module is searched in path and sys.path, read and parsed.
+    If the module was parsed before, the information is taken
+    from a cache in order to speed up processing.
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of the module to be parsed
+</dd>
+<dt><i>path</i> (list of str)</dt>
+<dd>
+search path for the module
+</dd>
+<dt><i>inpackage</i> (bool)</dt>
+<dd>
+flag indicating that module is inside a
+        package
+</dd>
+<dt><i>basename</i> (str)</dt>
+<dd>
+a path basename that is deleted from the filename of
+        the module file to be read
+</dd>
+<dt><i>extensions</i> (list of str)</dt>
+<dd>
+list of extensions, which should be considered valid
+        source file extensions
+</dd>
+<dt><i>caching</i> (bool)</dt>
+<dd>
+flag indicating that the parsed module should be
+        cached
+</dd>
+<dt><i>ignoreBuiltinModules</i> (bool)</dt>
+<dd>
+flag indicating to ignore the builtin modules
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to a Module object containing the parsed
+        module information
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Module
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ImportError</b>:</dt>
+<dd>
+raised to indicate an unsupported source code type
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="resetParsedModule" ID="resetParsedModule"></a>
+<h2>resetParsedModule</h2>
+<b>resetParsedModule</b>(<i>module, basename=""</i>)
+<p>
+    Module function to clear one module from the list of parsed modules.
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+Name of the module to be parsed
+</dd>
+<dt><i>basename</i> (str)</dt>
+<dd>
+a path basename. This basename is deleted from
+        the filename of the module file to be cleared.
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="resetParsedModules" ID="resetParsedModules"></a>
+<h2>resetParsedModules</h2>
+<b>resetParsedModules</b>(<i></i>)
+<p>
+    Module function to reset the list of modules already parsed.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

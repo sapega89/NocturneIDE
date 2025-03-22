@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.GitStatusDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.GitStatusDialog</h1>
+<p>
+Module implementing a dialog to show the output of the git status command
+process.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitStatusDialog">GitStatusDialog</a></td>
+<td>Class implementing a dialog to show the output of the git status command process.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitStatusDialog" ID="GitStatusDialog"></a>
+<h2>GitStatusDialog</h2>
+<p>
+    Class implementing a dialog to show the output of the git status command
+    process.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_GitStatusDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ConflictRole</td></tr>
+<tr><td>ConflictStates</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitStatusDialog.__init__">GitStatusDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__add">__add</a></td>
+<td>Private slot to handle the Add context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__amend">__amend</a></td>
+<td>Private slot to handle the Amend context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__commit">__commit</a></td>
+<td>Private slot to handle the Commit context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__commitDeselectAll">__commitDeselectAll</a></td>
+<td>Private slot to deselect all entries from commit.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__commitSelect">__commitSelect</a></td>
+<td>Private slot to select or deselect all entries.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__commitSelectAll">__commitSelectAll</a></td>
+<td>Private slot to select all entries for commit.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__committed">__committed</a></td>
+<td>Private slot called after the commit has finished.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__diff">__diff</a></td>
+<td>Private slot to handle the Diff context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__editConflict">__editConflict</a></td>
+<td>Private slot to handle the Edit Conflict context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__forget">__forget</a></td>
+<td>Private slot to handle the Forget Missing context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__generateDiffs">__generateDiffs</a></td>
+<td>Private slot to generate diff outputs for the selected item.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__generateItem">__generateItem</a></td>
+<td>Private method to generate a status item in the status list.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__generatorFinished">__generatorFinished</a></td>
+<td>Private slot connected to the finished signal of the diff generator.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__getCommitableItems">__getCommitableItems</a></td>
+<td>Private method to retrieve all entries the user wants to commit.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__getCommitableUnselectedItems">__getCommitableUnselectedItems</a></td>
+<td>Private method to retrieve all entries the user may commit but hasn't selected.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__getConflictingItems">__getConflictingItems</a></td>
+<td>Private method to retrieve all entries, that have a conflict status.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__getMissingItems">__getMissingItems</a></td>
+<td>Private method to retrieve all entries, that have a missing status.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__getModifiedItems">__getModifiedItems</a></td>
+<td>Private method to retrieve all entries, that have a modified status.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__getModifiedOnlyItems">__getModifiedOnlyItems</a></td>
+<td>Private method to retrieve all entries, that have a modified status.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__getStageableItems">__getStageableItems</a></td>
+<td>Private method to retrieve all entries, that have a stageable status.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__getUnstageableItems">__getUnstageableItems</a></td>
+<td>Private method to retrieve all entries, that have an unstageable status.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__getUnversionedItems">__getUnversionedItems</a></td>
+<td>Private method to retrieve all entries, that have an unversioned status.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__initActionsMenu">__initActionsMenu</a></td>
+<td>Private method to initialize the actions menu.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__procFinished">__procFinished</a></td>
+<td>Private slot connected to the finished signal.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__readStderr">__readStderr</a></td>
+<td>Private slot to handle the readyReadStandardError signal.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__readStdout">__readStdout</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__refreshDiff">__refreshDiff</a></td>
+<td>Private method to refresh the diff output after a refresh.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the list columns.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__restoreMissing">__restoreMissing</a></td>
+<td>Private slot to handle the Restore Missing context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__revert">__revert</a></td>
+<td>Private slot to handle the Revert context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__revertHunkOrLines">__revertHunkOrLines</a></td>
+<td>Private method to revert the selected lines or hunk.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__sbsDiff">__sbsDiff</a></td>
+<td>Private slot to handle the Side-By-Side Diff context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__selectedLinesIndexes">__selectedLinesIndexes</a></td>
+<td>Private method to extract the indexes of the selected lines.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__showActionsMenu">__showActionsMenu</a></td>
+<td>Private slot to prepare the actions button menu before it is shown.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__showLDiffContextMenu">__showLDiffContextMenu</a></td>
+<td>Private slot to show the context menu of the status list.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__showRDiffContextMenu">__showRDiffContextMenu</a></td>
+<td>Private slot to show the context menu of the status list.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__stage">__stage</a></td>
+<td>Private slot to handle the Stage context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__stageHunkOrLines">__stageHunkOrLines</a></td>
+<td>Private method to stage the selected lines or hunk.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__tmpPatchFileName">__tmpPatchFileName</a></td>
+<td>Private method to generate a temporary patch file.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__unstage">__unstage</a></td>
+<td>Private slot to handle the Unstage context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.__unstageHunkOrLines">__unstageHunkOrLines</a></td>
+<td>Private method to unstage the selected lines or hunk.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.keyPressEvent">keyPressEvent</a></td>
+<td>Protected slot to handle a key press event.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.on_input_returnPressed">on_input_returnPressed</a></td>
+<td>Private slot to handle the press of the return key in the input field.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.on_passwordCheckBox_toggled">on_passwordCheckBox_toggled</a></td>
+<td>Private slot to handle the password checkbox toggled.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the status display.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.on_sendButton_clicked">on_sendButton_clicked</a></td>
+<td>Private slot to send the input to the git process.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.on_statusFilterCombo_activated">on_statusFilterCombo_activated</a></td>
+<td>Private slot to react to the selection of a status filter.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.on_statusList_itemSelectionChanged">on_statusList_itemSelectionChanged</a></td>
+<td>Private slot to act upon changes of selected items.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusDialog.start">start</a></td>
+<td>Public slot to start the git status command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitStatusDialog.__init__" ID="GitStatusDialog.__init__"></a>
+<h4>GitStatusDialog (Constructor)</h4>
+<b>GitStatusDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Git)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__add" ID="GitStatusDialog.__add"></a>
+<h4>GitStatusDialog.__add</h4>
+<b>__add</b>(<i></i>)
+<p>
+        Private slot to handle the Add context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__amend" ID="GitStatusDialog.__amend"></a>
+<h4>GitStatusDialog.__amend</h4>
+<b>__amend</b>(<i></i>)
+<p>
+        Private slot to handle the Amend context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__commit" ID="GitStatusDialog.__commit"></a>
+<h4>GitStatusDialog.__commit</h4>
+<b>__commit</b>(<i>amend=False</i>)
+<p>
+        Private slot to handle the Commit context menu entry.
+</p>
+
+<dl>
+
+<dt><i>amend</i> (bool)</dt>
+<dd>
+flag indicating to perform an amend operation
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__commitDeselectAll" ID="GitStatusDialog.__commitDeselectAll"></a>
+<h4>GitStatusDialog.__commitDeselectAll</h4>
+<b>__commitDeselectAll</b>(<i></i>)
+<p>
+        Private slot to deselect all entries from commit.
+</p>
+
+<a NAME="GitStatusDialog.__commitSelect" ID="GitStatusDialog.__commitSelect"></a>
+<h4>GitStatusDialog.__commitSelect</h4>
+<b>__commitSelect</b>(<i>selected</i>)
+<p>
+        Private slot to select or deselect all entries.
+</p>
+
+<dl>
+
+<dt><i>selected</i> (bool)</dt>
+<dd>
+commit selection state to be set
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__commitSelectAll" ID="GitStatusDialog.__commitSelectAll"></a>
+<h4>GitStatusDialog.__commitSelectAll</h4>
+<b>__commitSelectAll</b>(<i></i>)
+<p>
+        Private slot to select all entries for commit.
+</p>
+
+<a NAME="GitStatusDialog.__committed" ID="GitStatusDialog.__committed"></a>
+<h4>GitStatusDialog.__committed</h4>
+<b>__committed</b>(<i></i>)
+<p>
+        Private slot called after the commit has finished.
+</p>
+
+<a NAME="GitStatusDialog.__diff" ID="GitStatusDialog.__diff"></a>
+<h4>GitStatusDialog.__diff</h4>
+<b>__diff</b>(<i></i>)
+<p>
+        Private slot to handle the Diff context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__editConflict" ID="GitStatusDialog.__editConflict"></a>
+<h4>GitStatusDialog.__editConflict</h4>
+<b>__editConflict</b>(<i></i>)
+<p>
+        Private slot to handle the Edit Conflict context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__finish" ID="GitStatusDialog.__finish"></a>
+<h4>GitStatusDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="GitStatusDialog.__forget" ID="GitStatusDialog.__forget"></a>
+<h4>GitStatusDialog.__forget</h4>
+<b>__forget</b>(<i></i>)
+<p>
+        Private slot to handle the Forget Missing context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__generateDiffs" ID="GitStatusDialog.__generateDiffs"></a>
+<h4>GitStatusDialog.__generateDiffs</h4>
+<b>__generateDiffs</b>(<i></i>)
+<p>
+        Private slot to generate diff outputs for the selected item.
+</p>
+
+<a NAME="GitStatusDialog.__generateItem" ID="GitStatusDialog.__generateItem"></a>
+<h4>GitStatusDialog.__generateItem</h4>
+<b>__generateItem</b>(<i>status, path</i>)
+<p>
+        Private method to generate a status item in the status list.
+</p>
+
+<dl>
+
+<dt><i>status</i> (str)</dt>
+<dd>
+status indicator
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the file or directory
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__generatorFinished" ID="GitStatusDialog.__generatorFinished"></a>
+<h4>GitStatusDialog.__generatorFinished</h4>
+<b>__generatorFinished</b>(<i></i>)
+<p>
+        Private slot connected to the finished signal of the diff generator.
+</p>
+
+<a NAME="GitStatusDialog.__getCommitableItems" ID="GitStatusDialog.__getCommitableItems"></a>
+<h4>GitStatusDialog.__getCommitableItems</h4>
+<b>__getCommitableItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries the user wants to commit.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items, the user has checked
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__getCommitableUnselectedItems" ID="GitStatusDialog.__getCommitableUnselectedItems"></a>
+<h4>GitStatusDialog.__getCommitableUnselectedItems</h4>
+<b>__getCommitableUnselectedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries the user may commit but hasn't
+        selected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items, the user has not checked
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__getConflictingItems" ID="GitStatusDialog.__getConflictingItems"></a>
+<h4>GitStatusDialog.__getConflictingItems</h4>
+<b>__getConflictingItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a conflict status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a conflict status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__getMissingItems" ID="GitStatusDialog.__getMissingItems"></a>
+<h4>GitStatusDialog.__getMissingItems</h4>
+<b>__getMissingItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a missing status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a missing status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__getModifiedItems" ID="GitStatusDialog.__getModifiedItems"></a>
+<h4>GitStatusDialog.__getModifiedItems</h4>
+<b>__getModifiedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a modified status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a modified status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__getModifiedOnlyItems" ID="GitStatusDialog.__getModifiedOnlyItems"></a>
+<h4>GitStatusDialog.__getModifiedOnlyItems</h4>
+<b>__getModifiedOnlyItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a modified status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a modified status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__getStageableItems" ID="GitStatusDialog.__getStageableItems"></a>
+<h4>GitStatusDialog.__getStageableItems</h4>
+<b>__getStageableItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a stageable
+        status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a stageable status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__getUnstageableItems" ID="GitStatusDialog.__getUnstageableItems"></a>
+<h4>GitStatusDialog.__getUnstageableItems</h4>
+<b>__getUnstageableItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have an unstageable
+        status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with an unstageable status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__getUnversionedItems" ID="GitStatusDialog.__getUnversionedItems"></a>
+<h4>GitStatusDialog.__getUnversionedItems</h4>
+<b>__getUnversionedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have an unversioned
+        status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with an unversioned status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__initActionsMenu" ID="GitStatusDialog.__initActionsMenu"></a>
+<h4>GitStatusDialog.__initActionsMenu</h4>
+<b>__initActionsMenu</b>(<i></i>)
+<p>
+        Private method to initialize the actions menu.
+</p>
+
+<a NAME="GitStatusDialog.__procFinished" ID="GitStatusDialog.__procFinished"></a>
+<h4>GitStatusDialog.__procFinished</h4>
+<b>__procFinished</b>(<i>_exitCode, _exitStatus</i>)
+<p>
+        Private slot connected to the finished signal.
+</p>
+
+<dl>
+
+<dt><i>_exitCode</i> (int)</dt>
+<dd>
+exit code of the process (unused)
+</dd>
+<dt><i>_exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process (unused)
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__readStderr" ID="GitStatusDialog.__readStderr"></a>
+<h4>GitStatusDialog.__readStderr</h4>
+<b>__readStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardError signal.
+</p>
+<p>
+        It reads the error output of the process and inserts it into the
+        error pane.
+</p>
+
+<a NAME="GitStatusDialog.__readStdout" ID="GitStatusDialog.__readStdout"></a>
+<h4>GitStatusDialog.__readStdout</h4>
+<b>__readStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal.
+</p>
+<p>
+        It reads the output of the process, formats it and inserts it into
+        the contents pane.
+</p>
+
+<a NAME="GitStatusDialog.__refreshDiff" ID="GitStatusDialog.__refreshDiff"></a>
+<h4>GitStatusDialog.__refreshDiff</h4>
+<b>__refreshDiff</b>(<i></i>)
+<p>
+        Private method to refresh the diff output after a refresh.
+</p>
+
+<a NAME="GitStatusDialog.__resizeColumns" ID="GitStatusDialog.__resizeColumns"></a>
+<h4>GitStatusDialog.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the list columns.
+</p>
+
+<a NAME="GitStatusDialog.__resort" ID="GitStatusDialog.__resort"></a>
+<h4>GitStatusDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="GitStatusDialog.__restoreMissing" ID="GitStatusDialog.__restoreMissing"></a>
+<h4>GitStatusDialog.__restoreMissing</h4>
+<b>__restoreMissing</b>(<i></i>)
+<p>
+        Private slot to handle the Restore Missing context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__revert" ID="GitStatusDialog.__revert"></a>
+<h4>GitStatusDialog.__revert</h4>
+<b>__revert</b>(<i></i>)
+<p>
+        Private slot to handle the Revert context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__revertHunkOrLines" ID="GitStatusDialog.__revertHunkOrLines"></a>
+<h4>GitStatusDialog.__revertHunkOrLines</h4>
+<b>__revertHunkOrLines</b>(<i></i>)
+<p>
+        Private method to revert the selected lines or hunk.
+</p>
+
+<a NAME="GitStatusDialog.__sbsDiff" ID="GitStatusDialog.__sbsDiff"></a>
+<h4>GitStatusDialog.__sbsDiff</h4>
+<b>__sbsDiff</b>(<i></i>)
+<p>
+        Private slot to handle the Side-By-Side Diff context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__selectedLinesIndexes" ID="GitStatusDialog.__selectedLinesIndexes"></a>
+<h4>GitStatusDialog.__selectedLinesIndexes</h4>
+<b>__selectedLinesIndexes</b>(<i>diffEdit</i>)
+<p>
+        Private method to extract the indexes of the selected lines.
+</p>
+
+<dl>
+
+<dt><i>diffEdit</i> (QTextEdit)</dt>
+<dd>
+reference to the edit widget
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of start and end indexes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__showActionsMenu" ID="GitStatusDialog.__showActionsMenu"></a>
+<h4>GitStatusDialog.__showActionsMenu</h4>
+<b>__showActionsMenu</b>(<i></i>)
+<p>
+        Private slot to prepare the actions button menu before it is shown.
+</p>
+
+<a NAME="GitStatusDialog.__showLDiffContextMenu" ID="GitStatusDialog.__showLDiffContextMenu"></a>
+<h4>GitStatusDialog.__showLDiffContextMenu</h4>
+<b>__showLDiffContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu of the status list.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+position of the mouse pointer
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__showRDiffContextMenu" ID="GitStatusDialog.__showRDiffContextMenu"></a>
+<h4>GitStatusDialog.__showRDiffContextMenu</h4>
+<b>__showRDiffContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu of the status list.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+position of the mouse pointer
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__stage" ID="GitStatusDialog.__stage"></a>
+<h4>GitStatusDialog.__stage</h4>
+<b>__stage</b>(<i></i>)
+<p>
+        Private slot to handle the Stage context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__stageHunkOrLines" ID="GitStatusDialog.__stageHunkOrLines"></a>
+<h4>GitStatusDialog.__stageHunkOrLines</h4>
+<b>__stageHunkOrLines</b>(<i></i>)
+<p>
+        Private method to stage the selected lines or hunk.
+</p>
+
+<a NAME="GitStatusDialog.__tmpPatchFileName" ID="GitStatusDialog.__tmpPatchFileName"></a>
+<h4>GitStatusDialog.__tmpPatchFileName</h4>
+<b>__tmpPatchFileName</b>(<i></i>)
+<p>
+        Private method to generate a temporary patch file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the temporary file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitStatusDialog.__unstage" ID="GitStatusDialog.__unstage"></a>
+<h4>GitStatusDialog.__unstage</h4>
+<b>__unstage</b>(<i></i>)
+<p>
+        Private slot to handle the Unstage context menu entry.
+</p>
+
+<a NAME="GitStatusDialog.__unstageHunkOrLines" ID="GitStatusDialog.__unstageHunkOrLines"></a>
+<h4>GitStatusDialog.__unstageHunkOrLines</h4>
+<b>__unstageHunkOrLines</b>(<i></i>)
+<p>
+        Private method to unstage the selected lines or hunk.
+</p>
+
+<a NAME="GitStatusDialog.closeEvent" ID="GitStatusDialog.closeEvent"></a>
+<h4>GitStatusDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="GitStatusDialog.keyPressEvent" ID="GitStatusDialog.keyPressEvent"></a>
+<h4>GitStatusDialog.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected slot to handle a key press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+the key press event
+</dd>
+</dl>
+<a NAME="GitStatusDialog.on_buttonBox_clicked" ID="GitStatusDialog.on_buttonBox_clicked"></a>
+<h4>GitStatusDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="GitStatusDialog.on_input_returnPressed" ID="GitStatusDialog.on_input_returnPressed"></a>
+<h4>GitStatusDialog.on_input_returnPressed</h4>
+<b>on_input_returnPressed</b>(<i></i>)
+<p>
+        Private slot to handle the press of the return key in the input field.
+</p>
+
+<a NAME="GitStatusDialog.on_passwordCheckBox_toggled" ID="GitStatusDialog.on_passwordCheckBox_toggled"></a>
+<h4>GitStatusDialog.on_passwordCheckBox_toggled</h4>
+<b>on_passwordCheckBox_toggled</b>(<i>isOn</i>)
+<p>
+        Private slot to handle the password checkbox toggled.
+</p>
+
+<dl>
+
+<dt><i>isOn</i> (bool)</dt>
+<dd>
+flag indicating the status of the check box
+</dd>
+</dl>
+<a NAME="GitStatusDialog.on_refreshButton_clicked" ID="GitStatusDialog.on_refreshButton_clicked"></a>
+<h4>GitStatusDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the status display.
+</p>
+
+<a NAME="GitStatusDialog.on_sendButton_clicked" ID="GitStatusDialog.on_sendButton_clicked"></a>
+<h4>GitStatusDialog.on_sendButton_clicked</h4>
+<b>on_sendButton_clicked</b>(<i></i>)
+<p>
+        Private slot to send the input to the git process.
+</p>
+
+<a NAME="GitStatusDialog.on_statusFilterCombo_activated" ID="GitStatusDialog.on_statusFilterCombo_activated"></a>
+<h4>GitStatusDialog.on_statusFilterCombo_activated</h4>
+<b>on_statusFilterCombo_activated</b>(<i>index</i>)
+<p>
+        Private slot to react to the selection of a status filter.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="GitStatusDialog.on_statusList_itemSelectionChanged" ID="GitStatusDialog.on_statusList_itemSelectionChanged"></a>
+<h4>GitStatusDialog.on_statusList_itemSelectionChanged</h4>
+<b>on_statusList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to act upon changes of selected items.
+</p>
+
+<a NAME="GitStatusDialog.show" ID="GitStatusDialog.show"></a>
+<h4>GitStatusDialog.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<a NAME="GitStatusDialog.start" ID="GitStatusDialog.start"></a>
+<h4>GitStatusDialog.start</h4>
+<b>start</b>(<i>fn</i>)
+<p>
+        Public slot to start the git status command.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str or list of str)</dt>
+<dd>
+filename(s)/directoryname(s) to show the status of
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

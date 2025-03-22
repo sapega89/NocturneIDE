@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Project.ProjectBaseBrowser</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Project.ProjectBaseBrowser</h1>
+<p>
+Module implementing the baseclass for the various project browsers.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ProjectBaseBrowser">ProjectBaseBrowser</a></td>
+<td>Baseclass implementing common functionality for the various project browsers.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ProjectBaseBrowser" ID="ProjectBaseBrowser"></a>
+<h2>ProjectBaseBrowser</h2>
+<p>
+    Baseclass implementing common functionality for the various project
+    browsers.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>closeSourceWindow(str)</dt>
+<dd>
+emitted to close a source file
+</dd>
+</dl>
+<h3>Derived from</h3>
+Browser
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ProjectBaseBrowser.__init__">ProjectBaseBrowser</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.__checkHookKey">__checkHookKey</a></td>
+<td>Private method to check a hook key.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.__modelRowsInserted">__modelRowsInserted</a></td>
+<td>Private slot called after rows have been inserted into the model.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._collapseAllDirs">_collapseAllDirs</a></td>
+<td>Protected slot to handle the 'Collapse all directories' menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._collapseAllFiles">_collapseAllFiles</a></td>
+<td>Protected slot to handle the 'Collapse all files' menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._completeRepopulateItem">_completeRepopulateItem</a></td>
+<td>Protected slot to handle the completeRepopulateItem signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._configure">_configure</a></td>
+<td>Protected method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._connectExpandedCollapsed">_connectExpandedCollapsed</a></td>
+<td>Protected method to connect the expanded and collapsed signals.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._contextMenuRequested">_contextMenuRequested</a></td>
+<td>Protected slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._copyToClipboard">_copyToClipboard</a></td>
+<td>Protected method to copy the path of an entry to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._createPopupMenus">_createPopupMenus</a></td>
+<td>Protected overloaded method to generate the popup menus.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._deleteDirectory">_deleteDirectory</a></td>
+<td>Protected method to delete the selected directory from the project data area.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._disconnectExpandedCollapsed">_disconnectExpandedCollapsed</a></td>
+<td>Protected method to disconnect the expanded and collapsed signals.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._expandAllDirs">_expandAllDirs</a></td>
+<td>Protected slot to handle the 'Expand all directories' menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._initHookMethods">_initHookMethods</a></td>
+<td>Protected method to initialize the hooks dictionary.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._initMenusAndVcs">_initMenusAndVcs</a></td>
+<td>Protected slot to initialize the menus and the Vcs interface.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._keyboardSearchType">_keyboardSearchType</a></td>
+<td>Protected method to check, if the item is of the correct type.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._newProject">_newProject</a></td>
+<td>Protected slot to handle the newProject signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._prepareRepopulateItem">_prepareRepopulateItem</a></td>
+<td>Protected slot to handle the prepareRepopulateItem signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._projectClosed">_projectClosed</a></td>
+<td>Protected slot to handle the projectClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._projectOpened">_projectOpened</a></td>
+<td>Protected slot to handle the projectOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._removeDir">_removeDir</a></td>
+<td>Protected method to remove a (single) directory from the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._removeFile">_removeFile</a></td>
+<td>Protected method to remove a file or files from the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._renameFile">_renameFile</a></td>
+<td>Protected method to rename a file of the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._selectEntries">_selectEntries</a></td>
+<td>Protected method to select entries based on their VCS status.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._selectSingleItem">_selectSingleItem</a></td>
+<td>Protected method to select a single item.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._setItemRangeSelected">_setItemRangeSelected</a></td>
+<td>Protected method to set the selection status of a range of items.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._setItemSelected">_setItemSelected</a></td>
+<td>Protected method to set the selection status of an item.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._showContextMenu">_showContextMenu</a></td>
+<td>Protected slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._showContextMenuBack">_showContextMenuBack</a></td>
+<td>Protected slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._showContextMenuDir">_showContextMenuDir</a></td>
+<td>Protected slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._showContextMenuDirMulti">_showContextMenuDirMulti</a></td>
+<td>Protected slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._showContextMenuMulti">_showContextMenuMulti</a></td>
+<td>Protected slot called before the context menu (multiple selections) is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser._showProjectInFileManager">_showProjectInFileManager</a></td>
+<td>Protected slot to show the path of the project in a file manager application.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.addHookMethod">addHookMethod</a></td>
+<td>Public method to add a hook method to the dictionary.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.addHookMethodAndMenuEntry">addHookMethodAndMenuEntry</a></td>
+<td>Public method to add a hook method to the dictionary.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.currentDirectory">currentDirectory</a></td>
+<td>Public method to determine the directory of the currently selected entry.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.currentItem">currentItem</a></td>
+<td>Public method to get a reference to the current item.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.expandItemsByName">expandItemsByName</a></td>
+<td>Public method to expand items given their names.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.getExpandedItemNames">getExpandedItemNames</a></td>
+<td>Public method to get the file/directory names of all expanded items.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.removeHookMethod">removeHookMethod</a></td>
+<td>Public method to remove a hook method from the dictionary.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.selectFile">selectFile</a></td>
+<td>Public method to highlight a node given its filename.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.selectFileLine">selectFileLine</a></td>
+<td>Public method to highlight a node given its filename.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.selectLocalDirEntries">selectLocalDirEntries</a></td>
+<td>Public slot to handle the select local directories context menu entries.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.selectLocalEntries">selectLocalEntries</a></td>
+<td>Public slot to handle the select local files context menu entries.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.selectVCSDirEntries">selectVCSDirEntries</a></td>
+<td>Public slot to handle the select VCS directories context menu entries.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBaseBrowser.selectVCSEntries">selectVCSEntries</a></td>
+<td>Public slot to handle the select VCS files context menu entries.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ProjectBaseBrowser.__init__" ID="ProjectBaseBrowser.__init__"></a>
+<h4>ProjectBaseBrowser (Constructor)</h4>
+<b>ProjectBaseBrowser</b>(<i>project, filterType, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>filterType</i> (str)</dt>
+<dd>
+filter string for file types
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this browser
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.__checkHookKey" ID="ProjectBaseBrowser.__checkHookKey"></a>
+<h4>ProjectBaseBrowser.__checkHookKey</h4>
+<b>__checkHookKey</b>(<i>key</i>)
+<p>
+        Private method to check a hook key.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+key of the hook to check
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>KeyError</b>:</dt>
+<dd>
+raised to indicate an invalid hook
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.__modelRowsInserted" ID="ProjectBaseBrowser.__modelRowsInserted"></a>
+<h4>ProjectBaseBrowser.__modelRowsInserted</h4>
+<b>__modelRowsInserted</b>(<i>_parent, _start, _end</i>)
+<p>
+        Private slot called after rows have been inserted into the model.
+</p>
+
+<dl>
+
+<dt><i>_parent</i> (QModelIndex)</dt>
+<dd>
+parent index of inserted rows (unused)
+</dd>
+<dt><i>_start</i> (int)</dt>
+<dd>
+start row number (unused)
+</dd>
+<dt><i>_end</i> (int)</dt>
+<dd>
+end row number (unused)
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._collapseAllDirs" ID="ProjectBaseBrowser._collapseAllDirs"></a>
+<h4>ProjectBaseBrowser._collapseAllDirs</h4>
+<b>_collapseAllDirs</b>(<i></i>)
+<p>
+        Protected slot to handle the 'Collapse all directories' menu action.
+</p>
+
+<a NAME="ProjectBaseBrowser._collapseAllFiles" ID="ProjectBaseBrowser._collapseAllFiles"></a>
+<h4>ProjectBaseBrowser._collapseAllFiles</h4>
+<b>_collapseAllFiles</b>(<i></i>)
+<p>
+        Protected slot to handle the 'Collapse all files' menu action.
+</p>
+
+<a NAME="ProjectBaseBrowser._completeRepopulateItem" ID="ProjectBaseBrowser._completeRepopulateItem"></a>
+<h4>ProjectBaseBrowser._completeRepopulateItem</h4>
+<b>_completeRepopulateItem</b>(<i>name</i>)
+<p>
+        Protected slot to handle the completeRepopulateItem signal.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+relative name of file item to be repopulated
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._configure" ID="ProjectBaseBrowser._configure"></a>
+<h4>ProjectBaseBrowser._configure</h4>
+<b>_configure</b>(<i></i>)
+<p>
+        Protected method to open the configuration dialog.
+</p>
+
+<a NAME="ProjectBaseBrowser._connectExpandedCollapsed" ID="ProjectBaseBrowser._connectExpandedCollapsed"></a>
+<h4>ProjectBaseBrowser._connectExpandedCollapsed</h4>
+<b>_connectExpandedCollapsed</b>(<i></i>)
+<p>
+        Protected method to connect the expanded and collapsed signals.
+</p>
+
+<a NAME="ProjectBaseBrowser._contextMenuRequested" ID="ProjectBaseBrowser._contextMenuRequested"></a>
+<h4>ProjectBaseBrowser._contextMenuRequested</h4>
+<b>_contextMenuRequested</b>(<i>coord</i>)
+<p>
+        Protected slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._copyToClipboard" ID="ProjectBaseBrowser._copyToClipboard"></a>
+<h4>ProjectBaseBrowser._copyToClipboard</h4>
+<b>_copyToClipboard</b>(<i></i>)
+<p>
+        Protected method to copy the path of an entry to the clipboard.
+</p>
+
+<a NAME="ProjectBaseBrowser._createPopupMenus" ID="ProjectBaseBrowser._createPopupMenus"></a>
+<h4>ProjectBaseBrowser._createPopupMenus</h4>
+<b>_createPopupMenus</b>(<i></i>)
+<p>
+        Protected overloaded method to generate the popup menus.
+</p>
+
+<a NAME="ProjectBaseBrowser._deleteDirectory" ID="ProjectBaseBrowser._deleteDirectory"></a>
+<h4>ProjectBaseBrowser._deleteDirectory</h4>
+<b>_deleteDirectory</b>(<i></i>)
+<p>
+        Protected method to delete the selected directory from the project
+        data area.
+</p>
+
+<a NAME="ProjectBaseBrowser._disconnectExpandedCollapsed" ID="ProjectBaseBrowser._disconnectExpandedCollapsed"></a>
+<h4>ProjectBaseBrowser._disconnectExpandedCollapsed</h4>
+<b>_disconnectExpandedCollapsed</b>(<i></i>)
+<p>
+        Protected method to disconnect the expanded and collapsed signals.
+</p>
+
+<a NAME="ProjectBaseBrowser._expandAllDirs" ID="ProjectBaseBrowser._expandAllDirs"></a>
+<h4>ProjectBaseBrowser._expandAllDirs</h4>
+<b>_expandAllDirs</b>(<i></i>)
+<p>
+        Protected slot to handle the 'Expand all directories' menu action.
+</p>
+
+<a NAME="ProjectBaseBrowser._initHookMethods" ID="ProjectBaseBrowser._initHookMethods"></a>
+<h4>ProjectBaseBrowser._initHookMethods</h4>
+<b>_initHookMethods</b>(<i></i>)
+<p>
+        Protected method to initialize the hooks dictionary.
+</p>
+<p>
+        This method should be overridden by subclasses. All supported
+        hook methods should be initialized with a None value. The keys
+        must be strings.
+</p>
+
+<a NAME="ProjectBaseBrowser._initMenusAndVcs" ID="ProjectBaseBrowser._initMenusAndVcs"></a>
+<h4>ProjectBaseBrowser._initMenusAndVcs</h4>
+<b>_initMenusAndVcs</b>(<i></i>)
+<p>
+        Protected slot to initialize the menus and the Vcs interface.
+</p>
+
+<a NAME="ProjectBaseBrowser._keyboardSearchType" ID="ProjectBaseBrowser._keyboardSearchType"></a>
+<h4>ProjectBaseBrowser._keyboardSearchType</h4>
+<b>_keyboardSearchType</b>(<i>item</i>)
+<p>
+        Protected method to check, if the item is of the correct type.
+</p>
+
+<dl>
+
+<dt><i>item</i> (BrowserItem)</dt>
+<dd>
+reference to the item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a correct type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._newProject" ID="ProjectBaseBrowser._newProject"></a>
+<h4>ProjectBaseBrowser._newProject</h4>
+<b>_newProject</b>(<i></i>)
+<p>
+        Protected slot to handle the newProject signal.
+</p>
+
+<a NAME="ProjectBaseBrowser._prepareRepopulateItem" ID="ProjectBaseBrowser._prepareRepopulateItem"></a>
+<h4>ProjectBaseBrowser._prepareRepopulateItem</h4>
+<b>_prepareRepopulateItem</b>(<i>name</i>)
+<p>
+        Protected slot to handle the prepareRepopulateItem signal.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+relative name of file item to be repopulated
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._projectClosed" ID="ProjectBaseBrowser._projectClosed"></a>
+<h4>ProjectBaseBrowser._projectClosed</h4>
+<b>_projectClosed</b>(<i></i>)
+<p>
+        Protected slot to handle the projectClosed signal.
+</p>
+
+<a NAME="ProjectBaseBrowser._projectOpened" ID="ProjectBaseBrowser._projectOpened"></a>
+<h4>ProjectBaseBrowser._projectOpened</h4>
+<b>_projectOpened</b>(<i></i>)
+<p>
+        Protected slot to handle the projectOpened signal.
+</p>
+
+<a NAME="ProjectBaseBrowser._removeDir" ID="ProjectBaseBrowser._removeDir"></a>
+<h4>ProjectBaseBrowser._removeDir</h4>
+<b>_removeDir</b>(<i></i>)
+<p>
+        Protected method to remove a (single) directory from the project.
+</p>
+
+<a NAME="ProjectBaseBrowser._removeFile" ID="ProjectBaseBrowser._removeFile"></a>
+<h4>ProjectBaseBrowser._removeFile</h4>
+<b>_removeFile</b>(<i></i>)
+<p>
+        Protected method to remove a file or files from the project.
+</p>
+
+<a NAME="ProjectBaseBrowser._renameFile" ID="ProjectBaseBrowser._renameFile"></a>
+<h4>ProjectBaseBrowser._renameFile</h4>
+<b>_renameFile</b>(<i></i>)
+<p>
+        Protected method to rename a file of the project.
+</p>
+
+<a NAME="ProjectBaseBrowser._selectEntries" ID="ProjectBaseBrowser._selectEntries"></a>
+<h4>ProjectBaseBrowser._selectEntries</h4>
+<b>_selectEntries</b>(<i>local=True, filterList=None</i>)
+<p>
+        Protected method to select entries based on their VCS status.
+</p>
+
+<dl>
+
+<dt><i>local</i> (boolean))</dt>
+<dd>
+flag indicating local (i.e. non VCS controlled)
+            file/directory entries should be selected
+</dd>
+<dt><i>filterList</i> (Class)</dt>
+<dd>
+list of classes to check against
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._selectSingleItem" ID="ProjectBaseBrowser._selectSingleItem"></a>
+<h4>ProjectBaseBrowser._selectSingleItem</h4>
+<b>_selectSingleItem</b>(<i>index</i>)
+<p>
+        Protected method to select a single item.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of item to be selected
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._setItemRangeSelected" ID="ProjectBaseBrowser._setItemRangeSelected"></a>
+<h4>ProjectBaseBrowser._setItemRangeSelected</h4>
+<b>_setItemRangeSelected</b>(<i>startIndex, endIndex, selected</i>)
+<p>
+        Protected method to set the selection status of a range of items.
+</p>
+
+<dl>
+
+<dt><i>startIndex</i> (QModelIndex)</dt>
+<dd>
+start index of range of items to set
+</dd>
+<dt><i>endIndex</i> (QModelIndex)</dt>
+<dd>
+end index of range of items to set
+</dd>
+<dt><i>selected</i> (bool)</dt>
+<dd>
+flag giving the new selection status
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._setItemSelected" ID="ProjectBaseBrowser._setItemSelected"></a>
+<h4>ProjectBaseBrowser._setItemSelected</h4>
+<b>_setItemSelected</b>(<i>index, selected</i>)
+<p>
+        Protected method to set the selection status of an item.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of item to set
+</dd>
+<dt><i>selected</i> (bool)</dt>
+<dd>
+flag giving the new selection status
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._showContextMenu" ID="ProjectBaseBrowser._showContextMenu"></a>
+<h4>ProjectBaseBrowser._showContextMenu</h4>
+<b>_showContextMenu</b>(<i>menu</i>)
+<p>
+        Protected slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the file status.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._showContextMenuBack" ID="ProjectBaseBrowser._showContextMenuBack"></a>
+<h4>ProjectBaseBrowser._showContextMenuBack</h4>
+<b>_showContextMenuBack</b>(<i>_menu</i>)
+<p>
+        Protected slot called before the context menu is shown.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._showContextMenuDir" ID="ProjectBaseBrowser._showContextMenuDir"></a>
+<h4>ProjectBaseBrowser._showContextMenuDir</h4>
+<b>_showContextMenuDir</b>(<i>menu</i>)
+<p>
+        Protected slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._showContextMenuDirMulti" ID="ProjectBaseBrowser._showContextMenuDirMulti"></a>
+<h4>ProjectBaseBrowser._showContextMenuDirMulti</h4>
+<b>_showContextMenuDirMulti</b>(<i>menu</i>)
+<p>
+        Protected slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._showContextMenuMulti" ID="ProjectBaseBrowser._showContextMenuMulti"></a>
+<h4>ProjectBaseBrowser._showContextMenuMulti</h4>
+<b>_showContextMenuMulti</b>(<i>menu</i>)
+<p>
+        Protected slot called before the context menu (multiple selections) is
+        shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the files status.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser._showProjectInFileManager" ID="ProjectBaseBrowser._showProjectInFileManager"></a>
+<h4>ProjectBaseBrowser._showProjectInFileManager</h4>
+<b>_showProjectInFileManager</b>(<i></i>)
+<p>
+        Protected slot to show the path of the project in a file manager application.
+</p>
+
+<a NAME="ProjectBaseBrowser.addHookMethod" ID="ProjectBaseBrowser.addHookMethod"></a>
+<h4>ProjectBaseBrowser.addHookMethod</h4>
+<b>addHookMethod</b>(<i>key, method</i>)
+<p>
+        Public method to add a hook method to the dictionary.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+for the hook method
+</dd>
+<dt><i>method</i> (function)</dt>
+<dd>
+reference to the hook method
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.addHookMethodAndMenuEntry" ID="ProjectBaseBrowser.addHookMethodAndMenuEntry"></a>
+<h4>ProjectBaseBrowser.addHookMethodAndMenuEntry</h4>
+<b>addHookMethodAndMenuEntry</b>(<i>key, method, menuEntry</i>)
+<p>
+        Public method to add a hook method to the dictionary.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+for the hook method
+</dd>
+<dt><i>method</i> (function)</dt>
+<dd>
+reference to the hook method
+</dd>
+<dt><i>menuEntry</i> (str)</dt>
+<dd>
+entry to be shown in the context menu
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.currentDirectory" ID="ProjectBaseBrowser.currentDirectory"></a>
+<h4>ProjectBaseBrowser.currentDirectory</h4>
+<b>currentDirectory</b>(<i>relative=False</i>)
+<p>
+        Public method to determine the directory of the currently selected entry.
+</p>
+
+<dl>
+
+<dt><i>relative</i> (bool)</dt>
+<dd>
+flag indicating to return the directory as a relative path
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+directory of the current entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.currentItem" ID="ProjectBaseBrowser.currentItem"></a>
+<h4>ProjectBaseBrowser.currentItem</h4>
+<b>currentItem</b>(<i></i>)
+<p>
+        Public method to get a reference to the current item.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BrowserItem
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.expandItemsByName" ID="ProjectBaseBrowser.expandItemsByName"></a>
+<h4>ProjectBaseBrowser.expandItemsByName</h4>
+<b>expandItemsByName</b>(<i>names</i>)
+<p>
+        Public method to expand items given their names.
+</p>
+
+<dl>
+
+<dt><i>names</i> (list of str)</dt>
+<dd>
+list of item names to be expanded
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.getExpandedItemNames" ID="ProjectBaseBrowser.getExpandedItemNames"></a>
+<h4>ProjectBaseBrowser.getExpandedItemNames</h4>
+<b>getExpandedItemNames</b>(<i></i>)
+<p>
+        Public method to get the file/directory names of all expanded items.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of expanded items names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.removeHookMethod" ID="ProjectBaseBrowser.removeHookMethod"></a>
+<h4>ProjectBaseBrowser.removeHookMethod</h4>
+<b>removeHookMethod</b>(<i>key</i>)
+<p>
+        Public method to remove a hook method from the dictionary.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+for the hook method
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.selectFile" ID="ProjectBaseBrowser.selectFile"></a>
+<h4>ProjectBaseBrowser.selectFile</h4>
+<b>selectFile</b>(<i>fn</i>)
+<p>
+        Public method to highlight a node given its filename.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of file to be highlighted
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.selectFileLine" ID="ProjectBaseBrowser.selectFileLine"></a>
+<h4>ProjectBaseBrowser.selectFileLine</h4>
+<b>selectFileLine</b>(<i>fn, lineno</i>)
+<p>
+        Public method to highlight a node given its filename.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of file to be highlighted
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+one based line number of the item
+</dd>
+</dl>
+<a NAME="ProjectBaseBrowser.selectLocalDirEntries" ID="ProjectBaseBrowser.selectLocalDirEntries"></a>
+<h4>ProjectBaseBrowser.selectLocalDirEntries</h4>
+<b>selectLocalDirEntries</b>(<i></i>)
+<p>
+        Public slot to handle the select local directories context menu
+        entries.
+</p>
+
+<a NAME="ProjectBaseBrowser.selectLocalEntries" ID="ProjectBaseBrowser.selectLocalEntries"></a>
+<h4>ProjectBaseBrowser.selectLocalEntries</h4>
+<b>selectLocalEntries</b>(<i></i>)
+<p>
+        Public slot to handle the select local files context menu entries.
+</p>
+
+<a NAME="ProjectBaseBrowser.selectVCSDirEntries" ID="ProjectBaseBrowser.selectVCSDirEntries"></a>
+<h4>ProjectBaseBrowser.selectVCSDirEntries</h4>
+<b>selectVCSDirEntries</b>(<i></i>)
+<p>
+        Public slot to handle the select VCS directories context menu entries.
+</p>
+
+<a NAME="ProjectBaseBrowser.selectVCSEntries" ID="ProjectBaseBrowser.selectVCSEntries"></a>
+<h4>ProjectBaseBrowser.selectVCSEntries</h4>
+<b>selectVCSEntries</b>(<i></i>)
+<p>
+        Public slot to handle the select VCS files context menu entries.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

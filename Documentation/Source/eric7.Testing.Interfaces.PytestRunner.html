@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Testing.Interfaces.PytestRunner</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Testing.Interfaces.PytestRunner</h1>
+<p>
+Module implementing the test runner script for the 'pytest' framework.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>command</td></tr>
+<tr><td>writer</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricPlugin">EricPlugin</a></td>
+<td>Class implementing a pytest plugin which reports the data in a format suitable for the PytestExecutor.</td>
+</tr>
+<tr>
+<td><a href="#GetMarkersPlugin">GetMarkersPlugin</a></td>
+<td>Class implementing a pytest plugin to extract the list of all defined markers.</td>
+</tr>
+<tr>
+<td><a href="#GetPluginVersionsPlugin">GetPluginVersionsPlugin</a></td>
+<td>Class implementing a pytest plugin to extract the version info of all installed plugins.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#getMarkers">getMarkers</a></td>
+<td>Function to determine the defined markers and their descriptions.</td>
+</tr>
+<tr>
+<td><a href="#getVersions">getVersions</a></td>
+<td>Function to determine the framework version and versions of all available plugins.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricPlugin" ID="EricPlugin"></a>
+<h2>EricPlugin</h2>
+<p>
+    Class implementing a pytest plugin which reports the data in a format
+    suitable for the PytestExecutor.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricPlugin.__init__">EricPlugin</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricPlugin.__initializeReportData">__initializeReportData</a></td>
+<td>Private method to initialize attributes for data collection.</td>
+</tr>
+<tr>
+<td><a href="#EricPlugin.pytest_collectreport">pytest_collectreport</a></td>
+<td>Public method called by pytest after the tests have been collected.</td>
+</tr>
+<tr>
+<td><a href="#EricPlugin.pytest_itemcollected">pytest_itemcollected</a></td>
+<td>Public malled by pytest after a test item has been collected.</td>
+</tr>
+<tr>
+<td><a href="#EricPlugin.pytest_report_header">pytest_report_header</a></td>
+<td>Public method called by pytest before any reporting.</td>
+</tr>
+<tr>
+<td><a href="#EricPlugin.pytest_runtest_logfinish">pytest_runtest_logfinish</a></td>
+<td>Public method called by pytest after a test has been completed.</td>
+</tr>
+<tr>
+<td><a href="#EricPlugin.pytest_runtest_logreport">pytest_runtest_logreport</a></td>
+<td>Public method called by pytest when a test phase (setup, call and teardown) has been completed.</td>
+</tr>
+<tr>
+<td><a href="#EricPlugin.pytest_runtest_logstart">pytest_runtest_logstart</a></td>
+<td>Public method called by pytest before running a test.</td>
+</tr>
+<tr>
+<td><a href="#EricPlugin.pytest_sessionfinish">pytest_sessionfinish</a></td>
+<td>Public method called by pytest after the whole test run finished.</td>
+</tr>
+<tr>
+<td><a href="#EricPlugin.pytest_sessionstart">pytest_sessionstart</a></td>
+<td>Public method called by pytest before performing collection and entering the run test loop.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricPlugin.__init__" ID="EricPlugin.__init__"></a>
+<h4>EricPlugin (Constructor)</h4>
+<b>EricPlugin</b>(<i>writer</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>writer</i> (EricJsonWriter)</dt>
+<dd>
+reference to the object to write the results to
+</dd>
+</dl>
+<a NAME="EricPlugin.__initializeReportData" ID="EricPlugin.__initializeReportData"></a>
+<h4>EricPlugin.__initializeReportData</h4>
+<b>__initializeReportData</b>(<i></i>)
+<p>
+        Private method to initialize attributes for data collection.
+</p>
+
+<a NAME="EricPlugin.pytest_collectreport" ID="EricPlugin.pytest_collectreport"></a>
+<h4>EricPlugin.pytest_collectreport</h4>
+<b>pytest_collectreport</b>(<i>report</i>)
+<p>
+        Public method called by pytest after the tests have been collected.
+</p>
+
+<dl>
+
+<dt><i>report</i> (CollectReport)</dt>
+<dd>
+reference to the report object
+</dd>
+</dl>
+<a NAME="EricPlugin.pytest_itemcollected" ID="EricPlugin.pytest_itemcollected"></a>
+<h4>EricPlugin.pytest_itemcollected</h4>
+<b>pytest_itemcollected</b>(<i>item</i>)
+<p>
+        Public malled by pytest after a test item has been collected.
+</p>
+
+<dl>
+
+<dt><i>item</i> (Item)</dt>
+<dd>
+reference to the collected test item
+</dd>
+</dl>
+<a NAME="EricPlugin.pytest_report_header" ID="EricPlugin.pytest_report_header"></a>
+<h4>EricPlugin.pytest_report_header</h4>
+<b>pytest_report_header</b>(<i>config</i>)
+<p>
+        Public method called by pytest before any reporting.
+</p>
+
+<dl>
+
+<dt><i>config</i> (Config)</dt>
+<dd>
+reference to the configuration object
+</dd>
+</dl>
+<a NAME="EricPlugin.pytest_runtest_logfinish" ID="EricPlugin.pytest_runtest_logfinish"></a>
+<h4>EricPlugin.pytest_runtest_logfinish</h4>
+<b>pytest_runtest_logfinish</b>(<i>nodeid, location</i>)
+<p>
+        Public method called by pytest after a test has been completed.
+</p>
+
+<dl>
+
+<dt><i>nodeid</i> (str)</dt>
+<dd>
+node id of the test item
+</dd>
+<dt><i>location</i> (tuple of (str, int, str))</dt>
+<dd>
+tuple containing the file name, the line number and
+            the test name
+</dd>
+</dl>
+<a NAME="EricPlugin.pytest_runtest_logreport" ID="EricPlugin.pytest_runtest_logreport"></a>
+<h4>EricPlugin.pytest_runtest_logreport</h4>
+<b>pytest_runtest_logreport</b>(<i>report</i>)
+<p>
+        Public method called by pytest when a test phase (setup, call and
+            teardown) has been completed.
+</p>
+
+<dl>
+
+<dt><i>report</i> (TestReport)</dt>
+<dd>
+reference to the test report object
+</dd>
+</dl>
+<a NAME="EricPlugin.pytest_runtest_logstart" ID="EricPlugin.pytest_runtest_logstart"></a>
+<h4>EricPlugin.pytest_runtest_logstart</h4>
+<b>pytest_runtest_logstart</b>(<i>nodeid, location</i>)
+<p>
+        Public method called by pytest before running a test.
+</p>
+
+<dl>
+
+<dt><i>nodeid</i> (str)</dt>
+<dd>
+node id of the test item
+</dd>
+<dt><i>location</i> (tuple of (str, int, str))</dt>
+<dd>
+tuple containing the file name, the line number and
+            the test name (unused)
+</dd>
+</dl>
+<a NAME="EricPlugin.pytest_sessionfinish" ID="EricPlugin.pytest_sessionfinish"></a>
+<h4>EricPlugin.pytest_sessionfinish</h4>
+<b>pytest_sessionfinish</b>(<i>session, exitstatus</i>)
+<p>
+        Public method called by pytest after the whole test run finished.
+</p>
+
+<dl>
+
+<dt><i>session</i> (Session)</dt>
+<dd>
+reference to the session object (unused)
+</dd>
+<dt><i>exitstatus</i> (int or ExitCode)</dt>
+<dd>
+exit status (unused)
+</dd>
+</dl>
+<a NAME="EricPlugin.pytest_sessionstart" ID="EricPlugin.pytest_sessionstart"></a>
+<h4>EricPlugin.pytest_sessionstart</h4>
+<b>pytest_sessionstart</b>(<i>session</i>)
+<p>
+        Public method called by pytest before performing collection and
+        entering the run test loop.
+</p>
+
+<dl>
+
+<dt><i>session</i> (Session)</dt>
+<dd>
+reference to the session object (unused)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="GetMarkersPlugin" ID="GetMarkersPlugin"></a>
+<h2>GetMarkersPlugin</h2>
+<p>
+    Class implementing a pytest plugin to extract the list of all defined markers.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GetMarkersPlugin.__init__">GetMarkersPlugin</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GetMarkersPlugin.getMarkers">getMarkers</a></td>
+<td>Public method to get the assembled list of markers.</td>
+</tr>
+<tr>
+<td><a href="#GetMarkersPlugin.pytest_cmdline_main">pytest_cmdline_main</a></td>
+<td>Public method called for performing the main command line action.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GetMarkersPlugin.__init__" ID="GetMarkersPlugin.__init__"></a>
+<h4>GetMarkersPlugin (Constructor)</h4>
+<b>GetMarkersPlugin</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="GetMarkersPlugin.getMarkers" ID="GetMarkersPlugin.getMarkers"></a>
+<h4>GetMarkersPlugin.getMarkers</h4>
+<b>getMarkers</b>(<i></i>)
+<p>
+        Public method to get the assembled list of markers.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of collected markers (marker name as key and description as value)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="GetMarkersPlugin.pytest_cmdline_main" ID="GetMarkersPlugin.pytest_cmdline_main"></a>
+<h4>GetMarkersPlugin.pytest_cmdline_main</h4>
+<b>pytest_cmdline_main</b>(<i>config</i>)
+<p>
+        Public method called for performing the main command line action.
+</p>
+
+<dl>
+
+<dt><i>config</i> (Config)</dt>
+<dd>
+pytest config object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="GetPluginVersionsPlugin" ID="GetPluginVersionsPlugin"></a>
+<h2>GetPluginVersionsPlugin</h2>
+<p>
+    Class implementing a pytest plugin to extract the version info of all
+    installed plugins.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GetPluginVersionsPlugin.__init__">GetPluginVersionsPlugin</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GetPluginVersionsPlugin.getVersions">getVersions</a></td>
+<td>Public method to get the assembled list of plugin versions.</td>
+</tr>
+<tr>
+<td><a href="#GetPluginVersionsPlugin.pytest_cmdline_main">pytest_cmdline_main</a></td>
+<td>Public method called for performing the main command line action.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GetPluginVersionsPlugin.__init__" ID="GetPluginVersionsPlugin.__init__"></a>
+<h4>GetPluginVersionsPlugin (Constructor)</h4>
+<b>GetPluginVersionsPlugin</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="GetPluginVersionsPlugin.getVersions" ID="GetPluginVersionsPlugin.getVersions"></a>
+<h4>GetPluginVersionsPlugin.getVersions</h4>
+<b>getVersions</b>(<i></i>)
+<p>
+        Public method to get the assembled list of plugin versions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of collected plugin versions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of dict
+</dd>
+</dl>
+<a NAME="GetPluginVersionsPlugin.pytest_cmdline_main" ID="GetPluginVersionsPlugin.pytest_cmdline_main"></a>
+<h4>GetPluginVersionsPlugin.pytest_cmdline_main</h4>
+<b>pytest_cmdline_main</b>(<i>config</i>)
+<p>
+        Public method called for performing the main command line action.
+</p>
+
+<dl>
+
+<dt><i>config</i> (Config)</dt>
+<dd>
+pytest config object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getMarkers" ID="getMarkers"></a>
+<h2>getMarkers</h2>
+<b>getMarkers</b>(<i></i>)
+<p>
+    Function to determine the defined markers and their descriptions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getVersions" ID="getVersions"></a>
+<h2>getVersions</h2>
+<b>getVersions</b>(<i></i>)
+<p>
+    Function to determine the framework version and versions of all available
+    plugins.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

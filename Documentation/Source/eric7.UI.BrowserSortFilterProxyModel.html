@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.BrowserSortFilterProxyModel</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.BrowserSortFilterProxyModel</h1>
+<p>
+Module implementing the browser sort filter proxy model.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel">BrowserSortFilterProxyModel</a></td>
+<td>Class implementing the browser sort filter proxy model.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BrowserSortFilterProxyModel" ID="BrowserSortFilterProxyModel"></a>
+<h2>BrowserSortFilterProxyModel</h2>
+<p>
+    Class implementing the browser sort filter proxy model.
+</p>
+
+<h3>Derived from</h3>
+QSortFilterProxyModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel.__init__">BrowserSortFilterProxyModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel.__remoteServerConnectionStateChanged">__remoteServerConnectionStateChanged</a></td>
+<td>Private slot to handle a change of the connection state to an 'eric-ide' server.</td>
+</tr>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel.filterAcceptsRow">filterAcceptsRow</a></td>
+<td>Public method to filter rows.</td>
+</tr>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel.hasChildren">hasChildren</a></td>
+<td>Public method to check for the presence of child items.</td>
+</tr>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel.item">item</a></td>
+<td>Public method to get a reference to an item.</td>
+</tr>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel.lessThan">lessThan</a></td>
+<td>Public method used to sort the displayed items.</td>
+</tr>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot called to handle a change of the preferences settings.</td>
+</tr>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel.setShowHiddenFiles">setShowHiddenFiles</a></td>
+<td>Public method to set, whether hidden files should be shown.</td>
+</tr>
+<tr>
+<td><a href="#BrowserSortFilterProxyModel.sort">sort</a></td>
+<td>Public method to sort the items.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BrowserSortFilterProxyModel.__init__" ID="BrowserSortFilterProxyModel.__init__"></a>
+<h4>BrowserSortFilterProxyModel (Constructor)</h4>
+<b>BrowserSortFilterProxyModel</b>(<i>parent=None, remoteServer=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+<dt><i>remoteServer</i> (EricServerInterface)</dt>
+<dd>
+reference to the 'eric-ide' server interface object
+</dd>
+</dl>
+<a NAME="BrowserSortFilterProxyModel.__remoteServerConnectionStateChanged" ID="BrowserSortFilterProxyModel.__remoteServerConnectionStateChanged"></a>
+<h4>BrowserSortFilterProxyModel.__remoteServerConnectionStateChanged</h4>
+<b>__remoteServerConnectionStateChanged</b>(<i>connected</i>)
+<p>
+        Private slot to handle a change of the connection state to an 'eric-ide' server.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+connection state
+</dd>
+</dl>
+<a NAME="BrowserSortFilterProxyModel.filterAcceptsRow" ID="BrowserSortFilterProxyModel.filterAcceptsRow"></a>
+<h4>BrowserSortFilterProxyModel.filterAcceptsRow</h4>
+<b>filterAcceptsRow</b>(<i>source_row, source_parent</i>)
+<p>
+        Public method to filter rows.
+</p>
+<p>
+        It implements a filter to suppress the display of hidden files and
+        directories (i.e. those starting with a '.') and the display of non
+        public classes, methods and attributes. These filters are independent
+        of each other.
+</p>
+
+<dl>
+
+<dt><i>source_row</i> (int)</dt>
+<dd>
+row number (in the source model) of item
+</dd>
+<dt><i>source_parent</i> (QModelIndex)</dt>
+<dd>
+index of parent item (in the source model)
+            of item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the item should be shown
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BrowserSortFilterProxyModel.hasChildren" ID="BrowserSortFilterProxyModel.hasChildren"></a>
+<h4>BrowserSortFilterProxyModel.hasChildren</h4>
+<b>hasChildren</b>(<i>parent=None</i>)
+<p>
+        Public method to check for the presence of child items.
+</p>
+<p>
+        We always return True for normal items in order to do lazy
+        population of the tree.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of parent item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of child items
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BrowserSortFilterProxyModel.item" ID="BrowserSortFilterProxyModel.item"></a>
+<h4>BrowserSortFilterProxyModel.item</h4>
+<b>item</b>(<i>index</i>)
+<p>
+        Public method to get a reference to an item.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the data to retrieve
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested item reference
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BrowserItem
+</dd>
+</dl>
+<a NAME="BrowserSortFilterProxyModel.lessThan" ID="BrowserSortFilterProxyModel.lessThan"></a>
+<h4>BrowserSortFilterProxyModel.lessThan</h4>
+<b>lessThan</b>(<i>left, right</i>)
+<p>
+        Public method used to sort the displayed items.
+</p>
+<p>
+        It implements a special sorting function that takes into account,
+        if folders should be shown first, and that __init__ is always the first
+        method of a class.
+</p>
+
+<dl>
+
+<dt><i>left</i> (QModelIndex)</dt>
+<dd>
+index of left item
+</dd>
+<dt><i>right</i> (QModelIndex)</dt>
+<dd>
+index of right item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+true, if left is less than right
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BrowserSortFilterProxyModel.preferencesChanged" ID="BrowserSortFilterProxyModel.preferencesChanged"></a>
+<h4>BrowserSortFilterProxyModel.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot called to handle a change of the preferences settings.
+</p>
+
+<a NAME="BrowserSortFilterProxyModel.setShowHiddenFiles" ID="BrowserSortFilterProxyModel.setShowHiddenFiles"></a>
+<h4>BrowserSortFilterProxyModel.setShowHiddenFiles</h4>
+<b>setShowHiddenFiles</b>(<i>show</i>)
+<p>
+        Public method to set, whether hidden files should be shown.
+</p>
+
+<dl>
+
+<dt><i>show</i> (bool)</dt>
+<dd>
+flag indicating if hidden files (i.e. those starting
+            with '.' shall be shown
+</dd>
+</dl>
+<a NAME="BrowserSortFilterProxyModel.sort" ID="BrowserSortFilterProxyModel.sort"></a>
+<h4>BrowserSortFilterProxyModel.sort</h4>
+<b>sort</b>(<i>column, order</i>)
+<p>
+        Public method to sort the items.
+</p>
+
+<dl>
+
+<dt><i>column</i> (int)</dt>
+<dd>
+column number to sort on
+</dd>
+<dt><i>order</i> (Qt.SortOrder)</dt>
+<dd>
+sort order for the sort
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

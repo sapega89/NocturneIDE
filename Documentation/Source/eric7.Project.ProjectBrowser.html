@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Project.ProjectBrowser</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Project.ProjectBrowser</h1>
+<p>
+Module implementing the project browser part of the eric UI.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ProjectBrowser">ProjectBrowser</a></td>
+<td>Class implementing the project browser part of the eric UI.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ProjectBrowser" ID="ProjectBrowser"></a>
+<h2>ProjectBrowser</h2>
+<p>
+    Class implementing the project browser part of the eric UI.
+</p>
+<p>
+    It generates a widget with up to seven tabs. The individual tabs contain
+    the project sources browser, the project forms browser,
+    the project resources browser, the project translations browser,
+    the project interfaces (IDL) browser and a browser for stuff,
+    that doesn't fit these categories. Optionally it contains an additional
+    tab with the file system browser.
+</p>
+<p>
+    Note: The following signals are defined here to proxy the individual browser
+    signals.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>appendStderr(str)</dt>
+<dd>
+emitted after something was received from
+        a QProcess on stderr
+</dd>
+<dt>appendStdout(str)</dt>
+<dd>
+emitted after something was received from
+        a QProcess on stdout
+</dd>
+<dt>binaryFile(filename)</dt>
+<dd>
+emitted to open a file as binary (str)
+</dd>
+<dt>closeSourceWindow(str)</dt>
+<dd>
+emitted to close a source file
+</dd>
+<dt>designerFile(filename)</dt>
+<dd>
+emitted to open a Qt-Designer file (str)
+</dd>
+<dt>linguistFile(filename)</dt>
+<dd>
+emitted to open a Qt-Linguist (*.ts)
+        file (str)
+</dd>
+<dt>pdfFile(filename)</dt>
+<dd>
+emitted to open a PDF file (str)
+</dd>
+<dt>pixmapEditFile(filename)</dt>
+<dd>
+emitted to edit a pixmap file (str)
+</dd>
+<dt>pixmapFile(filename)</dt>
+<dd>
+emitted to open a pixmap file (str)
+</dd>
+<dt>preferencesChanged()</dt>
+<dd>
+emitted when the preferences have been changed
+</dd>
+<dt>processChangedProjectFiles()</dt>
+<dd>
+emitted to indicate, that changed project files
+        should be processed
+</dd>
+<dt>sourceFile(filename)</dt>
+<dd>
+emitted to open a Python file at a line (str)
+</dd>
+<dt>sourceFile(filename, lineno)</dt>
+<dd>
+emitted to open a Python file at a
+        line (str, int)
+</dd>
+<dt>sourceFile(filename, lineno, col_offset)</dt>
+<dd>
+emitted to open a Python file at a
+        line and column (str, int, int)
+</dd>
+<dt>sourceFile(filename, lineno, type)</dt>
+<dd>
+emitted to open a Python file
+        at a line giving an explicit file type (str, int, str)
+</dd>
+<dt>sourceFile(filename, linenos)</dt>
+<dd>
+emitted to open a Python file giving
+        a list of lines(str, list)
+</dd>
+<dt>svgFile(filename)</dt>
+<dd>
+emitted to open a SVG file (str)
+</dd>
+<dt>testFile(filename)</dt>
+<dd>
+emitted to open a Python file for a
+        unit test (str)
+</dd>
+<dt>trpreview(filenames)</dt>
+<dd>
+emitted to preview Qt-Linguist (*.qm)
+        files (list of str)
+</dd>
+<dt>trpreview(filenames, ignore)</dt>
+<dd>
+emitted to preview Qt-Linguist (*.qm)
+        files indicating whether non-existent files shall be ignored
+        (list of str, bool)
+</dd>
+<dt>uipreview(str)</dt>
+<dd>
+emitted to preview a forms file
+</dd>
+<dt>umlFile(filename)</dt>
+<dd>
+emitted to open an eric UML file (str)
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricTabWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ProjectBrowser.__init__">ProjectBrowser</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.__currentChanged">__currentChanged</a></td>
+<td>Private slot to handle the currentChanged(int) signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.__newProject">__newProject</a></td>
+<td>Private slot to handle the newProject signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.__projectClosed">__projectClosed</a></td>
+<td>Private slot to handle the projectClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.__projectOpened">__projectOpened</a></td>
+<td>Private slot to handle the projectOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.__projectPropertiesChanged">__projectPropertiesChanged</a></td>
+<td>Private slot to handle the projectPropertiesChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.__setBrowsersAvailable">__setBrowsersAvailable</a></td>
+<td>Private method to add selected browsers to the project browser.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.__setSourcesIcon">__setSourcesIcon</a></td>
+<td>Private method to set the right icon for the sources browser tab.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.__vcsStateChanged">__vcsStateChanged</a></td>
+<td>Private slot to handle a change in the vcs state.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.__vcsStatusIndicatorClicked">__vcsStatusIndicatorClicked</a></td>
+<td>Private slot to react upon clicks on the VCS indicator LED.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.addTypedProjectBrowser">addTypedProjectBrowser</a></td>
+<td>Public method to add a project browser type to the browser repository.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.getProjectBrowser">getProjectBrowser</a></td>
+<td>Public method to get a reference to the project browser of given type.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.getProjectBrowserFilter">getProjectBrowserFilter</a></td>
+<td>Public method to get the project browser file filter for a file category.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.getProjectBrowserIcon">getProjectBrowserIcon</a></td>
+<td>Public method to get the icon for a project browser.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.getProjectBrowserNames">getProjectBrowserNames</a></td>
+<td>Public method to get the types of the various project browsers.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.getProjectBrowserType">getProjectBrowserType</a></td>
+<td>Public method to get the project browser type for a file category.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.getProjectBrowserUserStrings">getProjectBrowserUserStrings</a></td>
+<td>Public method to get a dictionary of defined project browser user strings.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.getProjectBrowsers">getProjectBrowsers</a></td>
+<td>Public method to get references to the individual project browsers.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.handleEditorChanged">handleEditorChanged</a></td>
+<td>Public slot to handle the editorChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.handleEditorLineChanged">handleEditorLineChanged</a></td>
+<td>Public slot to handle the editorLineChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot used to handle the preferencesChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectBrowser.removeTypedProjectBrowser">removeTypedProjectBrowser</a></td>
+<td>Public method to remove a browser type from the browsers repository.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ProjectBrowser.__init__" ID="ProjectBrowser.__init__"></a>
+<h4>ProjectBrowser (Constructor)</h4>
+<b>ProjectBrowser</b>(<i>project, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="ProjectBrowser.__currentChanged" ID="ProjectBrowser.__currentChanged"></a>
+<h4>ProjectBrowser.__currentChanged</h4>
+<b>__currentChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the currentChanged(int) signal.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the tab
+</dd>
+</dl>
+<a NAME="ProjectBrowser.__newProject" ID="ProjectBrowser.__newProject"></a>
+<h4>ProjectBrowser.__newProject</h4>
+<b>__newProject</b>(<i></i>)
+<p>
+        Private slot to handle the newProject signal.
+</p>
+
+<a NAME="ProjectBrowser.__projectClosed" ID="ProjectBrowser.__projectClosed"></a>
+<h4>ProjectBrowser.__projectClosed</h4>
+<b>__projectClosed</b>(<i></i>)
+<p>
+        Private slot to handle the projectClosed signal.
+</p>
+
+<a NAME="ProjectBrowser.__projectOpened" ID="ProjectBrowser.__projectOpened"></a>
+<h4>ProjectBrowser.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to handle the projectOpened signal.
+</p>
+
+<a NAME="ProjectBrowser.__projectPropertiesChanged" ID="ProjectBrowser.__projectPropertiesChanged"></a>
+<h4>ProjectBrowser.__projectPropertiesChanged</h4>
+<b>__projectPropertiesChanged</b>(<i></i>)
+<p>
+        Private slot to handle the projectPropertiesChanged signal.
+</p>
+
+<a NAME="ProjectBrowser.__setBrowsersAvailable" ID="ProjectBrowser.__setBrowsersAvailable"></a>
+<h4>ProjectBrowser.__setBrowsersAvailable</h4>
+<b>__setBrowsersAvailable</b>(<i>browsersList</i>)
+<p>
+        Private method to add selected browsers to the project browser.
+</p>
+
+<dl>
+
+<dt><i>browsersList</i> (list of str)</dt>
+<dd>
+list of project browsers to be shown
+</dd>
+</dl>
+<a NAME="ProjectBrowser.__setSourcesIcon" ID="ProjectBrowser.__setSourcesIcon"></a>
+<h4>ProjectBrowser.__setSourcesIcon</h4>
+<b>__setSourcesIcon</b>(<i></i>)
+<p>
+        Private method to set the right icon for the sources browser tab.
+</p>
+
+<a NAME="ProjectBrowser.__vcsStateChanged" ID="ProjectBrowser.__vcsStateChanged"></a>
+<h4>ProjectBrowser.__vcsStateChanged</h4>
+<b>__vcsStateChanged</b>(<i>state</i>)
+<p>
+        Private slot to handle a change in the vcs state.
+</p>
+
+<dl>
+
+<dt><i>state</i> (str)</dt>
+<dd>
+new vcs state
+</dd>
+</dl>
+<a NAME="ProjectBrowser.__vcsStatusIndicatorClicked" ID="ProjectBrowser.__vcsStatusIndicatorClicked"></a>
+<h4>ProjectBrowser.__vcsStatusIndicatorClicked</h4>
+<b>__vcsStatusIndicatorClicked</b>(<i>_pos</i>)
+<p>
+        Private slot to react upon clicks on the VCS indicator LED.
+</p>
+
+<dl>
+
+<dt><i>_pos</i> (QPoint)</dt>
+<dd>
+position of the click (unused)
+</dd>
+</dl>
+<a NAME="ProjectBrowser.addTypedProjectBrowser" ID="ProjectBrowser.addTypedProjectBrowser"></a>
+<h4>ProjectBrowser.addTypedProjectBrowser</h4>
+<b>addTypedProjectBrowser</b>(<i>browserType, projectBrowserItem</i>)
+<p>
+        Public method to add a project browser type to the browser repository.
+</p>
+
+<dl>
+
+<dt><i>browserType</i> (str)</dt>
+<dd>
+type of the project browser
+</dd>
+<dt><i>projectBrowserItem</i> (ProjectBrowserRepositoryItem)</dt>
+<dd>
+data structure containing the type specific data
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>TypeError</b>:</dt>
+<dd>
+raised to signal a wrong type for the project browser item
+</dd>
+</dl>
+<a NAME="ProjectBrowser.getProjectBrowser" ID="ProjectBrowser.getProjectBrowser"></a>
+<h4>ProjectBrowser.getProjectBrowser</h4>
+<b>getProjectBrowser</b>(<i>browserType</i>)
+<p>
+        Public method to get a reference to the project browser of given type.
+</p>
+
+<dl>
+
+<dt><i>browserType</i> (str)</dt>
+<dd>
+type of the requested project browser
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the requested browser or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ProjectBaseBrowser or None
+</dd>
+</dl>
+<a NAME="ProjectBrowser.getProjectBrowserFilter" ID="ProjectBrowser.getProjectBrowserFilter"></a>
+<h4>ProjectBrowser.getProjectBrowserFilter</h4>
+<b>getProjectBrowserFilter</b>(<i>fileCategory</i>)
+<p>
+        Public method to get the project browser file filter for a file category.
+</p>
+
+<dl>
+
+<dt><i>fileCategory</i> (str)</dt>
+<dd>
+file category
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+project browser file filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ProjectBrowser.getProjectBrowserIcon" ID="ProjectBrowser.getProjectBrowserIcon"></a>
+<h4>ProjectBrowser.getProjectBrowserIcon</h4>
+<b>getProjectBrowserIcon</b>(<i>browserType</i>)
+<p>
+        Public method to get the icon for a project browser.
+</p>
+
+<dl>
+
+<dt><i>browserType</i> (str)</dt>
+<dd>
+type of the project browser
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+icon for the project browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<a NAME="ProjectBrowser.getProjectBrowserNames" ID="ProjectBrowser.getProjectBrowserNames"></a>
+<h4>ProjectBrowser.getProjectBrowserNames</h4>
+<b>getProjectBrowserNames</b>(<i></i>)
+<p>
+        Public method to get the types of the various project browsers.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of project browser types
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="ProjectBrowser.getProjectBrowserType" ID="ProjectBrowser.getProjectBrowserType"></a>
+<h4>ProjectBrowser.getProjectBrowserType</h4>
+<b>getProjectBrowserType</b>(<i>fileCategory</i>)
+<p>
+        Public method to get the project browser type for a file category.
+</p>
+
+<dl>
+
+<dt><i>fileCategory</i> (str)</dt>
+<dd>
+file category
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+project browser type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ProjectBrowser.getProjectBrowserUserStrings" ID="ProjectBrowser.getProjectBrowserUserStrings"></a>
+<h4>ProjectBrowser.getProjectBrowserUserStrings</h4>
+<b>getProjectBrowserUserStrings</b>(<i></i>)
+<p>
+        Public method to get a dictionary of defined project browser user strings.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary of defined project browser user strings
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="ProjectBrowser.getProjectBrowsers" ID="ProjectBrowser.getProjectBrowsers"></a>
+<h4>ProjectBrowser.getProjectBrowsers</h4>
+<b>getProjectBrowsers</b>(<i></i>)
+<p>
+        Public method to get references to the individual project browsers.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of references to project browsers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of ProjectBaseBrowser
+</dd>
+</dl>
+<a NAME="ProjectBrowser.handleEditorChanged" ID="ProjectBrowser.handleEditorChanged"></a>
+<h4>ProjectBrowser.handleEditorChanged</h4>
+<b>handleEditorChanged</b>(<i>fn</i>)
+<p>
+        Public slot to handle the editorChanged signal.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the changed file
+</dd>
+</dl>
+<a NAME="ProjectBrowser.handleEditorLineChanged" ID="ProjectBrowser.handleEditorLineChanged"></a>
+<h4>ProjectBrowser.handleEditorLineChanged</h4>
+<b>handleEditorLineChanged</b>(<i>fn, lineno</i>)
+<p>
+        Public slot to handle the editorLineChanged signal.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the changed file
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+one based line number of the item
+</dd>
+</dl>
+<a NAME="ProjectBrowser.handlePreferencesChanged" ID="ProjectBrowser.handlePreferencesChanged"></a>
+<h4>ProjectBrowser.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot used to handle the preferencesChanged signal.
+</p>
+
+<a NAME="ProjectBrowser.removeTypedProjectBrowser" ID="ProjectBrowser.removeTypedProjectBrowser"></a>
+<h4>ProjectBrowser.removeTypedProjectBrowser</h4>
+<b>removeTypedProjectBrowser</b>(<i>browserType</i>)
+<p>
+        Public method to remove a browser type from the browsers repository.
+</p>
+<p>
+        Note: If the browser type is not contained in the repository, the request to
+        remove it will be ignored silently.
+</p>
+
+<dl>
+
+<dt><i>browserType</i> (str)</dt>
+<dd>
+project browser type
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

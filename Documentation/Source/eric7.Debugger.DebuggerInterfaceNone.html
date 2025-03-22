@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.DebuggerInterfaceNone</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.DebuggerInterfaceNone</h1>
+<p>
+Module implementing a dummy debugger interface for the debug server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>ClientDefaultCapabilities</td></tr>
+<tr><td>ClientTypeAssociations</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#DebuggerInterfaceNone">DebuggerInterfaceNone</a></td>
+<td>Class implementing a dummy debugger interface for the debug server.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createDebuggerInterfaceNone">createDebuggerInterfaceNone</a></td>
+<td>Module function to create a debugger interface instance.</td>
+</tr>
+<tr>
+<td><a href="#getRegistryData">getRegistryData</a></td>
+<td>Module function to get characterizing data for the debugger interface.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="DebuggerInterfaceNone" ID="DebuggerInterfaceNone"></a>
+<h2>DebuggerInterfaceNone</h2>
+<p>
+    Class implementing a dummy debugger interface for the debug server.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DebuggerInterfaceNone.__init__">DebuggerInterfaceNone</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.getClientCapabilities">getClientCapabilities</a></td>
+<td>Public method to retrieve the debug clients capabilities.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.getDebuggerIds">getDebuggerIds</a></td>
+<td>Public method to return the IDs of the connected debugger backends.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.isConnected">isConnected</a></td>
+<td>Public method to test, if a debug client has connected.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.newConnection">newConnection</a></td>
+<td>Public slot to handle a new connection.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteBanner">remoteBanner</a></td>
+<td>Public slot to get the banner info of the remote client.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteBreakpoint">remoteBreakpoint</a></td>
+<td>Public method to set or clear a breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteBreakpointEnable">remoteBreakpointEnable</a></td>
+<td>Public method to enable or disable a breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteBreakpointIgnore">remoteBreakpointIgnore</a></td>
+<td>Public method to ignore a breakpoint the next couple of occurrences.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteCapabilities">remoteCapabilities</a></td>
+<td>Public slot to get the debug clients capabilities.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteClientDisassembly">remoteClientDisassembly</a></td>
+<td>Public method to ask the client for the latest traceback disassembly.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteClientSetFilter">remoteClientSetFilter</a></td>
+<td>Public method to set a variables filter list.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteClientStack">remoteClientStack</a></td>
+<td>Public method to request the stack of the main thread.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteClientVariable">remoteClientVariable</a></td>
+<td>Public method to request the variables of the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteClientVariables">remoteClientVariables</a></td>
+<td>Public method to request the variables of the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteCompletion">remoteCompletion</a></td>
+<td>Public slot to get the a list of possible commandline completions from the remote client.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteContinue">remoteContinue</a></td>
+<td>Public method to continue the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteContinueUntil">remoteContinueUntil</a></td>
+<td>Public method to continue the debugged program to the given line or until returning from the current frame.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteCoverage">remoteCoverage</a></td>
+<td>Public method to load a new program to collect coverage data.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteEnvironment">remoteEnvironment</a></td>
+<td>Public method to set the environment for a program to debug, run, ...</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteLoad">remoteLoad</a></td>
+<td>Public method to load a new program to debug.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteMoveIP">remoteMoveIP</a></td>
+<td>Public method to move the instruction pointer to a different line.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteNoDebugList">remoteNoDebugList</a></td>
+<td>Public method to set a list of programs not to be debugged.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteProfile">remoteProfile</a></td>
+<td>Public method to load a new program to collect profiling data.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteRawInput">remoteRawInput</a></td>
+<td>Public method to send the raw input to the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteRun">remoteRun</a></td>
+<td>Public method to load a new program to run.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteSetThread">remoteSetThread</a></td>
+<td>Public method to request to set the given thread as current thread.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteStatement">remoteStatement</a></td>
+<td>Public method to execute a Python statement.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteStep">remoteStep</a></td>
+<td>Public method to single step the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteStepOut">remoteStepOut</a></td>
+<td>Public method to step out the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteStepOver">remoteStepOver</a></td>
+<td>Public method to step over the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteStepQuit">remoteStepQuit</a></td>
+<td>Public method to stop the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteThreadList">remoteThreadList</a></td>
+<td>Public method to request the list of threads from the client.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteWatchpoint">remoteWatchpoint</a></td>
+<td>Public method to set or clear a watch expression.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteWatchpointEnable">remoteWatchpointEnable</a></td>
+<td>Public method to enable or disable a watch expression.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.remoteWatchpointIgnore">remoteWatchpointIgnore</a></td>
+<td>Public method to ignore a watch expression the next couple of occurrences.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.setAutoContinue">setAutoContinue</a></td>
+<td>Public method to set the automatic continue flag of the interface.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.setCallTraceEnabled">setCallTraceEnabled</a></td>
+<td>Public method to set the call trace state.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.shutdown">shutdown</a></td>
+<td>Public method to cleanly shut down.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.startRemote">startRemote</a></td>
+<td>Public method to start a remote Python interpreter.</td>
+</tr>
+<tr>
+<td><a href="#DebuggerInterfaceNone.startRemoteForProject">startRemoteForProject</a></td>
+<td>Public method to start a remote Python interpreter for a project.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DebuggerInterfaceNone.__init__" ID="DebuggerInterfaceNone.__init__"></a>
+<h4>DebuggerInterfaceNone (Constructor)</h4>
+<b>DebuggerInterfaceNone</b>(<i>debugServer, passive</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>debugServer</i> (DebugServer)</dt>
+<dd>
+reference to the debug server
+</dd>
+<dt><i>passive</i> (bool)</dt>
+<dd>
+flag indicating passive connection mode
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.getClientCapabilities" ID="DebuggerInterfaceNone.getClientCapabilities"></a>
+<h4>DebuggerInterfaceNone.getClientCapabilities</h4>
+<b>getClientCapabilities</b>(<i></i>)
+<p>
+        Public method to retrieve the debug clients capabilities.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+debug client capabilities
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.getDebuggerIds" ID="DebuggerInterfaceNone.getDebuggerIds"></a>
+<h4>DebuggerInterfaceNone.getDebuggerIds</h4>
+<b>getDebuggerIds</b>(<i></i>)
+<p>
+        Public method to return the IDs of the connected debugger backends.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of connected debugger backend IDs
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.isConnected" ID="DebuggerInterfaceNone.isConnected"></a>
+<h4>DebuggerInterfaceNone.isConnected</h4>
+<b>isConnected</b>(<i></i>)
+<p>
+        Public method to test, if a debug client has connected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the connection status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.newConnection" ID="DebuggerInterfaceNone.newConnection"></a>
+<h4>DebuggerInterfaceNone.newConnection</h4>
+<b>newConnection</b>(<i>sock</i>)
+<p>
+        Public slot to handle a new connection.
+</p>
+
+<dl>
+
+<dt><i>sock</i> (QTcpSocket)</dt>
+<dd>
+reference to the socket object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteBanner" ID="DebuggerInterfaceNone.remoteBanner"></a>
+<h4>DebuggerInterfaceNone.remoteBanner</h4>
+<b>remoteBanner</b>(<i></i>)
+<p>
+        Public slot to get the banner info of the remote client.
+</p>
+
+<a NAME="DebuggerInterfaceNone.remoteBreakpoint" ID="DebuggerInterfaceNone.remoteBreakpoint"></a>
+<h4>DebuggerInterfaceNone.remoteBreakpoint</h4>
+<b>remoteBreakpoint</b>(<i>debuggerId, fn, line, setBreakpoint, cond=None, temp=False</i>)
+<p>
+        Public method to set or clear a breakpoint.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename the breakpoint belongs to
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the breakpoint
+</dd>
+<dt><i>setBreakpoint</i> (bool)</dt>
+<dd>
+flag indicating setting or resetting a breakpoint
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+condition of the breakpoint
+</dd>
+<dt><i>temp</i> (bool)</dt>
+<dd>
+flag indicating a temporary breakpoint
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteBreakpointEnable" ID="DebuggerInterfaceNone.remoteBreakpointEnable"></a>
+<h4>DebuggerInterfaceNone.remoteBreakpointEnable</h4>
+<b>remoteBreakpointEnable</b>(<i>debuggerId, fn, line, enable</i>)
+<p>
+        Public method to enable or disable a breakpoint.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename the breakpoint belongs to
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the breakpoint
+</dd>
+<dt><i>enable</i> (bool)</dt>
+<dd>
+flag indicating enabling or disabling a breakpoint
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteBreakpointIgnore" ID="DebuggerInterfaceNone.remoteBreakpointIgnore"></a>
+<h4>DebuggerInterfaceNone.remoteBreakpointIgnore</h4>
+<b>remoteBreakpointIgnore</b>(<i>debuggerId, fn, line, count</i>)
+<p>
+        Public method to ignore a breakpoint the next couple of occurrences.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename the breakpoint belongs to
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the breakpoint
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+number of occurrences to ignore
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteCapabilities" ID="DebuggerInterfaceNone.remoteCapabilities"></a>
+<h4>DebuggerInterfaceNone.remoteCapabilities</h4>
+<b>remoteCapabilities</b>(<i>debuggerId</i>)
+<p>
+        Public slot to get the debug clients capabilities.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteClientDisassembly" ID="DebuggerInterfaceNone.remoteClientDisassembly"></a>
+<h4>DebuggerInterfaceNone.remoteClientDisassembly</h4>
+<b>remoteClientDisassembly</b>(<i>debuggerId</i>)
+<p>
+        Public method to ask the client for the latest traceback disassembly.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteClientSetFilter" ID="DebuggerInterfaceNone.remoteClientSetFilter"></a>
+<h4>DebuggerInterfaceNone.remoteClientSetFilter</h4>
+<b>remoteClientSetFilter</b>(<i>debuggerId, scope, filterStr</i>)
+<p>
+        Public method to set a variables filter list.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables (0 = local, 1 = global)
+</dd>
+<dt><i>filterStr</i> (str)</dt>
+<dd>
+regexp string for variable names to filter out
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteClientStack" ID="DebuggerInterfaceNone.remoteClientStack"></a>
+<h4>DebuggerInterfaceNone.remoteClientStack</h4>
+<b>remoteClientStack</b>(<i>debuggerId</i>)
+<p>
+        Public method to request the stack of the main thread.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteClientVariable" ID="DebuggerInterfaceNone.remoteClientVariable"></a>
+<h4>DebuggerInterfaceNone.remoteClientVariable</h4>
+<b>remoteClientVariable</b>(<i>debuggerId, scope, filterList, var, framenr=0, maxSize=0</i>)
+<p>
+        Public method to request the variables of the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables (0 = local, 1 = global)
+</dd>
+<dt><i>filterList</i> (list of str)</dt>
+<dd>
+list of variable types to filter out
+</dd>
+<dt><i>var</i> (list of str)</dt>
+<dd>
+list encoded name of variable to retrieve
+</dd>
+<dt><i>framenr</i> (int)</dt>
+<dd>
+framenumber of the variables to retrieve
+</dd>
+<dt><i>maxSize</i> (int)</dt>
+<dd>
+maximum size the formatted value of a variable will
+            be shown. If it is bigger than that, a 'too big' indication will
+            be given (@@TOO_BIG_TO_SHOW@@).
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteClientVariables" ID="DebuggerInterfaceNone.remoteClientVariables"></a>
+<h4>DebuggerInterfaceNone.remoteClientVariables</h4>
+<b>remoteClientVariables</b>(<i>debuggerId, scope, filterList, framenr=0, maxSize=0</i>)
+<p>
+        Public method to request the variables of the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables (0 = local, 1 = global)
+</dd>
+<dt><i>filterList</i> (list of str)</dt>
+<dd>
+list of variable types to filter out
+</dd>
+<dt><i>framenr</i> (int)</dt>
+<dd>
+framenumber of the variables to retrieve
+</dd>
+<dt><i>maxSize</i> (int)</dt>
+<dd>
+maximum size the formatted value of a variable will
+            be shown. If it is bigger than that, a 'too big' indication will
+            be given (@@TOO_BIG_TO_SHOW@@).
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteCompletion" ID="DebuggerInterfaceNone.remoteCompletion"></a>
+<h4>DebuggerInterfaceNone.remoteCompletion</h4>
+<b>remoteCompletion</b>(<i>debuggerId, text</i>)
+<p>
+        Public slot to get the a list of possible commandline completions
+        from the remote client.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be completed
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteContinue" ID="DebuggerInterfaceNone.remoteContinue"></a>
+<h4>DebuggerInterfaceNone.remoteContinue</h4>
+<b>remoteContinue</b>(<i>debuggerId, special=False</i>)
+<p>
+        Public method to continue the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>special</i> (bool)</dt>
+<dd>
+flag indicating a special continue operation
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteContinueUntil" ID="DebuggerInterfaceNone.remoteContinueUntil"></a>
+<h4>DebuggerInterfaceNone.remoteContinueUntil</h4>
+<b>remoteContinueUntil</b>(<i>debuggerId, line</i>)
+<p>
+        Public method to continue the debugged program to the given line
+        or until returning from the current frame.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+new line, where execution should be continued to
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteCoverage" ID="DebuggerInterfaceNone.remoteCoverage"></a>
+<h4>DebuggerInterfaceNone.remoteCoverage</h4>
+<b>remoteCoverage</b>(<i>fn, argv, wd, erase=False</i>)
+<p>
+        Public method to load a new program to collect coverage data.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to run
+</dd>
+<dt><i>argv</i> (list of str)</dt>
+<dd>
+list of command line arguments to pass to the program
+</dd>
+<dt><i>wd</i> (str)</dt>
+<dd>
+working directory for the program
+</dd>
+<dt><i>erase</i> (bool)</dt>
+<dd>
+flag indicating that coverage info should be
+            cleared first
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteEnvironment" ID="DebuggerInterfaceNone.remoteEnvironment"></a>
+<h4>DebuggerInterfaceNone.remoteEnvironment</h4>
+<b>remoteEnvironment</b>(<i>env</i>)
+<p>
+        Public method to set the environment for a program to debug, run, ...
+</p>
+
+<dl>
+
+<dt><i>env</i> (dict)</dt>
+<dd>
+environment settings
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteLoad" ID="DebuggerInterfaceNone.remoteLoad"></a>
+<h4>DebuggerInterfaceNone.remoteLoad</h4>
+<b>remoteLoad</b>(<i>fn, argv, wd, traceInterpreter=False, autoContinue=True, enableMultiprocess=False, reportAllExceptions=False, </i>)
+<p>
+        Public method to load a new program to debug.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to debug
+</dd>
+<dt><i>argv</i> (list of str)</dt>
+<dd>
+list of command line arguments to pass to the program
+</dd>
+<dt><i>wd</i> (str)</dt>
+<dd>
+working directory for the program
+</dd>
+<dt><i>traceInterpreter</i> (bool)</dt>
+<dd>
+flag indicating if the interpreter library
+            should be traced as well
+</dd>
+<dt><i>autoContinue</i> (bool)</dt>
+<dd>
+flag indicating, that the debugger should not
+            stop at the first executable line
+</dd>
+<dt><i>enableMultiprocess</i> (bool)</dt>
+<dd>
+flag indicating to perform multiprocess
+            debugging
+</dd>
+<dt><i>reportAllExceptions</i> (bool)</dt>
+<dd>
+flag indicating to report all exceptions
+            instead of unhandled exceptions only
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteMoveIP" ID="DebuggerInterfaceNone.remoteMoveIP"></a>
+<h4>DebuggerInterfaceNone.remoteMoveIP</h4>
+<b>remoteMoveIP</b>(<i>debuggerId, line</i>)
+<p>
+        Public method to move the instruction pointer to a different line.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+new line, where execution should be continued
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteNoDebugList" ID="DebuggerInterfaceNone.remoteNoDebugList"></a>
+<h4>DebuggerInterfaceNone.remoteNoDebugList</h4>
+<b>remoteNoDebugList</b>(<i>debuggerId, noDebugList</i>)
+<p>
+        Public method to set a list of programs not to be debugged.
+</p>
+<p>
+        The programs given in the list will not be run under the control
+        of the multi process debugger.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>noDebugList</i> (list of str)</dt>
+<dd>
+list of Python programs not to be debugged
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteProfile" ID="DebuggerInterfaceNone.remoteProfile"></a>
+<h4>DebuggerInterfaceNone.remoteProfile</h4>
+<b>remoteProfile</b>(<i>fn, argv, wd, erase=False</i>)
+<p>
+        Public method to load a new program to collect profiling data.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to run
+</dd>
+<dt><i>argv</i> (list of str)</dt>
+<dd>
+list of command line arguments to pass to the program
+</dd>
+<dt><i>wd</i> (str)</dt>
+<dd>
+working directory for the program
+</dd>
+<dt><i>erase</i> (bool)</dt>
+<dd>
+flag indicating that timing info should be cleared
+            first
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteRawInput" ID="DebuggerInterfaceNone.remoteRawInput"></a>
+<h4>DebuggerInterfaceNone.remoteRawInput</h4>
+<b>remoteRawInput</b>(<i>debuggerId, inputString</i>)
+<p>
+        Public method to send the raw input to the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>inputString</i> (str)</dt>
+<dd>
+raw input
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteRun" ID="DebuggerInterfaceNone.remoteRun"></a>
+<h4>DebuggerInterfaceNone.remoteRun</h4>
+<b>remoteRun</b>(<i>fn, argv, wd</i>)
+<p>
+        Public method to load a new program to run.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to run
+</dd>
+<dt><i>argv</i> (list of str)</dt>
+<dd>
+list of command line arguments to pass to the program
+</dd>
+<dt><i>wd</i> (str)</dt>
+<dd>
+working directory for the program
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteSetThread" ID="DebuggerInterfaceNone.remoteSetThread"></a>
+<h4>DebuggerInterfaceNone.remoteSetThread</h4>
+<b>remoteSetThread</b>(<i>debuggerId, tid</i>)
+<p>
+        Public method to request to set the given thread as current thread.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>tid</i> (int)</dt>
+<dd>
+id of the thread
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteStatement" ID="DebuggerInterfaceNone.remoteStatement"></a>
+<h4>DebuggerInterfaceNone.remoteStatement</h4>
+<b>remoteStatement</b>(<i>debuggerId, stmt</i>)
+<p>
+        Public method to execute a Python statement.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>stmt</i> (str)</dt>
+<dd>
+Python statement to execute.
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteStep" ID="DebuggerInterfaceNone.remoteStep"></a>
+<h4>DebuggerInterfaceNone.remoteStep</h4>
+<b>remoteStep</b>(<i>debuggerId</i>)
+<p>
+        Public method to single step the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteStepOut" ID="DebuggerInterfaceNone.remoteStepOut"></a>
+<h4>DebuggerInterfaceNone.remoteStepOut</h4>
+<b>remoteStepOut</b>(<i>debuggerId</i>)
+<p>
+        Public method to step out the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteStepOver" ID="DebuggerInterfaceNone.remoteStepOver"></a>
+<h4>DebuggerInterfaceNone.remoteStepOver</h4>
+<b>remoteStepOver</b>(<i>debuggerId</i>)
+<p>
+        Public method to step over the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteStepQuit" ID="DebuggerInterfaceNone.remoteStepQuit"></a>
+<h4>DebuggerInterfaceNone.remoteStepQuit</h4>
+<b>remoteStepQuit</b>(<i>debuggerId</i>)
+<p>
+        Public method to stop the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteThreadList" ID="DebuggerInterfaceNone.remoteThreadList"></a>
+<h4>DebuggerInterfaceNone.remoteThreadList</h4>
+<b>remoteThreadList</b>(<i>debuggerId</i>)
+<p>
+        Public method to request the list of threads from the client.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteWatchpoint" ID="DebuggerInterfaceNone.remoteWatchpoint"></a>
+<h4>DebuggerInterfaceNone.remoteWatchpoint</h4>
+<b>remoteWatchpoint</b>(<i>debuggerId, cond, setWatch, temp=False</i>)
+<p>
+        Public method to set or clear a watch expression.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>setWatch</i> (bool)</dt>
+<dd>
+flag indicating setting or resetting a watch expression
+</dd>
+<dt><i>temp</i> (bool)</dt>
+<dd>
+flag indicating a temporary watch expression
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteWatchpointEnable" ID="DebuggerInterfaceNone.remoteWatchpointEnable"></a>
+<h4>DebuggerInterfaceNone.remoteWatchpointEnable</h4>
+<b>remoteWatchpointEnable</b>(<i>debuggerId, cond, enable</i>)
+<p>
+        Public method to enable or disable a watch expression.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>enable</i> (bool)</dt>
+<dd>
+flag indicating enabling or disabling a watch expression
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.remoteWatchpointIgnore" ID="DebuggerInterfaceNone.remoteWatchpointIgnore"></a>
+<h4>DebuggerInterfaceNone.remoteWatchpointIgnore</h4>
+<b>remoteWatchpointIgnore</b>(<i>debuggerId, cond, count</i>)
+<p>
+        Public method to ignore a watch expression the next couple of
+        occurrences.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+number of occurrences to ignore
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.setAutoContinue" ID="DebuggerInterfaceNone.setAutoContinue"></a>
+<h4>DebuggerInterfaceNone.setAutoContinue</h4>
+<b>setAutoContinue</b>(<i>autoContinue</i>)
+<p>
+        Public method to set the automatic continue flag of the interface.
+</p>
+<p>
+        If this is set to True, the debugger will tell the debug client to continue
+        when it stops at the first line of the script to be debugged.
+</p>
+
+<dl>
+
+<dt><i>autoContinue</i> (bool)</dt>
+<dd>
+flag indicating the auto continue state
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.setCallTraceEnabled" ID="DebuggerInterfaceNone.setCallTraceEnabled"></a>
+<h4>DebuggerInterfaceNone.setCallTraceEnabled</h4>
+<b>setCallTraceEnabled</b>(<i>debuggerId, on</i>)
+<p>
+        Public method to set the call trace state.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating to enable the call trace function
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.shutdown" ID="DebuggerInterfaceNone.shutdown"></a>
+<h4>DebuggerInterfaceNone.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to cleanly shut down.
+</p>
+<p>
+        It closes our socket and shuts down the debug client.
+        (Needed on Win OS)
+</p>
+
+<a NAME="DebuggerInterfaceNone.startRemote" ID="DebuggerInterfaceNone.startRemote"></a>
+<h4>DebuggerInterfaceNone.startRemote</h4>
+<b>startRemote</b>(<i>port, runInConsole, venvName, originalPathString, workingDir=None, configOverride=None, startViaServer=None, </i>)
+<p>
+        Public method to start a remote Python interpreter.
+</p>
+
+<dl>
+
+<dt><i>port</i> (int)</dt>
+<dd>
+port number the debug server is listening on
+</dd>
+<dt><i>runInConsole</i> (bool)</dt>
+<dd>
+flag indicating to start the debugger in a
+            console window
+</dd>
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+<dt><i>originalPathString</i> (str)</dt>
+<dd>
+original PATH environment variable
+</dd>
+<dt><i>workingDir</i> (str)</dt>
+<dd>
+directory to start the debugger client in
+</dd>
+<dt><i>configOverride</i> (dict)</dt>
+<dd>
+dictionary containing the global config override
+            data
+</dd>
+<dt><i>startViaServer</i> (bool (optional))</dt>
+<dd>
+flag indicating to start the client via an eric-ide server
+            (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+client process object, a flag to indicate a network connection
+            and the name of the interpreter in case of a local execution
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (QProcess, bool, str)
+</dd>
+</dl>
+<a NAME="DebuggerInterfaceNone.startRemoteForProject" ID="DebuggerInterfaceNone.startRemoteForProject"></a>
+<h4>DebuggerInterfaceNone.startRemoteForProject</h4>
+<b>startRemoteForProject</b>(<i>port, runInConsole, venvName, originalPathString, workingDir=None, configOverride=None, startViaServer=None, </i>)
+<p>
+        Public method to start a remote Python interpreter for a project.
+</p>
+
+<dl>
+
+<dt><i>port</i> (int)</dt>
+<dd>
+port number the debug server is listening on
+</dd>
+<dt><i>runInConsole</i> (bool)</dt>
+<dd>
+flag indicating to start the debugger in a
+            console window
+</dd>
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+<dt><i>originalPathString</i> (str)</dt>
+<dd>
+original PATH environment variable
+</dd>
+<dt><i>workingDir</i> (str)</dt>
+<dd>
+directory to start the debugger client in
+</dd>
+<dt><i>configOverride</i> (dict)</dt>
+<dd>
+dictionary containing the global config override
+            data
+</dd>
+<dt><i>startViaServer</i> (bool (optional))</dt>
+<dd>
+flag indicating to start the client via an eric-ide server
+            (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+client process object, a flag to indicate a network connection
+            and the name of the interpreter in case of a local execution
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (QProcess, bool, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createDebuggerInterfaceNone" ID="createDebuggerInterfaceNone"></a>
+<h2>createDebuggerInterfaceNone</h2>
+<b>createDebuggerInterfaceNone</b>(<i>debugServer, passive</i>)
+<p>
+    Module function to create a debugger interface instance.
+</p>
+<p>
+
+</p>
+
+<dl>
+
+<dt><i>debugServer</i> (DebugServer)</dt>
+<dd>
+reference to the debug server
+</dd>
+<dt><i>passive</i> (bool)</dt>
+<dd>
+flag indicating passive connection mode
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+instantiated debugger interface
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+DebuggerInterfaceNone
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getRegistryData" ID="getRegistryData"></a>
+<h2>getRegistryData</h2>
+<b>getRegistryData</b>(<i></i>)
+<p>
+    Module function to get characterizing data for the debugger interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the client type, the client capabilities,
+        the client file type associations and a reference to the creation
+        function
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (str, int, list of str, function)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

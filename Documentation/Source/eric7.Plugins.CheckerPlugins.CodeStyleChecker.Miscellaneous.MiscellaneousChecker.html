@@ -1,0 +1,3964 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Miscellaneous.MiscellaneousChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Miscellaneous.MiscellaneousChecker</h1>
+<p>
+Module implementing a checker for miscellaneous checks.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>BugBearContext</td></tr>
+<tr><td>BugbearImmutableCalls</td></tr>
+<tr><td>BugbearMutableCalls</td></tr>
+<tr><td>BugbearMutableComprehensions</td></tr>
+<tr><td>BugbearMutableLiterals</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BugBearVisitor">BugBearVisitor</a></td>
+<td>Class implementing a node visitor to check for various topics.</td>
+</tr>
+<tr>
+<td><a href="#DateTimeVisitor">DateTimeVisitor</a></td>
+<td>Class implementing a node visitor to check datetime function calls.</td>
+</tr>
+<tr>
+<td><a href="#ExceptBaseExceptionVisitor">ExceptBaseExceptionVisitor</a></td>
+<td>Class to determine, if a 'BaseException' is re-raised.</td>
+</tr>
+<tr>
+<td><a href="#FunctionDefDefaultsVisitor">FunctionDefDefaultsVisitor</a></td>
+<td>Class used by M506, M508 and M539.</td>
+</tr>
+<tr>
+<td><a href="#M520NameFinder">M520NameFinder</a></td>
+<td>Class to extract a name out of a tree of nodes ignoring names defined within the local scope of a comprehension.</td>
+</tr>
+<tr>
+<td><a href="#M540CaughtException">M540CaughtException</a></td>
+<td>Class to hold the data for a caught exception.</td>
+</tr>
+<tr>
+<td><a href="#M569Checker">M569Checker</a></td>
+<td>Class traversing a 'for' loop body to check for modifications to a loop's mutable iterable.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker">MiscellaneousChecker</a></td>
+<td>Class implementing a checker for miscellaneous checks.</td>
+</tr>
+<tr>
+<td><a href="#NameFinder">NameFinder</a></td>
+<td>Class to extract a name out of a tree of nodes.</td>
+</tr>
+<tr>
+<td><a href="#NamedExprFinder">NamedExprFinder</a></td>
+<td>Class to extract names defined through an ast.NamedExpr.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor">ReturnVisitor</a></td>
+<td>Class implementing a node visitor to check return statements.</td>
+</tr>
+<tr>
+<td><a href="#SysVersionVisitor">SysVersionVisitor</a></td>
+<td>Class implementing a node visitor to check the use of sys.version and sys.version_info.</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor">TextVisitor</a></td>
+<td>Class implementing a node visitor for bytes and str instances.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#composeCallPath">composeCallPath</a></td>
+<td>Generator function to assemble the call path of a given node.</td>
+</tr>
+<tr>
+<td><a href="#pairwise">pairwise</a></td>
+<td></td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BugBearVisitor" ID="BugBearVisitor"></a>
+<h2>BugBearVisitor</h2>
+<p>
+    Class implementing a node visitor to check for various topics.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>CONTEXTFUL_NODES</td></tr>
+<tr><td>FUNCTION_NODES</td></tr>
+<tr><td>NodeWindowSize</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BugBearVisitor.__init__">BugBearVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM505">__checkForM505</a></td>
+<td>Private method to check the use of *strip().</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM506_M508">__checkForM506_M508</a></td>
+<td>Private method to check the use of mutable literals, comprehensions and calls.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM507">__checkForM507</a></td>
+<td>Private method to check for unused loop variables.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM512">__checkForM512</a></td>
+<td>Private method to check for return/continue/break inside finally blocks.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM513_M529_M530">__checkForM513_M529_M530</a></td>
+<td>Private method to check various exception handler situations.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM515">__checkForM515</a></td>
+<td>Private method to check for pointless comparisons.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM516">__checkForM516</a></td>
+<td>Private method to check for raising a literal instead of an exception.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM517">__checkForM517</a></td>
+<td>Private method to check for use of the evil syntax 'with assertRaises(Exception): or 'with pytest.raises(Exception):'.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM518">__checkForM518</a></td>
+<td>Private method to check for useless expressions.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM519">__checkForM519</a></td>
+<td>Private method to check for use of 'functools.lru_cache' or 'functools.cache'.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM520">__checkForM520</a></td>
+<td>Private method to check for a loop that modifies its iterable.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM521">__checkForM521</a></td>
+<td>Private method to check for use of an f-string as docstring.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM522">__checkForM522</a></td>
+<td>Private method to check for use of an f-string as docstring.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM523">__checkForM523</a></td>
+<td>Private method to check that functions (including lambdas) do not use loop variables.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM524_M527">__checkForM524_M527</a></td>
+<td>Private method to check for inheritance from abstract classes in abc and lack of any methods decorated with abstract*.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM525">__checkForM525</a></td>
+<td>Private method to check for exceptions being handled multiple times.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM526">__checkForM526</a></td>
+<td>Private method to check for Star-arg unpacking after keyword argument.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM528">__checkForM528</a></td>
+<td>Private method to check for warn without stacklevel.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM531">__checkForM531</a></td>
+<td>Private method to check that 'itertools.groupby' isn't iterated over more than once.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM532">__checkForM532</a></td>
+<td>Private method to check for possible unintentional typing annotation.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM533">__checkForM533</a></td>
+<td>Private method to check a set for duplicate items.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM534">__checkForM534</a></td>
+<td>Private method to check that re.sub/subn/split arguments flags/count/maxsplit are passed as keyword arguments.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM535">__checkForM535</a></td>
+<td>Private method to check that a static key isn't used in a dict comprehension.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM539">__checkForM539</a></td>
+<td>Private method to check for correct ContextVar usage.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM540AddNote">__checkForM540AddNote</a></td>
+<td>Private method to check add_note usage.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM540Usage">__checkForM540Usage</a></td>
+<td>Private method to check the usage of exceptions with added note.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkForM569">__checkForM569</a></td>
+<td>Private method to check for changes to a loop's mutable iterable.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__checkRedundantExcepthandlers">__checkRedundantExcepthandlers</a></td>
+<td>Private method to check for redundant exception types in an exception handler.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__childrenInScope">__childrenInScope</a></td>
+<td>Private method to get all child nodes in the given scope.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__flattenExcepthandler">__flattenExcepthandler</a></td>
+<td>Private method to flatten the list of exceptions handled by an except handler.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__getAssignedNames">__getAssignedNames</a></td>
+<td>Private method to get the names of a for loop.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__getDictCompLoopAndNamedExprVarNames">__getDictCompLoopAndNamedExprVarNames</a></td>
+<td>Private method to get the names of comprehension loop variables.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__getNamesFromTuple">__getNamesFromTuple</a></td>
+<td>Private method to get the names from an ast.Tuple node.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__inClassInit">__inClassInit</a></td>
+<td>Private method to check, if we are inside an '__init__' method.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__isIdentifier">__isIdentifier</a></td>
+<td>Private method to check if arg is a valid identifier.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__namesFromAssignments">__namesFromAssignments</a></td>
+<td>Private method to get names of an assignment.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__typesafeIssubclass">__typesafeIssubclass</a></td>
+<td>Private method implementing a type safe issubclass() function.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.__walkList">__walkList</a></td>
+<td>Private method to walk a given list of nodes.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor._loop">_loop</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.check">check</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.emptyBody">emptyBody</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.isAbcClass">isAbcClass</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.isAbstractDecorator">isAbstractDecorator</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.isOverload">isOverload</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.isStrOrEllipsis">isStrOrEllipsis</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.nodeStack">nodeStack</a></td>
+<td>Public method to get a reference to the most recent node stack.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.superwalk">superwalk</a></td>
+<td>Function to walk an AST node or a list of AST nodes.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.toNameStr">toNameStr</a></td>
+<td>Public method to turn Name and Attribute nodes to strings, handling any depth of attribute accesses.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit">visit</a></td>
+<td>Public method to traverse a given AST node.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_AnnAssign">visit_AnnAssign</a></td>
+<td>Public method to check annotated assign statements.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Assert">visit_Assert</a></td>
+<td>Public method to handle 'assert' statements.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Assign">visit_Assign</a></td>
+<td>Public method to handle assignments.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_AsyncFor">visit_AsyncFor</a></td>
+<td>Public method to handle 'for' statements.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_AsyncFunctionDef">visit_AsyncFunctionDef</a></td>
+<td>Public method to handle async function definitions.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Call">visit_Call</a></td>
+<td>Public method to handle a function call.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_ClassDef">visit_ClassDef</a></td>
+<td>Public method to handle class definitions.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Compare">visit_Compare</a></td>
+<td>Public method to handle comparison statements.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_DictComp">visit_DictComp</a></td>
+<td>Public method to handle dictionary comprehensions.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_ExceptHandler">visit_ExceptHandler</a></td>
+<td>Public method to handle exception handlers.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_For">visit_For</a></td>
+<td>Public method to handle 'for' statements.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_FunctionDef">visit_FunctionDef</a></td>
+<td>Public method to handle function definitions.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_GeneratorExp">visit_GeneratorExp</a></td>
+<td>Public method to handle generator expressions.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Import">visit_Import</a></td>
+<td>Public method to check imports.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_ImportFrom">visit_ImportFrom</a></td>
+<td>Public method to check from imports.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_JoinedStr">visit_JoinedStr</a></td>
+<td>Public method to handle f-string arguments.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_ListComp">visit_ListComp</a></td>
+<td>Public method to handle list comprehensions.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Module">visit_Module</a></td>
+<td>Public method to handle a module node.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Raise">visit_Raise</a></td>
+<td>Public method to handle 'raise' statements.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Return">visit_Return</a></td>
+<td>Public method to handle 'Return' nodes.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Set">visit_Set</a></td>
+<td>Public method to check a set.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_SetComp">visit_SetComp</a></td>
+<td>Public method to handle set comprehensions.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Try">visit_Try</a></td>
+<td>Public method to handle 'try' statements'.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_UAdd">visit_UAdd</a></td>
+<td>Public method to handle unary additions.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_While">visit_While</a></td>
+<td>Public method to handle 'while' statements.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_With">visit_With</a></td>
+<td>Public method to handle 'with' statements.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_Yield">visit_Yield</a></td>
+<td>Public method to handle 'Yield' nodes.</td>
+</tr>
+<tr>
+<td><a href="#BugBearVisitor.visit_YieldFrom">visit_YieldFrom</a></td>
+<td>Public method to handle 'YieldFrom' nodes.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BugBearVisitor.__init__" ID="BugBearVisitor.__init__"></a>
+<h4>BugBearVisitor (Constructor)</h4>
+<b>BugBearVisitor</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="BugBearVisitor.__checkForM505" ID="BugBearVisitor.__checkForM505"></a>
+<h4>BugBearVisitor.__checkForM505</h4>
+<b>__checkForM505</b>(<i>node</i>)
+<p>
+        Private method to check the use of *strip().
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM506_M508" ID="BugBearVisitor.__checkForM506_M508"></a>
+<h4>BugBearVisitor.__checkForM506_M508</h4>
+<b>__checkForM506_M508</b>(<i>node</i>)
+<p>
+        Private method to check the use of mutable literals, comprehensions and calls.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM507" ID="BugBearVisitor.__checkForM507"></a>
+<h4>BugBearVisitor.__checkForM507</h4>
+<b>__checkForM507</b>(<i>node</i>)
+<p>
+        Private method to check for unused loop variables.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For or ast.AsyncFor)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM512" ID="BugBearVisitor.__checkForM512"></a>
+<h4>BugBearVisitor.__checkForM512</h4>
+<b>__checkForM512</b>(<i>node</i>)
+<p>
+        Private method to check for return/continue/break inside finally blocks.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Try)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM513_M529_M530" ID="BugBearVisitor.__checkForM513_M529_M530"></a>
+<h4>BugBearVisitor.__checkForM513_M529_M530</h4>
+<b>__checkForM513_M529_M530</b>(<i>node</i>)
+<p>
+        Private method to check various exception handler situations.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ExceptHandler)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of exception handler names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM515" ID="BugBearVisitor.__checkForM515"></a>
+<h4>BugBearVisitor.__checkForM515</h4>
+<b>__checkForM515</b>(<i>node</i>)
+<p>
+        Private method to check for pointless comparisons.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Compare)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM516" ID="BugBearVisitor.__checkForM516"></a>
+<h4>BugBearVisitor.__checkForM516</h4>
+<b>__checkForM516</b>(<i>node</i>)
+<p>
+        Private method to check for raising a literal instead of an exception.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Raise)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM517" ID="BugBearVisitor.__checkForM517"></a>
+<h4>BugBearVisitor.__checkForM517</h4>
+<b>__checkForM517</b>(<i>node</i>)
+<p>
+        Private method to check for use of the evil syntax
+        'with assertRaises(Exception): or 'with pytest.raises(Exception):'.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.With)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM518" ID="BugBearVisitor.__checkForM518"></a>
+<h4>BugBearVisitor.__checkForM518</h4>
+<b>__checkForM518</b>(<i>node</i>)
+<p>
+        Private method to check for useless expressions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM519" ID="BugBearVisitor.__checkForM519"></a>
+<h4>BugBearVisitor.__checkForM519</h4>
+<b>__checkForM519</b>(<i>node</i>)
+<p>
+        Private method to check for use of 'functools.lru_cache' or 'functools.cache'.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM520" ID="BugBearVisitor.__checkForM520"></a>
+<h4>BugBearVisitor.__checkForM520</h4>
+<b>__checkForM520</b>(<i>node</i>)
+<p>
+        Private method to check for a loop that modifies its iterable.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For or ast.AsyncFor)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM521" ID="BugBearVisitor.__checkForM521"></a>
+<h4>BugBearVisitor.__checkForM521</h4>
+<b>__checkForM521</b>(<i>node</i>)
+<p>
+        Private method to check for use of an f-string as docstring.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef or ast.ClassDef)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM522" ID="BugBearVisitor.__checkForM522"></a>
+<h4>BugBearVisitor.__checkForM522</h4>
+<b>__checkForM522</b>(<i>node</i>)
+<p>
+        Private method to check for use of an f-string as docstring.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.With)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM523" ID="BugBearVisitor.__checkForM523"></a>
+<h4>BugBearVisitor.__checkForM523</h4>
+<b>__checkForM523</b>(<i>loopNode</i>)
+<p>
+        Private method to check that functions (including lambdas) do not use loop
+        variables.
+</p>
+
+<dl>
+
+<dt><i>loopNode</i> (ast.For, ast.AsyncFor, ast.While, ast.ListComp, ast.SetComp,ast.DictComp,)</dt>
+<dd>
+reference to the node to be processed
+            or ast.GeneratorExp
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM524_M527" ID="BugBearVisitor.__checkForM524_M527"></a>
+<h4>BugBearVisitor.__checkForM524_M527</h4>
+<b>__checkForM524_M527</b>(<i>node</i>)
+<p>
+        Private method to check for inheritance from abstract classes in abc and lack of
+        any methods decorated with abstract*.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ClassDef)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM525" ID="BugBearVisitor.__checkForM525"></a>
+<h4>BugBearVisitor.__checkForM525</h4>
+<b>__checkForM525</b>(<i>node</i>)
+<p>
+        Private method to check for exceptions being handled multiple times.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Try)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM526" ID="BugBearVisitor.__checkForM526"></a>
+<h4>BugBearVisitor.__checkForM526</h4>
+<b>__checkForM526</b>(<i>node</i>)
+<p>
+        Private method to check for Star-arg unpacking after keyword argument.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM528" ID="BugBearVisitor.__checkForM528"></a>
+<h4>BugBearVisitor.__checkForM528</h4>
+<b>__checkForM528</b>(<i>node</i>)
+<p>
+        Private method to check for warn without stacklevel.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM531" ID="BugBearVisitor.__checkForM531"></a>
+<h4>BugBearVisitor.__checkForM531</h4>
+<b>__checkForM531</b>(<i>loopNode</i>)
+<p>
+        Private method to check that 'itertools.groupby' isn't iterated over more than
+        once.
+</p>
+<p>
+        A warning is emitted when the generator returned by 'groupby()' is used
+        more than once inside a loop body or when it's used in a nested loop.
+</p>
+
+<dl>
+
+<dt><i>loopNode</i> (ast.For or ast.AsyncFor)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM532" ID="BugBearVisitor.__checkForM532"></a>
+<h4>BugBearVisitor.__checkForM532</h4>
+<b>__checkForM532</b>(<i>node</i>)
+<p>
+        Private method to check for possible unintentional typing annotation.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AnnAssign)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM533" ID="BugBearVisitor.__checkForM533"></a>
+<h4>BugBearVisitor.__checkForM533</h4>
+<b>__checkForM533</b>(<i>node</i>)
+<p>
+        Private method to check a set for duplicate items.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Set)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM534" ID="BugBearVisitor.__checkForM534"></a>
+<h4>BugBearVisitor.__checkForM534</h4>
+<b>__checkForM534</b>(<i>node</i>)
+<p>
+        Private method to check that re.sub/subn/split arguments flags/count/maxsplit
+        are passed as keyword arguments.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM535" ID="BugBearVisitor.__checkForM535"></a>
+<h4>BugBearVisitor.__checkForM535</h4>
+<b>__checkForM535</b>(<i>node</i>)
+<p>
+        Private method to check that a static key isn't used in a dict comprehension.
+</p>
+<p>
+        Record a warning if a likely unchanging key is used - either a constant,
+        or a variable that isn't coming from the generator expression.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.DictComp)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM539" ID="BugBearVisitor.__checkForM539"></a>
+<h4>BugBearVisitor.__checkForM539</h4>
+<b>__checkForM539</b>(<i>node</i>)
+<p>
+        Private method to check for correct ContextVar usage.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM540AddNote" ID="BugBearVisitor.__checkForM540AddNote"></a>
+<h4>BugBearVisitor.__checkForM540AddNote</h4>
+<b>__checkForM540AddNote</b>(<i>node</i>)
+<p>
+        Private method to check add_note usage.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Attribute)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM540Usage" ID="BugBearVisitor.__checkForM540Usage"></a>
+<h4>BugBearVisitor.__checkForM540Usage</h4>
+<b>__checkForM540Usage</b>(<i>node</i>)
+<p>
+        Private method to check the usage of exceptions with added note.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.expr or None)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkForM569" ID="BugBearVisitor.__checkForM569"></a>
+<h4>BugBearVisitor.__checkForM569</h4>
+<b>__checkForM569</b>(<i>node</i>)
+<p>
+        Private method to check for changes to a loop's mutable iterable.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For)</dt>
+<dd>
+loop node to be checked
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__checkRedundantExcepthandlers" ID="BugBearVisitor.__checkRedundantExcepthandlers"></a>
+<h4>BugBearVisitor.__checkRedundantExcepthandlers</h4>
+<b>__checkRedundantExcepthandlers</b>(<i>names, node</i>)
+<p>
+        Private method to check for redundant exception types in an exception handler.
+</p>
+
+<dl>
+
+<dt><i>names</i> (list of ast.Name)</dt>
+<dd>
+list of exception types to be checked
+</dd>
+<dt><i>node</i> (ast.ExceptionHandler)</dt>
+<dd>
+reference to the exception handler node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the error data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (ast.Node, str, str, str, str)
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__childrenInScope" ID="BugBearVisitor.__childrenInScope"></a>
+<h4>BugBearVisitor.__childrenInScope</h4>
+<b>__childrenInScope</b>(<i>node</i>)
+<p>
+        Private method to get all child nodes in the given scope.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Node)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+reference to a child node
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+ast.Node
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__flattenExcepthandler" ID="BugBearVisitor.__flattenExcepthandler"></a>
+<h4>BugBearVisitor.__flattenExcepthandler</h4>
+<b>__flattenExcepthandler</b>(<i>node</i>)
+<p>
+        Private method to flatten the list of exceptions handled by an except handler.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Node)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+reference to the exception type node
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+ast.Node
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__getAssignedNames" ID="BugBearVisitor.__getAssignedNames"></a>
+<h4>BugBearVisitor.__getAssignedNames</h4>
+<b>__getAssignedNames</b>(<i>loopNode</i>)
+<p>
+        Private method to get the names of a for loop.
+</p>
+
+<dl>
+
+<dt><i>loopNode</i> (ast.For)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+DESCRIPTION
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+TYPE
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__getDictCompLoopAndNamedExprVarNames" ID="BugBearVisitor.__getDictCompLoopAndNamedExprVarNames"></a>
+<h4>BugBearVisitor.__getDictCompLoopAndNamedExprVarNames</h4>
+<b>__getDictCompLoopAndNamedExprVarNames</b>(<i>node</i>)
+<p>
+        Private method to get the names of comprehension loop variables.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.DictComp)</dt>
+<dd>
+ast node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+loop variable names
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__getNamesFromTuple" ID="BugBearVisitor.__getNamesFromTuple"></a>
+<h4>BugBearVisitor.__getNamesFromTuple</h4>
+<b>__getNamesFromTuple</b>(<i>node</i>)
+<p>
+        Private method to get the names from an ast.Tuple node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Tuple)</dt>
+<dd>
+ast node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+names
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__inClassInit" ID="BugBearVisitor.__inClassInit"></a>
+<h4>BugBearVisitor.__inClassInit</h4>
+<b>__inClassInit</b>(<i></i>)
+<p>
+        Private method to check, if we are inside an '__init__' method.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating being within the '__init__' method
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__isIdentifier" ID="BugBearVisitor.__isIdentifier"></a>
+<h4>BugBearVisitor.__isIdentifier</h4>
+<b>__isIdentifier</b>(<i>arg</i>)
+<p>
+        Private method to check if arg is a valid identifier.
+</p>
+<p>
+        See https://docs.python.org/2/reference/lexical_analysis.html#identifiers
+</p>
+
+<dl>
+
+<dt><i>arg</i> (ast.Node)</dt>
+<dd>
+reference to an argument node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a valid identifier
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+TYPE
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__namesFromAssignments" ID="BugBearVisitor.__namesFromAssignments"></a>
+<h4>BugBearVisitor.__namesFromAssignments</h4>
+<b>__namesFromAssignments</b>(<i>assignTarget</i>)
+<p>
+        Private method to get names of an assignment.
+</p>
+
+<dl>
+
+<dt><i>assignTarget</i> (ast.Node)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+name of the assignment
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__typesafeIssubclass" ID="BugBearVisitor.__typesafeIssubclass"></a>
+<h4>BugBearVisitor.__typesafeIssubclass</h4>
+<b>__typesafeIssubclass</b>(<i>obj, classOrTuple</i>)
+<p>
+        Private method implementing a type safe issubclass() function.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (Any)</dt>
+<dd>
+reference to the object to be tested
+</dd>
+<dt><i>classOrTuple</i> (type)</dt>
+<dd>
+type to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a subclass
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BugBearVisitor.__walkList" ID="BugBearVisitor.__walkList"></a>
+<h4>BugBearVisitor.__walkList</h4>
+<b>__walkList</b>(<i>nodes</i>)
+<p>
+        Private method to walk a given list of nodes.
+</p>
+
+<dl>
+
+<dt><i>nodes</i> (list of ast.Node)</dt>
+<dd>
+list of nodes to walk
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+node references as determined by the ast.walk() function
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+ast.Node
+</dd>
+</dl>
+<a NAME="BugBearVisitor._loop" ID="BugBearVisitor._loop"></a>
+<h4>BugBearVisitor._loop</h4>
+<b>_loop</b>(<i>badNodeTypes</i>)
+
+<a NAME="BugBearVisitor.check" ID="BugBearVisitor.check"></a>
+<h4>BugBearVisitor.check</h4>
+<b>check</b>(<i>paramName</i>)
+
+<a NAME="BugBearVisitor.emptyBody" ID="BugBearVisitor.emptyBody"></a>
+<h4>BugBearVisitor.emptyBody</h4>
+<b>emptyBody</b>(<i></i>)
+
+<a NAME="BugBearVisitor.isAbcClass" ID="BugBearVisitor.isAbcClass"></a>
+<h4>BugBearVisitor.isAbcClass</h4>
+<b>isAbcClass</b>(<i>name="ABC"</i>)
+
+<a NAME="BugBearVisitor.isAbstractDecorator" ID="BugBearVisitor.isAbstractDecorator"></a>
+<h4>BugBearVisitor.isAbstractDecorator</h4>
+<b>isAbstractDecorator</b>(<i></i>)
+
+<a NAME="BugBearVisitor.isOverload" ID="BugBearVisitor.isOverload"></a>
+<h4>BugBearVisitor.isOverload</h4>
+<b>isOverload</b>(<i></i>)
+
+<a NAME="BugBearVisitor.isStrOrEllipsis" ID="BugBearVisitor.isStrOrEllipsis"></a>
+<h4>BugBearVisitor.isStrOrEllipsis</h4>
+<b>isStrOrEllipsis</b>(<i></i>)
+
+<a NAME="BugBearVisitor.nodeStack" ID="BugBearVisitor.nodeStack"></a>
+<h4>BugBearVisitor.nodeStack</h4>
+<b>nodeStack</b>(<i></i>)
+<p>
+        Public method to get a reference to the most recent node stack.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the most recent node stack
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list
+</dd>
+</dl>
+<a NAME="BugBearVisitor.superwalk" ID="BugBearVisitor.superwalk"></a>
+<h4>BugBearVisitor.superwalk</h4>
+<b>superwalk</b>(<i></i>)
+<p>
+            Function to walk an AST node or a list of AST nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST or list[ast.AST])</dt>
+<dd>
+reference to the node or a list of nodes to be processed
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+next node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+ast.AST
+</dd>
+</dl>
+<a NAME="BugBearVisitor.toNameStr" ID="BugBearVisitor.toNameStr"></a>
+<h4>BugBearVisitor.toNameStr</h4>
+<b>toNameStr</b>(<i>node</i>)
+<p>
+        Public method to turn Name and Attribute nodes to strings, handling any
+        depth of attribute accesses.
+</p>
+<p>
+
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Name or ast.Attribute)</dt>
+<dd>
+reference to the node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string representation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit" ID="BugBearVisitor.visit"></a>
+<h4>BugBearVisitor.visit</h4>
+<b>visit</b>(<i>node</i>)
+<p>
+        Public method to traverse a given AST node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Node)</dt>
+<dd>
+AST node to be traversed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_AnnAssign" ID="BugBearVisitor.visit_AnnAssign"></a>
+<h4>BugBearVisitor.visit_AnnAssign</h4>
+<b>visit_AnnAssign</b>(<i>node</i>)
+<p>
+        Public method to check annotated assign statements.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AnnAssign)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Assert" ID="BugBearVisitor.visit_Assert"></a>
+<h4>BugBearVisitor.visit_Assert</h4>
+<b>visit_Assert</b>(<i>node</i>)
+<p>
+        Public method to handle 'assert' statements.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Assert)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Assign" ID="BugBearVisitor.visit_Assign"></a>
+<h4>BugBearVisitor.visit_Assign</h4>
+<b>visit_Assign</b>(<i>node</i>)
+<p>
+        Public method to handle assignments.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Assign)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_AsyncFor" ID="BugBearVisitor.visit_AsyncFor"></a>
+<h4>BugBearVisitor.visit_AsyncFor</h4>
+<b>visit_AsyncFor</b>(<i>node</i>)
+<p>
+        Public method to handle 'for' statements.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFor)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_AsyncFunctionDef" ID="BugBearVisitor.visit_AsyncFunctionDef"></a>
+<h4>BugBearVisitor.visit_AsyncFunctionDef</h4>
+<b>visit_AsyncFunctionDef</b>(<i>node</i>)
+<p>
+        Public method to handle async function definitions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Call" ID="BugBearVisitor.visit_Call"></a>
+<h4>BugBearVisitor.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+<p>
+        Public method to handle a function call.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_ClassDef" ID="BugBearVisitor.visit_ClassDef"></a>
+<h4>BugBearVisitor.visit_ClassDef</h4>
+<b>visit_ClassDef</b>(<i>node</i>)
+<p>
+        Public method to handle class definitions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ClassDef)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Compare" ID="BugBearVisitor.visit_Compare"></a>
+<h4>BugBearVisitor.visit_Compare</h4>
+<b>visit_Compare</b>(<i>node</i>)
+<p>
+        Public method to handle comparison statements.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Compare)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_DictComp" ID="BugBearVisitor.visit_DictComp"></a>
+<h4>BugBearVisitor.visit_DictComp</h4>
+<b>visit_DictComp</b>(<i>node</i>)
+<p>
+        Public method to handle dictionary comprehensions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.DictComp)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_ExceptHandler" ID="BugBearVisitor.visit_ExceptHandler"></a>
+<h4>BugBearVisitor.visit_ExceptHandler</h4>
+<b>visit_ExceptHandler</b>(<i>node</i>)
+<p>
+        Public method to handle exception handlers.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ExceptHandler)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_For" ID="BugBearVisitor.visit_For"></a>
+<h4>BugBearVisitor.visit_For</h4>
+<b>visit_For</b>(<i>node</i>)
+<p>
+        Public method to handle 'for' statements.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_FunctionDef" ID="BugBearVisitor.visit_FunctionDef"></a>
+<h4>BugBearVisitor.visit_FunctionDef</h4>
+<b>visit_FunctionDef</b>(<i>node</i>)
+<p>
+        Public method to handle function definitions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_GeneratorExp" ID="BugBearVisitor.visit_GeneratorExp"></a>
+<h4>BugBearVisitor.visit_GeneratorExp</h4>
+<b>visit_GeneratorExp</b>(<i>node</i>)
+<p>
+        Public method to handle generator expressions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.GeneratorExp)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Import" ID="BugBearVisitor.visit_Import"></a>
+<h4>BugBearVisitor.visit_Import</h4>
+<b>visit_Import</b>(<i>node</i>)
+<p>
+        Public method to check imports.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Import)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_ImportFrom" ID="BugBearVisitor.visit_ImportFrom"></a>
+<h4>BugBearVisitor.visit_ImportFrom</h4>
+<b>visit_ImportFrom</b>(<i>node</i>)
+<p>
+        Public method to check from imports.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Import)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_JoinedStr" ID="BugBearVisitor.visit_JoinedStr"></a>
+<h4>BugBearVisitor.visit_JoinedStr</h4>
+<b>visit_JoinedStr</b>(<i>node</i>)
+<p>
+        Public method to handle f-string arguments.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.JoinedStr)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_ListComp" ID="BugBearVisitor.visit_ListComp"></a>
+<h4>BugBearVisitor.visit_ListComp</h4>
+<b>visit_ListComp</b>(<i>node</i>)
+<p>
+        Public method to handle list comprehensions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ListComp)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Module" ID="BugBearVisitor.visit_Module"></a>
+<h4>BugBearVisitor.visit_Module</h4>
+<b>visit_Module</b>(<i>node</i>)
+<p>
+        Public method to handle a module node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Module)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Raise" ID="BugBearVisitor.visit_Raise"></a>
+<h4>BugBearVisitor.visit_Raise</h4>
+<b>visit_Raise</b>(<i>node</i>)
+<p>
+        Public method to handle 'raise' statements.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Raise)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Return" ID="BugBearVisitor.visit_Return"></a>
+<h4>BugBearVisitor.visit_Return</h4>
+<b>visit_Return</b>(<i>node</i>)
+<p>
+        Public method to handle 'Return' nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Return)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Set" ID="BugBearVisitor.visit_Set"></a>
+<h4>BugBearVisitor.visit_Set</h4>
+<b>visit_Set</b>(<i>node</i>)
+<p>
+        Public method to check a set.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Set)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_SetComp" ID="BugBearVisitor.visit_SetComp"></a>
+<h4>BugBearVisitor.visit_SetComp</h4>
+<b>visit_SetComp</b>(<i>node</i>)
+<p>
+        Public method to handle set comprehensions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.SetComp)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Try" ID="BugBearVisitor.visit_Try"></a>
+<h4>BugBearVisitor.visit_Try</h4>
+<b>visit_Try</b>(<i>node</i>)
+<p>
+        Public method to handle 'try' statements'.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Try)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_UAdd" ID="BugBearVisitor.visit_UAdd"></a>
+<h4>BugBearVisitor.visit_UAdd</h4>
+<b>visit_UAdd</b>(<i>node</i>)
+<p>
+        Public method to handle unary additions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UAdd)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_While" ID="BugBearVisitor.visit_While"></a>
+<h4>BugBearVisitor.visit_While</h4>
+<b>visit_While</b>(<i>node</i>)
+<p>
+        Public method to handle 'while' statements.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.While)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_With" ID="BugBearVisitor.visit_With"></a>
+<h4>BugBearVisitor.visit_With</h4>
+<b>visit_With</b>(<i>node</i>)
+<p>
+        Public method to handle 'with' statements.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.With)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_Yield" ID="BugBearVisitor.visit_Yield"></a>
+<h4>BugBearVisitor.visit_Yield</h4>
+<b>visit_Yield</b>(<i>node</i>)
+<p>
+        Public method to handle 'Yield' nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Yield)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="BugBearVisitor.visit_YieldFrom" ID="BugBearVisitor.visit_YieldFrom"></a>
+<h4>BugBearVisitor.visit_YieldFrom</h4>
+<b>visit_YieldFrom</b>(<i>node</i>)
+<p>
+        Public method to handle 'YieldFrom' nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.YieldFrom)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DateTimeVisitor" ID="DateTimeVisitor"></a>
+<h2>DateTimeVisitor</h2>
+<p>
+    Class implementing a node visitor to check datetime function calls.
+</p>
+<p>
+    Note: This class is modeled after flake8_datetimez checker.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DateTimeVisitor.__init__">DateTimeVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DateTimeVisitor.__getFromKeywords">__getFromKeywords</a></td>
+<td>Private method to get a keyword node given its name.</td>
+</tr>
+<tr>
+<td><a href="#DateTimeVisitor.visit_Call">visit_Call</a></td>
+<td>Public method to handle a function call.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DateTimeVisitor.__init__" ID="DateTimeVisitor.__init__"></a>
+<h4>DateTimeVisitor (Constructor)</h4>
+<b>DateTimeVisitor</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="DateTimeVisitor.__getFromKeywords" ID="DateTimeVisitor.__getFromKeywords"></a>
+<h4>DateTimeVisitor.__getFromKeywords</h4>
+<b>__getFromKeywords</b>(<i>keywords, name</i>)
+<p>
+        Private method to get a keyword node given its name.
+</p>
+
+<dl>
+
+<dt><i>keywords</i> (list of ast.AST)</dt>
+<dd>
+list of keyword argument nodes
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the keyword node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+keyword node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.AST
+</dd>
+</dl>
+<a NAME="DateTimeVisitor.visit_Call" ID="DateTimeVisitor.visit_Call"></a>
+<h4>DateTimeVisitor.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+<p>
+        Public method to handle a function call.
+</p>
+<p>
+        Every datetime related function call is check for use of the naive
+        variant (i.e. use without TZ info).
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ExceptBaseExceptionVisitor" ID="ExceptBaseExceptionVisitor"></a>
+<h2>ExceptBaseExceptionVisitor</h2>
+<p>
+    Class to determine, if a 'BaseException' is re-raised.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ExceptBaseExceptionVisitor.__init__">ExceptBaseExceptionVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ExceptBaseExceptionVisitor.reRaised">reRaised</a></td>
+<td>Public method to check, if the exception is re-raised.</td>
+</tr>
+<tr>
+<td><a href="#ExceptBaseExceptionVisitor.visit_ExceptHandler">visit_ExceptHandler</a></td>
+<td>Public method to handle 'ExceptHandler' nodes.</td>
+</tr>
+<tr>
+<td><a href="#ExceptBaseExceptionVisitor.visit_Raise">visit_Raise</a></td>
+<td>Public method to handle 'Raise' nodes.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ExceptBaseExceptionVisitor.__init__" ID="ExceptBaseExceptionVisitor.__init__"></a>
+<h4>ExceptBaseExceptionVisitor (Constructor)</h4>
+<b>ExceptBaseExceptionVisitor</b>(<i>exceptNode</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>exceptNode</i> (ast.ExceptHandler)</dt>
+<dd>
+exception node to be inspected
+</dd>
+</dl>
+<a NAME="ExceptBaseExceptionVisitor.reRaised" ID="ExceptBaseExceptionVisitor.reRaised"></a>
+<h4>ExceptBaseExceptionVisitor.reRaised</h4>
+<b>reRaised</b>(<i></i>)
+<p>
+        Public method to check, if the exception is re-raised.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a re-raised exception
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ExceptBaseExceptionVisitor.visit_ExceptHandler" ID="ExceptBaseExceptionVisitor.visit_ExceptHandler"></a>
+<h4>ExceptBaseExceptionVisitor.visit_ExceptHandler</h4>
+<b>visit_ExceptHandler</b>(<i>node: ast.ExceptHandler</i>)
+<p>
+        Public method to handle 'ExceptHandler' nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ExceptHandler)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="ExceptBaseExceptionVisitor.visit_Raise" ID="ExceptBaseExceptionVisitor.visit_Raise"></a>
+<h4>ExceptBaseExceptionVisitor.visit_Raise</h4>
+<b>visit_Raise</b>(<i>node</i>)
+<p>
+        Public method to handle 'Raise' nodes.
+</p>
+<p>
+        If we find a corresponding `raise` or `raise e` where e was from
+        `except BaseException as e:` then we mark re_raised as True and can
+        stop scanning.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Raise)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="FunctionDefDefaultsVisitor" ID="FunctionDefDefaultsVisitor"></a>
+<h2>FunctionDefDefaultsVisitor</h2>
+<p>
+    Class used by M506, M508 and M539.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FunctionDefDefaultsVisitor.__init__">FunctionDefDefaultsVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FunctionDefDefaultsVisitor.__visitMutableLiteralOrComprehension">__visitMutableLiteralOrComprehension</a></td>
+<td>Private method to flag mutable literals and comprehensions.</td>
+</tr>
+<tr>
+<td><a href="#FunctionDefDefaultsVisitor.visit">visit</a></td>
+<td>Public method to traverse an AST node or a list of AST nodes.</td>
+</tr>
+<tr>
+<td><a href="#FunctionDefDefaultsVisitor.visit_Call">visit_Call</a></td>
+<td>Public method to process Call nodes.</td>
+</tr>
+<tr>
+<td><a href="#FunctionDefDefaultsVisitor.visit_Lambda">visit_Lambda</a></td>
+<td>Public method to process Lambda nodes.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FunctionDefDefaultsVisitor.__init__" ID="FunctionDefDefaultsVisitor.__init__"></a>
+<h4>FunctionDefDefaultsVisitor (Constructor)</h4>
+<b>FunctionDefDefaultsVisitor</b>(<i>errorCodeCalls, errorCodeLiterals, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>errorCodeCalls</i> (str)</dt>
+<dd>
+error code for ast.Call nodes
+</dd>
+<dt><i>errorCodeLiterals</i> (str)</dt>
+<dd>
+error code for literal nodes
+</dd>
+</dl>
+<a NAME="FunctionDefDefaultsVisitor.__visitMutableLiteralOrComprehension" ID="FunctionDefDefaultsVisitor.__visitMutableLiteralOrComprehension"></a>
+<h4>FunctionDefDefaultsVisitor.__visitMutableLiteralOrComprehension</h4>
+<b>__visitMutableLiteralOrComprehension</b>(<i>node</i>)
+<p>
+        Private method to flag mutable literals and comprehensions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Dict, ast.List, ast.Set, ast.ListComp, ast.DictComp or ast.SetComp)</dt>
+<dd>
+AST node to be processed
+</dd>
+</dl>
+<a NAME="FunctionDefDefaultsVisitor.visit" ID="FunctionDefDefaultsVisitor.visit"></a>
+<h4>FunctionDefDefaultsVisitor.visit</h4>
+<b>visit</b>(<i>node</i>)
+<p>
+        Public method to traverse an AST node or a list of AST nodes.
+</p>
+<p>
+        This is an extended method that can also handle a list of AST nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST or list of ast.AST)</dt>
+<dd>
+AST node or list of AST nodes to be processed
+</dd>
+</dl>
+<a NAME="FunctionDefDefaultsVisitor.visit_Call" ID="FunctionDefDefaultsVisitor.visit_Call"></a>
+<h4>FunctionDefDefaultsVisitor.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+<p>
+        Public method to process Call nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+AST node to be processed
+</dd>
+</dl>
+<a NAME="FunctionDefDefaultsVisitor.visit_Lambda" ID="FunctionDefDefaultsVisitor.visit_Lambda"></a>
+<h4>FunctionDefDefaultsVisitor.visit_Lambda</h4>
+<b>visit_Lambda</b>(<i>node</i>)
+<p>
+        Public method to process Lambda nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Lambda)</dt>
+<dd>
+AST node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="M520NameFinder" ID="M520NameFinder"></a>
+<h2>M520NameFinder</h2>
+<p>
+    Class to extract a name out of a tree of nodes ignoring names defined within the
+    local scope of a comprehension.
+</p>
+
+<h3>Derived from</h3>
+NameFinder
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#M520NameFinder.visit_DictComp">visit_DictComp</a></td>
+<td>Public method  to handle a dictionary comprehension.</td>
+</tr>
+<tr>
+<td><a href="#M520NameFinder.visit_GeneratorExp">visit_GeneratorExp</a></td>
+<td>Public method to handle a generator expressions.</td>
+</tr>
+<tr>
+<td><a href="#M520NameFinder.visit_Lambda">visit_Lambda</a></td>
+<td>Public method  to handle a Lambda function.</td>
+</tr>
+<tr>
+<td><a href="#M520NameFinder.visit_ListComp">visit_ListComp</a></td>
+<td>Public method  to handle a list comprehension.</td>
+</tr>
+<tr>
+<td><a href="#M520NameFinder.visit_comprehension">visit_comprehension</a></td>
+<td>Public method  to handle the 'for' of a comprehension.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="M520NameFinder.visit_DictComp" ID="M520NameFinder.visit_DictComp"></a>
+<h4>M520NameFinder.visit_DictComp</h4>
+<b>visit_DictComp</b>(<i>node</i>)
+<p>
+        Public method  to handle a dictionary comprehension.
+</p>
+
+<dl>
+
+<dt><i>node</i> (TYPE)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="M520NameFinder.visit_GeneratorExp" ID="M520NameFinder.visit_GeneratorExp"></a>
+<h4>M520NameFinder.visit_GeneratorExp</h4>
+<b>visit_GeneratorExp</b>(<i>node</i>)
+<p>
+        Public method to handle a generator expressions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.GeneratorExp)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="M520NameFinder.visit_Lambda" ID="M520NameFinder.visit_Lambda"></a>
+<h4>M520NameFinder.visit_Lambda</h4>
+<b>visit_Lambda</b>(<i>node</i>)
+<p>
+        Public method  to handle a Lambda function.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Lambda)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="M520NameFinder.visit_ListComp" ID="M520NameFinder.visit_ListComp"></a>
+<h4>M520NameFinder.visit_ListComp</h4>
+<b>visit_ListComp</b>(<i>node</i>)
+<p>
+        Public method  to handle a list comprehension.
+</p>
+
+<dl>
+
+<dt><i>node</i> (TYPE)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="M520NameFinder.visit_comprehension" ID="M520NameFinder.visit_comprehension"></a>
+<h4>M520NameFinder.visit_comprehension</h4>
+<b>visit_comprehension</b>(<i>node</i>)
+<p>
+        Public method  to handle the 'for' of a comprehension.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.comprehension)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="M540CaughtException" ID="M540CaughtException"></a>
+<h2>M540CaughtException</h2>
+<p>
+    Class to hold the data for a caught exception.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>hasNote</td></tr>
+<tr><td>name</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="M569Checker" ID="M569Checker"></a>
+<h2>M569Checker</h2>
+<p>
+    Class traversing a 'for' loop body to check for modifications to a loop's
+    mutable iterable.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>MUTATING_FUNCTIONS</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#M569Checker.__init__">M569Checker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#M569Checker.visit">visit</a></td>
+<td>Public method to inspect an ast node.</td>
+</tr>
+<tr>
+<td><a href="#M569Checker.visit_Call">visit_Call</a></td>
+<td>Public method handling 'Call' nodes.</td>
+</tr>
+<tr>
+<td><a href="#M569Checker.visit_Delete">visit_Delete</a></td>
+<td>Public method handling 'Delete' nodes.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="M569Checker.__init__" ID="M569Checker.__init__"></a>
+<h4>M569Checker (Constructor)</h4>
+<b>M569Checker</b>(<i>name, bugbear</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the iterator
+</dd>
+<dt><i>bugbear</i> (BugBearVisitor)</dt>
+<dd>
+reference to the bugbear visitor
+</dd>
+</dl>
+<a NAME="M569Checker.visit" ID="M569Checker.visit"></a>
+<h4>M569Checker.visit</h4>
+<b>visit</b>(<i>node</i>)
+<p>
+        Public method to inspect an ast node.
+</p>
+<p>
+        Like super-visit but supports iteration over lists.
+</p>
+
+<dl>
+
+<dt><i>node</i> (TYPE)</dt>
+<dd>
+AST node to be traversed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the last processed node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.Node
+</dd>
+</dl>
+<a NAME="M569Checker.visit_Call" ID="M569Checker.visit_Call"></a>
+<h4>M569Checker.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+<p>
+        Public method handling 'Call' nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="M569Checker.visit_Delete" ID="M569Checker.visit_Delete"></a>
+<h4>M569Checker.visit_Delete</h4>
+<b>visit_Delete</b>(<i>node</i>)
+<p>
+        Public method handling 'Delete' nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Delete)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="MiscellaneousChecker" ID="MiscellaneousChecker"></a>
+<h2>MiscellaneousChecker</h2>
+<p>
+    Class implementing a checker for miscellaneous checks.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>BuiltinsWhiteList</td></tr>
+<tr><td>Codes</td></tr>
+<tr><td>FormatFieldRegex</td></tr>
+<tr><td>Formatter</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MiscellaneousChecker.__init__">MiscellaneousChecker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkBugBear">__checkBugBear</a></td>
+<td>Private method for bugbear checks.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkBuiltins">__checkBuiltins</a></td>
+<td>Private method to check, if built-ins are shadowed.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkCoding">__checkCoding</a></td>
+<td>Private method to check the presence of a coding line and valid encodings.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkCommentedCode">__checkCommentedCode</a></td>
+<td>Private method to check for commented code.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkComprehensions">__checkComprehensions</a></td>
+<td>Private method to check some comprehension related things.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkCopyright">__checkCopyright</a></td>
+<td>Private method to check the presence of a copyright statement.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkDateTime">__checkDateTime</a></td>
+<td>Private method to check use of naive datetime functions.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkDictWithSortedKeys">__checkDictWithSortedKeys</a></td>
+<td>Private method to check, if dictionary keys appear in sorted order.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkExplicitStringConcat">__checkExplicitStringConcat</a></td>
+<td>Private method to check for explicitly concatenated strings.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkFormatString">__checkFormatString</a></td>
+<td>Private method to check string format strings.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkFuture">__checkFuture</a></td>
+<td>Private method to check the __future__ imports.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkGettext">__checkGettext</a></td>
+<td>Private method to check the 'gettext' import statement.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkImplicitStringConcat">__checkImplicitStringConcat</a></td>
+<td>Private method to check for implicitly concatenated strings.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkLineContinuation">__checkLineContinuation</a></td>
+<td>Private method to check line continuation using backslash.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkPep3101">__checkPep3101</a></td>
+<td>Private method to check for old style string formatting.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkPrintStatements">__checkPrintStatements</a></td>
+<td>Private method to check for print statements.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkProperties">__checkProperties</a></td>
+<td>Private method to check for issue with property related methods.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkReturn">__checkReturn</a></td>
+<td>Private method to check return statements.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkSysVersion">__checkSysVersion</a></td>
+<td>Private method to check the use of sys.version and sys.version_info.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__checkTuple">__checkTuple</a></td>
+<td>Private method to check for one element tuples.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__dictShouldBeChecked">__dictShouldBeChecked</a></td>
+<td>Private function to test, if the node should be checked.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__error">__error</a></td>
+<td>Private method to record an issue.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__getCoding">__getCoding</a></td>
+<td>Private method to get the defined coding of the source.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__getFields">__getFields</a></td>
+<td>Private method to extract the format field information.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__ignoreCode">__ignoreCode</a></td>
+<td>Private method to check if the message code should be ignored.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.__isImplicitStringConcat">__isImplicitStringConcat</a></td>
+<td>Private method to check, if the given strings indicate an implicit string concatenation.</td>
+</tr>
+<tr>
+<td><a href="#MiscellaneousChecker.run">run</a></td>
+<td>Public method to check the given source against miscellaneous conditions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MiscellaneousChecker.__init__" ID="MiscellaneousChecker.__init__"></a>
+<h4>MiscellaneousChecker (Constructor)</h4>
+<b>MiscellaneousChecker</b>(<i>source, filename, tree, select, ignore, expected, repeat, args</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str)</dt>
+<dd>
+source code to be checked
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>tree</i> (ast.Module)</dt>
+<dd>
+AST tree of the source code
+</dd>
+<dt><i>select</i> (list of str)</dt>
+<dd>
+list of selected codes
+</dd>
+<dt><i>ignore</i> (list of str)</dt>
+<dd>
+list of codes to be ignored
+</dd>
+<dt><i>expected</i> (list of str)</dt>
+<dd>
+list of expected codes
+</dd>
+<dt><i>repeat</i> (bool)</dt>
+<dd>
+flag indicating to report each occurrence of a code
+</dd>
+<dt><i>args</i> (dict)</dt>
+<dd>
+dictionary of arguments for the miscellaneous checks
+</dd>
+</dl>
+<a NAME="MiscellaneousChecker.__checkBugBear" ID="MiscellaneousChecker.__checkBugBear"></a>
+<h4>MiscellaneousChecker.__checkBugBear</h4>
+<b>__checkBugBear</b>(<i></i>)
+<p>
+        Private method for bugbear checks.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkBuiltins" ID="MiscellaneousChecker.__checkBuiltins"></a>
+<h4>MiscellaneousChecker.__checkBuiltins</h4>
+<b>__checkBuiltins</b>(<i></i>)
+<p>
+        Private method to check, if built-ins are shadowed.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkCoding" ID="MiscellaneousChecker.__checkCoding"></a>
+<h4>MiscellaneousChecker.__checkCoding</h4>
+<b>__checkCoding</b>(<i></i>)
+<p>
+        Private method to check the presence of a coding line and valid
+        encodings.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkCommentedCode" ID="MiscellaneousChecker.__checkCommentedCode"></a>
+<h4>MiscellaneousChecker.__checkCommentedCode</h4>
+<b>__checkCommentedCode</b>(<i></i>)
+<p>
+        Private method to check for commented code.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkComprehensions" ID="MiscellaneousChecker.__checkComprehensions"></a>
+<h4>MiscellaneousChecker.__checkComprehensions</h4>
+<b>__checkComprehensions</b>(<i></i>)
+<p>
+        Private method to check some comprehension related things.
+</p>
+<p>
+        This method is adapted from: flake8-comprehensions v3.15.0
+        Original: Copyright (c) 2017 Adam Johnson
+</p>
+
+<a NAME="MiscellaneousChecker.__checkCopyright" ID="MiscellaneousChecker.__checkCopyright"></a>
+<h4>MiscellaneousChecker.__checkCopyright</h4>
+<b>__checkCopyright</b>(<i></i>)
+<p>
+        Private method to check the presence of a copyright statement.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkDateTime" ID="MiscellaneousChecker.__checkDateTime"></a>
+<h4>MiscellaneousChecker.__checkDateTime</h4>
+<b>__checkDateTime</b>(<i></i>)
+<p>
+        Private method to check use of naive datetime functions.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkDictWithSortedKeys" ID="MiscellaneousChecker.__checkDictWithSortedKeys"></a>
+<h4>MiscellaneousChecker.__checkDictWithSortedKeys</h4>
+<b>__checkDictWithSortedKeys</b>(<i></i>)
+<p>
+        Private method to check, if dictionary keys appear in sorted order.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkExplicitStringConcat" ID="MiscellaneousChecker.__checkExplicitStringConcat"></a>
+<h4>MiscellaneousChecker.__checkExplicitStringConcat</h4>
+<b>__checkExplicitStringConcat</b>(<i></i>)
+<p>
+        Private method to check for explicitly concatenated strings.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkFormatString" ID="MiscellaneousChecker.__checkFormatString"></a>
+<h4>MiscellaneousChecker.__checkFormatString</h4>
+<b>__checkFormatString</b>(<i></i>)
+<p>
+        Private method to check string format strings.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkFuture" ID="MiscellaneousChecker.__checkFuture"></a>
+<h4>MiscellaneousChecker.__checkFuture</h4>
+<b>__checkFuture</b>(<i></i>)
+<p>
+        Private method to check the __future__ imports.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkGettext" ID="MiscellaneousChecker.__checkGettext"></a>
+<h4>MiscellaneousChecker.__checkGettext</h4>
+<b>__checkGettext</b>(<i></i>)
+<p>
+        Private method to check the 'gettext' import statement.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkImplicitStringConcat" ID="MiscellaneousChecker.__checkImplicitStringConcat"></a>
+<h4>MiscellaneousChecker.__checkImplicitStringConcat</h4>
+<b>__checkImplicitStringConcat</b>(<i></i>)
+<p>
+        Private method to check for implicitly concatenated strings.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkLineContinuation" ID="MiscellaneousChecker.__checkLineContinuation"></a>
+<h4>MiscellaneousChecker.__checkLineContinuation</h4>
+<b>__checkLineContinuation</b>(<i></i>)
+<p>
+        Private method to check line continuation using backslash.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkPep3101" ID="MiscellaneousChecker.__checkPep3101"></a>
+<h4>MiscellaneousChecker.__checkPep3101</h4>
+<b>__checkPep3101</b>(<i></i>)
+<p>
+        Private method to check for old style string formatting.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkPrintStatements" ID="MiscellaneousChecker.__checkPrintStatements"></a>
+<h4>MiscellaneousChecker.__checkPrintStatements</h4>
+<b>__checkPrintStatements</b>(<i></i>)
+<p>
+        Private method to check for print statements.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkProperties" ID="MiscellaneousChecker.__checkProperties"></a>
+<h4>MiscellaneousChecker.__checkProperties</h4>
+<b>__checkProperties</b>(<i></i>)
+<p>
+        Private method to check for issue with property related methods.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkReturn" ID="MiscellaneousChecker.__checkReturn"></a>
+<h4>MiscellaneousChecker.__checkReturn</h4>
+<b>__checkReturn</b>(<i></i>)
+<p>
+        Private method to check return statements.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkSysVersion" ID="MiscellaneousChecker.__checkSysVersion"></a>
+<h4>MiscellaneousChecker.__checkSysVersion</h4>
+<b>__checkSysVersion</b>(<i></i>)
+<p>
+        Private method to check the use of sys.version and sys.version_info.
+</p>
+
+<a NAME="MiscellaneousChecker.__checkTuple" ID="MiscellaneousChecker.__checkTuple"></a>
+<h4>MiscellaneousChecker.__checkTuple</h4>
+<b>__checkTuple</b>(<i></i>)
+<p>
+        Private method to check for one element tuples.
+</p>
+
+<a NAME="MiscellaneousChecker.__dictShouldBeChecked" ID="MiscellaneousChecker.__dictShouldBeChecked"></a>
+<h4>MiscellaneousChecker.__dictShouldBeChecked</h4>
+<b>__dictShouldBeChecked</b>(<i>node</i>)
+<p>
+        Private function to test, if the node should be checked.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Dict)</dt>
+<dd>
+reference to the AST node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to check the node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MiscellaneousChecker.__error" ID="MiscellaneousChecker.__error"></a>
+<h4>MiscellaneousChecker.__error</h4>
+<b>__error</b>(<i>lineNumber, offset, code, *args</i>)
+<p>
+        Private method to record an issue.
+</p>
+
+<dl>
+
+<dt><i>lineNumber</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+position within line of the issue
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+message code
+</dd>
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments for the message
+</dd>
+</dl>
+<a NAME="MiscellaneousChecker.__getCoding" ID="MiscellaneousChecker.__getCoding"></a>
+<h4>MiscellaneousChecker.__getCoding</h4>
+<b>__getCoding</b>(<i></i>)
+<p>
+        Private method to get the defined coding of the source.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the line number and the coding
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of int and str
+</dd>
+</dl>
+<a NAME="MiscellaneousChecker.__getFields" ID="MiscellaneousChecker.__getFields"></a>
+<h4>MiscellaneousChecker.__getFields</h4>
+<b>__getFields</b>(<i>string</i>)
+<p>
+        Private method to extract the format field information.
+</p>
+
+<dl>
+
+<dt><i>string</i> (str)</dt>
+<dd>
+format string to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+format field information as a tuple with fields, implicit
+            field definitions present and explicit field definitions present
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of set of str, bool, bool
+</dd>
+</dl>
+<a NAME="MiscellaneousChecker.__ignoreCode" ID="MiscellaneousChecker.__ignoreCode"></a>
+<h4>MiscellaneousChecker.__ignoreCode</h4>
+<b>__ignoreCode</b>(<i>code</i>)
+<p>
+        Private method to check if the message code should be ignored.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+message code to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore the given code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MiscellaneousChecker.__isImplicitStringConcat" ID="MiscellaneousChecker.__isImplicitStringConcat"></a>
+<h4>MiscellaneousChecker.__isImplicitStringConcat</h4>
+<b>__isImplicitStringConcat</b>(<i>first, second</i>)
+<p>
+            Private method to check, if the given strings indicate an implicit string
+            concatenation.
+</p>
+
+<dl>
+
+<dt><i>first</i> (tuple)</dt>
+<dd>
+first token
+</dd>
+<dt><i>second</i> (tuple)</dt>
+<dd>
+second token
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an implicit string concatenation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MiscellaneousChecker.run" ID="MiscellaneousChecker.run"></a>
+<h4>MiscellaneousChecker.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method to check the given source against miscellaneous
+        conditions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="NameFinder" ID="NameFinder"></a>
+<h2>NameFinder</h2>
+<p>
+    Class to extract a name out of a tree of nodes.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NameFinder.__init__">NameFinder</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#NameFinder.getNames">getNames</a></td>
+<td>Public method to return the extracted names and Name nodes.</td>
+</tr>
+<tr>
+<td><a href="#NameFinder.visit">visit</a></td>
+<td>Public method to traverse a given AST node.</td>
+</tr>
+<tr>
+<td><a href="#NameFinder.visit_Name">visit_Name</a></td>
+<td>Public method to handle 'Name' nodes.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NameFinder.__init__" ID="NameFinder.__init__"></a>
+<h4>NameFinder (Constructor)</h4>
+<b>NameFinder</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="NameFinder.getNames" ID="NameFinder.getNames"></a>
+<h4>NameFinder.getNames</h4>
+<b>getNames</b>(<i></i>)
+<p>
+        Public method to return the extracted names and Name nodes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the names as keys and the list of nodes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="NameFinder.visit" ID="NameFinder.visit"></a>
+<h4>NameFinder.visit</h4>
+<b>visit</b>(<i>node</i>)
+<p>
+        Public method to traverse a given AST node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Node)</dt>
+<dd>
+AST node to be traversed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the last processed node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.Node
+</dd>
+</dl>
+<a NAME="NameFinder.visit_Name" ID="NameFinder.visit_Name"></a>
+<h4>NameFinder.visit_Name</h4>
+<b>visit_Name</b>(<i>node</i>)
+<p>
+        Public method to handle 'Name' nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Name)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="NamedExprFinder" ID="NamedExprFinder"></a>
+<h2>NamedExprFinder</h2>
+<p>
+    Class to extract names defined through an ast.NamedExpr.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NamedExprFinder.__init__">NamedExprFinder</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#NamedExprFinder.getNames">getNames</a></td>
+<td>Public method to return the extracted names and Name nodes.</td>
+</tr>
+<tr>
+<td><a href="#NamedExprFinder.visit">visit</a></td>
+<td>Public method to traverse a given AST node.</td>
+</tr>
+<tr>
+<td><a href="#NamedExprFinder.visit_NamedExpr">visit_NamedExpr</a></td>
+<td>Public method handling 'NamedExpr' nodes.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NamedExprFinder.__init__" ID="NamedExprFinder.__init__"></a>
+<h4>NamedExprFinder (Constructor)</h4>
+<b>NamedExprFinder</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="NamedExprFinder.getNames" ID="NamedExprFinder.getNames"></a>
+<h4>NamedExprFinder.getNames</h4>
+<b>getNames</b>(<i></i>)
+<p>
+        Public method to return the extracted names and Name nodes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the names as keys and the list of nodes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="NamedExprFinder.visit" ID="NamedExprFinder.visit"></a>
+<h4>NamedExprFinder.visit</h4>
+<b>visit</b>(<i>node</i>)
+<p>
+        Public method to traverse a given AST node.
+</p>
+<p>
+        Like super-visit but supports iteration over lists.
+</p>
+
+<dl>
+
+<dt><i>node</i> (TYPE)</dt>
+<dd>
+AST node to be traversed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the last processed node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.Node
+</dd>
+</dl>
+<a NAME="NamedExprFinder.visit_NamedExpr" ID="NamedExprFinder.visit_NamedExpr"></a>
+<h4>NamedExprFinder.visit_NamedExpr</h4>
+<b>visit_NamedExpr</b>(<i>node: ast.NamedExpr</i>)
+<p>
+        Public method handling 'NamedExpr' nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.NamedExpr)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ReturnVisitor" ID="ReturnVisitor"></a>
+<h2>ReturnVisitor</h2>
+<p>
+    Class implementing a node visitor to check return statements.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Assigns</td></tr>
+<tr><td>Refs</td></tr>
+<tr><td>Returns</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ReturnVisitor.__init__">ReturnVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__checkFunction">__checkFunction</a></td>
+<td>Private method to check a function definition node.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__checkImplicitReturn">__checkImplicitReturn</a></td>
+<td>Private method to check for an implicit return statement.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__checkImplicitReturnValue">__checkImplicitReturnValue</a></td>
+<td>Private method to check for implicit return values.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__checkUnnecessaryAssign">__checkUnnecessaryAssign</a></td>
+<td>Private method to check for an unnecessary assign statement.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__checkUnnecessaryReturnNone">__checkUnnecessaryReturnNone</a></td>
+<td>Private method to check for an unnecessary 'return None' statement.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__hasRefsBeforeNextAssign">__hasRefsBeforeNextAssign</a></td>
+<td>Private method to check for references before a following assign statement.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__isFalse">__isFalse</a></td>
+<td>Private method to check, if a node value is False.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__isNone">__isNone</a></td>
+<td>Private method to check, if a node value is None.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__resultExists">__resultExists</a></td>
+<td>Private method to check the existance of a return result.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__visitAssignTarget">__visitAssignTarget</a></td>
+<td>Private method to handle an assign target node.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__visitLoop">__visitLoop</a></td>
+<td>Private method to handle loop nodes.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.__visitWithStack">__visitWithStack</a></td>
+<td>Private method to traverse a given function node using a stack.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.assigns">assigns</a></td>
+<td>Public method to get the Assign nodes.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.refs">refs</a></td>
+<td>Public method to get the References nodes.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.returns">returns</a></td>
+<td>Public method to get the Return nodes.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.visit_Assign">visit_Assign</a></td>
+<td>Public method to handle an assign node.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.visit_AsyncFor">visit_AsyncFor</a></td>
+<td>Public method to handle an async for loop.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.visit_AsyncFunctionDef">visit_AsyncFunctionDef</a></td>
+<td>Public method to handle a function definition.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.visit_For">visit_For</a></td>
+<td>Public method to handle a for loop.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.visit_FunctionDef">visit_FunctionDef</a></td>
+<td>Public method to handle a function definition.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.visit_Name">visit_Name</a></td>
+<td>Public method to handle a name node.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.visit_Return">visit_Return</a></td>
+<td>Public method to handle a return node.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.visit_While">visit_While</a></td>
+<td>Public method to handle a while loop.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ReturnVisitor.__init__" ID="ReturnVisitor.__init__"></a>
+<h4>ReturnVisitor (Constructor)</h4>
+<b>ReturnVisitor</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="ReturnVisitor.__checkFunction" ID="ReturnVisitor.__checkFunction"></a>
+<h4>ReturnVisitor.__checkFunction</h4>
+<b>__checkFunction</b>(<i>node</i>)
+<p>
+        Private method to check a function definition node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the node to check
+</dd>
+</dl>
+<a NAME="ReturnVisitor.__checkImplicitReturn" ID="ReturnVisitor.__checkImplicitReturn"></a>
+<h4>ReturnVisitor.__checkImplicitReturn</h4>
+<b>__checkImplicitReturn</b>(<i>node</i>)
+<p>
+        Private method to check for an implicit return statement.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to check
+</dd>
+</dl>
+<a NAME="ReturnVisitor.__checkImplicitReturnValue" ID="ReturnVisitor.__checkImplicitReturnValue"></a>
+<h4>ReturnVisitor.__checkImplicitReturnValue</h4>
+<b>__checkImplicitReturnValue</b>(<i></i>)
+<p>
+        Private method to check for implicit return values.
+</p>
+
+<a NAME="ReturnVisitor.__checkUnnecessaryAssign" ID="ReturnVisitor.__checkUnnecessaryAssign"></a>
+<h4>ReturnVisitor.__checkUnnecessaryAssign</h4>
+<b>__checkUnnecessaryAssign</b>(<i>node</i>)
+<p>
+        Private method to check for an unnecessary assign statement.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to check
+</dd>
+</dl>
+<a NAME="ReturnVisitor.__checkUnnecessaryReturnNone" ID="ReturnVisitor.__checkUnnecessaryReturnNone"></a>
+<h4>ReturnVisitor.__checkUnnecessaryReturnNone</h4>
+<b>__checkUnnecessaryReturnNone</b>(<i></i>)
+<p>
+        Private method to check for an unnecessary 'return None' statement.
+</p>
+
+<a NAME="ReturnVisitor.__hasRefsBeforeNextAssign" ID="ReturnVisitor.__hasRefsBeforeNextAssign"></a>
+<h4>ReturnVisitor.__hasRefsBeforeNextAssign</h4>
+<b>__hasRefsBeforeNextAssign</b>(<i>varname, returnLineno</i>)
+<p>
+        Private method to check for references before a following assign
+        statement.
+</p>
+
+<dl>
+
+<dt><i>varname</i> (str)</dt>
+<dd>
+variable name to check for
+</dd>
+<dt><i>returnLineno</i> (int)</dt>
+<dd>
+line number of the return statement
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of references
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ReturnVisitor.__isFalse" ID="ReturnVisitor.__isFalse"></a>
+<h4>ReturnVisitor.__isFalse</h4>
+<b>__isFalse</b>(<i>node</i>)
+<p>
+        Private method to check, if a node value is False.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the node contains a False value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ReturnVisitor.__isNone" ID="ReturnVisitor.__isNone"></a>
+<h4>ReturnVisitor.__isNone</h4>
+<b>__isNone</b>(<i>node</i>)
+<p>
+        Private method to check, if a node value is None.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the node contains a None value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ReturnVisitor.__resultExists" ID="ReturnVisitor.__resultExists"></a>
+<h4>ReturnVisitor.__resultExists</h4>
+<b>__resultExists</b>(<i></i>)
+<p>
+        Private method to check the existance of a return result.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of a return result
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ReturnVisitor.__visitAssignTarget" ID="ReturnVisitor.__visitAssignTarget"></a>
+<h4>ReturnVisitor.__visitAssignTarget</h4>
+<b>__visitAssignTarget</b>(<i>node</i>)
+<p>
+        Private method to handle an assign target node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="ReturnVisitor.__visitLoop" ID="ReturnVisitor.__visitLoop"></a>
+<h4>ReturnVisitor.__visitLoop</h4>
+<b>__visitLoop</b>(<i>node</i>)
+<p>
+        Private method to handle loop nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For, ast.AsyncFor or ast.While)</dt>
+<dd>
+reference to the loop node to handle
+</dd>
+</dl>
+<a NAME="ReturnVisitor.__visitWithStack" ID="ReturnVisitor.__visitWithStack"></a>
+<h4>ReturnVisitor.__visitWithStack</h4>
+<b>__visitWithStack</b>(<i>node</i>)
+<p>
+        Private method to traverse a given function node using a stack.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef or ast.AsyncFunctionDef)</dt>
+<dd>
+AST node to be traversed
+</dd>
+</dl>
+<a NAME="ReturnVisitor.assigns" ID="ReturnVisitor.assigns"></a>
+<h4>ReturnVisitor.assigns</h4>
+<b>assigns</b>(<i></i>)
+<p>
+        Public method to get the Assign nodes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the node name as key and line number
+            as value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="ReturnVisitor.refs" ID="ReturnVisitor.refs"></a>
+<h4>ReturnVisitor.refs</h4>
+<b>refs</b>(<i></i>)
+<p>
+        Public method to get the References nodes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the node name as key and line number
+            as value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="ReturnVisitor.returns" ID="ReturnVisitor.returns"></a>
+<h4>ReturnVisitor.returns</h4>
+<b>returns</b>(<i></i>)
+<p>
+        Public method to get the Return nodes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the node name as key and line number
+            as value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="ReturnVisitor.visit_Assign" ID="ReturnVisitor.visit_Assign"></a>
+<h4>ReturnVisitor.visit_Assign</h4>
+<b>visit_Assign</b>(<i>node</i>)
+<p>
+        Public method to handle an assign node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Assign)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="ReturnVisitor.visit_AsyncFor" ID="ReturnVisitor.visit_AsyncFor"></a>
+<h4>ReturnVisitor.visit_AsyncFor</h4>
+<b>visit_AsyncFor</b>(<i>node</i>)
+<p>
+        Public method to handle an async for loop.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFor)</dt>
+<dd>
+reference to the async for node to handle
+</dd>
+</dl>
+<a NAME="ReturnVisitor.visit_AsyncFunctionDef" ID="ReturnVisitor.visit_AsyncFunctionDef"></a>
+<h4>ReturnVisitor.visit_AsyncFunctionDef</h4>
+<b>visit_AsyncFunctionDef</b>(<i>node</i>)
+<p>
+        Public method to handle a function definition.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="ReturnVisitor.visit_For" ID="ReturnVisitor.visit_For"></a>
+<h4>ReturnVisitor.visit_For</h4>
+<b>visit_For</b>(<i>node</i>)
+<p>
+        Public method to handle a for loop.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For)</dt>
+<dd>
+reference to the for node to handle
+</dd>
+</dl>
+<a NAME="ReturnVisitor.visit_FunctionDef" ID="ReturnVisitor.visit_FunctionDef"></a>
+<h4>ReturnVisitor.visit_FunctionDef</h4>
+<b>visit_FunctionDef</b>(<i>node</i>)
+<p>
+        Public method to handle a function definition.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="ReturnVisitor.visit_Name" ID="ReturnVisitor.visit_Name"></a>
+<h4>ReturnVisitor.visit_Name</h4>
+<b>visit_Name</b>(<i>node</i>)
+<p>
+        Public method to handle a name node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Name)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="ReturnVisitor.visit_Return" ID="ReturnVisitor.visit_Return"></a>
+<h4>ReturnVisitor.visit_Return</h4>
+<b>visit_Return</b>(<i>node</i>)
+<p>
+        Public method to handle a return node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Return)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="ReturnVisitor.visit_While" ID="ReturnVisitor.visit_While"></a>
+<h4>ReturnVisitor.visit_While</h4>
+<b>visit_While</b>(<i>node</i>)
+<p>
+        Public method to handle a while loop.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.While)</dt>
+<dd>
+reference to the while node to handle
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="SysVersionVisitor" ID="SysVersionVisitor"></a>
+<h2>SysVersionVisitor</h2>
+<p>
+    Class implementing a node visitor to check the use of sys.version and
+    sys.version_info.
+</p>
+<p>
+    Note: This class is modeled after flake8-2020 checker.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SysVersionVisitor.__init__">SysVersionVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SysVersionVisitor.__isSys">__isSys</a></td>
+<td>Private method to check for a reference to sys attribute.</td>
+</tr>
+<tr>
+<td><a href="#SysVersionVisitor.__isSysVersionUpperSlice">__isSysVersionUpperSlice</a></td>
+<td>Private method to check the upper slice of sys.version.</td>
+</tr>
+<tr>
+<td><a href="#SysVersionVisitor.visit_Attribute">visit_Attribute</a></td>
+<td>Public method to handle an attribute.</td>
+</tr>
+<tr>
+<td><a href="#SysVersionVisitor.visit_Compare">visit_Compare</a></td>
+<td>Public method to handle a comparison.</td>
+</tr>
+<tr>
+<td><a href="#SysVersionVisitor.visit_ImportFrom">visit_ImportFrom</a></td>
+<td>Public method to handle a from ...</td>
+</tr>
+<tr>
+<td><a href="#SysVersionVisitor.visit_Name">visit_Name</a></td>
+<td>Public method to handle an name.</td>
+</tr>
+<tr>
+<td><a href="#SysVersionVisitor.visit_Subscript">visit_Subscript</a></td>
+<td>Public method to handle a subscript.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SysVersionVisitor.__init__" ID="SysVersionVisitor.__init__"></a>
+<h4>SysVersionVisitor (Constructor)</h4>
+<b>SysVersionVisitor</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="SysVersionVisitor.__isSys" ID="SysVersionVisitor.__isSys"></a>
+<h4>SysVersionVisitor.__isSys</h4>
+<b>__isSys</b>(<i>attr, node</i>)
+<p>
+        Private method to check for a reference to sys attribute.
+</p>
+
+<dl>
+
+<dt><i>attr</i> (str)</dt>
+<dd>
+attribute name
+</dd>
+<dt><i>node</i> (ast.Node)</dt>
+<dd>
+reference to the node to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a match
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SysVersionVisitor.__isSysVersionUpperSlice" ID="SysVersionVisitor.__isSysVersionUpperSlice"></a>
+<h4>SysVersionVisitor.__isSysVersionUpperSlice</h4>
+<b>__isSysVersionUpperSlice</b>(<i>node, n</i>)
+<p>
+        Private method to check the upper slice of sys.version.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Node)</dt>
+<dd>
+reference to the node to be checked
+</dd>
+<dt><i>n</i> (int)</dt>
+<dd>
+slice value to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a match
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SysVersionVisitor.visit_Attribute" ID="SysVersionVisitor.visit_Attribute"></a>
+<h4>SysVersionVisitor.visit_Attribute</h4>
+<b>visit_Attribute</b>(<i>node</i>)
+<p>
+        Public method to handle an attribute.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Attribute)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="SysVersionVisitor.visit_Compare" ID="SysVersionVisitor.visit_Compare"></a>
+<h4>SysVersionVisitor.visit_Compare</h4>
+<b>visit_Compare</b>(<i>node</i>)
+<p>
+        Public method to handle a comparison.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Compare)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="SysVersionVisitor.visit_ImportFrom" ID="SysVersionVisitor.visit_ImportFrom"></a>
+<h4>SysVersionVisitor.visit_ImportFrom</h4>
+<b>visit_ImportFrom</b>(<i>node</i>)
+<p>
+        Public method to handle a from ... import ... statement.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ImportFrom)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="SysVersionVisitor.visit_Name" ID="SysVersionVisitor.visit_Name"></a>
+<h4>SysVersionVisitor.visit_Name</h4>
+<b>visit_Name</b>(<i>node</i>)
+<p>
+        Public method to handle an name.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Name)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<a NAME="SysVersionVisitor.visit_Subscript" ID="SysVersionVisitor.visit_Subscript"></a>
+<h4>SysVersionVisitor.visit_Subscript</h4>
+<b>visit_Subscript</b>(<i>node</i>)
+<p>
+        Public method to handle a subscript.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Subscript)</dt>
+<dd>
+reference to the node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TextVisitor" ID="TextVisitor"></a>
+<h2>TextVisitor</h2>
+<p>
+    Class implementing a node visitor for bytes and str instances.
+</p>
+<p>
+    It tries to detect docstrings as string of the first expression of each
+    module, class or function.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TextVisitor.__init__">TextVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor.__addNode">__addNode</a></td>
+<td>Private method to add a node to our list of nodes.</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor.__visitBody">__visitBody</a></td>
+<td>Private method to traverse the body of the node manually.</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor.__visitDefinition">__visitDefinition</a></td>
+<td>Private method handling class and function definitions.</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor.visit_AsyncFunctionDef">visit_AsyncFunctionDef</a></td>
+<td>Public method to handle an asynchronous function definition.</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor.visit_Call">visit_Call</a></td>
+<td>Public method to handle a function call.</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor.visit_ClassDef">visit_ClassDef</a></td>
+<td>Public method to handle a class definition.</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor.visit_Constant">visit_Constant</a></td>
+<td>Public method to handle constant nodes.</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor.visit_FunctionDef">visit_FunctionDef</a></td>
+<td>Public method to handle a function definition.</td>
+</tr>
+<tr>
+<td><a href="#TextVisitor.visit_Module">visit_Module</a></td>
+<td>Public method to handle a module.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TextVisitor.__init__" ID="TextVisitor.__init__"></a>
+<h4>TextVisitor (Constructor)</h4>
+<b>TextVisitor</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="TextVisitor.__addNode" ID="TextVisitor.__addNode"></a>
+<h4>TextVisitor.__addNode</h4>
+<b>__addNode</b>(<i>node</i>)
+<p>
+        Private method to add a node to our list of nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to add
+</dd>
+</dl>
+<a NAME="TextVisitor.__visitBody" ID="TextVisitor.__visitBody"></a>
+<h4>TextVisitor.__visitBody</h4>
+<b>__visitBody</b>(<i>node</i>)
+<p>
+        Private method to traverse the body of the node manually.
+</p>
+<p>
+        If the first node is an expression which contains a string or bytes it
+        marks that as a docstring.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to traverse
+</dd>
+</dl>
+<a NAME="TextVisitor.__visitDefinition" ID="TextVisitor.__visitDefinition"></a>
+<h4>TextVisitor.__visitDefinition</h4>
+<b>__visitDefinition</b>(<i>node</i>)
+<p>
+        Private method handling class and function definitions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef, ast.AsyncFunctionDef or ast.ClassDef)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="TextVisitor.visit_AsyncFunctionDef" ID="TextVisitor.visit_AsyncFunctionDef"></a>
+<h4>TextVisitor.visit_AsyncFunctionDef</h4>
+<b>visit_AsyncFunctionDef</b>(<i>node</i>)
+<p>
+        Public method to handle an asynchronous function definition.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="TextVisitor.visit_Call" ID="TextVisitor.visit_Call"></a>
+<h4>TextVisitor.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+<p>
+        Public method to handle a function call.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="TextVisitor.visit_ClassDef" ID="TextVisitor.visit_ClassDef"></a>
+<h4>TextVisitor.visit_ClassDef</h4>
+<b>visit_ClassDef</b>(<i>node</i>)
+<p>
+        Public method to handle a class definition.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ClassDef)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="TextVisitor.visit_Constant" ID="TextVisitor.visit_Constant"></a>
+<h4>TextVisitor.visit_Constant</h4>
+<b>visit_Constant</b>(<i>node</i>)
+<p>
+        Public method to handle constant nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Constant)</dt>
+<dd>
+reference to the bytes node
+</dd>
+</dl>
+<a NAME="TextVisitor.visit_FunctionDef" ID="TextVisitor.visit_FunctionDef"></a>
+<h4>TextVisitor.visit_FunctionDef</h4>
+<b>visit_FunctionDef</b>(<i>node</i>)
+<p>
+        Public method to handle a function definition.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<a NAME="TextVisitor.visit_Module" ID="TextVisitor.visit_Module"></a>
+<h4>TextVisitor.visit_Module</h4>
+<b>visit_Module</b>(<i>node</i>)
+<p>
+        Public method to handle a module.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Module)</dt>
+<dd>
+reference to the node to handle
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="composeCallPath" ID="composeCallPath"></a>
+<h2>composeCallPath</h2>
+<b>composeCallPath</b>(<i>node</i>)
+<p>
+    Generator function to assemble the call path of a given node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Node)</dt>
+<dd>
+node to assemble call path for
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+call path components
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="pairwise" ID="pairwise"></a>
+<h2>pairwise</h2>
+<b>pairwise</b>(<i>iterable</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

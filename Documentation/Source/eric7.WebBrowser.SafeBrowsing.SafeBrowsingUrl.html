@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.SafeBrowsing.SafeBrowsingUrl</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.SafeBrowsing.SafeBrowsingUrl</h1>
+<p>
+Module implementing an URL representation suitable for Google Safe Browsing.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingUrl">SafeBrowsingUrl</a></td>
+<td>Class implementing an URL representation suitable for Google Safe Browsing.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SafeBrowsingUrl" ID="SafeBrowsingUrl"></a>
+<h2>SafeBrowsingUrl</h2>
+<p>
+    Class implementing an URL representation suitable for Google Safe Browsing.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingUrl.__init__">SafeBrowsingUrl</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingUrl.canonical">canonical</a></td>
+<td>Public method to convert the URL to the canonical form.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingUrl.fullUnescape">fullUnescape</a></td>
+<td>Method to recursively unescape an URL.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingUrl.hashes">hashes</a></td>
+<td>Public method to get the hashes of all possible permutations of the URL in canonical form.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingUrl.hostPermutations">hostPermutations</a></td>
+<td>Method to generate the permutations of the host name.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingUrl.pathPermutations">pathPermutations</a></td>
+<td>Method to generate the permutations of the path.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingUrl.quote">quote</a></td>
+<td>Method to quote a string.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingUrl.digest">digest</a></td>
+<td>Static method to calculate the SHA256 digest of an URL string.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingUrl.permutations">permutations</a></td>
+<td>Static method to determine all permutations of host name and path which can be applied to blocked URLs.</td>
+</tr>
+</table>
+
+
+<a NAME="SafeBrowsingUrl.__init__" ID="SafeBrowsingUrl.__init__"></a>
+<h4>SafeBrowsingUrl (Constructor)</h4>
+<b>SafeBrowsingUrl</b>(<i>url</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to be embedded
+</dd>
+</dl>
+<a NAME="SafeBrowsingUrl.canonical" ID="SafeBrowsingUrl.canonical"></a>
+<h4>SafeBrowsingUrl.canonical</h4>
+<b>canonical</b>(<i></i>)
+<p>
+        Public method to convert the URL to the canonical form.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+canonical form of the URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingUrl.fullUnescape" ID="SafeBrowsingUrl.fullUnescape"></a>
+<h4>SafeBrowsingUrl.fullUnescape</h4>
+<b>fullUnescape</b>(<i></i>)
+<p>
+            Method to recursively unescape an URL.
+</p>
+
+<dl>
+
+<dt><i>u</i> (str)</dt>
+<dd>
+URL string to unescape
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+unescaped URL string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingUrl.hashes" ID="SafeBrowsingUrl.hashes"></a>
+<h4>SafeBrowsingUrl.hashes</h4>
+<b>hashes</b>(<i></i>)
+<p>
+        Public method to get the hashes of all possible permutations of the URL
+        in canonical form.
+</p>
+
+<dl>
+<dt>Yield:</dt>
+<dd>
+URL hashes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="SafeBrowsingUrl.hostPermutations" ID="SafeBrowsingUrl.hostPermutations"></a>
+<h4>SafeBrowsingUrl.hostPermutations</h4>
+<b>hostPermutations</b>(<i></i>)
+<p>
+            Method to generate the permutations of the host name.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host name
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+permutated host names
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingUrl.pathPermutations" ID="SafeBrowsingUrl.pathPermutations"></a>
+<h4>SafeBrowsingUrl.pathPermutations</h4>
+<b>pathPermutations</b>(<i></i>)
+<p>
+            Method to generate the permutations of the path.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path to be processed
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+permutated paths
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingUrl.quote" ID="SafeBrowsingUrl.quote"></a>
+<h4>SafeBrowsingUrl.quote</h4>
+<b>quote</b>(<i></i>)
+<p>
+            Method to quote a string.
+</p>
+
+<dl>
+
+<dt><i>string</i> (str)</dt>
+<dd>
+to be quoted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+quoted string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingUrl.digest" ID="SafeBrowsingUrl.digest"></a>
+<h4>SafeBrowsingUrl.digest (static)</h4>
+<b>digest</b>(<i></i>)
+<p>
+        Static method to calculate the SHA256 digest of an URL string.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+SHA256 digest of the URL string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="SafeBrowsingUrl.permutations" ID="SafeBrowsingUrl.permutations"></a>
+<h4>SafeBrowsingUrl.permutations (static)</h4>
+<b>permutations</b>(<i></i>)
+<p>
+        Static method to determine all permutations of host name and path
+        which can be applied to blocked URLs.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL string to be permuted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+permutated URL strings
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

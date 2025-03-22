@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.CondaInterface.CondaPackagesWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.CondaInterface.CondaPackagesWidget</h1>
+<p>
+Module implementing the conda packages management widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CondaPackagesWidget">CondaPackagesWidget</a></td>
+<td>Class implementing the conda packages management widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CondaPackagesWidget" ID="CondaPackagesWidget"></a>
+<h2>CondaPackagesWidget</h2>
+<p>
+    Class implementing the conda packages management widget.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_CondaPackagesWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>PackageBuildRole</td></tr>
+<tr><td>PackageDetailedDataRole</td></tr>
+<tr><td>PackageVersionRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CondaPackagesWidget.__init__">CondaPackagesWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__aboutConda">__aboutConda</a></td>
+<td>Private slot to show some information about the conda installation.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__aboutToShowCondaMenu">__aboutToShowCondaMenu</a></td>
+<td>Private slot to handle the conda menu about to be shown.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__allUpdateableItems">__allUpdateableItems</a></td>
+<td>Private method to get a list of all items that can be updated.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__cloneEnvironment">__cloneEnvironment</a></td>
+<td>Private slot to clone a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__condaConfigure">__condaConfigure</a></td>
+<td>Private slot to open the configuration page.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__createEnvironment">__createEnvironment</a></td>
+<td>Private slot to create a conda environment from a requirements file.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__deleteEnvironment">__deleteEnvironment</a></td>
+<td>Private slot to delete a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__doSearch">__doSearch</a></td>
+<td>Private method to search for packages.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__editUserConfiguration">__editUserConfiguration</a></td>
+<td>Private slot to edit the user configuration.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__generateRequirements">__generateRequirements</a></td>
+<td>Private slot to generate a requirements file.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__initCondaInterface">__initCondaInterface</a></td>
+<td>Private method to initialize the conda interface elements.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__initCondaMenu">__initCondaMenu</a></td>
+<td>Private method to create the super menu and attach it to the super menu button.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__installPackages">__installPackages</a></td>
+<td>Private slot to install packages.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__installRequirements">__installRequirements</a></td>
+<td>Private slot to install packages from requirements files.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__populateEnvironments">__populateEnvironments</a></td>
+<td>Private method to get a list of environments and populate the selector.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__selectedUpdateableItems">__selectedUpdateableItems</a></td>
+<td>Private method to get a list of selected items that can be updated.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__showDetails">__showDetails</a></td>
+<td>Private method to show a dialog with details about a package item.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__updateActionButtons">__updateActionButtons</a></td>
+<td>Private method to set the state of the action buttons.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.__updateSearchActionButtons">__updateSearchActionButtons</a></td>
+<td>Private method to update the action button states of the search widget.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_environmentsComboBox_currentIndexChanged">on_environmentsComboBox_currentIndexChanged</a></td>
+<td>Private slot handling the selection of a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_installButton_clicked">on_installButton_clicked</a></td>
+<td>Private slot to install a selected package.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_packagesList_itemSelectionChanged">on_packagesList_itemSelectionChanged</a></td>
+<td>Private slot to handle the selection of some items..</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_recheckButton_clicked">on_recheckButton_clicked</a></td>
+<td>Private slot to re-check the availability of conda and adjust the interface if it became available.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the display.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_searchButton_clicked">on_searchButton_clicked</a></td>
+<td>Private slot handling the press of the search button.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_searchEdit_returnPressed">on_searchEdit_returnPressed</a></td>
+<td>Private slot handling the user pressing the Return button in the search edit.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_searchEdit_textChanged">on_searchEdit_textChanged</a></td>
+<td>Private slot handling changes of the entered search specification.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_searchResultList_itemDoubleClicked">on_searchResultList_itemDoubleClicked</a></td>
+<td>Private slot handling a double click of an item.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_searchResultList_itemExpanded">on_searchResultList_itemExpanded</a></td>
+<td>Private slot handling the expansion of an item.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_searchResultList_itemSelectionChanged">on_searchResultList_itemSelectionChanged</a></td>
+<td>Private slot handling a change of selected search results.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_searchToggleButton_1_toggled">on_searchToggleButton_1_toggled</a></td>
+<td>Private slot to toggle the search widget.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_searchToggleButton_2_toggled">on_searchToggleButton_2_toggled</a></td>
+<td>Private slot to toggle the search widget.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_showDetailsButton_clicked">on_showDetailsButton_clicked</a></td>
+<td>Private slot handling the 'Show Details' button.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_uninstallButton_clicked">on_uninstallButton_clicked</a></td>
+<td>Private slot to remove selected packages of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_upgradeAllButton_clicked">on_upgradeAllButton_clicked</a></td>
+<td>Private slot to upgrade all packages of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#CondaPackagesWidget.on_upgradeButton_clicked">on_upgradeButton_clicked</a></td>
+<td>Private slot to upgrade selected packages of the selected environment.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CondaPackagesWidget.__init__" ID="CondaPackagesWidget.__init__"></a>
+<h4>CondaPackagesWidget (Constructor)</h4>
+<b>CondaPackagesWidget</b>(<i>conda, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>conda</i> (Conda)</dt>
+<dd>
+reference to the conda interface
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.__aboutConda" ID="CondaPackagesWidget.__aboutConda"></a>
+<h4>CondaPackagesWidget.__aboutConda</h4>
+<b>__aboutConda</b>(<i></i>)
+<p>
+        Private slot to show some information about the conda installation.
+</p>
+
+<a NAME="CondaPackagesWidget.__aboutToShowCondaMenu" ID="CondaPackagesWidget.__aboutToShowCondaMenu"></a>
+<h4>CondaPackagesWidget.__aboutToShowCondaMenu</h4>
+<b>__aboutToShowCondaMenu</b>(<i></i>)
+<p>
+        Private slot to handle the conda menu about to be shown.
+</p>
+
+<a NAME="CondaPackagesWidget.__allUpdateableItems" ID="CondaPackagesWidget.__allUpdateableItems"></a>
+<h4>CondaPackagesWidget.__allUpdateableItems</h4>
+<b>__allUpdateableItems</b>(<i></i>)
+<p>
+        Private method to get a list of all items that can be updated.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items that can be updated
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.__cloneEnvironment" ID="CondaPackagesWidget.__cloneEnvironment"></a>
+<h4>CondaPackagesWidget.__cloneEnvironment</h4>
+<b>__cloneEnvironment</b>(<i></i>)
+<p>
+        Private slot to clone a conda environment.
+</p>
+
+<a NAME="CondaPackagesWidget.__condaConfigure" ID="CondaPackagesWidget.__condaConfigure"></a>
+<h4>CondaPackagesWidget.__condaConfigure</h4>
+<b>__condaConfigure</b>(<i></i>)
+<p>
+        Private slot to open the configuration page.
+</p>
+
+<a NAME="CondaPackagesWidget.__createEnvironment" ID="CondaPackagesWidget.__createEnvironment"></a>
+<h4>CondaPackagesWidget.__createEnvironment</h4>
+<b>__createEnvironment</b>(<i></i>)
+<p>
+        Private slot to create a conda environment from a requirements file.
+</p>
+
+<a NAME="CondaPackagesWidget.__deleteEnvironment" ID="CondaPackagesWidget.__deleteEnvironment"></a>
+<h4>CondaPackagesWidget.__deleteEnvironment</h4>
+<b>__deleteEnvironment</b>(<i></i>)
+<p>
+        Private slot to delete a conda environment.
+</p>
+
+<a NAME="CondaPackagesWidget.__doSearch" ID="CondaPackagesWidget.__doSearch"></a>
+<h4>CondaPackagesWidget.__doSearch</h4>
+<b>__doSearch</b>(<i></i>)
+<p>
+        Private method to search for packages.
+</p>
+
+<a NAME="CondaPackagesWidget.__editUserConfiguration" ID="CondaPackagesWidget.__editUserConfiguration"></a>
+<h4>CondaPackagesWidget.__editUserConfiguration</h4>
+<b>__editUserConfiguration</b>(<i></i>)
+<p>
+        Private slot to edit the user configuration.
+</p>
+
+<a NAME="CondaPackagesWidget.__generateRequirements" ID="CondaPackagesWidget.__generateRequirements"></a>
+<h4>CondaPackagesWidget.__generateRequirements</h4>
+<b>__generateRequirements</b>(<i></i>)
+<p>
+        Private slot to generate a requirements file.
+</p>
+
+<a NAME="CondaPackagesWidget.__initCondaInterface" ID="CondaPackagesWidget.__initCondaInterface"></a>
+<h4>CondaPackagesWidget.__initCondaInterface</h4>
+<b>__initCondaInterface</b>(<i></i>)
+<p>
+        Private method to initialize the conda interface elements.
+</p>
+
+<a NAME="CondaPackagesWidget.__initCondaMenu" ID="CondaPackagesWidget.__initCondaMenu"></a>
+<h4>CondaPackagesWidget.__initCondaMenu</h4>
+<b>__initCondaMenu</b>(<i></i>)
+<p>
+        Private method to create the super menu and attach it to the super
+        menu button.
+</p>
+
+<a NAME="CondaPackagesWidget.__installPackages" ID="CondaPackagesWidget.__installPackages"></a>
+<h4>CondaPackagesWidget.__installPackages</h4>
+<b>__installPackages</b>(<i></i>)
+<p>
+        Private slot to install packages.
+</p>
+
+<a NAME="CondaPackagesWidget.__installRequirements" ID="CondaPackagesWidget.__installRequirements"></a>
+<h4>CondaPackagesWidget.__installRequirements</h4>
+<b>__installRequirements</b>(<i></i>)
+<p>
+        Private slot to install packages from requirements files.
+</p>
+
+<a NAME="CondaPackagesWidget.__populateEnvironments" ID="CondaPackagesWidget.__populateEnvironments"></a>
+<h4>CondaPackagesWidget.__populateEnvironments</h4>
+<b>__populateEnvironments</b>(<i></i>)
+<p>
+        Private method to get a list of environments and populate the selector.
+</p>
+
+<a NAME="CondaPackagesWidget.__selectedUpdateableItems" ID="CondaPackagesWidget.__selectedUpdateableItems"></a>
+<h4>CondaPackagesWidget.__selectedUpdateableItems</h4>
+<b>__selectedUpdateableItems</b>(<i></i>)
+<p>
+        Private method to get a list of selected items that can be updated.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of selected items that can be updated
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.__showDetails" ID="CondaPackagesWidget.__showDetails"></a>
+<h4>CondaPackagesWidget.__showDetails</h4>
+<b>__showDetails</b>(<i>item</i>)
+<p>
+        Private method to show a dialog with details about a package item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the package item
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.__updateActionButtons" ID="CondaPackagesWidget.__updateActionButtons"></a>
+<h4>CondaPackagesWidget.__updateActionButtons</h4>
+<b>__updateActionButtons</b>(<i></i>)
+<p>
+        Private method to set the state of the action buttons.
+</p>
+
+<a NAME="CondaPackagesWidget.__updateSearchActionButtons" ID="CondaPackagesWidget.__updateSearchActionButtons"></a>
+<h4>CondaPackagesWidget.__updateSearchActionButtons</h4>
+<b>__updateSearchActionButtons</b>(<i></i>)
+<p>
+        Private method to update the action button states of the search widget.
+</p>
+
+<a NAME="CondaPackagesWidget.on_environmentsComboBox_currentIndexChanged" ID="CondaPackagesWidget.on_environmentsComboBox_currentIndexChanged"></a>
+<h4>CondaPackagesWidget.on_environmentsComboBox_currentIndexChanged</h4>
+<b>on_environmentsComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot handling the selection of a conda environment.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected conda environment
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.on_installButton_clicked" ID="CondaPackagesWidget.on_installButton_clicked"></a>
+<h4>CondaPackagesWidget.on_installButton_clicked</h4>
+<b>on_installButton_clicked</b>(<i></i>)
+<p>
+        Private slot to install a selected package.
+</p>
+
+<a NAME="CondaPackagesWidget.on_packagesList_itemSelectionChanged" ID="CondaPackagesWidget.on_packagesList_itemSelectionChanged"></a>
+<h4>CondaPackagesWidget.on_packagesList_itemSelectionChanged</h4>
+<b>on_packagesList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to handle the selection of some items..
+</p>
+
+<a NAME="CondaPackagesWidget.on_recheckButton_clicked" ID="CondaPackagesWidget.on_recheckButton_clicked"></a>
+<h4>CondaPackagesWidget.on_recheckButton_clicked</h4>
+<b>on_recheckButton_clicked</b>(<i></i>)
+<p>
+        Private slot to re-check the availability of conda and adjust the
+        interface if it became available.
+</p>
+
+<a NAME="CondaPackagesWidget.on_refreshButton_clicked" ID="CondaPackagesWidget.on_refreshButton_clicked"></a>
+<h4>CondaPackagesWidget.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the display.
+</p>
+
+<a NAME="CondaPackagesWidget.on_searchButton_clicked" ID="CondaPackagesWidget.on_searchButton_clicked"></a>
+<h4>CondaPackagesWidget.on_searchButton_clicked</h4>
+<b>on_searchButton_clicked</b>(<i></i>)
+<p>
+        Private slot handling the press of the search button.
+</p>
+
+<a NAME="CondaPackagesWidget.on_searchEdit_returnPressed" ID="CondaPackagesWidget.on_searchEdit_returnPressed"></a>
+<h4>CondaPackagesWidget.on_searchEdit_returnPressed</h4>
+<b>on_searchEdit_returnPressed</b>(<i></i>)
+<p>
+        Private slot handling the user pressing the Return button in the
+        search edit.
+</p>
+
+<a NAME="CondaPackagesWidget.on_searchEdit_textChanged" ID="CondaPackagesWidget.on_searchEdit_textChanged"></a>
+<h4>CondaPackagesWidget.on_searchEdit_textChanged</h4>
+<b>on_searchEdit_textChanged</b>(<i>txt</i>)
+<p>
+        Private slot handling changes of the entered search specification.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+current search entry
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.on_searchResultList_itemDoubleClicked" ID="CondaPackagesWidget.on_searchResultList_itemDoubleClicked"></a>
+<h4>CondaPackagesWidget.on_searchResultList_itemDoubleClicked</h4>
+<b>on_searchResultList_itemDoubleClicked</b>(<i>item, _column</i>)
+<p>
+        Private slot handling a double click of an item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item that was double clicked
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column of the double click (unused)
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.on_searchResultList_itemExpanded" ID="CondaPackagesWidget.on_searchResultList_itemExpanded"></a>
+<h4>CondaPackagesWidget.on_searchResultList_itemExpanded</h4>
+<b>on_searchResultList_itemExpanded</b>(<i>item</i>)
+<p>
+        Private slot handling the expansion of an item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the expanded item
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.on_searchResultList_itemSelectionChanged" ID="CondaPackagesWidget.on_searchResultList_itemSelectionChanged"></a>
+<h4>CondaPackagesWidget.on_searchResultList_itemSelectionChanged</h4>
+<b>on_searchResultList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot handling a change of selected search results.
+</p>
+
+<a NAME="CondaPackagesWidget.on_searchToggleButton_1_toggled" ID="CondaPackagesWidget.on_searchToggleButton_1_toggled"></a>
+<h4>CondaPackagesWidget.on_searchToggleButton_1_toggled</h4>
+<b>on_searchToggleButton_1_toggled</b>(<i>checked</i>)
+<p>
+        Private slot to toggle the search widget.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the search widget button
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.on_searchToggleButton_2_toggled" ID="CondaPackagesWidget.on_searchToggleButton_2_toggled"></a>
+<h4>CondaPackagesWidget.on_searchToggleButton_2_toggled</h4>
+<b>on_searchToggleButton_2_toggled</b>(<i>checked</i>)
+<p>
+        Private slot to toggle the search widget.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the search widget button
+</dd>
+</dl>
+<a NAME="CondaPackagesWidget.on_showDetailsButton_clicked" ID="CondaPackagesWidget.on_showDetailsButton_clicked"></a>
+<h4>CondaPackagesWidget.on_showDetailsButton_clicked</h4>
+<b>on_showDetailsButton_clicked</b>(<i></i>)
+<p>
+        Private slot handling the 'Show Details' button.
+</p>
+
+<a NAME="CondaPackagesWidget.on_uninstallButton_clicked" ID="CondaPackagesWidget.on_uninstallButton_clicked"></a>
+<h4>CondaPackagesWidget.on_uninstallButton_clicked</h4>
+<b>on_uninstallButton_clicked</b>(<i></i>)
+<p>
+        Private slot to remove selected packages of the selected environment.
+</p>
+
+<a NAME="CondaPackagesWidget.on_upgradeAllButton_clicked" ID="CondaPackagesWidget.on_upgradeAllButton_clicked"></a>
+<h4>CondaPackagesWidget.on_upgradeAllButton_clicked</h4>
+<b>on_upgradeAllButton_clicked</b>(<i></i>)
+<p>
+        Private slot to upgrade all packages of the selected environment.
+</p>
+
+<a NAME="CondaPackagesWidget.on_upgradeButton_clicked" ID="CondaPackagesWidget.on_upgradeButton_clicked"></a>
+<h4>CondaPackagesWidget.on_upgradeButton_clicked</h4>
+<b>on_upgradeButton_clicked</b>(<i></i>)
+<p>
+        Private slot to upgrade selected packages of the selected environment.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

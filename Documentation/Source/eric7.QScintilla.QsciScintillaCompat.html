@@ -1,0 +1,2819 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.QsciScintillaCompat</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.QsciScintillaCompat</h1>
+<p>
+Module implementing a compatability interface class to QsciScintilla.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#QsciScintillaCompat">QsciScintillaCompat</a></td>
+<td>Class implementing a compatability interface to QsciScintilla.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaPrintColorMode">QsciScintillaPrintColorMode</a></td>
+<td>Class defining the various print color modes.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="QsciScintillaCompat" ID="QsciScintillaCompat"></a>
+<h2>QsciScintillaCompat</h2>
+<p>
+    Class implementing a compatability interface to QsciScintilla.
+</p>
+<p>
+    This class implements all the functions, that were added to
+    QsciScintilla incrementally. This class ensures compatibility
+    to older versions of QsciScintilla.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>zoomValueChanged(int)</dt>
+<dd>
+emitted to signal a change of the zoom value
+</dd>
+</dl>
+<h3>Derived from</h3>
+QsciScintilla
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ArrowFoldStyle</td></tr>
+<tr><td>ArrowTreeFoldStyle</td></tr>
+<tr><td>IndicatorStyleMax</td></tr>
+<tr><td>QFontWeightMapping</td></tr>
+<tr><td>UserSeparator</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#QsciScintillaCompat.__init__">QsciScintillaCompat</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.__doSearchTarget">__doSearchTarget</a></td>
+<td>Private method to perform the search in target.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.__modificationChanged">__modificationChanged</a></td>
+<td>Private slot to handle the modificationChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.__setFoldMarker">__setFoldMarker</a></td>
+<td>Private method to define a fold marker.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.__userListActivated">__userListActivated</a></td>
+<td>Private slot to handle the selection from the completion list.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat._encodeString">_encodeString</a></td>
+<td>Protected method to encode a string depending on the current mode.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.addCursor">addCursor</a></td>
+<td>Public method to add an additional cursor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.autoCompleteFromAPIs">autoCompleteFromAPIs</a></td>
+<td>Public method to resize list box after creation.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.autoCompleteFromAll">autoCompleteFromAll</a></td>
+<td>Public method to resize list box after creation.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.autoCompleteFromDocument">autoCompleteFromDocument</a></td>
+<td>Public method to resize list box after creation.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.byteAt">byteAt</a></td>
+<td>Public method to get the raw character (bytes) at a position in the text.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.canPaste">canPaste</a></td>
+<td>Public method to test, if the paste action is available (i.e.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.cancelCallTips">cancelCallTips</a></td>
+<td>Public method to cancel displayed call tips.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.charAt">charAt</a></td>
+<td>Public method to get the character at a position in the text observing multibyte characters.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.clearAllIndicators">clearAllIndicators</a></td>
+<td>Public method to clear all occurrences of an indicator.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.clearAlternateKeys">clearAlternateKeys</a></td>
+<td>Public method to clear the alternate key commands.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.clearIndicator">clearIndicator</a></td>
+<td>Public method to clear an indicator for the given range.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.clearIndicatorRange">clearIndicatorRange</a></td>
+<td>Public method to clear an indicator for the given range.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.clearKeys">clearKeys</a></td>
+<td>Public method to clear the key commands.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.clearStyles">clearStyles</a></td>
+<td>Public method to set the styles according the selected Qt style.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.currentPosition">currentPosition</a></td>
+<td>Public method to get the current position.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.currentStyle">currentStyle</a></td>
+<td>Public method to get the style at the current position.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.delete">delete</a></td>
+<td>Public method to delete the character to the right of the cursor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.deleteBack">deleteBack</a></td>
+<td>Public method to delete the character to the left of the cursor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.deleteLineLeft">deleteLineLeft</a></td>
+<td>Public method to delete the line to the left of the cursor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.deleteLineRight">deleteLineRight</a></td>
+<td>Public method to delete the line to the right of the cursor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.deleteWordLeft">deleteWordLeft</a></td>
+<td>Public method to delete the word to the left of the cursor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.deleteWordRight">deleteWordRight</a></td>
+<td>Public method to delete the word to the right of the cursor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.detectEolString">detectEolString</a></td>
+<td>Public method to determine the eol string used.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.editorCommand">editorCommand</a></td>
+<td>Public method to perform a simple editor command.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.enableMultiCursorSupport">enableMultiCursorSupport</a></td>
+<td>Public method to enable support for multi cursor editing.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.event">event</a></td>
+<td>Public method to handle events.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.extendSelectionLeft">extendSelectionLeft</a></td>
+<td>Public method to extend the selection one character to the left.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.extendSelectionRight">extendSelectionRight</a></td>
+<td>Public method to extend the selection one character to the right.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.extendSelectionToBOL">extendSelectionToBOL</a></td>
+<td>Public method to extend the selection to the beginning of the line.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.extendSelectionToEOL">extendSelectionToEOL</a></td>
+<td>Public method to extend the selection to the end of the line.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.extendSelectionWordLeft">extendSelectionWordLeft</a></td>
+<td>Public method to extend the selection one word to the left.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.extendSelectionWordRight">extendSelectionWordRight</a></td>
+<td>Public method to extend the selection one word to the right.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.findFirstTarget">findFirstTarget</a></td>
+<td>Public method to search in a specified range of text without setting the selection.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.findNextTarget">findNextTarget</a></td>
+<td>Public method to find the next occurrence in the target range.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.flashFindIndicator">flashFindIndicator</a></td>
+<td>Public method to flash the find indicator for the given range.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.focusOutEvent">focusOutEvent</a></td>
+<td>Protected method called when the editor loses focus.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.foldExpandedAt">foldExpandedAt</a></td>
+<td>Public method to determine, if a fold is expanded.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.foldFlagsAt">foldFlagsAt</a></td>
+<td>Public method to get the fold flags of a line of the document.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.foldHeaderAt">foldHeaderAt</a></td>
+<td>Public method to determine, if a line of the document is a fold header line.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.foldLevelAt">foldLevelAt</a></td>
+<td>Public method to get the fold level of a line of the document.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getCaretLineAlwaysVisible">getCaretLineAlwaysVisible</a></td>
+<td>Public method to determine, if the caret line is visible even if the editor doesn't have the focus.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getCursorFlashTime">getCursorFlashTime</a></td>
+<td>Public method to get the flash (blink) time of the cursor in milliseconds.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getDocLineFromVisibleLine">getDocLineFromVisibleLine</a></td>
+<td>Public method to convert a visible line number to a document line number (i.e.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getEndStyled">getEndStyled</a></td>
+<td>Public method to get the last styled position.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getEolIndicator">getEolIndicator</a></td>
+<td>Public method to get the eol indicator for the current eol mode.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getFileName">getFileName</a></td>
+<td>Public method to return the name of the file being displayed.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getFoundTarget">getFoundTarget</a></td>
+<td>Public method to get the recently found target.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getGlobalCursorPosition">getGlobalCursorPosition</a></td>
+<td>Public method to determine the point of the cursor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getIndicator">getIndicator</a></td>
+<td>Public method to get the start and end of the indicator at the given position.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getIndicatorEndPos">getIndicatorEndPos</a></td>
+<td>Public method to get the end position of an indicator at a position.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getIndicatorRange">getIndicatorRange</a></td>
+<td>Public method to get the range of the indicator at the given position.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getIndicatorStartPos">getIndicatorStartPos</a></td>
+<td>Public method to get the start position of an indicator at a position.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getLineSeparator">getLineSeparator</a></td>
+<td>Public method to get the line separator for the current eol mode.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getRectangularSelection">getRectangularSelection</a></td>
+<td>Public method to retrieve the start and end of a rectangular selection.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getSelectionCount">getSelectionCount</a></td>
+<td>Public method to get the number of active selections.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getSelectionN">getSelectionN</a></td>
+<td>Public method to get the start and end of a selection given by its index.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getSelections">getSelections</a></td>
+<td>Public method to get the start and end coordinates of all active selections.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getSubStyleRange">getSubStyleRange</a></td>
+<td>Public method to get the sub style range for given style number.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getVisibleLineFromDocLine">getVisibleLineFromDocLine</a></td>
+<td>Public method to convert a document line number to a visible line number (i.e.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.getZoom">getZoom</a></td>
+<td>Public method used to retrieve the current zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.gotoNextIndicator">gotoNextIndicator</a></td>
+<td>Public method to move the cursor to the next position of an indicator.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.gotoPreviousIndicator">gotoPreviousIndicator</a></td>
+<td>Public method to move the cursor to the previous position of an indicator.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.hasIndicator">hasIndicator</a></td>
+<td>Public method to test for the existence of an indicator.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.hasSelectedText">hasSelectedText</a></td>
+<td>Public method to indicate the presence of selected text.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.hasSelection">hasSelection</a></td>
+<td>Public method to check for a selection.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.hideFindIndicator">hideFindIndicator</a></td>
+<td>Public method to hide the find indicator.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.indentationGuideView">indentationGuideView</a></td>
+<td>Public method to get the indentation guide view.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.indicatorDefine">indicatorDefine</a></td>
+<td>Public method to define the appearance of an indicator.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.isModified">isModified</a></td>
+<td>Public method to return the modification status.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.lineAt">lineAt</a></td>
+<td>Public method to calculate the line at a position.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.lineEndPosition">lineEndPosition</a></td>
+<td>Public method to determine the line end position of the given line.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.lineIndexFromPoint">lineIndexFromPoint</a></td>
+<td>Public method to convert a point to line and index.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.linesOnScreen">linesOnScreen</a></td>
+<td>Public method to get the amount of visible lines.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.monospacedStyles">monospacedStyles</a></td>
+<td>Public method to set the current style to be monospaced.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.moveCursorLeft">moveCursorLeft</a></td>
+<td>Public method to move the cursor left.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.moveCursorRight">moveCursorRight</a></td>
+<td>Public method to move the cursor right.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.moveCursorToEOL">moveCursorToEOL</a></td>
+<td>Public method to move the cursor to the end of line.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.moveCursorWordLeft">moveCursorWordLeft</a></td>
+<td>Public method to move the cursor left one word.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.moveCursorWordRight">moveCursorWordRight</a></td>
+<td>Public method to move the cursor right one word.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.newLineBelow">newLineBelow</a></td>
+<td>Public method to insert a new line below the current one.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.positionAfter">positionAfter</a></td>
+<td>Public method to get the position after the given position taking into account multibyte characters.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.positionBefore">positionBefore</a></td>
+<td>Public method to get the position before the given position taking into account multibyte characters.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.positionFromPoint">positionFromPoint</a></td>
+<td>Public method to calculate the scintilla position from a point in the window.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.replaceTarget">replaceTarget</a></td>
+<td>Public method to replace the string found by the last search in target.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.scrollVertical">scrollVertical</a></td>
+<td>Public method to scroll the text area.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.selectionIsRectangle">selectionIsRectangle</a></td>
+<td>Public method to check, if the current selection is rectangular.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setAutoCompletionWidgetSize">setAutoCompletionWidgetSize</a></td>
+<td>Public method to set the size of completion and user lists.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setCaretLineAlwaysVisible">setCaretLineAlwaysVisible</a></td>
+<td>Public method to set the caret line visible even if the editor doesn't have the focus.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setCurrentIndicator">setCurrentIndicator</a></td>
+<td>Public method to set the current indicator.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setCursorFlashTime">setCursorFlashTime</a></td>
+<td>Public method to set the flash (blink) time of the cursor in milliseconds.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setEolModeByEolString">setEolModeByEolString</a></td>
+<td>Public method to set the eol mode given the eol string.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setFoldMarkersColors">setFoldMarkersColors</a></td>
+<td>Public method to set the foreground and background colors of the fold markers.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setFolding">setFolding</a></td>
+<td>Public method to set the folding style and margin.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setIndentationGuideView">setIndentationGuideView</a></td>
+<td>Public method to set the view of the indentation guides.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setIndicator">setIndicator</a></td>
+<td>Public method to set an indicator for the given range.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setIndicatorRange">setIndicatorRange</a></td>
+<td>Public method to set an indicator for the given range.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setLexer">setLexer</a></td>
+<td>Public method to set the lexer.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setModified">setModified</a></td>
+<td>Public slot to set the modification status.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setPrintColorMode">setPrintColorMode</a></td>
+<td>Public method to set the print color mode (i.e.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setRectangularSelection">setRectangularSelection</a></td>
+<td>Public method to set a rectangular selection.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setRectangularSelectionModifier">setRectangularSelectionModifier</a></td>
+<td>Public method to set the modifier key used to create a rectangular selection by doing a mouse drag.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setStyling">setStyling</a></td>
+<td>Public method to style some text.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setVirtualSpaceOptions">setVirtualSpaceOptions</a></td>
+<td>Public method to set the virtual space usage options.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.setWrapStartIndent">setWrapStartIndent</a></td>
+<td>Public method to set a the amount of characters wrapped sublines shall be indented.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.showFindIndicator">showFindIndicator</a></td>
+<td>Public method to show the find indicator for the given range.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.showUserList">showUserList</a></td>
+<td>Public method to show a user supplied list.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.startStyling">startStyling</a></td>
+<td>Public method to prepare styling.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.styleAt">styleAt</a></td>
+<td>Public method to get the style at a position in the text.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.updateUserListSize">updateUserListSize</a></td>
+<td>Public method to resize the completion list to fit with contents.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.updateVerticalScrollBar">updateVerticalScrollBar</a></td>
+<td>Public method to update the vertical scroll bar to reflect the additional lines added by annotations.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.zoomIn">zoomIn</a></td>
+<td>Public method used to increase the zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.zoomOut">zoomOut</a></td>
+<td>Public method used to decrease the zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#QsciScintillaCompat.zoomTo">zoomTo</a></td>
+<td>Public method used to zoom to a specific zoom factor.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="QsciScintillaCompat.__init__" ID="QsciScintillaCompat.__init__"></a>
+<h4>QsciScintillaCompat (Constructor)</h4>
+<b>QsciScintillaCompat</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.__doSearchTarget" ID="QsciScintillaCompat.__doSearchTarget"></a>
+<h4>QsciScintillaCompat.__doSearchTarget</h4>
+<b>__doSearchTarget</b>(<i></i>)
+<p>
+        Private method to perform the search in target.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful search
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.__modificationChanged" ID="QsciScintillaCompat.__modificationChanged"></a>
+<h4>QsciScintillaCompat.__modificationChanged</h4>
+<b>__modificationChanged</b>(<i>m</i>)
+<p>
+        Private slot to handle the modificationChanged signal.
+</p>
+
+<dl>
+
+<dt><i>m</i> (bool)</dt>
+<dd>
+modification status
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.__setFoldMarker" ID="QsciScintillaCompat.__setFoldMarker"></a>
+<h4>QsciScintillaCompat.__setFoldMarker</h4>
+<b>__setFoldMarker</b>(<i>marknr, mark=QsciScintilla.SC_MARK_EMPTY</i>)
+<p>
+        Private method to define a fold marker.
+</p>
+
+<dl>
+
+<dt><i>marknr</i> (int)</dt>
+<dd>
+marker number to define
+</dd>
+<dt><i>mark</i> (int)</dt>
+<dd>
+fold mark symbol to be used
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.__userListActivated" ID="QsciScintillaCompat.__userListActivated"></a>
+<h4>QsciScintillaCompat.__userListActivated</h4>
+<b>__userListActivated</b>(<i>listId, txt</i>)
+<p>
+        Private slot to handle the selection from the completion list.
+</p>
+<p>
+        Note: This works around an issue of some window managers taking
+        focus away from the application when clicked inside a completion
+        list but not giving it back when an item is selected via a
+        double-click.
+</p>
+
+<dl>
+
+<dt><i>listId</i> (int)</dt>
+<dd>
+the ID of the user list
+</dd>
+<dt><i>txt</i> (str)</dt>
+<dd>
+the selected text
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat._encodeString" ID="QsciScintillaCompat._encodeString"></a>
+<h4>QsciScintillaCompat._encodeString</h4>
+<b>_encodeString</b>(<i>string</i>)
+<p>
+        Protected method to encode a string depending on the current mode.
+</p>
+
+<dl>
+
+<dt><i>string</i> (str)</dt>
+<dd>
+string to be encoded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+encoded string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.addCursor" ID="QsciScintillaCompat.addCursor"></a>
+<h4>QsciScintillaCompat.addCursor</h4>
+<b>addCursor</b>(<i>line, index</i>)
+<p>
+        Public method to add an additional cursor.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number for the cursor
+</dd>
+<dt><i>index</i> (int)</dt>
+<dd>
+index number for the cursor
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.autoCompleteFromAPIs" ID="QsciScintillaCompat.autoCompleteFromAPIs"></a>
+<h4>QsciScintillaCompat.autoCompleteFromAPIs</h4>
+<b>autoCompleteFromAPIs</b>(<i></i>)
+<p>
+        Public method to resize list box after creation.
+</p>
+
+<a NAME="QsciScintillaCompat.autoCompleteFromAll" ID="QsciScintillaCompat.autoCompleteFromAll"></a>
+<h4>QsciScintillaCompat.autoCompleteFromAll</h4>
+<b>autoCompleteFromAll</b>(<i></i>)
+<p>
+        Public method to resize list box after creation.
+</p>
+
+<a NAME="QsciScintillaCompat.autoCompleteFromDocument" ID="QsciScintillaCompat.autoCompleteFromDocument"></a>
+<h4>QsciScintillaCompat.autoCompleteFromDocument</h4>
+<b>autoCompleteFromDocument</b>(<i></i>)
+<p>
+        Public method to resize list box after creation.
+</p>
+
+<a NAME="QsciScintillaCompat.byteAt" ID="QsciScintillaCompat.byteAt"></a>
+<h4>QsciScintillaCompat.byteAt</h4>
+<b>byteAt</b>(<i>pos</i>)
+<p>
+        Public method to get the raw character (bytes) at a position in the
+        text.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position in the text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+raw character at the requested position or empty bytes, if the
+            position is negative or past the end of the document
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.canPaste" ID="QsciScintillaCompat.canPaste"></a>
+<h4>QsciScintillaCompat.canPaste</h4>
+<b>canPaste</b>(<i></i>)
+<p>
+        Public method to test, if the paste action is available (i.e. if the
+        clipboard contains some text).
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of 'paste'
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.cancelCallTips" ID="QsciScintillaCompat.cancelCallTips"></a>
+<h4>QsciScintillaCompat.cancelCallTips</h4>
+<b>cancelCallTips</b>(<i></i>)
+<p>
+            Public method to cancel displayed call tips.
+</p>
+
+<a NAME="QsciScintillaCompat.charAt" ID="QsciScintillaCompat.charAt"></a>
+<h4>QsciScintillaCompat.charAt</h4>
+<b>charAt</b>(<i>pos</i>)
+<p>
+        Public method to get the character at a position in the text observing
+        multibyte characters.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position in the text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+character at the requested position or empty string, if the
+            position is negative or past the end of the document
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.clearAllIndicators" ID="QsciScintillaCompat.clearAllIndicators"></a>
+<h4>QsciScintillaCompat.clearAllIndicators</h4>
+<b>clearAllIndicators</b>(<i>indicator</i>)
+<p>
+        Public method to clear all occurrences of an indicator.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+number of the indicator (integer,
+            QsciScintilla.INDIC_CONTAINER .. QsciScintilla.INDIC_MAX)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.clearAlternateKeys" ID="QsciScintillaCompat.clearAlternateKeys"></a>
+<h4>QsciScintillaCompat.clearAlternateKeys</h4>
+<b>clearAlternateKeys</b>(<i></i>)
+<p>
+        Public method to clear the alternate key commands.
+</p>
+
+<a NAME="QsciScintillaCompat.clearIndicator" ID="QsciScintillaCompat.clearIndicator"></a>
+<h4>QsciScintillaCompat.clearIndicator</h4>
+<b>clearIndicator</b>(<i>indicator, sline, sindex, eline, eindex</i>)
+<p>
+        Public method to clear an indicator for the given range.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+number of the indicator (integer,
+            QsciScintilla.INDIC_CONTAINER .. QsciScintilla.INDIC_MAX)
+</dd>
+<dt><i>sline</i> (int)</dt>
+<dd>
+line number of the indicator start
+</dd>
+<dt><i>sindex</i> (int)</dt>
+<dd>
+index of the indicator start
+</dd>
+<dt><i>eline</i> (int)</dt>
+<dd>
+line number of the indicator end
+</dd>
+<dt><i>eindex</i> (int)</dt>
+<dd>
+index of the indicator end
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.clearIndicatorRange" ID="QsciScintillaCompat.clearIndicatorRange"></a>
+<h4>QsciScintillaCompat.clearIndicatorRange</h4>
+<b>clearIndicatorRange</b>(<i>indicator, spos, length</i>)
+<p>
+        Public method to clear an indicator for the given range.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+number of the indicator (integer,
+            QsciScintilla.INDIC_CONTAINER .. QsciScintilla.INDIC_MAX)
+</dd>
+<dt><i>spos</i> (int)</dt>
+<dd>
+position of the indicator start
+</dd>
+<dt><i>length</i> (int)</dt>
+<dd>
+length of the indicator
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.clearKeys" ID="QsciScintillaCompat.clearKeys"></a>
+<h4>QsciScintillaCompat.clearKeys</h4>
+<b>clearKeys</b>(<i></i>)
+<p>
+        Public method to clear the key commands.
+</p>
+
+<a NAME="QsciScintillaCompat.clearStyles" ID="QsciScintillaCompat.clearStyles"></a>
+<h4>QsciScintillaCompat.clearStyles</h4>
+<b>clearStyles</b>(<i></i>)
+<p>
+        Public method to set the styles according the selected Qt style.
+</p>
+
+<a NAME="QsciScintillaCompat.currentPosition" ID="QsciScintillaCompat.currentPosition"></a>
+<h4>QsciScintillaCompat.currentPosition</h4>
+<b>currentPosition</b>(<i></i>)
+<p>
+        Public method to get the current position.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+absolute position of the cursor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.currentStyle" ID="QsciScintillaCompat.currentStyle"></a>
+<h4>QsciScintillaCompat.currentStyle</h4>
+<b>currentStyle</b>(<i></i>)
+<p>
+        Public method to get the style at the current position.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+style at the current position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.delete" ID="QsciScintillaCompat.delete"></a>
+<h4>QsciScintillaCompat.delete</h4>
+<b>delete</b>(<i></i>)
+<p>
+        Public method to delete the character to the right of the cursor.
+</p>
+
+<a NAME="QsciScintillaCompat.deleteBack" ID="QsciScintillaCompat.deleteBack"></a>
+<h4>QsciScintillaCompat.deleteBack</h4>
+<b>deleteBack</b>(<i></i>)
+<p>
+        Public method to delete the character to the left of the cursor.
+</p>
+
+<a NAME="QsciScintillaCompat.deleteLineLeft" ID="QsciScintillaCompat.deleteLineLeft"></a>
+<h4>QsciScintillaCompat.deleteLineLeft</h4>
+<b>deleteLineLeft</b>(<i></i>)
+<p>
+        Public method to delete the line to the left of the cursor.
+</p>
+
+<a NAME="QsciScintillaCompat.deleteLineRight" ID="QsciScintillaCompat.deleteLineRight"></a>
+<h4>QsciScintillaCompat.deleteLineRight</h4>
+<b>deleteLineRight</b>(<i></i>)
+<p>
+        Public method to delete the line to the right of the cursor.
+</p>
+
+<a NAME="QsciScintillaCompat.deleteWordLeft" ID="QsciScintillaCompat.deleteWordLeft"></a>
+<h4>QsciScintillaCompat.deleteWordLeft</h4>
+<b>deleteWordLeft</b>(<i></i>)
+<p>
+        Public method to delete the word to the left of the cursor.
+</p>
+
+<a NAME="QsciScintillaCompat.deleteWordRight" ID="QsciScintillaCompat.deleteWordRight"></a>
+<h4>QsciScintillaCompat.deleteWordRight</h4>
+<b>deleteWordRight</b>(<i></i>)
+<p>
+        Public method to delete the word to the right of the cursor.
+</p>
+
+<a NAME="QsciScintillaCompat.detectEolString" ID="QsciScintillaCompat.detectEolString"></a>
+<h4>QsciScintillaCompat.detectEolString</h4>
+<b>detectEolString</b>(<i>txt</i>)
+<p>
+        Public method to determine the eol string used.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text from which to determine the eol string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+eol string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.editorCommand" ID="QsciScintillaCompat.editorCommand"></a>
+<h4>QsciScintillaCompat.editorCommand</h4>
+<b>editorCommand</b>(<i>cmd</i>)
+<p>
+        Public method to perform a simple editor command.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+the scintilla command to be performed
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.enableMultiCursorSupport" ID="QsciScintillaCompat.enableMultiCursorSupport"></a>
+<h4>QsciScintillaCompat.enableMultiCursorSupport</h4>
+<b>enableMultiCursorSupport</b>(<i></i>)
+<p>
+        Public method to enable support for multi cursor editing.
+</p>
+
+<a NAME="QsciScintillaCompat.event" ID="QsciScintillaCompat.event"></a>
+<h4>QsciScintillaCompat.event</h4>
+<b>event</b>(<i>evt</i>)
+<p>
+        Public method to handle events.
+</p>
+<p>
+        Note: We are not interested in the standard QsciScintilla event
+        handling because we do it ourselves.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+event object to handle
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+result of the event handling
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.extendSelectionLeft" ID="QsciScintillaCompat.extendSelectionLeft"></a>
+<h4>QsciScintillaCompat.extendSelectionLeft</h4>
+<b>extendSelectionLeft</b>(<i></i>)
+<p>
+        Public method to extend the selection one character to the left.
+</p>
+
+<a NAME="QsciScintillaCompat.extendSelectionRight" ID="QsciScintillaCompat.extendSelectionRight"></a>
+<h4>QsciScintillaCompat.extendSelectionRight</h4>
+<b>extendSelectionRight</b>(<i></i>)
+<p>
+        Public method to extend the selection one character to the right.
+</p>
+
+<a NAME="QsciScintillaCompat.extendSelectionToBOL" ID="QsciScintillaCompat.extendSelectionToBOL"></a>
+<h4>QsciScintillaCompat.extendSelectionToBOL</h4>
+<b>extendSelectionToBOL</b>(<i></i>)
+<p>
+        Public method to extend the selection to the beginning of the line.
+</p>
+
+<a NAME="QsciScintillaCompat.extendSelectionToEOL" ID="QsciScintillaCompat.extendSelectionToEOL"></a>
+<h4>QsciScintillaCompat.extendSelectionToEOL</h4>
+<b>extendSelectionToEOL</b>(<i></i>)
+<p>
+        Public method to extend the selection to the end of the line.
+</p>
+
+<a NAME="QsciScintillaCompat.extendSelectionWordLeft" ID="QsciScintillaCompat.extendSelectionWordLeft"></a>
+<h4>QsciScintillaCompat.extendSelectionWordLeft</h4>
+<b>extendSelectionWordLeft</b>(<i></i>)
+<p>
+        Public method to extend the selection one word to the left.
+</p>
+
+<a NAME="QsciScintillaCompat.extendSelectionWordRight" ID="QsciScintillaCompat.extendSelectionWordRight"></a>
+<h4>QsciScintillaCompat.extendSelectionWordRight</h4>
+<b>extendSelectionWordRight</b>(<i></i>)
+<p>
+        Public method to extend the selection one word to the right.
+</p>
+
+<a NAME="QsciScintillaCompat.findFirstTarget" ID="QsciScintillaCompat.findFirstTarget"></a>
+<h4>QsciScintillaCompat.findFirstTarget</h4>
+<b>findFirstTarget</b>(<i>expr_, re_, cs_, wo_, begline=-1, begindex=-1, endline=-1, endindex=-1, ws_=False, posix=False, cxx11=False, </i>)
+<p>
+        Public method to search in a specified range of text without
+        setting the selection.
+</p>
+
+<dl>
+
+<dt><i>expr_</i> (str)</dt>
+<dd>
+search expression
+</dd>
+<dt><i>re_</i> (bool)</dt>
+<dd>
+flag indicating a regular expression
+</dd>
+<dt><i>cs_</i> (bool)</dt>
+<dd>
+flag indicating a case sensitive search
+</dd>
+<dt><i>wo_</i> (bool)</dt>
+<dd>
+flag indicating a word only search
+</dd>
+<dt><i>begline</i> (int)</dt>
+<dd>
+line number to start from (-1 to indicate current
+            position)
+</dd>
+<dt><i>begindex</i> (int)</dt>
+<dd>
+index to start from (-1 to indicate current position)
+</dd>
+<dt><i>endline</i> (int)</dt>
+<dd>
+line number to stop at (-1 to indicate end of document)
+</dd>
+<dt><i>endindex</i> (int)</dt>
+<dd>
+index number to stop at (-1 to indicate end of
+            document)
+</dd>
+<dt><i>ws_</i> (bool)</dt>
+<dd>
+flag indicating a word start search
+</dd>
+<dt><i>posix</i> (bool)</dt>
+<dd>
+flag indicating a POSIX regular expression
+</dd>
+<dt><i>cxx11</i> (bool)</dt>
+<dd>
+flag indicating a CXX-11 regular expression
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful search
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.findNextTarget" ID="QsciScintillaCompat.findNextTarget"></a>
+<h4>QsciScintillaCompat.findNextTarget</h4>
+<b>findNextTarget</b>(<i></i>)
+<p>
+        Public method to find the next occurrence in the target range.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful search
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.flashFindIndicator" ID="QsciScintillaCompat.flashFindIndicator"></a>
+<h4>QsciScintillaCompat.flashFindIndicator</h4>
+<b>flashFindIndicator</b>(<i>sline, sindex, eline, eindex</i>)
+<p>
+        Public method to flash the find indicator for the given range.
+</p>
+
+<dl>
+
+<dt><i>sline</i> (int)</dt>
+<dd>
+line number of the indicator start
+</dd>
+<dt><i>sindex</i> (int)</dt>
+<dd>
+index of the indicator start
+</dd>
+<dt><i>eline</i> (int)</dt>
+<dd>
+line number of the indicator end
+</dd>
+<dt><i>eindex</i> (int)</dt>
+<dd>
+index of the indicator end
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.focusOutEvent" ID="QsciScintillaCompat.focusOutEvent"></a>
+<h4>QsciScintillaCompat.focusOutEvent</h4>
+<b>focusOutEvent</b>(<i>event</i>)
+<p>
+        Protected method called when the editor loses focus.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QFocusEvent)</dt>
+<dd>
+event object
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.foldExpandedAt" ID="QsciScintillaCompat.foldExpandedAt"></a>
+<h4>QsciScintillaCompat.foldExpandedAt</h4>
+<b>foldExpandedAt</b>(<i>line</i>)
+<p>
+        Public method to determine, if a fold is expanded.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the fold expansion state of the line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.foldFlagsAt" ID="QsciScintillaCompat.foldFlagsAt"></a>
+<h4>QsciScintillaCompat.foldFlagsAt</h4>
+<b>foldFlagsAt</b>(<i>line</i>)
+<p>
+        Public method to get the fold flags of a line of the document.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+fold flags of the given line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.foldHeaderAt" ID="QsciScintillaCompat.foldHeaderAt"></a>
+<h4>QsciScintillaCompat.foldHeaderAt</h4>
+<b>foldHeaderAt</b>(<i>line</i>)
+<p>
+        Public method to determine, if a line of the document is a fold header
+        line.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a fold header line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.foldLevelAt" ID="QsciScintillaCompat.foldLevelAt"></a>
+<h4>QsciScintillaCompat.foldLevelAt</h4>
+<b>foldLevelAt</b>(<i>line</i>)
+<p>
+        Public method to get the fold level of a line of the document.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+fold level of the given line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getCaretLineAlwaysVisible" ID="QsciScintillaCompat.getCaretLineAlwaysVisible"></a>
+<h4>QsciScintillaCompat.getCaretLineAlwaysVisible</h4>
+<b>getCaretLineAlwaysVisible</b>(<i></i>)
+<p>
+        Public method to determine, if the caret line is visible even if
+        the editor doesn't have the focus.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an always visible caret line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getCursorFlashTime" ID="QsciScintillaCompat.getCursorFlashTime"></a>
+<h4>QsciScintillaCompat.getCursorFlashTime</h4>
+<b>getCursorFlashTime</b>(<i></i>)
+<p>
+        Public method to get the flash (blink) time of the cursor in
+        milliseconds.
+</p>
+<p>
+        The flash time is the time required to display, invert and restore the
+        caret display. Usually the text cursor is displayed for half the cursor
+        flash time, then hidden for the same amount of time.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flash time of the cursor in milliseconds
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getDocLineFromVisibleLine" ID="QsciScintillaCompat.getDocLineFromVisibleLine"></a>
+<h4>QsciScintillaCompat.getDocLineFromVisibleLine</h4>
+<b>getDocLineFromVisibleLine</b>(<i>displayLine</i>)
+<p>
+        Public method to convert a visible line number to a document line
+        number (i.e. respect folded lines and annotations).
+</p>
+
+<dl>
+
+<dt><i>displayLine</i> (int)</dt>
+<dd>
+display line number to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+document line number
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getEndStyled" ID="QsciScintillaCompat.getEndStyled"></a>
+<h4>QsciScintillaCompat.getEndStyled</h4>
+<b>getEndStyled</b>(<i></i>)
+<p>
+        Public method to get the last styled position.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+end position of the last styling run
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getEolIndicator" ID="QsciScintillaCompat.getEolIndicator"></a>
+<h4>QsciScintillaCompat.getEolIndicator</h4>
+<b>getEolIndicator</b>(<i></i>)
+<p>
+        Public method to get the eol indicator for the current eol mode.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+eol indicator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getFileName" ID="QsciScintillaCompat.getFileName"></a>
+<h4>QsciScintillaCompat.getFileName</h4>
+<b>getFileName</b>(<i></i>)
+<p>
+        Public method to return the name of the file being displayed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+filename of the displayed file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getFoundTarget" ID="QsciScintillaCompat.getFoundTarget"></a>
+<h4>QsciScintillaCompat.getFoundTarget</h4>
+<b>getFoundTarget</b>(<i></i>)
+<p>
+        Public method to get the recently found target.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+found target as a tuple of starting position and target length
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getGlobalCursorPosition" ID="QsciScintillaCompat.getGlobalCursorPosition"></a>
+<h4>QsciScintillaCompat.getGlobalCursorPosition</h4>
+<b>getGlobalCursorPosition</b>(<i></i>)
+<p>
+            Public method to determine the point of the cursor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+point of the cursor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPoint
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getIndicator" ID="QsciScintillaCompat.getIndicator"></a>
+<h4>QsciScintillaCompat.getIndicator</h4>
+<b>getIndicator</b>(<i>indicator, pos=None</i>)
+<p>
+        Public method to get the start and end of the indicator at the given position.
+</p>
+<p>
+        If the position is given as 'None', the current cursor position is used.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+ID of the indicator
+</dd>
+<dt><i>pos</i> (int (optional))</dt>
+<dd>
+position within the indicator (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the start line and index and the end line and index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, int, int)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getIndicatorEndPos" ID="QsciScintillaCompat.getIndicatorEndPos"></a>
+<h4>QsciScintillaCompat.getIndicatorEndPos</h4>
+<b>getIndicatorEndPos</b>(<i>indicator, pos</i>)
+<p>
+        Public method to get the end position of an indicator at a position.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+ID of the indicator
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position within the indicator
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+end position of the indicator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getIndicatorRange" ID="QsciScintillaCompat.getIndicatorRange"></a>
+<h4>QsciScintillaCompat.getIndicatorRange</h4>
+<b>getIndicatorRange</b>(<i>indicator, pos=None</i>)
+<p>
+        Public method to get the range of the indicator at the given position.
+</p>
+<p>
+        If the position is given as 'None', the current cursor position is used.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+ID of the indicator
+</dd>
+<dt><i>pos</i> (int (optional))</dt>
+<dd>
+position within the indicator (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+start position and length of the indicator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getIndicatorStartPos" ID="QsciScintillaCompat.getIndicatorStartPos"></a>
+<h4>QsciScintillaCompat.getIndicatorStartPos</h4>
+<b>getIndicatorStartPos</b>(<i>indicator, pos</i>)
+<p>
+        Public method to get the start position of an indicator at a position.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+ID of the indicator
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position within the indicator
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+start position of the indicator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getLineSeparator" ID="QsciScintillaCompat.getLineSeparator"></a>
+<h4>QsciScintillaCompat.getLineSeparator</h4>
+<b>getLineSeparator</b>(<i></i>)
+<p>
+        Public method to get the line separator for the current eol mode.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+eol string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getRectangularSelection" ID="QsciScintillaCompat.getRectangularSelection"></a>
+<h4>QsciScintillaCompat.getRectangularSelection</h4>
+<b>getRectangularSelection</b>(<i></i>)
+<p>
+        Public method to retrieve the start and end of a rectangular selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with start line and index and end line and index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, int, int)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getSelectionCount" ID="QsciScintillaCompat.getSelectionCount"></a>
+<h4>QsciScintillaCompat.getSelectionCount</h4>
+<b>getSelectionCount</b>(<i></i>)
+<p>
+        Public method to get the number of active selections.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of active selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getSelectionN" ID="QsciScintillaCompat.getSelectionN"></a>
+<h4>QsciScintillaCompat.getSelectionN</h4>
+<b>getSelectionN</b>(<i>index</i>)
+<p>
+        Public method to get the start and end of a selection given by its
+        index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selection
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with start line and index and end line and index for the
+            given selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, int, int)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getSelections" ID="QsciScintillaCompat.getSelections"></a>
+<h4>QsciScintillaCompat.getSelections</h4>
+<b>getSelections</b>(<i></i>)
+<p>
+        Public method to get the start and end coordinates of all active
+        selections.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples with start line and index and end line and index
+            of each active selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [tuple of (int, int, int, int)]
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getSubStyleRange" ID="QsciScintillaCompat.getSubStyleRange"></a>
+<h4>QsciScintillaCompat.getSubStyleRange</h4>
+<b>getSubStyleRange</b>(<i>styleNr</i>)
+<p>
+        Public method to get the sub style range for given style number.
+</p>
+
+<dl>
+
+<dt><i>styleNr</i> (int)</dt>
+<dd>
+Number of the base style
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+start index of the sub style and their count
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int, int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getVisibleLineFromDocLine" ID="QsciScintillaCompat.getVisibleLineFromDocLine"></a>
+<h4>QsciScintillaCompat.getVisibleLineFromDocLine</h4>
+<b>getVisibleLineFromDocLine</b>(<i>docLine</i>)
+<p>
+        Public method to convert a document line number to a visible line
+        number (i.e. respect folded lines and annotations).
+</p>
+
+<dl>
+
+<dt><i>docLine</i> (int)</dt>
+<dd>
+document line number to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+visible line number
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.getZoom" ID="QsciScintillaCompat.getZoom"></a>
+<h4>QsciScintillaCompat.getZoom</h4>
+<b>getZoom</b>(<i></i>)
+<p>
+        Public method used to retrieve the current zoom factor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.gotoNextIndicator" ID="QsciScintillaCompat.gotoNextIndicator"></a>
+<h4>QsciScintillaCompat.gotoNextIndicator</h4>
+<b>gotoNextIndicator</b>(<i>indicator, wrap</i>)
+<p>
+        Public method to move the cursor to the next position of an indicator.
+</p>
+<p>
+        This method ensures, that the position found is visible (i.e. unfolded
+        and inside the visible range). The text containing the indicator is
+        selected.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+ID of the indicator to search
+</dd>
+<dt><i>wrap</i> (bool)</dt>
+<dd>
+flag indicating to wrap around at the beginning of the text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if the indicator was found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.gotoPreviousIndicator" ID="QsciScintillaCompat.gotoPreviousIndicator"></a>
+<h4>QsciScintillaCompat.gotoPreviousIndicator</h4>
+<b>gotoPreviousIndicator</b>(<i>indicator, wrap</i>)
+<p>
+        Public method to move the cursor to the previous position of an
+        indicator.
+</p>
+<p>
+        This method ensures, that the position found is visible (i.e. unfolded
+        and inside the visible range). The text containing the indicator is
+        selected.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+ID of the indicator to search
+</dd>
+<dt><i>wrap</i> (bool)</dt>
+<dd>
+flag indicating to wrap around at the beginning of the text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if the indicator was found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.hasIndicator" ID="QsciScintillaCompat.hasIndicator"></a>
+<h4>QsciScintillaCompat.hasIndicator</h4>
+<b>hasIndicator</b>(<i>indicator, pos</i>)
+<p>
+        Public method to test for the existence of an indicator.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+number of the indicator (integer,
+            QsciScintilla.INDIC_CONTAINER .. QsciScintilla.INDIC_MAX)
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to test
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of the indicator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.hasSelectedText" ID="QsciScintillaCompat.hasSelectedText"></a>
+<h4>QsciScintillaCompat.hasSelectedText</h4>
+<b>hasSelectedText</b>(<i></i>)
+<p>
+        Public method to indicate the presence of selected text.
+</p>
+<p>
+        This is an overriding method to cope with a bug in QsciScintilla.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of selected text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.hasSelection" ID="QsciScintillaCompat.hasSelection"></a>
+<h4>QsciScintillaCompat.hasSelection</h4>
+<b>hasSelection</b>(<i></i>)
+<p>
+        Public method to check for a selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of a selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.hideFindIndicator" ID="QsciScintillaCompat.hideFindIndicator"></a>
+<h4>QsciScintillaCompat.hideFindIndicator</h4>
+<b>hideFindIndicator</b>(<i></i>)
+<p>
+        Public method to hide the find indicator.
+</p>
+
+<a NAME="QsciScintillaCompat.indentationGuideView" ID="QsciScintillaCompat.indentationGuideView"></a>
+<h4>QsciScintillaCompat.indentationGuideView</h4>
+<b>indentationGuideView</b>(<i></i>)
+<p>
+        Public method to get the indentation guide view.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+indentation guide view (SC_IV_NONE, SC_IV_REAL,
+            SC_IV_LOOKFORWARD or SC_IV_LOOKBOTH)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.indicatorDefine" ID="QsciScintillaCompat.indicatorDefine"></a>
+<h4>QsciScintillaCompat.indicatorDefine</h4>
+<b>indicatorDefine</b>(<i>indicator, style, color</i>)
+<p>
+        Public method to define the appearance of an indicator.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+number of the indicator (integer,
+            QsciScintilla.INDIC_CONTAINER .. QsciScintilla.INDIC_MAX)
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+style to be used for the indicator
+            (QsciScintilla.INDIC_PLAIN, QsciScintilla.INDIC_SQUIGGLE,
+            QsciScintilla.INDIC_TT, QsciScintilla.INDIC_DIAGONAL,
+            QsciScintilla.INDIC_STRIKE, QsciScintilla.INDIC_HIDDEN,
+            QsciScintilla.INDIC_BOX, QsciScintilla.INDIC_ROUNDBOX,
+            QsciScintilla.INDIC_STRAIGHTBOX, QsciScintilla.INDIC_FULLBOX,
+            QsciScintilla.INDIC_DASH, QsciScintilla.INDIC_DOTS,
+            QsciScintilla.INDIC_SQUIGGLELOW, QsciScintilla.INDIC_DOTBOX,
+            QsciScintilla.INDIC_GRADIENT, QsciScintilla.INDIC_GRADIENTCENTRE,
+            QsciScintilla.INDIC_SQUIGGLEPIXMAP,
+            QsciScintilla.INDIC_COMPOSITIONTHICK,
+            QsciScintilla.INDIC_COMPOSITIONTHIN, QsciScintilla.INDIC_TEXTFORE,
+            QsciScintilla.INDIC_POINT, QsciScintilla.INDIC_POINTCHARACTER
+            depending upon QScintilla version)
+</dd>
+<dt><i>color</i> (QColor)</dt>
+<dd>
+color to be used by the indicator
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+the indicator or style are not valid
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.isModified" ID="QsciScintillaCompat.isModified"></a>
+<h4>QsciScintillaCompat.isModified</h4>
+<b>isModified</b>(<i></i>)
+<p>
+        Public method to return the modification status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the modification status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.lineAt" ID="QsciScintillaCompat.lineAt"></a>
+<h4>QsciScintillaCompat.lineAt</h4>
+<b>lineAt</b>(<i>pos</i>)
+<p>
+        Public method to calculate the line at a position.
+</p>
+<p>
+        This variant is able to calculate the line for positions in the
+        margins and for empty lines.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int or QPoint)</dt>
+<dd>
+position to calculate the line for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+linenumber at position or -1, if there is no line at pos (zero based)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.lineEndPosition" ID="QsciScintillaCompat.lineEndPosition"></a>
+<h4>QsciScintillaCompat.lineEndPosition</h4>
+<b>lineEndPosition</b>(<i>line</i>)
+<p>
+        Public method to determine the line end position of the given line.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+position of the line end disregarding line end characters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.lineIndexFromPoint" ID="QsciScintillaCompat.lineIndexFromPoint"></a>
+<h4>QsciScintillaCompat.lineIndexFromPoint</h4>
+<b>lineIndexFromPoint</b>(<i>point</i>)
+<p>
+            Public method to convert a point to line and index.
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+point to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the line number and index number
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.linesOnScreen" ID="QsciScintillaCompat.linesOnScreen"></a>
+<h4>QsciScintillaCompat.linesOnScreen</h4>
+<b>linesOnScreen</b>(<i></i>)
+<p>
+        Public method to get the amount of visible lines.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+amount of visible lines
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.monospacedStyles" ID="QsciScintillaCompat.monospacedStyles"></a>
+<h4>QsciScintillaCompat.monospacedStyles</h4>
+<b>monospacedStyles</b>(<i>font</i>)
+<p>
+        Public method to set the current style to be monospaced.
+</p>
+
+<dl>
+
+<dt><i>font</i> (QFont)</dt>
+<dd>
+font to be used
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.moveCursorLeft" ID="QsciScintillaCompat.moveCursorLeft"></a>
+<h4>QsciScintillaCompat.moveCursorLeft</h4>
+<b>moveCursorLeft</b>(<i></i>)
+<p>
+        Public method to move the cursor left.
+</p>
+
+<a NAME="QsciScintillaCompat.moveCursorRight" ID="QsciScintillaCompat.moveCursorRight"></a>
+<h4>QsciScintillaCompat.moveCursorRight</h4>
+<b>moveCursorRight</b>(<i></i>)
+<p>
+        Public method to move the cursor right.
+</p>
+
+<a NAME="QsciScintillaCompat.moveCursorToEOL" ID="QsciScintillaCompat.moveCursorToEOL"></a>
+<h4>QsciScintillaCompat.moveCursorToEOL</h4>
+<b>moveCursorToEOL</b>(<i></i>)
+<p>
+        Public method to move the cursor to the end of line.
+</p>
+
+<a NAME="QsciScintillaCompat.moveCursorWordLeft" ID="QsciScintillaCompat.moveCursorWordLeft"></a>
+<h4>QsciScintillaCompat.moveCursorWordLeft</h4>
+<b>moveCursorWordLeft</b>(<i></i>)
+<p>
+        Public method to move the cursor left one word.
+</p>
+
+<a NAME="QsciScintillaCompat.moveCursorWordRight" ID="QsciScintillaCompat.moveCursorWordRight"></a>
+<h4>QsciScintillaCompat.moveCursorWordRight</h4>
+<b>moveCursorWordRight</b>(<i></i>)
+<p>
+        Public method to move the cursor right one word.
+</p>
+
+<a NAME="QsciScintillaCompat.newLineBelow" ID="QsciScintillaCompat.newLineBelow"></a>
+<h4>QsciScintillaCompat.newLineBelow</h4>
+<b>newLineBelow</b>(<i></i>)
+<p>
+        Public method to insert a new line below the current one.
+</p>
+
+<a NAME="QsciScintillaCompat.positionAfter" ID="QsciScintillaCompat.positionAfter"></a>
+<h4>QsciScintillaCompat.positionAfter</h4>
+<b>positionAfter</b>(<i>pos</i>)
+<p>
+        Public method to get the position after the given position taking into
+        account multibyte characters.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+position after the given one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.positionBefore" ID="QsciScintillaCompat.positionBefore"></a>
+<h4>QsciScintillaCompat.positionBefore</h4>
+<b>positionBefore</b>(<i>pos</i>)
+<p>
+        Public method to get the position before the given position taking into
+        account multibyte characters.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+position before the given one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.positionFromPoint" ID="QsciScintillaCompat.positionFromPoint"></a>
+<h4>QsciScintillaCompat.positionFromPoint</h4>
+<b>positionFromPoint</b>(<i>point</i>)
+<p>
+        Public method to calculate the scintilla position from a point in the
+        window.
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+point in the window
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+scintilla position or -1 to indicate, that the point is not near
+            any character
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.replaceTarget" ID="QsciScintillaCompat.replaceTarget"></a>
+<h4>QsciScintillaCompat.replaceTarget</h4>
+<b>replaceTarget</b>(<i>replaceStr</i>)
+<p>
+        Public method to replace the string found by the last search in target.
+</p>
+
+<dl>
+
+<dt><i>replaceStr</i> (str)</dt>
+<dd>
+replacement string or regexp
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.scrollVertical" ID="QsciScintillaCompat.scrollVertical"></a>
+<h4>QsciScintillaCompat.scrollVertical</h4>
+<b>scrollVertical</b>(<i>lines</i>)
+<p>
+        Public method to scroll the text area.
+</p>
+
+<dl>
+
+<dt><i>lines</i> (int)</dt>
+<dd>
+number of lines to scroll (negative scrolls up,
+            positive scrolls down)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.selectionIsRectangle" ID="QsciScintillaCompat.selectionIsRectangle"></a>
+<h4>QsciScintillaCompat.selectionIsRectangle</h4>
+<b>selectionIsRectangle</b>(<i></i>)
+<p>
+        Public method to check, if the current selection is rectangular.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a rectangular selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setAutoCompletionWidgetSize" ID="QsciScintillaCompat.setAutoCompletionWidgetSize"></a>
+<h4>QsciScintillaCompat.setAutoCompletionWidgetSize</h4>
+<b>setAutoCompletionWidgetSize</b>(<i>chars, lines</i>)
+<p>
+        Public method to set the size of completion and user lists.
+</p>
+
+<dl>
+
+<dt><i>chars</i> (int)</dt>
+<dd>
+max. number of chars to show
+</dd>
+<dt><i>lines</i> (int)</dt>
+<dd>
+max. number of lines to show
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setCaretLineAlwaysVisible" ID="QsciScintillaCompat.setCaretLineAlwaysVisible"></a>
+<h4>QsciScintillaCompat.setCaretLineAlwaysVisible</h4>
+<b>setCaretLineAlwaysVisible</b>(<i>alwaysVisible</i>)
+<p>
+        Public method to set the caret line visible even if the editor doesn't
+        have the focus.
+</p>
+
+<dl>
+
+<dt><i>alwaysVisible</i> (bool)</dt>
+<dd>
+flag indicating that the caret line shall be
+            visible even if the editor doesn't have the focus
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setCurrentIndicator" ID="QsciScintillaCompat.setCurrentIndicator"></a>
+<h4>QsciScintillaCompat.setCurrentIndicator</h4>
+<b>setCurrentIndicator</b>(<i>indicator</i>)
+<p>
+        Public method to set the current indicator.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+number of the indicator (integer,
+            QsciScintilla.INDIC_CONTAINER .. QsciScintilla.INDIC_MAX)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+the indicator or style are not valid
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setCursorFlashTime" ID="QsciScintillaCompat.setCursorFlashTime"></a>
+<h4>QsciScintillaCompat.setCursorFlashTime</h4>
+<b>setCursorFlashTime</b>(<i>time</i>)
+<p>
+        Public method to set the flash (blink) time of the cursor in
+        milliseconds.
+</p>
+<p>
+        The flash time is the time required to display, invert and restore the
+        caret display. Usually the text cursor is displayed for half the cursor
+        flash time, then hidden for the same amount of time.
+</p>
+
+<dl>
+
+<dt><i>time</i> (int)</dt>
+<dd>
+flash time of the cursor in milliseconds
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setEolModeByEolString" ID="QsciScintillaCompat.setEolModeByEolString"></a>
+<h4>QsciScintillaCompat.setEolModeByEolString</h4>
+<b>setEolModeByEolString</b>(<i>eolStr</i>)
+<p>
+        Public method to set the eol mode given the eol string.
+</p>
+
+<dl>
+
+<dt><i>eolStr</i> (str)</dt>
+<dd>
+eol string
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setFoldMarkersColors" ID="QsciScintillaCompat.setFoldMarkersColors"></a>
+<h4>QsciScintillaCompat.setFoldMarkersColors</h4>
+<b>setFoldMarkersColors</b>(<i>foreColor, backColor</i>)
+<p>
+        Public method to set the foreground and background colors of the
+        fold markers.
+</p>
+
+<dl>
+
+<dt><i>foreColor</i> (QColor)</dt>
+<dd>
+foreground color
+</dd>
+<dt><i>backColor</i> (QColor)</dt>
+<dd>
+background color
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setFolding" ID="QsciScintillaCompat.setFolding"></a>
+<h4>QsciScintillaCompat.setFolding</h4>
+<b>setFolding</b>(<i>style, margin=2</i>)
+<p>
+        Public method to set the folding style and margin.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+folding style to set
+</dd>
+<dt><i>margin</i> (int)</dt>
+<dd>
+margin number
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setIndentationGuideView" ID="QsciScintillaCompat.setIndentationGuideView"></a>
+<h4>QsciScintillaCompat.setIndentationGuideView</h4>
+<b>setIndentationGuideView</b>(<i>view</i>)
+<p>
+        Public method to set the view of the indentation guides.
+</p>
+
+<dl>
+
+<dt><i>view</i> (int)</dt>
+<dd>
+view of the indentation guides (SC_IV_NONE, SC_IV_REAL,
+            SC_IV_LOOKFORWARD or SC_IV_LOOKBOTH)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setIndicator" ID="QsciScintillaCompat.setIndicator"></a>
+<h4>QsciScintillaCompat.setIndicator</h4>
+<b>setIndicator</b>(<i>indicator, sline, sindex, eline, eindex</i>)
+<p>
+        Public method to set an indicator for the given range.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+number of the indicator (integer,
+            QsciScintilla.INDIC_CONTAINER .. QsciScintilla.INDIC_MAX)
+</dd>
+<dt><i>sline</i> (int)</dt>
+<dd>
+line number of the indicator start
+</dd>
+<dt><i>sindex</i> (int)</dt>
+<dd>
+index of the indicator start
+</dd>
+<dt><i>eline</i> (int)</dt>
+<dd>
+line number of the indicator end
+</dd>
+<dt><i>eindex</i> (int)</dt>
+<dd>
+index of the indicator end
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setIndicatorRange" ID="QsciScintillaCompat.setIndicatorRange"></a>
+<h4>QsciScintillaCompat.setIndicatorRange</h4>
+<b>setIndicatorRange</b>(<i>indicator, spos, length</i>)
+<p>
+        Public method to set an indicator for the given range.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (int)</dt>
+<dd>
+number of the indicator (integer,
+            QsciScintilla.INDIC_CONTAINER .. QsciScintilla.INDIC_MAX)
+</dd>
+<dt><i>spos</i> (int)</dt>
+<dd>
+position of the indicator start
+</dd>
+<dt><i>length</i> (int)</dt>
+<dd>
+length of the indicator
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setLexer" ID="QsciScintillaCompat.setLexer"></a>
+<h4>QsciScintillaCompat.setLexer</h4>
+<b>setLexer</b>(<i>lex=None</i>)
+<p>
+        Public method to set the lexer.
+</p>
+
+<dl>
+
+<dt><i>lex</i> (QsciScintilla.QLexer)</dt>
+<dd>
+lexer to be set or None to reset it.
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setModified" ID="QsciScintillaCompat.setModified"></a>
+<h4>QsciScintillaCompat.setModified</h4>
+<b>setModified</b>(<i>m</i>)
+<p>
+        Public slot to set the modification status.
+</p>
+
+<dl>
+
+<dt><i>m</i> (bool)</dt>
+<dd>
+new modification status
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setPrintColorMode" ID="QsciScintillaCompat.setPrintColorMode"></a>
+<h4>QsciScintillaCompat.setPrintColorMode</h4>
+<b>setPrintColorMode</b>(<i>colorMode</i>)
+<p>
+            Public method to set the print color mode (i.e. background handling).
+</p>
+
+<dl>
+
+<dt><i>colorMode</i> (QsciScintillaPrintColorMode)</dt>
+<dd>
+color mode to be set
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setRectangularSelection" ID="QsciScintillaCompat.setRectangularSelection"></a>
+<h4>QsciScintillaCompat.setRectangularSelection</h4>
+<b>setRectangularSelection</b>(<i>startLine, startIndex, endLine, endIndex</i>)
+<p>
+        Public method to set a rectangular selection.
+</p>
+
+<dl>
+
+<dt><i>startLine</i> (int)</dt>
+<dd>
+line number of the start of the selection
+</dd>
+<dt><i>startIndex</i> (int)</dt>
+<dd>
+index number of the start of the selection
+</dd>
+<dt><i>endLine</i> (int)</dt>
+<dd>
+line number of the end of the selection
+</dd>
+<dt><i>endIndex</i> (int)</dt>
+<dd>
+index number of the end of the selection
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setRectangularSelectionModifier" ID="QsciScintillaCompat.setRectangularSelectionModifier"></a>
+<h4>QsciScintillaCompat.setRectangularSelectionModifier</h4>
+<b>setRectangularSelectionModifier</b>(<i>modifier</i>)
+<p>
+        Public method to set the modifier key used to create a rectangular selection by
+        doing a mouse drag.
+</p>
+
+<dl>
+
+<dt><i>modifier</i> (Qt.KeyboardModifier)</dt>
+<dd>
+modifier key to be used
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setStyling" ID="QsciScintillaCompat.setStyling"></a>
+<h4>QsciScintillaCompat.setStyling</h4>
+<b>setStyling</b>(<i>length, style</i>)
+<p>
+        Public method to style some text.
+</p>
+
+<dl>
+
+<dt><i>length</i> (int)</dt>
+<dd>
+length of text to style
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+style to set for text
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setVirtualSpaceOptions" ID="QsciScintillaCompat.setVirtualSpaceOptions"></a>
+<h4>QsciScintillaCompat.setVirtualSpaceOptions</h4>
+<b>setVirtualSpaceOptions</b>(<i>options</i>)
+<p>
+        Public method to set the virtual space usage options.
+</p>
+
+<dl>
+
+<dt><i>options</i> (int)</dt>
+<dd>
+usage options to set (0 to 3)
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.setWrapStartIndent" ID="QsciScintillaCompat.setWrapStartIndent"></a>
+<h4>QsciScintillaCompat.setWrapStartIndent</h4>
+<b>setWrapStartIndent</b>(<i>indent</i>)
+<p>
+            Public method to set a the amount of characters wrapped sublines
+            shall be indented.
+</p>
+
+<dl>
+
+<dt><i>indent</i> (int)</dt>
+<dd>
+amount of characters to indent
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.showFindIndicator" ID="QsciScintillaCompat.showFindIndicator"></a>
+<h4>QsciScintillaCompat.showFindIndicator</h4>
+<b>showFindIndicator</b>(<i>sline, sindex, eline, eindex</i>)
+<p>
+        Public method to show the find indicator for the given range.
+</p>
+
+<dl>
+
+<dt><i>sline</i> (int)</dt>
+<dd>
+line number of the indicator start
+</dd>
+<dt><i>sindex</i> (int)</dt>
+<dd>
+index of the indicator start
+</dd>
+<dt><i>eline</i> (int)</dt>
+<dd>
+line number of the indicator end
+</dd>
+<dt><i>eindex</i> (int)</dt>
+<dd>
+index of the indicator end
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.showUserList" ID="QsciScintillaCompat.showUserList"></a>
+<h4>QsciScintillaCompat.showUserList</h4>
+<b>showUserList</b>(<i>listId, lst</i>)
+<p>
+        Public method to show a user supplied list.
+</p>
+
+<dl>
+
+<dt><i>listId</i> (int)</dt>
+<dd>
+id of the list
+</dd>
+<dt><i>lst</i> (list of str)</dt>
+<dd>
+list to be show
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.startStyling" ID="QsciScintillaCompat.startStyling"></a>
+<h4>QsciScintillaCompat.startStyling</h4>
+<b>startStyling</b>(<i>pos, mask</i>)
+<p>
+        Public method to prepare styling.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+styling positition to start at
+</dd>
+<dt><i>mask</i> (int)</dt>
+<dd>
+mask of bits to use for styling
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.styleAt" ID="QsciScintillaCompat.styleAt"></a>
+<h4>QsciScintillaCompat.styleAt</h4>
+<b>styleAt</b>(<i>pos</i>)
+<p>
+        Public method to get the style at a position in the text.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position in the text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+style at the requested position or 0, if the position
+            is negative or past the end of the document
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.updateUserListSize" ID="QsciScintillaCompat.updateUserListSize"></a>
+<h4>QsciScintillaCompat.updateUserListSize</h4>
+<b>updateUserListSize</b>(<i></i>)
+<p>
+        Public method to resize the completion list to fit with contents.
+</p>
+
+<a NAME="QsciScintillaCompat.updateVerticalScrollBar" ID="QsciScintillaCompat.updateVerticalScrollBar"></a>
+<h4>QsciScintillaCompat.updateVerticalScrollBar</h4>
+<b>updateVerticalScrollBar</b>(<i></i>)
+<p>
+        Public method to update the vertical scroll bar to reflect the
+        additional lines added by annotations.
+</p>
+
+<a NAME="QsciScintillaCompat.zoomIn" ID="QsciScintillaCompat.zoomIn"></a>
+<h4>QsciScintillaCompat.zoomIn</h4>
+<b>zoomIn</b>(<i>zoom=1</i>)
+<p>
+        Public method used to increase the zoom factor.
+</p>
+
+<dl>
+
+<dt><i>zoom</i> (int)</dt>
+<dd>
+zoom factor increment
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.zoomOut" ID="QsciScintillaCompat.zoomOut"></a>
+<h4>QsciScintillaCompat.zoomOut</h4>
+<b>zoomOut</b>(<i>zoom=1</i>)
+<p>
+        Public method used to decrease the zoom factor.
+</p>
+
+<dl>
+
+<dt><i>zoom</i> (int)</dt>
+<dd>
+zoom factor decrement
+</dd>
+</dl>
+<a NAME="QsciScintillaCompat.zoomTo" ID="QsciScintillaCompat.zoomTo"></a>
+<h4>QsciScintillaCompat.zoomTo</h4>
+<b>zoomTo</b>(<i>zoom</i>)
+<p>
+        Public method used to zoom to a specific zoom factor.
+</p>
+
+<dl>
+
+<dt><i>zoom</i> (int)</dt>
+<dd>
+zoom factor
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="QsciScintillaPrintColorMode" ID="QsciScintillaPrintColorMode"></a>
+<h2>QsciScintillaPrintColorMode</h2>
+<p>
+    Class defining the various print color modes.
+</p>
+
+<h3>Derived from</h3>
+enum.IntEnum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>BlackOnWhite</td></tr>
+<tr><td>ColorOnWhite</td></tr>
+<tr><td>ColorOnWhiteDefaultBackground</td></tr>
+<tr><td>InvertLight</td></tr>
+<tr><td>Normal</td></tr>
+<tr><td>ScreenColors</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.PluginVcsGit</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.PluginVcsGit</h1>
+<p>
+This plugin provides the Git version control interface.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>__header__</td></tr>
+<tr><td>error</td></tr>
+<tr><td>gitCfgPluginObject</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#VcsGitPlugin">VcsGitPlugin</a></td>
+<td>Class implementing the Git version control plugin.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#clearPrivateData">clearPrivateData</a></td>
+<td>Module function to clear the private data of the plug-in.</td>
+</tr>
+<tr>
+<td><a href="#createConfigurationPage">createConfigurationPage</a></td>
+<td>Module function to create the configuration page.</td>
+</tr>
+<tr>
+<td><a href="#displayString">displayString</a></td>
+<td>Public function to get the display string.</td>
+</tr>
+<tr>
+<td><a href="#exeDisplayData">exeDisplayData</a></td>
+<td>Public method to support the display of some executable info.</td>
+</tr>
+<tr>
+<td><a href="#getConfigData">getConfigData</a></td>
+<td>Module function returning data as required by the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#getVcsSystemIndicator">getVcsSystemIndicator</a></td>
+<td>Public function to get the indicators for this version control system.</td>
+</tr>
+<tr>
+<td><a href="#prepareUninstall">prepareUninstall</a></td>
+<td>Module function to prepare for an uninstallation.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="VcsGitPlugin" ID="VcsGitPlugin"></a>
+<h2>VcsGitPlugin</h2>
+<p>
+    Class implementing the Git version control plugin.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>GitDefaults</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#VcsGitPlugin.getPreferences">getPreferences</a></td>
+<td>Class method to retrieve the various settings.</td>
+</tr>
+<tr>
+<td><a href="#VcsGitPlugin.setPreferences">setPreferences</a></td>
+<td>Class method to store the various settings.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VcsGitPlugin.__init__">VcsGitPlugin</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VcsGitPlugin.activate">activate</a></td>
+<td>Public method to activate this plugin.</td>
+</tr>
+<tr>
+<td><a href="#VcsGitPlugin.deactivate">deactivate</a></td>
+<td>Public method to deactivate this plugin.</td>
+</tr>
+<tr>
+<td><a href="#VcsGitPlugin.getConfigPath">getConfigPath</a></td>
+<td>Public method to get the filename of the config file.</td>
+</tr>
+<tr>
+<td><a href="#VcsGitPlugin.getProjectHelper">getProjectHelper</a></td>
+<td>Public method to get a reference to the project helper object.</td>
+</tr>
+<tr>
+<td><a href="#VcsGitPlugin.initToolbar">initToolbar</a></td>
+<td>Public slot to initialize the VCS toolbar.</td>
+</tr>
+<tr>
+<td><a href="#VcsGitPlugin.prepareUninstall">prepareUninstall</a></td>
+<td>Public method to prepare for an uninstallation.</td>
+</tr>
+<tr>
+<td><a href="#VcsGitPlugin.prepareUnload">prepareUnload</a></td>
+<td>Public method to prepare for an unload.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VcsGitPlugin.getPreferences" ID="VcsGitPlugin.getPreferences"></a>
+<h4>VcsGitPlugin.getPreferences (class method)</h4>
+<b>getPreferences</b>(<i>key</i>)
+<p>
+        Class method to retrieve the various settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="VcsGitPlugin.setPreferences" ID="VcsGitPlugin.setPreferences"></a>
+<h4>VcsGitPlugin.setPreferences (class method)</h4>
+<b>setPreferences</b>(<i>key, value</i>)
+<p>
+        Class method to store the various settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<a NAME="VcsGitPlugin.__init__" ID="VcsGitPlugin.__init__"></a>
+<h4>VcsGitPlugin (Constructor)</h4>
+<b>VcsGitPlugin</b>(<i>ui</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the user interface object
+</dd>
+</dl>
+<a NAME="VcsGitPlugin.activate" ID="VcsGitPlugin.activate"></a>
+<h4>VcsGitPlugin.activate</h4>
+<b>activate</b>(<i></i>)
+<p>
+        Public method to activate this plugin.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of reference to instantiated version control and
+            activation status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (Git, bool)
+</dd>
+</dl>
+<a NAME="VcsGitPlugin.deactivate" ID="VcsGitPlugin.deactivate"></a>
+<h4>VcsGitPlugin.deactivate</h4>
+<b>deactivate</b>(<i></i>)
+<p>
+        Public method to deactivate this plugin.
+</p>
+
+<a NAME="VcsGitPlugin.getConfigPath" ID="VcsGitPlugin.getConfigPath"></a>
+<h4>VcsGitPlugin.getConfigPath</h4>
+<b>getConfigPath</b>(<i></i>)
+<p>
+        Public method to get the filename of the config file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+filename of the config file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="VcsGitPlugin.getProjectHelper" ID="VcsGitPlugin.getProjectHelper"></a>
+<h4>VcsGitPlugin.getProjectHelper</h4>
+<b>getProjectHelper</b>(<i></i>)
+<p>
+        Public method to get a reference to the project helper object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the project helper object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GitProjectHelper
+</dd>
+</dl>
+<a NAME="VcsGitPlugin.initToolbar" ID="VcsGitPlugin.initToolbar"></a>
+<h4>VcsGitPlugin.initToolbar</h4>
+<b>initToolbar</b>(<i>ui, toolbarManager</i>)
+<p>
+        Public slot to initialize the VCS toolbar.
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<a NAME="VcsGitPlugin.prepareUninstall" ID="VcsGitPlugin.prepareUninstall"></a>
+<h4>VcsGitPlugin.prepareUninstall</h4>
+<b>prepareUninstall</b>(<i></i>)
+<p>
+        Public method to prepare for an uninstallation.
+</p>
+
+<a NAME="VcsGitPlugin.prepareUnload" ID="VcsGitPlugin.prepareUnload"></a>
+<h4>VcsGitPlugin.prepareUnload</h4>
+<b>prepareUnload</b>(<i></i>)
+<p>
+        Public method to prepare for an unload.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="clearPrivateData" ID="clearPrivateData"></a>
+<h2>clearPrivateData</h2>
+<b>clearPrivateData</b>(<i></i>)
+<p>
+    Module function to clear the private data of the plug-in.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createConfigurationPage" ID="createConfigurationPage"></a>
+<h2>createConfigurationPage</h2>
+<b>createConfigurationPage</b>(<i>_configDlg</i>)
+<p>
+    Module function to create the configuration page.
+</p>
+
+<dl>
+
+<dt><i>_configDlg</i> (QDialog)</dt>
+<dd>
+reference to the configuration dialog (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the configuration page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GitPage
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="displayString" ID="displayString"></a>
+<h2>displayString</h2>
+<b>displayString</b>(<i></i>)
+<p>
+    Public function to get the display string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+display string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="exeDisplayData" ID="exeDisplayData"></a>
+<h2>exeDisplayData</h2>
+<b>exeDisplayData</b>(<i></i>)
+<p>
+    Public method to support the display of some executable info.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the data to query the presence of
+        the executable
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getConfigData" ID="getConfigData"></a>
+<h2>getConfigData</h2>
+<b>getConfigData</b>(<i></i>)
+<p>
+    Module function returning data as required by the configuration dialog.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with key "zzz_gitPage" containing the relevant data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getVcsSystemIndicator" ID="getVcsSystemIndicator"></a>
+<h2>getVcsSystemIndicator</h2>
+<b>getVcsSystemIndicator</b>(<i></i>)
+<p>
+    Public function to get the indicators for this version control system.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with indicator as key and a tuple with the vcs name
+        and vcs display string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="prepareUninstall" ID="prepareUninstall"></a>
+<h2>prepareUninstall</h2>
+<b>prepareUninstall</b>(<i></i>)
+<p>
+    Module function to prepare for an uninstallation.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

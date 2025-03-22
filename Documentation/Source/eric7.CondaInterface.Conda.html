@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.CondaInterface.Conda</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.CondaInterface.Conda</h1>
+<p>
+Package implementing the conda GUI logic.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Conda">Conda</a></td>
+<td>Class implementing the conda GUI logic.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Conda" ID="Conda"></a>
+<h2>Conda</h2>
+<p>
+    Class implementing the conda GUI logic.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>condaEnvironmentCreated()</dt>
+<dd>
+emitted to indicate the creation of
+        a new environment
+</dd>
+<dt>condaEnvironmentRemoved()</dt>
+<dd>
+emitted to indicate the removal of
+        an environment
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>RootName</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Conda.__init__">Conda</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Conda.cleanConda">cleanConda</a></td>
+<td>Public method to update conda itself.</td>
+</tr>
+<tr>
+<td><a href="#Conda.createCondaEnvironment">createCondaEnvironment</a></td>
+<td>Public method to create a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#Conda.getCondaEnvironmentsList">getCondaEnvironmentsList</a></td>
+<td>Public method to get a list of all Conda environments.</td>
+</tr>
+<tr>
+<td><a href="#Conda.getCondaInformation">getCondaInformation</a></td>
+<td>Public method to get a dictionary containing information about conda.</td>
+</tr>
+<tr>
+<td><a href="#Conda.getInstalledPackages">getInstalledPackages</a></td>
+<td>Public method to get a list of installed packages of a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#Conda.getUpdateablePackages">getUpdateablePackages</a></td>
+<td>Public method to get a list of updateable packages of a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#Conda.installPackages">installPackages</a></td>
+<td>Public method to install packages into a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#Conda.removeCondaEnvironment">removeCondaEnvironment</a></td>
+<td>Public method to remove a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#Conda.runProcess">runProcess</a></td>
+<td>Public method to execute the conda with the given arguments.</td>
+</tr>
+<tr>
+<td><a href="#Conda.searchPackages">searchPackages</a></td>
+<td>Public method to search for a package pattern of a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#Conda.uninstallPackages">uninstallPackages</a></td>
+<td>Public method to uninstall packages of a conda environment (including all no longer needed dependencies).</td>
+</tr>
+<tr>
+<td><a href="#Conda.updateAllPackages">updateAllPackages</a></td>
+<td>Public method to update all packages of a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#Conda.updateConda">updateConda</a></td>
+<td>Public method to update conda itself.</td>
+</tr>
+<tr>
+<td><a href="#Conda.updatePackages">updatePackages</a></td>
+<td>Public method to update packages of a conda environment.</td>
+</tr>
+<tr>
+<td><a href="#Conda.writeDefaultConfiguration">writeDefaultConfiguration</a></td>
+<td>Public method to create a conda configuration with default values.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Conda.__init__" ID="Conda.__init__"></a>
+<h4>Conda (Constructor)</h4>
+<b>Conda</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+parent
+</dd>
+</dl>
+<a NAME="Conda.cleanConda" ID="Conda.cleanConda"></a>
+<h4>Conda.cleanConda</h4>
+<b>cleanConda</b>(<i>cleanAction</i>)
+<p>
+        Public method to update conda itself.
+</p>
+
+<dl>
+
+<dt><i>cleanAction</i> (str)</dt>
+<dd>
+cleaning action to be performed (must be one of
+            the command line parameters without '--')
+</dd>
+</dl>
+<a NAME="Conda.createCondaEnvironment" ID="Conda.createCondaEnvironment"></a>
+<h4>Conda.createCondaEnvironment</h4>
+<b>createCondaEnvironment</b>(<i>arguments</i>)
+<p>
+        Public method to create a conda environment.
+</p>
+
+<dl>
+
+<dt><i>arguments</i> (list of str)</dt>
+<dd>
+list of command line arguments
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success, the directory of
+            the created environment (aka. prefix) and the corresponding Python
+            interpreter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str, str)
+</dd>
+</dl>
+<a NAME="Conda.getCondaEnvironmentsList" ID="Conda.getCondaEnvironmentsList"></a>
+<h4>Conda.getCondaEnvironmentsList</h4>
+<b>getCondaEnvironmentsList</b>(<i></i>)
+<p>
+        Public method to get a list of all Conda environments.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the environment name and prefix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, str)
+</dd>
+</dl>
+<a NAME="Conda.getCondaInformation" ID="Conda.getCondaInformation"></a>
+<h4>Conda.getCondaInformation</h4>
+<b>getCondaInformation</b>(<i></i>)
+<p>
+        Public method to get a dictionary containing information about conda.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing information about conda
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="Conda.getInstalledPackages" ID="Conda.getInstalledPackages"></a>
+<h4>Conda.getInstalledPackages</h4>
+<b>getInstalledPackages</b>(<i>name="", prefix=""</i>)
+<p>
+        Public method to get a list of installed packages of a conda
+        environment.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the environment
+</dd>
+<dt><i>prefix</i> (str)</dt>
+<dd>
+prefix of the environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of installed packages. Each entry is a tuple containing
+            the package name, version and build.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, str, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an error in parameters
+        Note: only one of name or prefix must be given.
+</dd>
+</dl>
+<a NAME="Conda.getUpdateablePackages" ID="Conda.getUpdateablePackages"></a>
+<h4>Conda.getUpdateablePackages</h4>
+<b>getUpdateablePackages</b>(<i>name="", prefix=""</i>)
+<p>
+        Public method to get a list of updateable packages of a conda
+        environment.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the environment
+</dd>
+<dt><i>prefix</i> (str)</dt>
+<dd>
+prefix of the environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of installed packages. Each entry is a tuple containing
+            the package name, version and build.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, str, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an error in parameters
+        Note: only one of name or prefix must be given.
+</dd>
+</dl>
+<a NAME="Conda.installPackages" ID="Conda.installPackages"></a>
+<h4>Conda.installPackages</h4>
+<b>installPackages</b>(<i>packages, name="", prefix=""</i>)
+<p>
+        Public method to install packages into a conda environment.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of package names to be installed
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the environment
+</dd>
+<dt><i>prefix</i> (str)</dt>
+<dd>
+prefix of the environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an error in parameters
+        Note: only one of name or prefix must be given.
+</dd>
+</dl>
+<a NAME="Conda.removeCondaEnvironment" ID="Conda.removeCondaEnvironment"></a>
+<h4>Conda.removeCondaEnvironment</h4>
+<b>removeCondaEnvironment</b>(<i>name="", prefix=""</i>)
+<p>
+        Public method to remove a conda environment.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the environment
+</dd>
+<dt><i>prefix</i> (str)</dt>
+<dd>
+prefix of the environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an error in parameters
+        Note: only one of name or prefix must be given.
+</dd>
+</dl>
+<a NAME="Conda.runProcess" ID="Conda.runProcess"></a>
+<h4>Conda.runProcess</h4>
+<b>runProcess</b>(<i>args</i>)
+<p>
+        Public method to execute the conda with the given arguments.
+</p>
+<p>
+        The conda executable is called with the given arguments and
+        waited for its end.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list of str)</dt>
+<dd>
+list of command line arguments
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and the output
+            of the process
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="Conda.searchPackages" ID="Conda.searchPackages"></a>
+<h4>Conda.searchPackages</h4>
+<b>searchPackages</b>(<i>pattern, fullNameOnly=False, packageSpec=False, platform="", name="", prefix="", </i>)
+<p>
+        Public method to search for a package pattern of a conda environment.
+</p>
+
+<dl>
+
+<dt><i>pattern</i> (str)</dt>
+<dd>
+package search pattern
+</dd>
+<dt><i>fullNameOnly</i> (bool)</dt>
+<dd>
+flag indicating to search for full names only
+</dd>
+<dt><i>packageSpec</i> (bool)</dt>
+<dd>
+flag indicating to search a package specification
+</dd>
+<dt><i>platform</i> (str)</dt>
+<dd>
+type of platform to be searched for
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the environment
+</dd>
+<dt><i>prefix</i> (str)</dt>
+<dd>
+prefix of the environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success and a dictionary with package name as
+            key and list of dictionaries containing detailed data for the found
+            packages as values
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, dict of list of dict)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an error in parameters
+        Note: only one of name or prefix must be given.
+</dd>
+</dl>
+<a NAME="Conda.uninstallPackages" ID="Conda.uninstallPackages"></a>
+<h4>Conda.uninstallPackages</h4>
+<b>uninstallPackages</b>(<i>packages, name="", prefix=""</i>)
+<p>
+        Public method to uninstall packages of a conda environment (including
+        all no longer needed dependencies).
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of package names to be uninstalled
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the environment
+</dd>
+<dt><i>prefix</i> (str)</dt>
+<dd>
+prefix of the environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an error in parameters
+        Note: only one of name or prefix must be given.
+</dd>
+</dl>
+<a NAME="Conda.updateAllPackages" ID="Conda.updateAllPackages"></a>
+<h4>Conda.updateAllPackages</h4>
+<b>updateAllPackages</b>(<i>name="", prefix=""</i>)
+<p>
+        Public method to update all packages of a conda environment.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the environment
+</dd>
+<dt><i>prefix</i> (str)</dt>
+<dd>
+prefix of the environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an error in parameters
+        Note: only one of name or prefix must be given.
+</dd>
+</dl>
+<a NAME="Conda.updateConda" ID="Conda.updateConda"></a>
+<h4>Conda.updateConda</h4>
+<b>updateConda</b>(<i></i>)
+<p>
+        Public method to update conda itself.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Conda.updatePackages" ID="Conda.updatePackages"></a>
+<h4>Conda.updatePackages</h4>
+<b>updatePackages</b>(<i>packages, name="", prefix=""</i>)
+<p>
+        Public method to update packages of a conda environment.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of package names to be updated
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the environment
+</dd>
+<dt><i>prefix</i> (str)</dt>
+<dd>
+prefix of the environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an error in parameters
+        Note: only one of name or prefix must be given.
+</dd>
+</dl>
+<a NAME="Conda.writeDefaultConfiguration" ID="Conda.writeDefaultConfiguration"></a>
+<h4>Conda.writeDefaultConfiguration</h4>
+<b>writeDefaultConfiguration</b>(<i></i>)
+<p>
+        Public method to create a conda configuration with default values.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

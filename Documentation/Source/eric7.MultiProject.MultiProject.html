@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MultiProject.MultiProject</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MultiProject.MultiProject</h1>
+<p>
+Module implementing the multi project management functionality.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MultiProject">MultiProject</a></td>
+<td>Class implementing the project management functionality.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MultiProject" ID="MultiProject"></a>
+<h2>MultiProject</h2>
+<p>
+    Class implementing the project management functionality.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>dirty(bool)</dt>
+<dd>
+emitted when the dirty state changes
+</dd>
+<dt>multiProjectClosed()</dt>
+<dd>
+emitted after a multi project was closed
+</dd>
+<dt>multiProjectOpened()</dt>
+<dd>
+emitted after a multi project file was read
+</dd>
+<dt>multiProjectPropertiesChanged()</dt>
+<dd>
+emitted after the multi project
+            properties were changed
+</dd>
+<dt>newMultiProject()</dt>
+<dd>
+emitted after a new multi project was generated
+</dd>
+<dt>projectAdded(project metadata)</dt>
+<dd>
+emitted after a project entry
+            has been added
+</dd>
+<dt>projectDataChanged(project metadata)</dt>
+<dd>
+emitted after a project entry
+            has been changed
+</dd>
+<dt>projectOpened(filename)</dt>
+<dd>
+emitted after the project has been opened
+</dd>
+<dt>projectRemoved(project metadata)</dt>
+<dd>
+emitted after a project entry
+            has been removed
+</dd>
+<dt>showMenu(string, QMenu)</dt>
+<dd>
+emitted when a menu is about to be shown.
+            The name of the menu and a reference to the menu are given.
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MultiProject.__init__">MultiProject</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__checkFilesExist">__checkFilesExist</a></td>
+<td>Private method to check, if the files in a list exist.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__extractCategories">__extractCategories</a></td>
+<td>Private slot to extract the categories used in the project definitions.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__initData">__initData</a></td>
+<td>Private method to initialize the multi project data part.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__loadRecent">__loadRecent</a></td>
+<td>Private method to load the recently opened multi project filenames.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__newMultiProject">__newMultiProject</a></td>
+<td>Private slot to build a new multi project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__openMainProject">__openMainProject</a></td>
+<td>Private slot to open the main project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__openRecent">__openRecent</a></td>
+<td>Private method to open a multi project from the list of rencently opened multi projects.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__readMultiProject">__readMultiProject</a></td>
+<td>Private method to read in a multi project (.emj) file.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__saveRecent">__saveRecent</a></td>
+<td>Private method to save the list of recently opened filenames.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__showContextMenuRecent">__showContextMenuRecent</a></td>
+<td>Private method to set up the recent multi projects menu.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__showMenu">__showMenu</a></td>
+<td>Private method to set up the multi project menu.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__showProperties">__showProperties</a></td>
+<td>Private slot to display the properties dialog.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__syncRecent">__syncRecent</a></td>
+<td>Private method to synchronize the list of recently opened multi projects with the central store.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.__writeMultiProject">__writeMultiProject</a></td>
+<td>Private method to save the multi project infos to a multi project file.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.addEricActions">addEricActions</a></td>
+<td>Public method to add actions to the list of actions.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.addNewProject">addNewProject</a></td>
+<td>Public slot used to add a new project to the multi-project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.addProject">addProject</a></td>
+<td>Public method to add a project to the multi-project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.changeProjectProperties">changeProjectProperties</a></td>
+<td>Public method to change the data of a project entry.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.checkDirty">checkDirty</a></td>
+<td>Public method to check the dirty status and open a message window.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.clearRecent">clearRecent</a></td>
+<td>Public method to clear the recent multi projects menu.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.clearRemovedProjects">clearRemovedProjects</a></td>
+<td>Public slot to clear out all projects marked as removed.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.closeMultiProject">closeMultiProject</a></td>
+<td>Public slot to close the current multi project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.copyProject">copyProject</a></td>
+<td>Public method to copy the project with given UID on disk.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.deleteProject">deleteProject</a></td>
+<td>Public slot to delete project(s) from the multi project and disk.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getActions">getActions</a></td>
+<td>Public method to get a list of all actions.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getCategories">getCategories</a></td>
+<td>Public method to get the list of defined categories.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getDependantProjectFiles">getDependantProjectFiles</a></td>
+<td>Public method to get the filenames of the dependent projects.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getMainProjectFile">getMainProjectFile</a></td>
+<td>Public method to get the filename of the main project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getMenu">getMenu</a></td>
+<td>Public method to get a reference to the main menu or a submenu.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getMostRecent">getMostRecent</a></td>
+<td>Public method to get the most recently opened multiproject.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getMultiProjectFile">getMultiProjectFile</a></td>
+<td>Public method to get the path of the multi project file.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getMultiProjectPath">getMultiProjectPath</a></td>
+<td>Public method to get the multi project path.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getProject">getProject</a></td>
+<td>Public method to get a reference to a project entry.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.getProjects">getProjects</a></td>
+<td>Public method to get all project entries.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.hasRemovedProjects">hasRemovedProjects</a></td>
+<td>Public method to check for removed projects.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.initActions">initActions</a></td>
+<td>Public slot to initialize the multi project related actions.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.initMenu">initMenu</a></td>
+<td>Public slot to initialize the multi project menu.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.initToolbar">initToolbar</a></td>
+<td>Public slot to initialize the multi project toolbar.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.isDirty">isDirty</a></td>
+<td>Public method to return the dirty state.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.isOpen">isOpen</a></td>
+<td>Public method to return the opened state.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.openMultiProject">openMultiProject</a></td>
+<td>Public slot to open a multi project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.openProject">openProject</a></td>
+<td>Public slot to open a project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.removeEricActions">removeEricActions</a></td>
+<td>Public method to remove actions from the list of actions.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.removeProject">removeProject</a></td>
+<td>Public slot to remove a project from the multi project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.saveMultiProject">saveMultiProject</a></td>
+<td>Public slot to save the current multi project.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.saveMultiProjectAs">saveMultiProjectAs</a></td>
+<td>Public slot to save the current multi project to a different file.</td>
+</tr>
+<tr>
+<td><a href="#MultiProject.setDirty">setDirty</a></td>
+<td>Public method to set the dirty state.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MultiProject.__init__" ID="MultiProject.__init__"></a>
+<h4>MultiProject (Constructor)</h4>
+<b>MultiProject</b>(<i>project, parent=None, filename=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project.Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget (usually the ui object)
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+optional filename of a multi project file to open
+</dd>
+</dl>
+<a NAME="MultiProject.__checkFilesExist" ID="MultiProject.__checkFilesExist"></a>
+<h4>MultiProject.__checkFilesExist</h4>
+<b>__checkFilesExist</b>(<i></i>)
+<p>
+        Private method to check, if the files in a list exist.
+</p>
+<p>
+        The project files are checked for existance in the
+        filesystem. Non existant projects are removed from the list and the
+        dirty state of the multi project is changed accordingly.
+</p>
+
+<a NAME="MultiProject.__extractCategories" ID="MultiProject.__extractCategories"></a>
+<h4>MultiProject.__extractCategories</h4>
+<b>__extractCategories</b>(<i></i>)
+<p>
+        Private slot to extract the categories used in the project definitions.
+</p>
+
+<a NAME="MultiProject.__initData" ID="MultiProject.__initData"></a>
+<h4>MultiProject.__initData</h4>
+<b>__initData</b>(<i></i>)
+<p>
+        Private method to initialize the multi project data part.
+</p>
+
+<a NAME="MultiProject.__loadRecent" ID="MultiProject.__loadRecent"></a>
+<h4>MultiProject.__loadRecent</h4>
+<b>__loadRecent</b>(<i></i>)
+<p>
+        Private method to load the recently opened multi project filenames.
+</p>
+
+<a NAME="MultiProject.__newMultiProject" ID="MultiProject.__newMultiProject"></a>
+<h4>MultiProject.__newMultiProject</h4>
+<b>__newMultiProject</b>(<i></i>)
+<p>
+        Private slot to build a new multi project.
+</p>
+<p>
+        This method displays the new multi project dialog and initializes
+        the multi project object with the data entered.
+</p>
+
+<a NAME="MultiProject.__openMainProject" ID="MultiProject.__openMainProject"></a>
+<h4>MultiProject.__openMainProject</h4>
+<b>__openMainProject</b>(<i>reopen=True</i>)
+<p>
+        Private slot to open the main project.
+</p>
+
+<dl>
+
+<dt><i>reopen</i> (bool)</dt>
+<dd>
+flag indicating, that the main project should be
+            reopened, if it has been opened already
+</dd>
+</dl>
+<a NAME="MultiProject.__openRecent" ID="MultiProject.__openRecent"></a>
+<h4>MultiProject.__openRecent</h4>
+<b>__openRecent</b>(<i>act</i>)
+<p>
+        Private method to open a multi project from the list of rencently
+        opened multi projects.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="MultiProject.__readMultiProject" ID="MultiProject.__readMultiProject"></a>
+<h4>MultiProject.__readMultiProject</h4>
+<b>__readMultiProject</b>(<i>fn</i>)
+<p>
+        Private method to read in a multi project (.emj) file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the multi project file to be read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MultiProject.__saveRecent" ID="MultiProject.__saveRecent"></a>
+<h4>MultiProject.__saveRecent</h4>
+<b>__saveRecent</b>(<i></i>)
+<p>
+        Private method to save the list of recently opened filenames.
+</p>
+
+<a NAME="MultiProject.__showContextMenuRecent" ID="MultiProject.__showContextMenuRecent"></a>
+<h4>MultiProject.__showContextMenuRecent</h4>
+<b>__showContextMenuRecent</b>(<i></i>)
+<p>
+        Private method to set up the recent multi projects menu.
+</p>
+
+<a NAME="MultiProject.__showMenu" ID="MultiProject.__showMenu"></a>
+<h4>MultiProject.__showMenu</h4>
+<b>__showMenu</b>(<i></i>)
+<p>
+        Private method to set up the multi project menu.
+</p>
+
+<a NAME="MultiProject.__showProperties" ID="MultiProject.__showProperties"></a>
+<h4>MultiProject.__showProperties</h4>
+<b>__showProperties</b>(<i></i>)
+<p>
+        Private slot to display the properties dialog.
+</p>
+
+<a NAME="MultiProject.__syncRecent" ID="MultiProject.__syncRecent"></a>
+<h4>MultiProject.__syncRecent</h4>
+<b>__syncRecent</b>(<i></i>)
+<p>
+        Private method to synchronize the list of recently opened multi
+        projects with the central store.
+</p>
+
+<a NAME="MultiProject.__writeMultiProject" ID="MultiProject.__writeMultiProject"></a>
+<h4>MultiProject.__writeMultiProject</h4>
+<b>__writeMultiProject</b>(<i>fn=None</i>)
+<p>
+        Private method to save the multi project infos to a multi project file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+optional filename of the multi project file to be written.
+            If fn is None, the filename stored in the multi project object
+            is used. This is the 'save' action. If fn is given, this filename
+            is used instead of the one in the multi project object. This is the
+            'save as' action.
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MultiProject.addEricActions" ID="MultiProject.addEricActions"></a>
+<h4>MultiProject.addEricActions</h4>
+<b>addEricActions</b>(<i>actions</i>)
+<p>
+        Public method to add actions to the list of actions.
+</p>
+
+<dl>
+
+<dt><i>actions</i> (list of EricAction)</dt>
+<dd>
+list of actions
+</dd>
+</dl>
+<a NAME="MultiProject.addNewProject" ID="MultiProject.addNewProject"></a>
+<h4>MultiProject.addNewProject</h4>
+<b>addNewProject</b>(<i>startdir="", category=""</i>)
+<p>
+        Public slot used to add a new project to the multi-project.
+</p>
+
+<dl>
+
+<dt><i>startdir</i> (str)</dt>
+<dd>
+start directory for the selection dialog
+</dd>
+<dt><i>category</i> (str)</dt>
+<dd>
+category to be preset
+</dd>
+</dl>
+<a NAME="MultiProject.addProject" ID="MultiProject.addProject"></a>
+<h4>MultiProject.addProject</h4>
+<b>addProject</b>(<i>project</i>)
+<p>
+        Public method to add a project to the multi-project.
+</p>
+
+<dl>
+
+<dt><i>project</i> (MultiProjectProjectMeta)</dt>
+<dd>
+dictionary containing the project data to be added
+</dd>
+</dl>
+<a NAME="MultiProject.changeProjectProperties" ID="MultiProject.changeProjectProperties"></a>
+<h4>MultiProject.changeProjectProperties</h4>
+<b>changeProjectProperties</b>(<i>pro</i>)
+<p>
+        Public method to change the data of a project entry.
+</p>
+
+<dl>
+
+<dt><i>pro</i> (str)</dt>
+<dd>
+dictionary with the project data
+</dd>
+</dl>
+<a NAME="MultiProject.checkDirty" ID="MultiProject.checkDirty"></a>
+<h4>MultiProject.checkDirty</h4>
+<b>checkDirty</b>(<i></i>)
+<p>
+        Public method to check the dirty status and open a message window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether this operation was successful
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MultiProject.clearRecent" ID="MultiProject.clearRecent"></a>
+<h4>MultiProject.clearRecent</h4>
+<b>clearRecent</b>(<i></i>)
+<p>
+        Public method to clear the recent multi projects menu.
+</p>
+
+<a NAME="MultiProject.clearRemovedProjects" ID="MultiProject.clearRemovedProjects"></a>
+<h4>MultiProject.clearRemovedProjects</h4>
+<b>clearRemovedProjects</b>(<i></i>)
+<p>
+        Public slot to clear out all projects marked as removed.
+</p>
+
+<a NAME="MultiProject.closeMultiProject" ID="MultiProject.closeMultiProject"></a>
+<h4>MultiProject.closeMultiProject</h4>
+<b>closeMultiProject</b>(<i></i>)
+<p>
+        Public slot to close the current multi project.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MultiProject.copyProject" ID="MultiProject.copyProject"></a>
+<h4>MultiProject.copyProject</h4>
+<b>copyProject</b>(<i>uid</i>)
+<p>
+        Public method to copy the project with given UID on disk.
+</p>
+
+<dl>
+
+<dt><i>uid</i> (str)</dt>
+<dd>
+UID of the project to copy
+</dd>
+</dl>
+<a NAME="MultiProject.deleteProject" ID="MultiProject.deleteProject"></a>
+<h4>MultiProject.deleteProject</h4>
+<b>deleteProject</b>(<i>uid</i>)
+<p>
+        Public slot to delete project(s) from the multi project and disk.
+</p>
+
+<dl>
+
+<dt><i>uid</i> (str)</dt>
+<dd>
+UID of the project to be removed from the multi
+            project
+</dd>
+</dl>
+<a NAME="MultiProject.getActions" ID="MultiProject.getActions"></a>
+<h4>MultiProject.getActions</h4>
+<b>getActions</b>(<i></i>)
+<p>
+        Public method to get a list of all actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of EricAction
+</dd>
+</dl>
+<a NAME="MultiProject.getCategories" ID="MultiProject.getCategories"></a>
+<h4>MultiProject.getCategories</h4>
+<b>getCategories</b>(<i></i>)
+<p>
+        Public method to get the list of defined categories.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of categories
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="MultiProject.getDependantProjectFiles" ID="MultiProject.getDependantProjectFiles"></a>
+<h4>MultiProject.getDependantProjectFiles</h4>
+<b>getDependantProjectFiles</b>(<i></i>)
+<p>
+        Public method to get the filenames of the dependent projects.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+names of the dependent project files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="MultiProject.getMainProjectFile" ID="MultiProject.getMainProjectFile"></a>
+<h4>MultiProject.getMainProjectFile</h4>
+<b>getMainProjectFile</b>(<i></i>)
+<p>
+        Public method to get the filename of the main project.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the main project file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MultiProject.getMenu" ID="MultiProject.getMenu"></a>
+<h4>MultiProject.getMenu</h4>
+<b>getMenu</b>(<i>menuName</i>)
+<p>
+        Public method to get a reference to the main menu or a submenu.
+</p>
+
+<dl>
+
+<dt><i>menuName</i> (str)</dt>
+<dd>
+name of the menu
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the requested menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu or None
+</dd>
+</dl>
+<a NAME="MultiProject.getMostRecent" ID="MultiProject.getMostRecent"></a>
+<h4>MultiProject.getMostRecent</h4>
+<b>getMostRecent</b>(<i></i>)
+<p>
+        Public method to get the most recently opened multiproject.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the most recently opened multiproject
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MultiProject.getMultiProjectFile" ID="MultiProject.getMultiProjectFile"></a>
+<h4>MultiProject.getMultiProjectFile</h4>
+<b>getMultiProjectFile</b>(<i></i>)
+<p>
+        Public method to get the path of the multi project file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the multi project file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MultiProject.getMultiProjectPath" ID="MultiProject.getMultiProjectPath"></a>
+<h4>MultiProject.getMultiProjectPath</h4>
+<b>getMultiProjectPath</b>(<i></i>)
+<p>
+        Public method to get the multi project path.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+multi project path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MultiProject.getProject" ID="MultiProject.getProject"></a>
+<h4>MultiProject.getProject</h4>
+<b>getProject</b>(<i>uid</i>)
+<p>
+        Public method to get a reference to a project entry.
+</p>
+
+<dl>
+
+<dt><i>uid</i> (str)</dt>
+<dd>
+UID of the project to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+project metadata
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+MultiProjectProjectMeta
+</dd>
+</dl>
+<a NAME="MultiProject.getProjects" ID="MultiProject.getProjects"></a>
+<h4>MultiProject.getProjects</h4>
+<b>getProjects</b>(<i></i>)
+<p>
+        Public method to get all project entries.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all project entries
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of MultiProjectProjectMeta
+</dd>
+</dl>
+<a NAME="MultiProject.hasRemovedProjects" ID="MultiProject.hasRemovedProjects"></a>
+<h4>MultiProject.hasRemovedProjects</h4>
+<b>hasRemovedProjects</b>(<i></i>)
+<p>
+        Public method to check for removed projects.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of a removed project
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MultiProject.initActions" ID="MultiProject.initActions"></a>
+<h4>MultiProject.initActions</h4>
+<b>initActions</b>(<i></i>)
+<p>
+        Public slot to initialize the multi project related actions.
+</p>
+
+<a NAME="MultiProject.initMenu" ID="MultiProject.initMenu"></a>
+<h4>MultiProject.initMenu</h4>
+<b>initMenu</b>(<i></i>)
+<p>
+        Public slot to initialize the multi project menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the menu generated
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="MultiProject.initToolbar" ID="MultiProject.initToolbar"></a>
+<h4>MultiProject.initToolbar</h4>
+<b>initToolbar</b>(<i>toolbarManager</i>)
+<p>
+        Public slot to initialize the multi project toolbar.
+</p>
+
+<dl>
+
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the toolbar generated
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="MultiProject.isDirty" ID="MultiProject.isDirty"></a>
+<h4>MultiProject.isDirty</h4>
+<b>isDirty</b>(<i></i>)
+<p>
+        Public method to return the dirty state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dirty state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MultiProject.isOpen" ID="MultiProject.isOpen"></a>
+<h4>MultiProject.isOpen</h4>
+<b>isOpen</b>(<i></i>)
+<p>
+        Public method to return the opened state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+open state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MultiProject.openMultiProject" ID="MultiProject.openMultiProject"></a>
+<h4>MultiProject.openMultiProject</h4>
+<b>openMultiProject</b>(<i>fn=None, openMain=True</i>)
+<p>
+        Public slot to open a multi project.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+optional filename of the multi project file to be
+            read
+</dd>
+<dt><i>openMain</i> (bool)</dt>
+<dd>
+flag indicating, that the main project
+            should be opened depending on the configuration
+</dd>
+</dl>
+<a NAME="MultiProject.openProject" ID="MultiProject.openProject"></a>
+<h4>MultiProject.openProject</h4>
+<b>openProject</b>(<i>filename</i>)
+<p>
+        Public slot to open a project.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+filename of the project file
+</dd>
+</dl>
+<a NAME="MultiProject.removeEricActions" ID="MultiProject.removeEricActions"></a>
+<h4>MultiProject.removeEricActions</h4>
+<b>removeEricActions</b>(<i>actions</i>)
+<p>
+        Public method to remove actions from the list of actions.
+</p>
+
+<dl>
+
+<dt><i>actions</i> (list of EricAction)</dt>
+<dd>
+list of actions
+</dd>
+</dl>
+<a NAME="MultiProject.removeProject" ID="MultiProject.removeProject"></a>
+<h4>MultiProject.removeProject</h4>
+<b>removeProject</b>(<i>uid</i>)
+<p>
+        Public slot to remove a project from the multi project.
+</p>
+
+<dl>
+
+<dt><i>uid</i> (str)</dt>
+<dd>
+UID of the project to be removed from the multi
+            project
+</dd>
+</dl>
+<a NAME="MultiProject.saveMultiProject" ID="MultiProject.saveMultiProject"></a>
+<h4>MultiProject.saveMultiProject</h4>
+<b>saveMultiProject</b>(<i></i>)
+<p>
+        Public slot to save the current multi project.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MultiProject.saveMultiProjectAs" ID="MultiProject.saveMultiProjectAs"></a>
+<h4>MultiProject.saveMultiProjectAs</h4>
+<b>saveMultiProjectAs</b>(<i></i>)
+<p>
+        Public slot to save the current multi project to a different file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MultiProject.setDirty" ID="MultiProject.setDirty"></a>
+<h4>MultiProject.setDirty</h4>
+<b>setDirty</b>(<i>b</i>)
+<p>
+        Public method to set the dirty state.
+</p>
+<p>
+        It emits the signal dirty(int).
+</p>
+
+<dl>
+
+<dt><i>b</i> (bool)</dt>
+<dd>
+dirty state
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

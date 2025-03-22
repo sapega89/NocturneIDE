@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.SafeBrowsing.SafeBrowsingManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.SafeBrowsing.SafeBrowsingManager</h1>
+<p>
+Module implementing the interface for Google Safe Browsing.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingManager">SafeBrowsingManager</a></td>
+<td>Class implementing the interface for Google Safe Browsing.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SafeBrowsingManager" ID="SafeBrowsingManager"></a>
+<h2>SafeBrowsingManager</h2>
+<p>
+    Class implementing the interface for Google Safe Browsing.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>progress(current)</dt>
+<dd>
+emitted to signal the current progress
+</dd>
+<dt>progressMessage(message,maximum)</dt>
+<dd>
+emitted to give a message for the
+        action about to be performed and the maximum value
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>enabled</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingManager.getIgnoreSchemes">getIgnoreSchemes</a></td>
+<td>Class method to get the schemes not to be checked.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.isEnabled">isEnabled</a></td>
+<td>Class method to check, if safe browsing is enabled.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingManager.__init__">SafeBrowsingManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.__lookupHashes">__lookupHashes</a></td>
+<td>Private method to lookup the given hashes.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.__setAutoUpdateThreatLists">__setAutoUpdateThreatLists</a></td>
+<td>Private method to set auto update for the threat lists.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.__setLookupMethod">__setLookupMethod</a></td>
+<td>Private method to set the lookup method (Update API or Lookup API).</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.__setPlatforms">__setPlatforms</a></td>
+<td>Private method to set the platforms to be checked against.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.__showNotificationMessage">__showNotificationMessage</a></td>
+<td>Private method to show some message in a notification widget.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.__syncFullHashes">__syncFullHashes</a></td>
+<td>Private method to download full hashes matching given prefixes.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.__threatListsUpdateTimerTimeout">__threatListsUpdateTimerTimeout</a></td>
+<td>Private slot to perform the auto update of the threat lists.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.__verifyThreatListChecksum">__verifyThreatListChecksum</a></td>
+<td>Private method to verify the local checksum of a threat list with the checksum of the safe browsing server.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.close">close</a></td>
+<td>Public method to close the safe browsing interface.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.configurationChanged">configurationChanged</a></td>
+<td>Public method to handle changes of the settings.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.fairUseDelayExpired">fairUseDelayExpired</a></td>
+<td>Public method to check, if the fair use wait period has expired.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.fullCacheCleanup">fullCacheCleanup</a></td>
+<td>Public method to clean up the cache completely.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.getPlatformString">getPlatformString</a></td>
+<td>Public method to get the platform string for a given platform type.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.getThreatEntryString">getThreatEntryString</a></td>
+<td>Public method to get the threat entry string.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.getThreatMessage">getThreatMessage</a></td>
+<td>Public method to get a warning message for the given threat type.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.getThreatMessages">getThreatMessages</a></td>
+<td>Public method to get threat messages for the given threats.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.getThreatType">getThreatType</a></td>
+<td>Public method to get a display string for a given threat type.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.isUpdatingThreatLists">isUpdatingThreatLists</a></td>
+<td>Public method to check, if we are in the process of updating the threat lists.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.lookupUrl">lookupUrl</a></td>
+<td>Public method to lookup an URL.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.showSafeBrowsingDialog">showSafeBrowsingDialog</a></td>
+<td>Public slot to show the safe browsing management dialog.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingManager.updateHashPrefixCache">updateHashPrefixCache</a></td>
+<td>Public method to load or update the locally cached threat lists.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SafeBrowsingManager.getIgnoreSchemes" ID="SafeBrowsingManager.getIgnoreSchemes"></a>
+<h4>SafeBrowsingManager.getIgnoreSchemes (class method)</h4>
+<b>getIgnoreSchemes</b>(<i></i>)
+<p>
+        Class method to get the schemes not to be checked.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of schemes to be ignored
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.isEnabled" ID="SafeBrowsingManager.isEnabled"></a>
+<h4>SafeBrowsingManager.isEnabled (class method)</h4>
+<b>isEnabled</b>(<i></i>)
+<p>
+        Class method to check, if safe browsing is enabled.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the enabled state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.__init__" ID="SafeBrowsingManager.__init__"></a>
+<h4>SafeBrowsingManager (Constructor)</h4>
+<b>SafeBrowsingManager</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="SafeBrowsingManager.__lookupHashes" ID="SafeBrowsingManager.__lookupHashes"></a>
+<h4>SafeBrowsingManager.__lookupHashes</h4>
+<b>__lookupHashes</b>(<i>fullHashes</i>)
+<p>
+        Private method to lookup the given hashes.
+</p>
+
+<dl>
+
+<dt><i>fullHashes</i> (list of bytes)</dt>
+<dd>
+list of hashes to lookup
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+names of threat lists hashes were found in
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of ThreatList
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.__setAutoUpdateThreatLists" ID="SafeBrowsingManager.__setAutoUpdateThreatLists"></a>
+<h4>SafeBrowsingManager.__setAutoUpdateThreatLists</h4>
+<b>__setAutoUpdateThreatLists</b>(<i></i>)
+<p>
+        Private method to set auto update for the threat lists.
+</p>
+
+<a NAME="SafeBrowsingManager.__setLookupMethod" ID="SafeBrowsingManager.__setLookupMethod"></a>
+<h4>SafeBrowsingManager.__setLookupMethod</h4>
+<b>__setLookupMethod</b>(<i></i>)
+<p>
+        Private method to set the lookup method (Update API or Lookup API).
+</p>
+
+<a NAME="SafeBrowsingManager.__setPlatforms" ID="SafeBrowsingManager.__setPlatforms"></a>
+<h4>SafeBrowsingManager.__setPlatforms</h4>
+<b>__setPlatforms</b>(<i></i>)
+<p>
+        Private method to set the platforms to be checked against.
+</p>
+
+<a NAME="SafeBrowsingManager.__showNotificationMessage" ID="SafeBrowsingManager.__showNotificationMessage"></a>
+<h4>SafeBrowsingManager.__showNotificationMessage</h4>
+<b>__showNotificationMessage</b>(<i>message, timeout=5</i>)
+<p>
+        Private method to show some message in a notification widget.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be shown
+</dd>
+<dt><i>timeout</i> (int)</dt>
+<dd>
+amount of time in seconds the message should be shown
+            (0 = indefinitely)
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.__syncFullHashes" ID="SafeBrowsingManager.__syncFullHashes"></a>
+<h4>SafeBrowsingManager.__syncFullHashes</h4>
+<b>__syncFullHashes</b>(<i>hashPrefixes</i>)
+<p>
+        Private method to download full hashes matching given prefixes.
+</p>
+<p>
+        This also updates the cache expiration timestamps.
+</p>
+
+<dl>
+
+<dt><i>hashPrefixes</i> (list of bytes)</dt>
+<dd>
+list of hash prefixes to get full hashes for
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.__threatListsUpdateTimerTimeout" ID="SafeBrowsingManager.__threatListsUpdateTimerTimeout"></a>
+<h4>SafeBrowsingManager.__threatListsUpdateTimerTimeout</h4>
+<b>__threatListsUpdateTimerTimeout</b>(<i></i>)
+<p>
+        Private slot to perform the auto update of the threat lists.
+</p>
+
+<a NAME="SafeBrowsingManager.__verifyThreatListChecksum" ID="SafeBrowsingManager.__verifyThreatListChecksum"></a>
+<h4>SafeBrowsingManager.__verifyThreatListChecksum</h4>
+<b>__verifyThreatListChecksum</b>(<i>threatList, remoteChecksum</i>)
+<p>
+        Private method to verify the local checksum of a threat list with the
+        checksum of the safe browsing server.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list to calculate checksum for
+</dd>
+<dt><i>remoteChecksum</i> (bytes)</dt>
+<dd>
+SHA256 checksum as reported by the Google server
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating equality
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.close" ID="SafeBrowsingManager.close"></a>
+<h4>SafeBrowsingManager.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public method to close the safe browsing interface.
+</p>
+
+<a NAME="SafeBrowsingManager.configurationChanged" ID="SafeBrowsingManager.configurationChanged"></a>
+<h4>SafeBrowsingManager.configurationChanged</h4>
+<b>configurationChanged</b>(<i></i>)
+<p>
+        Public method to handle changes of the settings.
+</p>
+
+<a NAME="SafeBrowsingManager.fairUseDelayExpired" ID="SafeBrowsingManager.fairUseDelayExpired"></a>
+<h4>SafeBrowsingManager.fairUseDelayExpired</h4>
+<b>fairUseDelayExpired</b>(<i></i>)
+<p>
+        Public method to check, if the fair use wait period has expired.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating expiration
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.fullCacheCleanup" ID="SafeBrowsingManager.fullCacheCleanup"></a>
+<h4>SafeBrowsingManager.fullCacheCleanup</h4>
+<b>fullCacheCleanup</b>(<i></i>)
+<p>
+        Public method to clean up the cache completely.
+</p>
+
+<a NAME="SafeBrowsingManager.getPlatformString" ID="SafeBrowsingManager.getPlatformString"></a>
+<h4>SafeBrowsingManager.getPlatformString</h4>
+<b>getPlatformString</b>(<i>platformType</i>)
+<p>
+        Public method to get the platform string for a given platform type.
+</p>
+
+<dl>
+
+<dt><i>platformType</i> (str)</dt>
+<dd>
+platform type as defined in the v4 API
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+platform string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.getThreatEntryString" ID="SafeBrowsingManager.getThreatEntryString"></a>
+<h4>SafeBrowsingManager.getThreatEntryString</h4>
+<b>getThreatEntryString</b>(<i>threatEntry</i>)
+<p>
+        Public method to get the threat entry string.
+</p>
+
+<dl>
+
+<dt><i>threatEntry</i> (str)</dt>
+<dd>
+threat entry type as defined in the v4 API
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+threat entry string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.getThreatMessage" ID="SafeBrowsingManager.getThreatMessage"></a>
+<h4>SafeBrowsingManager.getThreatMessage</h4>
+<b>getThreatMessage</b>(<i>threatType</i>)
+<p>
+        Public method to get a warning message for the given threat type.
+</p>
+
+<dl>
+
+<dt><i>threatType</i> (str)</dt>
+<dd>
+threat type to get the message for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+threat message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.getThreatMessages" ID="SafeBrowsingManager.getThreatMessages"></a>
+<h4>SafeBrowsingManager.getThreatMessages</h4>
+<b>getThreatMessages</b>(<i>threatLists</i>)
+<p>
+        Public method to get threat messages for the given threats.
+</p>
+
+<dl>
+
+<dt><i>threatLists</i> (list of ThreatList)</dt>
+<dd>
+list of threat lists to get a message for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of threat messages, one per unique threat type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.getThreatType" ID="SafeBrowsingManager.getThreatType"></a>
+<h4>SafeBrowsingManager.getThreatType</h4>
+<b>getThreatType</b>(<i>threatList</i>)
+<p>
+        Public method to get a display string for a given threat type.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (str)</dt>
+<dd>
+threat list to get display string for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+display string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.isUpdatingThreatLists" ID="SafeBrowsingManager.isUpdatingThreatLists"></a>
+<h4>SafeBrowsingManager.isUpdatingThreatLists</h4>
+<b>isUpdatingThreatLists</b>(<i></i>)
+<p>
+        Public method to check, if we are in the process of updating the
+        threat lists.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an update process is active
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.lookupUrl" ID="SafeBrowsingManager.lookupUrl"></a>
+<h4>SafeBrowsingManager.lookupUrl</h4>
+<b>lookupUrl</b>(<i>url</i>)
+<p>
+        Public method to lookup an URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str or QUrl)</dt>
+<dd>
+URL to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the list of threat lists the URL was found in
+            and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of ThreatList, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised for an invalid URL
+</dd>
+</dl>
+<a NAME="SafeBrowsingManager.showSafeBrowsingDialog" ID="SafeBrowsingManager.showSafeBrowsingDialog"></a>
+<h4>SafeBrowsingManager.showSafeBrowsingDialog</h4>
+<b>showSafeBrowsingDialog</b>(<i></i>)
+<p>
+        Public slot to show the safe browsing management dialog.
+</p>
+
+<a NAME="SafeBrowsingManager.updateHashPrefixCache" ID="SafeBrowsingManager.updateHashPrefixCache"></a>
+<h4>SafeBrowsingManager.updateHashPrefixCache</h4>
+<b>updateHashPrefixCache</b>(<i></i>)
+<p>
+        Public method to load or update the locally cached threat lists.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

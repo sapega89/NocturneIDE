@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.GitRevisionsSelectionDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.GitRevisionsSelectionDialog</h1>
+<p>
+Module implementing a dialog to enter the revisions for the git diff command.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog">GitRevisionsSelectionDialog</a></td>
+<td>Class implementing a dialog to enter the revisions for the git diff command.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitRevisionsSelectionDialog" ID="GitRevisionsSelectionDialog"></a>
+<h2>GitRevisionsSelectionDialog</h2>
+<p>
+    Class implementing a dialog to enter the revisions for the git diff
+    command.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_GitRevisionsSelectionDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.__init__">GitRevisionsSelectionDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.__getRevision">__getRevision</a></td>
+<td>Private method to generate the revision.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.__updateOK">__updateOK</a></td>
+<td>Private slot to update the OK button.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.getRevisions">getRevisions</a></td>
+<td>Public method to get the revisions.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_branch1Button_toggled">on_branch1Button_toggled</a></td>
+<td>Private slot to handle changes of the Branch1 select button.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_branch1Combo_editTextChanged">on_branch1Combo_editTextChanged</a></td>
+<td>Private slot to handle changes of the Branch1 combo.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_branch2Button_toggled">on_branch2Button_toggled</a></td>
+<td>Private slot to handle changes of the Branch2 select button.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_branch2Combo_editTextChanged">on_branch2Combo_editTextChanged</a></td>
+<td>Private slot to handle changes of the Branch2 combo.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_rev1Button_toggled">on_rev1Button_toggled</a></td>
+<td>Private slot to handle changes of the rev1 select button.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_rev1Edit_textChanged">on_rev1Edit_textChanged</a></td>
+<td>Private slot to handle changes of the rev1 edit.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_rev2Button_toggled">on_rev2Button_toggled</a></td>
+<td>Private slot to handle changes of the rev2 select button.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_rev2Edit_textChanged">on_rev2Edit_textChanged</a></td>
+<td>Private slot to handle changes of the rev2 edit.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_tag1Button_toggled">on_tag1Button_toggled</a></td>
+<td>Private slot to handle changes of the Tag1 select button.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_tag1Combo_editTextChanged">on_tag1Combo_editTextChanged</a></td>
+<td>Private slot to handle changes of the Tag1 combo.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_tag2Button_toggled">on_tag2Button_toggled</a></td>
+<td>Private slot to handle changes of the Tag2 select button.</td>
+</tr>
+<tr>
+<td><a href="#GitRevisionsSelectionDialog.on_tag2Combo_editTextChanged">on_tag2Combo_editTextChanged</a></td>
+<td>Private slot to handle changes of the Tag2 combo.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitRevisionsSelectionDialog.__init__" ID="GitRevisionsSelectionDialog.__init__"></a>
+<h4>GitRevisionsSelectionDialog (Constructor)</h4>
+<b>GitRevisionsSelectionDialog</b>(<i>tagsList, branchesList, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>tagsList</i> (list of str)</dt>
+<dd>
+list of tags
+</dd>
+<dt><i>branchesList</i> (list of str)</dt>
+<dd>
+list of branches
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of the dialog
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.__getRevision" ID="GitRevisionsSelectionDialog.__getRevision"></a>
+<h4>GitRevisionsSelectionDialog.__getRevision</h4>
+<b>__getRevision</b>(<i>no</i>)
+<p>
+        Private method to generate the revision.
+</p>
+
+<dl>
+
+<dt><i>no</i> (int)</dt>
+<dd>
+revision number to generate (1 or 2)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+revision
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.__updateOK" ID="GitRevisionsSelectionDialog.__updateOK"></a>
+<h4>GitRevisionsSelectionDialog.__updateOK</h4>
+<b>__updateOK</b>(<i></i>)
+<p>
+        Private slot to update the OK button.
+</p>
+
+<a NAME="GitRevisionsSelectionDialog.getRevisions" ID="GitRevisionsSelectionDialog.getRevisions"></a>
+<h4>GitRevisionsSelectionDialog.getRevisions</h4>
+<b>getRevisions</b>(<i></i>)
+<p>
+        Public method to get the revisions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of two revisions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_branch1Button_toggled" ID="GitRevisionsSelectionDialog.on_branch1Button_toggled"></a>
+<h4>GitRevisionsSelectionDialog.on_branch1Button_toggled</h4>
+<b>on_branch1Button_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot to handle changes of the Branch1 select button.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the button (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_branch1Combo_editTextChanged" ID="GitRevisionsSelectionDialog.on_branch1Combo_editTextChanged"></a>
+<h4>GitRevisionsSelectionDialog.on_branch1Combo_editTextChanged</h4>
+<b>on_branch1Combo_editTextChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle changes of the Branch1 combo.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the combo (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_branch2Button_toggled" ID="GitRevisionsSelectionDialog.on_branch2Button_toggled"></a>
+<h4>GitRevisionsSelectionDialog.on_branch2Button_toggled</h4>
+<b>on_branch2Button_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot to handle changes of the Branch2 select button.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the button (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_branch2Combo_editTextChanged" ID="GitRevisionsSelectionDialog.on_branch2Combo_editTextChanged"></a>
+<h4>GitRevisionsSelectionDialog.on_branch2Combo_editTextChanged</h4>
+<b>on_branch2Combo_editTextChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle changes of the Branch2 combo.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the combo (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_rev1Button_toggled" ID="GitRevisionsSelectionDialog.on_rev1Button_toggled"></a>
+<h4>GitRevisionsSelectionDialog.on_rev1Button_toggled</h4>
+<b>on_rev1Button_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot to handle changes of the rev1 select button.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the button (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_rev1Edit_textChanged" ID="GitRevisionsSelectionDialog.on_rev1Edit_textChanged"></a>
+<h4>GitRevisionsSelectionDialog.on_rev1Edit_textChanged</h4>
+<b>on_rev1Edit_textChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle changes of the rev1 edit.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the edit (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_rev2Button_toggled" ID="GitRevisionsSelectionDialog.on_rev2Button_toggled"></a>
+<h4>GitRevisionsSelectionDialog.on_rev2Button_toggled</h4>
+<b>on_rev2Button_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot to handle changes of the rev2 select button.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the button (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_rev2Edit_textChanged" ID="GitRevisionsSelectionDialog.on_rev2Edit_textChanged"></a>
+<h4>GitRevisionsSelectionDialog.on_rev2Edit_textChanged</h4>
+<b>on_rev2Edit_textChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle changes of the rev2 edit.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the edit (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_tag1Button_toggled" ID="GitRevisionsSelectionDialog.on_tag1Button_toggled"></a>
+<h4>GitRevisionsSelectionDialog.on_tag1Button_toggled</h4>
+<b>on_tag1Button_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot to handle changes of the Tag1 select button.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the button (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_tag1Combo_editTextChanged" ID="GitRevisionsSelectionDialog.on_tag1Combo_editTextChanged"></a>
+<h4>GitRevisionsSelectionDialog.on_tag1Combo_editTextChanged</h4>
+<b>on_tag1Combo_editTextChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle changes of the Tag1 combo.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the combo (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_tag2Button_toggled" ID="GitRevisionsSelectionDialog.on_tag2Button_toggled"></a>
+<h4>GitRevisionsSelectionDialog.on_tag2Button_toggled</h4>
+<b>on_tag2Button_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot to handle changes of the Tag2 select button.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the button (unused)
+</dd>
+</dl>
+<a NAME="GitRevisionsSelectionDialog.on_tag2Combo_editTextChanged" ID="GitRevisionsSelectionDialog.on_tag2Combo_editTextChanged"></a>
+<h4>GitRevisionsSelectionDialog.on_tag2Combo_editTextChanged</h4>
+<b>on_tag2Combo_editTextChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle changes of the Tag2 combo.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the combo (unused)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Graphics.UMLItem</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Graphics.UMLItem</h1>
+<p>
+Module implementing the UMLItem base class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#UMLItem">UMLItem</a></td>
+<td>Class implementing the UMLItem base class.</td>
+</tr>
+<tr>
+<td><a href="#UMLModel">UMLModel</a></td>
+<td>Class implementing the UMLModel base class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="UMLItem" ID="UMLItem"></a>
+<h2>UMLItem</h2>
+<p>
+    Class implementing the UMLItem base class.
+</p>
+
+<h3>Derived from</h3>
+QGraphicsRectItem
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ItemType</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#UMLItem.fromDict">fromDict</a></td>
+<td>Class method to create a generic UML item from persisted data.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#UMLItem.__init__">UMLItem</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.addAssociation">addAssociation</a></td>
+<td>Public method to add an association to this widget.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.adjustAssociations">adjustAssociations</a></td>
+<td>Public method to adjust the associations to widget movements.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.getId">getId</a></td>
+<td>Public method to get the item ID.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.getItemType">getItemType</a></td>
+<td>Public method to get the item's type.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.getName">getName</a></td>
+<td>Public method to retrieve the item name.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.itemChange">itemChange</a></td>
+<td>Public method called when an items state changes.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.moveBy">moveBy</a></td>
+<td>Public overriden method to move the widget relative.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.paint">paint</a></td>
+<td>Public method to paint the item in local coordinates.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.parseItemDataString">parseItemDataString</a></td>
+<td>Public method to parse the given persistence data.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.removeAssociation">removeAssociation</a></td>
+<td>Public method to remove an association to this widget.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.removeAssociations">removeAssociations</a></td>
+<td>Public method to remove all associations of this widget.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.setId">setId</a></td>
+<td>Public method to assign an ID to the item.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.setPos">setPos</a></td>
+<td>Public overriden method to set the items position.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.setSize">setSize</a></td>
+<td>Public method to set the rectangles size.</td>
+</tr>
+<tr>
+<td><a href="#UMLItem.toDict">toDict</a></td>
+<td>Public method to collect data to be persisted.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="UMLItem.fromDict" ID="UMLItem.fromDict"></a>
+<h4>UMLItem.fromDict (class method)</h4>
+<b>fromDict</b>(<i>data, colors=None</i>)
+<p>
+        Class method to create a generic UML item from persisted data.
+</p>
+
+<dl>
+
+<dt><i>data</i> (dict)</dt>
+<dd>
+dictionary containing the persisted data as generated
+            by toDict()
+</dd>
+<dt><i>colors</i> (tuple of (QColor, QColor))</dt>
+<dd>
+tuple containing the foreground and background colors
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+created UML item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+UMLItem
+</dd>
+</dl>
+<a NAME="UMLItem.__init__" ID="UMLItem.__init__"></a>
+<h4>UMLItem (Constructor)</h4>
+<b>UMLItem</b>(<i>model=None, x=0, y=0, rounded=False, colors=None, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>model</i> (UMLModel)</dt>
+<dd>
+UML model containing the item data
+</dd>
+<dt><i>x</i> (int)</dt>
+<dd>
+x-coordinate
+</dd>
+<dt><i>y</i> (int)</dt>
+<dd>
+y-coordinate
+</dd>
+<dt><i>rounded</i> (bool)</dt>
+<dd>
+flag indicating a rounded corner
+</dd>
+<dt><i>colors</i> (tuple of (QColor, QColor))</dt>
+<dd>
+tuple containing the foreground and background colors
+</dd>
+<dt><i>parent</i> (QGraphicsItem)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="UMLItem.addAssociation" ID="UMLItem.addAssociation"></a>
+<h4>UMLItem.addAssociation</h4>
+<b>addAssociation</b>(<i>assoc</i>)
+<p>
+        Public method to add an association to this widget.
+</p>
+
+<dl>
+
+<dt><i>assoc</i> (AssociationWidget)</dt>
+<dd>
+association to be added
+</dd>
+</dl>
+<a NAME="UMLItem.adjustAssociations" ID="UMLItem.adjustAssociations"></a>
+<h4>UMLItem.adjustAssociations</h4>
+<b>adjustAssociations</b>(<i></i>)
+<p>
+        Public method to adjust the associations to widget movements.
+</p>
+
+<a NAME="UMLItem.getId" ID="UMLItem.getId"></a>
+<h4>UMLItem.getId</h4>
+<b>getId</b>(<i></i>)
+<p>
+        Public method to get the item ID.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+ID of the item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="UMLItem.getItemType" ID="UMLItem.getItemType"></a>
+<h4>UMLItem.getItemType</h4>
+<b>getItemType</b>(<i></i>)
+<p>
+        Public method to get the item's type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+item type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UMLItem.getName" ID="UMLItem.getName"></a>
+<h4>UMLItem.getName</h4>
+<b>getName</b>(<i></i>)
+<p>
+        Public method to retrieve the item name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+item name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UMLItem.itemChange" ID="UMLItem.itemChange"></a>
+<h4>UMLItem.itemChange</h4>
+<b>itemChange</b>(<i>change, value</i>)
+<p>
+        Public method called when an items state changes.
+</p>
+
+<dl>
+
+<dt><i>change</i> (QGraphicsItem.GraphicsItemChange)</dt>
+<dd>
+the item's change
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value of the change
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+adjusted values
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="UMLItem.moveBy" ID="UMLItem.moveBy"></a>
+<h4>UMLItem.moveBy</h4>
+<b>moveBy</b>(<i>dx, dy</i>)
+<p>
+        Public overriden method to move the widget relative.
+</p>
+
+<dl>
+
+<dt><i>dx</i> (float)</dt>
+<dd>
+relative movement in x-direction
+</dd>
+<dt><i>dy</i> (float)</dt>
+<dd>
+relative movement in y-direction
+</dd>
+</dl>
+<a NAME="UMLItem.paint" ID="UMLItem.paint"></a>
+<h4>UMLItem.paint</h4>
+<b>paint</b>(<i>painter, option, _widget=None</i>)
+<p>
+        Public method to paint the item in local coordinates.
+</p>
+
+<dl>
+
+<dt><i>painter</i> (QPainter)</dt>
+<dd>
+reference to the painter object
+</dd>
+<dt><i>option</i> (QStyleOptionGraphicsItem)</dt>
+<dd>
+style options
+</dd>
+<dt><i>_widget</i> (QWidget)</dt>
+<dd>
+optional reference to the widget painted on (unused)
+</dd>
+</dl>
+<a NAME="UMLItem.parseItemDataString" ID="UMLItem.parseItemDataString"></a>
+<h4>UMLItem.parseItemDataString</h4>
+<b>parseItemDataString</b>(<i>_version, _data</i>)
+<p>
+        Public method to parse the given persistence data.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>_data</i> (str)</dt>
+<dd>
+persisted data to be parsed (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UMLItem.removeAssociation" ID="UMLItem.removeAssociation"></a>
+<h4>UMLItem.removeAssociation</h4>
+<b>removeAssociation</b>(<i>assoc</i>)
+<p>
+        Public method to remove an association to this widget.
+</p>
+
+<dl>
+
+<dt><i>assoc</i> (AssociationWidget)</dt>
+<dd>
+association to be removed
+</dd>
+</dl>
+<a NAME="UMLItem.removeAssociations" ID="UMLItem.removeAssociations"></a>
+<h4>UMLItem.removeAssociations</h4>
+<b>removeAssociations</b>(<i></i>)
+<p>
+        Public method to remove all associations of this widget.
+</p>
+
+<a NAME="UMLItem.setId" ID="UMLItem.setId"></a>
+<h4>UMLItem.setId</h4>
+<b>setId</b>(<i>itemId</i>)
+<p>
+        Public method to assign an ID to the item.
+</p>
+
+<dl>
+
+<dt><i>itemId</i> (int)</dt>
+<dd>
+assigned ID
+</dd>
+</dl>
+<a NAME="UMLItem.setPos" ID="UMLItem.setPos"></a>
+<h4>UMLItem.setPos</h4>
+<b>setPos</b>(<i>x, y</i>)
+<p>
+        Public overriden method to set the items position.
+</p>
+
+<dl>
+
+<dt><i>x</i> (float)</dt>
+<dd>
+absolute x-position
+</dd>
+<dt><i>y</i> (float)</dt>
+<dd>
+absolute y-position
+</dd>
+</dl>
+<a NAME="UMLItem.setSize" ID="UMLItem.setSize"></a>
+<h4>UMLItem.setSize</h4>
+<b>setSize</b>(<i>width, height</i>)
+<p>
+        Public method to set the rectangles size.
+</p>
+
+<dl>
+
+<dt><i>width</i> (float)</dt>
+<dd>
+width of the rectangle
+</dd>
+<dt><i>height</i> (float)</dt>
+<dd>
+height of the rectangle
+</dd>
+</dl>
+<a NAME="UMLItem.toDict" ID="UMLItem.toDict"></a>
+<h4>UMLItem.toDict</h4>
+<b>toDict</b>(<i></i>)
+<p>
+        Public method to collect data to be persisted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing data to be persisted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="UMLModel" ID="UMLModel"></a>
+<h2>UMLModel</h2>
+<p>
+    Class implementing the UMLModel base class.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#UMLModel.__init__">UMLModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#UMLModel.getName">getName</a></td>
+<td>Public method to retrieve the model name.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="UMLModel.__init__" ID="UMLModel.__init__"></a>
+<h4>UMLModel (Constructor)</h4>
+<b>UMLModel</b>(<i>name</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+package name
+</dd>
+</dl>
+<a NAME="UMLModel.getName" ID="UMLModel.getName"></a>
+<h4>UMLModel.getName</h4>
+<b>getName</b>(<i></i>)
+<p>
+        Public method to retrieve the model name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+model name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

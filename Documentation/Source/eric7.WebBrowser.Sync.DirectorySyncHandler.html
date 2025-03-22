@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Sync.DirectorySyncHandler</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Sync.DirectorySyncHandler</h1>
+<p>
+Module implementing a synchronization handler using a shared directory.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#DirectorySyncHandler">DirectorySyncHandler</a></td>
+<td>Class implementing a synchronization handler using a shared directory.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="DirectorySyncHandler" ID="DirectorySyncHandler"></a>
+<h2>DirectorySyncHandler</h2>
+<p>
+    Class implementing a synchronization handler using a shared directory.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>syncError(message)</dt>
+<dd>
+emitted for a general error with the error message
+</dd>
+<dt>syncFinished(type_, done, download)</dt>
+<dd>
+emitted after a synchronization
+        has finished
+</dd>
+<dt>syncMessage(message)</dt>
+<dd>
+emitted to send a message about synchronization
+</dd>
+<dt>syncStatus(type_, message)</dt>
+<dd>
+emitted to indicate the synchronization status
+</dd>
+</dl>
+<h3>Derived from</h3>
+SyncHandler
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DirectorySyncHandler.__init__">DirectorySyncHandler</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.__downloadFile">__downloadFile</a></td>
+<td>Private method to downlaod the given file.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.__initialSync">__initialSync</a></td>
+<td>Private slot to do the initial synchronization.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.__initialSyncFile">__initialSyncFile</a></td>
+<td>Private method to do the initial synchronization of the given file.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.__syncFile">__syncFile</a></td>
+<td>Private method to synchronize the given file.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.__uploadFile">__uploadFile</a></td>
+<td>Private method to upload the given file.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.initialLoadAndCheck">initialLoadAndCheck</a></td>
+<td>Public method to do the initial check.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.shutdown">shutdown</a></td>
+<td>Public method to shut down the handler.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.syncBookmarks">syncBookmarks</a></td>
+<td>Public method to synchronize the bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.syncHistory">syncHistory</a></td>
+<td>Public method to synchronize the history.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.syncPasswords">syncPasswords</a></td>
+<td>Public method to synchronize the passwords.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.syncSpeedDial">syncSpeedDial</a></td>
+<td>Public method to synchronize the speed dial data.</td>
+</tr>
+<tr>
+<td><a href="#DirectorySyncHandler.syncUserAgents">syncUserAgents</a></td>
+<td>Public method to synchronize the user agents.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DirectorySyncHandler.__init__" ID="DirectorySyncHandler.__init__"></a>
+<h4>DirectorySyncHandler (Constructor)</h4>
+<b>DirectorySyncHandler</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="DirectorySyncHandler.__downloadFile" ID="DirectorySyncHandler.__downloadFile"></a>
+<h4>DirectorySyncHandler.__downloadFile</h4>
+<b>__downloadFile</b>(<i>type_, fileName, timestamp</i>)
+<p>
+        Private method to downlaod the given file.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of
+            "bookmarks", "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be downloaded
+</dd>
+<dt><i>timestamp</i> (int)</dt>
+<dd>
+time stamp in seconds of the file to be downloaded
+</dd>
+</dl>
+<a NAME="DirectorySyncHandler.__initialSync" ID="DirectorySyncHandler.__initialSync"></a>
+<h4>DirectorySyncHandler.__initialSync</h4>
+<b>__initialSync</b>(<i></i>)
+<p>
+        Private slot to do the initial synchronization.
+</p>
+
+<a NAME="DirectorySyncHandler.__initialSyncFile" ID="DirectorySyncHandler.__initialSyncFile"></a>
+<h4>DirectorySyncHandler.__initialSyncFile</h4>
+<b>__initialSyncFile</b>(<i>type_, fileName</i>)
+<p>
+        Private method to do the initial synchronization of the given file.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of "bookmarks",
+            "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be synchronized
+</dd>
+</dl>
+<a NAME="DirectorySyncHandler.__syncFile" ID="DirectorySyncHandler.__syncFile"></a>
+<h4>DirectorySyncHandler.__syncFile</h4>
+<b>__syncFile</b>(<i>type_, fileName</i>)
+<p>
+        Private method to synchronize the given file.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of "bookmarks",
+            "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be synchronized
+</dd>
+</dl>
+<a NAME="DirectorySyncHandler.__uploadFile" ID="DirectorySyncHandler.__uploadFile"></a>
+<h4>DirectorySyncHandler.__uploadFile</h4>
+<b>__uploadFile</b>(<i>type_, fileName</i>)
+<p>
+        Private method to upload the given file.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of "bookmarks",
+            "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be uploaded
+</dd>
+</dl>
+<a NAME="DirectorySyncHandler.initialLoadAndCheck" ID="DirectorySyncHandler.initialLoadAndCheck"></a>
+<h4>DirectorySyncHandler.initialLoadAndCheck</h4>
+<b>initialLoadAndCheck</b>(<i>forceUpload</i>)
+<p>
+        Public method to do the initial check.
+</p>
+
+<dl>
+
+<dt><i>forceUpload</i> (bool)</dt>
+<dd>
+flag indicating a forced upload of the files
+</dd>
+</dl>
+<a NAME="DirectorySyncHandler.shutdown" ID="DirectorySyncHandler.shutdown"></a>
+<h4>DirectorySyncHandler.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to shut down the handler.
+</p>
+
+<a NAME="DirectorySyncHandler.syncBookmarks" ID="DirectorySyncHandler.syncBookmarks"></a>
+<h4>DirectorySyncHandler.syncBookmarks</h4>
+<b>syncBookmarks</b>(<i></i>)
+<p>
+        Public method to synchronize the bookmarks.
+</p>
+
+<a NAME="DirectorySyncHandler.syncHistory" ID="DirectorySyncHandler.syncHistory"></a>
+<h4>DirectorySyncHandler.syncHistory</h4>
+<b>syncHistory</b>(<i></i>)
+<p>
+        Public method to synchronize the history.
+</p>
+
+<a NAME="DirectorySyncHandler.syncPasswords" ID="DirectorySyncHandler.syncPasswords"></a>
+<h4>DirectorySyncHandler.syncPasswords</h4>
+<b>syncPasswords</b>(<i></i>)
+<p>
+        Public method to synchronize the passwords.
+</p>
+
+<a NAME="DirectorySyncHandler.syncSpeedDial" ID="DirectorySyncHandler.syncSpeedDial"></a>
+<h4>DirectorySyncHandler.syncSpeedDial</h4>
+<b>syncSpeedDial</b>(<i></i>)
+<p>
+        Public method to synchronize the speed dial data.
+</p>
+
+<a NAME="DirectorySyncHandler.syncUserAgents" ID="DirectorySyncHandler.syncUserAgents"></a>
+<h4>DirectorySyncHandler.syncUserAgents</h4>
+<b>syncUserAgents</b>(<i></i>)
+<p>
+        Public method to synchronize the user agents.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

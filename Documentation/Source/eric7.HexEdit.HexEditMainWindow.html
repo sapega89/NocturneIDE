@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HexEdit.HexEditMainWindow</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HexEdit.HexEditMainWindow</h1>
+<p>
+Module implementing the hex editor main window.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HexEditMainWindow">HexEditMainWindow</a></td>
+<td>Class implementing the hex editor main window.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HexEditMainWindow" ID="HexEditMainWindow"></a>
+<h2>HexEditMainWindow</h2>
+<p>
+    Class implementing the hex editor main window.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>editorClosed()</dt>
+<dd>
+emitted after the window was requested to close
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>maxMenuFilePathLen</td></tr>
+<tr><td>windows</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HexEditMainWindow.__init__">HexEditMainWindow</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__about">__about</a></td>
+<td>Private slot to show a little About message.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__aboutQt">__aboutQt</a></td>
+<td>Private slot to handle the About Qt dialog.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__addToRecentList">__addToRecentList</a></td>
+<td>Private method to add a file name to the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__checkActions">__checkActions</a></td>
+<td>Private slot to check some actions for their enable/disable status.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__clearRecent">__clearRecent</a></td>
+<td>Private method to clear the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__closeAll">__closeAll</a></td>
+<td>Private slot to close all windows.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__closeOthers">__closeOthers</a></td>
+<td>Private slot to close all other windows.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__createStatusBar">__createStatusBar</a></td>
+<td>Private method to initialize the status bar.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__goto">__goto</a></td>
+<td>Private method to handle the goto action.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__initActions">__initActions</a></td>
+<td>Private method to define the user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__initConfigActions">__initConfigActions</a></td>
+<td>Private method to create the Settings actions.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__initEditActions">__initEditActions</a></td>
+<td>Private method to create the Edit actions.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__initFileActions">__initFileActions</a></td>
+<td>Private method to define the file related user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__initHelpActions">__initHelpActions</a></td>
+<td>Private method to create the Help actions.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__initMenus">__initMenus</a></td>
+<td>Private method to create the menus.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__initToolbars">__initToolbars</a></td>
+<td>Private method to create the toolbars.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__loadHexFile">__loadHexFile</a></td>
+<td>Private method to load a binary file.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__loadRecent">__loadRecent</a></td>
+<td>Private method to load the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__maybeSave">__maybeSave</a></td>
+<td>Private method to ask the user to save the file, if it was modified.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__modificationChanged">__modificationChanged</a></td>
+<td>Private slot to handle the dataChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__openHexFile">__openHexFile</a></td>
+<td>Private slot to open a binary file.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__openHexFileNewWindow">__openHexFileNewWindow</a></td>
+<td>Private slot called to open a binary file in new hex editor window.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__openHexFileReadOnly">__openHexFileReadOnly</a></td>
+<td>Private slot to open a binary file in read only mode.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__openRecentHexFile">__openRecentHexFile</a></td>
+<td>Private method to open a file from the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__preferencesChangedByLocalPreferencesDialog">__preferencesChangedByLocalPreferencesDialog</a></td>
+<td>Private slot to handle preferences changes by our local dialog.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__replace">__replace</a></td>
+<td>Private method to handle the replace action.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__saveHexDataFile">__saveHexDataFile</a></td>
+<td>Private method to save the binary data to a file.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__saveHexFile">__saveHexFile</a></td>
+<td>Private method to save a binary file.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__saveHexFileAs">__saveHexFileAs</a></td>
+<td>Private method to save the data to a new file.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__saveHexFileReadable">__saveHexFileReadable</a></td>
+<td>Private method to save the binary data in readable format.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__saveRecent">__saveRecent</a></td>
+<td>Private method to save the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__saveSelectionReadable">__saveSelectionReadable</a></td>
+<td>Private method to save the data of the current selection in readable format.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__search">__search</a></td>
+<td>Private method to handle the search action.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__setCurrentFile">__setCurrentFile</a></td>
+<td>Private method to register the file name of the current file.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__setReadOnlyActionTexts">__setReadOnlyActionTexts</a></td>
+<td>Private method to switch the 'Open Read Only' action between 'read only' and 'read write'.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__showAddress">__showAddress</a></td>
+<td>Private slot to show the address of the cursor position.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__showEditMode">__showEditMode</a></td>
+<td>Private slot to show the edit mode.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__showFileMenu">__showFileMenu</a></td>
+<td>Private slot to modify the file menu before being shown.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__showPreferences">__showPreferences</a></td>
+<td>Private slot to set the preferences.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__showReadOnlyMode">__showReadOnlyMode</a></td>
+<td>Private slot to show the read only mode.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__showRecentMenu">__showRecentMenu</a></td>
+<td>Private slot to set up the recent files menu.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__showSelectionInfo">__showSelectionInfo</a></td>
+<td>Private slot to show selection information.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__showSize">__showSize</a></td>
+<td>Private slot to show the binary data size.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__strippedName">__strippedName</a></td>
+<td>Private method to return the filename part of the given path.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__toggleEditMode">__toggleEditMode</a></td>
+<td>Private slot to toggle the edit mode upon a click on the status bar label.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__toggleReadOnlyMode">__toggleReadOnlyMode</a></td>
+<td>Private slot to toggle the read only mode upon a click on the status bar label.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.__whatsThis">__whatsThis</a></td>
+<td>Private slot called in to enter Whats This mode.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.closeEvent">closeEvent</a></td>
+<td>Protected event handler for the close event.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.getSRHistory">getSRHistory</a></td>
+<td>Public method to get the search or replace history list.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.preferencesChanged">preferencesChanged</a></td>
+<td>Public method to (re-)read the various settings.</td>
+</tr>
+<tr>
+<td><a href="#HexEditMainWindow.setRecentPaths">setRecentPaths</a></td>
+<td>Public method to set the last open and save paths.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HexEditMainWindow.__init__" ID="HexEditMainWindow.__init__"></a>
+<h4>HexEditMainWindow (Constructor)</h4>
+<b>HexEditMainWindow</b>(<i>fileName="", parent=None, fromEric=False, project=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of a file to load on startup
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this window
+</dd>
+<dt><i>fromEric</i> (bool)</dt>
+<dd>
+flag indicating whether it was called from within
+            eric
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__about" ID="HexEditMainWindow.__about"></a>
+<h4>HexEditMainWindow.__about</h4>
+<b>__about</b>(<i></i>)
+<p>
+        Private slot to show a little About message.
+</p>
+
+<a NAME="HexEditMainWindow.__aboutQt" ID="HexEditMainWindow.__aboutQt"></a>
+<h4>HexEditMainWindow.__aboutQt</h4>
+<b>__aboutQt</b>(<i></i>)
+<p>
+        Private slot to handle the About Qt dialog.
+</p>
+
+<a NAME="HexEditMainWindow.__addToRecentList" ID="HexEditMainWindow.__addToRecentList"></a>
+<h4>HexEditMainWindow.__addToRecentList</h4>
+<b>__addToRecentList</b>(<i>fileName</i>)
+<p>
+        Private method to add a file name to the list of recently opened files.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be added
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__checkActions" ID="HexEditMainWindow.__checkActions"></a>
+<h4>HexEditMainWindow.__checkActions</h4>
+<b>__checkActions</b>(<i></i>)
+<p>
+        Private slot to check some actions for their enable/disable status.
+</p>
+
+<a NAME="HexEditMainWindow.__clearRecent" ID="HexEditMainWindow.__clearRecent"></a>
+<h4>HexEditMainWindow.__clearRecent</h4>
+<b>__clearRecent</b>(<i></i>)
+<p>
+        Private method to clear the list of recently opened files.
+</p>
+
+<a NAME="HexEditMainWindow.__closeAll" ID="HexEditMainWindow.__closeAll"></a>
+<h4>HexEditMainWindow.__closeAll</h4>
+<b>__closeAll</b>(<i></i>)
+<p>
+        Private slot to close all windows.
+</p>
+
+<a NAME="HexEditMainWindow.__closeOthers" ID="HexEditMainWindow.__closeOthers"></a>
+<h4>HexEditMainWindow.__closeOthers</h4>
+<b>__closeOthers</b>(<i></i>)
+<p>
+        Private slot to close all other windows.
+</p>
+
+<a NAME="HexEditMainWindow.__createStatusBar" ID="HexEditMainWindow.__createStatusBar"></a>
+<h4>HexEditMainWindow.__createStatusBar</h4>
+<b>__createStatusBar</b>(<i></i>)
+<p>
+        Private method to initialize the status bar.
+</p>
+
+<a NAME="HexEditMainWindow.__goto" ID="HexEditMainWindow.__goto"></a>
+<h4>HexEditMainWindow.__goto</h4>
+<b>__goto</b>(<i></i>)
+<p>
+        Private method to handle the goto action.
+</p>
+
+<a NAME="HexEditMainWindow.__initActions" ID="HexEditMainWindow.__initActions"></a>
+<h4>HexEditMainWindow.__initActions</h4>
+<b>__initActions</b>(<i></i>)
+<p>
+        Private method to define the user interface actions.
+</p>
+
+<a NAME="HexEditMainWindow.__initConfigActions" ID="HexEditMainWindow.__initConfigActions"></a>
+<h4>HexEditMainWindow.__initConfigActions</h4>
+<b>__initConfigActions</b>(<i></i>)
+<p>
+        Private method to create the Settings actions.
+</p>
+
+<a NAME="HexEditMainWindow.__initEditActions" ID="HexEditMainWindow.__initEditActions"></a>
+<h4>HexEditMainWindow.__initEditActions</h4>
+<b>__initEditActions</b>(<i></i>)
+<p>
+        Private method to create the Edit actions.
+</p>
+
+<a NAME="HexEditMainWindow.__initFileActions" ID="HexEditMainWindow.__initFileActions"></a>
+<h4>HexEditMainWindow.__initFileActions</h4>
+<b>__initFileActions</b>(<i></i>)
+<p>
+        Private method to define the file related user interface actions.
+</p>
+
+<a NAME="HexEditMainWindow.__initHelpActions" ID="HexEditMainWindow.__initHelpActions"></a>
+<h4>HexEditMainWindow.__initHelpActions</h4>
+<b>__initHelpActions</b>(<i></i>)
+<p>
+        Private method to create the Help actions.
+</p>
+
+<a NAME="HexEditMainWindow.__initMenus" ID="HexEditMainWindow.__initMenus"></a>
+<h4>HexEditMainWindow.__initMenus</h4>
+<b>__initMenus</b>(<i></i>)
+<p>
+        Private method to create the menus.
+</p>
+
+<a NAME="HexEditMainWindow.__initToolbars" ID="HexEditMainWindow.__initToolbars"></a>
+<h4>HexEditMainWindow.__initToolbars</h4>
+<b>__initToolbars</b>(<i></i>)
+<p>
+        Private method to create the toolbars.
+</p>
+
+<a NAME="HexEditMainWindow.__loadHexFile" ID="HexEditMainWindow.__loadHexFile"></a>
+<h4>HexEditMainWindow.__loadHexFile</h4>
+<b>__loadHexFile</b>(<i>fileName</i>)
+<p>
+        Private method to load a binary file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the binary file to load
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__loadRecent" ID="HexEditMainWindow.__loadRecent"></a>
+<h4>HexEditMainWindow.__loadRecent</h4>
+<b>__loadRecent</b>(<i></i>)
+<p>
+        Private method to load the list of recently opened files.
+</p>
+
+<a NAME="HexEditMainWindow.__maybeSave" ID="HexEditMainWindow.__maybeSave"></a>
+<h4>HexEditMainWindow.__maybeSave</h4>
+<b>__maybeSave</b>(<i></i>)
+<p>
+        Private method to ask the user to save the file, if it was modified.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if it is ok to continue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__modificationChanged" ID="HexEditMainWindow.__modificationChanged"></a>
+<h4>HexEditMainWindow.__modificationChanged</h4>
+<b>__modificationChanged</b>(<i>m</i>)
+<p>
+        Private slot to handle the dataChanged signal.
+</p>
+
+<dl>
+
+<dt><i>m</i> (bool)</dt>
+<dd>
+modification status
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__openHexFile" ID="HexEditMainWindow.__openHexFile"></a>
+<h4>HexEditMainWindow.__openHexFile</h4>
+<b>__openHexFile</b>(<i></i>)
+<p>
+        Private slot to open a binary file.
+</p>
+
+<a NAME="HexEditMainWindow.__openHexFileNewWindow" ID="HexEditMainWindow.__openHexFileNewWindow"></a>
+<h4>HexEditMainWindow.__openHexFileNewWindow</h4>
+<b>__openHexFileNewWindow</b>(<i></i>)
+<p>
+        Private slot called to open a binary file in new hex editor window.
+</p>
+
+<a NAME="HexEditMainWindow.__openHexFileReadOnly" ID="HexEditMainWindow.__openHexFileReadOnly"></a>
+<h4>HexEditMainWindow.__openHexFileReadOnly</h4>
+<b>__openHexFileReadOnly</b>(<i></i>)
+<p>
+        Private slot to open a binary file in read only mode.
+</p>
+
+<a NAME="HexEditMainWindow.__openRecentHexFile" ID="HexEditMainWindow.__openRecentHexFile"></a>
+<h4>HexEditMainWindow.__openRecentHexFile</h4>
+<b>__openRecentHexFile</b>(<i>act</i>)
+<p>
+        Private method to open a file from the list of recently opened files.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__preferencesChangedByLocalPreferencesDialog" ID="HexEditMainWindow.__preferencesChangedByLocalPreferencesDialog"></a>
+<h4>HexEditMainWindow.__preferencesChangedByLocalPreferencesDialog</h4>
+<b>__preferencesChangedByLocalPreferencesDialog</b>(<i></i>)
+<p>
+        Private slot to handle preferences changes by our local dialog.
+</p>
+
+<a NAME="HexEditMainWindow.__replace" ID="HexEditMainWindow.__replace"></a>
+<h4>HexEditMainWindow.__replace</h4>
+<b>__replace</b>(<i></i>)
+<p>
+        Private method to handle the replace action.
+</p>
+
+<a NAME="HexEditMainWindow.__saveHexDataFile" ID="HexEditMainWindow.__saveHexDataFile"></a>
+<h4>HexEditMainWindow.__saveHexDataFile</h4>
+<b>__saveHexDataFile</b>(<i>fileName</i>)
+<p>
+        Private method to save the binary data to a file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to write to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__saveHexFile" ID="HexEditMainWindow.__saveHexFile"></a>
+<h4>HexEditMainWindow.__saveHexFile</h4>
+<b>__saveHexFile</b>(<i></i>)
+<p>
+        Private method to save a binary file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__saveHexFileAs" ID="HexEditMainWindow.__saveHexFileAs"></a>
+<h4>HexEditMainWindow.__saveHexFileAs</h4>
+<b>__saveHexFileAs</b>(<i></i>)
+<p>
+        Private method to save the data to a new file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__saveHexFileReadable" ID="HexEditMainWindow.__saveHexFileReadable"></a>
+<h4>HexEditMainWindow.__saveHexFileReadable</h4>
+<b>__saveHexFileReadable</b>(<i>selectionOnly=False</i>)
+<p>
+        Private method to save the binary data in readable format.
+</p>
+
+<dl>
+
+<dt><i>selectionOnly</i> (bool)</dt>
+<dd>
+flag indicating to save the selection only
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__saveRecent" ID="HexEditMainWindow.__saveRecent"></a>
+<h4>HexEditMainWindow.__saveRecent</h4>
+<b>__saveRecent</b>(<i></i>)
+<p>
+        Private method to save the list of recently opened files.
+</p>
+
+<a NAME="HexEditMainWindow.__saveSelectionReadable" ID="HexEditMainWindow.__saveSelectionReadable"></a>
+<h4>HexEditMainWindow.__saveSelectionReadable</h4>
+<b>__saveSelectionReadable</b>(<i></i>)
+<p>
+        Private method to save the data of the current selection in readable
+        format.
+</p>
+
+<a NAME="HexEditMainWindow.__search" ID="HexEditMainWindow.__search"></a>
+<h4>HexEditMainWindow.__search</h4>
+<b>__search</b>(<i></i>)
+<p>
+        Private method to handle the search action.
+</p>
+
+<a NAME="HexEditMainWindow.__setCurrentFile" ID="HexEditMainWindow.__setCurrentFile"></a>
+<h4>HexEditMainWindow.__setCurrentFile</h4>
+<b>__setCurrentFile</b>(<i>fileName</i>)
+<p>
+        Private method to register the file name of the current file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to register
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__setReadOnlyActionTexts" ID="HexEditMainWindow.__setReadOnlyActionTexts"></a>
+<h4>HexEditMainWindow.__setReadOnlyActionTexts</h4>
+<b>__setReadOnlyActionTexts</b>(<i></i>)
+<p>
+        Private method to switch the 'Open Read Only' action between
+        'read only' and 'read write'.
+</p>
+
+<a NAME="HexEditMainWindow.__showAddress" ID="HexEditMainWindow.__showAddress"></a>
+<h4>HexEditMainWindow.__showAddress</h4>
+<b>__showAddress</b>(<i>address</i>)
+<p>
+        Private slot to show the address of the cursor position.
+</p>
+
+<dl>
+
+<dt><i>address</i> (int)</dt>
+<dd>
+address of the cursor
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__showEditMode" ID="HexEditMainWindow.__showEditMode"></a>
+<h4>HexEditMainWindow.__showEditMode</h4>
+<b>__showEditMode</b>(<i>overwrite</i>)
+<p>
+        Private slot to show the edit mode.
+</p>
+
+<dl>
+
+<dt><i>overwrite</i> (bool)</dt>
+<dd>
+flag indicating overwrite mode
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__showFileMenu" ID="HexEditMainWindow.__showFileMenu"></a>
+<h4>HexEditMainWindow.__showFileMenu</h4>
+<b>__showFileMenu</b>(<i></i>)
+<p>
+        Private slot to modify the file menu before being shown.
+</p>
+
+<a NAME="HexEditMainWindow.__showPreferences" ID="HexEditMainWindow.__showPreferences"></a>
+<h4>HexEditMainWindow.__showPreferences</h4>
+<b>__showPreferences</b>(<i></i>)
+<p>
+        Private slot to set the preferences.
+</p>
+
+<a NAME="HexEditMainWindow.__showReadOnlyMode" ID="HexEditMainWindow.__showReadOnlyMode"></a>
+<h4>HexEditMainWindow.__showReadOnlyMode</h4>
+<b>__showReadOnlyMode</b>(<i>on</i>)
+<p>
+        Private slot to show the read only mode.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the read only state
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__showRecentMenu" ID="HexEditMainWindow.__showRecentMenu"></a>
+<h4>HexEditMainWindow.__showRecentMenu</h4>
+<b>__showRecentMenu</b>(<i></i>)
+<p>
+        Private slot to set up the recent files menu.
+</p>
+
+<a NAME="HexEditMainWindow.__showSelectionInfo" ID="HexEditMainWindow.__showSelectionInfo"></a>
+<h4>HexEditMainWindow.__showSelectionInfo</h4>
+<b>__showSelectionInfo</b>(<i>avail</i>)
+<p>
+        Private slot to show selection information.
+</p>
+
+<dl>
+
+<dt><i>avail</i> (bool)</dt>
+<dd>
+flag indicating the availability of a selection.
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__showSize" ID="HexEditMainWindow.__showSize"></a>
+<h4>HexEditMainWindow.__showSize</h4>
+<b>__showSize</b>(<i>size</i>)
+<p>
+        Private slot to show the binary data size.
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+size of the binary data
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__strippedName" ID="HexEditMainWindow.__strippedName"></a>
+<h4>HexEditMainWindow.__strippedName</h4>
+<b>__strippedName</b>(<i>fullFileName</i>)
+<p>
+        Private method to return the filename part of the given path.
+</p>
+
+<dl>
+
+<dt><i>fullFileName</i> (str)</dt>
+<dd>
+full pathname of the given file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+filename part
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.__toggleEditMode" ID="HexEditMainWindow.__toggleEditMode"></a>
+<h4>HexEditMainWindow.__toggleEditMode</h4>
+<b>__toggleEditMode</b>(<i></i>)
+<p>
+        Private slot to toggle the edit mode upon a click on the status bar
+        label.
+</p>
+
+<a NAME="HexEditMainWindow.__toggleReadOnlyMode" ID="HexEditMainWindow.__toggleReadOnlyMode"></a>
+<h4>HexEditMainWindow.__toggleReadOnlyMode</h4>
+<b>__toggleReadOnlyMode</b>(<i></i>)
+<p>
+        Private slot to toggle the read only mode upon a click on the status
+        bar label.
+</p>
+
+<a NAME="HexEditMainWindow.__whatsThis" ID="HexEditMainWindow.__whatsThis"></a>
+<h4>HexEditMainWindow.__whatsThis</h4>
+<b>__whatsThis</b>(<i></i>)
+<p>
+        Private slot called in to enter Whats This mode.
+</p>
+
+<a NAME="HexEditMainWindow.closeEvent" ID="HexEditMainWindow.closeEvent"></a>
+<h4>HexEditMainWindow.closeEvent</h4>
+<b>closeEvent</b>(<i>evt</i>)
+<p>
+        Protected event handler for the close event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the close event
+            <br />This event is simply accepted after the history has been
+            saved and all window references have been deleted.
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.getSRHistory" ID="HexEditMainWindow.getSRHistory"></a>
+<h4>HexEditMainWindow.getSRHistory</h4>
+<b>getSRHistory</b>(<i>key</i>)
+<p>
+        Public method to get the search or replace history list.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str (must be 'search' or 'replace'))</dt>
+<dd>
+name of list to return
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested history list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (int, str)
+</dd>
+</dl>
+<a NAME="HexEditMainWindow.preferencesChanged" ID="HexEditMainWindow.preferencesChanged"></a>
+<h4>HexEditMainWindow.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public method to (re-)read the various settings.
+</p>
+
+<a NAME="HexEditMainWindow.setRecentPaths" ID="HexEditMainWindow.setRecentPaths"></a>
+<h4>HexEditMainWindow.setRecentPaths</h4>
+<b>setRecentPaths</b>(<i>openPath, savePath</i>)
+<p>
+        Public method to set the last open and save paths.
+</p>
+
+<dl>
+
+<dt><i>openPath</i> (str)</dt>
+<dd>
+least recently used open path
+</dd>
+<dt><i>savePath</i> (str)</dt>
+<dd>
+least recently used save path
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

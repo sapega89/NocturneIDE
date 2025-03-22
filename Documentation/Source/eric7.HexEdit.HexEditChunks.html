@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HexEdit.HexEditChunks</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HexEdit.HexEditChunks</h1>
+<p>
+Module implementing the storage backend for the hex editor.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HexEditChunk">HexEditChunk</a></td>
+<td>Class implementing a container for the data chunks.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks">HexEditChunks</a></td>
+<td>Class implementing the storage backend for the hex editor.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HexEditChunk" ID="HexEditChunk"></a>
+<h2>HexEditChunk</h2>
+<p>
+    Class implementing a container for the data chunks.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>absPos</td></tr>
+<tr><td>data</td></tr>
+<tr><td>dataChanged</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HexEditChunks" ID="HexEditChunks"></a>
+<h2>HexEditChunks</h2>
+<p>
+    Class implementing the storage backend for the hex editor.
+</p>
+<p>
+    When HexEditWidget loads data, HexEditChunks access them using a QIODevice
+    interface. When the app uses a QByteArray or Python bytearray interface,
+    QBuffer is used to provide again a QIODevice like interface. No data will
+    be changed, therefore HexEditChunks opens the QIODevice in
+    QIODevice.OpenModeFlag.ReadOnly mode. After every access HexEditChunks
+    closes the QIODevice. That's why external applications can overwrite
+    files while HexEditWidget shows them.
+</p>
+<p>
+    When the the user starts to edit the data, HexEditChunks creates a local
+    copy of a chunk of data (4 kilobytes) and notes all changes there. Parallel
+    to that chunk, there is a second chunk, which keeps track of which bytes
+    are changed and which are not.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>BUFFER_SIZE</td></tr>
+<tr><td>CHUNK_SIZE</td></tr>
+<tr><td>READ_CHUNK_MASK</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HexEditChunks.__init__">HexEditChunks</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.__getChunkIndex">__getChunkIndex</a></td>
+<td>Private method to get the chunk index for a position.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.__getitem__">__getitem__</a></td>
+<td>Special method to get a byte at a position.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.data">data</a></td>
+<td>Public method to get data out of the chunks.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.dataChanged">dataChanged</a></td>
+<td>Public method to test, if some data was changed.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.indexOf">indexOf</a></td>
+<td>Public method to search the first occurrence of some data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.insert">insert</a></td>
+<td>Public method to insert a byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.lastIndexOf">lastIndexOf</a></td>
+<td>Public method to search the last occurrence of some data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.overwrite">overwrite</a></td>
+<td>Public method to overwrite a byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.pos">pos</a></td>
+<td>Public method to get the current position.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.removeAt">removeAt</a></td>
+<td>Public method to remove a byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.setDataChanged">setDataChanged</a></td>
+<td>Public method to set highlighting info.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.setIODevice">setIODevice</a></td>
+<td>Public method to set an io device to read the binary data from.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.size">size</a></td>
+<td>Public method to get the current data size.</td>
+</tr>
+<tr>
+<td><a href="#HexEditChunks.write">write</a></td>
+<td>Public method to write data to an io device.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HexEditChunks.__init__" ID="HexEditChunks.__init__"></a>
+<h4>HexEditChunks (Constructor)</h4>
+<b>HexEditChunks</b>(<i>ioDevice=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>ioDevice</i> (QIODevice)</dt>
+<dd>
+io device to get the data from
+</dd>
+</dl>
+<a NAME="HexEditChunks.__getChunkIndex" ID="HexEditChunks.__getChunkIndex"></a>
+<h4>HexEditChunks.__getChunkIndex</h4>
+<b>__getChunkIndex</b>(<i>absPos</i>)
+<p>
+        Private method to get the chunk index for a position.
+</p>
+<p>
+        This method checks, if there is already a copied chunk available. If
+        there is one, it returns its index. If there is no copied chunk
+        available, original data will be copied into a new chunk.
+</p>
+
+<dl>
+
+<dt><i>absPos</i> (int)</dt>
+<dd>
+absolute position of the data.
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the chunk containing the position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditChunks.__getitem__" ID="HexEditChunks.__getitem__"></a>
+<h4>HexEditChunks.__getitem__</h4>
+<b>__getitem__</b>(<i>pos</i>)
+<p>
+        Special method to get a byte at a position.
+</p>
+<p>
+        Note: This realizes the [] get operator.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position of byte to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested byte
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int (range 0 to 255)
+</dd>
+</dl>
+<a NAME="HexEditChunks.data" ID="HexEditChunks.data"></a>
+<h4>HexEditChunks.data</h4>
+<b>data</b>(<i>pos=0, maxSize=-1, highlighted=None</i>)
+<p>
+        Public method to get data out of the chunks.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to get bytes from
+</dd>
+<dt><i>maxSize</i> (int)</dt>
+<dd>
+maximum amount of bytes to get
+</dd>
+<dt><i>highlighted</i> (bytearray)</dt>
+<dd>
+reference to a byte array storing highlighting info
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+retrieved data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="HexEditChunks.dataChanged" ID="HexEditChunks.dataChanged"></a>
+<h4>HexEditChunks.dataChanged</h4>
+<b>dataChanged</b>(<i>pos</i>)
+<p>
+        Public method to test, if some data was changed.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+byte position to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the changed state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditChunks.indexOf" ID="HexEditChunks.indexOf"></a>
+<h4>HexEditChunks.indexOf</h4>
+<b>indexOf</b>(<i>byteArray, start</i>)
+<p>
+        Public method to search the first occurrence of some data.
+</p>
+
+<dl>
+
+<dt><i>byteArray</i> (bytearray)</dt>
+<dd>
+data to search for
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+position to start the search at
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+position the data was found at or -1 if nothing could be found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditChunks.insert" ID="HexEditChunks.insert"></a>
+<h4>HexEditChunks.insert</h4>
+<b>insert</b>(<i>pos, data</i>)
+<p>
+        Public method to insert a byte.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to insert at
+</dd>
+<dt><i>data</i> (int (range 0 to 255))</dt>
+<dd>
+byte to insert
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditChunks.lastIndexOf" ID="HexEditChunks.lastIndexOf"></a>
+<h4>HexEditChunks.lastIndexOf</h4>
+<b>lastIndexOf</b>(<i>byteArray, start</i>)
+<p>
+        Public method to search the last occurrence of some data.
+</p>
+
+<dl>
+
+<dt><i>byteArray</i> (bytearray)</dt>
+<dd>
+data to search for
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+position to start the search at
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+position the data was found at or -1 if nothing could be found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditChunks.overwrite" ID="HexEditChunks.overwrite"></a>
+<h4>HexEditChunks.overwrite</h4>
+<b>overwrite</b>(<i>pos, data</i>)
+<p>
+        Public method to overwrite a byte.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to overwrite
+</dd>
+<dt><i>data</i> (int (range 0 to 255))</dt>
+<dd>
+byte to overwrite with
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditChunks.pos" ID="HexEditChunks.pos"></a>
+<h4>HexEditChunks.pos</h4>
+<b>pos</b>(<i></i>)
+<p>
+        Public method to get the current position.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditChunks.removeAt" ID="HexEditChunks.removeAt"></a>
+<h4>HexEditChunks.removeAt</h4>
+<b>removeAt</b>(<i>pos</i>)
+<p>
+        Public method to remove a byte.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to remove
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditChunks.setDataChanged" ID="HexEditChunks.setDataChanged"></a>
+<h4>HexEditChunks.setDataChanged</h4>
+<b>setDataChanged</b>(<i>pos, dataChanged</i>)
+<p>
+        Public method to set highlighting info.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to set highlighting info for
+</dd>
+<dt><i>dataChanged</i> (bool)</dt>
+<dd>
+flag indicating changed data
+</dd>
+</dl>
+<a NAME="HexEditChunks.setIODevice" ID="HexEditChunks.setIODevice"></a>
+<h4>HexEditChunks.setIODevice</h4>
+<b>setIODevice</b>(<i>ioDevice</i>)
+<p>
+        Public method to set an io device to read the binary data from.
+</p>
+
+<dl>
+
+<dt><i>ioDevice</i> (QIODevice)</dt>
+<dd>
+io device to get the data from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditChunks.size" ID="HexEditChunks.size"></a>
+<h4>HexEditChunks.size</h4>
+<b>size</b>(<i></i>)
+<p>
+        Public method to get the current data size.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current data size
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditChunks.write" ID="HexEditChunks.write"></a>
+<h4>HexEditChunks.write</h4>
+<b>write</b>(<i>ioDevice, pos=0, count=-1</i>)
+<p>
+        Public method to write data to an io device.
+</p>
+
+<dl>
+
+<dt><i>ioDevice</i> (QIODevice)</dt>
+<dd>
+io device to write the data to
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to write bytes from
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+amount of bytes to write
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

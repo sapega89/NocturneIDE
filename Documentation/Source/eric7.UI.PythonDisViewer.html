@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.PythonDisViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.PythonDisViewer</h1>
+<p>
+Module implementing a widget to visualize the Python Disassembly for some
+Python sources.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PythonDisViewer">PythonDisViewer</a></td>
+<td>Class implementing a widget to visualize the Python Disassembly for some Python sources.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewerModes">PythonDisViewerModes</a></td>
+<td>Class implementing the disassembly viewer operation modes.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#linestarts">linestarts</a></td>
+<td>Function to get the line starts for the given code object.</td>
+</tr>
+<tr>
+<td><a href="#tryCompile">tryCompile</a></td>
+<td>Function to attempt to compile the given source, first as an expression and then as a statement if the first approach fails.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PythonDisViewer" ID="PythonDisViewer"></a>
+<h2>PythonDisViewer</h2>
+<p>
+    Class implementing a widget to visualize the Python Disassembly for some
+    Python sources.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_PythonDisViewer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>CodeInfoRole</td></tr>
+<tr><td>EndLineRole</td></tr>
+<tr><td>StartLineRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PythonDisViewer.__init__">PythonDisViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__clearSelection">__clearSelection</a></td>
+<td>Private method to clear all selected items.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__codeInfoContextMenuRequested">__codeInfoContextMenuRequested</a></td>
+<td>Private slot to show the context menu of the code info widget.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__collapseAllCodeInfo">__collapseAllCodeInfo</a></td>
+<td>Private slot to collapse all items of the code info widget.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__collapseAllDis">__collapseAllDis</a></td>
+<td>Private slot to collapse all items of the disassembly widget.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__configure">__configure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__createCodeInfo">__createCodeInfo</a></td>
+<td>Private method to create a dictionary containing the code info data.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__createErrorItem">__createErrorItem</a></td>
+<td>Private method to create a top level error item.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__createInstructionItem">__createInstructionItem</a></td>
+<td>Private method to create an item for the given instruction.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__createTitleItem">__createTitleItem</a></td>
+<td>Private method to create a title item.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__disContextMenuRequested">__disContextMenuRequested</a></td>
+<td>Private slot to show the context menu of the disassembly widget.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__disItemClicked">__disItemClicked</a></td>
+<td>Private slot handling a user click on a Disassembly node item.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__disViewerStateChanged">__disViewerStateChanged</a></td>
+<td>Private slot to toggle the display of the Disassembly viewer.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__disassembleObject">__disassembleObject</a></td>
+<td>Private method to disassemble the given code object recursively.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__editorChanged">__editorChanged</a></td>
+<td>Private slot to handle a change of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__editorLanguageChanged">__editorLanguageChanged</a></td>
+<td>Private slot to handle a change of the editor language.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__editorLineChanged">__editorLineChanged</a></td>
+<td>Private slot to handle a mouse button double click in the editor.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__editorSaved">__editorSaved</a></td>
+<td>Private slot to reload the Disassembly after the connected editor was saved.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__expandAllCodeInfo">__expandAllCodeInfo</a></td>
+<td>Private slot to expand all items of the code info widget.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__expandAllDis">__expandAllDis</a></td>
+<td>Private slot to expand all items of the disassembly widget.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__lastEditorClosed">__lastEditorClosed</a></td>
+<td>Private slot to handle the last editor closed signal of the view manager.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__loadDIS">__loadDIS</a></td>
+<td>Private method to generate the Disassembly from the source of the current editor and visualize it.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__resizeCodeInfoColumns">__resizeCodeInfoColumns</a></td>
+<td>Private method to resize the columns of the code info widget to suitable values.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__resizeDisColumns">__resizeDisColumns</a></td>
+<td>Private method to resize the columns of the disassembly widget to suitable values.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__selectChildren">__selectChildren</a></td>
+<td>Private method to select children of the given item covering the given line number.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__selectItemForEditorLine">__selectItemForEditorLine</a></td>
+<td>Private slot to select the items corresponding with the cursor line of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__showCodeInfo">__showCodeInfo</a></td>
+<td>Private slot handling the context menu action to show code info.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__showCodeInfoData">__showCodeInfoData</a></td>
+<td>Private method to show the passed code info data.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__styleLabels">__styleLabels</a></td>
+<td>Private method to style the info labels iaw.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.__updateItemEndLine">__updateItemEndLine</a></td>
+<td>Private method to update an items end line based on its children.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.clear">clear</a></td>
+<td>Public method to clear the display.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.createCodeInfoItems">createCodeInfoItems</a></td>
+<td>Function to create code info items for the given list.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.hide">hide</a></td>
+<td>Public slot to hide the DIS viewer.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot handling changes of the Disassembly viewer settings.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.resizeEvent">resizeEvent</a></td>
+<td>Protected method to handle resize events.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.show">show</a></td>
+<td>Public slot to show the DIS viewer.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.showDisassembly">showDisassembly</a></td>
+<td>Public slot to receive a code disassembly from the debug client.</td>
+</tr>
+<tr>
+<td><a href="#PythonDisViewer.shutdown">shutdown</a></td>
+<td>Public method to perform shutdown actions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PythonDisViewer.__init__" ID="PythonDisViewer.__init__"></a>
+<h4>PythonDisViewer (Constructor)</h4>
+<b>PythonDisViewer</b>(<i>viewmanager, mode=PythonDisViewerModes.SOURCEDISASSEMBLY, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>viewmanager</i> (ViewManager)</dt>
+<dd>
+reference to the viewmanager object
+</dd>
+<dt><i>mode</i> (int)</dt>
+<dd>
+operation mode of the viewer
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__clearSelection" ID="PythonDisViewer.__clearSelection"></a>
+<h4>PythonDisViewer.__clearSelection</h4>
+<b>__clearSelection</b>(<i></i>)
+<p>
+        Private method to clear all selected items.
+</p>
+
+<a NAME="PythonDisViewer.__codeInfoContextMenuRequested" ID="PythonDisViewer.__codeInfoContextMenuRequested"></a>
+<h4>PythonDisViewer.__codeInfoContextMenuRequested</h4>
+<b>__codeInfoContextMenuRequested</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu of the code info widget.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+position of the mouse pointer
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__collapseAllCodeInfo" ID="PythonDisViewer.__collapseAllCodeInfo"></a>
+<h4>PythonDisViewer.__collapseAllCodeInfo</h4>
+<b>__collapseAllCodeInfo</b>(<i></i>)
+<p>
+        Private slot to collapse all items of the code info widget.
+</p>
+
+<a NAME="PythonDisViewer.__collapseAllDis" ID="PythonDisViewer.__collapseAllDis"></a>
+<h4>PythonDisViewer.__collapseAllDis</h4>
+<b>__collapseAllDis</b>(<i></i>)
+<p>
+        Private slot to collapse all items of the disassembly widget.
+</p>
+
+<a NAME="PythonDisViewer.__configure" ID="PythonDisViewer.__configure"></a>
+<h4>PythonDisViewer.__configure</h4>
+<b>__configure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="PythonDisViewer.__createCodeInfo" ID="PythonDisViewer.__createCodeInfo"></a>
+<h4>PythonDisViewer.__createCodeInfo</h4>
+<b>__createCodeInfo</b>(<i>co</i>)
+<p>
+        Private method to create a dictionary containing the code info data.
+</p>
+
+<dl>
+
+<dt><i>co</i> (code)</dt>
+<dd>
+reference to the code object to generate the info for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the code info data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__createErrorItem" ID="PythonDisViewer.__createErrorItem"></a>
+<h4>PythonDisViewer.__createErrorItem</h4>
+<b>__createErrorItem</b>(<i>error</i>)
+<p>
+        Private method to create a top level error item.
+</p>
+
+<dl>
+
+<dt><i>error</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__createInstructionItem" ID="PythonDisViewer.__createInstructionItem"></a>
+<h4>PythonDisViewer.__createInstructionItem</h4>
+<b>__createInstructionItem</b>(<i>instr, parent, lasti=-1</i>)
+<p>
+        Private method to create an item for the given instruction.
+</p>
+
+<dl>
+
+<dt><i>instr</i> (dis.Instruction)</dt>
+<dd>
+instruction the item should be based on
+</dd>
+<dt><i>parent</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the parent item
+</dd>
+<dt><i>lasti</i> (int)</dt>
+<dd>
+index of the instruction of a traceback
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__createTitleItem" ID="PythonDisViewer.__createTitleItem"></a>
+<h4>PythonDisViewer.__createTitleItem</h4>
+<b>__createTitleItem</b>(<i>title, line, parentItem</i>)
+<p>
+        Private method to create a title item.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+titel string for the item
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+start line of the titled disassembly
+</dd>
+<dt><i>parentItem</i> (QTreeWidget or QTreeWidgetItem)</dt>
+<dd>
+reference to the parent item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__disContextMenuRequested" ID="PythonDisViewer.__disContextMenuRequested"></a>
+<h4>PythonDisViewer.__disContextMenuRequested</h4>
+<b>__disContextMenuRequested</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu of the disassembly widget.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+position of the mouse pointer
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__disItemClicked" ID="PythonDisViewer.__disItemClicked"></a>
+<h4>PythonDisViewer.__disItemClicked</h4>
+<b>__disItemClicked</b>(<i>itm, _column</i>)
+<p>
+        Private slot handling a user click on a Disassembly node item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the clicked item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column number of the click (unused)
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__disViewerStateChanged" ID="PythonDisViewer.__disViewerStateChanged"></a>
+<h4>PythonDisViewer.__disViewerStateChanged</h4>
+<b>__disViewerStateChanged</b>(<i>on</i>)
+<p>
+        Private slot to toggle the display of the Disassembly viewer.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating to show the Disassembly
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__disassembleObject" ID="PythonDisViewer.__disassembleObject"></a>
+<h4>PythonDisViewer.__disassembleObject</h4>
+<b>__disassembleObject</b>(<i>co, parentItem, parentName="", lasti=-1</i>)
+<p>
+        Private method to disassemble the given code object recursively.
+</p>
+
+<dl>
+
+<dt><i>co</i> (code object)</dt>
+<dd>
+code object to be disassembled
+</dd>
+<dt><i>parentItem</i> (QTreeWidget or QTreeWidgetItem)</dt>
+<dd>
+reference to the parent item
+</dd>
+<dt><i>parentName</i> (str)</dt>
+<dd>
+name of the parent code object
+</dd>
+<dt><i>lasti</i> (int)</dt>
+<dd>
+index of the instruction of a traceback
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__editorChanged" ID="PythonDisViewer.__editorChanged"></a>
+<h4>PythonDisViewer.__editorChanged</h4>
+<b>__editorChanged</b>(<i>editor</i>)
+<p>
+        Private slot to handle a change of the current editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the current editor
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__editorLanguageChanged" ID="PythonDisViewer.__editorLanguageChanged"></a>
+<h4>PythonDisViewer.__editorLanguageChanged</h4>
+<b>__editorLanguageChanged</b>(<i>editor</i>)
+<p>
+        Private slot to handle a change of the editor language.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor which changed language
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__editorLineChanged" ID="PythonDisViewer.__editorLineChanged"></a>
+<h4>PythonDisViewer.__editorLineChanged</h4>
+<b>__editorLineChanged</b>(<i>editor, _lineno</i>)
+<p>
+        Private slot to handle a mouse button double click in the editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor, that emitted the signal
+</dd>
+<dt><i>_lineno</i> (int)</dt>
+<dd>
+line number of the editor's cursor (zero based) (unused)
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__editorSaved" ID="PythonDisViewer.__editorSaved"></a>
+<h4>PythonDisViewer.__editorSaved</h4>
+<b>__editorSaved</b>(<i>editor</i>)
+<p>
+        Private slot to reload the Disassembly after the connected editor was
+        saved.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor that performed a save action
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__expandAllCodeInfo" ID="PythonDisViewer.__expandAllCodeInfo"></a>
+<h4>PythonDisViewer.__expandAllCodeInfo</h4>
+<b>__expandAllCodeInfo</b>(<i></i>)
+<p>
+        Private slot to expand all items of the code info widget.
+</p>
+
+<a NAME="PythonDisViewer.__expandAllDis" ID="PythonDisViewer.__expandAllDis"></a>
+<h4>PythonDisViewer.__expandAllDis</h4>
+<b>__expandAllDis</b>(<i></i>)
+<p>
+        Private slot to expand all items of the disassembly widget.
+</p>
+
+<a NAME="PythonDisViewer.__lastEditorClosed" ID="PythonDisViewer.__lastEditorClosed"></a>
+<h4>PythonDisViewer.__lastEditorClosed</h4>
+<b>__lastEditorClosed</b>(<i></i>)
+<p>
+        Private slot to handle the last editor closed signal of the view
+        manager.
+</p>
+
+<a NAME="PythonDisViewer.__loadDIS" ID="PythonDisViewer.__loadDIS"></a>
+<h4>PythonDisViewer.__loadDIS</h4>
+<b>__loadDIS</b>(<i></i>)
+<p>
+        Private method to generate the Disassembly from the source of the
+        current editor and visualize it.
+</p>
+
+<a NAME="PythonDisViewer.__resizeCodeInfoColumns" ID="PythonDisViewer.__resizeCodeInfoColumns"></a>
+<h4>PythonDisViewer.__resizeCodeInfoColumns</h4>
+<b>__resizeCodeInfoColumns</b>(<i></i>)
+<p>
+        Private method to resize the columns of the code info widget to
+        suitable values.
+</p>
+
+<a NAME="PythonDisViewer.__resizeDisColumns" ID="PythonDisViewer.__resizeDisColumns"></a>
+<h4>PythonDisViewer.__resizeDisColumns</h4>
+<b>__resizeDisColumns</b>(<i></i>)
+<p>
+        Private method to resize the columns of the disassembly widget to
+        suitable values.
+</p>
+
+<a NAME="PythonDisViewer.__selectChildren" ID="PythonDisViewer.__selectChildren"></a>
+<h4>PythonDisViewer.__selectChildren</h4>
+<b>__selectChildren</b>(<i>itm, lineno</i>)
+<p>
+        Private method to select children of the given item covering the given
+        line number.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number to base the selection on
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__selectItemForEditorLine" ID="PythonDisViewer.__selectItemForEditorLine"></a>
+<h4>PythonDisViewer.__selectItemForEditorLine</h4>
+<b>__selectItemForEditorLine</b>(<i></i>)
+<p>
+        Private slot to select the items corresponding with the cursor line
+        of the current editor.
+</p>
+
+<a NAME="PythonDisViewer.__showCodeInfo" ID="PythonDisViewer.__showCodeInfo"></a>
+<h4>PythonDisViewer.__showCodeInfo</h4>
+<b>__showCodeInfo</b>(<i></i>)
+<p>
+        Private slot handling the context menu action to show code info.
+</p>
+
+<a NAME="PythonDisViewer.__showCodeInfoData" ID="PythonDisViewer.__showCodeInfoData"></a>
+<h4>PythonDisViewer.__showCodeInfoData</h4>
+<b>__showCodeInfoData</b>(<i>codeInfo</i>)
+<p>
+        Private method to show the passed code info data.
+</p>
+
+<dl>
+
+<dt><i>codeInfo</i> (dict)</dt>
+<dd>
+dictionary containing the code info data
+</dd>
+</dl>
+<a NAME="PythonDisViewer.__styleLabels" ID="PythonDisViewer.__styleLabels"></a>
+<h4>PythonDisViewer.__styleLabels</h4>
+<b>__styleLabels</b>(<i></i>)
+<p>
+        Private method to style the info labels iaw. selected colors.
+</p>
+
+<a NAME="PythonDisViewer.__updateItemEndLine" ID="PythonDisViewer.__updateItemEndLine"></a>
+<h4>PythonDisViewer.__updateItemEndLine</h4>
+<b>__updateItemEndLine</b>(<i>itm</i>)
+<p>
+        Private method to update an items end line based on its children.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to be updated
+</dd>
+</dl>
+<a NAME="PythonDisViewer.clear" ID="PythonDisViewer.clear"></a>
+<h4>PythonDisViewer.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to clear the display.
+</p>
+
+<a NAME="PythonDisViewer.createCodeInfoItems" ID="PythonDisViewer.createCodeInfoItems"></a>
+<h4>PythonDisViewer.createCodeInfoItems</h4>
+<b>createCodeInfoItems</b>(<i>infoList</i>)
+<p>
+            Function to create code info items for the given list.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title string for the list
+</dd>
+<dt><i>infoList</i> (list of str)</dt>
+<dd>
+list of info strings
+</dd>
+</dl>
+<a NAME="PythonDisViewer.hide" ID="PythonDisViewer.hide"></a>
+<h4>PythonDisViewer.hide</h4>
+<b>hide</b>(<i></i>)
+<p>
+        Public slot to hide the DIS viewer.
+</p>
+
+<a NAME="PythonDisViewer.preferencesChanged" ID="PythonDisViewer.preferencesChanged"></a>
+<h4>PythonDisViewer.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot handling changes of the Disassembly viewer settings.
+</p>
+
+<a NAME="PythonDisViewer.resizeEvent" ID="PythonDisViewer.resizeEvent"></a>
+<h4>PythonDisViewer.resizeEvent</h4>
+<b>resizeEvent</b>(<i>_evt</i>)
+<p>
+        Protected method to handle resize events.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QResizeEvent)</dt>
+<dd>
+resize event (unused)
+</dd>
+</dl>
+<a NAME="PythonDisViewer.show" ID="PythonDisViewer.show"></a>
+<h4>PythonDisViewer.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the DIS viewer.
+</p>
+
+<a NAME="PythonDisViewer.showDisassembly" ID="PythonDisViewer.showDisassembly"></a>
+<h4>PythonDisViewer.showDisassembly</h4>
+<b>showDisassembly</b>(<i>disassembly</i>)
+<p>
+        Public slot to receive a code disassembly from the debug client.
+</p>
+
+<dl>
+
+<dt><i>disassembly</i> (dict)</dt>
+<dd>
+dictionary containing the disassembly information
+</dd>
+</dl>
+<a NAME="PythonDisViewer.shutdown" ID="PythonDisViewer.shutdown"></a>
+<h4>PythonDisViewer.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to perform shutdown actions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PythonDisViewerModes" ID="PythonDisViewerModes"></a>
+<h2>PythonDisViewerModes</h2>
+<p>
+    Class implementing the disassembly viewer operation modes.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>SOURCEDISASSEMBLY</td></tr>
+<tr><td>TRACEBACK</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="linestarts" ID="linestarts"></a>
+<h2>linestarts</h2>
+<b>linestarts</b>(<i>co, filename="", getall=True</i>)
+<p>
+    Function to get the line starts for the given code object.
+</p>
+
+<dl>
+
+<dt><i>co</i> (code object or str)</dt>
+<dd>
+reference to the compiled code object or the source code
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file (optional)
+</dd>
+<dt><i>getall</i> (bool)</dt>
+<dd>
+flag indicating to get all line starts recursively
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of lines starting some byte code instruction block
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="tryCompile" ID="tryCompile"></a>
+<h2>tryCompile</h2>
+<b>tryCompile</b>(<i>source, name</i>)
+<p>
+    Function to attempt to compile the given source, first as an
+    expression and then as a statement if the first approach fails.
+</p>
+
+<dl>
+
+<dt><i>source</i> (str)</dt>
+<dd>
+source code string to be compiled
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the file containing the source
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+compiled code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+code object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

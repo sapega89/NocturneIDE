@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.SpellChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.SpellChecker</h1>
+<p>
+Module implementing the spell checker for the editor component.
+</p>
+<p>
+The spell checker is based on pyenchant.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SpellChecker">SpellChecker</a></td>
+<td>Class implementing a pyenchant based spell checker.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SpellChecker" ID="SpellChecker"></a>
+<h2>SpellChecker</h2>
+<p>
+    Class implementing a pyenchant based spell checker.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>_spelling_dict</td></tr>
+<tr><td>_spelling_lang</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#SpellChecker._getDict">_getDict</a></td>
+<td>Protected class method to get a new dictionary.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.getAvailableLanguages">getAvailableLanguages</a></td>
+<td>Class method to get all available languages.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.getDefaultPath">getDefaultPath</a></td>
+<td>Class method to get the default path names of the user dictionaries.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.getUserDictionaryPath">getUserDictionaryPath</a></td>
+<td>Class method to get the path name of a user dictionary file.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.isAvailable">isAvailable</a></td>
+<td>Class method to check, if spellchecking is available.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.setDefaultLanguage">setDefaultLanguage</a></td>
+<td>Class method to set the default language.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SpellChecker.__init__">SpellChecker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.__checkDocumentPart">__checkDocumentPart</a></td>
+<td>Private method to check some part of the document.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.__getNextWord">__getNextWord</a></td>
+<td>Private method to get the next word in the text after the given position.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.__incrementalCheck">__incrementalCheck</a></td>
+<td>Private method to check the document incrementally.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.__iter__">__iter__</a></td>
+<td>Special method to create an iterator.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.__next__">__next__</a></td>
+<td>Special method to advance to the next error.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.add">add</a></td>
+<td>Public method to add a word to the personal word list.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.checkCurrentPage">checkCurrentPage</a></td>
+<td>Public method to check the currently visible page.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.checkDocument">checkDocument</a></td>
+<td>Public method to check the complete document.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.checkDocumentIncrementally">checkDocumentIncrementally</a></td>
+<td>Public method to check the document incrementally.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.checkLines">checkLines</a></td>
+<td>Public method to check some lines of text.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.checkSelection">checkSelection</a></td>
+<td>Public method to check the current selection.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.checkWord">checkWord</a></td>
+<td>Public method to check the word at position pos.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.clearAll">clearAll</a></td>
+<td>Public method to clear all spelling markers.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.getContext">getContext</a></td>
+<td>Public method to get the context of a faulty word.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.getError">getError</a></td>
+<td>Public method to get information about the last error found.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.getLanguage">getLanguage</a></td>
+<td>Public method to get the current language.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.getSuggestions">getSuggestions</a></td>
+<td>Public method to get suggestions for the given word.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.ignoreAlways">ignoreAlways</a></td>
+<td>Public method to tell the checker, to always ignore the given word or the current word.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.initCheck">initCheck</a></td>
+<td>Public method to initialize a spell check.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.remove">remove</a></td>
+<td>Public method to add a word to the personal exclude list.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.replace">replace</a></td>
+<td>Public method to tell the checker to replace the current word with the replacement string.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.replaceAlways">replaceAlways</a></td>
+<td>Public method to tell the checker to always replace the current word with the replacement string.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.setLanguage">setLanguage</a></td>
+<td>Public method to set the current language.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.setMinimumWordSize">setMinimumWordSize</a></td>
+<td>Public method to set the minimum word size.</td>
+</tr>
+<tr>
+<td><a href="#SpellChecker.stopIncrementalCheck">stopIncrementalCheck</a></td>
+<td>Public method to stop an incremental check.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SpellChecker._getDict" ID="SpellChecker._getDict"></a>
+<h4>SpellChecker._getDict (class method)</h4>
+<b>_getDict</b>(<i>lang, pwl="", pel=""</i>)
+<p>
+        Protected class method to get a new dictionary.
+</p>
+
+<dl>
+
+<dt><i>lang</i> (str)</dt>
+<dd>
+the language to be used as the default. The string should
+            be in language locale format (e.g. en_US, de).
+</dd>
+<dt><i>pwl</i> (str)</dt>
+<dd>
+name of the personal/project word list
+</dd>
+<dt><i>pel</i> (str)</dt>
+<dd>
+name of the personal/project exclude list
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+enchant.Dict
+</dd>
+</dl>
+<a NAME="SpellChecker.getAvailableLanguages" ID="SpellChecker.getAvailableLanguages"></a>
+<h4>SpellChecker.getAvailableLanguages (class method)</h4>
+<b>getAvailableLanguages</b>(<i></i>)
+<p>
+        Class method to get all available languages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of available languages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SpellChecker.getDefaultPath" ID="SpellChecker.getDefaultPath"></a>
+<h4>SpellChecker.getDefaultPath (class method)</h4>
+<b>getDefaultPath</b>(<i>isException=False</i>)
+<p>
+        Class method to get the default path names of the user dictionaries.
+</p>
+
+<dl>
+
+<dt><i>isException</i> (bool)</dt>
+<dd>
+flag indicating to return the name of the default
+            exception dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+file name of the default user dictionary or the default user
+            exception dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SpellChecker.getUserDictionaryPath" ID="SpellChecker.getUserDictionaryPath"></a>
+<h4>SpellChecker.getUserDictionaryPath (class method)</h4>
+<b>getUserDictionaryPath</b>(<i>isException=False</i>)
+<p>
+        Class method to get the path name of a user dictionary file.
+</p>
+
+<dl>
+
+<dt><i>isException</i> (bool)</dt>
+<dd>
+flag indicating to return the name of the user
+            exception dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+file name of the user dictionary or the user exception
+            dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SpellChecker.isAvailable" ID="SpellChecker.isAvailable"></a>
+<h4>SpellChecker.isAvailable (class method)</h4>
+<b>isAvailable</b>(<i></i>)
+<p>
+        Class method to check, if spellchecking is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating availability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SpellChecker.setDefaultLanguage" ID="SpellChecker.setDefaultLanguage"></a>
+<h4>SpellChecker.setDefaultLanguage (class method)</h4>
+<b>setDefaultLanguage</b>(<i>language</i>)
+<p>
+        Class method to set the default language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+the language to be used as the default. The string should
+            be in language locale format (e.g. en_US, de).
+</dd>
+</dl>
+<a NAME="SpellChecker.__init__" ID="SpellChecker.__init__"></a>
+<h4>SpellChecker (Constructor)</h4>
+<b>SpellChecker</b>(<i>editor, indicator, defaultLanguage=None, checkRegion=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QScintilla.Editor)</dt>
+<dd>
+reference to the editor object
+</dd>
+<dt><i>indicator</i> (int)</dt>
+<dd>
+spell checking indicator
+</dd>
+<dt><i>defaultLanguage</i> (str)</dt>
+<dd>
+the language to be used as the default. The string
+            should be in language locale format (e.g. en_US, de).
+</dd>
+<dt><i>checkRegion</i> (function)</dt>
+<dd>
+reference to a function to check for a valid
+            region
+</dd>
+</dl>
+<a NAME="SpellChecker.__checkDocumentPart" ID="SpellChecker.__checkDocumentPart"></a>
+<h4>SpellChecker.__checkDocumentPart</h4>
+<b>__checkDocumentPart</b>(<i>startPos, endPos</i>)
+<p>
+        Private method to check some part of the document.
+</p>
+
+<dl>
+
+<dt><i>startPos</i> (int)</dt>
+<dd>
+position to start at
+</dd>
+<dt><i>endPos</i> (int)</dt>
+<dd>
+position to end at
+</dd>
+</dl>
+<a NAME="SpellChecker.__getNextWord" ID="SpellChecker.__getNextWord"></a>
+<h4>SpellChecker.__getNextWord</h4>
+<b>__getNextWord</b>(<i>pos, endPosition</i>)
+<p>
+        Private method to get the next word in the text after the given
+        position.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to start word extraction
+</dd>
+<dt><i>endPosition</i> (int)</dt>
+<dd>
+position to stop word extraction
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of three values (the extracted word, start position, end position)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, int, int)
+</dd>
+</dl>
+<a NAME="SpellChecker.__incrementalCheck" ID="SpellChecker.__incrementalCheck"></a>
+<h4>SpellChecker.__incrementalCheck</h4>
+<b>__incrementalCheck</b>(<i></i>)
+<p>
+        Private method to check the document incrementally.
+</p>
+
+<a NAME="SpellChecker.__iter__" ID="SpellChecker.__iter__"></a>
+<h4>SpellChecker.__iter__</h4>
+<b>__iter__</b>(<i></i>)
+<p>
+        Special method to create an iterator.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+self
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SpellChecker
+</dd>
+</dl>
+<a NAME="SpellChecker.__next__" ID="SpellChecker.__next__"></a>
+<h4>SpellChecker.__next__</h4>
+<b>__next__</b>(<i></i>)
+<p>
+        Special method to advance to the next error.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+self
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SpellChecker
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>StopIteration</b>:</dt>
+<dd>
+raised to indicate the end of the iteration
+</dd>
+</dl>
+<a NAME="SpellChecker.add" ID="SpellChecker.add"></a>
+<h4>SpellChecker.add</h4>
+<b>add</b>(<i>word=None</i>)
+<p>
+        Public method to add a word to the personal word list.
+</p>
+
+<dl>
+
+<dt><i>word</i> (str)</dt>
+<dd>
+word to add
+</dd>
+</dl>
+<a NAME="SpellChecker.checkCurrentPage" ID="SpellChecker.checkCurrentPage"></a>
+<h4>SpellChecker.checkCurrentPage</h4>
+<b>checkCurrentPage</b>(<i></i>)
+<p>
+        Public method to check the currently visible page.
+</p>
+
+<a NAME="SpellChecker.checkDocument" ID="SpellChecker.checkDocument"></a>
+<h4>SpellChecker.checkDocument</h4>
+<b>checkDocument</b>(<i></i>)
+<p>
+        Public method to check the complete document.
+</p>
+
+<a NAME="SpellChecker.checkDocumentIncrementally" ID="SpellChecker.checkDocumentIncrementally"></a>
+<h4>SpellChecker.checkDocumentIncrementally</h4>
+<b>checkDocumentIncrementally</b>(<i></i>)
+<p>
+        Public method to check the document incrementally.
+</p>
+
+<a NAME="SpellChecker.checkLines" ID="SpellChecker.checkLines"></a>
+<h4>SpellChecker.checkLines</h4>
+<b>checkLines</b>(<i>firstLine, lastLine</i>)
+<p>
+        Public method to check some lines of text.
+</p>
+
+<dl>
+
+<dt><i>firstLine</i> (int)</dt>
+<dd>
+line number of first line to check
+</dd>
+<dt><i>lastLine</i> (int)</dt>
+<dd>
+line number of last line to check
+</dd>
+</dl>
+<a NAME="SpellChecker.checkSelection" ID="SpellChecker.checkSelection"></a>
+<h4>SpellChecker.checkSelection</h4>
+<b>checkSelection</b>(<i></i>)
+<p>
+        Public method to check the current selection.
+</p>
+
+<a NAME="SpellChecker.checkWord" ID="SpellChecker.checkWord"></a>
+<h4>SpellChecker.checkWord</h4>
+<b>checkWord</b>(<i>pos, atEnd=False</i>)
+<p>
+        Public method to check the word at position pos.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to check at
+</dd>
+<dt><i>atEnd</i> (bool)</dt>
+<dd>
+flag indicating the position is at the end of the word to check
+</dd>
+</dl>
+<a NAME="SpellChecker.clearAll" ID="SpellChecker.clearAll"></a>
+<h4>SpellChecker.clearAll</h4>
+<b>clearAll</b>(<i></i>)
+<p>
+        Public method to clear all spelling markers.
+</p>
+
+<a NAME="SpellChecker.getContext" ID="SpellChecker.getContext"></a>
+<h4>SpellChecker.getContext</h4>
+<b>getContext</b>(<i>wordStart, wordEnd</i>)
+<p>
+        Public method to get the context of a faulty word.
+</p>
+
+<dl>
+
+<dt><i>wordStart</i> (int)</dt>
+<dd>
+the starting position of the word
+</dd>
+<dt><i>wordEnd</i> (int)</dt>
+<dd>
+the ending position of the word
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of the leading and trailing context
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="SpellChecker.getError" ID="SpellChecker.getError"></a>
+<h4>SpellChecker.getError</h4>
+<b>getError</b>(<i></i>)
+<p>
+        Public method to get information about the last error found.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of last faulty word, starting position of the
+            faulty word and ending position of the faulty word
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, int, int)
+</dd>
+</dl>
+<a NAME="SpellChecker.getLanguage" ID="SpellChecker.getLanguage"></a>
+<h4>SpellChecker.getLanguage</h4>
+<b>getLanguage</b>(<i></i>)
+<p>
+        Public method to get the current language.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current language in language locale format
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SpellChecker.getSuggestions" ID="SpellChecker.getSuggestions"></a>
+<h4>SpellChecker.getSuggestions</h4>
+<b>getSuggestions</b>(<i>word</i>)
+<p>
+        Public method to get suggestions for the given word.
+</p>
+
+<dl>
+
+<dt><i>word</i> (str)</dt>
+<dd>
+word to get suggestions for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of suggestions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SpellChecker.ignoreAlways" ID="SpellChecker.ignoreAlways"></a>
+<h4>SpellChecker.ignoreAlways</h4>
+<b>ignoreAlways</b>(<i>word=None</i>)
+<p>
+        Public method to tell the checker, to always ignore the given word
+        or the current word.
+</p>
+
+<dl>
+
+<dt><i>word</i> (str)</dt>
+<dd>
+word to be ignored
+</dd>
+</dl>
+<a NAME="SpellChecker.initCheck" ID="SpellChecker.initCheck"></a>
+<h4>SpellChecker.initCheck</h4>
+<b>initCheck</b>(<i>startPos, endPos</i>)
+<p>
+        Public method to initialize a spell check.
+</p>
+
+<dl>
+
+<dt><i>startPos</i> (int)</dt>
+<dd>
+position to start at
+</dd>
+<dt><i>endPos</i> (int)</dt>
+<dd>
+position to end at
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful initialization
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SpellChecker.remove" ID="SpellChecker.remove"></a>
+<h4>SpellChecker.remove</h4>
+<b>remove</b>(<i>word</i>)
+<p>
+        Public method to add a word to the personal exclude list.
+</p>
+
+<dl>
+
+<dt><i>word</i> (str)</dt>
+<dd>
+word to add
+</dd>
+</dl>
+<a NAME="SpellChecker.replace" ID="SpellChecker.replace"></a>
+<h4>SpellChecker.replace</h4>
+<b>replace</b>(<i>replacement</i>)
+<p>
+        Public method to tell the checker to replace the current word with
+        the replacement string.
+</p>
+
+<dl>
+
+<dt><i>replacement</i> (str)</dt>
+<dd>
+replacement string
+</dd>
+</dl>
+<a NAME="SpellChecker.replaceAlways" ID="SpellChecker.replaceAlways"></a>
+<h4>SpellChecker.replaceAlways</h4>
+<b>replaceAlways</b>(<i>replacement</i>)
+<p>
+        Public method to tell the checker to always replace the current word
+        with the replacement string.
+</p>
+
+<dl>
+
+<dt><i>replacement</i> (str)</dt>
+<dd>
+replacement string
+</dd>
+</dl>
+<a NAME="SpellChecker.setLanguage" ID="SpellChecker.setLanguage"></a>
+<h4>SpellChecker.setLanguage</h4>
+<b>setLanguage</b>(<i>language, pwl="", pel=""</i>)
+<p>
+        Public method to set the current language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+the language to be used as the default. The string should
+            be in language locale format (e.g. en_US, de).
+</dd>
+<dt><i>pwl</i> (str)</dt>
+<dd>
+name of the personal/project word list
+</dd>
+<dt><i>pel</i> (str)</dt>
+<dd>
+name of the personal/project exclude list
+</dd>
+</dl>
+<a NAME="SpellChecker.setMinimumWordSize" ID="SpellChecker.setMinimumWordSize"></a>
+<h4>SpellChecker.setMinimumWordSize</h4>
+<b>setMinimumWordSize</b>(<i>size</i>)
+<p>
+        Public method to set the minimum word size.
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+minimum word size
+</dd>
+</dl>
+<a NAME="SpellChecker.stopIncrementalCheck" ID="SpellChecker.stopIncrementalCheck"></a>
+<h4>SpellChecker.stopIncrementalCheck</h4>
+<b>stopIncrementalCheck</b>(<i></i>)
+<p>
+        Public method to stop an incremental check.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

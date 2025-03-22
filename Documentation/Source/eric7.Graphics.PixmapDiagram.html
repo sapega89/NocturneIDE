@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Graphics.PixmapDiagram</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Graphics.PixmapDiagram</h1>
+<p>
+Module implementing a dialog showing a pixmap.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PixmapDiagram">PixmapDiagram</a></td>
+<td>Class implementing a dialog showing a pixmap.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PixmapDiagram" ID="PixmapDiagram"></a>
+<h2>PixmapDiagram</h2>
+<p>
+    Class implementing a dialog showing a pixmap.
+</p>
+
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ZoomLevelDefault</td></tr>
+<tr><td>ZoomLevels</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PixmapDiagram.__init__">PixmapDiagram</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__adjustScrollBar">__adjustScrollBar</a></td>
+<td>Private method to adjust a scrollbar by a certain factor.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__doZoom">__doZoom</a></td>
+<td>Private method to set the zoom value in percent.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__initActions">__initActions</a></td>
+<td>Private method to initialize the view actions.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__initContextMenu">__initContextMenu</a></td>
+<td>Private method to initialize the context menu.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__initToolBars">__initToolBars</a></td>
+<td>Private method to populate the toolbars with our actions.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__levelForZoom">__levelForZoom</a></td>
+<td>Private method determining the zoom level index given a zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__print">__print</a></td>
+<td>Private slot to the actual printing.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__printDiagram">__printDiagram</a></td>
+<td>Private slot called to print the diagram.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__printPreviewDiagram">__printPreviewDiagram</a></td>
+<td>Private slot called to show a print preview of the diagram.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu of the listview.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__showPixmap">__showPixmap</a></td>
+<td>Private method to show a file.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__zoom">__zoom</a></td>
+<td>Private method to get the current zoom factor in percent.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__zoomIn">__zoomIn</a></td>
+<td>Private method to zoom into the pixmap.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__zoomOut">__zoomOut</a></td>
+<td>Private method to zoom out of the pixmap.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.__zoomReset">__zoomReset</a></td>
+<td>Private method to reset the zoom value.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.event">event</a></td>
+<td>Public method handling events.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.gestureEvent">gestureEvent</a></td>
+<td>Protected method handling gesture events.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.getDiagramName">getDiagramName</a></td>
+<td>Public method to retrieve a name for the diagram.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.getStatus">getStatus</a></td>
+<td>Public method to retrieve the status of the canvas.</td>
+</tr>
+<tr>
+<td><a href="#PixmapDiagram.wheelEvent">wheelEvent</a></td>
+<td>Protected method to handle wheel events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PixmapDiagram.__init__" ID="PixmapDiagram.__init__"></a>
+<h4>PixmapDiagram (Constructor)</h4>
+<b>PixmapDiagram</b>(<i>pixmap, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>pixmap</i> (str)</dt>
+<dd>
+filename of a graphics file to show
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of the view
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the view widget
+</dd>
+</dl>
+<a NAME="PixmapDiagram.__adjustScrollBar" ID="PixmapDiagram.__adjustScrollBar"></a>
+<h4>PixmapDiagram.__adjustScrollBar</h4>
+<b>__adjustScrollBar</b>(<i>scrollBar, factor</i>)
+<p>
+        Private method to adjust a scrollbar by a certain factor.
+</p>
+
+<dl>
+
+<dt><i>scrollBar</i> (QScrollBar)</dt>
+<dd>
+reference to the scrollbar object
+</dd>
+<dt><i>factor</i> (float)</dt>
+<dd>
+factor to adjust by
+</dd>
+</dl>
+<a NAME="PixmapDiagram.__doZoom" ID="PixmapDiagram.__doZoom"></a>
+<h4>PixmapDiagram.__doZoom</h4>
+<b>__doZoom</b>(<i>value</i>)
+<p>
+        Private method to set the zoom value in percent.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+zoom value in percent
+</dd>
+</dl>
+<a NAME="PixmapDiagram.__initActions" ID="PixmapDiagram.__initActions"></a>
+<h4>PixmapDiagram.__initActions</h4>
+<b>__initActions</b>(<i></i>)
+<p>
+        Private method to initialize the view actions.
+</p>
+
+<a NAME="PixmapDiagram.__initContextMenu" ID="PixmapDiagram.__initContextMenu"></a>
+<h4>PixmapDiagram.__initContextMenu</h4>
+<b>__initContextMenu</b>(<i></i>)
+<p>
+        Private method to initialize the context menu.
+</p>
+
+<a NAME="PixmapDiagram.__initToolBars" ID="PixmapDiagram.__initToolBars"></a>
+<h4>PixmapDiagram.__initToolBars</h4>
+<b>__initToolBars</b>(<i></i>)
+<p>
+        Private method to populate the toolbars with our actions.
+</p>
+
+<a NAME="PixmapDiagram.__levelForZoom" ID="PixmapDiagram.__levelForZoom"></a>
+<h4>PixmapDiagram.__levelForZoom</h4>
+<b>__levelForZoom</b>(<i>zoom</i>)
+<p>
+        Private method determining the zoom level index given a zoom factor.
+</p>
+
+<dl>
+
+<dt><i>zoom</i> (int)</dt>
+<dd>
+zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="PixmapDiagram.__print" ID="PixmapDiagram.__print"></a>
+<h4>PixmapDiagram.__print</h4>
+<b>__print</b>(<i>printer</i>)
+<p>
+        Private slot to the actual printing.
+</p>
+
+<dl>
+
+<dt><i>printer</i> (QPrinter)</dt>
+<dd>
+reference to the printer object
+</dd>
+</dl>
+<a NAME="PixmapDiagram.__printDiagram" ID="PixmapDiagram.__printDiagram"></a>
+<h4>PixmapDiagram.__printDiagram</h4>
+<b>__printDiagram</b>(<i></i>)
+<p>
+        Private slot called to print the diagram.
+</p>
+
+<a NAME="PixmapDiagram.__printPreviewDiagram" ID="PixmapDiagram.__printPreviewDiagram"></a>
+<h4>PixmapDiagram.__printPreviewDiagram</h4>
+<b>__printPreviewDiagram</b>(<i></i>)
+<p>
+        Private slot called to show a print preview of the diagram.
+</p>
+
+<a NAME="PixmapDiagram.__showContextMenu" ID="PixmapDiagram.__showContextMenu"></a>
+<h4>PixmapDiagram.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu of the listview.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="PixmapDiagram.__showPixmap" ID="PixmapDiagram.__showPixmap"></a>
+<h4>PixmapDiagram.__showPixmap</h4>
+<b>__showPixmap</b>(<i>filename</i>)
+<p>
+        Private method to show a file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to be shown
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PixmapDiagram.__zoom" ID="PixmapDiagram.__zoom"></a>
+<h4>PixmapDiagram.__zoom</h4>
+<b>__zoom</b>(<i></i>)
+<p>
+        Private method to get the current zoom factor in percent.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current zoom factor in percent
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="PixmapDiagram.__zoomIn" ID="PixmapDiagram.__zoomIn"></a>
+<h4>PixmapDiagram.__zoomIn</h4>
+<b>__zoomIn</b>(<i></i>)
+<p>
+        Private method to zoom into the pixmap.
+</p>
+
+<a NAME="PixmapDiagram.__zoomOut" ID="PixmapDiagram.__zoomOut"></a>
+<h4>PixmapDiagram.__zoomOut</h4>
+<b>__zoomOut</b>(<i></i>)
+<p>
+        Private method to zoom out of the pixmap.
+</p>
+
+<a NAME="PixmapDiagram.__zoomReset" ID="PixmapDiagram.__zoomReset"></a>
+<h4>PixmapDiagram.__zoomReset</h4>
+<b>__zoomReset</b>(<i></i>)
+<p>
+        Private method to reset the zoom value.
+</p>
+
+<a NAME="PixmapDiagram.event" ID="PixmapDiagram.event"></a>
+<h4>PixmapDiagram.event</h4>
+<b>event</b>(<i>evt</i>)
+<p>
+        Public method handling events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PixmapDiagram.gestureEvent" ID="PixmapDiagram.gestureEvent"></a>
+<h4>PixmapDiagram.gestureEvent</h4>
+<b>gestureEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling gesture events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QGestureEvent)</dt>
+<dd>
+reference to the gesture event
+</dd>
+</dl>
+<a NAME="PixmapDiagram.getDiagramName" ID="PixmapDiagram.getDiagramName"></a>
+<h4>PixmapDiagram.getDiagramName</h4>
+<b>getDiagramName</b>(<i></i>)
+<p>
+        Public method to retrieve a name for the diagram.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name for the diagram
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PixmapDiagram.getStatus" ID="PixmapDiagram.getStatus"></a>
+<h4>PixmapDiagram.getStatus</h4>
+<b>getStatus</b>(<i></i>)
+<p>
+        Public method to retrieve the status of the canvas.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful pixmap loading
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PixmapDiagram.wheelEvent" ID="PixmapDiagram.wheelEvent"></a>
+<h4>PixmapDiagram.wheelEvent</h4>
+<b>wheelEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle wheel events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QWheelEvent)</dt>
+<dd>
+reference to the wheel event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

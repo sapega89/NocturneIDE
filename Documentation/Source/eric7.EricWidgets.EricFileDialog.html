@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricFileDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricFileDialog</h1>
+<p>
+Module implementing alternative functions for the QFileDialog static methods.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>DontConfirmOverwrite</td></tr>
+<tr><td>DontResolveSymlinks</td></tr>
+<tr><td>DontUseCustomDirectoryIcons</td></tr>
+<tr><td>DontUseNativeDialog</td></tr>
+<tr><td>HideNameFilterDetails</td></tr>
+<tr><td>Option</td></tr>
+<tr><td>ReadOnly</td></tr>
+<tr><td>ShowDirsOnly</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#__reorderFilter">__reorderFilter</a></td>
+<td>Private function to reorder the file filter to cope with a KDE issue introduced by distributor's usage of KDE file dialogs.</td>
+</tr>
+<tr>
+<td><a href="#getExistingDirectory">getExistingDirectory</a></td>
+<td>Module function to get the name of a directory.</td>
+</tr>
+<tr>
+<td><a href="#getExistingDirectoryPath">getExistingDirectoryPath</a></td>
+<td>Module function to get the path of a directory.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFilPathsAndFilter">getOpenFilPathsAndFilter</a></td>
+<td>Module function to get a list of paths of files for opening and the selected file name filter.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileAndDirNames">getOpenFileAndDirNames</a></td>
+<td>Module function to get the names of files and directories for opening.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileAndDirPaths">getOpenFileAndDirPaths</a></td>
+<td>Module function to get the paths of files and directories for opening.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileName">getOpenFileName</a></td>
+<td>Module function to get the name of a file for opening it.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileNameAndFilter">getOpenFileNameAndFilter</a></td>
+<td>Module function to get the name of a file for opening it and the selected file name filter.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileNames">getOpenFileNames</a></td>
+<td>Module function to get a list of names of files for opening.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileNamesAndFilter">getOpenFileNamesAndFilter</a></td>
+<td>Module function to get a list of names of files for opening and the selected file name filter.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFilePath">getOpenFilePath</a></td>
+<td>Module function to get the path of a file for opening it.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFilePathAndFilter">getOpenFilePathAndFilter</a></td>
+<td>Module function to get the path of a file for opening it and the selected file name filter.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFilePaths">getOpenFilePaths</a></td>
+<td>Module function to get a list of paths of files for opening.</td>
+</tr>
+<tr>
+<td><a href="#getSaveFileName">getSaveFileName</a></td>
+<td>Module function to get the name of a file for saving.</td>
+</tr>
+<tr>
+<td><a href="#getSaveFileNameAndFilter">getSaveFileNameAndFilter</a></td>
+<td>Module function to get the name of a file for saving and the selected file name filter.</td>
+</tr>
+<tr>
+<td><a href="#getSaveFilePath">getSaveFilePath</a></td>
+<td>Module function to get the path of a file for saving.</td>
+</tr>
+<tr>
+<td><a href="#getSaveFilePathAndFilter">getSaveFilePathAndFilter</a></td>
+<td>Module function to get the path of a file for saving and the selected file name filter.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="__reorderFilter" ID="__reorderFilter"></a>
+<h2>__reorderFilter</h2>
+<b>__reorderFilter</b>(<i>filterStr, initialFilter=""</i>)
+<p>
+    Private function to reorder the file filter to cope with a KDE issue
+    introduced by distributor's usage of KDE file dialogs.
+</p>
+
+<dl>
+
+<dt><i>filterStr</i> (str)</dt>
+<dd>
+Qt file filter
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter (defaults to "")
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the rearranged Qt file filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getExistingDirectory" ID="getExistingDirectory"></a>
+<h2>getExistingDirectory</h2>
+<b>getExistingDirectory</b>(<i>parent=None, caption="", directory="", options=QFileDialog.Option.ShowDirsOnly</i>)
+<p>
+    Module function to get the name of a directory.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to
+        QFileDialog.Option.ShowDirsOnly)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of selected directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getExistingDirectoryPath" ID="getExistingDirectoryPath"></a>
+<h2>getExistingDirectoryPath</h2>
+<b>getExistingDirectoryPath</b>(<i>parent=None, caption="", directory="", options=QFileDialog.Option.ShowDirsOnly</i>)
+<p>
+    Module function to get the path of a directory.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str or pathlib.Path (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to
+        QFileDialog.Option.ShowDirsOnly)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path of selected directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+pathlib.Path
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFilPathsAndFilter" ID="getOpenFilPathsAndFilter"></a>
+<h2>getOpenFilPathsAndFilter</h2>
+<b>getOpenFilPathsAndFilter</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get a list of paths of files for opening and the
+    selected file name filter.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str or pathlib.Path (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of file paths to be opened and selected filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of pathlib.Path, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileAndDirNames" ID="getOpenFileAndDirNames"></a>
+<h2>getOpenFileAndDirNames</h2>
+<b>getOpenFileAndDirNames</b>(<i>parent=None, caption="", directory="", filterStr="", options=None</i>)
+<p>
+    Module function to get the names of files and directories for opening.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+names of the selected files and folders
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileAndDirPaths" ID="getOpenFileAndDirPaths"></a>
+<h2>getOpenFileAndDirPaths</h2>
+<b>getOpenFileAndDirPaths</b>(<i>parent=None, caption="", directory="", filterStr="", options=None</i>)
+<p>
+    Module function to get the paths of files and directories for opening.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str or pathlib.Path (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+paths of the selected files and folders
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of pathlib.Path
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileName" ID="getOpenFileName"></a>
+<h2>getOpenFileName</h2>
+<b>getOpenFileName</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get the name of a file for opening it.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of file to be opened
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileNameAndFilter" ID="getOpenFileNameAndFilter"></a>
+<h2>getOpenFileNameAndFilter</h2>
+<b>getOpenFileNameAndFilter</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get the name of a file for opening it and the selected
+    file name filter.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of file to be opened and selected filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileNames" ID="getOpenFileNames"></a>
+<h2>getOpenFileNames</h2>
+<b>getOpenFileNames</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get a list of names of files for opening.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of file names to be opened
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileNamesAndFilter" ID="getOpenFileNamesAndFilter"></a>
+<h2>getOpenFileNamesAndFilter</h2>
+<b>getOpenFileNamesAndFilter</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get a list of names of files for opening and the
+    selected file name filter.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of file names to be opened and selected filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFilePath" ID="getOpenFilePath"></a>
+<h2>getOpenFilePath</h2>
+<b>getOpenFilePath</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get the path of a file for opening it.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str or pathlib.Path (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path of file to be opened
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+pathlib.Path
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFilePathAndFilter" ID="getOpenFilePathAndFilter"></a>
+<h2>getOpenFilePathAndFilter</h2>
+<b>getOpenFilePathAndFilter</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get the path of a file for opening it and the selected
+    file name filter.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str or pathlib.Path (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path of file to be opened and selected filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (pathlib.Path, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFilePaths" ID="getOpenFilePaths"></a>
+<h2>getOpenFilePaths</h2>
+<b>getOpenFilePaths</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get a list of paths of files for opening.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str or pathlib.Path (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of file paths to be opened
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of pathlib.Path
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getSaveFileName" ID="getSaveFileName"></a>
+<h2>getSaveFileName</h2>
+<b>getSaveFileName</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get the name of a file for saving.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of file to be saved
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getSaveFileNameAndFilter" ID="getSaveFileNameAndFilter"></a>
+<h2>getSaveFileNameAndFilter</h2>
+<b>getSaveFileNameAndFilter</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get the name of a file for saving and the selected file name
+    filter.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of file to be saved and selected filte
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getSaveFilePath" ID="getSaveFilePath"></a>
+<h2>getSaveFilePath</h2>
+<b>getSaveFilePath</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get the path of a file for saving.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str or pathlib.Path (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path of file to be saved
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+pathlib.Path
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getSaveFilePathAndFilter" ID="getSaveFilePathAndFilter"></a>
+<h2>getSaveFilePathAndFilter</h2>
+<b>getSaveFilePathAndFilter</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", options=None</i>)
+<p>
+    Module function to get the path of a file for saving and the selected
+    file name filter.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str or pathlib.Path (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>options</i> (QFileDialog.Options ((optional))</dt>
+<dd>
+various options for the dialog (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path of file to be saved and selected filte
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (pathlib.Path, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

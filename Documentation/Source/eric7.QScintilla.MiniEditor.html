@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.MiniEditor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.MiniEditor</h1>
+<p>
+Module implementing an editor for simple editing tasks.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MiniEditor">MiniEditor</a></td>
+<td>Class implementing an editor for simple editing tasks.</td>
+</tr>
+<tr>
+<td><a href="#MiniScintilla">MiniScintilla</a></td>
+<td>Class implementing a QsciScintillaCompat subclass for handling focus events.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MiniEditor" ID="MiniEditor"></a>
+<h2>MiniEditor</h2>
+<p>
+    Class implementing an editor for simple editing tasks.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>closing()</dt>
+<dd>
+emitted when the editor is closed
+</dd>
+<dt>cursorLineChanged(int)</dt>
+<dd>
+emitted when the cursor line was changed
+</dd>
+<dt>editorRenamed(str)</dt>
+<dd>
+emitted after the editor got a new name
+        (i.e. after a 'Save As')
+</dd>
+<dt>editorSaved()</dt>
+<dd>
+emitted after the file has been saved
+</dd>
+<dt>languageChanged(str)</dt>
+<dd>
+emitted when the editors language was set. The
+        language is passed as a parameter.
+</dd>
+<dt>refreshed()</dt>
+<dd>
+dummy signal to emulate the Editor interface
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MiniEditor.__init__">MiniEditor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__about">__about</a></td>
+<td>Private slot to show a little About message.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__aboutQt">__aboutQt</a></td>
+<td>Private slot to handle the About Qt dialog.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__bindLexer">__bindLexer</a></td>
+<td>Private slot to set the correct lexer depending on language.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__bindName">__bindName</a></td>
+<td>Private method to generate a dummy filename for binding a lexer.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__checkActions">__checkActions</a></td>
+<td>Private slot to check some actions for their enable/disable status and set the statusbar info.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__checkLanguage">__checkLanguage</a></td>
+<td>Private method to check the selected language of the language submenu.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__contextMenuRequested">__contextMenuRequested</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__convertTabs">__convertTabs</a></td>
+<td>Private slot to convert tabulators to spaces.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createActions">__createActions</a></td>
+<td>Private method to create the actions.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createConfigActions">__createConfigActions</a></td>
+<td>Private method to create the Settings actions.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createEditActions">__createEditActions</a></td>
+<td>Private method to create the Edit actions.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createFileActions">__createFileActions</a></td>
+<td>Private method to create the File actions.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createHelpActions">__createHelpActions</a></td>
+<td>Private method to create the Help actions.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createMenus">__createMenus</a></td>
+<td>Private method to create the menus of the menu bar.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createSearchActions">__createSearchActions</a></td>
+<td>Private method defining the user interface actions for the search commands.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createStatusBar">__createStatusBar</a></td>
+<td>Private method to initialize the status bar.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createToolBars">__createToolBars</a></td>
+<td>Private method to create the various toolbars.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__createViewActions">__createViewActions</a></td>
+<td>Private method to create the View actions.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__cursorPositionChanged">__cursorPositionChanged</a></td>
+<td>Private slot to handle the cursorPositionChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__deselectAll">__deselectAll</a></td>
+<td>Private slot handling the deselect all context menu action.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__documentWasModified">__documentWasModified</a></td>
+<td>Private slot to handle a change in the documents modification status.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__editorChanged">__editorChanged</a></td>
+<td>Private slot handling changes of the editor language or file name.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__getCurrentWord">__getCurrentWord</a></td>
+<td>Private method to get the word at the current position.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__getEditorConfig">__getEditorConfig</a></td>
+<td>Private method to get the requested option via EditorConfig.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__getOverrideValue">__getOverrideValue</a></td>
+<td>Private method to get an override value for the current file type.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__getWord">__getWord</a></td>
+<td>Private method to get the word at a position.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__initContextMenu">__initContextMenu</a></td>
+<td>Private method used to setup the context menu.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__initContextMenuLanguages">__initContextMenuLanguages</a></td>
+<td>Private method used to setup the Languages context sub menu.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__languageMenuTriggered">__languageMenuTriggered</a></td>
+<td>Private method to handle the selection of a lexer language.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__loadConfiguration">__loadConfiguration</a></td>
+<td>Private slot to load the configuration.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__loadEditorConfig">__loadEditorConfig</a></td>
+<td>Private method to load the EditorConfig properties.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__loadEditorConfigObject">__loadEditorConfigObject</a></td>
+<td>Private method to load the EditorConfig properties for the given file name.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__loadFile">__loadFile</a></td>
+<td>Private method to load the given file.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__markOccurrences">__markOccurrences</a></td>
+<td>Private method to mark all occurrences of the current word.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__maybeSave">__maybeSave</a></td>
+<td>Private method to ask the user to save the file, if it was modified.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__modificationChanged">__modificationChanged</a></td>
+<td>Private slot to handle the modificationChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__newFile">__newFile</a></td>
+<td>Private slot to create a new file.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__open">__open</a></td>
+<td>Private slot to open a file.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__preferencesChanged">__preferencesChanged</a></td>
+<td>Private slot to handle a configuration change.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__printFile">__printFile</a></td>
+<td>Private slot to print the text.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__printPreview">__printPreview</a></td>
+<td>Private slot to generate a print preview.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__printPreviewFile">__printPreviewFile</a></td>
+<td>Private slot to show a print preview of the text.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__readSettings">__readSettings</a></td>
+<td>Private method to read the settings remembered last time.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__readShortcut">__readShortcut</a></td>
+<td>Private function to read a single keyboard shortcut from the settings.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__redo">__redo</a></td>
+<td>Private method to redo the last recorded change.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__resetChangeTimer">__resetChangeTimer</a></td>
+<td>Private slot to reset the parse timer.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__resetLanguage">__resetLanguage</a></td>
+<td>Private method used to reset the language selection.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__resizeLinenoMargin">__resizeLinenoMargin</a></td>
+<td>Private slot to resize the line numbers margin.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__save">__save</a></td>
+<td>Private slot to save a file.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__saveAs">__saveAs</a></td>
+<td>Private slot to save a file with a new name.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__saveCopy">__saveCopy</a></td>
+<td>Private slot to save a copy of the file with a new name.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__saveDeviceFile">__saveDeviceFile</a></td>
+<td>Private method to save the text to a file on the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__saveFile">__saveFile</a></td>
+<td>Private method to save to the given file.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__searchClearMarkers">__searchClearMarkers</a></td>
+<td>Private method to clear the search markers of the active window.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__searchNext">__searchNext</a></td>
+<td>Private slot to handle the search next action.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__searchPrev">__searchPrev</a></td>
+<td>Private slot to handle the search previous action.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__selectAll">__selectAll</a></td>
+<td>Private slot handling the select all context menu action.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__selectPygmentsLexer">__selectPygmentsLexer</a></td>
+<td>Private method to select a specific pygments lexer.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__setCurrentFile">__setCurrentFile</a></td>
+<td>Private method to register the file name of the current file.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__setEolMode">__setEolMode</a></td>
+<td>Private method to configure the eol mode of the editor.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__setMargins">__setMargins</a></td>
+<td>Private method to configure the margins.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__setMonospaced">__setMonospaced</a></td>
+<td>Private method to set/reset a monospaced font.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__setSbFile">__setSbFile</a></td>
+<td>Private method to set the file info in the status bar.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__setTabAndIndent">__setTabAndIndent</a></td>
+<td>Private method to set indentation size and style and tab width.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__setTextDisplay">__setTextDisplay</a></td>
+<td>Private method to configure the text display.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__showContextMenuLanguages">__showContextMenuLanguages</a></td>
+<td>Private slot handling the aboutToShow signal of the languages context menu.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__showLanguagesMenu">__showLanguagesMenu</a></td>
+<td>Private slot to show the Languages menu of the status bar.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__showPreferences">__showPreferences</a></td>
+<td>Private slot to set the preferences.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__strippedName">__strippedName</a></td>
+<td>Private method to return the filename part of the given path.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__styleNeeded">__styleNeeded</a></td>
+<td>Private slot to handle the need for more styling.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__undo">__undo</a></td>
+<td>Private method to undo the last recorded change.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__whatsThis">__whatsThis</a></td>
+<td>Private slot called in to enter Whats This mode.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__writeFile">__writeFile</a></td>
+<td>Private method to write the current editor text to a file.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__writeSettings">__writeSettings</a></td>
+<td>Private method to write the settings for reuse.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__zoom">__zoom</a></td>
+<td>Private method to handle the zoom action.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__zoomIn">__zoomIn</a></td>
+<td>Private method to handle the zoom in action.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__zoomOut">__zoomOut</a></td>
+<td>Private method to handle the zoom out action.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__zoomReset">__zoomReset</a></td>
+<td>Private method to reset the zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.__zoomTo">__zoomTo</a></td>
+<td>Private slot to zoom to a given value.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.activeWindow">activeWindow</a></td>
+<td>Public method to fulfill the ViewManager interface.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.clearSearchIndicators">clearSearchIndicators</a></td>
+<td>Public method to clear all search indicators.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.clearSearchSelectionHighlight">clearSearchSelectionHighlight</a></td>
+<td>Public method to clear all highlights.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.closeEvent">closeEvent</a></td>
+<td>Protected method to handle the close event.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.getFileName">getFileName</a></td>
+<td>Public method to return the name of the file being displayed.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.getLanguage">getLanguage</a></td>
+<td>Public method to retrieve the language of the editor.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.getSRHistory">getSRHistory</a></td>
+<td>Public method to get the search or replace history list.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.getSearchSelectionHighlight">getSearchSelectionHighlight</a></td>
+<td>Public method to get the start and end of the selection highlight.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.gotoLine">gotoLine</a></td>
+<td>Public slot to jump to the beginning of a line.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.highlightSearchSelection">highlightSearchSelection</a></td>
+<td>Public method to set a highlight for the selection at the start of a search.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.setFileName">setFileName</a></td>
+<td>Public method to set the file name of the file being displayed.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.setLanguage">setLanguage</a></td>
+<td>Public method to set a lexer language.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.setModified">setModified</a></td>
+<td>Public method to set the editor modification state.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.setSearchIndicator">setSearchIndicator</a></td>
+<td>Public method to set a search indicator for the given range.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.setText">setText</a></td>
+<td>Public method to set the text programatically.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.setWindowModified">setWindowModified</a></td>
+<td>Public method to set the window modification status.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.show">show</a></td>
+<td>Public method to show the editor window and complete the initial setup.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.showReplaceWidget">showReplaceWidget</a></td>
+<td>Public method to show the replace widget.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.showSearchWidget">showSearchWidget</a></td>
+<td>Public method to show the search widget.</td>
+</tr>
+<tr>
+<td><a href="#MiniEditor.textForFind">textForFind</a></td>
+<td>Public method to determine the selection or the current word for the next find operation.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MiniEditor.__init__" ID="MiniEditor.__init__"></a>
+<h4>MiniEditor (Constructor)</h4>
+<b>MiniEditor</b>(<i>filename="", filetype="", parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to open
+</dd>
+<dt><i>filetype</i> (str)</dt>
+<dd>
+type of the source file
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+object name of the window
+</dd>
+</dl>
+<a NAME="MiniEditor.__about" ID="MiniEditor.__about"></a>
+<h4>MiniEditor.__about</h4>
+<b>__about</b>(<i></i>)
+<p>
+        Private slot to show a little About message.
+</p>
+
+<a NAME="MiniEditor.__aboutQt" ID="MiniEditor.__aboutQt"></a>
+<h4>MiniEditor.__aboutQt</h4>
+<b>__aboutQt</b>(<i></i>)
+<p>
+        Private slot to handle the About Qt dialog.
+</p>
+
+<a NAME="MiniEditor.__bindLexer" ID="MiniEditor.__bindLexer"></a>
+<h4>MiniEditor.__bindLexer</h4>
+<b>__bindLexer</b>(<i>filename, pyname=""</i>)
+<p>
+        Private slot to set the correct lexer depending on language.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+filename used to determine the associated lexer
+            language
+</dd>
+<dt><i>pyname</i> (str)</dt>
+<dd>
+name of the pygments lexer to use
+</dd>
+</dl>
+<a NAME="MiniEditor.__bindName" ID="MiniEditor.__bindName"></a>
+<h4>MiniEditor.__bindName</h4>
+<b>__bindName</b>(<i>line0</i>)
+<p>
+        Private method to generate a dummy filename for binding a lexer.
+</p>
+
+<dl>
+
+<dt><i>line0</i> (str)</dt>
+<dd>
+first line of text to use in the generation process
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dummy file name to be used for binding a lexer
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MiniEditor.__checkActions" ID="MiniEditor.__checkActions"></a>
+<h4>MiniEditor.__checkActions</h4>
+<b>__checkActions</b>(<i>setSb=True</i>)
+<p>
+        Private slot to check some actions for their enable/disable status
+        and set the statusbar info.
+</p>
+
+<dl>
+
+<dt><i>setSb</i> (bool)</dt>
+<dd>
+flag indicating an update of the status bar is wanted
+</dd>
+</dl>
+<a NAME="MiniEditor.__checkLanguage" ID="MiniEditor.__checkLanguage"></a>
+<h4>MiniEditor.__checkLanguage</h4>
+<b>__checkLanguage</b>(<i></i>)
+<p>
+        Private method to check the selected language of the language submenu.
+</p>
+
+<a NAME="MiniEditor.__contextMenuRequested" ID="MiniEditor.__contextMenuRequested"></a>
+<h4>MiniEditor.__contextMenuRequested</h4>
+<b>__contextMenuRequested</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="MiniEditor.__convertTabs" ID="MiniEditor.__convertTabs"></a>
+<h4>MiniEditor.__convertTabs</h4>
+<b>__convertTabs</b>(<i></i>)
+<p>
+        Private slot to convert tabulators to spaces.
+</p>
+
+<a NAME="MiniEditor.__createActions" ID="MiniEditor.__createActions"></a>
+<h4>MiniEditor.__createActions</h4>
+<b>__createActions</b>(<i></i>)
+<p>
+        Private method to create the actions.
+</p>
+
+<a NAME="MiniEditor.__createConfigActions" ID="MiniEditor.__createConfigActions"></a>
+<h4>MiniEditor.__createConfigActions</h4>
+<b>__createConfigActions</b>(<i></i>)
+<p>
+        Private method to create the Settings actions.
+</p>
+
+<a NAME="MiniEditor.__createEditActions" ID="MiniEditor.__createEditActions"></a>
+<h4>MiniEditor.__createEditActions</h4>
+<b>__createEditActions</b>(<i></i>)
+<p>
+        Private method to create the Edit actions.
+</p>
+
+<a NAME="MiniEditor.__createFileActions" ID="MiniEditor.__createFileActions"></a>
+<h4>MiniEditor.__createFileActions</h4>
+<b>__createFileActions</b>(<i></i>)
+<p>
+        Private method to create the File actions.
+</p>
+
+<a NAME="MiniEditor.__createHelpActions" ID="MiniEditor.__createHelpActions"></a>
+<h4>MiniEditor.__createHelpActions</h4>
+<b>__createHelpActions</b>(<i></i>)
+<p>
+        Private method to create the Help actions.
+</p>
+
+<a NAME="MiniEditor.__createMenus" ID="MiniEditor.__createMenus"></a>
+<h4>MiniEditor.__createMenus</h4>
+<b>__createMenus</b>(<i></i>)
+<p>
+        Private method to create the menus of the menu bar.
+</p>
+
+<a NAME="MiniEditor.__createSearchActions" ID="MiniEditor.__createSearchActions"></a>
+<h4>MiniEditor.__createSearchActions</h4>
+<b>__createSearchActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the search
+            commands.
+</p>
+
+<a NAME="MiniEditor.__createStatusBar" ID="MiniEditor.__createStatusBar"></a>
+<h4>MiniEditor.__createStatusBar</h4>
+<b>__createStatusBar</b>(<i></i>)
+<p>
+        Private method to initialize the status bar.
+</p>
+
+<a NAME="MiniEditor.__createToolBars" ID="MiniEditor.__createToolBars"></a>
+<h4>MiniEditor.__createToolBars</h4>
+<b>__createToolBars</b>(<i></i>)
+<p>
+        Private method to create the various toolbars.
+</p>
+
+<a NAME="MiniEditor.__createViewActions" ID="MiniEditor.__createViewActions"></a>
+<h4>MiniEditor.__createViewActions</h4>
+<b>__createViewActions</b>(<i></i>)
+<p>
+        Private method to create the View actions.
+</p>
+
+<a NAME="MiniEditor.__cursorPositionChanged" ID="MiniEditor.__cursorPositionChanged"></a>
+<h4>MiniEditor.__cursorPositionChanged</h4>
+<b>__cursorPositionChanged</b>(<i>line, pos</i>)
+<p>
+        Private slot to handle the cursorPositionChanged signal.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the cursor
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position in line of the cursor
+</dd>
+</dl>
+<a NAME="MiniEditor.__deselectAll" ID="MiniEditor.__deselectAll"></a>
+<h4>MiniEditor.__deselectAll</h4>
+<b>__deselectAll</b>(<i></i>)
+<p>
+        Private slot handling the deselect all context menu action.
+</p>
+
+<a NAME="MiniEditor.__documentWasModified" ID="MiniEditor.__documentWasModified"></a>
+<h4>MiniEditor.__documentWasModified</h4>
+<b>__documentWasModified</b>(<i></i>)
+<p>
+        Private slot to handle a change in the documents modification status.
+</p>
+
+<a NAME="MiniEditor.__editorChanged" ID="MiniEditor.__editorChanged"></a>
+<h4>MiniEditor.__editorChanged</h4>
+<b>__editorChanged</b>(<i></i>)
+<p>
+        Private slot handling changes of the editor language or file name.
+</p>
+
+<a NAME="MiniEditor.__getCurrentWord" ID="MiniEditor.__getCurrentWord"></a>
+<h4>MiniEditor.__getCurrentWord</h4>
+<b>__getCurrentWord</b>(<i></i>)
+<p>
+        Private method to get the word at the current position.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the word at that current position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MiniEditor.__getEditorConfig" ID="MiniEditor.__getEditorConfig"></a>
+<h4>MiniEditor.__getEditorConfig</h4>
+<b>__getEditorConfig</b>(<i>option, nodefault=False, config=None</i>)
+<p>
+        Private method to get the requested option via EditorConfig.
+</p>
+<p>
+        If there is no EditorConfig defined, the equivalent built-in option
+        will be used (Preferences.getEditor(). The option must be given as the
+        Preferences option key. The mapping to the EditorConfig option name
+        will be done within this method.
+</p>
+
+<dl>
+
+<dt><i>option</i> (str)</dt>
+<dd>
+Preferences option key
+</dd>
+<dt><i>nodefault</i> (bool)</dt>
+<dd>
+flag indicating to not get the default value from
+            Preferences but return None instead
+</dd>
+<dt><i>config</i> (dict)</dt>
+<dd>
+reference to an EditorConfig object or None
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of requested setting or None if nothing was found and
+            nodefault parameter was True
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="MiniEditor.__getOverrideValue" ID="MiniEditor.__getOverrideValue"></a>
+<h4>MiniEditor.__getOverrideValue</h4>
+<b>__getOverrideValue</b>(<i>option</i>)
+<p>
+        Private method to get an override value for the current file type.
+</p>
+
+<dl>
+
+<dt><i>option</i> (str)</dt>
+<dd>
+Preferences option key
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+override value; None in case nothing is defined
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="MiniEditor.__getWord" ID="MiniEditor.__getWord"></a>
+<h4>MiniEditor.__getWord</h4>
+<b>__getWord</b>(<i>line, index</i>)
+<p>
+        Private method to get the word at a position.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+number of line to look at
+</dd>
+<dt><i>index</i> (int)</dt>
+<dd>
+position to look at
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the word at that position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MiniEditor.__initContextMenu" ID="MiniEditor.__initContextMenu"></a>
+<h4>MiniEditor.__initContextMenu</h4>
+<b>__initContextMenu</b>(<i></i>)
+<p>
+        Private method used to setup the context menu.
+</p>
+
+<a NAME="MiniEditor.__initContextMenuLanguages" ID="MiniEditor.__initContextMenuLanguages"></a>
+<h4>MiniEditor.__initContextMenuLanguages</h4>
+<b>__initContextMenuLanguages</b>(<i></i>)
+<p>
+        Private method used to setup the Languages context sub menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="MiniEditor.__languageMenuTriggered" ID="MiniEditor.__languageMenuTriggered"></a>
+<h4>MiniEditor.__languageMenuTriggered</h4>
+<b>__languageMenuTriggered</b>(<i>act</i>)
+<p>
+        Private method to handle the selection of a lexer language.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that was triggered
+</dd>
+</dl>
+<a NAME="MiniEditor.__loadConfiguration" ID="MiniEditor.__loadConfiguration"></a>
+<h4>MiniEditor.__loadConfiguration</h4>
+<b>__loadConfiguration</b>(<i></i>)
+<p>
+        Private slot to load the configuration.
+</p>
+
+<a NAME="MiniEditor.__loadEditorConfig" ID="MiniEditor.__loadEditorConfig"></a>
+<h4>MiniEditor.__loadEditorConfig</h4>
+<b>__loadEditorConfig</b>(<i>fileName=""</i>)
+<p>
+        Private method to load the EditorConfig properties.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+</dl>
+<a NAME="MiniEditor.__loadEditorConfigObject" ID="MiniEditor.__loadEditorConfigObject"></a>
+<h4>MiniEditor.__loadEditorConfigObject</h4>
+<b>__loadEditorConfigObject</b>(<i>fileName</i>)
+<p>
+        Private method to load the EditorConfig properties for the given
+        file name.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+EditorConfig dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="MiniEditor.__loadFile" ID="MiniEditor.__loadFile"></a>
+<h4>MiniEditor.__loadFile</h4>
+<b>__loadFile</b>(<i>fileName, filetype=None</i>)
+<p>
+        Private method to load the given file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to load
+</dd>
+<dt><i>filetype</i> (str)</dt>
+<dd>
+type of the source file
+</dd>
+</dl>
+<a NAME="MiniEditor.__markOccurrences" ID="MiniEditor.__markOccurrences"></a>
+<h4>MiniEditor.__markOccurrences</h4>
+<b>__markOccurrences</b>(<i></i>)
+<p>
+        Private method to mark all occurrences of the current word.
+</p>
+
+<a NAME="MiniEditor.__maybeSave" ID="MiniEditor.__maybeSave"></a>
+<h4>MiniEditor.__maybeSave</h4>
+<b>__maybeSave</b>(<i></i>)
+<p>
+        Private method to ask the user to save the file, if it was modified.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if it is ok to continue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MiniEditor.__modificationChanged" ID="MiniEditor.__modificationChanged"></a>
+<h4>MiniEditor.__modificationChanged</h4>
+<b>__modificationChanged</b>(<i>m</i>)
+<p>
+        Private slot to handle the modificationChanged signal.
+</p>
+
+<dl>
+
+<dt><i>m</i> (bool)</dt>
+<dd>
+modification status
+</dd>
+</dl>
+<a NAME="MiniEditor.__newFile" ID="MiniEditor.__newFile"></a>
+<h4>MiniEditor.__newFile</h4>
+<b>__newFile</b>(<i></i>)
+<p>
+        Private slot to create a new file.
+</p>
+
+<a NAME="MiniEditor.__open" ID="MiniEditor.__open"></a>
+<h4>MiniEditor.__open</h4>
+<b>__open</b>(<i></i>)
+<p>
+        Private slot to open a file.
+</p>
+
+<a NAME="MiniEditor.__preferencesChanged" ID="MiniEditor.__preferencesChanged"></a>
+<h4>MiniEditor.__preferencesChanged</h4>
+<b>__preferencesChanged</b>(<i></i>)
+<p>
+        Private slot to handle a configuration change.
+</p>
+
+<a NAME="MiniEditor.__printFile" ID="MiniEditor.__printFile"></a>
+<h4>MiniEditor.__printFile</h4>
+<b>__printFile</b>(<i></i>)
+<p>
+        Private slot to print the text.
+</p>
+
+<a NAME="MiniEditor.__printPreview" ID="MiniEditor.__printPreview"></a>
+<h4>MiniEditor.__printPreview</h4>
+<b>__printPreview</b>(<i>printer</i>)
+<p>
+        Private slot to generate a print preview.
+</p>
+
+<dl>
+
+<dt><i>printer</i> (QScintilla.Printer.Printer)</dt>
+<dd>
+reference to the printer object
+</dd>
+</dl>
+<a NAME="MiniEditor.__printPreviewFile" ID="MiniEditor.__printPreviewFile"></a>
+<h4>MiniEditor.__printPreviewFile</h4>
+<b>__printPreviewFile</b>(<i></i>)
+<p>
+        Private slot to show a print preview of the text.
+</p>
+
+<a NAME="MiniEditor.__readSettings" ID="MiniEditor.__readSettings"></a>
+<h4>MiniEditor.__readSettings</h4>
+<b>__readSettings</b>(<i></i>)
+<p>
+        Private method to read the settings remembered last time.
+</p>
+
+<a NAME="MiniEditor.__readShortcut" ID="MiniEditor.__readShortcut"></a>
+<h4>MiniEditor.__readShortcut</h4>
+<b>__readShortcut</b>(<i>act, category</i>)
+<p>
+        Private function to read a single keyboard shortcut from the settings.
+</p>
+
+<dl>
+
+<dt><i>act</i> (EricAction)</dt>
+<dd>
+reference to the action object
+</dd>
+<dt><i>category</i> (str)</dt>
+<dd>
+category the action belongs to
+</dd>
+</dl>
+<a NAME="MiniEditor.__redo" ID="MiniEditor.__redo"></a>
+<h4>MiniEditor.__redo</h4>
+<b>__redo</b>(<i></i>)
+<p>
+        Private method to redo the last recorded change.
+</p>
+
+<a NAME="MiniEditor.__resetChangeTimer" ID="MiniEditor.__resetChangeTimer"></a>
+<h4>MiniEditor.__resetChangeTimer</h4>
+<b>__resetChangeTimer</b>(<i></i>)
+<p>
+        Private slot to reset the parse timer.
+</p>
+
+<a NAME="MiniEditor.__resetLanguage" ID="MiniEditor.__resetLanguage"></a>
+<h4>MiniEditor.__resetLanguage</h4>
+<b>__resetLanguage</b>(<i></i>)
+<p>
+        Private method used to reset the language selection.
+</p>
+
+<a NAME="MiniEditor.__resizeLinenoMargin" ID="MiniEditor.__resizeLinenoMargin"></a>
+<h4>MiniEditor.__resizeLinenoMargin</h4>
+<b>__resizeLinenoMargin</b>(<i></i>)
+<p>
+        Private slot to resize the line numbers margin.
+</p>
+
+<a NAME="MiniEditor.__save" ID="MiniEditor.__save"></a>
+<h4>MiniEditor.__save</h4>
+<b>__save</b>(<i></i>)
+<p>
+        Private slot to save a file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MiniEditor.__saveAs" ID="MiniEditor.__saveAs"></a>
+<h4>MiniEditor.__saveAs</h4>
+<b>__saveAs</b>(<i></i>)
+<p>
+        Private slot to save a file with a new name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MiniEditor.__saveCopy" ID="MiniEditor.__saveCopy"></a>
+<h4>MiniEditor.__saveCopy</h4>
+<b>__saveCopy</b>(<i></i>)
+<p>
+        Private slot to save a copy of the file with a new name.
+</p>
+
+<a NAME="MiniEditor.__saveDeviceFile" ID="MiniEditor.__saveDeviceFile"></a>
+<h4>MiniEditor.__saveDeviceFile</h4>
+<b>__saveDeviceFile</b>(<i>saveas=False</i>)
+<p>
+        Private method to save the text to a file on the connected device.
+</p>
+
+<dl>
+
+<dt><i>saveas</i> (bool (optional))</dt>
+<dd>
+flag indicating a 'save as' action (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MiniEditor.__saveFile" ID="MiniEditor.__saveFile"></a>
+<h4>MiniEditor.__saveFile</h4>
+<b>__saveFile</b>(<i>fileName</i>)
+<p>
+        Private method to save to the given file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to save to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MiniEditor.__searchClearMarkers" ID="MiniEditor.__searchClearMarkers"></a>
+<h4>MiniEditor.__searchClearMarkers</h4>
+<b>__searchClearMarkers</b>(<i></i>)
+<p>
+        Private method to clear the search markers of the active window.
+</p>
+
+<a NAME="MiniEditor.__searchNext" ID="MiniEditor.__searchNext"></a>
+<h4>MiniEditor.__searchNext</h4>
+<b>__searchNext</b>(<i></i>)
+<p>
+        Private slot to handle the search next action.
+</p>
+
+<a NAME="MiniEditor.__searchPrev" ID="MiniEditor.__searchPrev"></a>
+<h4>MiniEditor.__searchPrev</h4>
+<b>__searchPrev</b>(<i></i>)
+<p>
+        Private slot to handle the search previous action.
+</p>
+
+<a NAME="MiniEditor.__selectAll" ID="MiniEditor.__selectAll"></a>
+<h4>MiniEditor.__selectAll</h4>
+<b>__selectAll</b>(<i></i>)
+<p>
+        Private slot handling the select all context menu action.
+</p>
+
+<a NAME="MiniEditor.__selectPygmentsLexer" ID="MiniEditor.__selectPygmentsLexer"></a>
+<h4>MiniEditor.__selectPygmentsLexer</h4>
+<b>__selectPygmentsLexer</b>(<i></i>)
+<p>
+        Private method to select a specific pygments lexer.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the selected pygments lexer
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MiniEditor.__setCurrentFile" ID="MiniEditor.__setCurrentFile"></a>
+<h4>MiniEditor.__setCurrentFile</h4>
+<b>__setCurrentFile</b>(<i>fileName</i>)
+<p>
+        Private method to register the file name of the current file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to register
+</dd>
+</dl>
+<a NAME="MiniEditor.__setEolMode" ID="MiniEditor.__setEolMode"></a>
+<h4>MiniEditor.__setEolMode</h4>
+<b>__setEolMode</b>(<i></i>)
+<p>
+        Private method to configure the eol mode of the editor.
+</p>
+
+<a NAME="MiniEditor.__setMargins" ID="MiniEditor.__setMargins"></a>
+<h4>MiniEditor.__setMargins</h4>
+<b>__setMargins</b>(<i></i>)
+<p>
+        Private method to configure the margins.
+</p>
+
+<a NAME="MiniEditor.__setMonospaced" ID="MiniEditor.__setMonospaced"></a>
+<h4>MiniEditor.__setMonospaced</h4>
+<b>__setMonospaced</b>(<i>on</i>)
+<p>
+        Private method to set/reset a monospaced font.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag to indicate usage of a monospace font
+</dd>
+</dl>
+<a NAME="MiniEditor.__setSbFile" ID="MiniEditor.__setSbFile"></a>
+<h4>MiniEditor.__setSbFile</h4>
+<b>__setSbFile</b>(<i>line=None, pos=None, language=None, zoom=None</i>)
+<p>
+        Private method to set the file info in the status bar.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number to display
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+character position to display
+</dd>
+<dt><i>language</i> (str)</dt>
+<dd>
+language to display
+</dd>
+<dt><i>zoom</i> (int)</dt>
+<dd>
+zoom value
+</dd>
+</dl>
+<a NAME="MiniEditor.__setTabAndIndent" ID="MiniEditor.__setTabAndIndent"></a>
+<h4>MiniEditor.__setTabAndIndent</h4>
+<b>__setTabAndIndent</b>(<i></i>)
+<p>
+        Private method to set indentation size and style and tab width.
+</p>
+
+<a NAME="MiniEditor.__setTextDisplay" ID="MiniEditor.__setTextDisplay"></a>
+<h4>MiniEditor.__setTextDisplay</h4>
+<b>__setTextDisplay</b>(<i></i>)
+<p>
+        Private method to configure the text display.
+</p>
+
+<a NAME="MiniEditor.__showContextMenuLanguages" ID="MiniEditor.__showContextMenuLanguages"></a>
+<h4>MiniEditor.__showContextMenuLanguages</h4>
+<b>__showContextMenuLanguages</b>(<i></i>)
+<p>
+        Private slot handling the aboutToShow signal of the languages context
+        menu.
+</p>
+
+<a NAME="MiniEditor.__showLanguagesMenu" ID="MiniEditor.__showLanguagesMenu"></a>
+<h4>MiniEditor.__showLanguagesMenu</h4>
+<b>__showLanguagesMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show the Languages menu of the status bar.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the menu should be shown at
+</dd>
+</dl>
+<a NAME="MiniEditor.__showPreferences" ID="MiniEditor.__showPreferences"></a>
+<h4>MiniEditor.__showPreferences</h4>
+<b>__showPreferences</b>(<i></i>)
+<p>
+        Private slot to set the preferences.
+</p>
+
+<a NAME="MiniEditor.__strippedName" ID="MiniEditor.__strippedName"></a>
+<h4>MiniEditor.__strippedName</h4>
+<b>__strippedName</b>(<i>fullFileName</i>)
+<p>
+        Private method to return the filename part of the given path.
+</p>
+
+<dl>
+
+<dt><i>fullFileName</i> (str)</dt>
+<dd>
+full pathname of the given file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+filename part
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MiniEditor.__styleNeeded" ID="MiniEditor.__styleNeeded"></a>
+<h4>MiniEditor.__styleNeeded</h4>
+<b>__styleNeeded</b>(<i>position</i>)
+<p>
+        Private slot to handle the need for more styling.
+</p>
+
+<dl>
+
+<dt><i>position</i> (int)</dt>
+<dd>
+end position, that needs styling
+</dd>
+</dl>
+<a NAME="MiniEditor.__undo" ID="MiniEditor.__undo"></a>
+<h4>MiniEditor.__undo</h4>
+<b>__undo</b>(<i></i>)
+<p>
+        Private method to undo the last recorded change.
+</p>
+
+<a NAME="MiniEditor.__whatsThis" ID="MiniEditor.__whatsThis"></a>
+<h4>MiniEditor.__whatsThis</h4>
+<b>__whatsThis</b>(<i></i>)
+<p>
+        Private slot called in to enter Whats This mode.
+</p>
+
+<a NAME="MiniEditor.__writeFile" ID="MiniEditor.__writeFile"></a>
+<h4>MiniEditor.__writeFile</h4>
+<b>__writeFile</b>(<i>fileName</i>)
+<p>
+        Private method to write the current editor text to a file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be written to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MiniEditor.__writeSettings" ID="MiniEditor.__writeSettings"></a>
+<h4>MiniEditor.__writeSettings</h4>
+<b>__writeSettings</b>(<i></i>)
+<p>
+        Private method to write the settings for reuse.
+</p>
+
+<a NAME="MiniEditor.__zoom" ID="MiniEditor.__zoom"></a>
+<h4>MiniEditor.__zoom</h4>
+<b>__zoom</b>(<i></i>)
+<p>
+        Private method to handle the zoom action.
+</p>
+
+<a NAME="MiniEditor.__zoomIn" ID="MiniEditor.__zoomIn"></a>
+<h4>MiniEditor.__zoomIn</h4>
+<b>__zoomIn</b>(<i></i>)
+<p>
+        Private method to handle the zoom in action.
+</p>
+
+<a NAME="MiniEditor.__zoomOut" ID="MiniEditor.__zoomOut"></a>
+<h4>MiniEditor.__zoomOut</h4>
+<b>__zoomOut</b>(<i></i>)
+<p>
+        Private method to handle the zoom out action.
+</p>
+
+<a NAME="MiniEditor.__zoomReset" ID="MiniEditor.__zoomReset"></a>
+<h4>MiniEditor.__zoomReset</h4>
+<b>__zoomReset</b>(<i></i>)
+<p>
+        Private method to reset the zoom factor.
+</p>
+
+<a NAME="MiniEditor.__zoomTo" ID="MiniEditor.__zoomTo"></a>
+<h4>MiniEditor.__zoomTo</h4>
+<b>__zoomTo</b>(<i>value</i>)
+<p>
+        Private slot to zoom to a given value.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+zoom value to be set
+</dd>
+</dl>
+<a NAME="MiniEditor.activeWindow" ID="MiniEditor.activeWindow"></a>
+<h4>MiniEditor.activeWindow</h4>
+<b>activeWindow</b>(<i></i>)
+<p>
+        Public method to fulfill the ViewManager interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the text edit component
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QsciScintillaCompat
+</dd>
+</dl>
+<a NAME="MiniEditor.clearSearchIndicators" ID="MiniEditor.clearSearchIndicators"></a>
+<h4>MiniEditor.clearSearchIndicators</h4>
+<b>clearSearchIndicators</b>(<i></i>)
+<p>
+        Public method to clear all search indicators.
+</p>
+
+<a NAME="MiniEditor.clearSearchSelectionHighlight" ID="MiniEditor.clearSearchSelectionHighlight"></a>
+<h4>MiniEditor.clearSearchSelectionHighlight</h4>
+<b>clearSearchSelectionHighlight</b>(<i></i>)
+<p>
+        Public method to clear all highlights.
+</p>
+
+<a NAME="MiniEditor.closeEvent" ID="MiniEditor.closeEvent"></a>
+<h4>MiniEditor.closeEvent</h4>
+<b>closeEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the close event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="MiniEditor.getFileName" ID="MiniEditor.getFileName"></a>
+<h4>MiniEditor.getFileName</h4>
+<b>getFileName</b>(<i></i>)
+<p>
+        Public method to return the name of the file being displayed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+filename of the displayed file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MiniEditor.getLanguage" ID="MiniEditor.getLanguage"></a>
+<h4>MiniEditor.getLanguage</h4>
+<b>getLanguage</b>(<i>normalized=True, forPygments=False</i>)
+<p>
+        Public method to retrieve the language of the editor.
+</p>
+
+<dl>
+
+<dt><i>normalized</i> (bool)</dt>
+<dd>
+flag indicating to normalize some Pygments
+            lexer names
+</dd>
+<dt><i>forPygments</i> (bool)</dt>
+<dd>
+flag indicating to normalize some lexer
+            names for Pygments
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+language of the editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MiniEditor.getSRHistory" ID="MiniEditor.getSRHistory"></a>
+<h4>MiniEditor.getSRHistory</h4>
+<b>getSRHistory</b>(<i>key</i>)
+<p>
+        Public method to get the search or replace history list.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+list to return (must be 'search' or 'replace')
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested history list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="MiniEditor.getSearchSelectionHighlight" ID="MiniEditor.getSearchSelectionHighlight"></a>
+<h4>MiniEditor.getSearchSelectionHighlight</h4>
+<b>getSearchSelectionHighlight</b>(<i></i>)
+<p>
+        Public method to get the start and end of the selection highlight.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the start line and index and the end line and index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, int, int)
+</dd>
+</dl>
+<a NAME="MiniEditor.gotoLine" ID="MiniEditor.gotoLine"></a>
+<h4>MiniEditor.gotoLine</h4>
+<b>gotoLine</b>(<i>line, pos=1</i>)
+<p>
+        Public slot to jump to the beginning of a line.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number to go to
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position in line to go to
+</dd>
+</dl>
+<a NAME="MiniEditor.highlightSearchSelection" ID="MiniEditor.highlightSearchSelection"></a>
+<h4>MiniEditor.highlightSearchSelection</h4>
+<b>highlightSearchSelection</b>(<i>startLine, startIndex, endLine, endIndex</i>)
+<p>
+        Public method to set a highlight for the selection at the start of a search.
+</p>
+
+<dl>
+
+<dt><i>startLine</i> (int)</dt>
+<dd>
+line of the selection start
+</dd>
+<dt><i>startIndex</i> (int)</dt>
+<dd>
+index of the selection start
+</dd>
+<dt><i>endLine</i> (int)</dt>
+<dd>
+line of the selection end
+</dd>
+<dt><i>endIndex</i> (int)</dt>
+<dd>
+index of the selection end
+</dd>
+</dl>
+<a NAME="MiniEditor.setFileName" ID="MiniEditor.setFileName"></a>
+<h4>MiniEditor.setFileName</h4>
+<b>setFileName</b>(<i>name</i>)
+<p>
+        Public method to set the file name of the file being displayed.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the displayed file
+</dd>
+</dl>
+<a NAME="MiniEditor.setLanguage" ID="MiniEditor.setLanguage"></a>
+<h4>MiniEditor.setLanguage</h4>
+<b>setLanguage</b>(<i>filename, initTextDisplay=True, pyname=""</i>)
+<p>
+        Public method to set a lexer language.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+filename used to determine the associated lexer
+            language
+</dd>
+<dt><i>initTextDisplay</i> (bool)</dt>
+<dd>
+flag indicating an initialization of the text
+            display is required as well
+</dd>
+<dt><i>pyname</i> (str)</dt>
+<dd>
+name of the pygments lexer to use
+</dd>
+</dl>
+<a NAME="MiniEditor.setModified" ID="MiniEditor.setModified"></a>
+<h4>MiniEditor.setModified</h4>
+<b>setModified</b>(<i>modified</i>)
+<p>
+        Public method to set the editor modification state.
+</p>
+
+<dl>
+
+<dt><i>modified</i> (bool)</dt>
+<dd>
+new editor modification state
+</dd>
+</dl>
+<a NAME="MiniEditor.setSearchIndicator" ID="MiniEditor.setSearchIndicator"></a>
+<h4>MiniEditor.setSearchIndicator</h4>
+<b>setSearchIndicator</b>(<i>startPos, indicLength</i>)
+<p>
+        Public method to set a search indicator for the given range.
+</p>
+
+<dl>
+
+<dt><i>startPos</i> (int)</dt>
+<dd>
+start position of the indicator
+</dd>
+<dt><i>indicLength</i> (int)</dt>
+<dd>
+length of the indicator
+</dd>
+</dl>
+<a NAME="MiniEditor.setText" ID="MiniEditor.setText"></a>
+<h4>MiniEditor.setText</h4>
+<b>setText</b>(<i>txt, filetype=None</i>)
+<p>
+        Public method to set the text programatically.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be set
+</dd>
+<dt><i>filetype</i> (str)</dt>
+<dd>
+type of the source file
+</dd>
+</dl>
+<a NAME="MiniEditor.setWindowModified" ID="MiniEditor.setWindowModified"></a>
+<h4>MiniEditor.setWindowModified</h4>
+<b>setWindowModified</b>(<i>modified</i>)
+<p>
+        Public method to set the window modification status.
+</p>
+
+<dl>
+
+<dt><i>modified</i> (bool)</dt>
+<dd>
+flag indicating the modification status
+</dd>
+</dl>
+<a NAME="MiniEditor.show" ID="MiniEditor.show"></a>
+<h4>MiniEditor.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public method to show the editor window and complete the initial setup.
+</p>
+
+<a NAME="MiniEditor.showReplaceWidget" ID="MiniEditor.showReplaceWidget"></a>
+<h4>MiniEditor.showReplaceWidget</h4>
+<b>showReplaceWidget</b>(<i></i>)
+<p>
+        Public method to show the replace widget.
+</p>
+
+<a NAME="MiniEditor.showSearchWidget" ID="MiniEditor.showSearchWidget"></a>
+<h4>MiniEditor.showSearchWidget</h4>
+<b>showSearchWidget</b>(<i></i>)
+<p>
+        Public method to show the search widget.
+</p>
+
+<a NAME="MiniEditor.textForFind" ID="MiniEditor.textForFind"></a>
+<h4>MiniEditor.textForFind</h4>
+<b>textForFind</b>(<i></i>)
+<p>
+        Public method to determine the selection or the current word for the
+        next find operation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selection or current word
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="MiniScintilla" ID="MiniScintilla"></a>
+<h2>MiniScintilla</h2>
+<p>
+    Class implementing a QsciScintillaCompat subclass for handling focus
+    events.
+</p>
+
+<h3>Derived from</h3>
+QsciScintillaCompat
+<h3>Class Attributes</h3>
+<table>
+<tr><td>EncloseChars</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MiniScintilla.__init__">MiniScintilla</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MiniScintilla.editorCommand">editorCommand</a></td>
+<td>Public method to perform a simple editor command.</td>
+</tr>
+<tr>
+<td><a href="#MiniScintilla.encloseSelectedText">encloseSelectedText</a></td>
+<td>Local function to enclose the current selection with some characters.</td>
+</tr>
+<tr>
+<td><a href="#MiniScintilla.focusInEvent">focusInEvent</a></td>
+<td>Protected method called when the editor receives focus.</td>
+</tr>
+<tr>
+<td><a href="#MiniScintilla.focusOutEvent">focusOutEvent</a></td>
+<td>Protected method called when the editor loses focus.</td>
+</tr>
+<tr>
+<td><a href="#MiniScintilla.getFileName">getFileName</a></td>
+<td>Public method to return the name of the file being displayed.</td>
+</tr>
+<tr>
+<td><a href="#MiniScintilla.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method to handle the user input a key at a time.</td>
+</tr>
+<tr>
+<td><a href="#MiniScintilla.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method to handle the mouse press event.</td>
+</tr>
+<tr>
+<td><a href="#MiniScintilla.removeTrailingWhitespace">removeTrailingWhitespace</a></td>
+<td>Public method to remove trailing whitespace.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MiniScintilla.__init__" ID="MiniScintilla.__init__"></a>
+<h4>MiniScintilla (Constructor)</h4>
+<b>MiniScintilla</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="MiniScintilla.editorCommand" ID="MiniScintilla.editorCommand"></a>
+<h4>MiniScintilla.editorCommand</h4>
+<b>editorCommand</b>(<i>cmd</i>)
+<p>
+        Public method to perform a simple editor command.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+the scintilla command to be performed
+</dd>
+</dl>
+<a NAME="MiniScintilla.encloseSelectedText" ID="MiniScintilla.encloseSelectedText"></a>
+<h4>MiniScintilla.encloseSelectedText</h4>
+<b>encloseSelectedText</b>(<i></i>)
+<p>
+            Local function to enclose the current selection with some
+            characters.
+</p>
+
+<dl>
+
+<dt><i>encString</i> (str)</dt>
+<dd>
+string to use to enclose the selection
+                (one or two characters)
+</dd>
+</dl>
+<a NAME="MiniScintilla.focusInEvent" ID="MiniScintilla.focusInEvent"></a>
+<h4>MiniScintilla.focusInEvent</h4>
+<b>focusInEvent</b>(<i>event</i>)
+<p>
+        Protected method called when the editor receives focus.
+</p>
+<p>
+        This method checks for modifications of the current file and
+        rereads it upon request. The cursor is placed at the current position
+        assuming, that it is in the vicinity of the old position after the
+        reread.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QFocusEvent)</dt>
+<dd>
+the event object
+</dd>
+</dl>
+<a NAME="MiniScintilla.focusOutEvent" ID="MiniScintilla.focusOutEvent"></a>
+<h4>MiniScintilla.focusOutEvent</h4>
+<b>focusOutEvent</b>(<i>event</i>)
+<p>
+        Protected method called when the editor loses focus.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QFocusEvent)</dt>
+<dd>
+the event object
+</dd>
+</dl>
+<a NAME="MiniScintilla.getFileName" ID="MiniScintilla.getFileName"></a>
+<h4>MiniScintilla.getFileName</h4>
+<b>getFileName</b>(<i></i>)
+<p>
+        Public method to return the name of the file being displayed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+filename of the displayed file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MiniScintilla.keyPressEvent" ID="MiniScintilla.keyPressEvent"></a>
+<h4>MiniScintilla.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>ev</i>)
+<p>
+        Protected method to handle the user input a key at a time.
+</p>
+
+<dl>
+
+<dt><i>ev</i> (QKeyEvent)</dt>
+<dd>
+key event
+</dd>
+</dl>
+<a NAME="MiniScintilla.mousePressEvent" ID="MiniScintilla.mousePressEvent"></a>
+<h4>MiniScintilla.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the mouse press event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QMouseEvent)</dt>
+<dd>
+the mouse press event
+</dd>
+</dl>
+<a NAME="MiniScintilla.removeTrailingWhitespace" ID="MiniScintilla.removeTrailingWhitespace"></a>
+<h4>MiniScintilla.removeTrailingWhitespace</h4>
+<b>removeTrailingWhitespace</b>(<i></i>)
+<p>
+        Public method to remove trailing whitespace.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

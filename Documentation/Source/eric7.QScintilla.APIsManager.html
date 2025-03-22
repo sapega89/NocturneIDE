@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.APIsManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.APIsManager</h1>
+<p>
+Module implementing the APIsManager.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#APIs">APIs</a></td>
+<td>Class implementing an API storage entity.</td>
+</tr>
+<tr>
+<td><a href="#APIsManager">APIsManager</a></td>
+<td>Class implementing the APIsManager class, which is the central store for API information used by autocompletion and calltips.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="APIs" ID="APIs"></a>
+<h2>APIs</h2>
+<p>
+    Class implementing an API storage entity.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>apiPreparationCancelled()</dt>
+<dd>
+emitted after the API preparation has
+        been cancelled
+</dd>
+<dt>apiPreparationFinished()</dt>
+<dd>
+emitted after the API preparation has
+        finished
+</dd>
+<dt>apiPreparationStarted()</dt>
+<dd>
+emitted after the API preparation has
+        started
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#APIs.__init__">APIs</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#APIs.__apiPreparationCancelled">__apiPreparationCancelled</a></td>
+<td>Private method called, after the API preparation process has been cancelled.</td>
+</tr>
+<tr>
+<td><a href="#APIs.__apiPreparationFinished">__apiPreparationFinished</a></td>
+<td>Private method called to save an API, after it has been prepared.</td>
+</tr>
+<tr>
+<td><a href="#APIs.__apiPreparationStarted">__apiPreparationStarted</a></td>
+<td>Private method called, when the API preparation process started.</td>
+</tr>
+<tr>
+<td><a href="#APIs.__loadAPIs">__loadAPIs</a></td>
+<td>Private method to load the APIs.</td>
+</tr>
+<tr>
+<td><a href="#APIs.__preparedName">__preparedName</a></td>
+<td>Private method returning the default name of a prepared API file.</td>
+</tr>
+<tr>
+<td><a href="#APIs.cancelPreparation">cancelPreparation</a></td>
+<td>Public slot to cancel the APIs preparation.</td>
+</tr>
+<tr>
+<td><a href="#APIs.getQsciAPIs">getQsciAPIs</a></td>
+<td>Public method to get a reference to QsciAPIs object.</td>
+</tr>
+<tr>
+<td><a href="#APIs.installedAPIFiles">installedAPIFiles</a></td>
+<td>Public method to get a list of installed API files.</td>
+</tr>
+<tr>
+<td><a href="#APIs.isEmpty">isEmpty</a></td>
+<td>Public method to check, if the object has API files configured.</td>
+</tr>
+<tr>
+<td><a href="#APIs.prepareAPIs">prepareAPIs</a></td>
+<td>Public method to prepare the APIs if necessary.</td>
+</tr>
+<tr>
+<td><a href="#APIs.reloadAPIs">reloadAPIs</a></td>
+<td>Public method to reload the API information.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="APIs.__init__" ID="APIs.__init__"></a>
+<h4>APIs (Constructor)</h4>
+<b>APIs</b>(<i>language, projectType="", forPreparation=False, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language of the APIs object
+</dd>
+<dt><i>projectType</i> (str)</dt>
+<dd>
+type of the project
+</dd>
+<dt><i>forPreparation</i> (bool)</dt>
+<dd>
+flag indicating this object is just needed
+            for a preparation process
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="APIs.__apiPreparationCancelled" ID="APIs.__apiPreparationCancelled"></a>
+<h4>APIs.__apiPreparationCancelled</h4>
+<b>__apiPreparationCancelled</b>(<i></i>)
+<p>
+        Private method called, after the API preparation process has been
+        cancelled.
+</p>
+
+<a NAME="APIs.__apiPreparationFinished" ID="APIs.__apiPreparationFinished"></a>
+<h4>APIs.__apiPreparationFinished</h4>
+<b>__apiPreparationFinished</b>(<i></i>)
+<p>
+        Private method called to save an API, after it has been prepared.
+</p>
+
+<a NAME="APIs.__apiPreparationStarted" ID="APIs.__apiPreparationStarted"></a>
+<h4>APIs.__apiPreparationStarted</h4>
+<b>__apiPreparationStarted</b>(<i></i>)
+<p>
+        Private method called, when the API preparation process started.
+</p>
+
+<a NAME="APIs.__loadAPIs" ID="APIs.__loadAPIs"></a>
+<h4>APIs.__loadAPIs</h4>
+<b>__loadAPIs</b>(<i></i>)
+<p>
+        Private method to load the APIs.
+</p>
+
+<a NAME="APIs.__preparedName" ID="APIs.__preparedName"></a>
+<h4>APIs.__preparedName</h4>
+<b>__preparedName</b>(<i></i>)
+<p>
+        Private method returning the default name of a prepared API file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+complete filename for the Prepared APIs file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="APIs.cancelPreparation" ID="APIs.cancelPreparation"></a>
+<h4>APIs.cancelPreparation</h4>
+<b>cancelPreparation</b>(<i></i>)
+<p>
+        Public slot to cancel the APIs preparation.
+</p>
+
+<a NAME="APIs.getQsciAPIs" ID="APIs.getQsciAPIs"></a>
+<h4>APIs.getQsciAPIs</h4>
+<b>getQsciAPIs</b>(<i></i>)
+<p>
+        Public method to get a reference to QsciAPIs object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the QsciAPIs object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QsciAPIs
+</dd>
+</dl>
+<a NAME="APIs.installedAPIFiles" ID="APIs.installedAPIFiles"></a>
+<h4>APIs.installedAPIFiles</h4>
+<b>installedAPIFiles</b>(<i></i>)
+<p>
+        Public method to get a list of installed API files.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of installed API files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="APIs.isEmpty" ID="APIs.isEmpty"></a>
+<h4>APIs.isEmpty</h4>
+<b>isEmpty</b>(<i></i>)
+<p>
+        Public method to check, if the object has API files configured.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating no API files have been configured
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="APIs.prepareAPIs" ID="APIs.prepareAPIs"></a>
+<h4>APIs.prepareAPIs</h4>
+<b>prepareAPIs</b>(<i>ondemand=False, rawList=None</i>)
+<p>
+        Public method to prepare the APIs if necessary.
+</p>
+
+<dl>
+
+<dt><i>ondemand</i> (bool)</dt>
+<dd>
+flag indicating a requested preparation
+</dd>
+<dt><i>rawList</i> (list of str)</dt>
+<dd>
+list of raw API files
+</dd>
+</dl>
+<a NAME="APIs.reloadAPIs" ID="APIs.reloadAPIs"></a>
+<h4>APIs.reloadAPIs</h4>
+<b>reloadAPIs</b>(<i></i>)
+<p>
+        Public method to reload the API information.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="APIsManager" ID="APIsManager"></a>
+<h2>APIsManager</h2>
+<p>
+    Class implementing the APIsManager class, which is the central store for
+    API information used by autocompletion and calltips.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#APIsManager.__init__">APIsManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#APIsManager.getAPIs">getAPIs</a></td>
+<td>Public method to get an APIs object for autocompletion/calltips.</td>
+</tr>
+<tr>
+<td><a href="#APIsManager.reloadAPIs">reloadAPIs</a></td>
+<td>Public slot to reload the api information.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="APIsManager.__init__" ID="APIsManager.__init__"></a>
+<h4>APIsManager (Constructor)</h4>
+<b>APIsManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="APIsManager.getAPIs" ID="APIsManager.getAPIs"></a>
+<h4>APIsManager.getAPIs</h4>
+<b>getAPIs</b>(<i>language, projectType="", forPreparation=False</i>)
+<p>
+        Public method to get an APIs object for autocompletion/calltips.
+</p>
+<p>
+        This method creates and loads an APIs object dynamically upon request.
+        This saves memory for languages, that might not be needed at the
+        moment.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language of the requested APIs object
+</dd>
+<dt><i>projectType</i> (str)</dt>
+<dd>
+type of the project
+</dd>
+<dt><i>forPreparation</i> (bool)</dt>
+<dd>
+flag indicating the requested APIs object is just
+            needed for a preparation process
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the APIs object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+APIs
+</dd>
+</dl>
+<a NAME="APIsManager.reloadAPIs" ID="APIsManager.reloadAPIs"></a>
+<h4>APIsManager.reloadAPIs</h4>
+<b>reloadAPIs</b>(<i></i>)
+<p>
+        Public slot to reload the api information.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

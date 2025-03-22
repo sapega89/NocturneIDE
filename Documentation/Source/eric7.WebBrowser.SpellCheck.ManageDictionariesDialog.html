@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.SpellCheck.ManageDictionariesDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.SpellCheck.ManageDictionariesDialog</h1>
+<p>
+Module implementing a dialog to install spell checking dictionaries.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ManageDictionariesDialog">ManageDictionariesDialog</a></td>
+<td>Class implementing a dialog to install spell checking dictionaries.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ManageDictionariesDialog" ID="ManageDictionariesDialog"></a>
+<h2>ManageDictionariesDialog</h2>
+<p>
+    Class implementing a dialog to install spell checking dictionaries.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_ManageDictionariesDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DocumentationDirRole</td></tr>
+<tr><td>FilenameRole</td></tr>
+<tr><td>LocalesRole</td></tr>
+<tr><td>UrlRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ManageDictionariesDialog.__init__">ManageDictionariesDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__checkInstalledDictionaries">__checkInstalledDictionaries</a></td>
+<td>Private method to check all installed dictionaries.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__downloadCancel">__downloadCancel</a></td>
+<td>Private slot to cancel the current download.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__downloadDictionary">__downloadDictionary</a></td>
+<td>Private slot to download a dictionary.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__downloadProgress">__downloadProgress</a></td>
+<td>Private slot to show the download progress.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__installDictionary">__installDictionary</a></td>
+<td>Private slot to install the downloaded dictionary.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__installSelected">__installSelected</a></td>
+<td>Private method to install the selected dictionaries.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__installationFinished">__installationFinished</a></td>
+<td>Private method called after all selected dictionaries have been installed.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__listFileDownloaded">__listFileDownloaded</a></td>
+<td>Private method called, after the dictionaries list file has been downloaded from the Internet.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__populateList">__populateList</a></td>
+<td>Private method to populate the list of available plugins.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__reachabilityChanged">__reachabilityChanged</a></td>
+<td>Private slot handling reachability state changes.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.__uninstallSelected">__uninstallSelected</a></td>
+<td>Private method to uninstall the selected dictionaries.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.addEntry">addEntry</a></td>
+<td>Public method to add an entry to the list.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot to handle the click of a button of the button box.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.on_dictionariesList_itemSelectionChanged">on_dictionariesList_itemSelectionChanged</a></td>
+<td>Private slot to handle a change of the selection.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.on_dictionariesUrlEditButton_toggled">on_dictionariesUrlEditButton_toggled</a></td>
+<td>Private slot to set the read only status of the dictionaries URL line edit.</td>
+</tr>
+<tr>
+<td><a href="#ManageDictionariesDialog.on_locationComboBox_currentTextChanged">on_locationComboBox_currentTextChanged</a></td>
+<td>Private slot to handle a change of the installation location.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ManageDictionariesDialog.__init__" ID="ManageDictionariesDialog.__init__"></a>
+<h4>ManageDictionariesDialog (Constructor)</h4>
+<b>ManageDictionariesDialog</b>(<i>writeableDirectories, enforceUnencryptedDownloads=False, parent=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>writeableDirectories</i> (list of str)</dt>
+<dd>
+list of writable directories
+</dd>
+<dt><i>enforceUnencryptedDownloads</i> (bool (optional))</dt>
+<dd>
+flag indicating to perform unencrypted
+            downloads (defaults to False)
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="ManageDictionariesDialog.__checkInstalledDictionaries" ID="ManageDictionariesDialog.__checkInstalledDictionaries"></a>
+<h4>ManageDictionariesDialog.__checkInstalledDictionaries</h4>
+<b>__checkInstalledDictionaries</b>(<i></i>)
+<p>
+        Private method to check all installed dictionaries.
+</p>
+<p>
+        Note: A dictionary is assumed to be installed, if at least one of its
+        binary dictionaries (*.bdic) is found in the selected dictionaries
+        location.
+</p>
+
+<a NAME="ManageDictionariesDialog.__downloadCancel" ID="ManageDictionariesDialog.__downloadCancel"></a>
+<h4>ManageDictionariesDialog.__downloadCancel</h4>
+<b>__downloadCancel</b>(<i></i>)
+<p>
+        Private slot to cancel the current download.
+</p>
+
+<a NAME="ManageDictionariesDialog.__downloadDictionary" ID="ManageDictionariesDialog.__downloadDictionary"></a>
+<h4>ManageDictionariesDialog.__downloadDictionary</h4>
+<b>__downloadDictionary</b>(<i></i>)
+<p>
+        Private slot to download a dictionary.
+</p>
+
+<a NAME="ManageDictionariesDialog.__downloadProgress" ID="ManageDictionariesDialog.__downloadProgress"></a>
+<h4>ManageDictionariesDialog.__downloadProgress</h4>
+<b>__downloadProgress</b>(<i>done, total</i>)
+<p>
+        Private slot to show the download progress.
+</p>
+
+<dl>
+
+<dt><i>done</i> (int)</dt>
+<dd>
+number of bytes downloaded so far
+</dd>
+<dt><i>total</i> (int)</dt>
+<dd>
+total bytes to be downloaded
+</dd>
+</dl>
+<a NAME="ManageDictionariesDialog.__installDictionary" ID="ManageDictionariesDialog.__installDictionary"></a>
+<h4>ManageDictionariesDialog.__installDictionary</h4>
+<b>__installDictionary</b>(<i>reply</i>)
+<p>
+        Private slot to install the downloaded dictionary.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="ManageDictionariesDialog.__installSelected" ID="ManageDictionariesDialog.__installSelected"></a>
+<h4>ManageDictionariesDialog.__installSelected</h4>
+<b>__installSelected</b>(<i></i>)
+<p>
+        Private method to install the selected dictionaries.
+</p>
+
+<a NAME="ManageDictionariesDialog.__installationFinished" ID="ManageDictionariesDialog.__installationFinished"></a>
+<h4>ManageDictionariesDialog.__installationFinished</h4>
+<b>__installationFinished</b>(<i></i>)
+<p>
+        Private method called after all selected dictionaries have been
+        installed.
+</p>
+
+<a NAME="ManageDictionariesDialog.__listFileDownloaded" ID="ManageDictionariesDialog.__listFileDownloaded"></a>
+<h4>ManageDictionariesDialog.__listFileDownloaded</h4>
+<b>__listFileDownloaded</b>(<i>reply</i>)
+<p>
+        Private method called, after the dictionaries list file has been
+        downloaded from the Internet.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="ManageDictionariesDialog.__populateList" ID="ManageDictionariesDialog.__populateList"></a>
+<h4>ManageDictionariesDialog.__populateList</h4>
+<b>__populateList</b>(<i></i>)
+<p>
+        Private method to populate the list of available plugins.
+</p>
+
+<a NAME="ManageDictionariesDialog.__reachabilityChanged" ID="ManageDictionariesDialog.__reachabilityChanged"></a>
+<h4>ManageDictionariesDialog.__reachabilityChanged</h4>
+<b>__reachabilityChanged</b>(<i>reachability</i>)
+<p>
+        Private slot handling reachability state changes.
+</p>
+
+<dl>
+
+<dt><i>reachability</i> (QNetworkInformation.Reachability)</dt>
+<dd>
+new reachability state
+</dd>
+</dl>
+<a NAME="ManageDictionariesDialog.__uninstallSelected" ID="ManageDictionariesDialog.__uninstallSelected"></a>
+<h4>ManageDictionariesDialog.__uninstallSelected</h4>
+<b>__uninstallSelected</b>(<i></i>)
+<p>
+        Private method to uninstall the selected dictionaries.
+</p>
+
+<a NAME="ManageDictionariesDialog.addEntry" ID="ManageDictionariesDialog.addEntry"></a>
+<h4>ManageDictionariesDialog.addEntry</h4>
+<b>addEntry</b>(<i>short, filename, url, documentationDir, locales</i>)
+<p>
+        Public method to add an entry to the list.
+</p>
+
+<dl>
+
+<dt><i>short</i> (str)</dt>
+<dd>
+data for the description field
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+data for the filename field
+</dd>
+<dt><i>url</i> (str)</dt>
+<dd>
+download URL for the dictionary entry
+</dd>
+<dt><i>documentationDir</i> (str)</dt>
+<dd>
+name of the directory containing the
+            dictionary documentation
+</dd>
+<dt><i>locales</i> (list of str)</dt>
+<dd>
+list of locales
+</dd>
+</dl>
+<a NAME="ManageDictionariesDialog.on_buttonBox_clicked" ID="ManageDictionariesDialog.on_buttonBox_clicked"></a>
+<h4>ManageDictionariesDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot to handle the click of a button of the button box.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+reference to the button pressed
+</dd>
+</dl>
+<a NAME="ManageDictionariesDialog.on_dictionariesList_itemSelectionChanged" ID="ManageDictionariesDialog.on_dictionariesList_itemSelectionChanged"></a>
+<h4>ManageDictionariesDialog.on_dictionariesList_itemSelectionChanged</h4>
+<b>on_dictionariesList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of the selection.
+</p>
+
+<a NAME="ManageDictionariesDialog.on_dictionariesUrlEditButton_toggled" ID="ManageDictionariesDialog.on_dictionariesUrlEditButton_toggled"></a>
+<h4>ManageDictionariesDialog.on_dictionariesUrlEditButton_toggled</h4>
+<b>on_dictionariesUrlEditButton_toggled</b>(<i>checked</i>)
+<p>
+        Private slot to set the read only status of the dictionaries URL line
+        edit.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the push button
+</dd>
+</dl>
+<a NAME="ManageDictionariesDialog.on_locationComboBox_currentTextChanged" ID="ManageDictionariesDialog.on_locationComboBox_currentTextChanged"></a>
+<h4>ManageDictionariesDialog.on_locationComboBox_currentTextChanged</h4>
+<b>on_locationComboBox_currentTextChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle a change of the installation location.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+installation location (unused)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

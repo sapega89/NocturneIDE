@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.QProcessExtension</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.QProcessExtension</h1>
+<p>
+Module implementing a function to patch QProcess to support debugging of the
+process.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_debugClient</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#QProcessWrapper">QProcessWrapper</a></td>
+<td>Wrapper class for *.QProcess.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#patchQProcess">patchQProcess</a></td>
+<td>Function to patch the QtCore module's QProcess.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="QProcessWrapper" ID="QProcessWrapper"></a>
+<h2>QProcessWrapper</h2>
+<p>
+        Wrapper class for *.QProcess.
+</p>
+
+<h3>Derived from</h3>
+module.QProcess
+<h3>Class Attributes</h3>
+<table>
+<tr><td>_origQProcessStartDetached</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#QProcessWrapper.__init__">QProcessWrapper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#QProcessWrapper.__startDetached">__startDetached</a></td>
+<td>Private method to start the detached process.</td>
+</tr>
+<tr>
+<td><a href="#QProcessWrapper.start">start</a></td>
+<td>Public method to start the process.</td>
+</tr>
+<tr>
+<td><a href="#QProcessWrapper.startDetached">startDetached</a></td>
+<td>Public method to start the detached process.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr>
+<td><a href="#QProcessWrapper.startDetachedStatic">startDetachedStatic</a></td>
+<td>Static method to start the detached process.</td>
+</tr>
+</table>
+
+
+<a NAME="QProcessWrapper.__init__" ID="QProcessWrapper.__init__"></a>
+<h4>QProcessWrapper (Constructor)</h4>
+<b>QProcessWrapper</b>(<i>parent=None</i>)
+<p>
+            Constructor
+</p>
+
+<a NAME="QProcessWrapper.__startDetached" ID="QProcessWrapper.__startDetached"></a>
+<h4>QProcessWrapper.__startDetached</h4>
+<b>__startDetached</b>(<i>*args, **kwargs</i>)
+<p>
+            Private method to start the detached process.
+</p>
+<p>
+            This method patches the arguments such, that a debug client is
+            started for the Python script. A Python script is assumed, if the
+            program to be started contains the string 'python'.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments of the start call
+</dd>
+<dt><i>kwargs</i> (dict)</dt>
+<dd>
+keyword arguments of the start call
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful start
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QProcessWrapper.start" ID="QProcessWrapper.start"></a>
+<h4>QProcessWrapper.start</h4>
+<b>start</b>(<i>*args, **kwargs</i>)
+<p>
+            Public method to start the process.
+</p>
+<p>
+            This method patches the arguments such, that a debug client is
+            started for the Python script. A Python script is assumed, if the
+            program to be started contains the string 'python'.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments of the start call
+</dd>
+<dt><i>kwargs</i> (dict)</dt>
+<dd>
+keyword arguments of the start call
+</dd>
+</dl>
+<a NAME="QProcessWrapper.startDetached" ID="QProcessWrapper.startDetached"></a>
+<h4>QProcessWrapper.startDetached</h4>
+<b>startDetached</b>(<i>*args, **kwargs</i>)
+<p>
+            Public method to start the detached process.
+</p>
+<p>
+            This method patches the arguments such, that a debug client is
+            started for the Python script. A Python script is assumed, if the
+            program to be started contains the string 'python'.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments of the start call
+</dd>
+<dt><i>kwargs</i> (dict)</dt>
+<dd>
+keyword arguments of the start call
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful start
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="QProcessWrapper.startDetachedStatic" ID="QProcessWrapper.startDetachedStatic"></a>
+<h4>QProcessWrapper.startDetachedStatic (static)</h4>
+<b>startDetachedStatic</b>(<i>**kwargs</i>)
+<p>
+            Static method to start the detached process.
+</p>
+<p>
+            This method patches the arguments such, that a debug client is
+            started for the Python script. A Python script is assumed, if the
+            program to be started contains the string 'python'.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments of the start call
+</dd>
+<dt><i>kwargs</i> (dict)</dt>
+<dd>
+keyword arguments of the start call
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful start
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="patchQProcess" ID="patchQProcess"></a>
+<h2>patchQProcess</h2>
+<b>patchQProcess</b>(<i>module, debugClient</i>)
+<p>
+    Function to patch the QtCore module's QProcess.
+</p>
+
+<dl>
+
+<dt><i>module</i> (module)</dt>
+<dd>
+reference to the imported module to be patched
+</dd>
+<dt><i>debugClient</i> (DebugClient)</dt>
+<dd>
+reference to the debug client object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

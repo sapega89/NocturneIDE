@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.EditorOutline</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.EditorOutline</h1>
+<p>
+Module implementing an outline widget for source code navigation of the editor.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EditorOutlineView">EditorOutlineView</a></td>
+<td>Class implementing an outline widget for source code navigation of the editor.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EditorOutlineView" ID="EditorOutlineView"></a>
+<h2>EditorOutlineView</h2>
+<p>
+    Class implementing an outline widget for source code navigation of the
+    editor.
+</p>
+
+<h3>Derived from</h3>
+QTreeView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EditorOutlineView.__init__">EditorOutlineView</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__changeDefaultWidth">__changeDefaultWidth</a></td>
+<td>Private slot to open a dialog to change the default width and step size presetting the width with the current value.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__completeRepopulate">__completeRepopulate</a></td>
+<td>Private slot to complete the repopulate of the outline view.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__contextMenuRequested">__contextMenuRequested</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__copyToClipboard">__copyToClipboard</a></td>
+<td>Private slot to copy the file name of the editor to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__createPopupMenus">__createPopupMenus</a></td>
+<td>Private method to generate the various popup menus.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__currentItem">__currentItem</a></td>
+<td>Private method to get a reference to the current item.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__defaultWidth">__defaultWidth</a></td>
+<td>Private slot to set the outline to the default width.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__editorCursorLineChanged">__editorCursorLineChanged</a></td>
+<td>Private method to highlight a node given its line number.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__editorLanguageChanged">__editorLanguageChanged</a></td>
+<td>Private slot handling a change of the associated editors source code language.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__editorRenamed">__editorRenamed</a></td>
+<td>Private slot handling a renaming of the associated editor.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__goto">__goto</a></td>
+<td>Private slot to move the editor cursor to the line of the context item.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__gotoAttribute">__gotoAttribute</a></td>
+<td>Private slot to handle the selection of the goto menu.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__gotoItem">__gotoItem</a></td>
+<td>Private slot to set the editor cursor.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__prepareRepopulate">__prepareRepopulate</a></td>
+<td>Private slot to prepare to repopulate the outline view.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__resizeColumns">__resizeColumns</a></td>
+<td>Private slot to resize the view when items get expanded or collapsed.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.__showGotoMenu">__showGotoMenu</a></td>
+<td>Private slot to prepare the goto submenu of the attribute menu.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.isPopulated">isPopulated</a></td>
+<td>Public method to check, if the model is populated.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.isSupportedLanguage">isSupportedLanguage</a></td>
+<td>Public method to check, if outlining a given language is supported.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.mouseDoubleClickEvent">mouseDoubleClickEvent</a></td>
+<td>Protected method of QAbstractItemView.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.repopulate">repopulate</a></td>
+<td>Public slot to repopulate the model.</td>
+</tr>
+<tr>
+<td><a href="#EditorOutlineView.setActive">setActive</a></td>
+<td>Public method to activate or deactivate the outline view.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EditorOutlineView.__init__" ID="EditorOutlineView.__init__"></a>
+<h4>EditorOutlineView (Constructor)</h4>
+<b>EditorOutlineView</b>(<i>editor, populate=True, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor widget
+</dd>
+<dt><i>populate</i> (bool)</dt>
+<dd>
+flag indicating to populate the outline
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="EditorOutlineView.__changeDefaultWidth" ID="EditorOutlineView.__changeDefaultWidth"></a>
+<h4>EditorOutlineView.__changeDefaultWidth</h4>
+<b>__changeDefaultWidth</b>(<i></i>)
+<p>
+        Private slot to open a dialog to change the default width and step
+        size presetting the width with the current value.
+</p>
+
+<a NAME="EditorOutlineView.__completeRepopulate" ID="EditorOutlineView.__completeRepopulate"></a>
+<h4>EditorOutlineView.__completeRepopulate</h4>
+<b>__completeRepopulate</b>(<i></i>)
+<p>
+        Private slot to complete the repopulate of the outline view.
+</p>
+
+<a NAME="EditorOutlineView.__contextMenuRequested" ID="EditorOutlineView.__contextMenuRequested"></a>
+<h4>EditorOutlineView.__contextMenuRequested</h4>
+<b>__contextMenuRequested</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+position of the mouse pointer
+</dd>
+</dl>
+<a NAME="EditorOutlineView.__copyToClipboard" ID="EditorOutlineView.__copyToClipboard"></a>
+<h4>EditorOutlineView.__copyToClipboard</h4>
+<b>__copyToClipboard</b>(<i></i>)
+<p>
+        Private slot to copy the file name of the editor to the clipboard.
+</p>
+
+<a NAME="EditorOutlineView.__createPopupMenus" ID="EditorOutlineView.__createPopupMenus"></a>
+<h4>EditorOutlineView.__createPopupMenus</h4>
+<b>__createPopupMenus</b>(<i></i>)
+<p>
+        Private method to generate the various popup menus.
+</p>
+
+<a NAME="EditorOutlineView.__currentItem" ID="EditorOutlineView.__currentItem"></a>
+<h4>EditorOutlineView.__currentItem</h4>
+<b>__currentItem</b>(<i></i>)
+<p>
+        Private method to get a reference to the current item.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BrowserItem
+</dd>
+</dl>
+<a NAME="EditorOutlineView.__defaultWidth" ID="EditorOutlineView.__defaultWidth"></a>
+<h4>EditorOutlineView.__defaultWidth</h4>
+<b>__defaultWidth</b>(<i></i>)
+<p>
+        Private slot to set the outline to the default width.
+</p>
+
+<a NAME="EditorOutlineView.__editorCursorLineChanged" ID="EditorOutlineView.__editorCursorLineChanged"></a>
+<h4>EditorOutlineView.__editorCursorLineChanged</h4>
+<b>__editorCursorLineChanged</b>(<i>lineno</i>)
+<p>
+        Private method to highlight a node given its line number.
+</p>
+
+<dl>
+
+<dt><i>lineno</i> (int)</dt>
+<dd>
+zero based line number of the item
+</dd>
+</dl>
+<a NAME="EditorOutlineView.__editorLanguageChanged" ID="EditorOutlineView.__editorLanguageChanged"></a>
+<h4>EditorOutlineView.__editorLanguageChanged</h4>
+<b>__editorLanguageChanged</b>(<i></i>)
+<p>
+        Private slot handling a change of the associated editors source code
+        language.
+</p>
+
+<a NAME="EditorOutlineView.__editorRenamed" ID="EditorOutlineView.__editorRenamed"></a>
+<h4>EditorOutlineView.__editorRenamed</h4>
+<b>__editorRenamed</b>(<i></i>)
+<p>
+        Private slot handling a renaming of the associated editor.
+</p>
+
+<a NAME="EditorOutlineView.__goto" ID="EditorOutlineView.__goto"></a>
+<h4>EditorOutlineView.__goto</h4>
+<b>__goto</b>(<i></i>)
+<p>
+        Private slot to move the editor cursor to the line of the context item.
+</p>
+
+<a NAME="EditorOutlineView.__gotoAttribute" ID="EditorOutlineView.__gotoAttribute"></a>
+<h4>EditorOutlineView.__gotoAttribute</h4>
+<b>__gotoAttribute</b>(<i>act</i>)
+<p>
+        Private slot to handle the selection of the goto menu.
+</p>
+
+<dl>
+
+<dt><i>act</i> (EricAction)</dt>
+<dd>
+reference to the action
+</dd>
+</dl>
+<a NAME="EditorOutlineView.__gotoItem" ID="EditorOutlineView.__gotoItem"></a>
+<h4>EditorOutlineView.__gotoItem</h4>
+<b>__gotoItem</b>(<i>index</i>)
+<p>
+        Private slot to set the editor cursor.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the item to set the cursor for
+</dd>
+</dl>
+<a NAME="EditorOutlineView.__prepareRepopulate" ID="EditorOutlineView.__prepareRepopulate"></a>
+<h4>EditorOutlineView.__prepareRepopulate</h4>
+<b>__prepareRepopulate</b>(<i></i>)
+<p>
+        Private slot to prepare to repopulate the outline view.
+</p>
+
+<a NAME="EditorOutlineView.__resizeColumns" ID="EditorOutlineView.__resizeColumns"></a>
+<h4>EditorOutlineView.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private slot to resize the view when items get expanded or collapsed.
+</p>
+
+<a NAME="EditorOutlineView.__showGotoMenu" ID="EditorOutlineView.__showGotoMenu"></a>
+<h4>EditorOutlineView.__showGotoMenu</h4>
+<b>__showGotoMenu</b>(<i></i>)
+<p>
+        Private slot to prepare the goto submenu of the attribute menu.
+</p>
+
+<a NAME="EditorOutlineView.isPopulated" ID="EditorOutlineView.isPopulated"></a>
+<h4>EditorOutlineView.isPopulated</h4>
+<b>isPopulated</b>(<i></i>)
+<p>
+        Public method to check, if the model is populated.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a populated model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EditorOutlineView.isSupportedLanguage" ID="EditorOutlineView.isSupportedLanguage"></a>
+<h4>EditorOutlineView.isSupportedLanguage</h4>
+<b>isSupportedLanguage</b>(<i>language</i>)
+<p>
+        Public method to check, if outlining a given language is supported.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+source language to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating support
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EditorOutlineView.mouseDoubleClickEvent" ID="EditorOutlineView.mouseDoubleClickEvent"></a>
+<h4>EditorOutlineView.mouseDoubleClickEvent</h4>
+<b>mouseDoubleClickEvent</b>(<i>mouseEvent</i>)
+<p>
+        Protected method of QAbstractItemView.
+</p>
+<p>
+        Reimplemented to disable expanding/collapsing of items when
+        double-clicking. Instead the double-clicked entry is opened.
+</p>
+
+<dl>
+
+<dt><i>mouseEvent</i> (QMouseEvent)</dt>
+<dd>
+the mouse event
+</dd>
+</dl>
+<a NAME="EditorOutlineView.repopulate" ID="EditorOutlineView.repopulate"></a>
+<h4>EditorOutlineView.repopulate</h4>
+<b>repopulate</b>(<i></i>)
+<p>
+        Public slot to repopulate the model.
+</p>
+
+<a NAME="EditorOutlineView.setActive" ID="EditorOutlineView.setActive"></a>
+<h4>EditorOutlineView.setActive</h4>
+<b>setActive</b>(<i>active</i>)
+<p>
+        Public method to activate or deactivate the outline view.
+</p>
+
+<dl>
+
+<dt><i>active</i> (bool)</dt>
+<dd>
+flag indicating the requested action
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

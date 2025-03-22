@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Tools.TRPreviewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Tools.TRPreviewer</h1>
+<p>
+Module implementing the TR Previewer main window.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>noTranslationName</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TRPreviewer">TRPreviewer</a></td>
+<td>Class implementing the UI Previewer main window.</td>
+</tr>
+<tr>
+<td><a href="#Translation">Translation</a></td>
+<td>Class to store the properties of a translation.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict">TranslationsDict</a></td>
+<td>Class to store all loaded translations.</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea">WidgetArea</a></td>
+<td>Specialized MDI area to show the loaded widgets.</td>
+</tr>
+<tr>
+<td><a href="#WidgetView">WidgetView</a></td>
+<td>Class to show a dynamically loaded widget (or dialog).</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TRPreviewer" ID="TRPreviewer"></a>
+<h2>TRPreviewer</h2>
+<p>
+    Class implementing the UI Previewer main window.
+</p>
+
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TRPreviewer.__init__">TRPreviewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__about">__about</a></td>
+<td>Private slot to show the about information.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__aboutQt">__aboutQt</a></td>
+<td>Private slot to show info about Qt.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__initActions">__initActions</a></td>
+<td>Private method to define the user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__initMenus">__initMenus</a></td>
+<td>Private method to create the menus.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__initToolbars">__initToolbars</a></td>
+<td>Private method to create the toolbars.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__openTranslation">__openTranslation</a></td>
+<td>Private slot to handle the Open Translation action.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__openWidget">__openWidget</a></td>
+<td>Private slot to handle the Open Dialog action.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__setTranslation">__setTranslation</a></td>
+<td>Private slot to activate a translation.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__showWindowMenu">__showWindowMenu</a></td>
+<td>Private slot to handle the aboutToShow signal of the window menu.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__updateActions">__updateActions</a></td>
+<td>Private slot to update the actions state.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.__whatsThis">__whatsThis</a></td>
+<td>Private slot called in to enter Whats This mode.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.closeEvent">closeEvent</a></td>
+<td>Protected event handler for the close event.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.reloadTranslations">reloadTranslations</a></td>
+<td>Public slot to reload all translations.</td>
+</tr>
+<tr>
+<td><a href="#TRPreviewer.show">show</a></td>
+<td>Public slot to show this dialog.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TRPreviewer.__init__" ID="TRPreviewer.__init__"></a>
+<h4>TRPreviewer (Constructor)</h4>
+<b>TRPreviewer</b>(<i>filenames=None, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>filenames</i> (list of str)</dt>
+<dd>
+filenames of form and/or translation files to load
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this window
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this window
+</dd>
+</dl>
+<a NAME="TRPreviewer.__about" ID="TRPreviewer.__about"></a>
+<h4>TRPreviewer.__about</h4>
+<b>__about</b>(<i></i>)
+<p>
+        Private slot to show the about information.
+</p>
+
+<a NAME="TRPreviewer.__aboutQt" ID="TRPreviewer.__aboutQt"></a>
+<h4>TRPreviewer.__aboutQt</h4>
+<b>__aboutQt</b>(<i></i>)
+<p>
+        Private slot to show info about Qt.
+</p>
+
+<a NAME="TRPreviewer.__initActions" ID="TRPreviewer.__initActions"></a>
+<h4>TRPreviewer.__initActions</h4>
+<b>__initActions</b>(<i></i>)
+<p>
+        Private method to define the user interface actions.
+</p>
+
+<a NAME="TRPreviewer.__initMenus" ID="TRPreviewer.__initMenus"></a>
+<h4>TRPreviewer.__initMenus</h4>
+<b>__initMenus</b>(<i></i>)
+<p>
+        Private method to create the menus.
+</p>
+
+<a NAME="TRPreviewer.__initToolbars" ID="TRPreviewer.__initToolbars"></a>
+<h4>TRPreviewer.__initToolbars</h4>
+<b>__initToolbars</b>(<i></i>)
+<p>
+        Private method to create the toolbars.
+</p>
+
+<a NAME="TRPreviewer.__openTranslation" ID="TRPreviewer.__openTranslation"></a>
+<h4>TRPreviewer.__openTranslation</h4>
+<b>__openTranslation</b>(<i></i>)
+<p>
+        Private slot to handle the Open Translation action.
+</p>
+
+<a NAME="TRPreviewer.__openWidget" ID="TRPreviewer.__openWidget"></a>
+<h4>TRPreviewer.__openWidget</h4>
+<b>__openWidget</b>(<i></i>)
+<p>
+        Private slot to handle the Open Dialog action.
+</p>
+
+<a NAME="TRPreviewer.__setTranslation" ID="TRPreviewer.__setTranslation"></a>
+<h4>TRPreviewer.__setTranslation</h4>
+<b>__setTranslation</b>(<i>index</i>)
+<p>
+        Private slot to activate a translation.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="TRPreviewer.__showWindowMenu" ID="TRPreviewer.__showWindowMenu"></a>
+<h4>TRPreviewer.__showWindowMenu</h4>
+<b>__showWindowMenu</b>(<i></i>)
+<p>
+        Private slot to handle the aboutToShow signal of the window menu.
+</p>
+
+<a NAME="TRPreviewer.__updateActions" ID="TRPreviewer.__updateActions"></a>
+<h4>TRPreviewer.__updateActions</h4>
+<b>__updateActions</b>(<i></i>)
+<p>
+        Private slot to update the actions state.
+</p>
+
+<a NAME="TRPreviewer.__whatsThis" ID="TRPreviewer.__whatsThis"></a>
+<h4>TRPreviewer.__whatsThis</h4>
+<b>__whatsThis</b>(<i></i>)
+<p>
+        Private slot called in to enter Whats This mode.
+</p>
+
+<a NAME="TRPreviewer.closeEvent" ID="TRPreviewer.closeEvent"></a>
+<h4>TRPreviewer.closeEvent</h4>
+<b>closeEvent</b>(<i>event</i>)
+<p>
+        Protected event handler for the close event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="TRPreviewer.reloadTranslations" ID="TRPreviewer.reloadTranslations"></a>
+<h4>TRPreviewer.reloadTranslations</h4>
+<b>reloadTranslations</b>(<i></i>)
+<p>
+        Public slot to reload all translations.
+</p>
+
+<a NAME="TRPreviewer.show" ID="TRPreviewer.show"></a>
+<h4>TRPreviewer.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show this dialog.
+</p>
+<p>
+        This overloaded slot loads a UI file to be previewed after
+        the main window has been shown. This way, previewing a dialog
+        doesn't interfere with showing the main window.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Translation" ID="Translation"></a>
+<h2>Translation</h2>
+<p>
+    Class to store the properties of a translation.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>fileName</td></tr>
+<tr><td>name</td></tr>
+<tr><td>translator</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TranslationsDict" ID="TranslationsDict"></a>
+<h2>TranslationsDict</h2>
+<p>
+    Class to store all loaded translations.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>translationChanged()</dt>
+<dd>
+emit after a translator was set
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TranslationsDict.__init__">TranslationsDict</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.__del">__del</a></td>
+<td>Private method to delete a translator from the list of available translators.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.__findFileName">__findFileName</a></td>
+<td>Private method to find a translation by file name.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.__findName">__findName</a></td>
+<td>Private method to find a translation by name.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.__haveFileName">__haveFileName</a></td>
+<td>Private method to check for the presence of a translation.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.__haveName">__haveName</a></td>
+<td>Private method to check for the presence of a named translation.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.__uniqueName">__uniqueName</a></td>
+<td>Private method to generate a unique name.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.add">add</a></td>
+<td>Public method to add a translation to the list.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.hasTranslations">hasTranslations</a></td>
+<td>Public method to check for loaded translations.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.loadTransFile">loadTransFile</a></td>
+<td>Public slot to load a translation file.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.reload">reload</a></td>
+<td>Public method to reload all translators.</td>
+</tr>
+<tr>
+<td><a href="#TranslationsDict.set">set</a></td>
+<td>Public slot to set a translator by name.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TranslationsDict.__init__" ID="TranslationsDict.__init__"></a>
+<h4>TranslationsDict (Constructor)</h4>
+<b>TranslationsDict</b>(<i>selector, parent</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>selector</i> (QComboBox)</dt>
+<dd>
+reference to the QComboBox used to show the
+            available languages
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="TranslationsDict.__del" ID="TranslationsDict.__del"></a>
+<h4>TranslationsDict.__del</h4>
+<b>__del</b>(<i>name</i>)
+<p>
+        Private method to delete a translator from the list of available
+        translators.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the translator to delete
+</dd>
+</dl>
+<a NAME="TranslationsDict.__findFileName" ID="TranslationsDict.__findFileName"></a>
+<h4>TranslationsDict.__findFileName</h4>
+<b>__findFileName</b>(<i>transFileName</i>)
+<p>
+        Private method to find a translation by file name.
+</p>
+
+<dl>
+
+<dt><i>transFileName</i> (str)</dt>
+<dd>
+file name of the translation file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to a translation object or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTranslator
+</dd>
+</dl>
+<a NAME="TranslationsDict.__findName" ID="TranslationsDict.__findName"></a>
+<h4>TranslationsDict.__findName</h4>
+<b>__findName</b>(<i>name</i>)
+<p>
+        Private method to find a translation by name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name (language) of the translation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to a translation object or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTranslator
+</dd>
+</dl>
+<a NAME="TranslationsDict.__haveFileName" ID="TranslationsDict.__haveFileName"></a>
+<h4>TranslationsDict.__haveFileName</h4>
+<b>__haveFileName</b>(<i>transFileName</i>)
+<p>
+        Private method to check for the presence of a translation.
+</p>
+
+<dl>
+
+<dt><i>transFileName</i> (str)</dt>
+<dd>
+file name of the translation file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of the translation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TranslationsDict.__haveName" ID="TranslationsDict.__haveName"></a>
+<h4>TranslationsDict.__haveName</h4>
+<b>__haveName</b>(<i>name</i>)
+<p>
+        Private method to check for the presence of a named translation.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name (language) of the translation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of the translation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TranslationsDict.__uniqueName" ID="TranslationsDict.__uniqueName"></a>
+<h4>TranslationsDict.__uniqueName</h4>
+<b>__uniqueName</b>(<i>transFileName</i>)
+<p>
+        Private method to generate a unique name.
+</p>
+
+<dl>
+
+<dt><i>transFileName</i> (str)</dt>
+<dd>
+file name of the translation file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+unique name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TranslationsDict.add" ID="TranslationsDict.add"></a>
+<h4>TranslationsDict.add</h4>
+<b>add</b>(<i>fileName, setTranslation=True</i>)
+<p>
+        Public method to add a translation to the list.
+</p>
+<p>
+        If the translation file (*.qm) has not been loaded yet, it will
+        be loaded automatically.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the translation file to be added
+</dd>
+<dt><i>setTranslation</i> (bool)</dt>
+<dd>
+flag indicating, if this should be set as
+            the active translation
+</dd>
+</dl>
+<a NAME="TranslationsDict.hasTranslations" ID="TranslationsDict.hasTranslations"></a>
+<h4>TranslationsDict.hasTranslations</h4>
+<b>hasTranslations</b>(<i></i>)
+<p>
+        Public method to check for loaded translations.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag signaling if any translation was loaded
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TranslationsDict.loadTransFile" ID="TranslationsDict.loadTransFile"></a>
+<h4>TranslationsDict.loadTransFile</h4>
+<b>loadTransFile</b>(<i>transFileName</i>)
+<p>
+        Public slot to load a translation file.
+</p>
+
+<dl>
+
+<dt><i>transFileName</i> (str)</dt>
+<dd>
+file name of the translation file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the new translator object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTranslator
+</dd>
+</dl>
+<a NAME="TranslationsDict.reload" ID="TranslationsDict.reload"></a>
+<h4>TranslationsDict.reload</h4>
+<b>reload</b>(<i></i>)
+<p>
+        Public method to reload all translators.
+</p>
+
+<a NAME="TranslationsDict.set" ID="TranslationsDict.set"></a>
+<h4>TranslationsDict.set</h4>
+<b>set</b>(<i>name</i>)
+<p>
+        Public slot to set a translator by name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name (language) of the translator to set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="WidgetArea" ID="WidgetArea"></a>
+<h2>WidgetArea</h2>
+<p>
+    Specialized MDI area to show the loaded widgets.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>lastWidgetClosed()</dt>
+<dd>
+emitted after the last widget was closed
+</dd>
+<dt>rebuildWidgets()</dt>
+<dd>
+emitted to indicate a change of loaded widgets
+</dd>
+</dl>
+<h3>Derived from</h3>
+QMdiArea
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WidgetArea.__init__">WidgetArea</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea.__findWidget">__findWidget</a></td>
+<td>Private method to find a specific widget view.</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea.__toggleWidget">__toggleWidget</a></td>
+<td>Private method to toggle a workspace window.</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea.closeAllWidgets">closeAllWidgets</a></td>
+<td>Public slot to close all windows.</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea.closeWidget">closeWidget</a></td>
+<td>Public slot to close the active window.</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea.eventFilter">eventFilter</a></td>
+<td>Public method called to filter an event.</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea.hasWidgets">hasWidgets</a></td>
+<td>Public method to check for loaded widgets.</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea.loadWidget">loadWidget</a></td>
+<td>Public slot to load a UI file.</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea.showWindowMenu">showWindowMenu</a></td>
+<td>Public method to set up the widgets part of the Window menu.</td>
+</tr>
+<tr>
+<td><a href="#WidgetArea.toggleSelectedWidget">toggleSelectedWidget</a></td>
+<td>Public method to handle the toggle of a window.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WidgetArea.__init__" ID="WidgetArea.__init__"></a>
+<h4>WidgetArea (Constructor)</h4>
+<b>WidgetArea</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="WidgetArea.__findWidget" ID="WidgetArea.__findWidget"></a>
+<h4>WidgetArea.__findWidget</h4>
+<b>__findWidget</b>(<i>uiFileName</i>)
+<p>
+        Private method to find a specific widget view.
+</p>
+
+<dl>
+
+<dt><i>uiFileName</i> (str)</dt>
+<dd>
+filename of the loaded UI file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the widget or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WidgetView
+</dd>
+</dl>
+<a NAME="WidgetArea.__toggleWidget" ID="WidgetArea.__toggleWidget"></a>
+<h4>WidgetArea.__toggleWidget</h4>
+<b>__toggleWidget</b>(<i>w</i>)
+<p>
+        Private method to toggle a workspace window.
+</p>
+
+<dl>
+
+<dt><i>w</i> (QWidget)</dt>
+<dd>
+window to be toggled
+</dd>
+</dl>
+<a NAME="WidgetArea.closeAllWidgets" ID="WidgetArea.closeAllWidgets"></a>
+<h4>WidgetArea.closeAllWidgets</h4>
+<b>closeAllWidgets</b>(<i></i>)
+<p>
+        Public slot to close all windows.
+</p>
+
+<a NAME="WidgetArea.closeWidget" ID="WidgetArea.closeWidget"></a>
+<h4>WidgetArea.closeWidget</h4>
+<b>closeWidget</b>(<i></i>)
+<p>
+        Public slot to close the active window.
+</p>
+
+<a NAME="WidgetArea.eventFilter" ID="WidgetArea.eventFilter"></a>
+<h4>WidgetArea.eventFilter</h4>
+<b>eventFilter</b>(<i>obj, ev</i>)
+<p>
+        Public method called to filter an event.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (QObject)</dt>
+<dd>
+object, that generated the event
+</dd>
+<dt><i>ev</i> (QEvent)</dt>
+<dd>
+the event, that was generated by object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if event was filtered out
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WidgetArea.hasWidgets" ID="WidgetArea.hasWidgets"></a>
+<h4>WidgetArea.hasWidgets</h4>
+<b>hasWidgets</b>(<i></i>)
+<p>
+        Public method to check for loaded widgets.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag signaling if any widget was loaded
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WidgetArea.loadWidget" ID="WidgetArea.loadWidget"></a>
+<h4>WidgetArea.loadWidget</h4>
+<b>loadWidget</b>(<i>uiFileName</i>)
+<p>
+        Public slot to load a UI file.
+</p>
+
+<dl>
+
+<dt><i>uiFileName</i> (str)</dt>
+<dd>
+name of the UI file to load
+</dd>
+</dl>
+<a NAME="WidgetArea.showWindowMenu" ID="WidgetArea.showWindowMenu"></a>
+<h4>WidgetArea.showWindowMenu</h4>
+<b>showWindowMenu</b>(<i>windowMenu</i>)
+<p>
+        Public method to set up the widgets part of the Window menu.
+</p>
+
+<dl>
+
+<dt><i>windowMenu</i> (QMenu)</dt>
+<dd>
+reference to the window menu
+</dd>
+</dl>
+<a NAME="WidgetArea.toggleSelectedWidget" ID="WidgetArea.toggleSelectedWidget"></a>
+<h4>WidgetArea.toggleSelectedWidget</h4>
+<b>toggleSelectedWidget</b>(<i>act</i>)
+<p>
+        Public method to handle the toggle of a window.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="WidgetView" ID="WidgetView"></a>
+<h2>WidgetView</h2>
+<p>
+    Class to show a dynamically loaded widget (or dialog).
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WidgetView.__init__">WidgetView</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WidgetView.__rebuildWidget">__rebuildWidget</a></td>
+<td>Private method to schedule a rebuild of the widget.</td>
+</tr>
+<tr>
+<td><a href="#WidgetView.buildWidget">buildWidget</a></td>
+<td>Public slot to load a UI file.</td>
+</tr>
+<tr>
+<td><a href="#WidgetView.isValid">isValid</a></td>
+<td>Public method to return the validity of this widget view.</td>
+</tr>
+<tr>
+<td><a href="#WidgetView.uiFileName">uiFileName</a></td>
+<td>Public method to retrieve the name of the UI file.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WidgetView.__init__" ID="WidgetView.__init__"></a>
+<h4>WidgetView (Constructor)</h4>
+<b>WidgetView</b>(<i>uiFileName, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>uiFileName</i> (str)</dt>
+<dd>
+name of the UI file to load
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this widget
+</dd>
+</dl>
+<a NAME="WidgetView.__rebuildWidget" ID="WidgetView.__rebuildWidget"></a>
+<h4>WidgetView.__rebuildWidget</h4>
+<b>__rebuildWidget</b>(<i></i>)
+<p>
+        Private method to schedule a rebuild of the widget.
+</p>
+
+<a NAME="WidgetView.buildWidget" ID="WidgetView.buildWidget"></a>
+<h4>WidgetView.buildWidget</h4>
+<b>buildWidget</b>(<i></i>)
+<p>
+        Public slot to load a UI file.
+</p>
+
+<a NAME="WidgetView.isValid" ID="WidgetView.isValid"></a>
+<h4>WidgetView.isValid</h4>
+<b>isValid</b>(<i></i>)
+<p>
+        Public method to return the validity of this widget view.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the validity
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WidgetView.uiFileName" ID="WidgetView.uiFileName"></a>
+<h4>WidgetView.uiFileName</h4>
+<b>uiFileName</b>(<i></i>)
+<p>
+        Public method to retrieve the name of the UI file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+filename of the loaded UI file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

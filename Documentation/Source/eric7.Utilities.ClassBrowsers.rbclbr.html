@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Utilities.ClassBrowsers.rbclbr</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Utilities.ClassBrowsers.rbclbr</h1>
+<p>
+Parse a Ruby file and retrieve classes, modules, methods and attributes.
+</p>
+<p>
+Parse enough of a Ruby file to recognize class, module and method definitions
+and to find out the superclasses of a class as well as its attributes.
+</p>
+<p>
+It is based on the Python class browser found in this package.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SUPPORTED_TYPES</td></tr>
+<tr><td>_commentsub</td></tr>
+<tr><td>_getnext</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Attribute">Attribute</a></td>
+<td>Class to represent a class or module attribute.</td>
+</tr>
+<tr>
+<td><a href="#Class">Class</a></td>
+<td>Class to represent a Ruby class.</td>
+</tr>
+<tr>
+<td><a href="#Function">Function</a></td>
+<td>Class to represent a Ruby function.</td>
+</tr>
+<tr>
+<td><a href="#Module">Module</a></td>
+<td>Class to represent a Ruby module.</td>
+</tr>
+<tr>
+<td><a href="#VisibilityMixin">VisibilityMixin</a></td>
+<td>Mixin class implementing the notion of visibility.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#readmodule_ex">readmodule_ex</a></td>
+<td>Read a Ruby file and return a dictionary of classes, functions and modules.</td>
+</tr>
+<tr>
+<td><a href="#scan">scan</a></td>
+<td>Public method to scan the given source text.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Attribute" ID="Attribute"></a>
+<h2>Attribute</h2>
+<p>
+    Class to represent a class or module attribute.
+</p>
+
+<h3>Derived from</h3>
+ClbrBaseClasses.Attribute, VisibilityMixin
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Attribute.__init__">Attribute</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Attribute.__init__" ID="Attribute.__init__"></a>
+<h4>Attribute (Constructor)</h4>
+<b>Attribute</b>(<i>module, name, file, lineno, col_offset=0</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of the module containing this attribute
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this attribute
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+file name containing this attribute
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the attribute definition
+</dd>
+<dt><i>col_offset</i> (int (optional))</dt>
+<dd>
+column number of the attribute definition (defaults to 0)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Class" ID="Class"></a>
+<h2>Class</h2>
+<p>
+    Class to represent a Ruby class.
+</p>
+
+<h3>Derived from</h3>
+ClbrBaseClasses.Class, VisibilityMixin
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Class.__init__">Class</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Class.__init__" ID="Class.__init__"></a>
+<h4>Class (Constructor)</h4>
+<b>Class</b>(<i>module, name, superClasses, file, lineno, col_offset=0</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of the module containing this class
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this class
+</dd>
+<dt><i>superClasses</i> (list of str)</dt>
+<dd>
+list of class names this class is inherited from
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+file name containing this class
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the class definition
+</dd>
+<dt><i>col_offset</i> (int (optional))</dt>
+<dd>
+column number of the class definition (defaults to 0)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Function" ID="Function"></a>
+<h2>Function</h2>
+<p>
+    Class to represent a Ruby function.
+</p>
+
+<h3>Derived from</h3>
+ClbrBaseClasses.Function, VisibilityMixin
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Function.__init__">Function</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Function.__init__" ID="Function.__init__"></a>
+<h4>Function (Constructor)</h4>
+<b>Function</b>(<i>module, name, file, lineno, col_offset=0, signature="", separator=", "</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of the module containing this function
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this function
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+file name containing this function
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the function definition
+</dd>
+<dt><i>col_offset</i> (int (optional))</dt>
+<dd>
+column number of the function definition (defaults to 0)
+</dd>
+<dt><i>signature</i> (str)</dt>
+<dd>
+parameter list of the function
+</dd>
+<dt><i>separator</i> (str)</dt>
+<dd>
+string separating the parameters
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Module" ID="Module"></a>
+<h2>Module</h2>
+<p>
+    Class to represent a Ruby module.
+</p>
+
+<h3>Derived from</h3>
+ClbrBaseClasses.Module, VisibilityMixin
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Module.__init__">Module</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Module.__init__" ID="Module.__init__"></a>
+<h4>Module (Constructor)</h4>
+<b>Module</b>(<i>module, name, file, lineno, col_offset=0</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of the module containing this module
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this module
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+file name containing this module
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+linenumber of the module definition
+</dd>
+<dt><i>col_offset</i> (int (optional))</dt>
+<dd>
+column number of the module definition (defaults to 0)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="VisibilityMixin" ID="VisibilityMixin"></a>
+<h2>VisibilityMixin</h2>
+<p>
+    Mixin class implementing the notion of visibility.
+</p>
+
+<h3>Derived from</h3>
+ClbrBaseClasses.ClbrVisibilityMixinBase
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VisibilityMixin.__init__">VisibilityMixin</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VisibilityMixin.__init__" ID="VisibilityMixin.__init__"></a>
+<h4>VisibilityMixin (Constructor)</h4>
+<b>VisibilityMixin</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="readmodule_ex" ID="readmodule_ex"></a>
+<h2>readmodule_ex</h2>
+<b>readmodule_ex</b>(<i>module, searchPath=None, isTypeFile=False</i>)
+<p>
+    Read a Ruby file and return a dictionary of classes, functions and modules.
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of the Ruby file
+</dd>
+<dt><i>searchPath</i> (list of str)</dt>
+<dd>
+path the file should be searched in
+</dd>
+<dt><i>isTypeFile</i> (bool)</dt>
+<dd>
+flag indicating a file of this type (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the resulting dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="scan" ID="scan"></a>
+<h2>scan</h2>
+<b>scan</b>(<i>src, file, module</i>)
+<p>
+    Public method to scan the given source text.
+</p>
+
+<dl>
+
+<dt><i>src</i> (str)</dt>
+<dd>
+source text to be scanned
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+file name associated with the source text
+</dd>
+<dt><i>module</i> (str)</dt>
+<dd>
+module name associated with the source text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the extracted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

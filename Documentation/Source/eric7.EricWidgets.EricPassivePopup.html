@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricPassivePopup</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricPassivePopup</h1>
+<p>
+Module implementing dialog-like popup that displays messages without
+interrupting the user.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricPassivePopup">EricPassivePopup</a></td>
+<td>Class implementing dialog-like popup that displays messages without interrupting the user.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopupStyle">EricPassivePopupStyle</a></td>
+<td>Class defining the popup styles.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricPassivePopup" ID="EricPassivePopup"></a>
+<h2>EricPassivePopup</h2>
+<p>
+    Class implementing dialog-like popup that displays messages without
+    interrupting the user.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>clicked</dt>
+<dd>
+emitted to indicate a mouse button click
+</dd>
+</dl>
+<h3>Derived from</h3>
+QFrame
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DefaultPopupTime</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricPassivePopup.__init__">EricPassivePopup</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.__calculateNearbyPoint">__calculateNearbyPoint</a></td>
+<td>Private method to calculate the position to place the popup near the specified rectangle.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.__defaultArea">__defaultArea</a></td>
+<td>Private method to determine the default rectangle to be passed to moveNear().</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.__moveNear">__moveNear</a></td>
+<td>Private method to move the popup to be adjacent to the specified rectangle.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.__positionSelf">__positionSelf</a></td>
+<td>Private method to position the popup.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.getCustomData">getCustomData</a></td>
+<td>Public method to get some custom data.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.hideEvent">hideEvent</a></td>
+<td>Protected method to handle the hide event.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.mouseReleaseEvent">mouseReleaseEvent</a></td>
+<td>Protected method to handle a mouse release event.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.setCustomData">setCustomData</a></td>
+<td>Public method to set some custom data.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.setTimeout">setTimeout</a></td>
+<td>Public method to set the delay for the popup is removed automatically.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.setView">setView</a></td>
+<td>Public method to set the message view.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.setVisible">setVisible</a></td>
+<td>Public method to show or hide the popup.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.show">show</a></td>
+<td>Public slot to show the popup.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.timeout">timeout</a></td>
+<td>Public method to get the delay before the popup is removed automatically.</td>
+</tr>
+<tr>
+<td><a href="#EricPassivePopup.view">view</a></td>
+<td>Public method to get a reference to the message view.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricPassivePopup.__init__" ID="EricPassivePopup.__init__"></a>
+<h4>EricPassivePopup (Constructor)</h4>
+<b>EricPassivePopup</b>(<i>style=EricPassivePopupStyle.BOXED, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>style</i> (EricPassivePopupStyle)</dt>
+<dd>
+style of the popup
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="EricPassivePopup.__calculateNearbyPoint" ID="EricPassivePopup.__calculateNearbyPoint"></a>
+<h4>EricPassivePopup.__calculateNearbyPoint</h4>
+<b>__calculateNearbyPoint</b>(<i>target</i>)
+<p>
+        Private method to calculate the position to place the popup near the
+        specified rectangle.
+</p>
+
+<dl>
+
+<dt><i>target</i> (QRect)</dt>
+<dd>
+rectangle to be placed at
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+position to place the popup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPoint
+</dd>
+</dl>
+<a NAME="EricPassivePopup.__defaultArea" ID="EricPassivePopup.__defaultArea"></a>
+<h4>EricPassivePopup.__defaultArea</h4>
+<b>__defaultArea</b>(<i></i>)
+<p>
+        Private method to determine the default rectangle to be passed to
+        moveNear().
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+default rectangle
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QRect
+</dd>
+</dl>
+<a NAME="EricPassivePopup.__moveNear" ID="EricPassivePopup.__moveNear"></a>
+<h4>EricPassivePopup.__moveNear</h4>
+<b>__moveNear</b>(<i>target</i>)
+<p>
+        Private method to move the popup to be adjacent to the specified
+        rectangle.
+</p>
+
+<dl>
+
+<dt><i>target</i> (QRect)</dt>
+<dd>
+rectangle to be placed at
+</dd>
+</dl>
+<a NAME="EricPassivePopup.__positionSelf" ID="EricPassivePopup.__positionSelf"></a>
+<h4>EricPassivePopup.__positionSelf</h4>
+<b>__positionSelf</b>(<i></i>)
+<p>
+        Private method to position the popup.
+</p>
+
+<a NAME="EricPassivePopup.getCustomData" ID="EricPassivePopup.getCustomData"></a>
+<h4>EricPassivePopup.getCustomData</h4>
+<b>getCustomData</b>(<i>key</i>)
+<p>
+        Public method to get some custom data.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+key for the custom data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+stored data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="EricPassivePopup.hideEvent" ID="EricPassivePopup.hideEvent"></a>
+<h4>EricPassivePopup.hideEvent</h4>
+<b>hideEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle the hide event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QHideEvent)</dt>
+<dd>
+reference to the hide event
+</dd>
+</dl>
+<a NAME="EricPassivePopup.mouseReleaseEvent" ID="EricPassivePopup.mouseReleaseEvent"></a>
+<h4>EricPassivePopup.mouseReleaseEvent</h4>
+<b>mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle a mouse release event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="EricPassivePopup.setCustomData" ID="EricPassivePopup.setCustomData"></a>
+<h4>EricPassivePopup.setCustomData</h4>
+<b>setCustomData</b>(<i>key, data</i>)
+<p>
+        Public method to set some custom data.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+key for the custom data
+</dd>
+<dt><i>data</i> (Any)</dt>
+<dd>
+data to be stored
+</dd>
+</dl>
+<a NAME="EricPassivePopup.setTimeout" ID="EricPassivePopup.setTimeout"></a>
+<h4>EricPassivePopup.setTimeout</h4>
+<b>setTimeout</b>(<i>delay</i>)
+<p>
+        Public method to set the delay for the popup is removed automatically.
+</p>
+<p>
+        Setting the delay to 0 disables the timeout. If you're doing this, you
+        may want to connect the clicked() signal to the hide() slot. Setting
+        the delay to -1 makes it use the default value.
+</p>
+
+<dl>
+
+<dt><i>delay</i> (int)</dt>
+<dd>
+value for the delay in milliseconds
+</dd>
+</dl>
+<a NAME="EricPassivePopup.setView" ID="EricPassivePopup.setView"></a>
+<h4>EricPassivePopup.setView</h4>
+<b>setView</b>(<i>child</i>)
+<p>
+        Public method to set the message view.
+</p>
+
+<dl>
+
+<dt><i>child</i> (QWidget)</dt>
+<dd>
+reference to the widget to set as the message view
+</dd>
+</dl>
+<a NAME="EricPassivePopup.setVisible" ID="EricPassivePopup.setVisible"></a>
+<h4>EricPassivePopup.setVisible</h4>
+<b>setVisible</b>(<i>visible</i>)
+<p>
+        Public method to show or hide the popup.
+</p>
+
+<dl>
+
+<dt><i>visible</i> (bool)</dt>
+<dd>
+flag indicating the visibility status
+</dd>
+</dl>
+<a NAME="EricPassivePopup.show" ID="EricPassivePopup.show"></a>
+<h4>EricPassivePopup.show</h4>
+<b>show</b>(<i>p=None</i>)
+<p>
+        Public slot to show the popup.
+</p>
+
+<dl>
+
+<dt><i>p</i> (QPoint)</dt>
+<dd>
+position for the popup
+</dd>
+</dl>
+<a NAME="EricPassivePopup.timeout" ID="EricPassivePopup.timeout"></a>
+<h4>EricPassivePopup.timeout</h4>
+<b>timeout</b>(<i></i>)
+<p>
+        Public method to get the delay before the popup is removed
+        automatically.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the delay before the popup is removed automatically
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricPassivePopup.view" ID="EricPassivePopup.view"></a>
+<h4>EricPassivePopup.view</h4>
+<b>view</b>(<i></i>)
+<p>
+        Public method to get a reference to the message view.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the message view
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricPassivePopupStyle" ID="EricPassivePopupStyle"></a>
+<h2>EricPassivePopupStyle</h2>
+<p>
+    Class defining the popup styles.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>BOXED</td></tr>
+<tr><td>CUSTOM</td></tr>
+<tr><td>STYLED</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

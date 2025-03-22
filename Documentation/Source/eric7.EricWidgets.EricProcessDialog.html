@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricProcessDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricProcessDialog</h1>
+<p>
+Module implementing a dialog starting a process and showing its output.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricProcessDialog">EricProcessDialog</a></td>
+<td>Class implementing a dialog starting a process and showing its output.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricProcessDialog" ID="EricProcessDialog"></a>
+<h2>EricProcessDialog</h2>
+<p>
+    Class implementing a dialog starting a process and showing its output.
+</p>
+<p>
+    It starts a QProcess and displays a dialog that shows the output of the
+    process. The dialog is modal, which causes a synchronized execution of
+    the process.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_EricProcessDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricProcessDialog.__init__">EricProcessDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.__procFinished">__procFinished</a></td>
+<td>Private slot connected to the finished signal.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.__readStderr">__readStderr</a></td>
+<td>Private slot to handle the readyReadStandardError signal.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.__readStdout">__readStdout</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.keyPressEvent">keyPressEvent</a></td>
+<td>Protected slot to handle a key press event.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.normalExit">normalExit</a></td>
+<td>Public method to check for a normal process termination.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.normalExitWithoutErrors">normalExitWithoutErrors</a></td>
+<td>Public method to check for a normal process termination without error messages.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.on_input_returnPressed">on_input_returnPressed</a></td>
+<td>Private slot to handle the press of the return key in the input field.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.on_passwordCheckBox_toggled">on_passwordCheckBox_toggled</a></td>
+<td>Private slot to handle the password checkbox toggled.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.on_sendButton_clicked">on_sendButton_clicked</a></td>
+<td>Private slot to send the input to the git process.</td>
+</tr>
+<tr>
+<td><a href="#EricProcessDialog.startProcess">startProcess</a></td>
+<td>Public slot used to start the process.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricProcessDialog.__init__" ID="EricProcessDialog.__init__"></a>
+<h4>EricProcessDialog (Constructor)</h4>
+<b>EricProcessDialog</b>(<i>outputTitle="", windowTitle="", showProgress=False, showInput=True, combinedOutput=False, monospacedFont=None, encoding="utf-8", parent=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>outputTitle</i> (str (optional))</dt>
+<dd>
+title for the output group (defaults to "")
+</dd>
+<dt><i>windowTitle</i> (str (optional))</dt>
+<dd>
+title of the dialog (defaults to "")
+</dd>
+<dt><i>showProgress</i> (bool (optional))</dt>
+<dd>
+flag indicating to show a progress bar (defaults to False)
+</dd>
+<dt><i>showInput</i> (bool (optional))</dt>
+<dd>
+flag indicating to allow input to the process (defaults to
+            True)
+</dd>
+<dt><i>combinedOutput</i> (bool (optional))</dt>
+<dd>
+flag indicating to show output of the stderr channel
+            in the main output pane (defaults to False)
+</dd>
+<dt><i>monospacedFont</i> (QFont)</dt>
+<dd>
+font to be used (should be a monospaced one) (defaults
+            to None)
+</dd>
+<dt><i>encoding</i> (str (optional))</dt>
+<dd>
+encoding used for the communication with the process (defaults
+            to "utf-8")
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="EricProcessDialog.__finish" ID="EricProcessDialog.__finish"></a>
+<h4>EricProcessDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="EricProcessDialog.__procFinished" ID="EricProcessDialog.__procFinished"></a>
+<h4>EricProcessDialog.__procFinished</h4>
+<b>__procFinished</b>(<i>exitCode, exitStatus</i>)
+<p>
+        Private slot connected to the finished signal.
+</p>
+
+<dl>
+
+<dt><i>exitCode</i> (int)</dt>
+<dd>
+exit code of the process
+</dd>
+<dt><i>exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process
+</dd>
+</dl>
+<a NAME="EricProcessDialog.__readStderr" ID="EricProcessDialog.__readStderr"></a>
+<h4>EricProcessDialog.__readStderr</h4>
+<b>__readStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardError signal.
+</p>
+<p>
+        It reads the error output of the process and inserts it into the
+        error pane.
+</p>
+
+<a NAME="EricProcessDialog.__readStdout" ID="EricProcessDialog.__readStdout"></a>
+<h4>EricProcessDialog.__readStdout</h4>
+<b>__readStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal.
+</p>
+<p>
+        It reads the output of the process and inserts it into the
+        output pane.
+</p>
+
+<a NAME="EricProcessDialog.keyPressEvent" ID="EricProcessDialog.keyPressEvent"></a>
+<h4>EricProcessDialog.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected slot to handle a key press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+the key press event
+</dd>
+</dl>
+<a NAME="EricProcessDialog.normalExit" ID="EricProcessDialog.normalExit"></a>
+<h4>EricProcessDialog.normalExit</h4>
+<b>normalExit</b>(<i></i>)
+<p>
+        Public method to check for a normal process termination.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating normal process termination
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricProcessDialog.normalExitWithoutErrors" ID="EricProcessDialog.normalExitWithoutErrors"></a>
+<h4>EricProcessDialog.normalExitWithoutErrors</h4>
+<b>normalExitWithoutErrors</b>(<i></i>)
+<p>
+        Public method to check for a normal process termination without
+        error messages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating normal process termination
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricProcessDialog.on_buttonBox_clicked" ID="EricProcessDialog.on_buttonBox_clicked"></a>
+<h4>EricProcessDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="EricProcessDialog.on_input_returnPressed" ID="EricProcessDialog.on_input_returnPressed"></a>
+<h4>EricProcessDialog.on_input_returnPressed</h4>
+<b>on_input_returnPressed</b>(<i></i>)
+<p>
+        Private slot to handle the press of the return key in the input field.
+</p>
+
+<a NAME="EricProcessDialog.on_passwordCheckBox_toggled" ID="EricProcessDialog.on_passwordCheckBox_toggled"></a>
+<h4>EricProcessDialog.on_passwordCheckBox_toggled</h4>
+<b>on_passwordCheckBox_toggled</b>(<i>isOn</i>)
+<p>
+        Private slot to handle the password checkbox toggled.
+</p>
+
+<dl>
+
+<dt><i>isOn</i> (bool)</dt>
+<dd>
+flag indicating the status of the check box
+</dd>
+</dl>
+<a NAME="EricProcessDialog.on_sendButton_clicked" ID="EricProcessDialog.on_sendButton_clicked"></a>
+<h4>EricProcessDialog.on_sendButton_clicked</h4>
+<b>on_sendButton_clicked</b>(<i></i>)
+<p>
+        Private slot to send the input to the git process.
+</p>
+
+<a NAME="EricProcessDialog.startProcess" ID="EricProcessDialog.startProcess"></a>
+<h4>EricProcessDialog.startProcess</h4>
+<b>startProcess</b>(<i>program, args, workingDir=None, showArgs=True, environment=None</i>)
+<p>
+        Public slot used to start the process.
+</p>
+
+<dl>
+
+<dt><i>program</i> (str)</dt>
+<dd>
+path of the program to be executed
+</dd>
+<dt><i>args</i> (list of str)</dt>
+<dd>
+list of arguments for the process
+</dd>
+<dt><i>workingDir</i> (str)</dt>
+<dd>
+working directory for the process
+</dd>
+<dt><i>showArgs</i> (bool)</dt>
+<dd>
+flag indicating to show the arguments
+</dd>
+<dt><i>environment</i> (dict)</dt>
+<dd>
+dictionary of environment settings to add
+            or change for the process
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful start of the process
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

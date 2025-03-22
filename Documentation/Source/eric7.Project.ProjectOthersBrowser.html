@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Project.ProjectOthersBrowser</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Project.ProjectOthersBrowser</h1>
+<p>
+Module implementing a class used to display the parts of the project, that
+don't fit the other categories.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ProjectOthersBrowser">ProjectOthersBrowser</a></td>
+<td>A class used to display the parts of the project, that don't fit the other categories.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ProjectOthersBrowser" ID="ProjectOthersBrowser"></a>
+<h2>ProjectOthersBrowser</h2>
+<p>
+    A class used to display the parts of the project, that don't fit the
+    other categories.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>showMenu(str, QMenu)</dt>
+<dd>
+emitted when a menu is about to be shown.
+        The name of the menu and a reference to the menu are given.
+</dd>
+</dl>
+<h3>Derived from</h3>
+ProjectBaseBrowser
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ProjectOthersBrowser.__init__">ProjectOthersBrowser</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__addNewOthersDirectory">__addNewOthersDirectory</a></td>
+<td>Private method to add a new directory to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__addNewOthersFile">__addNewOthersFile</a></td>
+<td>Private method to add a new source file to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__addOthersDirectory">__addOthersDirectory</a></td>
+<td>Private method to add files of a directory to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__addOthersFiles">__addOthersFiles</a></td>
+<td>Private method to add files to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__deleteItem">__deleteItem</a></td>
+<td>Private method to delete the selected entry from the OTHERS project data area.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__refreshItem">__refreshItem</a></td>
+<td>Private slot to refresh (repopulate) an item.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__removeItem">__removeItem</a></td>
+<td>Private slot to remove the selected entry from the OTHERS project data area.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot called by the menu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__showContextMenuBack">__showContextMenuBack</a></td>
+<td>Private slot called by the backMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__showContextMenuDir">__showContextMenuDir</a></td>
+<td>Private slot called by the dirMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__showContextMenuMulti">__showContextMenuMulti</a></td>
+<td>Private slot called by the multiMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.__showMimeType">__showMimeType</a></td>
+<td>Private slot to show the mime type of the selected entry.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser._contextMenuRequested">_contextMenuRequested</a></td>
+<td>Protected slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser._createPopupMenus">_createPopupMenus</a></td>
+<td>Protected overloaded method to generate the popup menu.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser._editPixmap">_editPixmap</a></td>
+<td>Protected slot to handle the open in icon editor popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser._openFileInEditor">_openFileInEditor</a></td>
+<td>Protected slot to handle the Open in Editor menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser._openHexEditor">_openHexEditor</a></td>
+<td>Protected slot to handle the open in hex editor popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser._openItem">_openItem</a></td>
+<td>Protected slot to handle the open popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser._openPdfViewer">_openPdfViewer</a></td>
+<td>Protected slot to handle the open in PDF viewer popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser._showContextMenu">_showContextMenu</a></td>
+<td>Protected slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectOthersBrowser.getIcon">getIcon</a></td>
+<td>Public method to get an icon for the project browser.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ProjectOthersBrowser.__init__" ID="ProjectOthersBrowser.__init__"></a>
+<h4>ProjectOthersBrowser (Constructor)</h4>
+<b>ProjectOthersBrowser</b>(<i>project, projectBrowser, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>projectBrowser</i> (ProjectBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this browser
+</dd>
+</dl>
+<a NAME="ProjectOthersBrowser.__addNewOthersDirectory" ID="ProjectOthersBrowser.__addNewOthersDirectory"></a>
+<h4>ProjectOthersBrowser.__addNewOthersDirectory</h4>
+<b>__addNewOthersDirectory</b>(<i>useCurrent=True</i>)
+<p>
+        Private method to add a new directory to the project.
+</p>
+
+<dl>
+
+<dt><i>useCurrent</i> (bool (optional))</dt>
+<dd>
+flag indicating to use the current index for the directory
+            dialog (defaults to True)
+</dd>
+</dl>
+<a NAME="ProjectOthersBrowser.__addNewOthersFile" ID="ProjectOthersBrowser.__addNewOthersFile"></a>
+<h4>ProjectOthersBrowser.__addNewOthersFile</h4>
+<b>__addNewOthersFile</b>(<i>useCurrent=True</i>)
+<p>
+        Private method to add a new source file to the project.
+</p>
+
+<dl>
+
+<dt><i>useCurrent</i> (bool (optional))</dt>
+<dd>
+flag indicating to use the current index for the directory
+            dialog (defaults to True)
+</dd>
+</dl>
+<a NAME="ProjectOthersBrowser.__addOthersDirectory" ID="ProjectOthersBrowser.__addOthersDirectory"></a>
+<h4>ProjectOthersBrowser.__addOthersDirectory</h4>
+<b>__addOthersDirectory</b>(<i></i>)
+<p>
+        Private method to add files of a directory to the project.
+</p>
+
+<a NAME="ProjectOthersBrowser.__addOthersFiles" ID="ProjectOthersBrowser.__addOthersFiles"></a>
+<h4>ProjectOthersBrowser.__addOthersFiles</h4>
+<b>__addOthersFiles</b>(<i></i>)
+<p>
+        Private method to add files to the project.
+</p>
+
+<a NAME="ProjectOthersBrowser.__deleteItem" ID="ProjectOthersBrowser.__deleteItem"></a>
+<h4>ProjectOthersBrowser.__deleteItem</h4>
+<b>__deleteItem</b>(<i></i>)
+<p>
+        Private method to delete the selected entry from the OTHERS project
+        data area.
+</p>
+
+<a NAME="ProjectOthersBrowser.__refreshItem" ID="ProjectOthersBrowser.__refreshItem"></a>
+<h4>ProjectOthersBrowser.__refreshItem</h4>
+<b>__refreshItem</b>(<i></i>)
+<p>
+        Private slot to refresh (repopulate) an item.
+</p>
+
+<a NAME="ProjectOthersBrowser.__removeItem" ID="ProjectOthersBrowser.__removeItem"></a>
+<h4>ProjectOthersBrowser.__removeItem</h4>
+<b>__removeItem</b>(<i></i>)
+<p>
+        Private slot to remove the selected entry from the OTHERS project
+        data area.
+</p>
+
+<a NAME="ProjectOthersBrowser.__showContextMenu" ID="ProjectOthersBrowser.__showContextMenu"></a>
+<h4>ProjectOthersBrowser.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i></i>)
+<p>
+        Private slot called by the menu aboutToShow signal.
+</p>
+
+<a NAME="ProjectOthersBrowser.__showContextMenuBack" ID="ProjectOthersBrowser.__showContextMenuBack"></a>
+<h4>ProjectOthersBrowser.__showContextMenuBack</h4>
+<b>__showContextMenuBack</b>(<i></i>)
+<p>
+        Private slot called by the backMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectOthersBrowser.__showContextMenuDir" ID="ProjectOthersBrowser.__showContextMenuDir"></a>
+<h4>ProjectOthersBrowser.__showContextMenuDir</h4>
+<b>__showContextMenuDir</b>(<i></i>)
+<p>
+        Private slot called by the dirMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectOthersBrowser.__showContextMenuMulti" ID="ProjectOthersBrowser.__showContextMenuMulti"></a>
+<h4>ProjectOthersBrowser.__showContextMenuMulti</h4>
+<b>__showContextMenuMulti</b>(<i></i>)
+<p>
+        Private slot called by the multiMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectOthersBrowser.__showMimeType" ID="ProjectOthersBrowser.__showMimeType"></a>
+<h4>ProjectOthersBrowser.__showMimeType</h4>
+<b>__showMimeType</b>(<i></i>)
+<p>
+        Private slot to show the mime type of the selected entry.
+</p>
+
+<a NAME="ProjectOthersBrowser._contextMenuRequested" ID="ProjectOthersBrowser._contextMenuRequested"></a>
+<h4>ProjectOthersBrowser._contextMenuRequested</h4>
+<b>_contextMenuRequested</b>(<i>coord</i>)
+<p>
+        Protected slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="ProjectOthersBrowser._createPopupMenus" ID="ProjectOthersBrowser._createPopupMenus"></a>
+<h4>ProjectOthersBrowser._createPopupMenus</h4>
+<b>_createPopupMenus</b>(<i></i>)
+<p>
+        Protected overloaded method to generate the popup menu.
+</p>
+
+<a NAME="ProjectOthersBrowser._editPixmap" ID="ProjectOthersBrowser._editPixmap"></a>
+<h4>ProjectOthersBrowser._editPixmap</h4>
+<b>_editPixmap</b>(<i></i>)
+<p>
+        Protected slot to handle the open in icon editor popup menu entry.
+</p>
+
+<a NAME="ProjectOthersBrowser._openFileInEditor" ID="ProjectOthersBrowser._openFileInEditor"></a>
+<h4>ProjectOthersBrowser._openFileInEditor</h4>
+<b>_openFileInEditor</b>(<i></i>)
+<p>
+        Protected slot to handle the Open in Editor menu action.
+</p>
+
+<a NAME="ProjectOthersBrowser._openHexEditor" ID="ProjectOthersBrowser._openHexEditor"></a>
+<h4>ProjectOthersBrowser._openHexEditor</h4>
+<b>_openHexEditor</b>(<i></i>)
+<p>
+        Protected slot to handle the open in hex editor popup menu entry.
+</p>
+
+<a NAME="ProjectOthersBrowser._openItem" ID="ProjectOthersBrowser._openItem"></a>
+<h4>ProjectOthersBrowser._openItem</h4>
+<b>_openItem</b>(<i></i>)
+<p>
+        Protected slot to handle the open popup menu entry.
+</p>
+
+<a NAME="ProjectOthersBrowser._openPdfViewer" ID="ProjectOthersBrowser._openPdfViewer"></a>
+<h4>ProjectOthersBrowser._openPdfViewer</h4>
+<b>_openPdfViewer</b>(<i></i>)
+<p>
+        Protected slot to handle the open in PDF viewer popup menu entry.
+</p>
+
+<a NAME="ProjectOthersBrowser._showContextMenu" ID="ProjectOthersBrowser._showContextMenu"></a>
+<h4>ProjectOthersBrowser._showContextMenu</h4>
+<b>_showContextMenu</b>(<i>menu</i>)
+<p>
+        Protected slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the file status.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QPopupMenu)</dt>
+<dd>
+Reference to the popup menu
+</dd>
+</dl>
+<a NAME="ProjectOthersBrowser.getIcon" ID="ProjectOthersBrowser.getIcon"></a>
+<h4>ProjectOthersBrowser.getIcon</h4>
+<b>getIcon</b>(<i></i>)
+<p>
+        Public method to get an icon for the project browser.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+icon for the browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

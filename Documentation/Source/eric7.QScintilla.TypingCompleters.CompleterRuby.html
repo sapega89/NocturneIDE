@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.TypingCompleters.CompleterRuby</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.TypingCompleters.CompleterRuby</h1>
+<p>
+Module implementing a typing completer for Ruby.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CompleterRuby">CompleterRuby</a></td>
+<td>Class implementing typing completer for Ruby.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createCompleter">createCompleter</a></td>
+<td>Function to instantiate a typing completer object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CompleterRuby" ID="CompleterRuby"></a>
+<h2>CompleterRuby</h2>
+<p>
+    Class implementing typing completer for Ruby.
+</p>
+
+<h3>Derived from</h3>
+CompleterBase
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CompleterRuby.__init__">CompleterRuby</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CompleterRuby.__inComment">__inComment</a></td>
+<td>Private method to check, if the cursor is inside a comment.</td>
+</tr>
+<tr>
+<td><a href="#CompleterRuby.__inDoubleQuotedString">__inDoubleQuotedString</a></td>
+<td>Private method to check, if the cursor is within a double quoted string.</td>
+</tr>
+<tr>
+<td><a href="#CompleterRuby.__inHereDocument">__inHereDocument</a></td>
+<td>Private method to check, if the cursor is within a here document.</td>
+</tr>
+<tr>
+<td><a href="#CompleterRuby.__inInlineDocument">__inInlineDocument</a></td>
+<td>Private method to check, if the cursor is within an inline document.</td>
+</tr>
+<tr>
+<td><a href="#CompleterRuby.__inSingleQuotedString">__inSingleQuotedString</a></td>
+<td>Private method to check, if the cursor is within a single quoted string.</td>
+</tr>
+<tr>
+<td><a href="#CompleterRuby.charAdded">charAdded</a></td>
+<td>Public slot called to handle the user entering a character.</td>
+</tr>
+<tr>
+<td><a href="#CompleterRuby.readSettings">readSettings</a></td>
+<td>Public slot called to reread the configuration parameters.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CompleterRuby.__init__" ID="CompleterRuby.__init__"></a>
+<h4>CompleterRuby (Constructor)</h4>
+<b>CompleterRuby</b>(<i>editor, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QScintilla.Editor)</dt>
+<dd>
+reference to the editor object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="CompleterRuby.__inComment" ID="CompleterRuby.__inComment"></a>
+<h4>CompleterRuby.__inComment</h4>
+<b>__inComment</b>(<i>line, col</i>)
+<p>
+        Private method to check, if the cursor is inside a comment.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+current line
+</dd>
+<dt><i>col</i> (int)</dt>
+<dd>
+current position within line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside a comment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterRuby.__inDoubleQuotedString" ID="CompleterRuby.__inDoubleQuotedString"></a>
+<h4>CompleterRuby.__inDoubleQuotedString</h4>
+<b>__inDoubleQuotedString</b>(<i></i>)
+<p>
+        Private method to check, if the cursor is within a double quoted
+        string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside a double
+            quoted string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterRuby.__inHereDocument" ID="CompleterRuby.__inHereDocument"></a>
+<h4>CompleterRuby.__inHereDocument</h4>
+<b>__inHereDocument</b>(<i></i>)
+<p>
+        Private method to check, if the cursor is within a here document.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside a here document
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterRuby.__inInlineDocument" ID="CompleterRuby.__inInlineDocument"></a>
+<h4>CompleterRuby.__inInlineDocument</h4>
+<b>__inInlineDocument</b>(<i></i>)
+<p>
+        Private method to check, if the cursor is within an inline document.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside an inline document
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterRuby.__inSingleQuotedString" ID="CompleterRuby.__inSingleQuotedString"></a>
+<h4>CompleterRuby.__inSingleQuotedString</h4>
+<b>__inSingleQuotedString</b>(<i></i>)
+<p>
+        Private method to check, if the cursor is within a single quoted
+        string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside a single
+            quoted string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterRuby.charAdded" ID="CompleterRuby.charAdded"></a>
+<h4>CompleterRuby.charAdded</h4>
+<b>charAdded</b>(<i>charNumber</i>)
+<p>
+        Public slot called to handle the user entering a character.
+</p>
+
+<dl>
+
+<dt><i>charNumber</i> (int)</dt>
+<dd>
+value of the character entered
+</dd>
+</dl>
+<a NAME="CompleterRuby.readSettings" ID="CompleterRuby.readSettings"></a>
+<h4>CompleterRuby.readSettings</h4>
+<b>readSettings</b>(<i></i>)
+<p>
+        Public slot called to reread the configuration parameters.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createCompleter" ID="createCompleter"></a>
+<h2>createCompleter</h2>
+<b>createCompleter</b>(<i>editor, parent=None</i>)
+<p>
+    Function to instantiate a typing completer object.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QScintilla.Editor)</dt>
+<dd>
+reference to the editor object
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated typing completer object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+CompleterRuby
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.ShelveBuiltin.shelve</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.ShelveBuiltin.shelve</h1>
+<p>
+Module implementing the shelve extension interface.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Shelve">Shelve</a></td>
+<td>Class implementing the shelve extension interface.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Shelve" ID="Shelve"></a>
+<h2>Shelve</h2>
+<p>
+    Class implementing the shelve extension interface.
+</p>
+
+<h3>Derived from</h3>
+HgExtension
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Shelve.__init__">Shelve</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Shelve.__hgGetShelveNamesList">__hgGetShelveNamesList</a></td>
+<td>Private method to get the list of shelved changes.</td>
+</tr>
+<tr>
+<td><a href="#Shelve.hgCleanupShelves">hgCleanupShelves</a></td>
+<td>Public method to delete all shelves.</td>
+</tr>
+<tr>
+<td><a href="#Shelve.hgDeleteShelves">hgDeleteShelves</a></td>
+<td>Public method to delete named shelves.</td>
+</tr>
+<tr>
+<td><a href="#Shelve.hgShelve">hgShelve</a></td>
+<td>Public method to shelve current changes of files or directories.</td>
+</tr>
+<tr>
+<td><a href="#Shelve.hgShelveBrowser">hgShelveBrowser</a></td>
+<td>Public method to show the shelve browser dialog.</td>
+</tr>
+<tr>
+<td><a href="#Shelve.hgUnshelve">hgUnshelve</a></td>
+<td>Public method to restore shelved changes to the project directory.</td>
+</tr>
+<tr>
+<td><a href="#Shelve.hgUnshelveAbort">hgUnshelveAbort</a></td>
+<td>Public method to abort the ongoing restore operation.</td>
+</tr>
+<tr>
+<td><a href="#Shelve.hgUnshelveContinue">hgUnshelveContinue</a></td>
+<td>Public method to continue the ongoing restore operation.</td>
+</tr>
+<tr>
+<td><a href="#Shelve.shutdown">shutdown</a></td>
+<td>Public method used to shutdown the shelve interface.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Shelve.__init__" ID="Shelve.__init__"></a>
+<h4>Shelve (Constructor)</h4>
+<b>Shelve</b>(<i>vcs, ui=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the Mercurial vcs object
+</dd>
+<dt><i>ui</i> (QWidget)</dt>
+<dd>
+reference to a UI widget (defaults to None)
+</dd>
+</dl>
+<a NAME="Shelve.__hgGetShelveNamesList" ID="Shelve.__hgGetShelveNamesList"></a>
+<h4>Shelve.__hgGetShelveNamesList</h4>
+<b>__hgGetShelveNamesList</b>(<i></i>)
+<p>
+        Private method to get the list of shelved changes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of shelved changes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Shelve.hgCleanupShelves" ID="Shelve.hgCleanupShelves"></a>
+<h4>Shelve.hgCleanupShelves</h4>
+<b>hgCleanupShelves</b>(<i></i>)
+<p>
+        Public method to delete all shelves.
+</p>
+
+<a NAME="Shelve.hgDeleteShelves" ID="Shelve.hgDeleteShelves"></a>
+<h4>Shelve.hgDeleteShelves</h4>
+<b>hgDeleteShelves</b>(<i>shelveNames=None</i>)
+<p>
+        Public method to delete named shelves.
+</p>
+
+<dl>
+
+<dt><i>shelveNames</i> (list of str)</dt>
+<dd>
+name of shelves to delete
+</dd>
+</dl>
+<a NAME="Shelve.hgShelve" ID="Shelve.hgShelve"></a>
+<h4>Shelve.hgShelve</h4>
+<b>hgShelve</b>(<i>name</i>)
+<p>
+        Public method to shelve current changes of files or directories.
+</p>
+
+<dl>
+
+<dt><i>name</i> (list of str)</dt>
+<dd>
+directory or file name (string) or list of directory
+            or file names
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Shelve.hgShelveBrowser" ID="Shelve.hgShelveBrowser"></a>
+<h4>Shelve.hgShelveBrowser</h4>
+<b>hgShelveBrowser</b>(<i></i>)
+<p>
+        Public method to show the shelve browser dialog.
+</p>
+
+<a NAME="Shelve.hgUnshelve" ID="Shelve.hgUnshelve"></a>
+<h4>Shelve.hgUnshelve</h4>
+<b>hgUnshelve</b>(<i>shelveName=""</i>)
+<p>
+        Public method to restore shelved changes to the project directory.
+</p>
+
+<dl>
+
+<dt><i>shelveName</i> (str)</dt>
+<dd>
+name of the shelve to restore
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Shelve.hgUnshelveAbort" ID="Shelve.hgUnshelveAbort"></a>
+<h4>Shelve.hgUnshelveAbort</h4>
+<b>hgUnshelveAbort</b>(<i></i>)
+<p>
+        Public method to abort the ongoing restore operation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Shelve.hgUnshelveContinue" ID="Shelve.hgUnshelveContinue"></a>
+<h4>Shelve.hgUnshelveContinue</h4>
+<b>hgUnshelveContinue</b>(<i></i>)
+<p>
+        Public method to continue the ongoing restore operation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Shelve.shutdown" ID="Shelve.shutdown"></a>
+<h4>Shelve.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method used to shutdown the shelve interface.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

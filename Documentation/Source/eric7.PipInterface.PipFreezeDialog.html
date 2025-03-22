@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.PipInterface.PipFreezeDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.PipInterface.PipFreezeDialog</h1>
+<p>
+Module implementing a dialog to generate a requirements file.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PipFreezeDialog">PipFreezeDialog</a></td>
+<td>Class implementing a dialog to generate a requirements file.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialogModes">PipFreezeDialogModes</a></td>
+<td>Class defining the various dialog modes.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PipFreezeDialog" ID="PipFreezeDialog"></a>
+<h2>PipFreezeDialog</h2>
+<p>
+    Class implementing a dialog to generate a requirements file.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_PipFreezeDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PipFreezeDialog.__init__">PipFreezeDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.__refresh">__refresh</a></td>
+<td>Private slot to refresh the displayed list.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.__updateButtons">__updateButtons</a></td>
+<td>Private method to set the state of the various buttons.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.__writeToFile">__writeToFile</a></td>
+<td>Private method to write the requirements text to a file.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_copyButton_clicked">on_copyButton_clicked</a></td>
+<td>Private slot to copy the requirements text to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_insertButton_clicked">on_insertButton_clicked</a></td>
+<td>Private slot to insert the requirements text at the cursor position of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_localCheckBox_clicked">on_localCheckBox_clicked</a></td>
+<td>Private slot handling the switching of the local mode.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_replaceAllButton_clicked">on_replaceAllButton_clicked</a></td>
+<td>Private slot to replace the text of the current editor with the requirements text.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_replaceSelectionButton_clicked">on_replaceSelectionButton_clicked</a></td>
+<td>Private slot to replace the selected text of the current editor with the requirements text.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_requirementsEdit_textChanged">on_requirementsEdit_textChanged</a></td>
+<td>Private slot handling changes of the requirements text.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_requirementsFilePicker_textChanged">on_requirementsFilePicker_textChanged</a></td>
+<td>Private slot handling a change of the requirements file name.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_saveButton_clicked">on_saveButton_clicked</a></td>
+<td>Private slot to save the requirements text to the requirements file.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_saveToButton_clicked">on_saveToButton_clicked</a></td>
+<td>Private slot to write the requirements text to a new file.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.on_userCheckBox_clicked">on_userCheckBox_clicked</a></td>
+<td>Private slot handling the switching of the user-site mode.</td>
+</tr>
+<tr>
+<td><a href="#PipFreezeDialog.start">start</a></td>
+<td>Public method to start the command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PipFreezeDialog.__init__" ID="PipFreezeDialog.__init__"></a>
+<h4>PipFreezeDialog (Constructor)</h4>
+<b>PipFreezeDialog</b>(<i>pip, mode=PipFreezeDialogModes.Requirements, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>pip</i> (Pip)</dt>
+<dd>
+reference to the main interface object
+</dd>
+<dt><i>mode</i> (PipFreezeDialogModes (optional))</dt>
+<dd>
+dialog mod (defaults to PipFreezeDialogModes.Requirements)
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None
+</dd>
+</dl>
+<a NAME="PipFreezeDialog.__refresh" ID="PipFreezeDialog.__refresh"></a>
+<h4>PipFreezeDialog.__refresh</h4>
+<b>__refresh</b>(<i></i>)
+<p>
+        Private slot to refresh the displayed list.
+</p>
+
+<a NAME="PipFreezeDialog.__updateButtons" ID="PipFreezeDialog.__updateButtons"></a>
+<h4>PipFreezeDialog.__updateButtons</h4>
+<b>__updateButtons</b>(<i></i>)
+<p>
+        Private method to set the state of the various buttons.
+</p>
+
+<a NAME="PipFreezeDialog.__writeToFile" ID="PipFreezeDialog.__writeToFile"></a>
+<h4>PipFreezeDialog.__writeToFile</h4>
+<b>__writeToFile</b>(<i>fileName</i>)
+<p>
+        Private method to write the requirements text to a file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to write to
+</dd>
+</dl>
+<a NAME="PipFreezeDialog.closeEvent" ID="PipFreezeDialog.closeEvent"></a>
+<h4>PipFreezeDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="PipFreezeDialog.on_buttonBox_clicked" ID="PipFreezeDialog.on_buttonBox_clicked"></a>
+<h4>PipFreezeDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="PipFreezeDialog.on_copyButton_clicked" ID="PipFreezeDialog.on_copyButton_clicked"></a>
+<h4>PipFreezeDialog.on_copyButton_clicked</h4>
+<b>on_copyButton_clicked</b>(<i></i>)
+<p>
+        Private slot to copy the requirements text to the clipboard.
+</p>
+
+<a NAME="PipFreezeDialog.on_insertButton_clicked" ID="PipFreezeDialog.on_insertButton_clicked"></a>
+<h4>PipFreezeDialog.on_insertButton_clicked</h4>
+<b>on_insertButton_clicked</b>(<i></i>)
+<p>
+        Private slot to insert the requirements text at the cursor position
+        of the current editor.
+</p>
+
+<a NAME="PipFreezeDialog.on_localCheckBox_clicked" ID="PipFreezeDialog.on_localCheckBox_clicked"></a>
+<h4>PipFreezeDialog.on_localCheckBox_clicked</h4>
+<b>on_localCheckBox_clicked</b>(<i></i>)
+<p>
+        Private slot handling the switching of the local mode.
+</p>
+
+<a NAME="PipFreezeDialog.on_replaceAllButton_clicked" ID="PipFreezeDialog.on_replaceAllButton_clicked"></a>
+<h4>PipFreezeDialog.on_replaceAllButton_clicked</h4>
+<b>on_replaceAllButton_clicked</b>(<i></i>)
+<p>
+        Private slot to replace the text of the current editor with the
+        requirements text.
+</p>
+
+<a NAME="PipFreezeDialog.on_replaceSelectionButton_clicked" ID="PipFreezeDialog.on_replaceSelectionButton_clicked"></a>
+<h4>PipFreezeDialog.on_replaceSelectionButton_clicked</h4>
+<b>on_replaceSelectionButton_clicked</b>(<i></i>)
+<p>
+        Private slot to replace the selected text of the current editor
+        with the requirements text.
+</p>
+
+<a NAME="PipFreezeDialog.on_requirementsEdit_textChanged" ID="PipFreezeDialog.on_requirementsEdit_textChanged"></a>
+<h4>PipFreezeDialog.on_requirementsEdit_textChanged</h4>
+<b>on_requirementsEdit_textChanged</b>(<i></i>)
+<p>
+        Private slot handling changes of the requirements text.
+</p>
+
+<a NAME="PipFreezeDialog.on_requirementsFilePicker_textChanged" ID="PipFreezeDialog.on_requirementsFilePicker_textChanged"></a>
+<h4>PipFreezeDialog.on_requirementsFilePicker_textChanged</h4>
+<b>on_requirementsFilePicker_textChanged</b>(<i>txt</i>)
+<p>
+        Private slot handling a change of the requirements file name.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+name of the requirements file
+</dd>
+</dl>
+<a NAME="PipFreezeDialog.on_saveButton_clicked" ID="PipFreezeDialog.on_saveButton_clicked"></a>
+<h4>PipFreezeDialog.on_saveButton_clicked</h4>
+<b>on_saveButton_clicked</b>(<i></i>)
+<p>
+        Private slot to save the requirements text to the requirements file.
+</p>
+
+<a NAME="PipFreezeDialog.on_saveToButton_clicked" ID="PipFreezeDialog.on_saveToButton_clicked"></a>
+<h4>PipFreezeDialog.on_saveToButton_clicked</h4>
+<b>on_saveToButton_clicked</b>(<i></i>)
+<p>
+        Private slot to write the requirements text to a new file.
+</p>
+
+<a NAME="PipFreezeDialog.on_userCheckBox_clicked" ID="PipFreezeDialog.on_userCheckBox_clicked"></a>
+<h4>PipFreezeDialog.on_userCheckBox_clicked</h4>
+<b>on_userCheckBox_clicked</b>(<i></i>)
+<p>
+        Private slot handling the switching of the user-site mode.
+</p>
+
+<a NAME="PipFreezeDialog.start" ID="PipFreezeDialog.start"></a>
+<h4>PipFreezeDialog.start</h4>
+<b>start</b>(<i>venvName</i>)
+<p>
+        Public method to start the command.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the environment to act upon
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PipFreezeDialogModes" ID="PipFreezeDialogModes"></a>
+<h2>PipFreezeDialogModes</h2>
+<p>
+    Class defining the various dialog modes.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Constraints</td></tr>
+<tr><td>Requirements</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

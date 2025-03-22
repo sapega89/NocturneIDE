@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.VCS.VersionControl</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.VCS.VersionControl</h1>
+<p>
+Module implementing an abstract base class to be subclassed by all specific
+VCS interfaces.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#VersionControl">VersionControl</a></td>
+<td>Class implementing an abstract base class to be subclassed by all specific VCS interfaces.</td>
+</tr>
+<tr>
+<td><a href="#VersionControlState">VersionControlState</a></td>
+<td>Class defining the global VCS states of files and directories.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="VersionControl" ID="VersionControl"></a>
+<h2>VersionControl</h2>
+<p>
+    Class implementing an abstract base class to be subclassed by all specific
+    VCS interfaces.
+</p>
+<p>
+    It defines the vcs interface to be implemented by subclasses
+    and the common methods.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>committed()</dt>
+<dd>
+emitted after the commit action has completed
+</dd>
+<dt>vcsStatusChanged()</dt>
+<dd>
+emitted to indicate a change of the overall
+        VCS status
+</dd>
+<dt>vcsStatusMonitorAllData(dict)</dt>
+<dd>
+emitted to signal all VCS status
+        (key is project relative file name, value is status)
+</dd>
+<dt>vcsStatusMonitorData(list of str)</dt>
+<dd>
+emitted to update the VCS status
+</dd>
+<dt>vcsStatusMonitorInfo(str)</dt>
+<dd>
+emitted to signal some info of the
+        monitoring thread
+</dd>
+<dt>vcsStatusMonitorStatus(str, str)</dt>
+<dd>
+emitted to signal the status of
+        the monitoring thread (ok, nok, op, off) and a status message
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>commitHistoryData</td></tr>
+<tr><td>commitHistoryLock</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VersionControl.__init__">VersionControl</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.__statusMonitorAllData">__statusMonitorAllData</a></td>
+<td>Private method to receive all status monitor data.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.__statusMonitorData">__statusMonitorData</a></td>
+<td>Private method to receive the status monitor data update.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.__statusMonitorInfo">__statusMonitorInfo</a></td>
+<td>Private slot to receive the status monitor info message.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.__statusMonitorStatus">__statusMonitorStatus</a></td>
+<td>Private slot to receive the status monitor status.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl._createStatusMonitorThread">_createStatusMonitorThread</a></td>
+<td>Protected method to create an instance of the VCS status monitor thread.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl._vcsAddProjectCommitMessage">_vcsAddProjectCommitMessage</a></td>
+<td>Protected method to add a commit message to the list of project specific saved messages.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl._vcsClearProjectCommitMessages">_vcsClearProjectCommitMessages</a></td>
+<td>Protected method to clear the list of project specific saved messages.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl._vcsProjectCommitMessages">_vcsProjectCommitMessages</a></td>
+<td>Protected method to get the list of saved commit messages.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.addArguments">addArguments</a></td>
+<td>Public method to add an argument list to the already present arguments.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.checkVCSStatus">checkVCSStatus</a></td>
+<td>Public method to wake up the VCS status monitor thread.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.clearStatusCache">clearStatusCache</a></td>
+<td>Public method to clear the status cache.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.clearStatusMonitorCachedState">clearStatusMonitorCachedState</a></td>
+<td>Public method to clear the cached VCS state of a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.getStatusMonitorAutoUpdate">getStatusMonitorAutoUpdate</a></td>
+<td>Public method to retrieve the status of the auto update function.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.getStatusMonitorInterval">getStatusMonitorInterval</a></td>
+<td>Public method to get the monitor interval.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.restartStatusMonitor">restartStatusMonitor</a></td>
+<td>Public method to re-start the VCS status monitor thread.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.setStatusMonitorAutoUpdate">setStatusMonitorAutoUpdate</a></td>
+<td>Public method to enable the auto update function.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.setStatusMonitorInterval">setStatusMonitorInterval</a></td>
+<td>Public method to change the monitor interval.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.splitPath">splitPath</a></td>
+<td>Public method splitting name into a directory part and a file part.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.splitPathList">splitPathList</a></td>
+<td>Public method splitting the list of names into a common directory part and a file list.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.startStatusMonitor">startStatusMonitor</a></td>
+<td>Public method to start the VCS status monitor thread.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.startSynchronizedProcess">startSynchronizedProcess</a></td>
+<td>Public method to start a synchroneous process.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.stopStatusMonitor">stopStatusMonitor</a></td>
+<td>Public method to stop the VCS status monitor thread.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsAdd">vcsAdd</a></td>
+<td>Public method used to add a file/directory in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsAddBinary">vcsAddBinary</a></td>
+<td>Public method used to add a file/directory in binary mode in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsAddCommitMessage">vcsAddCommitMessage</a></td>
+<td>Public method to add a commit message to the list of saved messages.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsAddTree">vcsAddTree</a></td>
+<td>Public method to add a directory tree rooted at path in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsAllRegisteredStates">vcsAllRegisteredStates</a></td>
+<td>Public method used to get the registered states of a number of files in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsCheckout">vcsCheckout</a></td>
+<td>Public method used to check the project out of the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsCleanup">vcsCleanup</a></td>
+<td>Public method used to cleanup the local copy.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsClearCommitMessages">vcsClearCommitMessages</a></td>
+<td>Public method to clear the list of saved messages.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsCommandLine">vcsCommandLine</a></td>
+<td>Public method used to execute arbitrary vcs commands.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsCommit">vcsCommit</a></td>
+<td>Public method used to make the change of a file/directory permanent in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsCommitMessages">vcsCommitMessages</a></td>
+<td>Public method to get the list of saved commit messages.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsConvertProject">vcsConvertProject</a></td>
+<td>Public method to convert an uncontrolled project to a version controlled project.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsDiff">vcsDiff</a></td>
+<td>Public method used to view the diff of a file/directory in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsExists">vcsExists</a></td>
+<td>Public method used to test for the presence of the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsExport">vcsExport</a></td>
+<td>Public method used to export a directory from the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsForget">vcsForget</a></td>
+<td>Public method used to remove a file from the repository.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsGetOptions">vcsGetOptions</a></td>
+<td>Public method used to retrieve the options of the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsGetOtherData">vcsGetOtherData</a></td>
+<td>Public method used to retrieve vcs specific data.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsGetProjectBrowserHelper">vcsGetProjectBrowserHelper</a></td>
+<td>Public method to instanciate a helper object for the different project browsers.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsGetProjectHelper">vcsGetProjectHelper</a></td>
+<td>Public method to instanciate a helper object for the project.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsImport">vcsImport</a></td>
+<td>Public method used to import the project into the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsInit">vcsInit</a></td>
+<td>Public method used to initialize the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsInitConfig">vcsInitConfig</a></td>
+<td>Public method to initialize the VCS configuration.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsLogBrowser">vcsLogBrowser</a></td>
+<td>Public method used to view the log of a file/directory in the vcs with a log browser dialog.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsMerge">vcsMerge</a></td>
+<td>Public method used to merge a tag/branch into the local project.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsMove">vcsMove</a></td>
+<td>Public method used to move a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsName">vcsName</a></td>
+<td>Public method returning the name of the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsNewProjectOptionsDialog">vcsNewProjectOptionsDialog</a></td>
+<td>Public method to get a dialog to enter repository info for getting a new project.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsOptionsDialog">vcsOptionsDialog</a></td>
+<td>Public method to get a dialog to enter repository info.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsRegisteredState">vcsRegisteredState</a></td>
+<td>Public method used to get the registered state of a file in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsRemove">vcsRemove</a></td>
+<td>Public method used to add a file/directory in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsRepositoryInfos">vcsRepositoryInfos</a></td>
+<td>Public method to retrieve information about the repository.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsResolved">vcsResolved</a></td>
+<td>Public method used to resolve conflicts of a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsRevert">vcsRevert</a></td>
+<td>Public method used to revert changes made to a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsSbsDiff">vcsSbsDiff</a></td>
+<td>Public method used to view the difference of a file to the Mercurial repository side-by-side.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsSetData">vcsSetData</a></td>
+<td>Public method used to set an entry in the otherData dictionary.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsSetDataFromDict">vcsSetDataFromDict</a></td>
+<td>Public method used to set entries in the otherData dictionary.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsSetOptions">vcsSetOptions</a></td>
+<td>Public method used to set the options for the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsSetOtherData">vcsSetOtherData</a></td>
+<td>Public method used to set vcs specific data.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsShutdown">vcsShutdown</a></td>
+<td>Public method used to shutdown the vcs interface.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsStatus">vcsStatus</a></td>
+<td>Public method used to view the status of a file/directory in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsSupportCommandOptions">vcsSupportCommandOptions</a></td>
+<td>Public method to signal the support of user settable command options.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsSwitch">vcsSwitch</a></td>
+<td>Public method used to switch a directory to a different tag/branch.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsTag">vcsTag</a></td>
+<td>Public method used to set the tag of a file/directory in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#VersionControl.vcsUpdate">vcsUpdate</a></td>
+<td>Public method used to update a file/directory in the vcs.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VersionControl.__init__" ID="VersionControl.__init__"></a>
+<h4>VersionControl (Constructor)</h4>
+<b>VersionControl</b>(<i>parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="VersionControl.__statusMonitorAllData" ID="VersionControl.__statusMonitorAllData"></a>
+<h4>VersionControl.__statusMonitorAllData</h4>
+<b>__statusMonitorAllData</b>(<i>statusDict</i>)
+<p>
+        Private method to receive all status monitor data.
+</p>
+<p>
+        It simply re-emits the received status list.
+</p>
+
+<dl>
+
+<dt><i>statusDict</i> (dict)</dt>
+<dd>
+dictionary of status records
+</dd>
+</dl>
+<a NAME="VersionControl.__statusMonitorData" ID="VersionControl.__statusMonitorData"></a>
+<h4>VersionControl.__statusMonitorData</h4>
+<b>__statusMonitorData</b>(<i>statusList</i>)
+<p>
+        Private method to receive the status monitor data update.
+</p>
+<p>
+        It simply re-emits the received status list.
+</p>
+
+<dl>
+
+<dt><i>statusList</i> (list of str)</dt>
+<dd>
+list of status records
+</dd>
+</dl>
+<a NAME="VersionControl.__statusMonitorInfo" ID="VersionControl.__statusMonitorInfo"></a>
+<h4>VersionControl.__statusMonitorInfo</h4>
+<b>__statusMonitorInfo</b>(<i>info</i>)
+<p>
+        Private slot to receive the status monitor info message.
+</p>
+<p>
+        It simply re-emits the received info message.
+</p>
+
+<dl>
+
+<dt><i>info</i> (str)</dt>
+<dd>
+received info message
+</dd>
+</dl>
+<a NAME="VersionControl.__statusMonitorStatus" ID="VersionControl.__statusMonitorStatus"></a>
+<h4>VersionControl.__statusMonitorStatus</h4>
+<b>__statusMonitorStatus</b>(<i>status, statusMsg</i>)
+<p>
+        Private slot to receive the status monitor status.
+</p>
+<p>
+        It simply re-emits the received status.
+</p>
+
+<dl>
+
+<dt><i>status</i> (str (one of ok, nok or off))</dt>
+<dd>
+status of the monitoring thread
+</dd>
+<dt><i>statusMsg</i> (str)</dt>
+<dd>
+explanotory text for the signaled status
+</dd>
+</dl>
+<a NAME="VersionControl._createStatusMonitorThread" ID="VersionControl._createStatusMonitorThread"></a>
+<h4>VersionControl._createStatusMonitorThread</h4>
+<b>_createStatusMonitorThread</b>(<i>interval, project</i>)
+<p>
+        Protected method to create an instance of the VCS status monitor
+        thread.
+</p>
+<p>
+        Note: This method should be overwritten in subclasses in order to
+        support VCS status monitoring.
+</p>
+
+<dl>
+
+<dt><i>interval</i> (int)</dt>
+<dd>
+check interval for the monitor thread in seconds (unused)
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the monitor thread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QThread
+</dd>
+</dl>
+<a NAME="VersionControl._vcsAddProjectCommitMessage" ID="VersionControl._vcsAddProjectCommitMessage"></a>
+<h4>VersionControl._vcsAddProjectCommitMessage</h4>
+<b>_vcsAddProjectCommitMessage</b>(<i>message</i>)
+<p>
+        Protected method to add a commit message to the list of project
+        specific saved messages.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be added
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VersionControl._vcsClearProjectCommitMessages" ID="VersionControl._vcsClearProjectCommitMessages"></a>
+<h4>VersionControl._vcsClearProjectCommitMessages</h4>
+<b>_vcsClearProjectCommitMessages</b>(<i></i>)
+<p>
+        Protected method to clear the list of project specific saved messages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VersionControl._vcsProjectCommitMessages" ID="VersionControl._vcsProjectCommitMessages"></a>
+<h4>VersionControl._vcsProjectCommitMessages</h4>
+<b>_vcsProjectCommitMessages</b>(<i></i>)
+<p>
+        Protected method to get the list of saved commit messages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of saved commit messages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="VersionControl.addArguments" ID="VersionControl.addArguments"></a>
+<h4>VersionControl.addArguments</h4>
+<b>addArguments</b>(<i>args, argslist</i>)
+<p>
+        Public method to add an argument list to the already present
+        arguments.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list of str)</dt>
+<dd>
+current arguments list
+</dd>
+<dt><i>argslist</i> (list of str)</dt>
+<dd>
+list of arguments
+</dd>
+</dl>
+<a NAME="VersionControl.checkVCSStatus" ID="VersionControl.checkVCSStatus"></a>
+<h4>VersionControl.checkVCSStatus</h4>
+<b>checkVCSStatus</b>(<i></i>)
+<p>
+        Public method to wake up the VCS status monitor thread.
+</p>
+
+<a NAME="VersionControl.clearStatusCache" ID="VersionControl.clearStatusCache"></a>
+<h4>VersionControl.clearStatusCache</h4>
+<b>clearStatusCache</b>(<i></i>)
+<p>
+        Public method to clear the status cache.
+</p>
+
+<a NAME="VersionControl.clearStatusMonitorCachedState" ID="VersionControl.clearStatusMonitorCachedState"></a>
+<h4>VersionControl.clearStatusMonitorCachedState</h4>
+<b>clearStatusMonitorCachedState</b>(<i>name</i>)
+<p>
+        Public method to clear the cached VCS state of a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the entry to be cleared
+</dd>
+</dl>
+<a NAME="VersionControl.getStatusMonitorAutoUpdate" ID="VersionControl.getStatusMonitorAutoUpdate"></a>
+<h4>VersionControl.getStatusMonitorAutoUpdate</h4>
+<b>getStatusMonitorAutoUpdate</b>(<i></i>)
+<p>
+        Public method to retrieve the status of the auto update function.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+status of the auto update function
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VersionControl.getStatusMonitorInterval" ID="VersionControl.getStatusMonitorInterval"></a>
+<h4>VersionControl.getStatusMonitorInterval</h4>
+<b>getStatusMonitorInterval</b>(<i></i>)
+<p>
+        Public method to get the monitor interval.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+interval in seconds
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="VersionControl.restartStatusMonitor" ID="VersionControl.restartStatusMonitor"></a>
+<h4>VersionControl.restartStatusMonitor</h4>
+<b>restartStatusMonitor</b>(<i>project</i>)
+<p>
+        Public method to re-start the VCS status monitor thread.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the monitor thread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QThread
+</dd>
+</dl>
+<a NAME="VersionControl.setStatusMonitorAutoUpdate" ID="VersionControl.setStatusMonitorAutoUpdate"></a>
+<h4>VersionControl.setStatusMonitorAutoUpdate</h4>
+<b>setStatusMonitorAutoUpdate</b>(<i>auto</i>)
+<p>
+        Public method to enable the auto update function.
+</p>
+
+<dl>
+
+<dt><i>auto</i> (bool)</dt>
+<dd>
+status of the auto update function
+</dd>
+</dl>
+<a NAME="VersionControl.setStatusMonitorInterval" ID="VersionControl.setStatusMonitorInterval"></a>
+<h4>VersionControl.setStatusMonitorInterval</h4>
+<b>setStatusMonitorInterval</b>(<i>interval, project</i>)
+<p>
+        Public method to change the monitor interval.
+</p>
+
+<dl>
+
+<dt><i>interval</i> (int)</dt>
+<dd>
+new interval in seconds
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="VersionControl.splitPath" ID="VersionControl.splitPath"></a>
+<h4>VersionControl.splitPath</h4>
+<b>splitPath</b>(<i>name</i>)
+<p>
+        Public method splitting name into a directory part and a file part.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+path name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the directory name and the file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="VersionControl.splitPathList" ID="VersionControl.splitPathList"></a>
+<h4>VersionControl.splitPathList</h4>
+<b>splitPathList</b>(<i>names</i>)
+<p>
+        Public method splitting the list of names into a common directory part
+        and a file list.
+</p>
+
+<dl>
+
+<dt><i>names</i> (list of str)</dt>
+<dd>
+list of paths
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the directory name and the file name list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, list of str)
+</dd>
+</dl>
+<a NAME="VersionControl.startStatusMonitor" ID="VersionControl.startStatusMonitor"></a>
+<h4>VersionControl.startStatusMonitor</h4>
+<b>startStatusMonitor</b>(<i>project</i>)
+<p>
+        Public method to start the VCS status monitor thread.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the monitor thread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QThread
+</dd>
+</dl>
+<a NAME="VersionControl.startSynchronizedProcess" ID="VersionControl.startSynchronizedProcess"></a>
+<h4>VersionControl.startSynchronizedProcess</h4>
+<b>startSynchronizedProcess</b>(<i>proc, program, arguments, workingDir=None</i>)
+<p>
+        Public method to start a synchroneous process.
+</p>
+<p>
+        This method starts a process and waits
+        for its end while still serving the Qt event loop.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+process to start
+</dd>
+<dt><i>program</i> (str)</dt>
+<dd>
+path of the executable to start
+</dd>
+<dt><i>arguments</i> (list of str)</dt>
+<dd>
+list of arguments for the process
+</dd>
+<dt><i>workingDir</i> (str)</dt>
+<dd>
+working directory for the process
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating normal exit
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VersionControl.stopStatusMonitor" ID="VersionControl.stopStatusMonitor"></a>
+<h4>VersionControl.stopStatusMonitor</h4>
+<b>stopStatusMonitor</b>(<i></i>)
+<p>
+        Public method to stop the VCS status monitor thread.
+</p>
+
+<a NAME="VersionControl.vcsAdd" ID="VersionControl.vcsAdd"></a>
+<h4>VersionControl.vcsAdd</h4>
+<b>vcsAdd</b>(<i>name, isDir=False, noDialog=False</i>)
+<p>
+        Public method used to add a file/directory in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be added
+</dd>
+<dt><i>isDir</i> (bool)</dt>
+<dd>
+flag indicating name is a directory
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsAddBinary" ID="VersionControl.vcsAddBinary"></a>
+<h4>VersionControl.vcsAddBinary</h4>
+<b>vcsAddBinary</b>(<i>name, isDir=False</i>)
+<p>
+        Public method used to add a file/directory in binary mode in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be added
+</dd>
+<dt><i>isDir</i> (bool)</dt>
+<dd>
+flag indicating name is a directory
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsAddCommitMessage" ID="VersionControl.vcsAddCommitMessage"></a>
+<h4>VersionControl.vcsAddCommitMessage</h4>
+<b>vcsAddCommitMessage</b>(<i>message</i>)
+<p>
+        Public method to add a commit message to the list of saved messages.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be added
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsAddTree" ID="VersionControl.vcsAddTree"></a>
+<h4>VersionControl.vcsAddTree</h4>
+<b>vcsAddTree</b>(<i>path</i>)
+<p>
+        Public method to add a directory tree rooted at path in the vcs.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+root directory of the tree to be added
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsAllRegisteredStates" ID="VersionControl.vcsAllRegisteredStates"></a>
+<h4>VersionControl.vcsAllRegisteredStates</h4>
+<b>vcsAllRegisteredStates</b>(<i>names, dname</i>)
+<p>
+        Public method used to get the registered states of a number of files
+        in the vcs.
+</p>
+
+<dl>
+
+<dt><i>names</i> (dict)</dt>
+<dd>
+dictionary with all filenames to be checked as keys
+</dd>
+<dt><i>dname</i> (str)</dt>
+<dd>
+directory to check in
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the received dictionary completed with the VCS state or None in
+            order to signal an error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsCheckout" ID="VersionControl.vcsCheckout"></a>
+<h4>VersionControl.vcsCheckout</h4>
+<b>vcsCheckout</b>(<i>vcsDataDict, projectDir, noDialog=False</i>)
+<p>
+        Public method used to check the project out of the vcs.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the checkout
+</dd>
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+project directory to create
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an execution without errors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsCleanup" ID="VersionControl.vcsCleanup"></a>
+<h4>VersionControl.vcsCleanup</h4>
+<b>vcsCleanup</b>(<i>name</i>)
+<p>
+        Public method used to cleanup the local copy.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name to be cleaned up
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsClearCommitMessages" ID="VersionControl.vcsClearCommitMessages"></a>
+<h4>VersionControl.vcsClearCommitMessages</h4>
+<b>vcsClearCommitMessages</b>(<i></i>)
+<p>
+        Public method to clear the list of saved messages.
+</p>
+
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsCommandLine" ID="VersionControl.vcsCommandLine"></a>
+<h4>VersionControl.vcsCommandLine</h4>
+<b>vcsCommandLine</b>(<i>name</i>)
+<p>
+        Public method used to execute arbitrary vcs commands.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name of the working directory
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsCommit" ID="VersionControl.vcsCommit"></a>
+<h4>VersionControl.vcsCommit</h4>
+<b>vcsCommit</b>(<i>name, message, noDialog=False</i>)
+<p>
+        Public method used to make the change of a file/directory permanent in
+        the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be committed
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message for this operation
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsCommitMessages" ID="VersionControl.vcsCommitMessages"></a>
+<h4>VersionControl.vcsCommitMessages</h4>
+<b>vcsCommitMessages</b>(<i></i>)
+<p>
+        Public method to get the list of saved commit messages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of saved commit messages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsConvertProject" ID="VersionControl.vcsConvertProject"></a>
+<h4>VersionControl.vcsConvertProject</h4>
+<b>vcsConvertProject</b>(<i>vcsDataDict, project, addAll=True</i>)
+<p>
+        Public method to convert an uncontrolled project to a version
+        controlled project.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the conversion
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>addAll</i> (bool)</dt>
+<dd>
+flag indicating to add all files to the repository
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsDiff" ID="VersionControl.vcsDiff"></a>
+<h4>VersionControl.vcsDiff</h4>
+<b>vcsDiff</b>(<i>name</i>)
+<p>
+        Public method used to view the diff of a file/directory in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be diffed
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsExists" ID="VersionControl.vcsExists"></a>
+<h4>VersionControl.vcsExists</h4>
+<b>vcsExists</b>(<i></i>)
+<p>
+        Public method used to test for the presence of the vcs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of flag indicating the existence and an error message
+            in case of failure
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsExport" ID="VersionControl.vcsExport"></a>
+<h4>VersionControl.vcsExport</h4>
+<b>vcsExport</b>(<i>vcsDataDict, projectDir</i>)
+<p>
+        Public method used to export a directory from the vcs.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the export
+</dd>
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+project directory to create
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an execution without errors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsForget" ID="VersionControl.vcsForget"></a>
+<h4>VersionControl.vcsForget</h4>
+<b>vcsForget</b>(<i>name</i>)
+<p>
+        Public method used to remove a file from the repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name to be removed
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsGetOptions" ID="VersionControl.vcsGetOptions"></a>
+<h4>VersionControl.vcsGetOptions</h4>
+<b>vcsGetOptions</b>(<i></i>)
+<p>
+        Public method used to retrieve the options of the vcs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a dictionary of option strings that can be passed to
+            vcsSetOptions.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="VersionControl.vcsGetOtherData" ID="VersionControl.vcsGetOtherData"></a>
+<h4>VersionControl.vcsGetOtherData</h4>
+<b>vcsGetOtherData</b>(<i></i>)
+<p>
+        Public method used to retrieve vcs specific data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a dictionary of vcs specific data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="VersionControl.vcsGetProjectBrowserHelper" ID="VersionControl.vcsGetProjectBrowserHelper"></a>
+<h4>VersionControl.vcsGetProjectBrowserHelper</h4>
+<b>vcsGetProjectBrowserHelper</b>(<i>browser, project, isTranslationsBrowser=False</i>)
+<p>
+        Public method to instanciate a helper object for the different
+        project browsers.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (ProjectBaseBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>isTranslationsBrowser</i> (bool)</dt>
+<dd>
+flag indicating, the helper is requested
+            for the translations browser (this needs some special treatment)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the project browser helper object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+VcsProjectBrowserHelper
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsGetProjectHelper" ID="VersionControl.vcsGetProjectHelper"></a>
+<h4>VersionControl.vcsGetProjectHelper</h4>
+<b>vcsGetProjectHelper</b>(<i>project</i>)
+<p>
+        Public method to instanciate a helper object for the project.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the project helper object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+VcsProjectHelper
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsImport" ID="VersionControl.vcsImport"></a>
+<h4>VersionControl.vcsImport</h4>
+<b>vcsImport</b>(<i>vcsDataDict, projectDir, noDialog=False, addAll=True</i>)
+<p>
+        Public method used to import the project into the vcs.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the import
+</dd>
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+project directory
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+<dt><i>addAll</i> (bool)</dt>
+<dd>
+flag indicating to add all files to the repository
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating an execution without errors
+            and a flag indicating the version control status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, bool)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsInit" ID="VersionControl.vcsInit"></a>
+<h4>VersionControl.vcsInit</h4>
+<b>vcsInit</b>(<i>vcsDir, noDialog=False</i>)
+<p>
+        Public method used to initialize the vcs.
+</p>
+
+<dl>
+
+<dt><i>vcsDir</i> (str)</dt>
+<dd>
+name of the VCS directory
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsInitConfig" ID="VersionControl.vcsInitConfig"></a>
+<h4>VersionControl.vcsInitConfig</h4>
+<b>vcsInitConfig</b>(<i>project</i>)
+<p>
+        Public method to initialize the VCS configuration.
+</p>
+<p>
+        This method could ensure, that certain files or directories are
+        exclude from being version controlled.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project
+</dd>
+</dl>
+<a NAME="VersionControl.vcsLogBrowser" ID="VersionControl.vcsLogBrowser"></a>
+<h4>VersionControl.vcsLogBrowser</h4>
+<b>vcsLogBrowser</b>(<i>name, isFile=False</i>)
+<p>
+        Public method used to view the log of a file/directory in the vcs
+        with a log browser dialog.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to show the log for
+</dd>
+<dt><i>isFile</i> (bool)</dt>
+<dd>
+flag indicating log for a file is to be shown
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsMerge" ID="VersionControl.vcsMerge"></a>
+<h4>VersionControl.vcsMerge</h4>
+<b>vcsMerge</b>(<i>name</i>)
+<p>
+        Public method used to merge a tag/branch into the local project.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be merged
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsMove" ID="VersionControl.vcsMove"></a>
+<h4>VersionControl.vcsMove</h4>
+<b>vcsMove</b>(<i>name, project, target=None, noDialog=False</i>)
+<p>
+        Public method used to move a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be moved
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>target</i> (str)</dt>
+<dd>
+new name of the file/directory
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successfull operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsName" ID="VersionControl.vcsName"></a>
+<h4>VersionControl.vcsName</h4>
+<b>vcsName</b>(<i></i>)
+<p>
+        Public method returning the name of the vcs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the vcs
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsNewProjectOptionsDialog" ID="VersionControl.vcsNewProjectOptionsDialog"></a>
+<h4>VersionControl.vcsNewProjectOptionsDialog</h4>
+<b>vcsNewProjectOptionsDialog</b>(<i>parent=None</i>)
+<p>
+        Public method to get a dialog to enter repository info for getting a
+        new project.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsOptionsDialog" ID="VersionControl.vcsOptionsDialog"></a>
+<h4>VersionControl.vcsOptionsDialog</h4>
+<b>vcsOptionsDialog</b>(<i>project, archive, editable=False, parent=None</i>)
+<p>
+        Public method to get a dialog to enter repository info.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>archive</i> (str)</dt>
+<dd>
+name of the project in the repository
+</dd>
+<dt><i>editable</i> (bool)</dt>
+<dd>
+flag indicating that the project name is editable
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsRegisteredState" ID="VersionControl.vcsRegisteredState"></a>
+<h4>VersionControl.vcsRegisteredState</h4>
+<b>vcsRegisteredState</b>(<i>name</i>)
+<p>
+        Public method used to get the registered state of a file in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+filename to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+registered state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+VersionControlState
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsRemove" ID="VersionControl.vcsRemove"></a>
+<h4>VersionControl.vcsRemove</h4>
+<b>vcsRemove</b>(<i>name, project=False, noDialog=False</i>)
+<p>
+        Public method used to add a file/directory in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be removed
+</dd>
+<dt><i>project</i> (bool)</dt>
+<dd>
+flag indicating deletion of a project tree
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsRepositoryInfos" ID="VersionControl.vcsRepositoryInfos"></a>
+<h4>VersionControl.vcsRepositoryInfos</h4>
+<b>vcsRepositoryInfos</b>(<i>ppath</i>)
+<p>
+        Public method to retrieve information about the repository.
+</p>
+
+<dl>
+
+<dt><i>ppath</i> (str)</dt>
+<dd>
+local path to get the repository infos
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string with ready formated info for display
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsResolved" ID="VersionControl.vcsResolved"></a>
+<h4>VersionControl.vcsResolved</h4>
+<b>vcsResolved</b>(<i>_name</i>)
+<p>
+        Public method used to resolve conflicts of a file/directory.
+</p>
+
+<dl>
+
+<dt><i>_name</i> (str)</dt>
+<dd>
+file/directory name to be resolved (unused)
+</dd>
+</dl>
+<a NAME="VersionControl.vcsRevert" ID="VersionControl.vcsRevert"></a>
+<h4>VersionControl.vcsRevert</h4>
+<b>vcsRevert</b>(<i>name</i>)
+<p>
+        Public method used to revert changes made to a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be reverted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add
+            or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsSbsDiff" ID="VersionControl.vcsSbsDiff"></a>
+<h4>VersionControl.vcsSbsDiff</h4>
+<b>vcsSbsDiff</b>(<i>name, extended=False, revisions=None</i>)
+<p>
+        Public method used to view the difference of a file to the Mercurial
+        repository side-by-side.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file name to be diffed
+</dd>
+<dt><i>extended</i> (bool)</dt>
+<dd>
+flag indicating the extended variant
+</dd>
+<dt><i>revisions</i> (tuple of two str)</dt>
+<dd>
+tuple of two revisions
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsSetData" ID="VersionControl.vcsSetData"></a>
+<h4>VersionControl.vcsSetData</h4>
+<b>vcsSetData</b>(<i>key, value</i>)
+<p>
+        Public method used to set an entry in the otherData dictionary.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the data
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value of the data
+</dd>
+</dl>
+<a NAME="VersionControl.vcsSetDataFromDict" ID="VersionControl.vcsSetDataFromDict"></a>
+<h4>VersionControl.vcsSetDataFromDict</h4>
+<b>vcsSetDataFromDict</b>(<i>dictionary</i>)
+<p>
+        Public method used to set entries in the otherData dictionary.
+</p>
+
+<dl>
+
+<dt><i>dictionary</i> (dict)</dt>
+<dd>
+dictionary to pick entries from
+</dd>
+</dl>
+<a NAME="VersionControl.vcsSetOptions" ID="VersionControl.vcsSetOptions"></a>
+<h4>VersionControl.vcsSetOptions</h4>
+<b>vcsSetOptions</b>(<i>options</i>)
+<p>
+        Public method used to set the options for the vcs.
+</p>
+
+<dl>
+
+<dt><i>options</i> (dict)</dt>
+<dd>
+a dictionary of option strings with keys as
+            defined by the default options
+</dd>
+</dl>
+<a NAME="VersionControl.vcsSetOtherData" ID="VersionControl.vcsSetOtherData"></a>
+<h4>VersionControl.vcsSetOtherData</h4>
+<b>vcsSetOtherData</b>(<i>data</i>)
+<p>
+        Public method used to set vcs specific data.
+</p>
+
+<dl>
+
+<dt><i>data</i> (dict)</dt>
+<dd>
+a dictionary of vcs specific data
+</dd>
+</dl>
+<a NAME="VersionControl.vcsShutdown" ID="VersionControl.vcsShutdown"></a>
+<h4>VersionControl.vcsShutdown</h4>
+<b>vcsShutdown</b>(<i></i>)
+<p>
+        Public method used to shutdown the vcs interface.
+</p>
+
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsStatus" ID="VersionControl.vcsStatus"></a>
+<h4>VersionControl.vcsStatus</h4>
+<b>vcsStatus</b>(<i>name</i>)
+<p>
+        Public method used to view the status of a file/directory in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to show the status for
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsSupportCommandOptions" ID="VersionControl.vcsSupportCommandOptions"></a>
+<h4>VersionControl.vcsSupportCommandOptions</h4>
+<b>vcsSupportCommandOptions</b>(<i></i>)
+<p>
+        Public method to signal the support of user settable command options.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the support  of user settable command options
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VersionControl.vcsSwitch" ID="VersionControl.vcsSwitch"></a>
+<h4>VersionControl.vcsSwitch</h4>
+<b>vcsSwitch</b>(<i>name</i>)
+<p>
+        Public method used to switch a directory to a different tag/branch.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name to be switched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the switch contained an add
+            or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsTag" ID="VersionControl.vcsTag"></a>
+<h4>VersionControl.vcsTag</h4>
+<b>vcsTag</b>(<i>name</i>)
+<p>
+        Public method used to set the tag of a file/directory in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be tagged
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VersionControl.vcsUpdate" ID="VersionControl.vcsUpdate"></a>
+<h4>VersionControl.vcsUpdate</h4>
+<b>vcsUpdate</b>(<i>name, noDialog=False</i>)
+<p>
+        Public method used to update a file/directory in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be updated
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add
+            or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="VersionControlState" ID="VersionControlState"></a>
+<h2>VersionControlState</h2>
+<p>
+    Class defining the global VCS states of files and directories.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Controlled</td></tr>
+<tr><td>Uncontrolled</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

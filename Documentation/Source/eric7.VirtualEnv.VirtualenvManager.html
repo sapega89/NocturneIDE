@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.VirtualEnv.VirtualenvManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.VirtualEnv.VirtualenvManager</h1>
+<p>
+Module implementing a class to manage Python virtual environments.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#VirtualenvManager">VirtualenvManager</a></td>
+<td>Class implementing an object to manage Python virtual environments.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="VirtualenvManager" ID="VirtualenvManager"></a>
+<h2>VirtualenvManager</h2>
+<p>
+    Class implementing an object to manage Python virtual environments.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>virtualEnvironmentAdded()</dt>
+<dd>
+emitted to indicate the addition of
+        a virtual environment
+</dd>
+<dt>virtualEnvironmentChanged(name)</dt>
+<dd>
+emitted to indicate a change of
+        a virtual environment
+</dd>
+<dt>virtualEnvironmentRemoved()</dt>
+<dd>
+emitted to indicate the removal and
+        deletion of a virtual environment
+</dd>
+<dt>virtualEnvironmentsListChanged()</dt>
+<dd>
+emitted to indicate a change of
+        the list of virtual environments (may be used to refresh the list)
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DefaultKey</td></tr>
+<tr><td>SystemKey</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VirtualenvManager.__init__">VirtualenvManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.__cleanEnvironments">__cleanEnvironments</a></td>
+<td>Private method to delete all non-existent local or eric-ide server environments.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.__isEnvironmentDeleteable">__isEnvironmentDeleteable</a></td>
+<td>Private method to check, if a virtual environment can be deleted from disk.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.__loadSettings">__loadSettings</a></td>
+<td>Private slot to load the virtual environments.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.__saveSettings">__saveSettings</a></td>
+<td>Private slot to save the virtual environments.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.addVirtualEnv">addVirtualEnv</a></td>
+<td>Public method to add a virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.createVirtualEnv">createVirtualEnv</a></td>
+<td>Public slot to create a new virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.deleteVirtualEnvs">deleteVirtualEnvs</a></td>
+<td>Public method to delete virtual environments from the list and disk.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.environmentForInterpreter">environmentForInterpreter</a></td>
+<td>Public method to get the environment a given interpreter belongs to.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.getDefaultEnvironment">getDefaultEnvironment</a></td>
+<td>Public method to get the default virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.getEnvironmentEntries">getEnvironmentEntries</a></td>
+<td>Public method to get a list of the defined virtual environment entries.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.getEricServerEnvironmentNames">getEricServerEnvironmentNames</a></td>
+<td>Public method to get a list of defined eric-ide server environments.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.getVirtualEnvironmentsBaseDir">getVirtualEnvironmentsBaseDir</a></td>
+<td>Public method to set the base directory for the virtual environments.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.getVirtualenvDirectory">getVirtualenvDirectory</a></td>
+<td>Public method to get the directory of a virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.getVirtualenvExecPath">getVirtualenvExecPath</a></td>
+<td>Public method to get the search path prefix of a virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.getVirtualenvInterpreter">getVirtualenvInterpreter</a></td>
+<td>Public method to get the interpreter for a virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.getVirtualenvNames">getVirtualenvNames</a></td>
+<td>Public method to get a list of defined virtual environments.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.isCondaEnvironment">isCondaEnvironment</a></td>
+<td>Public method to test, if a given environment is an Anaconda environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.isEricServerEnvironment">isEricServerEnvironment</a></td>
+<td>Public method to test, if a given environment is an environment accessed through an eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.isGlobalEnvironment">isGlobalEnvironment</a></td>
+<td>Public method to test, if a given environment is a global one.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.isRemoteEnvironment">isRemoteEnvironment</a></td>
+<td>Public method to test, if a given environment is a remotely accessed environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.isUnique">isUnique</a></td>
+<td>Public method to check, if the give logical name is unique.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.reloadSettings">reloadSettings</a></td>
+<td>Public slot to reload the virtual environments.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.removeVirtualEnvs">removeVirtualEnvs</a></td>
+<td>Public method to delete virtual environment from the list.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.renameVirtualEnv">renameVirtualEnv</a></td>
+<td>Public method to substitute a virtual environment entry with a new name.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.searchUnregisteredInterpreters">searchUnregisteredInterpreters</a></td>
+<td>Public method to search for unregistered Python interpreters.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.setVirtualEnv">setVirtualEnv</a></td>
+<td>Public method to change a virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.setVirtualEnvInterpreter">setVirtualEnvInterpreter</a></td>
+<td>Public method to change the interpreter for a virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.setVirtualEnvironmentsBaseDir">setVirtualEnvironmentsBaseDir</a></td>
+<td>Public method to set the base directory for the virtual environments.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.showVirtualenvManagerDialog">showVirtualenvManagerDialog</a></td>
+<td>Public slot to show the virtual environment manager dialog.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvManager.upgradeVirtualEnv">upgradeVirtualEnv</a></td>
+<td>Public slot to upgrade a virtual environment.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VirtualenvManager.__init__" ID="VirtualenvManager.__init__"></a>
+<h4>VirtualenvManager (Constructor)</h4>
+<b>VirtualenvManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="VirtualenvManager.__cleanEnvironments" ID="VirtualenvManager.__cleanEnvironments"></a>
+<h4>VirtualenvManager.__cleanEnvironments</h4>
+<b>__cleanEnvironments</b>(<i></i>)
+<p>
+        Private method to delete all non-existent local or eric-ide server environments.
+</p>
+
+<a NAME="VirtualenvManager.__isEnvironmentDeleteable" ID="VirtualenvManager.__isEnvironmentDeleteable"></a>
+<h4>VirtualenvManager.__isEnvironmentDeleteable</h4>
+<b>__isEnvironmentDeleteable</b>(<i>venvName</i>)
+<p>
+        Private method to check, if a virtual environment can be deleted from
+        disk.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating it can be deleted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VirtualenvManager.__loadSettings" ID="VirtualenvManager.__loadSettings"></a>
+<h4>VirtualenvManager.__loadSettings</h4>
+<b>__loadSettings</b>(<i></i>)
+<p>
+        Private slot to load the virtual environments.
+</p>
+
+<a NAME="VirtualenvManager.__saveSettings" ID="VirtualenvManager.__saveSettings"></a>
+<h4>VirtualenvManager.__saveSettings</h4>
+<b>__saveSettings</b>(<i></i>)
+<p>
+        Private slot to save the virtual environments.
+</p>
+
+<a NAME="VirtualenvManager.addVirtualEnv" ID="VirtualenvManager.addVirtualEnv"></a>
+<h4>VirtualenvManager.addVirtualEnv</h4>
+<b>addVirtualEnv</b>(<i>metadata</i>)
+<p>
+        Public method to add a virtual environment.
+</p>
+
+<dl>
+
+<dt><i>metadata</i> (VirtualenvMetaData)</dt>
+<dd>
+object containing the metadata of the virtual environment
+</dd>
+</dl>
+<a NAME="VirtualenvManager.createVirtualEnv" ID="VirtualenvManager.createVirtualEnv"></a>
+<h4>VirtualenvManager.createVirtualEnv</h4>
+<b>createVirtualEnv</b>(<i>baseDir=""</i>)
+<p>
+        Public slot to create a new virtual environment.
+</p>
+
+<dl>
+
+<dt><i>baseDir</i> (str)</dt>
+<dd>
+base directory for the virtual environments
+</dd>
+</dl>
+<a NAME="VirtualenvManager.deleteVirtualEnvs" ID="VirtualenvManager.deleteVirtualEnvs"></a>
+<h4>VirtualenvManager.deleteVirtualEnvs</h4>
+<b>deleteVirtualEnvs</b>(<i>venvNames</i>)
+<p>
+        Public method to delete virtual environments from the list and disk.
+</p>
+
+<dl>
+
+<dt><i>venvNames</i> (list of str)</dt>
+<dd>
+list of logical names for the virtual environments
+</dd>
+</dl>
+<a NAME="VirtualenvManager.environmentForInterpreter" ID="VirtualenvManager.environmentForInterpreter"></a>
+<h4>VirtualenvManager.environmentForInterpreter</h4>
+<b>environmentForInterpreter</b>(<i>interpreter</i>)
+<p>
+        Public method to get the environment a given interpreter belongs to.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+path of the interpreter
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the environment name and a copy of the metadata
+            of the virtual environment the interpreter belongs to
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, VirtualenvMetaData)
+</dd>
+</dl>
+<a NAME="VirtualenvManager.getDefaultEnvironment" ID="VirtualenvManager.getDefaultEnvironment"></a>
+<h4>VirtualenvManager.getDefaultEnvironment</h4>
+<b>getDefaultEnvironment</b>(<i></i>)
+<p>
+        Public method to get the default virtual environment.
+</p>
+<p>
+        Default is an environment with the key '<default>' or the first one
+        having an interpreter matching sys.executable (i.e. the one used to
+        execute eric with)
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the environment name and a copy of the metadata
+            of the default virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, VirtualenvMetaData)
+</dd>
+</dl>
+<a NAME="VirtualenvManager.getEnvironmentEntries" ID="VirtualenvManager.getEnvironmentEntries"></a>
+<h4>VirtualenvManager.getEnvironmentEntries</h4>
+<b>getEnvironmentEntries</b>(<i></i>)
+<p>
+        Public method to get a list of the defined virtual environment entries.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing a copy of the defined virtual environments
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list
+</dd>
+</dl>
+<a NAME="VirtualenvManager.getEricServerEnvironmentNames" ID="VirtualenvManager.getEricServerEnvironmentNames"></a>
+<h4>VirtualenvManager.getEricServerEnvironmentNames</h4>
+<b>getEricServerEnvironmentNames</b>(<i>host=""</i>)
+<p>
+        Public method to get a list of defined eric-ide server environments.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str (optional))</dt>
+<dd>
+host name to get environment names for (defaults to "")
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of defined eric-ide server environments
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="VirtualenvManager.getVirtualEnvironmentsBaseDir" ID="VirtualenvManager.getVirtualEnvironmentsBaseDir"></a>
+<h4>VirtualenvManager.getVirtualEnvironmentsBaseDir</h4>
+<b>getVirtualEnvironmentsBaseDir</b>(<i></i>)
+<p>
+        Public method to set the base directory for the virtual environments.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+base directory for the virtual environments
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="VirtualenvManager.getVirtualenvDirectory" ID="VirtualenvManager.getVirtualenvDirectory"></a>
+<h4>VirtualenvManager.getVirtualenvDirectory</h4>
+<b>getVirtualenvDirectory</b>(<i>venvName</i>)
+<p>
+        Public method to get the directory of a virtual environment.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name for the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+directory path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="VirtualenvManager.getVirtualenvExecPath" ID="VirtualenvManager.getVirtualenvExecPath"></a>
+<h4>VirtualenvManager.getVirtualenvExecPath</h4>
+<b>getVirtualenvExecPath</b>(<i>venvName</i>)
+<p>
+        Public method to get the search path prefix of a virtual environment.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name for the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+search path prefix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="VirtualenvManager.getVirtualenvInterpreter" ID="VirtualenvManager.getVirtualenvInterpreter"></a>
+<h4>VirtualenvManager.getVirtualenvInterpreter</h4>
+<b>getVirtualenvInterpreter</b>(<i>venvName</i>)
+<p>
+        Public method to get the interpreter for a virtual environment.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name for the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+interpreter path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="VirtualenvManager.getVirtualenvNames" ID="VirtualenvManager.getVirtualenvNames"></a>
+<h4>VirtualenvManager.getVirtualenvNames</h4>
+<b>getVirtualenvNames</b>(<i>noRemote=False, noConda=False, noGlobals=False, noServer=False</i>)
+<p>
+        Public method to get a list of defined virtual environments.
+</p>
+
+<dl>
+
+<dt><i>noRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to exclude environments for remote
+            debugging (defaults to False)
+</dd>
+<dt><i>noConda</i> (bool (optional))</dt>
+<dd>
+flag indicating to exclude Conda environments (defaults to False)
+</dd>
+<dt><i>noGlobals</i> (bool (optional))</dt>
+<dd>
+flag indicating to exclude global environments
+            (defaults to False)
+</dd>
+<dt><i>noServer</i> (bool (optional))</dt>
+<dd>
+flag indicating to exclude eric-ide server environments
+            (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of defined virtual environments
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="VirtualenvManager.isCondaEnvironment" ID="VirtualenvManager.isCondaEnvironment"></a>
+<h4>VirtualenvManager.isCondaEnvironment</h4>
+<b>isCondaEnvironment</b>(<i>venvName</i>)
+<p>
+        Public method to test, if a given environment is an Anaconda
+        environment.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name of the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an Anaconda environment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VirtualenvManager.isEricServerEnvironment" ID="VirtualenvManager.isEricServerEnvironment"></a>
+<h4>VirtualenvManager.isEricServerEnvironment</h4>
+<b>isEricServerEnvironment</b>(<i>venvName, host=""</i>)
+<p>
+        Public method to test, if a given environment is an environment accessed
+        through an eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name of the virtual environment
+</dd>
+<dt><i>host</i> (str (optional))</dt>
+<dd>
+name of the host to check for or empty string to just check for
+            an eric-ide server environment (defaults to "")
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an eric-ide server environment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VirtualenvManager.isGlobalEnvironment" ID="VirtualenvManager.isGlobalEnvironment"></a>
+<h4>VirtualenvManager.isGlobalEnvironment</h4>
+<b>isGlobalEnvironment</b>(<i>venvName</i>)
+<p>
+        Public method to test, if a given environment is a global one.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name of the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a global environment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VirtualenvManager.isRemoteEnvironment" ID="VirtualenvManager.isRemoteEnvironment"></a>
+<h4>VirtualenvManager.isRemoteEnvironment</h4>
+<b>isRemoteEnvironment</b>(<i>venvName</i>)
+<p>
+        Public method to test, if a given environment is a remotely accessed
+        environment.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name of the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a remotely accessed environment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VirtualenvManager.isUnique" ID="VirtualenvManager.isUnique"></a>
+<h4>VirtualenvManager.isUnique</h4>
+<b>isUnique</b>(<i>venvName</i>)
+<p>
+        Public method to check, if the give logical name is unique.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name for the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating uniqueness
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VirtualenvManager.reloadSettings" ID="VirtualenvManager.reloadSettings"></a>
+<h4>VirtualenvManager.reloadSettings</h4>
+<b>reloadSettings</b>(<i></i>)
+<p>
+        Public slot to reload the virtual environments.
+</p>
+
+<a NAME="VirtualenvManager.removeVirtualEnvs" ID="VirtualenvManager.removeVirtualEnvs"></a>
+<h4>VirtualenvManager.removeVirtualEnvs</h4>
+<b>removeVirtualEnvs</b>(<i>venvNames</i>)
+<p>
+        Public method to delete virtual environment from the list.
+</p>
+
+<dl>
+
+<dt><i>venvNames</i> (list of str)</dt>
+<dd>
+list of logical names for the virtual environments
+</dd>
+</dl>
+<a NAME="VirtualenvManager.renameVirtualEnv" ID="VirtualenvManager.renameVirtualEnv"></a>
+<h4>VirtualenvManager.renameVirtualEnv</h4>
+<b>renameVirtualEnv</b>(<i>oldVenvName, metadata, </i>)
+<p>
+        Public method to substitute a virtual environment entry with a new
+        name.
+</p>
+
+<dl>
+
+<dt><i>oldVenvName</i> (str)</dt>
+<dd>
+old name of the virtual environment
+</dd>
+<dt><i>metadata</i> (VirtualenvMetaData)</dt>
+<dd>
+object containing the metadata of the virtual environment
+</dd>
+</dl>
+<a NAME="VirtualenvManager.searchUnregisteredInterpreters" ID="VirtualenvManager.searchUnregisteredInterpreters"></a>
+<h4>VirtualenvManager.searchUnregisteredInterpreters</h4>
+<b>searchUnregisteredInterpreters</b>(<i></i>)
+<p>
+        Public method to search for unregistered Python interpreters.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of unregistered interpreters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="VirtualenvManager.setVirtualEnv" ID="VirtualenvManager.setVirtualEnv"></a>
+<h4>VirtualenvManager.setVirtualEnv</h4>
+<b>setVirtualEnv</b>(<i>metadata</i>)
+<p>
+        Public method to change a virtual environment.
+</p>
+
+<dl>
+
+<dt><i>metadata</i> (VirtualenvMetaData)</dt>
+<dd>
+object containing the metadata of the virtual environment
+</dd>
+</dl>
+<a NAME="VirtualenvManager.setVirtualEnvInterpreter" ID="VirtualenvManager.setVirtualEnvInterpreter"></a>
+<h4>VirtualenvManager.setVirtualEnvInterpreter</h4>
+<b>setVirtualEnvInterpreter</b>(<i>venvName, venvInterpreter</i>)
+<p>
+        Public method to change the interpreter for a virtual environment.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name for the virtual environment
+</dd>
+<dt><i>venvInterpreter</i> (str)</dt>
+<dd>
+interpreter path to be set
+</dd>
+</dl>
+<a NAME="VirtualenvManager.setVirtualEnvironmentsBaseDir" ID="VirtualenvManager.setVirtualEnvironmentsBaseDir"></a>
+<h4>VirtualenvManager.setVirtualEnvironmentsBaseDir</h4>
+<b>setVirtualEnvironmentsBaseDir</b>(<i>baseDir</i>)
+<p>
+        Public method to set the base directory for the virtual environments.
+</p>
+
+<dl>
+
+<dt><i>baseDir</i> (str)</dt>
+<dd>
+base directory for the virtual environments
+</dd>
+</dl>
+<a NAME="VirtualenvManager.showVirtualenvManagerDialog" ID="VirtualenvManager.showVirtualenvManagerDialog"></a>
+<h4>VirtualenvManager.showVirtualenvManagerDialog</h4>
+<b>showVirtualenvManagerDialog</b>(<i>modal=False</i>)
+<p>
+        Public slot to show the virtual environment manager dialog.
+</p>
+
+<dl>
+
+<dt><i>modal</i> (bool)</dt>
+<dd>
+flag indicating that the dialog should be shown in
+            a blocking mode
+</dd>
+</dl>
+<a NAME="VirtualenvManager.upgradeVirtualEnv" ID="VirtualenvManager.upgradeVirtualEnv"></a>
+<h4>VirtualenvManager.upgradeVirtualEnv</h4>
+<b>upgradeVirtualEnv</b>(<i>venvName</i>)
+<p>
+        Public slot to upgrade a virtual environment.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

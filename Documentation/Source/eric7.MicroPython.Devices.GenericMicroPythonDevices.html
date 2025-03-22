@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.Devices.GenericMicroPythonDevices</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.Devices.GenericMicroPythonDevices</h1>
+<p>
+Module implementing the device interface class for generic MicroPython devices
+(i.e. those devices not specifically supported yet).
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GenericMicroPythonDevice">GenericMicroPythonDevice</a></td>
+<td>Class implementing the device interface for generic MicroPython boards.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createDevice">createDevice</a></td>
+<td>Function to instantiate a MicroPython device object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GenericMicroPythonDevice" ID="GenericMicroPythonDevice"></a>
+<h2>GenericMicroPythonDevice</h2>
+<p>
+    Class implementing the device interface for generic MicroPython boards.
+</p>
+
+<h3>Derived from</h3>
+BaseDevice
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GenericMicroPythonDevice.__init__">GenericMicroPythonDevice</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.__activateBootloader">__activateBootloader</a></td>
+<td>Private slot to switch the board into 'bootloader' mode.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.__createGenericMenu">__createGenericMenu</a></td>
+<td>Private method to create the Generic submenu.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.__deviceVolumeMounted">__deviceVolumeMounted</a></td>
+<td>Private method to check, if the device volume is mounted.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.__findWorkspace">__findWorkspace</a></td>
+<td>Private method to find the workspace directory.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.__firmwareVersionResponse">__firmwareVersionResponse</a></td>
+<td>Private slot handling the response of the latest version request.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.__resetDevice">__resetDevice</a></td>
+<td>Private slot to reset the connected device.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.__showFirmwareVersions">__showFirmwareVersions</a></td>
+<td>Private slot to show the firmware version of the connected device and the available firmware version.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice._getSetTimeCode">_getSetTimeCode</a></td>
+<td>Protected method to get the device code to set the time.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.addDeviceMenuEntries">addDeviceMenuEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.canRunScript">canRunScript</a></td>
+<td>Public method to determine, if a script can be executed.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.canStartFileManager">canStartFileManager</a></td>
+<td>Public method to determine, if a File Manager can be started.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.canStartPlotter">canStartPlotter</a></td>
+<td>Public method to determine, if a Plotter can be started.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.canStartRepl">canStartRepl</a></td>
+<td>Public method to determine, if a REPL can be started.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.deviceName">deviceName</a></td>
+<td>Public method to get the name of the device.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.getDocumentationUrl">getDocumentationUrl</a></td>
+<td>Public method to get the device documentation URL.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.getFirmwareUrl">getFirmwareUrl</a></td>
+<td>Public method to get the device firmware download URL.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.getWorkspace">getWorkspace</a></td>
+<td>Public method to get the workspace directory.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.runScript">runScript</a></td>
+<td>Public method to run the given Python script.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.setButtons">setButtons</a></td>
+<td>Public method to enable the supported action buttons.</td>
+</tr>
+<tr>
+<td><a href="#GenericMicroPythonDevice.supportsLocalFileAccess">supportsLocalFileAccess</a></td>
+<td>Public method to indicate file access via a local directory.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GenericMicroPythonDevice.__init__" ID="GenericMicroPythonDevice.__init__"></a>
+<h4>GenericMicroPythonDevice (Constructor)</h4>
+<b>GenericMicroPythonDevice</b>(<i>microPythonWidget, deviceType, vid, pid, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>vid</i> (int)</dt>
+<dd>
+vendor ID
+</dd>
+<dt><i>pid</i> (int)</dt>
+<dd>
+product ID
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.__activateBootloader" ID="GenericMicroPythonDevice.__activateBootloader"></a>
+<h4>GenericMicroPythonDevice.__activateBootloader</h4>
+<b>__activateBootloader</b>(<i></i>)
+<p>
+        Private slot to switch the board into 'bootloader' mode.
+</p>
+
+<a NAME="GenericMicroPythonDevice.__createGenericMenu" ID="GenericMicroPythonDevice.__createGenericMenu"></a>
+<h4>GenericMicroPythonDevice.__createGenericMenu</h4>
+<b>__createGenericMenu</b>(<i></i>)
+<p>
+        Private method to create the Generic submenu.
+</p>
+
+<a NAME="GenericMicroPythonDevice.__deviceVolumeMounted" ID="GenericMicroPythonDevice.__deviceVolumeMounted"></a>
+<h4>GenericMicroPythonDevice.__deviceVolumeMounted</h4>
+<b>__deviceVolumeMounted</b>(<i></i>)
+<p>
+        Private method to check, if the device volume is mounted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicated a mounted device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.__findWorkspace" ID="GenericMicroPythonDevice.__findWorkspace"></a>
+<h4>GenericMicroPythonDevice.__findWorkspace</h4>
+<b>__findWorkspace</b>(<i>silent=False</i>)
+<p>
+        Private method to find the workspace directory.
+</p>
+
+<dl>
+
+<dt><i>silent</i> (bool)</dt>
+<dd>
+flag indicating silent operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+workspace directory used for saving files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.__firmwareVersionResponse" ID="GenericMicroPythonDevice.__firmwareVersionResponse"></a>
+<h4>GenericMicroPythonDevice.__firmwareVersionResponse</h4>
+<b>__firmwareVersionResponse</b>(<i>reply</i>)
+<p>
+        Private slot handling the response of the latest version request.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.__resetDevice" ID="GenericMicroPythonDevice.__resetDevice"></a>
+<h4>GenericMicroPythonDevice.__resetDevice</h4>
+<b>__resetDevice</b>(<i></i>)
+<p>
+        Private slot to reset the connected device.
+</p>
+
+<a NAME="GenericMicroPythonDevice.__showFirmwareVersions" ID="GenericMicroPythonDevice.__showFirmwareVersions"></a>
+<h4>GenericMicroPythonDevice.__showFirmwareVersions</h4>
+<b>__showFirmwareVersions</b>(<i></i>)
+<p>
+        Private slot to show the firmware version of the connected device and the
+        available firmware version.
+</p>
+
+<a NAME="GenericMicroPythonDevice._getSetTimeCode" ID="GenericMicroPythonDevice._getSetTimeCode"></a>
+<h4>GenericMicroPythonDevice._getSetTimeCode</h4>
+<b>_getSetTimeCode</b>(<i></i>)
+<p>
+        Protected method to get the device code to set the time.
+</p>
+<p>
+        Note: This method must be implemented in the various device specific
+        subclasses.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+code to be executed on the connected device to set the time
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.addDeviceMenuEntries" ID="GenericMicroPythonDevice.addDeviceMenuEntries"></a>
+<h4>GenericMicroPythonDevice.addDeviceMenuEntries</h4>
+<b>addDeviceMenuEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.canRunScript" ID="GenericMicroPythonDevice.canRunScript"></a>
+<h4>GenericMicroPythonDevice.canRunScript</h4>
+<b>canRunScript</b>(<i></i>)
+<p>
+        Public method to determine, if a script can be executed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.canStartFileManager" ID="GenericMicroPythonDevice.canStartFileManager"></a>
+<h4>GenericMicroPythonDevice.canStartFileManager</h4>
+<b>canStartFileManager</b>(<i></i>)
+<p>
+        Public method to determine, if a File Manager can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            File Manager and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.canStartPlotter" ID="GenericMicroPythonDevice.canStartPlotter"></a>
+<h4>GenericMicroPythonDevice.canStartPlotter</h4>
+<b>canStartPlotter</b>(<i></i>)
+<p>
+        Public method to determine, if a Plotter can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.canStartRepl" ID="GenericMicroPythonDevice.canStartRepl"></a>
+<h4>GenericMicroPythonDevice.canStartRepl</h4>
+<b>canStartRepl</b>(<i></i>)
+<p>
+        Public method to determine, if a REPL can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a REPL
+            and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.deviceName" ID="GenericMicroPythonDevice.deviceName"></a>
+<h4>GenericMicroPythonDevice.deviceName</h4>
+<b>deviceName</b>(<i></i>)
+<p>
+        Public method to get the name of the device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.getDocumentationUrl" ID="GenericMicroPythonDevice.getDocumentationUrl"></a>
+<h4>GenericMicroPythonDevice.getDocumentationUrl</h4>
+<b>getDocumentationUrl</b>(<i></i>)
+<p>
+        Public method to get the device documentation URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+documentation URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.getFirmwareUrl" ID="GenericMicroPythonDevice.getFirmwareUrl"></a>
+<h4>GenericMicroPythonDevice.getFirmwareUrl</h4>
+<b>getFirmwareUrl</b>(<i></i>)
+<p>
+        Public method to get the device firmware download URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+firmware download URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.getWorkspace" ID="GenericMicroPythonDevice.getWorkspace"></a>
+<h4>GenericMicroPythonDevice.getWorkspace</h4>
+<b>getWorkspace</b>(<i>silent=False</i>)
+<p>
+        Public method to get the workspace directory.
+</p>
+
+<dl>
+
+<dt><i>silent</i> (bool)</dt>
+<dd>
+flag indicating silent operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+workspace directory used for saving files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.runScript" ID="GenericMicroPythonDevice.runScript"></a>
+<h4>GenericMicroPythonDevice.runScript</h4>
+<b>runScript</b>(<i>script</i>)
+<p>
+        Public method to run the given Python script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (str)</dt>
+<dd>
+script to be executed
+</dd>
+</dl>
+<a NAME="GenericMicroPythonDevice.setButtons" ID="GenericMicroPythonDevice.setButtons"></a>
+<h4>GenericMicroPythonDevice.setButtons</h4>
+<b>setButtons</b>(<i></i>)
+<p>
+        Public method to enable the supported action buttons.
+</p>
+
+<a NAME="GenericMicroPythonDevice.supportsLocalFileAccess" ID="GenericMicroPythonDevice.supportsLocalFileAccess"></a>
+<h4>GenericMicroPythonDevice.supportsLocalFileAccess</h4>
+<b>supportsLocalFileAccess</b>(<i></i>)
+<p>
+        Public method to indicate file access via a local directory.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating file access via local directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createDevice" ID="createDevice"></a>
+<h2>createDevice</h2>
+<b>createDevice</b>(<i>microPythonWidget, deviceType, vid, pid, _boardName, _serialNumber</i>)
+<p>
+    Function to instantiate a MicroPython device object.
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>vid</i> (int)</dt>
+<dd>
+vendor ID
+</dd>
+<dt><i>pid</i> (int)</dt>
+<dd>
+product ID
+</dd>
+<dt><i>_boardName</i> (str)</dt>
+<dd>
+name of the board (unused)
+</dd>
+<dt><i>_serialNumber</i> (str)</dt>
+<dd>
+serial number of the board (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated device object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GenericMicroPythonDevice
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

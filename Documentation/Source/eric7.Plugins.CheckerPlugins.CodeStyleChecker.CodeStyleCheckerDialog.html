@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.CodeStyleCheckerDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.CodeStyleCheckerDialog</h1>
+<p>
+Module implementing a dialog to show the results of the code style check.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CodeStyleCheckerDialog">CodeStyleCheckerDialog</a></td>
+<td>Class implementing a dialog to show the results of the code style check.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CodeStyleCheckerDialog" ID="CodeStyleCheckerDialog"></a>
+<h2>CodeStyleCheckerDialog</h2>
+<p>
+    Class implementing a dialog to show the results of the code style check.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_CodeStyleCheckerDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>argsRole</td></tr>
+<tr><td>availableFutures</td></tr>
+<tr><td>checkCategories</td></tr>
+<tr><td>codeRole</td></tr>
+<tr><td>cryptoBitSelectionsDsaRsa</td></tr>
+<tr><td>cryptoBitSelectionsEc</td></tr>
+<tr><td>filenameRole</td></tr>
+<tr><td>fixableRole</td></tr>
+<tr><td>hasResults</td></tr>
+<tr><td>ignoredRole</td></tr>
+<tr><td>lineRole</td></tr>
+<tr><td>messageRole</td></tr>
+<tr><td>noFiles</td></tr>
+<tr><td>noResults</td></tr>
+<tr><td>positionRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__init__">CodeStyleCheckerDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__assembleExcludeMessages">__assembleExcludeMessages</a></td>
+<td>Private method to assemble the list of excluded checks.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__batchFinished">__batchFinished</a></td>
+<td>Private slot handling the completion of a batch job.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__cleanupData">__cleanupData</a></td>
+<td>Private method to clean the loaded/entered data of redundant entries.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__clearErrors">__clearErrors</a></td>
+<td>Private method to clear all warning markers of open editors to be checked.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__createErrorItem">__createErrorItem</a></td>
+<td>Private slot to create a new error item in the result list.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__createFileErrorItem">__createFileErrorItem</a></td>
+<td>Private method to create an error entry for a given file.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__createResultItem">__createResultItem</a></td>
+<td>Private method to create an entry in the result list.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__defaultStatistics">__defaultStatistics</a></td>
+<td>Private method to return the default statistics entry.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__finish">__finish</a></td>
+<td>Private slot called when the code style check finished or the user pressed the cancel button.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__getBanRelativeImportsValue">__getBanRelativeImportsValue</a></td>
+<td>Private method to get the value corresponding the selected button.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__getBuiltinsIgnoreList">__getBuiltinsIgnoreList</a></td>
+<td>Private method to get a dictionary containing the builtins assignments to be ignored.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__getCategories">__getCategories</a></td>
+<td>Private method to get the enabled or disabled checker categories.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__getCommentedCodeCheckerWhiteList">__getCommentedCodeCheckerWhiteList</a></td>
+<td>Private method to get the list of commented code whitelist patterns.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__getEol">__getEol</a></td>
+<td>Private method to get the applicable eol string.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__getSelectedFixableItems">__getSelectedFixableItems</a></td>
+<td>Private method to extract all selected items for fixable issues.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__getSelectedFutureImports">__getSelectedFutureImports</a></td>
+<td>Private method to get the expected future imports.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__initBuiltinsIgnoreList">__initBuiltinsIgnoreList</a></td>
+<td>Private method to populate the list of shadowed builtins to be ignored.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__initCategoriesList">__initCategoriesList</a></td>
+<td>Private method to set the enabled status of the checker categories.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__initCommentedCodeCheckerWhiteList">__initCommentedCodeCheckerWhiteList</a></td>
+<td>Private method to populate the list of commented code whitelist patterns.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__initFuturesList">__initFuturesList</a></td>
+<td>Private method to set the selected status of the future imports.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__itemFixable">__itemFixable</a></td>
+<td>Private method to check, if an item has a fixable issue.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__modifyFixedResultItem">__modifyFixedResultItem</a></td>
+<td>Private method to modify a result list entry to show its positive fixed state.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__modifyOptions">__modifyOptions</a></td>
+<td>Private method to modify the options based on eflag: entries.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__prepareProgress">__prepareProgress</a></td>
+<td>Private method to prepare the progress tab for the next run.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__processError">__processError</a></td>
+<td>Private slot to process an error indication from the service.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__processResult">__processResult</a></td>
+<td>Private slot called after perfoming a style check on one file.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__resetStatistics">__resetStatistics</a></td>
+<td>Private slot to reset the statistics data.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__selectCodes">__selectCodes</a></td>
+<td>Private method to select message codes via a selection dialog.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__setBanRelativeImports">__setBanRelativeImports</a></td>
+<td>Private method to set the button according to the ban relative imports setting.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__updateFixerStatistics">__updateFixerStatistics</a></td>
+<td>Private method to update the collected fixer related statistics.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__updateProgress">__updateProgress</a></td>
+<td>Private method to update the progress tab.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.__updateStatistics">__updateStatistics</a></td>
+<td>Private method to update the collected statistics.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.check">check</a></td>
+<td>Public method to start a style check for one file.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.checkBatch">checkBatch</a></td>
+<td>Public method to start a style check batch job.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.closeEvent">closeEvent</a></td>
+<td>Protected method to handle a close event.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.getDefaults">getDefaults</a></td>
+<td>Public method to get a dictionary containing the default values.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_addBuiltinButton_clicked">on_addBuiltinButton_clicked</a></td>
+<td>Private slot to add a built-in assignment to be ignored.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_addWhitelistButton_clicked">on_addWhitelistButton_clicked</a></td>
+<td>Private slot to add a commented code whitelist pattern.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_builtinsAssignmentList_itemSelectionChanged">on_builtinsAssignmentList_itemSelectionChanged</a></td>
+<td>Private slot to react upon changes of the selected builtin assignments.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_cancelButton_clicked">on_cancelButton_clicked</a></td>
+<td>Private slot to handle the "Cancel" button press.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_deleteBuiltinButton_clicked">on_deleteBuiltinButton_clicked</a></td>
+<td>Private slot to delete the selected items from the list.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_deleteWhitelistButton_clicked">on_deleteWhitelistButton_clicked</a></td>
+<td>Private slot to delete the selected items from the list.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_excludeMessagesSelectButton_clicked">on_excludeMessagesSelectButton_clicked</a></td>
+<td>Private slot to select the message codes to be excluded via a selection dialog.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_filterButton_clicked">on_filterButton_clicked</a></td>
+<td>Private slot to filter the list of messages based on selected message code.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_fixButton_clicked">on_fixButton_clicked</a></td>
+<td>Private slot to fix selected issues.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_fixIssuesSelectButton_clicked">on_fixIssuesSelectButton_clicked</a></td>
+<td>Private slot to select the issue codes to be fixed via a selection dialog.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_includeMessagesSelectButton_clicked">on_includeMessagesSelectButton_clicked</a></td>
+<td>Private slot to select the message codes to be included via a selection dialog.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_loadDefaultButton_clicked">on_loadDefaultButton_clicked</a></td>
+<td>Private slot to load the default configuration values.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_noFixIssuesSelectButton_clicked">on_noFixIssuesSelectButton_clicked</a></td>
+<td>Private slot to select the issue codes not to be fixed via a selection dialog.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_resetDefaultButton_clicked">on_resetDefaultButton_clicked</a></td>
+<td>Private slot to reset the configuration values to their default values.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_restartButton_clicked">on_restartButton_clicked</a></td>
+<td>Private slot to restart a code style check run.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_resultList_itemActivated">on_resultList_itemActivated</a></td>
+<td>Private slot to handle the activation of an item.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_resultList_itemSelectionChanged">on_resultList_itemSelectionChanged</a></td>
+<td>Private slot to change the dialog state depending on the selection.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_showButton_clicked">on_showButton_clicked</a></td>
+<td>Private slot to handle the "Show" button press.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_startButton_clicked">on_startButton_clicked</a></td>
+<td>Private slot to start a code style check run.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_statisticsButton_clicked">on_statisticsButton_clicked</a></td>
+<td>Private slot to show the statistics dialog.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_storeDefaultButton_clicked">on_storeDefaultButton_clicked</a></td>
+<td>Private slot to store the current configuration values as default values.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.on_whitelistWidget_itemSelectionChanged">on_whitelistWidget_itemSelectionChanged</a></td>
+<td>Private slot to react upon changes of the selected whitelist patterns.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.prepare">prepare</a></td>
+<td>Public method to prepare the dialog with a list of filenames.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleCheckerDialog.start">start</a></td>
+<td>Public slot to start the code style check.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CodeStyleCheckerDialog.__init__" ID="CodeStyleCheckerDialog.__init__"></a>
+<h4>CodeStyleCheckerDialog (Constructor)</h4>
+<b>CodeStyleCheckerDialog</b>(<i>styleCheckService, project=None, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>styleCheckService</i> (CodeStyleCheckService)</dt>
+<dd>
+reference to the service
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project if called on project or project
+            browser level
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__assembleExcludeMessages" ID="CodeStyleCheckerDialog.__assembleExcludeMessages"></a>
+<h4>CodeStyleCheckerDialog.__assembleExcludeMessages</h4>
+<b>__assembleExcludeMessages</b>(<i></i>)
+<p>
+        Private method to assemble the list of excluded checks.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of excluded checks as a comma separated string.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__batchFinished" ID="CodeStyleCheckerDialog.__batchFinished"></a>
+<h4>CodeStyleCheckerDialog.__batchFinished</h4>
+<b>__batchFinished</b>(<i></i>)
+<p>
+        Private slot handling the completion of a batch job.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.__cleanupData" ID="CodeStyleCheckerDialog.__cleanupData"></a>
+<h4>CodeStyleCheckerDialog.__cleanupData</h4>
+<b>__cleanupData</b>(<i></i>)
+<p>
+        Private method to clean the loaded/entered data of redundant entries.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.__clearErrors" ID="CodeStyleCheckerDialog.__clearErrors"></a>
+<h4>CodeStyleCheckerDialog.__clearErrors</h4>
+<b>__clearErrors</b>(<i>files</i>)
+<p>
+        Private method to clear all warning markers of open editors to be
+        checked.
+</p>
+
+<dl>
+
+<dt><i>files</i> (list of str)</dt>
+<dd>
+list of files to be checked
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__createErrorItem" ID="CodeStyleCheckerDialog.__createErrorItem"></a>
+<h4>CodeStyleCheckerDialog.__createErrorItem</h4>
+<b>__createErrorItem</b>(<i>filename, message</i>)
+<p>
+        Private slot to create a new error item in the result list.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__createFileErrorItem" ID="CodeStyleCheckerDialog.__createFileErrorItem"></a>
+<h4>CodeStyleCheckerDialog.__createFileErrorItem</h4>
+<b>__createFileErrorItem</b>(<i>filename, message</i>)
+<p>
+        Private method to create an error entry for a given file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name of the file
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+error message text
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__createResultItem" ID="CodeStyleCheckerDialog.__createResultItem"></a>
+<h4>CodeStyleCheckerDialog.__createResultItem</h4>
+<b>__createResultItem</b>(<i>filename, result</i>)
+<p>
+        Private method to create an entry in the result list.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name of the file
+</dd>
+<dt><i>result</i> (dict)</dt>
+<dd>
+dictionary containing check result data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the created item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__defaultStatistics" ID="CodeStyleCheckerDialog.__defaultStatistics"></a>
+<h4>CodeStyleCheckerDialog.__defaultStatistics</h4>
+<b>__defaultStatistics</b>(<i></i>)
+<p>
+        Private method to return the default statistics entry.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with default statistics entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__finish" ID="CodeStyleCheckerDialog.__finish"></a>
+<h4>CodeStyleCheckerDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the code style check finished or the user
+        pressed the cancel button.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.__getBanRelativeImportsValue" ID="CodeStyleCheckerDialog.__getBanRelativeImportsValue"></a>
+<h4>CodeStyleCheckerDialog.__getBanRelativeImportsValue</h4>
+<b>__getBanRelativeImportsValue</b>(<i></i>)
+<p>
+        Private method to get the value corresponding the selected button.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+value for the BanRelativeImports argument
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__getBuiltinsIgnoreList" ID="CodeStyleCheckerDialog.__getBuiltinsIgnoreList"></a>
+<h4>CodeStyleCheckerDialog.__getBuiltinsIgnoreList</h4>
+<b>__getBuiltinsIgnoreList</b>(<i></i>)
+<p>
+        Private method to get a dictionary containing the builtins assignments
+        to be ignored.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the builtins assignments to be ignored
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict of list of str
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__getCategories" ID="CodeStyleCheckerDialog.__getCategories"></a>
+<h4>CodeStyleCheckerDialog.__getCategories</h4>
+<b>__getCategories</b>(<i>enabled, asList=False</i>)
+<p>
+        Private method to get the enabled or disabled checker categories.
+</p>
+
+<dl>
+
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating to return enabled categories
+</dd>
+<dt><i>asList</i> (bool)</dt>
+<dd>
+flag indicating to return the checker categories as a
+            Python list
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+checker categories as a list or comma separated string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str or list of str
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__getCommentedCodeCheckerWhiteList" ID="CodeStyleCheckerDialog.__getCommentedCodeCheckerWhiteList"></a>
+<h4>CodeStyleCheckerDialog.__getCommentedCodeCheckerWhiteList</h4>
+<b>__getCommentedCodeCheckerWhiteList</b>(<i></i>)
+<p>
+        Private method to get the list of commented code whitelist patterns.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of commented code whitelist patterns
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__getEol" ID="CodeStyleCheckerDialog.__getEol"></a>
+<h4>CodeStyleCheckerDialog.__getEol</h4>
+<b>__getEol</b>(<i>fn</i>)
+<p>
+        Private method to get the applicable eol string.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename where to determine the line ending
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+eol string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__getSelectedFixableItems" ID="CodeStyleCheckerDialog.__getSelectedFixableItems"></a>
+<h4>CodeStyleCheckerDialog.__getSelectedFixableItems</h4>
+<b>__getSelectedFixableItems</b>(<i></i>)
+<p>
+        Private method to extract all selected items for fixable issues.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected items for fixable issues
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__getSelectedFutureImports" ID="CodeStyleCheckerDialog.__getSelectedFutureImports"></a>
+<h4>CodeStyleCheckerDialog.__getSelectedFutureImports</h4>
+<b>__getSelectedFutureImports</b>(<i></i>)
+<p>
+        Private method to get the expected future imports.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+expected future imports as a comma separated string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__initBuiltinsIgnoreList" ID="CodeStyleCheckerDialog.__initBuiltinsIgnoreList"></a>
+<h4>CodeStyleCheckerDialog.__initBuiltinsIgnoreList</h4>
+<b>__initBuiltinsIgnoreList</b>(<i>builtinsIgnoreDict</i>)
+<p>
+        Private method to populate the list of shadowed builtins to be ignored.
+</p>
+
+<dl>
+
+<dt><i>builtinsIgnoreDict</i> (dict of list of str)</dt>
+<dd>
+dictionary containing the builtins
+            assignments to be ignored
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__initCategoriesList" ID="CodeStyleCheckerDialog.__initCategoriesList"></a>
+<h4>CodeStyleCheckerDialog.__initCategoriesList</h4>
+<b>__initCategoriesList</b>(<i>enabledCategories</i>)
+<p>
+        Private method to set the enabled status of the checker categories.
+</p>
+
+<dl>
+
+<dt><i>enabledCategories</i> (str)</dt>
+<dd>
+comma separated list of enabled checker
+            categories
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__initCommentedCodeCheckerWhiteList" ID="CodeStyleCheckerDialog.__initCommentedCodeCheckerWhiteList"></a>
+<h4>CodeStyleCheckerDialog.__initCommentedCodeCheckerWhiteList</h4>
+<b>__initCommentedCodeCheckerWhiteList</b>(<i>whitelist</i>)
+<p>
+        Private method to populate the list of commented code whitelist
+        patterns.
+</p>
+
+<dl>
+
+<dt><i>whitelist</i> (list of str)</dt>
+<dd>
+list of commented code whitelist patterns
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__initFuturesList" ID="CodeStyleCheckerDialog.__initFuturesList"></a>
+<h4>CodeStyleCheckerDialog.__initFuturesList</h4>
+<b>__initFuturesList</b>(<i>selectedFutures</i>)
+<p>
+        Private method to set the selected status of the future imports.
+</p>
+
+<dl>
+
+<dt><i>selectedFutures</i> (str)</dt>
+<dd>
+comma separated list of expected future imports
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__itemFixable" ID="CodeStyleCheckerDialog.__itemFixable"></a>
+<h4>CodeStyleCheckerDialog.__itemFixable</h4>
+<b>__itemFixable</b>(<i>itm</i>)
+<p>
+        Private method to check, if an item has a fixable issue.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+item to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a fixable issue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__modifyFixedResultItem" ID="CodeStyleCheckerDialog.__modifyFixedResultItem"></a>
+<h4>CodeStyleCheckerDialog.__modifyFixedResultItem</h4>
+<b>__modifyFixedResultItem</b>(<i>itm, result</i>)
+<p>
+        Private method to modify a result list entry to show its
+        positive fixed state.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to modify
+</dd>
+<dt><i>result</i> (dict)</dt>
+<dd>
+dictionary containing check result data
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__modifyOptions" ID="CodeStyleCheckerDialog.__modifyOptions"></a>
+<h4>CodeStyleCheckerDialog.__modifyOptions</h4>
+<b>__modifyOptions</b>(<i>source</i>)
+<p>
+        Private method to modify the options based on eflag: entries.
+</p>
+<p>
+        This method looks for comment lines like '# eflag: noqa = M601'
+        at the end of the source in order to extend the list of excluded
+        messages for one file only.
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str or str)</dt>
+<dd>
+source text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of checker options
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__prepareProgress" ID="CodeStyleCheckerDialog.__prepareProgress"></a>
+<h4>CodeStyleCheckerDialog.__prepareProgress</h4>
+<b>__prepareProgress</b>(<i></i>)
+<p>
+        Private method to prepare the progress tab for the next run.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.__processError" ID="CodeStyleCheckerDialog.__processError"></a>
+<h4>CodeStyleCheckerDialog.__processError</h4>
+<b>__processError</b>(<i>fn, msg</i>)
+<p>
+        Private slot to process an error indication from the service.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the file
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__processResult" ID="CodeStyleCheckerDialog.__processResult"></a>
+<h4>CodeStyleCheckerDialog.__processResult</h4>
+<b>__processResult</b>(<i>fn, codeStyleCheckerStats, fixes, results</i>)
+<p>
+        Private slot called after perfoming a style check on one file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the just checked file
+</dd>
+<dt><i>codeStyleCheckerStats</i> (dict)</dt>
+<dd>
+stats of style and name check
+</dd>
+<dt><i>fixes</i> (int)</dt>
+<dd>
+number of applied fixes
+</dd>
+<dt><i>results</i> (dict)</dt>
+<dd>
+dictionary containing check result data
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__resetStatistics" ID="CodeStyleCheckerDialog.__resetStatistics"></a>
+<h4>CodeStyleCheckerDialog.__resetStatistics</h4>
+<b>__resetStatistics</b>(<i></i>)
+<p>
+        Private slot to reset the statistics data.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.__resort" ID="CodeStyleCheckerDialog.__resort"></a>
+<h4>CodeStyleCheckerDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.__selectCodes" ID="CodeStyleCheckerDialog.__selectCodes"></a>
+<h4>CodeStyleCheckerDialog.__selectCodes</h4>
+<b>__selectCodes</b>(<i>edit, categories, showFixCodes</i>)
+<p>
+        Private method to select message codes via a selection dialog.
+</p>
+
+<dl>
+
+<dt><i>edit</i> (QLineEdit)</dt>
+<dd>
+reference of the line edit to be populated
+</dd>
+<dt><i>categories</i> (list of str)</dt>
+<dd>
+list of message categories to omit
+</dd>
+<dt><i>showFixCodes</i> (bool)</dt>
+<dd>
+flag indicating to show a list of fixable
+            issues
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__setBanRelativeImports" ID="CodeStyleCheckerDialog.__setBanRelativeImports"></a>
+<h4>CodeStyleCheckerDialog.__setBanRelativeImports</h4>
+<b>__setBanRelativeImports</b>(<i>value</i>)
+<p>
+        Private method to set the button according to the ban relative imports
+        setting.
+</p>
+
+<dl>
+
+<dt><i>value</i> (str)</dt>
+<dd>
+value of the ban relative imports setting
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__updateFixerStatistics" ID="CodeStyleCheckerDialog.__updateFixerStatistics"></a>
+<h4>CodeStyleCheckerDialog.__updateFixerStatistics</h4>
+<b>__updateFixerStatistics</b>(<i>fixer</i>)
+<p>
+        Private method to update the collected fixer related statistics.
+</p>
+
+<dl>
+
+<dt><i>fixer</i> (CodeStyleFixer)</dt>
+<dd>
+reference to the code style fixer
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__updateProgress" ID="CodeStyleCheckerDialog.__updateProgress"></a>
+<h4>CodeStyleCheckerDialog.__updateProgress</h4>
+<b>__updateProgress</b>(<i>fn</i>)
+<p>
+        Private method to update the progress tab.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the just checked file
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.__updateStatistics" ID="CodeStyleCheckerDialog.__updateStatistics"></a>
+<h4>CodeStyleCheckerDialog.__updateStatistics</h4>
+<b>__updateStatistics</b>(<i>statistics, fixer, ignoredErrors, securityOk</i>)
+<p>
+        Private method to update the collected statistics.
+</p>
+
+<dl>
+
+<dt><i>statistics</i> (dict)</dt>
+<dd>
+dictionary of statistical data with
+            message code as key and message count as value
+</dd>
+<dt><i>fixer</i> (CodeStyleFixer)</dt>
+<dd>
+reference to the code style fixer
+</dd>
+<dt><i>ignoredErrors</i> (int)</dt>
+<dd>
+number of ignored errors
+</dd>
+<dt><i>securityOk</i> (int)</dt>
+<dd>
+number of acknowledged security reports
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.check" ID="CodeStyleCheckerDialog.check"></a>
+<h4>CodeStyleCheckerDialog.check</h4>
+<b>check</b>(<i>codestring=""</i>)
+<p>
+        Public method to start a style check for one file.
+</p>
+<p>
+        The results are reported to the __processResult slot.
+</p>
+
+<dl>
+
+<dt><i>codestring</i> (str)</dt>
+<dd>
+optional sourcestring
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.checkBatch" ID="CodeStyleCheckerDialog.checkBatch"></a>
+<h4>CodeStyleCheckerDialog.checkBatch</h4>
+<b>checkBatch</b>(<i></i>)
+<p>
+        Public method to start a style check batch job.
+</p>
+<p>
+        The results are reported to the __processResult slot.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.closeEvent" ID="CodeStyleCheckerDialog.closeEvent"></a>
+<h4>CodeStyleCheckerDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>_evt</i>)
+<p>
+        Protected method to handle a close event.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the close event (unused)
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.getDefaults" ID="CodeStyleCheckerDialog.getDefaults"></a>
+<h4>CodeStyleCheckerDialog.getDefaults</h4>
+<b>getDefaults</b>(<i></i>)
+<p>
+        Public method to get a dictionary containing the default values.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the default values
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.on_addBuiltinButton_clicked" ID="CodeStyleCheckerDialog.on_addBuiltinButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_addBuiltinButton_clicked</h4>
+<b>on_addBuiltinButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a built-in assignment to be ignored.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_addWhitelistButton_clicked" ID="CodeStyleCheckerDialog.on_addWhitelistButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_addWhitelistButton_clicked</h4>
+<b>on_addWhitelistButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a commented code whitelist pattern.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_builtinsAssignmentList_itemSelectionChanged" ID="CodeStyleCheckerDialog.on_builtinsAssignmentList_itemSelectionChanged"></a>
+<h4>CodeStyleCheckerDialog.on_builtinsAssignmentList_itemSelectionChanged</h4>
+<b>on_builtinsAssignmentList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to react upon changes of the selected builtin assignments.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_buttonBox_clicked" ID="CodeStyleCheckerDialog.on_buttonBox_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.on_cancelButton_clicked" ID="CodeStyleCheckerDialog.on_cancelButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_cancelButton_clicked</h4>
+<b>on_cancelButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the "Cancel" button press.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_deleteBuiltinButton_clicked" ID="CodeStyleCheckerDialog.on_deleteBuiltinButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_deleteBuiltinButton_clicked</h4>
+<b>on_deleteBuiltinButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected items from the list.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_deleteWhitelistButton_clicked" ID="CodeStyleCheckerDialog.on_deleteWhitelistButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_deleteWhitelistButton_clicked</h4>
+<b>on_deleteWhitelistButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected items from the list.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_excludeMessagesSelectButton_clicked" ID="CodeStyleCheckerDialog.on_excludeMessagesSelectButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_excludeMessagesSelectButton_clicked</h4>
+<b>on_excludeMessagesSelectButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the message codes to be excluded via a
+        selection dialog.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_filterButton_clicked" ID="CodeStyleCheckerDialog.on_filterButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_filterButton_clicked</h4>
+<b>on_filterButton_clicked</b>(<i></i>)
+<p>
+        Private slot to filter the list of messages based on selected message
+        code.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_fixButton_clicked" ID="CodeStyleCheckerDialog.on_fixButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_fixButton_clicked</h4>
+<b>on_fixButton_clicked</b>(<i></i>)
+<p>
+        Private slot to fix selected issues.
+</p>
+<p>
+        Build a dictionary of issues to fix. Update the initialized __options.
+        Then call check with the dict as keyparam to fix selected issues.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_fixIssuesSelectButton_clicked" ID="CodeStyleCheckerDialog.on_fixIssuesSelectButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_fixIssuesSelectButton_clicked</h4>
+<b>on_fixIssuesSelectButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the issue codes to be fixed via a
+        selection dialog.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_includeMessagesSelectButton_clicked" ID="CodeStyleCheckerDialog.on_includeMessagesSelectButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_includeMessagesSelectButton_clicked</h4>
+<b>on_includeMessagesSelectButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the message codes to be included via a
+        selection dialog.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_loadDefaultButton_clicked" ID="CodeStyleCheckerDialog.on_loadDefaultButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_loadDefaultButton_clicked</h4>
+<b>on_loadDefaultButton_clicked</b>(<i></i>)
+<p>
+        Private slot to load the default configuration values.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_noFixIssuesSelectButton_clicked" ID="CodeStyleCheckerDialog.on_noFixIssuesSelectButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_noFixIssuesSelectButton_clicked</h4>
+<b>on_noFixIssuesSelectButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select the issue codes not to be fixed via a
+        selection dialog.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_resetDefaultButton_clicked" ID="CodeStyleCheckerDialog.on_resetDefaultButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_resetDefaultButton_clicked</h4>
+<b>on_resetDefaultButton_clicked</b>(<i></i>)
+<p>
+        Private slot to reset the configuration values to their default values.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_restartButton_clicked" ID="CodeStyleCheckerDialog.on_restartButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_restartButton_clicked</h4>
+<b>on_restartButton_clicked</b>(<i></i>)
+<p>
+        Private slot to restart a code style check run.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_resultList_itemActivated" ID="CodeStyleCheckerDialog.on_resultList_itemActivated"></a>
+<h4>CodeStyleCheckerDialog.on_resultList_itemActivated</h4>
+<b>on_resultList_itemActivated</b>(<i>item, _column</i>)
+<p>
+        Private slot to handle the activation of an item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column the item was activated in (unused)
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.on_resultList_itemSelectionChanged" ID="CodeStyleCheckerDialog.on_resultList_itemSelectionChanged"></a>
+<h4>CodeStyleCheckerDialog.on_resultList_itemSelectionChanged</h4>
+<b>on_resultList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to change the dialog state depending on the selection.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_showButton_clicked" ID="CodeStyleCheckerDialog.on_showButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_showButton_clicked</h4>
+<b>on_showButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the "Show" button press.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_startButton_clicked" ID="CodeStyleCheckerDialog.on_startButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_startButton_clicked</h4>
+<b>on_startButton_clicked</b>(<i></i>)
+<p>
+        Private slot to start a code style check run.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_statisticsButton_clicked" ID="CodeStyleCheckerDialog.on_statisticsButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_statisticsButton_clicked</h4>
+<b>on_statisticsButton_clicked</b>(<i></i>)
+<p>
+        Private slot to show the statistics dialog.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_storeDefaultButton_clicked" ID="CodeStyleCheckerDialog.on_storeDefaultButton_clicked"></a>
+<h4>CodeStyleCheckerDialog.on_storeDefaultButton_clicked</h4>
+<b>on_storeDefaultButton_clicked</b>(<i></i>)
+<p>
+        Private slot to store the current configuration values as
+        default values.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.on_whitelistWidget_itemSelectionChanged" ID="CodeStyleCheckerDialog.on_whitelistWidget_itemSelectionChanged"></a>
+<h4>CodeStyleCheckerDialog.on_whitelistWidget_itemSelectionChanged</h4>
+<b>on_whitelistWidget_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to react upon changes of the selected whitelist patterns.
+</p>
+
+<a NAME="CodeStyleCheckerDialog.prepare" ID="CodeStyleCheckerDialog.prepare"></a>
+<h4>CodeStyleCheckerDialog.prepare</h4>
+<b>prepare</b>(<i>fileList, project</i>)
+<p>
+        Public method to prepare the dialog with a list of filenames.
+</p>
+
+<dl>
+
+<dt><i>fileList</i> (list of str)</dt>
+<dd>
+list of filenames
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="CodeStyleCheckerDialog.start" ID="CodeStyleCheckerDialog.start"></a>
+<h4>CodeStyleCheckerDialog.start</h4>
+<b>start</b>(<i>fn, save=False, repeat=None</i>)
+<p>
+        Public slot to start the code style check.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str or list of str)</dt>
+<dd>
+file or list of files or directory to be checked
+</dd>
+<dt><i>save</i> (bool)</dt>
+<dd>
+flag indicating to save the given file/file list/directory
+</dd>
+<dt><i>repeat</i> (None or bool)</dt>
+<dd>
+state of the repeat check box if it is not None
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

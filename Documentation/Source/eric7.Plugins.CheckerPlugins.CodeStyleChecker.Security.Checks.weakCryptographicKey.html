@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.Checks.weakCryptographicKey</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.Checks.weakCryptographicKey</h1>
+<p>
+Module implementing checks for weak cryptographic key use.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_classifyKeySize">_classifyKeySize</a></td>
+<td>Function to classify a key and report an error if insufficient.</td>
+</tr>
+<tr>
+<td><a href="#_weakCryptoKeySizeCryptography">_weakCryptoKeySizeCryptography</a></td>
+<td>Function to check 'cryptography.hazmat' for weak key use.</td>
+</tr>
+<tr>
+<td><a href="#_weakCryptoKeySizePycrypto">_weakCryptoKeySizePycrypto</a></td>
+<td>Function to check 'pycrypto' for weak key use.</td>
+</tr>
+<tr>
+<td><a href="#checkWeakCryptographicKey">checkWeakCryptographicKey</a></td>
+<td>Function to check for weak cryptographic key use.</td>
+</tr>
+<tr>
+<td><a href="#getChecks">getChecks</a></td>
+<td>Public method to get a dictionary with checks handled by this module.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="_classifyKeySize" ID="_classifyKeySize"></a>
+<h2>_classifyKeySize</h2>
+<b>_classifyKeySize</b>(<i>reportError, config, keyType, keySize, node</i>)
+<p>
+    Function to classify a key and report an error if insufficient.
+</p>
+
+<dl>
+
+<dt><i>reportError</i> (func)</dt>
+<dd>
+function to be used to report errors
+</dd>
+<dt><i>config</i> (dict)</dt>
+<dd>
+dictionary with configuration data
+</dd>
+<dt><i>keyType</i> (str)</dt>
+<dd>
+type of key to be classified ('DSA', 'RSA', 'EC')
+</dd>
+<dt><i>keySize</i> (int)</dt>
+<dd>
+size of the key to be classified
+</dd>
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+node the key was extracted from (needed for reporting)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an error was reported
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_weakCryptoKeySizeCryptography" ID="_weakCryptoKeySizeCryptography"></a>
+<h2>_weakCryptoKeySizeCryptography</h2>
+<b>_weakCryptoKeySizeCryptography</b>(<i>reportError, context, config</i>)
+<p>
+    Function to check 'cryptography.hazmat' for weak key use.
+</p>
+
+<dl>
+
+<dt><i>reportError</i> (func)</dt>
+<dd>
+function to be used to report errors
+</dd>
+<dt><i>context</i> (SecurityContext)</dt>
+<dd>
+security context object
+</dd>
+<dt><i>config</i> (dict)</dt>
+<dd>
+dictionary with configuration data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an error was reported
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_weakCryptoKeySizePycrypto" ID="_weakCryptoKeySizePycrypto"></a>
+<h2>_weakCryptoKeySizePycrypto</h2>
+<b>_weakCryptoKeySizePycrypto</b>(<i>reportError, context, config</i>)
+<p>
+    Function to check 'pycrypto' for weak key use.
+</p>
+
+<dl>
+
+<dt><i>reportError</i> (func)</dt>
+<dd>
+function to be used to report errors
+</dd>
+<dt><i>context</i> (SecurityContext)</dt>
+<dd>
+security context object
+</dd>
+<dt><i>config</i> (dict)</dt>
+<dd>
+dictionary with configuration data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an error was reported
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="checkWeakCryptographicKey" ID="checkWeakCryptographicKey"></a>
+<h2>checkWeakCryptographicKey</h2>
+<b>checkWeakCryptographicKey</b>(<i>reportError, context, config</i>)
+<p>
+    Function to check for weak cryptographic key use.
+</p>
+
+<dl>
+
+<dt><i>reportError</i> (func)</dt>
+<dd>
+function to be used to report errors
+</dd>
+<dt><i>context</i> (SecurityContext)</dt>
+<dd>
+security context object
+</dd>
+<dt><i>config</i> (dict)</dt>
+<dd>
+dictionary with configuration data
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getChecks" ID="getChecks"></a>
+<h2>getChecks</h2>
+<b>getChecks</b>(<i></i>)
+<p>
+    Public method to get a dictionary with checks handled by this module.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing checker lists containing checker function and
+        list of codes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

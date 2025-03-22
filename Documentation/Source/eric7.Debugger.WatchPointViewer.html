@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.WatchPointViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.WatchPointViewer</h1>
+<p>
+Module implementing the watch expression viewer widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#WatchPointViewer">WatchPointViewer</a></td>
+<td>Class implementing the watch expression viewer widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="WatchPointViewer" ID="WatchPointViewer"></a>
+<h2>WatchPointViewer</h2>
+<p>
+    Class implementing the watch expression viewer widget.
+</p>
+<p>
+    Watch expressions will be shown with all their details. They can be
+    modified through the context menu of this widget.
+</p>
+
+<h3>Derived from</h3>
+QTreeView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WatchPointViewer.__init__">WatchPointViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__addWatchPoint">__addWatchPoint</a></td>
+<td>Private slot to handle the add watch expression context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__clearSelection">__clearSelection</a></td>
+<td>Private slot to clear the selection.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__configure">__configure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__createPopupMenus">__createPopupMenus</a></td>
+<td>Private method to generate the popup menus.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__deleteAllWatchPoints">__deleteAllWatchPoints</a></td>
+<td>Private slot to handle the delete all watch expressions context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__deleteSelectedWatchPoints">__deleteSelectedWatchPoints</a></td>
+<td>Private slot to handle the delete selected watch expressions context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__deleteWatchPoint">__deleteWatchPoint</a></td>
+<td>Private slot to handle the delete watch expression context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__disableAllWatchPoints">__disableAllWatchPoints</a></td>
+<td>Private slot to handle the disable all watch expressions context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__disableSelectedWatchPoints">__disableSelectedWatchPoints</a></td>
+<td>Private slot to handle the disable selected watch expressions context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__disableWatchPoint">__disableWatchPoint</a></td>
+<td>Private slot to handle the disable watch expression context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__doEditWatchPoint">__doEditWatchPoint</a></td>
+<td>Private slot to edit a watch expression.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__doubleClicked">__doubleClicked</a></td>
+<td>Private slot to handle the double clicked signal.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__editWatchPoint">__editWatchPoint</a></td>
+<td>Private slot to handle the edit watch expression context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__enableAllWatchPoints">__enableAllWatchPoints</a></td>
+<td>Private slot to handle the enable all watch expressions context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__enableSelectedWatchPoints">__enableSelectedWatchPoints</a></td>
+<td>Private slot to handle the enable selected watch expressions context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__enableWatchPoint">__enableWatchPoint</a></td>
+<td>Private slot to handle the enable watch expression context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__findDuplicates">__findDuplicates</a></td>
+<td>Private method to check, if an entry already exists.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__fromSourceIndex">__fromSourceIndex</a></td>
+<td>Private slot to convert a source index to an index.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__getSelectedItemsCount">__getSelectedItemsCount</a></td>
+<td>Private method to get the count of items selected.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__layoutDisplay">__layoutDisplay</a></td>
+<td>Private slot to perform a layout operation.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__resizeColumns">__resizeColumns</a></td>
+<td>Private slot to resize the view when items get added, edited or deleted.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__resort">__resort</a></td>
+<td>Private slot to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__setRowSelected">__setRowSelected</a></td>
+<td>Private slot to select a complete row.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__setWpEnabled">__setWpEnabled</a></td>
+<td>Private method to set the enabled status of a watch expression.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__showBackMenu">__showBackMenu</a></td>
+<td>Private slot to handle the aboutToShow signal of the background menu.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.__toSourceIndex">__toSourceIndex</a></td>
+<td>Private slot to convert an index to a source index.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointViewer.setModel">setModel</a></td>
+<td>Public slot to set the watch expression model.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WatchPointViewer.__init__" ID="WatchPointViewer.__init__"></a>
+<h4>WatchPointViewer (Constructor)</h4>
+<b>WatchPointViewer</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="WatchPointViewer.__addWatchPoint" ID="WatchPointViewer.__addWatchPoint"></a>
+<h4>WatchPointViewer.__addWatchPoint</h4>
+<b>__addWatchPoint</b>(<i></i>)
+<p>
+        Private slot to handle the add watch expression context menu entry.
+</p>
+
+<a NAME="WatchPointViewer.__clearSelection" ID="WatchPointViewer.__clearSelection"></a>
+<h4>WatchPointViewer.__clearSelection</h4>
+<b>__clearSelection</b>(<i></i>)
+<p>
+        Private slot to clear the selection.
+</p>
+
+<a NAME="WatchPointViewer.__configure" ID="WatchPointViewer.__configure"></a>
+<h4>WatchPointViewer.__configure</h4>
+<b>__configure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="WatchPointViewer.__createPopupMenus" ID="WatchPointViewer.__createPopupMenus"></a>
+<h4>WatchPointViewer.__createPopupMenus</h4>
+<b>__createPopupMenus</b>(<i></i>)
+<p>
+        Private method to generate the popup menus.
+</p>
+
+<a NAME="WatchPointViewer.__deleteAllWatchPoints" ID="WatchPointViewer.__deleteAllWatchPoints"></a>
+<h4>WatchPointViewer.__deleteAllWatchPoints</h4>
+<b>__deleteAllWatchPoints</b>(<i></i>)
+<p>
+        Private slot to handle the delete all watch expressions context menu
+        entry.
+</p>
+
+<a NAME="WatchPointViewer.__deleteSelectedWatchPoints" ID="WatchPointViewer.__deleteSelectedWatchPoints"></a>
+<h4>WatchPointViewer.__deleteSelectedWatchPoints</h4>
+<b>__deleteSelectedWatchPoints</b>(<i></i>)
+<p>
+        Private slot to handle the delete selected watch expressions context
+        menu entry.
+</p>
+
+<a NAME="WatchPointViewer.__deleteWatchPoint" ID="WatchPointViewer.__deleteWatchPoint"></a>
+<h4>WatchPointViewer.__deleteWatchPoint</h4>
+<b>__deleteWatchPoint</b>(<i></i>)
+<p>
+        Private slot to handle the delete watch expression context menu entry.
+</p>
+
+<a NAME="WatchPointViewer.__disableAllWatchPoints" ID="WatchPointViewer.__disableAllWatchPoints"></a>
+<h4>WatchPointViewer.__disableAllWatchPoints</h4>
+<b>__disableAllWatchPoints</b>(<i></i>)
+<p>
+        Private slot to handle the disable all watch expressions context menu
+        entry.
+</p>
+
+<a NAME="WatchPointViewer.__disableSelectedWatchPoints" ID="WatchPointViewer.__disableSelectedWatchPoints"></a>
+<h4>WatchPointViewer.__disableSelectedWatchPoints</h4>
+<b>__disableSelectedWatchPoints</b>(<i></i>)
+<p>
+        Private slot to handle the disable selected watch expressions context
+        menu entry.
+</p>
+
+<a NAME="WatchPointViewer.__disableWatchPoint" ID="WatchPointViewer.__disableWatchPoint"></a>
+<h4>WatchPointViewer.__disableWatchPoint</h4>
+<b>__disableWatchPoint</b>(<i></i>)
+<p>
+        Private slot to handle the disable watch expression context menu entry.
+</p>
+
+<a NAME="WatchPointViewer.__doEditWatchPoint" ID="WatchPointViewer.__doEditWatchPoint"></a>
+<h4>WatchPointViewer.__doEditWatchPoint</h4>
+<b>__doEditWatchPoint</b>(<i>index</i>)
+<p>
+        Private slot to edit a watch expression.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of watch expression to be edited
+</dd>
+</dl>
+<a NAME="WatchPointViewer.__doubleClicked" ID="WatchPointViewer.__doubleClicked"></a>
+<h4>WatchPointViewer.__doubleClicked</h4>
+<b>__doubleClicked</b>(<i>index</i>)
+<p>
+        Private slot to handle the double clicked signal.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the entry that was double clicked
+</dd>
+</dl>
+<a NAME="WatchPointViewer.__editWatchPoint" ID="WatchPointViewer.__editWatchPoint"></a>
+<h4>WatchPointViewer.__editWatchPoint</h4>
+<b>__editWatchPoint</b>(<i></i>)
+<p>
+        Private slot to handle the edit watch expression context menu entry.
+</p>
+
+<a NAME="WatchPointViewer.__enableAllWatchPoints" ID="WatchPointViewer.__enableAllWatchPoints"></a>
+<h4>WatchPointViewer.__enableAllWatchPoints</h4>
+<b>__enableAllWatchPoints</b>(<i></i>)
+<p>
+        Private slot to handle the enable all watch expressions context menu
+        entry.
+</p>
+
+<a NAME="WatchPointViewer.__enableSelectedWatchPoints" ID="WatchPointViewer.__enableSelectedWatchPoints"></a>
+<h4>WatchPointViewer.__enableSelectedWatchPoints</h4>
+<b>__enableSelectedWatchPoints</b>(<i></i>)
+<p>
+        Private slot to handle the enable selected watch expressions context
+        menu entry.
+</p>
+
+<a NAME="WatchPointViewer.__enableWatchPoint" ID="WatchPointViewer.__enableWatchPoint"></a>
+<h4>WatchPointViewer.__enableWatchPoint</h4>
+<b>__enableWatchPoint</b>(<i></i>)
+<p>
+        Private slot to handle the enable watch expression context menu entry.
+</p>
+
+<a NAME="WatchPointViewer.__findDuplicates" ID="WatchPointViewer.__findDuplicates"></a>
+<h4>WatchPointViewer.__findDuplicates</h4>
+<b>__findDuplicates</b>(<i>cond, special, showMessage=False, index=None</i>)
+<p>
+        Private method to check, if an entry already exists.
+</p>
+
+<dl>
+
+<dt><i>cond</i> (str)</dt>
+<dd>
+condition to check
+</dd>
+<dt><i>special</i> (str)</dt>
+<dd>
+special condition to check
+</dd>
+<dt><i>showMessage</i> (bool)</dt>
+<dd>
+flag indicating a message should be shown,
+            if a duplicate entry is found
+</dd>
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index that should not be considered duplicate
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a duplicate entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WatchPointViewer.__fromSourceIndex" ID="WatchPointViewer.__fromSourceIndex"></a>
+<h4>WatchPointViewer.__fromSourceIndex</h4>
+<b>__fromSourceIndex</b>(<i>sindex</i>)
+<p>
+        Private slot to convert a source index to an index.
+</p>
+
+<dl>
+
+<dt><i>sindex</i> (QModelIndex)</dt>
+<dd>
+source index to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+mapped index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="WatchPointViewer.__getSelectedItemsCount" ID="WatchPointViewer.__getSelectedItemsCount"></a>
+<h4>WatchPointViewer.__getSelectedItemsCount</h4>
+<b>__getSelectedItemsCount</b>(<i></i>)
+<p>
+        Private method to get the count of items selected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+count of items selected
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="WatchPointViewer.__layoutDisplay" ID="WatchPointViewer.__layoutDisplay"></a>
+<h4>WatchPointViewer.__layoutDisplay</h4>
+<b>__layoutDisplay</b>(<i></i>)
+<p>
+        Private slot to perform a layout operation.
+</p>
+
+<a NAME="WatchPointViewer.__resizeColumns" ID="WatchPointViewer.__resizeColumns"></a>
+<h4>WatchPointViewer.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private slot to resize the view when items get added, edited or
+        deleted.
+</p>
+
+<a NAME="WatchPointViewer.__resort" ID="WatchPointViewer.__resort"></a>
+<h4>WatchPointViewer.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private slot to resort the tree.
+</p>
+
+<a NAME="WatchPointViewer.__setRowSelected" ID="WatchPointViewer.__setRowSelected"></a>
+<h4>WatchPointViewer.__setRowSelected</h4>
+<b>__setRowSelected</b>(<i>index, selected=True</i>)
+<p>
+        Private slot to select a complete row.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index determining the row to be selected
+</dd>
+<dt><i>selected</i> (bool)</dt>
+<dd>
+flag indicating the action
+</dd>
+</dl>
+<a NAME="WatchPointViewer.__setWpEnabled" ID="WatchPointViewer.__setWpEnabled"></a>
+<h4>WatchPointViewer.__setWpEnabled</h4>
+<b>__setWpEnabled</b>(<i>index, enabled</i>)
+<p>
+        Private method to set the enabled status of a watch expression.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of watch expression to be enabled/disabled
+</dd>
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating the enabled status to be set
+</dd>
+</dl>
+<a NAME="WatchPointViewer.__showBackMenu" ID="WatchPointViewer.__showBackMenu"></a>
+<h4>WatchPointViewer.__showBackMenu</h4>
+<b>__showBackMenu</b>(<i></i>)
+<p>
+        Private slot to handle the aboutToShow signal of the background menu.
+</p>
+
+<a NAME="WatchPointViewer.__showContextMenu" ID="WatchPointViewer.__showContextMenu"></a>
+<h4>WatchPointViewer.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="WatchPointViewer.__toSourceIndex" ID="WatchPointViewer.__toSourceIndex"></a>
+<h4>WatchPointViewer.__toSourceIndex</h4>
+<b>__toSourceIndex</b>(<i>index</i>)
+<p>
+        Private slot to convert an index to a source index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+mapped index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="WatchPointViewer.setModel" ID="WatchPointViewer.setModel"></a>
+<h4>WatchPointViewer.setModel</h4>
+<b>setModel</b>(<i>model</i>)
+<p>
+        Public slot to set the watch expression model.
+</p>
+
+<dl>
+
+<dt><i>model</i> (WatchPointModel)</dt>
+<dd>
+reference to the watch expression model
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

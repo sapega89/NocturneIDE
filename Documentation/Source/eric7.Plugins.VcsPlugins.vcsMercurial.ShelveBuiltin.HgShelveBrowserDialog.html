@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.ShelveBuiltin.HgShelveBrowserDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.ShelveBuiltin.HgShelveBrowserDialog</h1>
+<p>
+Module implementing Mercurial shelve browser dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgShelveBrowserDialog">HgShelveBrowserDialog</a></td>
+<td>Class implementing Mercurial shelve browser dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgShelveBrowserDialog" ID="HgShelveBrowserDialog"></a>
+<h2>HgShelveBrowserDialog</h2>
+<p>
+    Class implementing Mercurial shelve browser dialog.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_HgShelveBrowserDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AgeColumn</td></tr>
+<tr><td>MessageColumn</td></tr>
+<tr><td>NameColumn</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__init__">HgShelveBrowserDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__cleanupShelves">__cleanupShelves</a></td>
+<td>Private slot to delete all shelves.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__deleteShelves">__deleteShelves</a></td>
+<td>Private slot to delete the selected shelves.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__generateShelveEntry">__generateShelveEntry</a></td>
+<td>Private method to generate the shelve items.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__getShelveEntries">__getShelveEntries</a></td>
+<td>Private method to retrieve the list of shelves.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__processBuffer">__processBuffer</a></td>
+<td>Private method to process the buffered output of the hg shelve command.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__resetUI">__resetUI</a></td>
+<td>Private method to reset the user interface.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__resizeColumnsShelves">__resizeColumnsShelves</a></td>
+<td>Private method to resize the shelve list columns.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__showError">__showError</a></td>
+<td>Private slot to show some error.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.__unshelve">__unshelve</a></td>
+<td>Private slot to restore the selected shelve of changes.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the list of shelves.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.on_shelveList_currentItemChanged">on_shelveList_currentItemChanged</a></td>
+<td>Private slot called, when the current item of the shelve list changes.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.on_shelveList_customContextMenuRequested">on_shelveList_customContextMenuRequested</a></td>
+<td>Private slot to show the context menu of the shelve list.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+<tr>
+<td><a href="#HgShelveBrowserDialog.start">start</a></td>
+<td>Public slot to start the hg shelve command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgShelveBrowserDialog.__init__" ID="HgShelveBrowserDialog.__init__"></a>
+<h4>HgShelveBrowserDialog (Constructor)</h4>
+<b>HgShelveBrowserDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="HgShelveBrowserDialog.__cleanupShelves" ID="HgShelveBrowserDialog.__cleanupShelves"></a>
+<h4>HgShelveBrowserDialog.__cleanupShelves</h4>
+<b>__cleanupShelves</b>(<i></i>)
+<p>
+        Private slot to delete all shelves.
+</p>
+
+<a NAME="HgShelveBrowserDialog.__deleteShelves" ID="HgShelveBrowserDialog.__deleteShelves"></a>
+<h4>HgShelveBrowserDialog.__deleteShelves</h4>
+<b>__deleteShelves</b>(<i></i>)
+<p>
+        Private slot to delete the selected shelves.
+</p>
+
+<a NAME="HgShelveBrowserDialog.__finish" ID="HgShelveBrowserDialog.__finish"></a>
+<h4>HgShelveBrowserDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="HgShelveBrowserDialog.__generateShelveEntry" ID="HgShelveBrowserDialog.__generateShelveEntry"></a>
+<h4>HgShelveBrowserDialog.__generateShelveEntry</h4>
+<b>__generateShelveEntry</b>(<i>name, age, message, fileStatistics, totals</i>)
+<p>
+        Private method to generate the shelve items.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the shelve
+</dd>
+<dt><i>age</i> (str)</dt>
+<dd>
+age of the shelve
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+shelve message
+</dd>
+<dt><i>fileStatistics</i> (tuple of (str, str, str, str))</dt>
+<dd>
+per file change statistics (tuple containing the
+            file name, the number of changes, the number of added lines and the
+            number of deleted lines)
+</dd>
+<dt><i>totals</i> (tuple of (str, str, str))</dt>
+<dd>
+overall statistics (tuple containing the number of changed files,
+            the number of added lines and the number of deleted lines)
+</dd>
+</dl>
+<a NAME="HgShelveBrowserDialog.__getShelveEntries" ID="HgShelveBrowserDialog.__getShelveEntries"></a>
+<h4>HgShelveBrowserDialog.__getShelveEntries</h4>
+<b>__getShelveEntries</b>(<i></i>)
+<p>
+        Private method to retrieve the list of shelves.
+</p>
+
+<a NAME="HgShelveBrowserDialog.__processBuffer" ID="HgShelveBrowserDialog.__processBuffer"></a>
+<h4>HgShelveBrowserDialog.__processBuffer</h4>
+<b>__processBuffer</b>(<i></i>)
+<p>
+        Private method to process the buffered output of the hg shelve command.
+</p>
+
+<a NAME="HgShelveBrowserDialog.__resetUI" ID="HgShelveBrowserDialog.__resetUI"></a>
+<h4>HgShelveBrowserDialog.__resetUI</h4>
+<b>__resetUI</b>(<i></i>)
+<p>
+        Private method to reset the user interface.
+</p>
+
+<a NAME="HgShelveBrowserDialog.__resizeColumnsShelves" ID="HgShelveBrowserDialog.__resizeColumnsShelves"></a>
+<h4>HgShelveBrowserDialog.__resizeColumnsShelves</h4>
+<b>__resizeColumnsShelves</b>(<i></i>)
+<p>
+        Private method to resize the shelve list columns.
+</p>
+
+<a NAME="HgShelveBrowserDialog.__showError" ID="HgShelveBrowserDialog.__showError"></a>
+<h4>HgShelveBrowserDialog.__showError</h4>
+<b>__showError</b>(<i>out</i>)
+<p>
+        Private slot to show some error.
+</p>
+
+<dl>
+
+<dt><i>out</i> (str)</dt>
+<dd>
+error to be shown
+</dd>
+</dl>
+<a NAME="HgShelveBrowserDialog.__unshelve" ID="HgShelveBrowserDialog.__unshelve"></a>
+<h4>HgShelveBrowserDialog.__unshelve</h4>
+<b>__unshelve</b>(<i></i>)
+<p>
+        Private slot to restore the selected shelve of changes.
+</p>
+
+<a NAME="HgShelveBrowserDialog.closeEvent" ID="HgShelveBrowserDialog.closeEvent"></a>
+<h4>HgShelveBrowserDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="HgShelveBrowserDialog.on_buttonBox_clicked" ID="HgShelveBrowserDialog.on_buttonBox_clicked"></a>
+<h4>HgShelveBrowserDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="HgShelveBrowserDialog.on_refreshButton_clicked" ID="HgShelveBrowserDialog.on_refreshButton_clicked"></a>
+<h4>HgShelveBrowserDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the list of shelves.
+</p>
+
+<a NAME="HgShelveBrowserDialog.on_shelveList_currentItemChanged" ID="HgShelveBrowserDialog.on_shelveList_currentItemChanged"></a>
+<h4>HgShelveBrowserDialog.on_shelveList_currentItemChanged</h4>
+<b>on_shelveList_currentItemChanged</b>(<i>current, _previous</i>)
+<p>
+        Private slot called, when the current item of the shelve list changes.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the new current item
+</dd>
+<dt><i>_previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the old current item (unused)
+</dd>
+</dl>
+<a NAME="HgShelveBrowserDialog.on_shelveList_customContextMenuRequested" ID="HgShelveBrowserDialog.on_shelveList_customContextMenuRequested"></a>
+<h4>HgShelveBrowserDialog.on_shelveList_customContextMenuRequested</h4>
+<b>on_shelveList_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu of the shelve list.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position of the mouse pointer
+</dd>
+</dl>
+<a NAME="HgShelveBrowserDialog.show" ID="HgShelveBrowserDialog.show"></a>
+<h4>HgShelveBrowserDialog.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<a NAME="HgShelveBrowserDialog.start" ID="HgShelveBrowserDialog.start"></a>
+<h4>HgShelveBrowserDialog.start</h4>
+<b>start</b>(<i></i>)
+<p>
+        Public slot to start the hg shelve command.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

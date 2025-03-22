@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.HgClient</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.HgClient</h1>
+<p>
+Module implementing an interface to the Mercurial command server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgClient">HgClient</a></td>
+<td>Class implementing the Mercurial command server interface.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgClient" ID="HgClient"></a>
+<h2>HgClient</h2>
+<p>
+    Class implementing the Mercurial command server interface.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Channels</td></tr>
+<tr><td>InputFormat</td></tr>
+<tr><td>OutputFormat</td></tr>
+<tr><td>OutputFormatSize</td></tr>
+<tr><td>ReturnFormat</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgClient.__init__">HgClient</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgClient.__prompt">__prompt</a></td>
+<td>Private method to prompt the user for some input.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.__readChannel">__readChannel</a></td>
+<td>Private method to read data from the command server.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.__readHello">__readHello</a></td>
+<td>Private method to read the hello message sent by the command server.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.__runcommand">__runcommand</a></td>
+<td>Private method to run a command in the server (low level).</td>
+</tr>
+<tr>
+<td><a href="#HgClient.__serverFinished">__serverFinished</a></td>
+<td>Private slot connected to the finished signal.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.__writeDataBlock">__writeDataBlock</a></td>
+<td>Private slot to write some data to the command server.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.cancel">cancel</a></td>
+<td>Public method to cancel the running command.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.func">func</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#HgClient.getRepository">getRepository</a></td>
+<td>Public method to get the repository path this client is serving.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.isExecuting">isExecuting</a></td>
+<td>Public method to check, if the server is executing a command.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.myprompt">myprompt</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#HgClient.restartServer">restartServer</a></td>
+<td>Public method to restart the command server.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.runcommand">runcommand</a></td>
+<td>Public method to execute a command via the command server.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.startServer">startServer</a></td>
+<td>Public method to start the command server.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.stopServer">stopServer</a></td>
+<td>Public method to stop the command server.</td>
+</tr>
+<tr>
+<td><a href="#HgClient.wasCanceled">wasCanceled</a></td>
+<td>Public method to check, if the last command was canceled.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgClient.__init__" ID="HgClient.__init__"></a>
+<h4>HgClient (Constructor)</h4>
+<b>HgClient</b>(<i>repoPath, encoding, vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>repoPath</i> (str)</dt>
+<dd>
+root directory of the repository
+</dd>
+<dt><i>encoding</i> (str)</dt>
+<dd>
+encoding to be used by the command server
+</dd>
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the VCS object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="HgClient.__prompt" ID="HgClient.__prompt"></a>
+<h4>HgClient.__prompt</h4>
+<b>__prompt</b>(<i>size, message</i>)
+<p>
+        Private method to prompt the user for some input.
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+maximum length of the requested input
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message sent by the server
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing data entered by the user and
+            a flag indicating a password input
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, bool)
+</dd>
+</dl>
+<a NAME="HgClient.__readChannel" ID="HgClient.__readChannel"></a>
+<h4>HgClient.__readChannel</h4>
+<b>__readChannel</b>(<i></i>)
+<p>
+        Private method to read data from the command server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of channel designator and channel data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, int or str or bytes)
+</dd>
+</dl>
+<a NAME="HgClient.__readHello" ID="HgClient.__readHello"></a>
+<h4>HgClient.__readHello</h4>
+<b>__readHello</b>(<i></i>)
+<p>
+        Private method to read the hello message sent by the command server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of flag indicating success and an error message in case
+            of failure
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="HgClient.__runcommand" ID="HgClient.__runcommand"></a>
+<h4>HgClient.__runcommand</h4>
+<b>__runcommand</b>(<i>args, inputChannels, outputChannels</i>)
+<p>
+        Private method to run a command in the server (low level).
+</p>
+
+<dl>
+
+<dt><i>args</i> (list of str)</dt>
+<dd>
+list of arguments for the command
+</dd>
+<dt><i>inputChannels</i> (dict)</dt>
+<dd>
+dictionary of input channels. The dictionary must
+            have the keys 'I' and 'L' and each entry must be a function
+            receiving the number of bytes to write.
+</dd>
+<dt><i>outputChannels</i> (dict)</dt>
+<dd>
+dictionary of output channels. The dictionary
+            must have the keys 'o' and 'e' and each entry must be a function
+            receiving the data.
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+result code of the command, -1 if the command server wasn't
+            started or -10, if the command was canceled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an unexpected command
+            channel
+</dd>
+</dl>
+<a NAME="HgClient.__serverFinished" ID="HgClient.__serverFinished"></a>
+<h4>HgClient.__serverFinished</h4>
+<b>__serverFinished</b>(<i>_exitCode, _exitStatus</i>)
+<p>
+        Private slot connected to the finished signal.
+</p>
+
+<dl>
+
+<dt><i>_exitCode</i> (int)</dt>
+<dd>
+exit code of the process (unused)
+</dd>
+<dt><i>_exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process (unused)
+</dd>
+</dl>
+<a NAME="HgClient.__writeDataBlock" ID="HgClient.__writeDataBlock"></a>
+<h4>HgClient.__writeDataBlock</h4>
+<b>__writeDataBlock</b>(<i>data</i>)
+<p>
+        Private slot to write some data to the command server.
+</p>
+
+<dl>
+
+<dt><i>data</i> (str)</dt>
+<dd>
+data to be sent
+</dd>
+</dl>
+<a NAME="HgClient.cancel" ID="HgClient.cancel"></a>
+<h4>HgClient.cancel</h4>
+<b>cancel</b>(<i></i>)
+<p>
+        Public method to cancel the running command.
+</p>
+
+<a NAME="HgClient.func" ID="HgClient.func"></a>
+<h4>HgClient.func</h4>
+<b>func</b>(<i></i>)
+
+<a NAME="HgClient.getRepository" ID="HgClient.getRepository"></a>
+<h4>HgClient.getRepository</h4>
+<b>getRepository</b>(<i></i>)
+<p>
+        Public method to get the repository path this client is serving.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+repository path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgClient.isExecuting" ID="HgClient.isExecuting"></a>
+<h4>HgClient.isExecuting</h4>
+<b>isExecuting</b>(<i></i>)
+<p>
+        Public method to check, if the server is executing a command.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the execution of a command
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HgClient.myprompt" ID="HgClient.myprompt"></a>
+<h4>HgClient.myprompt</h4>
+<b>myprompt</b>(<i></i>)
+
+<a NAME="HgClient.restartServer" ID="HgClient.restartServer"></a>
+<h4>HgClient.restartServer</h4>
+<b>restartServer</b>(<i></i>)
+<p>
+        Public method to restart the command server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of flag indicating a successful start and an error
+            message in case of failure
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="HgClient.runcommand" ID="HgClient.runcommand"></a>
+<h4>HgClient.runcommand</h4>
+<b>runcommand</b>(<i>args, prompt=None, inputData=None, output=None, error=None</i>)
+<p>
+        Public method to execute a command via the command server.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list of str)</dt>
+<dd>
+list of arguments for the command
+</dd>
+<dt><i>prompt</i> (func(int, str) -> (str, bool))</dt>
+<dd>
+function to reply to prompts by the server. It
+            receives the max number of bytes to return and the contents
+            of the output channel received so far. If an output function is
+            given as well, the prompt data is passed through the output
+            function. The function must return the input data and a flag
+            indicating a password input.
+</dd>
+<dt><i>inputData</i> (func(int) -> bytes)</dt>
+<dd>
+function to reply to bulk data requests by the
+            server. It receives the max number of bytes to return.
+</dd>
+<dt><i>output</i> (func(str))</dt>
+<dd>
+function receiving the data from the server. If a
+            prompt function is given, it is assumed, that the prompt output
+            is passed via this function.
+</dd>
+<dt><i>error</i> (func(str))</dt>
+<dd>
+function receiving error messages from the server
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of output and errors of the command server. In case
+            output and/or error functions were given, the respective return
+            value will be an empty string.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="HgClient.startServer" ID="HgClient.startServer"></a>
+<h4>HgClient.startServer</h4>
+<b>startServer</b>(<i></i>)
+<p>
+        Public method to start the command server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of flag indicating a successful start and an error
+            message in case of failure
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="HgClient.stopServer" ID="HgClient.stopServer"></a>
+<h4>HgClient.stopServer</h4>
+<b>stopServer</b>(<i></i>)
+<p>
+        Public method to stop the command server.
+</p>
+
+<a NAME="HgClient.wasCanceled" ID="HgClient.wasCanceled"></a>
+<h4>HgClient.wasCanceled</h4>
+<b>wasCanceled</b>(<i></i>)
+<p>
+        Public method to check, if the last command was canceled.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the cancel state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

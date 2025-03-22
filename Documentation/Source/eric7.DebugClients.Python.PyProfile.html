@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.PyProfile</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.PyProfile</h1>
+<p>
+Module defining additions to the standard Python profile.py.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PyProfile">PyProfile</a></td>
+<td>Class extending the standard Python profiler with additional methods.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PyProfile" ID="PyProfile"></a>
+<h2>PyProfile</h2>
+<p>
+    Class extending the standard Python profiler with additional methods.
+</p>
+<p>
+    This class extends the standard Python profiler by the functionality to
+    save the collected timing data in a timing cache, to restore these data
+    on subsequent calls, to store a profile dump to a standard filename and
+    to erase these caches.
+</p>
+
+<h3>Derived from</h3>
+profile.Profile
+<h3>Class Attributes</h3>
+<table>
+<tr><td>dispatch</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PyProfile.__init__">PyProfile</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PyProfile.__restore">__restore</a></td>
+<td>Private method to restore the timing data from the timing cache.</td>
+</tr>
+<tr>
+<td><a href="#PyProfile.dump_stats">dump_stats</a></td>
+<td>Public method to dump the statistics data.</td>
+</tr>
+<tr>
+<td><a href="#PyProfile.erase">erase</a></td>
+<td>Public method to erase the collected timing data.</td>
+</tr>
+<tr>
+<td><a href="#PyProfile.fix_frame_filename">fix_frame_filename</a></td>
+<td>Public method used to fix up the filename for a given frame.</td>
+</tr>
+<tr>
+<td><a href="#PyProfile.save">save</a></td>
+<td>Public method to store the collected profile data.</td>
+</tr>
+<tr>
+<td><a href="#PyProfile.trace_dispatch_call">trace_dispatch_call</a></td>
+<td>Public method used to trace functions calls.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PyProfile.__init__" ID="PyProfile.__init__"></a>
+<h4>PyProfile (Constructor)</h4>
+<b>PyProfile</b>(<i>basename, timer=None, bias=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>basename</i> (str)</dt>
+<dd>
+name of the script to be profiled
+</dd>
+<dt><i>timer</i> (function)</dt>
+<dd>
+function defining the timing calculation
+</dd>
+<dt><i>bias</i> (float)</dt>
+<dd>
+calibration value
+</dd>
+</dl>
+<a NAME="PyProfile.__restore" ID="PyProfile.__restore"></a>
+<h4>PyProfile.__restore</h4>
+<b>__restore</b>(<i></i>)
+<p>
+        Private method to restore the timing data from the timing cache.
+</p>
+
+<a NAME="PyProfile.dump_stats" ID="PyProfile.dump_stats"></a>
+<h4>PyProfile.dump_stats</h4>
+<b>dump_stats</b>(<i>file</i>)
+<p>
+        Public method to dump the statistics data.
+</p>
+
+<dl>
+
+<dt><i>file</i> (str)</dt>
+<dd>
+name of the file to write to
+</dd>
+</dl>
+<a NAME="PyProfile.erase" ID="PyProfile.erase"></a>
+<h4>PyProfile.erase</h4>
+<b>erase</b>(<i></i>)
+<p>
+        Public method to erase the collected timing data.
+</p>
+
+<a NAME="PyProfile.fix_frame_filename" ID="PyProfile.fix_frame_filename"></a>
+<h4>PyProfile.fix_frame_filename</h4>
+<b>fix_frame_filename</b>(<i>frame</i>)
+<p>
+        Public method used to fix up the filename for a given frame.
+</p>
+<p>
+        The logic employed here is that if a module was loaded
+        from a .pyc file, then the correct .py to operate with
+        should be in the same path as the .pyc. The reason this
+        logic is needed is that when a .pyc file is generated, the
+        filename embedded and thus what is readable in the code object
+        of the frame object is the fully qualified filepath when the
+        pyc is generated. If files are moved from machine to machine
+        this can break debugging as the .pyc will refer to the .py
+        on the original machine. Another case might be sharing
+        code over a network... This logic deals with that.
+</p>
+
+<dl>
+
+<dt><i>frame</i> (frame)</dt>
+<dd>
+frame object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+fixed up file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyProfile.save" ID="PyProfile.save"></a>
+<h4>PyProfile.save</h4>
+<b>save</b>(<i></i>)
+<p>
+        Public method to store the collected profile data.
+</p>
+
+<a NAME="PyProfile.trace_dispatch_call" ID="PyProfile.trace_dispatch_call"></a>
+<h4>PyProfile.trace_dispatch_call</h4>
+<b>trace_dispatch_call</b>(<i>frame, t</i>)
+<p>
+        Public method used to trace functions calls.
+</p>
+<p>
+        This is a variant of the one found in the standard Python
+        profile.py calling fix_frame_filename above.
+</p>
+
+<dl>
+
+<dt><i>frame</i> (frame)</dt>
+<dd>
+reference to the call frame
+</dd>
+<dt><i>t</i> (list of Any)</dt>
+<dd>
+arguments
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful handling
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

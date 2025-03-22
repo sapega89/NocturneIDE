@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.PluginSyntaxChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.PluginSyntaxChecker</h1>
+<p>
+Module implementing the Syntax Checker plugin.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>__header__</td></tr>
+<tr><td>error</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SyntaxCheckerPlugin">SyntaxCheckerPlugin</a></td>
+<td>Class implementing the Syntax Checker plugin.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SyntaxCheckerPlugin" ID="SyntaxCheckerPlugin"></a>
+<h2>SyntaxCheckerPlugin</h2>
+<p>
+    Class implementing the Syntax Checker plugin.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__init__">SyntaxCheckerPlugin</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__editorClosed">__editorClosed</a></td>
+<td>Private slot called, when an editor was closed.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__editorOpened">__editorOpened</a></td>
+<td>Private slot called, when a new editor was opened.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__editorShowMenu">__editorShowMenu</a></td>
+<td>Private slot called, when the the editor context menu or a submenu is about to be shown.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__editorSyntaxCheck">__editorSyntaxCheck</a></td>
+<td>Private slot to handle the syntax check context menu action of the editors.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__getPythonOptions">__getPythonOptions</a></td>
+<td>Private method to determine the syntax check options.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__initialize">__initialize</a></td>
+<td>Private slot to (re)initialize the plugin.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__projectBrowserShowMenu">__projectBrowserShowMenu</a></td>
+<td>Private slot called, when the the project browser menu or a submenu is about to be shown.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__projectBrowserSyntaxCheck">__projectBrowserSyntaxCheck</a></td>
+<td>Private method to handle the syntax check context menu action of the project sources browser.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__projectShowMenu">__projectShowMenu</a></td>
+<td>Private slot called, when the the project menu or a submenu is about to be shown.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__projectSyntaxCheck">__projectSyntaxCheck</a></td>
+<td>Private slot used to check the project files for syntax errors.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.__translateSyntaxCheck">__translateSyntaxCheck</a></td>
+<td>Private slot to translate the resulting messages.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.activate">activate</a></td>
+<td>Public method to activate this plugin.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerPlugin.deactivate">deactivate</a></td>
+<td>Public method to deactivate this plugin.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SyntaxCheckerPlugin.__init__" ID="SyntaxCheckerPlugin.__init__"></a>
+<h4>SyntaxCheckerPlugin (Constructor)</h4>
+<b>SyntaxCheckerPlugin</b>(<i>ui</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UI.UserInterface)</dt>
+<dd>
+reference to the user interface object
+</dd>
+</dl>
+<a NAME="SyntaxCheckerPlugin.__editorClosed" ID="SyntaxCheckerPlugin.__editorClosed"></a>
+<h4>SyntaxCheckerPlugin.__editorClosed</h4>
+<b>__editorClosed</b>(<i>editor</i>)
+<p>
+        Private slot called, when an editor was closed.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QScintilla.Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="SyntaxCheckerPlugin.__editorOpened" ID="SyntaxCheckerPlugin.__editorOpened"></a>
+<h4>SyntaxCheckerPlugin.__editorOpened</h4>
+<b>__editorOpened</b>(<i>editor</i>)
+<p>
+        Private slot called, when a new editor was opened.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QScintilla.Editor)</dt>
+<dd>
+reference to the new editor
+</dd>
+</dl>
+<a NAME="SyntaxCheckerPlugin.__editorShowMenu" ID="SyntaxCheckerPlugin.__editorShowMenu"></a>
+<h4>SyntaxCheckerPlugin.__editorShowMenu</h4>
+<b>__editorShowMenu</b>(<i>menuName, menu, editor</i>)
+<p>
+        Private slot called, when the the editor context menu or a submenu is
+        about to be shown.
+</p>
+
+<dl>
+
+<dt><i>menuName</i> (str)</dt>
+<dd>
+name of the menu to be shown
+</dd>
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu
+</dd>
+<dt><i>editor</i> (QScintilla.Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="SyntaxCheckerPlugin.__editorSyntaxCheck" ID="SyntaxCheckerPlugin.__editorSyntaxCheck"></a>
+<h4>SyntaxCheckerPlugin.__editorSyntaxCheck</h4>
+<b>__editorSyntaxCheck</b>(<i></i>)
+<p>
+        Private slot to handle the syntax check context menu action of the
+        editors.
+</p>
+
+<a NAME="SyntaxCheckerPlugin.__getPythonOptions" ID="SyntaxCheckerPlugin.__getPythonOptions"></a>
+<h4>SyntaxCheckerPlugin.__getPythonOptions</h4>
+<b>__getPythonOptions</b>(<i></i>)
+<p>
+        Private method to determine the syntax check options.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating to perform a pyflakes check and
+            a flag indicating to ignore star import warnings
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, bool)
+</dd>
+</dl>
+<a NAME="SyntaxCheckerPlugin.__initialize" ID="SyntaxCheckerPlugin.__initialize"></a>
+<h4>SyntaxCheckerPlugin.__initialize</h4>
+<b>__initialize</b>(<i></i>)
+<p>
+        Private slot to (re)initialize the plugin.
+</p>
+
+<a NAME="SyntaxCheckerPlugin.__projectBrowserShowMenu" ID="SyntaxCheckerPlugin.__projectBrowserShowMenu"></a>
+<h4>SyntaxCheckerPlugin.__projectBrowserShowMenu</h4>
+<b>__projectBrowserShowMenu</b>(<i>menuName, menu</i>)
+<p>
+        Private slot called, when the the project browser menu or a submenu is
+        about to be shown.
+</p>
+
+<dl>
+
+<dt><i>menuName</i> (str)</dt>
+<dd>
+name of the menu to be shown
+</dd>
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu
+</dd>
+</dl>
+<a NAME="SyntaxCheckerPlugin.__projectBrowserSyntaxCheck" ID="SyntaxCheckerPlugin.__projectBrowserSyntaxCheck"></a>
+<h4>SyntaxCheckerPlugin.__projectBrowserSyntaxCheck</h4>
+<b>__projectBrowserSyntaxCheck</b>(<i></i>)
+<p>
+        Private method to handle the syntax check context menu action of the
+        project sources browser.
+</p>
+
+<a NAME="SyntaxCheckerPlugin.__projectShowMenu" ID="SyntaxCheckerPlugin.__projectShowMenu"></a>
+<h4>SyntaxCheckerPlugin.__projectShowMenu</h4>
+<b>__projectShowMenu</b>(<i>menuName, _menu</i>)
+<p>
+        Private slot called, when the the project menu or a submenu is
+        about to be shown.
+</p>
+
+<dl>
+
+<dt><i>menuName</i> (str)</dt>
+<dd>
+name of the menu to be shown
+</dd>
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu (unused)
+</dd>
+</dl>
+<a NAME="SyntaxCheckerPlugin.__projectSyntaxCheck" ID="SyntaxCheckerPlugin.__projectSyntaxCheck"></a>
+<h4>SyntaxCheckerPlugin.__projectSyntaxCheck</h4>
+<b>__projectSyntaxCheck</b>(<i></i>)
+<p>
+        Private slot used to check the project files for syntax errors.
+</p>
+
+<a NAME="SyntaxCheckerPlugin.__translateSyntaxCheck" ID="SyntaxCheckerPlugin.__translateSyntaxCheck"></a>
+<h4>SyntaxCheckerPlugin.__translateSyntaxCheck</h4>
+<b>__translateSyntaxCheck</b>(<i>fn, problems</i>)
+<p>
+        Private slot to translate the resulting messages.
+</p>
+<p>
+        If checkFlakes is True, warnings contains a list of strings containing
+        the warnings (marker, file name, line number, message)
+        The values are only valid, if nok is False.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the checked file
+</dd>
+<dt><i>problems</i> (list of dict)</dt>
+<dd>
+list of dictionaries with the keys 'error', 'py_warnings' and
+            'warnings' which contain a tuple with details about the syntax error or a
+            list of tuples with details about Python warnings and PyFlakes warnings.
+            Each tuple contains the file name, line number, column, code string (only
+            for syntax errors), the message and an optional list with arguments for
+            the message.
+</dd>
+</dl>
+<a NAME="SyntaxCheckerPlugin.activate" ID="SyntaxCheckerPlugin.activate"></a>
+<h4>SyntaxCheckerPlugin.activate</h4>
+<b>activate</b>(<i></i>)
+<p>
+        Public method to activate this plugin.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of None and activation status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SyntaxCheckerPlugin.deactivate" ID="SyntaxCheckerPlugin.deactivate"></a>
+<h4>SyntaxCheckerPlugin.deactivate</h4>
+<b>deactivate</b>(<i></i>)
+<p>
+        Public method to deactivate this plugin.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

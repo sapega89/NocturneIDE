@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.FlexCompleter</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.FlexCompleter</h1>
+<p>
+Word completion for the eric shell.
+</p>
+<p>
+<h4>NOTE for eric variant</h4>
+</p>
+<p>
+    This version is a re-implementation of rlcompleter
+    as found in the Python3 library. It is modified to work with the eric
+    debug clients.
+</p>
+<p>
+<h4>Original rlcompleter documentation</h4>
+</p>
+<p>
+    This requires the latest extension to the readline module. The completer
+    completes keywords, built-ins and globals in a selectable namespace (which
+    defaults to __main__); when completing NAME.NAME..., it evaluates (!) the
+    expression up to the last dot and completes its attributes.
+</p>
+<p>
+    It's very cool to do "import sys" type "sys.", hit the
+    completion key (twice), and see the list of names defined by the
+    sys module!
+</p>
+<p>
+    Tip: to use the tab key as the completion key, call
+</p>
+<p>
+        readline.parse_and_bind("tab: complete")
+</p>
+<p>
+    <b>Notes</b>:
+    <ul>
+    <li>
+    Exceptions raised by the completer function are *ignored* (and
+    generally cause the completion to fail).  This is a feature -- since
+    readline sets the tty device in raw (or cbreak) mode, printing a
+    traceback wouldn't work well without some complicated hoopla to save,
+    reset and restore the tty state.
+    </li>
+    <li>
+    The evaluation of the NAME.NAME... form may cause arbitrary
+    application defined code to be executed if an object with a
+    __getattr__ hook is found.  Since it is the responsibility of the
+    application (or the user) to enable this feature, I consider this an
+    acceptable risk.  More complicated expressions (e.g. function calls or
+    indexing operations) are *not* evaluated.
+    </li>
+    <li>
+    When the original stdin is not a tty device, GNU readline is never
+    used, and this module (and the readline module) are silently inactive.
+    </li>
+    </ul>
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>__all__</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Completer">Completer</a></td>
+<td>Class implementing the command line completer object.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#get_class_members">get_class_members</a></td>
+<td>Module function to retrieve the class members.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Completer" ID="Completer"></a>
+<h2>Completer</h2>
+<p>
+    Class implementing the command line completer object.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Completer.__init__">Completer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Completer._callable_postfix">_callable_postfix</a></td>
+<td>Protected method to check for a callable.</td>
+</tr>
+<tr>
+<td><a href="#Completer.attr_matches">attr_matches</a></td>
+<td>Public method to compute matches when text contains a dot.</td>
+</tr>
+<tr>
+<td><a href="#Completer.complete">complete</a></td>
+<td>Public method to return the next possible completion for 'text'.</td>
+</tr>
+<tr>
+<td><a href="#Completer.global_matches">global_matches</a></td>
+<td>Public method to compute matches when text is a simple name.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Completer.__init__" ID="Completer.__init__"></a>
+<h4>Completer (Constructor)</h4>
+<b>Completer</b>(<i>namespace=None</i>)
+<p>
+        Constructor
+</p>
+<p>
+        Completer([namespace]) -> completer instance.
+</p>
+<p>
+        If unspecified, the default namespace where completions are performed
+        is __main__ (technically, __main__.__dict__). Namespaces should be
+        given as dictionaries.
+</p>
+<p>
+        Completer instances should be used as the completion mechanism of
+        readline via the set_completer() call:
+</p>
+<p>
+        readline.set_completer(Completer(my_namespace).complete)
+</p>
+
+<dl>
+
+<dt><i>namespace</i> (dict)</dt>
+<dd>
+namespace for the completer
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>TypeError</b>:</dt>
+<dd>
+raised to indicate a wrong data structure of
+            the namespace object
+</dd>
+</dl>
+<a NAME="Completer._callable_postfix" ID="Completer._callable_postfix"></a>
+<h4>Completer._callable_postfix</h4>
+<b>_callable_postfix</b>(<i>val, word</i>)
+<p>
+        Protected method to check for a callable.
+</p>
+
+<dl>
+
+<dt><i>val</i> (Any)</dt>
+<dd>
+value to check
+</dd>
+<dt><i>word</i> (str)</dt>
+<dd>
+word to amend
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+amended word
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Completer.attr_matches" ID="Completer.attr_matches"></a>
+<h4>Completer.attr_matches</h4>
+<b>attr_matches</b>(<i>text</i>)
+<p>
+        Public method to compute matches when text contains a dot.
+</p>
+<p>
+        Assuming the text is of the form NAME.NAME....[NAME], and is
+        evaluatable in self.namespace, it will be evaluated and its attributes
+        (as revealed by dir()) are used as possible completions.  (For class
+        instances, class members are are also considered.)
+</p>
+<p>
+        <b>WARNING</b>: this can still invoke arbitrary C code, if an object
+        with a __getattr__ hook is evaluated.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be completed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all matches
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Completer.complete" ID="Completer.complete"></a>
+<h4>Completer.complete</h4>
+<b>complete</b>(<i>text, state</i>)
+<p>
+        Public method to return the next possible completion for 'text'.
+</p>
+<p>
+        This is called successively with state == 0, 1, 2, ... until it
+        returns None.  The completion should begin with 'text'.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be completed
+</dd>
+<dt><i>state</i> (int)</dt>
+<dd>
+state of the completion
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+possible completions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Completer.global_matches" ID="Completer.global_matches"></a>
+<h4>Completer.global_matches</h4>
+<b>global_matches</b>(<i>text</i>)
+<p>
+        Public method to compute matches when text is a simple name.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be completed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all keywords, built-in functions and names currently
+            defined in self.namespace that match
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_class_members" ID="get_class_members"></a>
+<h2>get_class_members</h2>
+<b>get_class_members</b>(<i>klass</i>)
+<p>
+    Module function to retrieve the class members.
+</p>
+
+<dl>
+
+<dt><i>klass</i> (Any)</dt>
+<dd>
+class object to be analyzed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all names defined in the class
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Imports.ImportsChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Imports.ImportsChecker</h1>
+<p>
+Module implementing a checker for import statements.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ImportsChecker">ImportsChecker</a></td>
+<td>Class implementing a checker for import statements.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ImportsChecker" ID="ImportsChecker"></a>
+<h2>ImportsChecker</h2>
+<p>
+    Class implementing a checker for import statements.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Codes</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ImportsChecker.__init__">ImportsChecker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.__checkBannedImport">__checkBannedImport</a></td>
+<td>Private method to check import of banned modules.</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.__checkBannedRelativeImports">__checkBannedRelativeImports</a></td>
+<td>Private method to check if relative imports are banned.</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.__checkLocalImports">__checkLocalImports</a></td>
+<td>Private method to check local imports.</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.__checkUnnecessaryAlias">__checkUnnecessaryAlias</a></td>
+<td>Private method to check unnecessary import aliases.</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.__compileUnstructuredGlob">__compileUnstructuredGlob</a></td>
+<td>Private method to convert a pattern to a regex such that ".*" matches zero or more modules.</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.__error">__error</a></td>
+<td>Private method to record an issue.</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.__ignoreCode">__ignoreCode</a></td>
+<td>Private method to check if the message code should be ignored.</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.__isModuleBanned">__isModuleBanned</a></td>
+<td>Private method to check, if the given module name banned.</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.__tidyImports">__tidyImports</a></td>
+<td>Private method to check various other import related topics.</td>
+</tr>
+<tr>
+<td><a href="#ImportsChecker.run">run</a></td>
+<td>Public method to check the given source against miscellaneous conditions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ImportsChecker.__init__" ID="ImportsChecker.__init__"></a>
+<h4>ImportsChecker (Constructor)</h4>
+<b>ImportsChecker</b>(<i>source, filename, tree, select, ignore, expected, repeat, args</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str)</dt>
+<dd>
+source code to be checked
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>tree</i> (ast.Module)</dt>
+<dd>
+AST tree of the source code
+</dd>
+<dt><i>select</i> (list of str)</dt>
+<dd>
+list of selected codes
+</dd>
+<dt><i>ignore</i> (list of str)</dt>
+<dd>
+list of codes to be ignored
+</dd>
+<dt><i>expected</i> (list of str)</dt>
+<dd>
+list of expected codes
+</dd>
+<dt><i>repeat</i> (bool)</dt>
+<dd>
+flag indicating to report each occurrence of a code
+</dd>
+<dt><i>args</i> (dict)</dt>
+<dd>
+dictionary of arguments for the various checks
+</dd>
+</dl>
+<a NAME="ImportsChecker.__checkBannedImport" ID="ImportsChecker.__checkBannedImport"></a>
+<h4>ImportsChecker.__checkBannedImport</h4>
+<b>__checkBannedImport</b>(<i>node</i>)
+<p>
+        Private method to check import of banned modules.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to be checked
+</dd>
+</dl>
+<a NAME="ImportsChecker.__checkBannedRelativeImports" ID="ImportsChecker.__checkBannedRelativeImports"></a>
+<h4>ImportsChecker.__checkBannedRelativeImports</h4>
+<b>__checkBannedRelativeImports</b>(<i>node</i>)
+<p>
+        Private method to check if relative imports are banned.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to be checked
+</dd>
+</dl>
+<a NAME="ImportsChecker.__checkLocalImports" ID="ImportsChecker.__checkLocalImports"></a>
+<h4>ImportsChecker.__checkLocalImports</h4>
+<b>__checkLocalImports</b>(<i></i>)
+<p>
+        Private method to check local imports.
+</p>
+
+<a NAME="ImportsChecker.__checkUnnecessaryAlias" ID="ImportsChecker.__checkUnnecessaryAlias"></a>
+<h4>ImportsChecker.__checkUnnecessaryAlias</h4>
+<b>__checkUnnecessaryAlias</b>(<i>node</i>)
+<p>
+        Private method to check unnecessary import aliases.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node to be checked
+</dd>
+</dl>
+<a NAME="ImportsChecker.__compileUnstructuredGlob" ID="ImportsChecker.__compileUnstructuredGlob"></a>
+<h4>ImportsChecker.__compileUnstructuredGlob</h4>
+<b>__compileUnstructuredGlob</b>(<i>module</i>)
+<p>
+        Private method to convert a pattern to a regex such that ".*" matches zero or
+        more modules.
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+module pattern to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+compiled regex
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+re.regex object
+</dd>
+</dl>
+<a NAME="ImportsChecker.__error" ID="ImportsChecker.__error"></a>
+<h4>ImportsChecker.__error</h4>
+<b>__error</b>(<i>lineNumber, offset, code, *args</i>)
+<p>
+        Private method to record an issue.
+</p>
+
+<dl>
+
+<dt><i>lineNumber</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+position within line of the issue
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+message code
+</dd>
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments for the message
+</dd>
+</dl>
+<a NAME="ImportsChecker.__ignoreCode" ID="ImportsChecker.__ignoreCode"></a>
+<h4>ImportsChecker.__ignoreCode</h4>
+<b>__ignoreCode</b>(<i>code</i>)
+<p>
+        Private method to check if the message code should be ignored.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+message code to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore the given code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ImportsChecker.__isModuleBanned" ID="ImportsChecker.__isModuleBanned"></a>
+<h4>ImportsChecker.__isModuleBanned</h4>
+<b>__isModuleBanned</b>(<i>moduleName</i>)
+<p>
+        Private method to check, if the given module name banned.
+</p>
+
+<dl>
+
+<dt><i>moduleName</i> (str)</dt>
+<dd>
+module name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a banned module
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ImportsChecker.__tidyImports" ID="ImportsChecker.__tidyImports"></a>
+<h4>ImportsChecker.__tidyImports</h4>
+<b>__tidyImports</b>(<i></i>)
+<p>
+        Private method to check various other import related topics.
+</p>
+
+<a NAME="ImportsChecker.run" ID="ImportsChecker.run"></a>
+<h4>ImportsChecker.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method to check the given source against miscellaneous
+        conditions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

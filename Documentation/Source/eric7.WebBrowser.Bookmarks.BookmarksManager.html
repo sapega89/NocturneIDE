@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Bookmarks.BookmarksManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Bookmarks.BookmarksManager</h1>
+<p>
+Module implementing the bookmarks manager.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>BOOKMARKBAR</td></tr>
+<tr><td>BOOKMARKMENU</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BookmarkSearchStart">BookmarkSearchStart</a></td>
+<td>Class defining the start points for bookmark searches.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager">BookmarksManager</a></td>
+<td>Class implementing the bookmarks manager.</td>
+</tr>
+<tr>
+<td><a href="#ChangeBookmarkCommand">ChangeBookmarkCommand</a></td>
+<td>Class implementing the Insert undo command.</td>
+</tr>
+<tr>
+<td><a href="#InsertBookmarksCommand">InsertBookmarksCommand</a></td>
+<td>Class implementing the Insert undo command.</td>
+</tr>
+<tr>
+<td><a href="#RemoveBookmarksCommand">RemoveBookmarksCommand</a></td>
+<td>Class implementing the Remove undo command.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BookmarkSearchStart" ID="BookmarkSearchStart"></a>
+<h2>BookmarkSearchStart</h2>
+<p>
+    Class defining the start points for bookmark searches.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Menu</td></tr>
+<tr><td>Root</td></tr>
+<tr><td>ToolBar</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="BookmarksManager" ID="BookmarksManager"></a>
+<h2>BookmarksManager</h2>
+<p>
+    Class implementing the bookmarks manager.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>bookmarksReloaded()</dt>
+<dd>
+emitted after the bookmarks were reloaded
+</dd>
+<dt>bookmarksSaved()</dt>
+<dd>
+emitted after the bookmarks were saved
+</dd>
+<dt>entryAdded(BookmarkNode)</dt>
+<dd>
+emitted after a bookmark node has been
+        added
+</dd>
+<dt>entryChanged(BookmarkNode)</dt>
+<dd>
+emitted after a bookmark node has been
+        changed
+</dd>
+<dt>entryRemoved(BookmarkNode, int, BookmarkNode)</dt>
+<dd>
+emitted after a
+        bookmark node has been removed
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#BookmarksManager.getFileName">getFileName</a></td>
+<td>Class method to get the file name of the bookmark file.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BookmarksManager.__init__">BookmarksManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.__initialize">__initialize</a></td>
+<td>Private method to initialize some data.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.__searchBookmark">__searchBookmark</a></td>
+<td>Private method get a bookmark node for a given URL.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.__searchBookmarks">__searchBookmarks</a></td>
+<td>Private method get a list of bookmark nodes for a given URL.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.addBookmark">addBookmark</a></td>
+<td>Public method to add a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.bookmarkForUrl">bookmarkForUrl</a></td>
+<td>Public method to get a bookmark node for a given URL.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.bookmarks">bookmarks</a></td>
+<td>Public method to get a reference to the root bookmark node.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.bookmarksForUrl">bookmarksForUrl</a></td>
+<td>Public method to get a list of bookmark nodes for a given URL.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.bookmarksModel">bookmarksModel</a></td>
+<td>Public method to get a reference to the bookmarks model.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.changeExpanded">changeExpanded</a></td>
+<td>Public method to handle a change of the expanded state.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.close">close</a></td>
+<td>Public method to close the bookmark manager.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.exportBookmarks">exportBookmarks</a></td>
+<td>Public method to export the bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.faviconChanged">faviconChanged</a></td>
+<td>Public slot to update the icon image for an URL.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.importBookmarks">importBookmarks</a></td>
+<td>Public method to import bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.incVisitCount">incVisitCount</a></td>
+<td>Public method to increment the visit count of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.load">load</a></td>
+<td>Public method to load the bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.menu">menu</a></td>
+<td>Public method to get a reference to the bookmarks menu node.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.reload">reload</a></td>
+<td>Public method used to initiate a reloading of the bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.removeBookmark">removeBookmark</a></td>
+<td>Public method to remove a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.save">save</a></td>
+<td>Public method to save the bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.setNodeChanged">setNodeChanged</a></td>
+<td>Public method to signal changes of bookmarks other than title, URL or timestamp.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.setTimestamp">setTimestamp</a></td>
+<td>Public method to set the URL of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.setTitle">setTitle</a></td>
+<td>Public method to set the title of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.setUrl">setUrl</a></td>
+<td>Public method to set the URL of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.setVisitCount">setVisitCount</a></td>
+<td>Public method to set the visit count of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.toolbar">toolbar</a></td>
+<td>Public method to get a reference to the bookmarks toolbar node.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksManager.undoRedoStack">undoRedoStack</a></td>
+<td>Public method to get a reference to the undo stack.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BookmarksManager.getFileName" ID="BookmarksManager.getFileName"></a>
+<h4>BookmarksManager.getFileName (class method)</h4>
+<b>getFileName</b>(<i></i>)
+<p>
+        Class method to get the file name of the bookmark file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the bookmark file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BookmarksManager.__init__" ID="BookmarksManager.__init__"></a>
+<h4>BookmarksManager (Constructor)</h4>
+<b>BookmarksManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="BookmarksManager.__initialize" ID="BookmarksManager.__initialize"></a>
+<h4>BookmarksManager.__initialize</h4>
+<b>__initialize</b>(<i></i>)
+<p>
+        Private method to initialize some data.
+</p>
+
+<a NAME="BookmarksManager.__searchBookmark" ID="BookmarksManager.__searchBookmark"></a>
+<h4>BookmarksManager.__searchBookmark</h4>
+<b>__searchBookmark</b>(<i>url, startNode</i>)
+<p>
+        Private method get a bookmark node for a given URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL of the bookmark to search for
+</dd>
+<dt><i>startNode</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to start searching
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+bookmark node for the given url
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarkNode
+</dd>
+</dl>
+<a NAME="BookmarksManager.__searchBookmarks" ID="BookmarksManager.__searchBookmarks"></a>
+<h4>BookmarksManager.__searchBookmarks</h4>
+<b>__searchBookmarks</b>(<i>url, startNode</i>)
+<p>
+        Private method get a list of bookmark nodes for a given URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL of the bookmarks to search for
+</dd>
+<dt><i>startNode</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to start searching
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of bookmark nodes for the given url
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of BookmarkNode
+</dd>
+</dl>
+<a NAME="BookmarksManager.addBookmark" ID="BookmarksManager.addBookmark"></a>
+<h4>BookmarksManager.addBookmark</h4>
+<b>addBookmark</b>(<i>parent, node, row=-1</i>)
+<p>
+        Public method to add a bookmark.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to add to
+</dd>
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to add
+</dd>
+<dt><i>row</i> (int)</dt>
+<dd>
+row number
+</dd>
+</dl>
+<a NAME="BookmarksManager.bookmarkForUrl" ID="BookmarksManager.bookmarkForUrl"></a>
+<h4>BookmarksManager.bookmarkForUrl</h4>
+<b>bookmarkForUrl</b>(<i>url, start=BookmarkSearchStart.Root</i>)
+<p>
+        Public method to get a bookmark node for a given URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl or str)</dt>
+<dd>
+URL of the bookmark to search for
+</dd>
+<dt><i>start</i> (BookmarkSearchStart)</dt>
+<dd>
+indicator for the start of the search
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+bookmark node for the given url
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarkNode
+</dd>
+</dl>
+<a NAME="BookmarksManager.bookmarks" ID="BookmarksManager.bookmarks"></a>
+<h4>BookmarksManager.bookmarks</h4>
+<b>bookmarks</b>(<i></i>)
+<p>
+        Public method to get a reference to the root bookmark node.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the root bookmark node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarkNode
+</dd>
+</dl>
+<a NAME="BookmarksManager.bookmarksForUrl" ID="BookmarksManager.bookmarksForUrl"></a>
+<h4>BookmarksManager.bookmarksForUrl</h4>
+<b>bookmarksForUrl</b>(<i>url, start=BookmarkSearchStart.Root</i>)
+<p>
+        Public method to get a list of bookmark nodes for a given URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl or str)</dt>
+<dd>
+URL of the bookmarks to search for
+</dd>
+<dt><i>start</i> (BookmarkSearchStart)</dt>
+<dd>
+indicator for the start of the search
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of bookmark nodes for the given url
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of BookmarkNode
+</dd>
+</dl>
+<a NAME="BookmarksManager.bookmarksModel" ID="BookmarksManager.bookmarksModel"></a>
+<h4>BookmarksManager.bookmarksModel</h4>
+<b>bookmarksModel</b>(<i></i>)
+<p>
+        Public method to get a reference to the bookmarks model.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the bookmarks model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarksModel
+</dd>
+</dl>
+<a NAME="BookmarksManager.changeExpanded" ID="BookmarksManager.changeExpanded"></a>
+<h4>BookmarksManager.changeExpanded</h4>
+<b>changeExpanded</b>(<i></i>)
+<p>
+        Public method to handle a change of the expanded state.
+</p>
+
+<a NAME="BookmarksManager.close" ID="BookmarksManager.close"></a>
+<h4>BookmarksManager.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public method to close the bookmark manager.
+</p>
+
+<a NAME="BookmarksManager.exportBookmarks" ID="BookmarksManager.exportBookmarks"></a>
+<h4>BookmarksManager.exportBookmarks</h4>
+<b>exportBookmarks</b>(<i></i>)
+<p>
+        Public method to export the bookmarks.
+</p>
+
+<a NAME="BookmarksManager.faviconChanged" ID="BookmarksManager.faviconChanged"></a>
+<h4>BookmarksManager.faviconChanged</h4>
+<b>faviconChanged</b>(<i>url</i>)
+<p>
+        Public slot to update the icon image for an URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl or str)</dt>
+<dd>
+URL of the icon to update
+</dd>
+</dl>
+<a NAME="BookmarksManager.importBookmarks" ID="BookmarksManager.importBookmarks"></a>
+<h4>BookmarksManager.importBookmarks</h4>
+<b>importBookmarks</b>(<i></i>)
+<p>
+        Public method to import bookmarks.
+</p>
+
+<a NAME="BookmarksManager.incVisitCount" ID="BookmarksManager.incVisitCount"></a>
+<h4>BookmarksManager.incVisitCount</h4>
+<b>incVisitCount</b>(<i>node</i>)
+<p>
+        Public method to increment the visit count of a bookmark.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to be changed
+</dd>
+</dl>
+<a NAME="BookmarksManager.load" ID="BookmarksManager.load"></a>
+<h4>BookmarksManager.load</h4>
+<b>load</b>(<i></i>)
+<p>
+        Public method to load the bookmarks.
+</p>
+
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an error loading the
+            bookmarks
+</dd>
+</dl>
+<a NAME="BookmarksManager.menu" ID="BookmarksManager.menu"></a>
+<h4>BookmarksManager.menu</h4>
+<b>menu</b>(<i></i>)
+<p>
+        Public method to get a reference to the bookmarks menu node.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the bookmarks menu node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarkNode
+</dd>
+</dl>
+<a NAME="BookmarksManager.reload" ID="BookmarksManager.reload"></a>
+<h4>BookmarksManager.reload</h4>
+<b>reload</b>(<i></i>)
+<p>
+        Public method used to initiate a reloading of the bookmarks.
+</p>
+
+<a NAME="BookmarksManager.removeBookmark" ID="BookmarksManager.removeBookmark"></a>
+<h4>BookmarksManager.removeBookmark</h4>
+<b>removeBookmark</b>(<i>node</i>)
+<p>
+        Public method to remove a bookmark.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to be removed
+</dd>
+</dl>
+<a NAME="BookmarksManager.save" ID="BookmarksManager.save"></a>
+<h4>BookmarksManager.save</h4>
+<b>save</b>(<i></i>)
+<p>
+        Public method to save the bookmarks.
+</p>
+
+<a NAME="BookmarksManager.setNodeChanged" ID="BookmarksManager.setNodeChanged"></a>
+<h4>BookmarksManager.setNodeChanged</h4>
+<b>setNodeChanged</b>(<i></i>)
+<p>
+        Public method to signal changes of bookmarks other than title, URL
+        or timestamp.
+</p>
+
+<a NAME="BookmarksManager.setTimestamp" ID="BookmarksManager.setTimestamp"></a>
+<h4>BookmarksManager.setTimestamp</h4>
+<b>setTimestamp</b>(<i>node, timestampType, timestamp</i>)
+<p>
+        Public method to set the URL of a bookmark.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to be changed
+</dd>
+<dt><i>timestampType</i> (BookmarkTimestampType)</dt>
+<dd>
+type of the timestamp to set
+</dd>
+<dt><i>timestamp</i> (QDateTime)</dt>
+<dd>
+timestamp to set
+</dd>
+</dl>
+<a NAME="BookmarksManager.setTitle" ID="BookmarksManager.setTitle"></a>
+<h4>BookmarksManager.setTitle</h4>
+<b>setTitle</b>(<i>node, newTitle</i>)
+<p>
+        Public method to set the title of a bookmark.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to be changed
+</dd>
+<dt><i>newTitle</i> (str)</dt>
+<dd>
+title to be set
+</dd>
+</dl>
+<a NAME="BookmarksManager.setUrl" ID="BookmarksManager.setUrl"></a>
+<h4>BookmarksManager.setUrl</h4>
+<b>setUrl</b>(<i>node, newUrl</i>)
+<p>
+        Public method to set the URL of a bookmark.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to be changed
+</dd>
+<dt><i>newUrl</i> (str)</dt>
+<dd>
+URL to be set
+</dd>
+</dl>
+<a NAME="BookmarksManager.setVisitCount" ID="BookmarksManager.setVisitCount"></a>
+<h4>BookmarksManager.setVisitCount</h4>
+<b>setVisitCount</b>(<i>node, count</i>)
+<p>
+        Public method to set the visit count of a bookmark.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to be changed
+</dd>
+<dt><i>count</i> (int or str)</dt>
+<dd>
+visit count to be set
+</dd>
+</dl>
+<a NAME="BookmarksManager.toolbar" ID="BookmarksManager.toolbar"></a>
+<h4>BookmarksManager.toolbar</h4>
+<b>toolbar</b>(<i></i>)
+<p>
+        Public method to get a reference to the bookmarks toolbar node.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the bookmarks toolbar node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarkNode
+</dd>
+</dl>
+<a NAME="BookmarksManager.undoRedoStack" ID="BookmarksManager.undoRedoStack"></a>
+<h4>BookmarksManager.undoRedoStack</h4>
+<b>undoRedoStack</b>(<i></i>)
+<p>
+        Public method to get a reference to the undo stack.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the undo stack
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUndoStack
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ChangeBookmarkCommand" ID="ChangeBookmarkCommand"></a>
+<h2>ChangeBookmarkCommand</h2>
+<p>
+    Class implementing the Insert undo command.
+</p>
+
+<h3>Derived from</h3>
+QUndoCommand
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ChangeBookmarkCommand.__init__">ChangeBookmarkCommand</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ChangeBookmarkCommand.redo">redo</a></td>
+<td>Public slot to perform the redo action.</td>
+</tr>
+<tr>
+<td><a href="#ChangeBookmarkCommand.undo">undo</a></td>
+<td>Public slot to perform the undo action.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ChangeBookmarkCommand.__init__" ID="ChangeBookmarkCommand.__init__"></a>
+<h4>ChangeBookmarkCommand (Constructor)</h4>
+<b>ChangeBookmarkCommand</b>(<i>bookmarksManager, node, newValue, title</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>bookmarksManager</i> (BookmarksManager)</dt>
+<dd>
+reference to the bookmarks manager
+</dd>
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to be changed
+</dd>
+<dt><i>newValue</i> (str)</dt>
+<dd>
+new value to be set
+</dd>
+<dt><i>title</i> (bool)</dt>
+<dd>
+flag indicating a change of the title (True) or
+            the URL (False)
+</dd>
+</dl>
+<a NAME="ChangeBookmarkCommand.redo" ID="ChangeBookmarkCommand.redo"></a>
+<h4>ChangeBookmarkCommand.redo</h4>
+<b>redo</b>(<i></i>)
+<p>
+        Public slot to perform the redo action.
+</p>
+
+<a NAME="ChangeBookmarkCommand.undo" ID="ChangeBookmarkCommand.undo"></a>
+<h4>ChangeBookmarkCommand.undo</h4>
+<b>undo</b>(<i></i>)
+<p>
+        Public slot to perform the undo action.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="InsertBookmarksCommand" ID="InsertBookmarksCommand"></a>
+<h2>InsertBookmarksCommand</h2>
+<p>
+    Class implementing the Insert undo command.
+</p>
+
+<h3>Derived from</h3>
+RemoveBookmarksCommand
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#InsertBookmarksCommand.__init__">InsertBookmarksCommand</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#InsertBookmarksCommand.redo">redo</a></td>
+<td>Public slot to perform the redo action.</td>
+</tr>
+<tr>
+<td><a href="#InsertBookmarksCommand.undo">undo</a></td>
+<td>Public slot to perform the undo action.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="InsertBookmarksCommand.__init__" ID="InsertBookmarksCommand.__init__"></a>
+<h4>InsertBookmarksCommand (Constructor)</h4>
+<b>InsertBookmarksCommand</b>(<i>bookmarksManager, parent, node, row</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>bookmarksManager</i> (BookmarksManager)</dt>
+<dd>
+reference to the bookmarks manager
+</dd>
+<dt><i>parent</i> (BookmarkNode)</dt>
+<dd>
+reference to the parent node
+</dd>
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to be inserted
+</dd>
+<dt><i>row</i> (int)</dt>
+<dd>
+row number of bookmark
+</dd>
+</dl>
+<a NAME="InsertBookmarksCommand.redo" ID="InsertBookmarksCommand.redo"></a>
+<h4>InsertBookmarksCommand.redo</h4>
+<b>redo</b>(<i></i>)
+<p>
+        Public slot to perform the redo action.
+</p>
+
+<a NAME="InsertBookmarksCommand.undo" ID="InsertBookmarksCommand.undo"></a>
+<h4>InsertBookmarksCommand.undo</h4>
+<b>undo</b>(<i></i>)
+<p>
+        Public slot to perform the undo action.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="RemoveBookmarksCommand" ID="RemoveBookmarksCommand"></a>
+<h2>RemoveBookmarksCommand</h2>
+<p>
+    Class implementing the Remove undo command.
+</p>
+
+<h3>Derived from</h3>
+QUndoCommand
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#RemoveBookmarksCommand.__init__">RemoveBookmarksCommand</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#RemoveBookmarksCommand.redo">redo</a></td>
+<td>Public slot to perform the redo action.</td>
+</tr>
+<tr>
+<td><a href="#RemoveBookmarksCommand.undo">undo</a></td>
+<td>Public slot to perform the undo action.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="RemoveBookmarksCommand.__init__" ID="RemoveBookmarksCommand.__init__"></a>
+<h4>RemoveBookmarksCommand (Constructor)</h4>
+<b>RemoveBookmarksCommand</b>(<i>bookmarksManager, parent, row</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>bookmarksManager</i> (BookmarksManager)</dt>
+<dd>
+reference to the bookmarks manager
+</dd>
+<dt><i>parent</i> (BookmarkNode)</dt>
+<dd>
+reference to the parent node
+</dd>
+<dt><i>row</i> (int)</dt>
+<dd>
+row number of bookmark
+</dd>
+</dl>
+<a NAME="RemoveBookmarksCommand.redo" ID="RemoveBookmarksCommand.redo"></a>
+<h4>RemoveBookmarksCommand.redo</h4>
+<b>redo</b>(<i></i>)
+<p>
+        Public slot to perform the redo action.
+</p>
+
+<a NAME="RemoveBookmarksCommand.undo" ID="RemoveBookmarksCommand.undo"></a>
+<h4>RemoveBookmarksCommand.undo</h4>
+<b>undo</b>(<i></i>)
+<p>
+        Public slot to perform the undo action.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

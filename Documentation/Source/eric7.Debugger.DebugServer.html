@@ -1,0 +1,2906 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.DebugServer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.DebugServer</h1>
+<p>
+Module implementing the debug server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>DebuggerInterfaces</td></tr>
+<tr><td>NetworkInterfaceMapping</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#DebugServer">DebugServer</a></td>
+<td>Class implementing the debug server embedded within the IDE.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="DebugServer" ID="DebugServer"></a>
+<h2>DebugServer</h2>
+<p>
+    Class implementing the debug server embedded within the IDE.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>appendStdout(msg)</dt>
+<dd>
+emitted when a passive debug connection is
+        established or lost
+</dd>
+<dt>callTraceInfo</dt>
+<dd>
+emitted after the client reported the call trace
+        data (isCall, fromFile, fromLine, fromFunction, toFile, toLine,
+        toFunction, debuggerId)
+</dd>
+<dt>clientBanner(version, platform, venvname)</dt>
+<dd>
+emitted after
+        the client banner data was received
+</dd>
+<dt>clientBreakConditionError(fn, lineno, debuggerId)</dt>
+<dd>
+emitted after the
+        client has signaled a syntax error in a breakpoint condition
+</dd>
+<dt>clientCapabilities(capabilities, cltype, venvname)</dt>
+<dd>
+emitted after
+        the clients capabilities were received
+</dd>
+<dt>clientClearBreak(filename, lineno, debuggerId)</dt>
+<dd>
+emitted after the
+        debug client has decided to clear a temporary breakpoint
+</dd>
+<dt>clientClearWatch(condition, debuggerId)</dt>
+<dd>
+emitted after the debug
+        client has decided to clear a temporary watch expression
+</dd>
+<dt>clientCompletionList(completionList, text)</dt>
+<dd>
+emitted after the
+        commandline completion list and the reworked search string was
+        received from the client
+</dd>
+<dt>clientDebuggerId(debuggerId)</dt>
+<dd>
+emitted to indicate a newly connected
+        debugger backend
+</dd>
+<dt>clientDisassembly(disassembly, debuggerId)</dt>
+<dd>
+emitted after the client
+        has sent a disassembly of the code raising an exception
+</dd>
+<dt>clientDisconnected(str)</dt>
+<dd>
+emitted after a debug client has
+        disconnected (i.e. closed the network socket)
+</dd>
+<dt>clientException(exceptionType, exceptionMessage, stackTrace,debuggerId, threadName)</dt>
+<dd>
+emitted after an exception occured on the
+        client side
+</dd>
+<dt>clientExit(str, int, str, bool, str)</dt>
+<dd>
+emitted after the client has
+        exited giving the program name, the exit status, an exit message, an
+        indication to be quiet and the ID of the exited client
+</dd>
+<dt>clientGone(bool)</dt>
+<dd>
+emitted if the client went away (planned or
+        unplanned)
+</dd>
+<dt>clientInterpreterChanged(str)</dt>
+<dd>
+emitted to signal a change of the
+        client interpreter
+</dd>
+<dt>clientLine(filename, lineno, debuggerId, threadName, forStack)</dt>
+<dd>
+        emitted after the debug client has executed a line of code
+</dd>
+<dt>clientOutput(str)</dt>
+<dd>
+emitted after the client has sent some output
+</dd>
+<dt>clientProcessStderr(str)</dt>
+<dd>
+emitted after the client has sent some
+        output via stderr
+</dd>
+<dt>clientProcessStdout(str)</dt>
+<dd>
+emitted after the client has sent some
+        output via stdout
+</dd>
+<dt>clientRawInput(prompt, echo, debuggerId)</dt>
+<dd>
+emitted after a raw input
+        request was received
+</dd>
+<dt>clientRawInputSent(debuggerId)</dt>
+<dd>
+emitted after the data was sent
+        to the indicated debug client
+</dd>
+<dt>clientSignal(message, filename, linenumber, function name,function arguments, debuggerId)</dt>
+<dd>
+emitted after a signal has been
+        generated on the client side
+</dd>
+<dt>clientStack(stack, debuggerId, threadName)</dt>
+<dd>
+emitted after the
+        debug client has executed a line of code
+</dd>
+<dt>clientStatement(continue, debuggerId)</dt>
+<dd>
+emitted after an interactive
+        command has been executed. The parameter is False to indicate that the
+        command is complete and True if it needs more input.
+</dd>
+<dt>clientSyntaxError(message, filename, linenumber, characternumber,debuggerId, threadName)</dt>
+<dd>
+emitted after a syntax error has been detected
+        on the client side
+</dd>
+<dt>clientThreadList(currentId, threadList, debuggerId)</dt>
+<dd>
+emitted after
+        a thread list has been received
+</dd>
+<dt>clientThreadSet(debuggerId)</dt>
+<dd>
+emitted after the client has
+        acknowledged the change of the current thread
+</dd>
+<dt>clientVariable(scope, variables, debuggerId)</dt>
+<dd>
+emitted after a dump
+        for one class variable has been received
+</dd>
+<dt>clientVariables(scope, variables, debuggerId)</dt>
+<dd>
+emitted after a
+        variables dump has been received
+</dd>
+<dt>clientWatchConditionError(condition, debuggerId)</dt>
+<dd>
+emitted after the
+        client has signaled a syntax error in a watch expression
+</dd>
+<dt>lastClientExited()</dt>
+<dd>
+emitted to indicate that the last connected
+        debug client has terminated
+</dd>
+<dt>mainClientExit()</dt>
+<dd>
+emitted to indicate that the main client process
+        has exited
+</dd>
+<dt>passiveDebugStarted(str, bool)</dt>
+<dd>
+emitted after the debug client has
+        connected in passive debug mode
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTcpServer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DebugServer.__init__">DebugServer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__addBreakPoints">__addBreakPoints</a></td>
+<td>Private slot to add breakpoints.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__addWatchPoints">__addWatchPoints</a></td>
+<td>Private slot to set a watch expression.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__breakPointDataAboutToBeChanged">__breakPointDataAboutToBeChanged</a></td>
+<td>Private slot to handle the dataAboutToBeChanged signal of the breakpoint model.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__changeBreakPoints">__changeBreakPoints</a></td>
+<td>Private slot to set changed breakpoints.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__changeWatchPoints">__changeWatchPoints</a></td>
+<td>Private slot to set changed watch expressions.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__clientClearBreakPoint">__clientClearBreakPoint</a></td>
+<td>Private slot to handle the clientClearBreak signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__clientClearWatchPoint">__clientClearWatchPoint</a></td>
+<td>Private slot to handle the clientClearWatch signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__clientProcessError">__clientProcessError</a></td>
+<td>Private slot to process client output received via stderr.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__clientProcessOutput">__clientProcessOutput</a></td>
+<td>Private slot to process client output received via stdout.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__createDebuggerInterface">__createDebuggerInterface</a></td>
+<td>Private slot to create the debugger interface object.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__deleteBreakPoints">__deleteBreakPoints</a></td>
+<td>Private slot to delete breakpoints.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__deleteWatchPoints">__deleteWatchPoints</a></td>
+<td>Private slot to delete watch expressions.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__findLanguageForExtension">__findLanguageForExtension</a></td>
+<td>Private method to get the language associated with a file extension.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__getNetworkInterfaceAndIndex">__getNetworkInterfaceAndIndex</a></td>
+<td>Private method to determine the network interface and the interface index.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__makeWatchCondition">__makeWatchCondition</a></td>
+<td>Private method to construct the condition string.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__newConnection">__newConnection</a></td>
+<td>Private slot to handle a new connection.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__passiveShutDown">__passiveShutDown</a></td>
+<td>Private method to shut down a passive debug connection.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__registerDebuggerInterfaces">__registerDebuggerInterfaces</a></td>
+<td>Private method to register the available internal debugger interfaces.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__remoteBreakpointEnable">__remoteBreakpointEnable</a></td>
+<td>Private method to enable or disable a breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__remoteBreakpointIgnore">__remoteBreakpointIgnore</a></td>
+<td>Private method to ignore a breakpoint the next couple of occurrences.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__remoteWatchpoint">__remoteWatchpoint</a></td>
+<td>Private method to set or clear a watch expression.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__remoteWatchpointEnable">__remoteWatchpointEnable</a></td>
+<td>Private method to enable or disable a watch expression.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__remoteWatchpointIgnore">__remoteWatchpointIgnore</a></td>
+<td>Private method to ignore a watch expression the next couple of occurrences.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__restoreBreakpoints">__restoreBreakpoints</a></td>
+<td>Private method to restore the breakpoints after a restart.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__restoreNoDebugList">__restoreNoDebugList</a></td>
+<td>Private method to restore the list of scripts not to be debugged after a restart.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__restoreWatchpoints">__restoreWatchpoints</a></td>
+<td>Private method to restore the watch expressions after a restart.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__setClientType">__setClientType</a></td>
+<td>Private method to set the client type.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__splitWatchCondition">__splitWatchCondition</a></td>
+<td>Private method to split a remote watch expression.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.__watchPointDataAboutToBeChanged">__watchPointDataAboutToBeChanged</a></td>
+<td>Private slot to handle the dataAboutToBeChanged signal of the watch expression model.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getBreakPointModel">getBreakPointModel</a></td>
+<td>Public slot to get a reference to the breakpoint model object.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getClientCapabilities">getClientCapabilities</a></td>
+<td>Public method to retrieve the debug clients capabilities.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getClientInterpreter">getClientInterpreter</a></td>
+<td>Public method to get the interpreter of the debug client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getClientType">getClientType</a></td>
+<td>Public method to get the currently running debug client type.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getDebuggerIds">getDebuggerIds</a></td>
+<td>Public method to return the IDs of the connected debugger backends.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getEricServerEnvironmentString">getEricServerEnvironmentString</a></td>
+<td>Public method to get the string for an eric-ide server environment.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getExtensions">getExtensions</a></td>
+<td>Public slot to get the extensions associated with the given language.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getHostAddress">getHostAddress</a></td>
+<td>Public method to get the IP address or hostname the debug server is listening.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getProjectEnvironmentString">getProjectEnvironmentString</a></td>
+<td>Public method to get the string for the project environment.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getSupportedLanguages">getSupportedLanguages</a></td>
+<td>Public slot to return the supported programming languages.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.getWatchPointModel">getWatchPointModel</a></td>
+<td>Public slot to get a reference to the watch expression model object.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.initializeClient">initializeClient</a></td>
+<td>Public method to initialize a freshly connected debug client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.isClientProcessUp">isClientProcessUp</a></td>
+<td>Public method to check, if the debug client process is up or we are doing debugging via the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.isConnected">isConnected</a></td>
+<td>Public method to test, if the debug server is connected to a backend.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.isDebugging">isDebugging</a></td>
+<td>Public method to test, if the debug server is debugging.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.mainClientConnected">mainClientConnected</a></td>
+<td>Public method to perform actions after the main client has finally established the connection.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.passiveStartUp">passiveStartUp</a></td>
+<td>Public method to handle a passive debug connection.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle the preferencesChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.registerDebuggerInterface">registerDebuggerInterface</a></td>
+<td>Public method to register a debugger interface.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteBanner">remoteBanner</a></td>
+<td>Public slot to get the banner info of the remote client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteBreakpoint">remoteBreakpoint</a></td>
+<td>Public method to set or clear a breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteCapabilities">remoteCapabilities</a></td>
+<td>Public slot to get the debug clients capabilities.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteClientDisassembly">remoteClientDisassembly</a></td>
+<td>Public method to ask the client for the latest traceback disassembly.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteClientSetFilter">remoteClientSetFilter</a></td>
+<td>Public method to set a variables filter list.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteClientStack">remoteClientStack</a></td>
+<td>Public method to request the stack of the main thread.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteClientVariable">remoteClientVariable</a></td>
+<td>Public method to request the variables of the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteClientVariables">remoteClientVariables</a></td>
+<td>Public method to request the variables of the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteCompletion">remoteCompletion</a></td>
+<td>Public slot to get the a list of possible commandline completions from the remote client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteContinue">remoteContinue</a></td>
+<td>Public method to continue the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteContinueUntil">remoteContinueUntil</a></td>
+<td>Public method to continue the debugged program to the given line or until returning from the current frame.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteCoverage">remoteCoverage</a></td>
+<td>Public method to load a new program to collect coverage data.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteEnvironment">remoteEnvironment</a></td>
+<td>Public method to set the environment for a program to debug, run, ...</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteLoad">remoteLoad</a></td>
+<td>Public method to load a new program to debug.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteMoveIP">remoteMoveIP</a></td>
+<td>Public method to move the instruction pointer to a different line.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteProfile">remoteProfile</a></td>
+<td>Public method to load a new program to collect profiling data.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteRawInput">remoteRawInput</a></td>
+<td>Public method to send the raw input to the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteRun">remoteRun</a></td>
+<td>Public method to load a new program to run.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteSetThread">remoteSetThread</a></td>
+<td>Public method to request to set the given thread as current thread.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteStatement">remoteStatement</a></td>
+<td>Public method to execute a Python statement.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteStep">remoteStep</a></td>
+<td>Public method to single step the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteStepOut">remoteStepOut</a></td>
+<td>Public method to step out the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteStepOver">remoteStepOver</a></td>
+<td>Public method to step over the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteStepQuit">remoteStepQuit</a></td>
+<td>Public method to stop the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.remoteThreadList">remoteThreadList</a></td>
+<td>Public method to request the list of threads from the client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.setCallTraceEnabled">setCallTraceEnabled</a></td>
+<td>Public method to set the call trace state.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.setDebugging">setDebugging</a></td>
+<td>Public method to set the debugging state.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.shutdownServer">shutdownServer</a></td>
+<td>Public method to cleanly shut down.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientBanner">signalClientBanner</a></td>
+<td>Public method to process the client banner info.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientBreakConditionError">signalClientBreakConditionError</a></td>
+<td>Public method to process the client breakpoint condition error info.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientCallTrace">signalClientCallTrace</a></td>
+<td>Public method to process the client call trace data.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientCapabilities">signalClientCapabilities</a></td>
+<td>Public method to process the client capabilities info.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientClearBreak">signalClientClearBreak</a></td>
+<td>Public method to process the client clear breakpoint command.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientClearWatch">signalClientClearWatch</a></td>
+<td>Public slot to handle the clientClearWatch signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientCompletionList">signalClientCompletionList</a></td>
+<td>Public method to process the client auto completion info.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientDebuggerId">signalClientDebuggerId</a></td>
+<td>Public method to signal the receipt of a new debugger ID.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientDisassembly">signalClientDisassembly</a></td>
+<td>Public method to process the disassembly info from the client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientDisconnected">signalClientDisconnected</a></td>
+<td>Public method to send a signal when a debug client has closed its connection.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientException">signalClientException</a></td>
+<td>Public method to process the exception info from the client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientExit">signalClientExit</a></td>
+<td>Public method to process the client exit status.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientLine">signalClientLine</a></td>
+<td>Public method to process client position feedback.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientOutput">signalClientOutput</a></td>
+<td>Public method to process a line of client output.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientRawInput">signalClientRawInput</a></td>
+<td>Public method to process the client raw input command.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientSignal">signalClientSignal</a></td>
+<td>Public method to process a signal generated on the client side.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientStack">signalClientStack</a></td>
+<td>Public method to process a client's stack information.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientStatement">signalClientStatement</a></td>
+<td>Public method to process the input response from the client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientSyntaxError">signalClientSyntaxError</a></td>
+<td>Public method to process a syntax error info from the client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientThreadList">signalClientThreadList</a></td>
+<td>Public method to process the client thread list info.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientThreadSet">signalClientThreadSet</a></td>
+<td>Public method to handle the change of the client thread.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientVariable">signalClientVariable</a></td>
+<td>Public method to process the client variable info.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientVariables">signalClientVariables</a></td>
+<td>Public method to process the client variables info.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalClientWatchConditionError">signalClientWatchConditionError</a></td>
+<td>Public method to process the client watch expression error info.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalLastClientExited">signalLastClientExited</a></td>
+<td>Public method to process the last client exit event.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.signalMainClientExit">signalMainClientExit</a></td>
+<td>Public method to process the main client exiting.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.startClient">startClient</a></td>
+<td>Public method to start a debug client.</td>
+</tr>
+<tr>
+<td><a href="#DebugServer.unregisterDebuggerInterface">unregisterDebuggerInterface</a></td>
+<td>Public method to unregister a debugger interface.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DebugServer.__init__" ID="DebugServer.__init__"></a>
+<h4>DebugServer (Constructor)</h4>
+<b>DebugServer</b>(<i>originalPathString, preventPassiveDebugging=False, project=None, parent=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>originalPathString</i> (str)</dt>
+<dd>
+original PATH environment variable
+</dd>
+<dt><i>preventPassiveDebugging</i> (bool (optional))</dt>
+<dd>
+flag overriding the PassiveDbgEnabled
+            setting (defaults to False)
+</dd>
+<dt><i>project</i> (Project (optional))</dt>
+<dd>
+reference to the project object (defaults to None)
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="DebugServer.__addBreakPoints" ID="DebugServer.__addBreakPoints"></a>
+<h4>DebugServer.__addBreakPoints</h4>
+<b>__addBreakPoints</b>(<i>parentIndex, start, end, debuggerId=""</i>)
+<p>
+        Private slot to add breakpoints.
+</p>
+
+<dl>
+
+<dt><i>parentIndex</i> (QModelIndex)</dt>
+<dd>
+index of parent item
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start row
+</dd>
+<dt><i>end</i> (int)</dt>
+<dd>
+end row
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend to send to. If this is
+            empty, they will be broadcast to all connected backends.
+</dd>
+</dl>
+<a NAME="DebugServer.__addWatchPoints" ID="DebugServer.__addWatchPoints"></a>
+<h4>DebugServer.__addWatchPoints</h4>
+<b>__addWatchPoints</b>(<i>parentIndex, start, end, debuggerId=""</i>)
+<p>
+        Private slot to set a watch expression.
+</p>
+
+<dl>
+
+<dt><i>parentIndex</i> (QModelIndex)</dt>
+<dd>
+index of parent item
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start row
+</dd>
+<dt><i>end</i> (int)</dt>
+<dd>
+end row
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend to send to. If this is
+            empty, they will be broadcast to all connected backends.
+</dd>
+</dl>
+<a NAME="DebugServer.__breakPointDataAboutToBeChanged" ID="DebugServer.__breakPointDataAboutToBeChanged"></a>
+<h4>DebugServer.__breakPointDataAboutToBeChanged</h4>
+<b>__breakPointDataAboutToBeChanged</b>(<i>startIndex, endIndex</i>)
+<p>
+        Private slot to handle the dataAboutToBeChanged signal of the
+        breakpoint model.
+</p>
+
+<dl>
+
+<dt><i>startIndex</i> (QModelIndex)</dt>
+<dd>
+start index of the rows to be changed
+</dd>
+<dt><i>endIndex</i> (QModelIndex)</dt>
+<dd>
+end index of the rows to be changed
+</dd>
+</dl>
+<a NAME="DebugServer.__changeBreakPoints" ID="DebugServer.__changeBreakPoints"></a>
+<h4>DebugServer.__changeBreakPoints</h4>
+<b>__changeBreakPoints</b>(<i>startIndex, endIndex</i>)
+<p>
+        Private slot to set changed breakpoints.
+</p>
+
+<dl>
+
+<dt><i>startIndex</i> (QModelIndex)</dt>
+<dd>
+starting index of the change breakpoins
+</dd>
+<dt><i>endIndex</i> (QModelIndex)</dt>
+<dd>
+ending index of the change breakpoins
+</dd>
+</dl>
+<a NAME="DebugServer.__changeWatchPoints" ID="DebugServer.__changeWatchPoints"></a>
+<h4>DebugServer.__changeWatchPoints</h4>
+<b>__changeWatchPoints</b>(<i>startIndex, endIndex</i>)
+<p>
+        Private slot to set changed watch expressions.
+</p>
+
+<dl>
+
+<dt><i>startIndex</i> (QModelIndex)</dt>
+<dd>
+start index of the rows to be changed
+</dd>
+<dt><i>endIndex</i> (QModelIndex)</dt>
+<dd>
+end index of the rows to be changed
+</dd>
+</dl>
+<a NAME="DebugServer.__clientClearBreakPoint" ID="DebugServer.__clientClearBreakPoint"></a>
+<h4>DebugServer.__clientClearBreakPoint</h4>
+<b>__clientClearBreakPoint</b>(<i>fn, lineno</i>)
+<p>
+        Private slot to handle the clientClearBreak signal.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of breakpoint to clear
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of breakpoint to clear
+</dd>
+</dl>
+<a NAME="DebugServer.__clientClearWatchPoint" ID="DebugServer.__clientClearWatchPoint"></a>
+<h4>DebugServer.__clientClearWatchPoint</h4>
+<b>__clientClearWatchPoint</b>(<i>condition</i>)
+<p>
+        Private slot to handle the clientClearWatch signal.
+</p>
+
+<dl>
+
+<dt><i>condition</i> (str)</dt>
+<dd>
+expression of watch expression to clear
+</dd>
+</dl>
+<a NAME="DebugServer.__clientProcessError" ID="DebugServer.__clientProcessError"></a>
+<h4>DebugServer.__clientProcessError</h4>
+<b>__clientProcessError</b>(<i></i>)
+<p>
+        Private slot to process client output received via stderr.
+</p>
+
+<a NAME="DebugServer.__clientProcessOutput" ID="DebugServer.__clientProcessOutput"></a>
+<h4>DebugServer.__clientProcessOutput</h4>
+<b>__clientProcessOutput</b>(<i></i>)
+<p>
+        Private slot to process client output received via stdout.
+</p>
+
+<a NAME="DebugServer.__createDebuggerInterface" ID="DebugServer.__createDebuggerInterface"></a>
+<h4>DebugServer.__createDebuggerInterface</h4>
+<b>__createDebuggerInterface</b>(<i>clientType=None</i>)
+<p>
+        Private slot to create the debugger interface object.
+</p>
+
+<dl>
+
+<dt><i>clientType</i> (str)</dt>
+<dd>
+type of the client interface to be created
+</dd>
+</dl>
+<a NAME="DebugServer.__deleteBreakPoints" ID="DebugServer.__deleteBreakPoints"></a>
+<h4>DebugServer.__deleteBreakPoints</h4>
+<b>__deleteBreakPoints</b>(<i>parentIndex, start, end</i>)
+<p>
+        Private slot to delete breakpoints.
+</p>
+
+<dl>
+
+<dt><i>parentIndex</i> (QModelIndex)</dt>
+<dd>
+index of parent item
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start row
+</dd>
+<dt><i>end</i> (int)</dt>
+<dd>
+end row
+</dd>
+</dl>
+<a NAME="DebugServer.__deleteWatchPoints" ID="DebugServer.__deleteWatchPoints"></a>
+<h4>DebugServer.__deleteWatchPoints</h4>
+<b>__deleteWatchPoints</b>(<i>parentIndex, start, end</i>)
+<p>
+        Private slot to delete watch expressions.
+</p>
+
+<dl>
+
+<dt><i>parentIndex</i> (QModelIndex)</dt>
+<dd>
+index of parent item
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start row
+</dd>
+<dt><i>end</i> (int)</dt>
+<dd>
+end row
+</dd>
+</dl>
+<a NAME="DebugServer.__findLanguageForExtension" ID="DebugServer.__findLanguageForExtension"></a>
+<h4>DebugServer.__findLanguageForExtension</h4>
+<b>__findLanguageForExtension</b>(<i>ext</i>)
+<p>
+        Private method to get the language associated with a file extension.
+</p>
+
+<dl>
+
+<dt><i>ext</i> (str)</dt>
+<dd>
+file extension
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+associated language
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugServer.__getNetworkInterfaceAndIndex" ID="DebugServer.__getNetworkInterfaceAndIndex"></a>
+<h4>DebugServer.__getNetworkInterfaceAndIndex</h4>
+<b>__getNetworkInterfaceAndIndex</b>(<i>address</i>)
+<p>
+        Private method to determine the network interface and the interface
+        index.
+</p>
+
+<dl>
+
+<dt><i>address</i> (str)</dt>
+<dd>
+address to determine the info for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of network interface name and index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, int)
+</dd>
+</dl>
+<a NAME="DebugServer.__makeWatchCondition" ID="DebugServer.__makeWatchCondition"></a>
+<h4>DebugServer.__makeWatchCondition</h4>
+<b>__makeWatchCondition</b>(<i>cond, special</i>)
+<p>
+        Private method to construct the condition string.
+</p>
+
+<dl>
+
+<dt><i>cond</i> (str)</dt>
+<dd>
+condition
+</dd>
+<dt><i>special</i> (str)</dt>
+<dd>
+special condition
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+condition string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugServer.__newConnection" ID="DebugServer.__newConnection"></a>
+<h4>DebugServer.__newConnection</h4>
+<b>__newConnection</b>(<i></i>)
+<p>
+        Private slot to handle a new connection.
+</p>
+
+<a NAME="DebugServer.__passiveShutDown" ID="DebugServer.__passiveShutDown"></a>
+<h4>DebugServer.__passiveShutDown</h4>
+<b>__passiveShutDown</b>(<i></i>)
+<p>
+        Private method to shut down a passive debug connection.
+</p>
+
+<a NAME="DebugServer.__registerDebuggerInterfaces" ID="DebugServer.__registerDebuggerInterfaces"></a>
+<h4>DebugServer.__registerDebuggerInterfaces</h4>
+<b>__registerDebuggerInterfaces</b>(<i></i>)
+<p>
+        Private method to register the available internal debugger interfaces.
+</p>
+
+<a NAME="DebugServer.__remoteBreakpointEnable" ID="DebugServer.__remoteBreakpointEnable"></a>
+<h4>DebugServer.__remoteBreakpointEnable</h4>
+<b>__remoteBreakpointEnable</b>(<i>debuggerId, fn, line, enable</i>)
+<p>
+        Private method to enable or disable a breakpoint.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename the breakpoint belongs to
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the breakpoint
+</dd>
+<dt><i>enable</i> (bool)</dt>
+<dd>
+flag indicating enabling or disabling a breakpoint
+</dd>
+</dl>
+<a NAME="DebugServer.__remoteBreakpointIgnore" ID="DebugServer.__remoteBreakpointIgnore"></a>
+<h4>DebugServer.__remoteBreakpointIgnore</h4>
+<b>__remoteBreakpointIgnore</b>(<i>debuggerId, fn, line, count</i>)
+<p>
+        Private method to ignore a breakpoint the next couple of occurrences.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename the breakpoint belongs to
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the breakpoint
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+number of occurrences to ignore
+</dd>
+</dl>
+<a NAME="DebugServer.__remoteWatchpoint" ID="DebugServer.__remoteWatchpoint"></a>
+<h4>DebugServer.__remoteWatchpoint</h4>
+<b>__remoteWatchpoint</b>(<i>debuggerId, cond, setWatch, temp=False</i>)
+<p>
+        Private method to set or clear a watch expression.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>setWatch</i> (bool)</dt>
+<dd>
+flag indicating setting or resetting a watch expression
+</dd>
+<dt><i>temp</i> (bool)</dt>
+<dd>
+flag indicating a temporary watch expression
+</dd>
+</dl>
+<a NAME="DebugServer.__remoteWatchpointEnable" ID="DebugServer.__remoteWatchpointEnable"></a>
+<h4>DebugServer.__remoteWatchpointEnable</h4>
+<b>__remoteWatchpointEnable</b>(<i>debuggerId, cond, enable</i>)
+<p>
+        Private method to enable or disable a watch expression.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>enable</i> (bool)</dt>
+<dd>
+flag indicating enabling or disabling a watch expression
+</dd>
+</dl>
+<a NAME="DebugServer.__remoteWatchpointIgnore" ID="DebugServer.__remoteWatchpointIgnore"></a>
+<h4>DebugServer.__remoteWatchpointIgnore</h4>
+<b>__remoteWatchpointIgnore</b>(<i>debuggerId, cond, count</i>)
+<p>
+        Private method to ignore a watch expression the next couple of
+        occurrences.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+number of occurrences to ignore
+</dd>
+</dl>
+<a NAME="DebugServer.__restoreBreakpoints" ID="DebugServer.__restoreBreakpoints"></a>
+<h4>DebugServer.__restoreBreakpoints</h4>
+<b>__restoreBreakpoints</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to restore the breakpoints after a restart.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend to send to. If this is
+            empty, they will be broadcast to all connected backends.
+</dd>
+</dl>
+<a NAME="DebugServer.__restoreNoDebugList" ID="DebugServer.__restoreNoDebugList"></a>
+<h4>DebugServer.__restoreNoDebugList</h4>
+<b>__restoreNoDebugList</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to restore the list of scripts not to be debugged after
+        a restart.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend to send to. If this is
+            empty, they will be broadcast to all connected backends.
+</dd>
+</dl>
+<a NAME="DebugServer.__restoreWatchpoints" ID="DebugServer.__restoreWatchpoints"></a>
+<h4>DebugServer.__restoreWatchpoints</h4>
+<b>__restoreWatchpoints</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to restore the watch expressions after a restart.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend to send to. If this is
+            empty, they will be broadcast to all connected backends.
+</dd>
+</dl>
+<a NAME="DebugServer.__setClientType" ID="DebugServer.__setClientType"></a>
+<h4>DebugServer.__setClientType</h4>
+<b>__setClientType</b>(<i>clType</i>)
+<p>
+        Private method to set the client type.
+</p>
+
+<dl>
+
+<dt><i>clType</i> (str)</dt>
+<dd>
+type of client to be started
+</dd>
+</dl>
+<a NAME="DebugServer.__splitWatchCondition" ID="DebugServer.__splitWatchCondition"></a>
+<h4>DebugServer.__splitWatchCondition</h4>
+<b>__splitWatchCondition</b>(<i>cond</i>)
+<p>
+        Private method to split a remote watch expression.
+</p>
+
+<dl>
+
+<dt><i>cond</i> (str)</dt>
+<dd>
+remote expression
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of local expression (string) and special condition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugServer.__watchPointDataAboutToBeChanged" ID="DebugServer.__watchPointDataAboutToBeChanged"></a>
+<h4>DebugServer.__watchPointDataAboutToBeChanged</h4>
+<b>__watchPointDataAboutToBeChanged</b>(<i>startIndex, endIndex</i>)
+<p>
+        Private slot to handle the dataAboutToBeChanged signal of the
+        watch expression model.
+</p>
+
+<dl>
+
+<dt><i>startIndex</i> (QModelIndex)</dt>
+<dd>
+start index of the rows to be changed
+</dd>
+<dt><i>endIndex</i> (QModelIndex)</dt>
+<dd>
+end index of the rows to be changed
+</dd>
+</dl>
+<a NAME="DebugServer.getBreakPointModel" ID="DebugServer.getBreakPointModel"></a>
+<h4>DebugServer.getBreakPointModel</h4>
+<b>getBreakPointModel</b>(<i></i>)
+<p>
+        Public slot to get a reference to the breakpoint model object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the breakpoint model object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BreakPointModel
+</dd>
+</dl>
+<a NAME="DebugServer.getClientCapabilities" ID="DebugServer.getClientCapabilities"></a>
+<h4>DebugServer.getClientCapabilities</h4>
+<b>getClientCapabilities</b>(<i>clientType</i>)
+<p>
+        Public method to retrieve the debug clients capabilities.
+</p>
+
+<dl>
+
+<dt><i>clientType</i> (str)</dt>
+<dd>
+debug client type
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+debug client capabilities
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DebugServer.getClientInterpreter" ID="DebugServer.getClientInterpreter"></a>
+<h4>DebugServer.getClientInterpreter</h4>
+<b>getClientInterpreter</b>(<i></i>)
+<p>
+        Public method to get the interpreter of the debug client.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+interpreter of the debug client
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugServer.getClientType" ID="DebugServer.getClientType"></a>
+<h4>DebugServer.getClientType</h4>
+<b>getClientType</b>(<i></i>)
+<p>
+        Public method to get the currently running debug client type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+debug client type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugServer.getDebuggerIds" ID="DebugServer.getDebuggerIds"></a>
+<h4>DebugServer.getDebuggerIds</h4>
+<b>getDebuggerIds</b>(<i></i>)
+<p>
+        Public method to return the IDs of the connected debugger backends.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of connected debugger backend IDs
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="DebugServer.getEricServerEnvironmentString" ID="DebugServer.getEricServerEnvironmentString"></a>
+<h4>DebugServer.getEricServerEnvironmentString</h4>
+<b>getEricServerEnvironmentString</b>(<i></i>)
+<p>
+        Public method to get the string for an eric-ide server environment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string for the eric-ide server environment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugServer.getExtensions" ID="DebugServer.getExtensions"></a>
+<h4>DebugServer.getExtensions</h4>
+<b>getExtensions</b>(<i>language</i>)
+<p>
+        Public slot to get the extensions associated with the given language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language to get extensions for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of extensions associated with the language
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of str
+</dd>
+</dl>
+<a NAME="DebugServer.getHostAddress" ID="DebugServer.getHostAddress"></a>
+<h4>DebugServer.getHostAddress</h4>
+<b>getHostAddress</b>(<i>localhost</i>)
+<p>
+        Public method to get the IP address or hostname the debug server is
+        listening.
+</p>
+
+<dl>
+
+<dt><i>localhost</i> (bool)</dt>
+<dd>
+flag indicating to return the address for localhost
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+IP address or hostname
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugServer.getProjectEnvironmentString" ID="DebugServer.getProjectEnvironmentString"></a>
+<h4>DebugServer.getProjectEnvironmentString</h4>
+<b>getProjectEnvironmentString</b>(<i></i>)
+<p>
+        Public method to get the string for the project environment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string for the project environment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugServer.getSupportedLanguages" ID="DebugServer.getSupportedLanguages"></a>
+<h4>DebugServer.getSupportedLanguages</h4>
+<b>getSupportedLanguages</b>(<i>shellOnly=False</i>)
+<p>
+        Public slot to return the supported programming languages.
+</p>
+
+<dl>
+
+<dt><i>shellOnly</i> (bool)</dt>
+<dd>
+flag indicating only languages supporting an
+            interactive shell should be returned
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of supported languages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="DebugServer.getWatchPointModel" ID="DebugServer.getWatchPointModel"></a>
+<h4>DebugServer.getWatchPointModel</h4>
+<b>getWatchPointModel</b>(<i></i>)
+<p>
+        Public slot to get a reference to the watch expression model object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the watch expression model object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WatchPointModel
+</dd>
+</dl>
+<a NAME="DebugServer.initializeClient" ID="DebugServer.initializeClient"></a>
+<h4>DebugServer.initializeClient</h4>
+<b>initializeClient</b>(<i>debuggerId</i>)
+<p>
+        Public method to initialize a freshly connected debug client.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the connected debugger
+</dd>
+</dl>
+<a NAME="DebugServer.isClientProcessUp" ID="DebugServer.isClientProcessUp"></a>
+<h4>DebugServer.isClientProcessUp</h4>
+<b>isClientProcessUp</b>(<i></i>)
+<p>
+        Public method to check, if the debug client process is up or we are
+        doing debugging via the eric-ide server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a running debug client process
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebugServer.isConnected" ID="DebugServer.isConnected"></a>
+<h4>DebugServer.isConnected</h4>
+<b>isConnected</b>(<i></i>)
+<p>
+        Public method to test, if the debug server is connected to a backend.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a connection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebugServer.isDebugging" ID="DebugServer.isDebugging"></a>
+<h4>DebugServer.isDebugging</h4>
+<b>isDebugging</b>(<i></i>)
+<p>
+        Public method to test, if the debug server is debugging.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the debugging state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebugServer.mainClientConnected" ID="DebugServer.mainClientConnected"></a>
+<h4>DebugServer.mainClientConnected</h4>
+<b>mainClientConnected</b>(<i></i>)
+<p>
+        Public method to perform actions after the main client has finally
+        established the connection.
+</p>
+
+<a NAME="DebugServer.passiveStartUp" ID="DebugServer.passiveStartUp"></a>
+<h4>DebugServer.passiveStartUp</h4>
+<b>passiveStartUp</b>(<i>fn, reportAllExceptions, debuggerId</i>)
+<p>
+        Public method to handle a passive debug connection.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the debugged script
+</dd>
+<dt><i>reportAllExceptions</i> (bool)</dt>
+<dd>
+flag to enable reporting of all exceptions
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.preferencesChanged" ID="DebugServer.preferencesChanged"></a>
+<h4>DebugServer.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle the preferencesChanged signal.
+</p>
+
+<a NAME="DebugServer.registerDebuggerInterface" ID="DebugServer.registerDebuggerInterface"></a>
+<h4>DebugServer.registerDebuggerInterface</h4>
+<b>registerDebuggerInterface</b>(<i>interfaceName, getRegistryData, reregister=False</i>)
+<p>
+        Public method to register a debugger interface.
+</p>
+
+<dl>
+
+<dt><i>interfaceName</i> (str)</dt>
+<dd>
+name of the debugger interface
+</dd>
+<dt><i>getRegistryData</i> (function)</dt>
+<dd>
+reference to a function to be called
+            to get the debugger interface details. This method shall
+            return the client language, the client capabilities, the
+            list of associated file extensions and a function reference
+            to create the debugger interface (see __createDebuggerInterface())
+</dd>
+<dt><i>reregister</i> (bool)</dt>
+<dd>
+flag indicating to re-register the interface
+</dd>
+</dl>
+<a NAME="DebugServer.remoteBanner" ID="DebugServer.remoteBanner"></a>
+<h4>DebugServer.remoteBanner</h4>
+<b>remoteBanner</b>(<i></i>)
+<p>
+        Public slot to get the banner info of the remote client.
+</p>
+
+<a NAME="DebugServer.remoteBreakpoint" ID="DebugServer.remoteBreakpoint"></a>
+<h4>DebugServer.remoteBreakpoint</h4>
+<b>remoteBreakpoint</b>(<i>debuggerId, fn, line, setBreakpoint, cond=None, temp=False</i>)
+<p>
+        Public method to set or clear a breakpoint.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename the breakpoint belongs to
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the breakpoint
+</dd>
+<dt><i>setBreakpoint</i> (bool)</dt>
+<dd>
+flag indicating setting or resetting a breakpoint
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+condition of the breakpoint
+</dd>
+<dt><i>temp</i> (bool)</dt>
+<dd>
+flag indicating a temporary breakpoint
+</dd>
+</dl>
+<a NAME="DebugServer.remoteCapabilities" ID="DebugServer.remoteCapabilities"></a>
+<h4>DebugServer.remoteCapabilities</h4>
+<b>remoteCapabilities</b>(<i></i>)
+<p>
+        Public slot to get the debug clients capabilities.
+</p>
+
+<a NAME="DebugServer.remoteClientDisassembly" ID="DebugServer.remoteClientDisassembly"></a>
+<h4>DebugServer.remoteClientDisassembly</h4>
+<b>remoteClientDisassembly</b>(<i>debuggerId</i>)
+<p>
+        Public method to ask the client for the latest traceback disassembly.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.remoteClientSetFilter" ID="DebugServer.remoteClientSetFilter"></a>
+<h4>DebugServer.remoteClientSetFilter</h4>
+<b>remoteClientSetFilter</b>(<i>debuggerId, scope, filterStr</i>)
+<p>
+        Public method to set a variables filter list.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables (0 = local, 1 = global)
+</dd>
+<dt><i>filterStr</i> (str)</dt>
+<dd>
+regexp string for variable names to filter out
+</dd>
+</dl>
+<a NAME="DebugServer.remoteClientStack" ID="DebugServer.remoteClientStack"></a>
+<h4>DebugServer.remoteClientStack</h4>
+<b>remoteClientStack</b>(<i>debuggerId</i>)
+<p>
+        Public method to request the stack of the main thread.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.remoteClientVariable" ID="DebugServer.remoteClientVariable"></a>
+<h4>DebugServer.remoteClientVariable</h4>
+<b>remoteClientVariable</b>(<i>debuggerId, scope, filterList, var, framenr=0, maxSize=0</i>)
+<p>
+        Public method to request the variables of the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables (0 = local, 1 = global)
+</dd>
+<dt><i>filterList</i> (list of str)</dt>
+<dd>
+list of variable types to filter out
+</dd>
+<dt><i>var</i> (list of str)</dt>
+<dd>
+list encoded name of variable to retrieve
+</dd>
+<dt><i>framenr</i> (int)</dt>
+<dd>
+framenumber of the variables to retrieve
+</dd>
+<dt><i>maxSize</i> (int)</dt>
+<dd>
+maximum size the formatted value of a variable will
+            be shown. If it is bigger than that, a 'too big' indication will
+            be given (@@TOO_BIG_TO_SHOW@@). (unused)
+</dd>
+</dl>
+<a NAME="DebugServer.remoteClientVariables" ID="DebugServer.remoteClientVariables"></a>
+<h4>DebugServer.remoteClientVariables</h4>
+<b>remoteClientVariables</b>(<i>debuggerId, scope, filterList, framenr=0</i>)
+<p>
+        Public method to request the variables of the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables (0 = local, 1 = global)
+</dd>
+<dt><i>filterList</i> (list of str)</dt>
+<dd>
+list of variable types to filter out
+</dd>
+<dt><i>framenr</i> (int)</dt>
+<dd>
+framenumber of the variables to retrieve
+</dd>
+</dl>
+<a NAME="DebugServer.remoteCompletion" ID="DebugServer.remoteCompletion"></a>
+<h4>DebugServer.remoteCompletion</h4>
+<b>remoteCompletion</b>(<i>debuggerId, text</i>)
+<p>
+        Public slot to get the a list of possible commandline completions
+        from the remote client.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be completed
+</dd>
+</dl>
+<a NAME="DebugServer.remoteContinue" ID="DebugServer.remoteContinue"></a>
+<h4>DebugServer.remoteContinue</h4>
+<b>remoteContinue</b>(<i>debuggerId, special=False</i>)
+<p>
+        Public method to continue the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>special</i> (bool)</dt>
+<dd>
+flag indicating a special continue operation
+</dd>
+</dl>
+<a NAME="DebugServer.remoteContinueUntil" ID="DebugServer.remoteContinueUntil"></a>
+<h4>DebugServer.remoteContinueUntil</h4>
+<b>remoteContinueUntil</b>(<i>debuggerId, line</i>)
+<p>
+        Public method to continue the debugged program to the given line
+        or until returning from the current frame.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+new line, where execution should be continued to
+</dd>
+</dl>
+<a NAME="DebugServer.remoteCoverage" ID="DebugServer.remoteCoverage"></a>
+<h4>DebugServer.remoteCoverage</h4>
+<b>remoteCoverage</b>(<i>venvName, fn, argv, wd, env, autoClearShell=True, erase=False, forProject=False, runInConsole=False, clientType="", configOverride=None, </i>)
+<p>
+        Public method to load a new program to collect coverage data.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to debug
+</dd>
+<dt><i>argv</i> (list of str)</dt>
+<dd>
+list of command line arguments to pass to the program
+</dd>
+<dt><i>wd</i> (str)</dt>
+<dd>
+working directory for the program
+</dd>
+<dt><i>env</i> (str or dict)</dt>
+<dd>
+environment parameter settings
+</dd>
+<dt><i>autoClearShell</i> (bool)</dt>
+<dd>
+flag indicating, that the interpreter window
+            should be cleared
+</dd>
+<dt><i>erase</i> (bool)</dt>
+<dd>
+flag indicating that coverage info should be
+            cleared first
+</dd>
+<dt><i>forProject</i> (bool)</dt>
+<dd>
+flag indicating a project related action
+</dd>
+<dt><i>runInConsole</i> (bool)</dt>
+<dd>
+flag indicating to start the debugger in a
+            console window
+</dd>
+<dt><i>clientType</i> (str)</dt>
+<dd>
+client type to be used
+</dd>
+<dt><i>configOverride</i> (dict)</dt>
+<dd>
+dictionary containing the global config override
+            data
+</dd>
+</dl>
+<a NAME="DebugServer.remoteEnvironment" ID="DebugServer.remoteEnvironment"></a>
+<h4>DebugServer.remoteEnvironment</h4>
+<b>remoteEnvironment</b>(<i>env</i>)
+<p>
+        Public method to set the environment for a program to debug, run, ...
+</p>
+
+<dl>
+
+<dt><i>env</i> (str or dict)</dt>
+<dd>
+environment settings
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>TypeError</b>:</dt>
+<dd>
+taised to indicate an unsupported parameter type
+</dd>
+</dl>
+<a NAME="DebugServer.remoteLoad" ID="DebugServer.remoteLoad"></a>
+<h4>DebugServer.remoteLoad</h4>
+<b>remoteLoad</b>(<i>venvName, fn, argv, wd, env, autoClearShell=True, tracePython=False, autoContinue=True, forProject=False, runInConsole=False, clientType="", enableCallTrace=False, enableMultiprocess=False, multiprocessNoDebug="", configOverride=None, reportAllExceptions=False, </i>)
+<p>
+        Public method to load a new program to debug.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to debug
+</dd>
+<dt><i>argv</i> (list of str)</dt>
+<dd>
+list of command line arguments to pass to the program
+</dd>
+<dt><i>wd</i> (str)</dt>
+<dd>
+working directory for the program
+</dd>
+<dt><i>env</i> (str or dict)</dt>
+<dd>
+environment parameter settings
+</dd>
+<dt><i>autoClearShell</i> (bool)</dt>
+<dd>
+flag indicating, that the interpreter window
+            should be cleared
+</dd>
+<dt><i>tracePython</i> (bool)</dt>
+<dd>
+flag indicating if the Python library should be
+            traced as well
+</dd>
+<dt><i>autoContinue</i> (bool)</dt>
+<dd>
+flag indicating, that the debugger should not
+            stop at the first executable line
+</dd>
+<dt><i>forProject</i> (bool)</dt>
+<dd>
+flag indicating a project related action
+</dd>
+<dt><i>runInConsole</i> (bool)</dt>
+<dd>
+flag indicating to start the debugger in a
+            console window
+</dd>
+<dt><i>clientType</i> (str)</dt>
+<dd>
+client type to be used
+</dd>
+<dt><i>enableCallTrace</i> (bool)</dt>
+<dd>
+flag indicating to enable the call trace
+            function
+</dd>
+<dt><i>enableMultiprocess</i> (bool)</dt>
+<dd>
+flag indicating to perform multiprocess
+            debugging
+</dd>
+<dt><i>multiprocessNoDebug</i> (str)</dt>
+<dd>
+space separated list of programs not to be
+            debugged
+</dd>
+<dt><i>configOverride</i> (dict)</dt>
+<dd>
+dictionary containing the global config override
+            data
+</dd>
+<dt><i>reportAllExceptions</i> (bool)</dt>
+<dd>
+flag indicating to report all exceptions
+            instead of unhandled exceptions only
+</dd>
+</dl>
+<a NAME="DebugServer.remoteMoveIP" ID="DebugServer.remoteMoveIP"></a>
+<h4>DebugServer.remoteMoveIP</h4>
+<b>remoteMoveIP</b>(<i>debuggerId, line</i>)
+<p>
+        Public method to move the instruction pointer to a different line.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+new line, where execution should be continued
+</dd>
+</dl>
+<a NAME="DebugServer.remoteProfile" ID="DebugServer.remoteProfile"></a>
+<h4>DebugServer.remoteProfile</h4>
+<b>remoteProfile</b>(<i>venvName, fn, argv, wd, env, autoClearShell=True, erase=False, forProject=False, runInConsole=False, clientType="", configOverride=None, </i>)
+<p>
+        Public method to load a new program to collect profiling data.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to debug
+</dd>
+<dt><i>argv</i> (list of str)</dt>
+<dd>
+list of command line arguments to pass to the program
+</dd>
+<dt><i>wd</i> (str)</dt>
+<dd>
+working directory for the program
+</dd>
+<dt><i>env</i> (str or dict)</dt>
+<dd>
+environment parameter settings
+</dd>
+<dt><i>autoClearShell</i> (bool)</dt>
+<dd>
+flag indicating, that the interpreter window
+            should be cleared
+</dd>
+<dt><i>erase</i> (bool)</dt>
+<dd>
+flag indicating that coverage info should be
+            cleared first
+</dd>
+<dt><i>forProject</i> (bool)</dt>
+<dd>
+flag indicating a project related action
+</dd>
+<dt><i>runInConsole</i> (bool)</dt>
+<dd>
+flag indicating to start the debugger in a
+            console window
+</dd>
+<dt><i>clientType</i> (str)</dt>
+<dd>
+client type to be used
+</dd>
+<dt><i>configOverride</i> (dict)</dt>
+<dd>
+dictionary containing the global config override
+            data
+</dd>
+</dl>
+<a NAME="DebugServer.remoteRawInput" ID="DebugServer.remoteRawInput"></a>
+<h4>DebugServer.remoteRawInput</h4>
+<b>remoteRawInput</b>(<i>debuggerId, inputString</i>)
+<p>
+        Public method to send the raw input to the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>inputString</i> (str)</dt>
+<dd>
+raw input
+</dd>
+</dl>
+<a NAME="DebugServer.remoteRun" ID="DebugServer.remoteRun"></a>
+<h4>DebugServer.remoteRun</h4>
+<b>remoteRun</b>(<i>venvName, fn, argv, wd, env, autoClearShell=True, forProject=False, runInConsole=False, clientType="", configOverride=None, </i>)
+<p>
+        Public method to load a new program to run.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to debug
+</dd>
+<dt><i>argv</i> (list str)</dt>
+<dd>
+list of command line arguments to pass to the program
+</dd>
+<dt><i>wd</i> (str)</dt>
+<dd>
+working directory for the program
+</dd>
+<dt><i>env</i> (str or dict)</dt>
+<dd>
+environment parameter settings
+</dd>
+<dt><i>autoClearShell</i> (bool)</dt>
+<dd>
+flag indicating, that the interpreter window
+            should be cleared
+</dd>
+<dt><i>forProject</i> (bool)</dt>
+<dd>
+flag indicating a project related action
+</dd>
+<dt><i>runInConsole</i> (bool)</dt>
+<dd>
+flag indicating to start the debugger in a
+            console window
+</dd>
+<dt><i>clientType</i> (str)</dt>
+<dd>
+client type to be used
+</dd>
+<dt><i>configOverride</i> (dict)</dt>
+<dd>
+dictionary containing the global config override
+            data
+</dd>
+</dl>
+<a NAME="DebugServer.remoteSetThread" ID="DebugServer.remoteSetThread"></a>
+<h4>DebugServer.remoteSetThread</h4>
+<b>remoteSetThread</b>(<i>debuggerId, tid</i>)
+<p>
+        Public method to request to set the given thread as current thread.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>tid</i> (int)</dt>
+<dd>
+id of the thread
+</dd>
+</dl>
+<a NAME="DebugServer.remoteStatement" ID="DebugServer.remoteStatement"></a>
+<h4>DebugServer.remoteStatement</h4>
+<b>remoteStatement</b>(<i>debuggerId, stmt</i>)
+<p>
+        Public method to execute a Python statement.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>stmt</i> (str)</dt>
+<dd>
+Python statement to execute.
+</dd>
+</dl>
+<a NAME="DebugServer.remoteStep" ID="DebugServer.remoteStep"></a>
+<h4>DebugServer.remoteStep</h4>
+<b>remoteStep</b>(<i>debuggerId</i>)
+<p>
+        Public method to single step the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.remoteStepOut" ID="DebugServer.remoteStepOut"></a>
+<h4>DebugServer.remoteStepOut</h4>
+<b>remoteStepOut</b>(<i>debuggerId</i>)
+<p>
+        Public method to step out the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.remoteStepOver" ID="DebugServer.remoteStepOver"></a>
+<h4>DebugServer.remoteStepOver</h4>
+<b>remoteStepOver</b>(<i>debuggerId</i>)
+<p>
+        Public method to step over the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.remoteStepQuit" ID="DebugServer.remoteStepQuit"></a>
+<h4>DebugServer.remoteStepQuit</h4>
+<b>remoteStepQuit</b>(<i>debuggerId</i>)
+<p>
+        Public method to stop the debugged program.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.remoteThreadList" ID="DebugServer.remoteThreadList"></a>
+<h4>DebugServer.remoteThreadList</h4>
+<b>remoteThreadList</b>(<i>debuggerId</i>)
+<p>
+        Public method to request the list of threads from the client.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.setCallTraceEnabled" ID="DebugServer.setCallTraceEnabled"></a>
+<h4>DebugServer.setCallTraceEnabled</h4>
+<b>setCallTraceEnabled</b>(<i>debuggerId, on</i>)
+<p>
+        Public method to set the call trace state.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating to enable the call trace function
+</dd>
+</dl>
+<a NAME="DebugServer.setDebugging" ID="DebugServer.setDebugging"></a>
+<h4>DebugServer.setDebugging</h4>
+<b>setDebugging</b>(<i>on</i>)
+<p>
+        Public method to set the debugging state.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the new debugging state
+</dd>
+</dl>
+<a NAME="DebugServer.shutdownServer" ID="DebugServer.shutdownServer"></a>
+<h4>DebugServer.shutdownServer</h4>
+<b>shutdownServer</b>(<i></i>)
+<p>
+        Public method to cleanly shut down.
+</p>
+<p>
+        It closes our socket and shuts down
+        the debug client. (Needed on Win OS)
+</p>
+
+<a NAME="DebugServer.signalClientBanner" ID="DebugServer.signalClientBanner"></a>
+<h4>DebugServer.signalClientBanner</h4>
+<b>signalClientBanner</b>(<i>version, platform, venvName</i>)
+<p>
+        Public method to process the client banner info.
+</p>
+
+<dl>
+
+<dt><i>version</i> (str)</dt>
+<dd>
+interpreter version info
+</dd>
+<dt><i>platform</i> (str)</dt>
+<dd>
+hostname of the client
+</dd>
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientBreakConditionError" ID="DebugServer.signalClientBreakConditionError"></a>
+<h4>DebugServer.signalClientBreakConditionError</h4>
+<b>signalClientBreakConditionError</b>(<i>filename, lineno, debuggerId</i>)
+<p>
+        Public method to process the client breakpoint condition error info.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+filename of the breakpoint
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line umber of the breakpoint
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientCallTrace" ID="DebugServer.signalClientCallTrace"></a>
+<h4>DebugServer.signalClientCallTrace</h4>
+<b>signalClientCallTrace</b>(<i>isCall, fromFile, fromLine, fromFunction, toFile, toLine, toFunction, debuggerId, </i>)
+<p>
+        Public method to process the client call trace data.
+</p>
+
+<dl>
+
+<dt><i>isCall</i> (bool)</dt>
+<dd>
+flag indicating a 'call'
+</dd>
+<dt><i>fromFile</i> (str)</dt>
+<dd>
+name of the originating file
+</dd>
+<dt><i>fromLine</i> (str)</dt>
+<dd>
+line number in the originating file
+</dd>
+<dt><i>fromFunction</i> (str)</dt>
+<dd>
+name of the originating function
+</dd>
+<dt><i>toFile</i> (str)</dt>
+<dd>
+name of the target file
+</dd>
+<dt><i>toLine</i> (str)</dt>
+<dd>
+line number in the target file
+</dd>
+<dt><i>toFunction</i> (str)</dt>
+<dd>
+name of the target function
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientCapabilities" ID="DebugServer.signalClientCapabilities"></a>
+<h4>DebugServer.signalClientCapabilities</h4>
+<b>signalClientCapabilities</b>(<i>capabilities, clientType, venvName</i>)
+<p>
+        Public method to process the client capabilities info.
+</p>
+
+<dl>
+
+<dt><i>capabilities</i> (int)</dt>
+<dd>
+bitmaks with the client capabilities
+</dd>
+<dt><i>clientType</i> (str)</dt>
+<dd>
+type of the debug client
+</dd>
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientClearBreak" ID="DebugServer.signalClientClearBreak"></a>
+<h4>DebugServer.signalClientClearBreak</h4>
+<b>signalClientClearBreak</b>(<i>filename, lineno, debuggerId</i>)
+<p>
+        Public method to process the client clear breakpoint command.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+filename of the breakpoint
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line umber of the breakpoint
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientClearWatch" ID="DebugServer.signalClientClearWatch"></a>
+<h4>DebugServer.signalClientClearWatch</h4>
+<b>signalClientClearWatch</b>(<i>condition, debuggerId</i>)
+<p>
+        Public slot to handle the clientClearWatch signal.
+</p>
+
+<dl>
+
+<dt><i>condition</i> (str)</dt>
+<dd>
+expression of watch expression to clear
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientCompletionList" ID="DebugServer.signalClientCompletionList"></a>
+<h4>DebugServer.signalClientCompletionList</h4>
+<b>signalClientCompletionList</b>(<i>completionList, text, _debuggerId</i>)
+<p>
+        Public method to process the client auto completion info.
+</p>
+
+<dl>
+
+<dt><i>completionList</i> (list of str)</dt>
+<dd>
+list of possible completions
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+the text to be completed
+</dd>
+<dt><i>_debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend (unused)
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientDebuggerId" ID="DebugServer.signalClientDebuggerId"></a>
+<h4>DebugServer.signalClientDebuggerId</h4>
+<b>signalClientDebuggerId</b>(<i>debuggerId</i>)
+<p>
+        Public method to signal the receipt of a new debugger ID.
+</p>
+<p>
+        This signal indicates, that a new debugger backend has connected.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the newly connected debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientDisassembly" ID="DebugServer.signalClientDisassembly"></a>
+<h4>DebugServer.signalClientDisassembly</h4>
+<b>signalClientDisassembly</b>(<i>disassembly, debuggerId</i>)
+<p>
+        Public method to process the disassembly info from the client.
+</p>
+
+<dl>
+
+<dt><i>disassembly</i> (dict)</dt>
+<dd>
+dictionary containing the disassembly information
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientDisconnected" ID="DebugServer.signalClientDisconnected"></a>
+<h4>DebugServer.signalClientDisconnected</h4>
+<b>signalClientDisconnected</b>(<i>debuggerId</i>)
+<p>
+        Public method to send a signal when a debug client has closed its
+        connection.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientException" ID="DebugServer.signalClientException"></a>
+<h4>DebugServer.signalClientException</h4>
+<b>signalClientException</b>(<i>exceptionType, exceptionMessage, stackTrace, debuggerId, threadName=""</i>)
+<p>
+        Public method to process the exception info from the client.
+</p>
+
+<dl>
+
+<dt><i>exceptionType</i> (str)</dt>
+<dd>
+type of exception raised
+</dd>
+<dt><i>exceptionMessage</i> (str)</dt>
+<dd>
+message given by the exception
+</dd>
+<dt><i>stackTrace</i> (list)</dt>
+<dd>
+list of stack entries with the exception position
+            first. Each stack entry is a list giving the filename and the
+            linenumber.
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread signaling the event
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientExit" ID="DebugServer.signalClientExit"></a>
+<h4>DebugServer.signalClientExit</h4>
+<b>signalClientExit</b>(<i>program, status, message, debuggerId</i>)
+<p>
+        Public method to process the client exit status.
+</p>
+
+<dl>
+
+<dt><i>program</i> (str)</dt>
+<dd>
+name of the exited program
+</dd>
+<dt><i>status</i> (int)</dt>
+<dd>
+exit code
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message sent with the exit
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientLine" ID="DebugServer.signalClientLine"></a>
+<h4>DebugServer.signalClientLine</h4>
+<b>signalClientLine</b>(<i>filename, lineno, debuggerId, forStack=False, threadName=""</i>)
+<p>
+        Public method to process client position feedback.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file currently being executed
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line of code currently being executed
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>forStack</i> (bool)</dt>
+<dd>
+flag indicating this is for a stack dump
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread signaling the event
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientOutput" ID="DebugServer.signalClientOutput"></a>
+<h4>DebugServer.signalClientOutput</h4>
+<b>signalClientOutput</b>(<i>line, debuggerId</i>)
+<p>
+        Public method to process a line of client output.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+client output
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientRawInput" ID="DebugServer.signalClientRawInput"></a>
+<h4>DebugServer.signalClientRawInput</h4>
+<b>signalClientRawInput</b>(<i>prompt, echo, debuggerId</i>)
+<p>
+        Public method to process the client raw input command.
+</p>
+
+<dl>
+
+<dt><i>prompt</i> (str)</dt>
+<dd>
+the input prompt
+</dd>
+<dt><i>echo</i> (bool)</dt>
+<dd>
+flag indicating an echoing of the input
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientSignal" ID="DebugServer.signalClientSignal"></a>
+<h4>DebugServer.signalClientSignal</h4>
+<b>signalClientSignal</b>(<i>message, filename, lineNo, funcName, funcArgs, debuggerId</i>)
+<p>
+        Public method to process a signal generated on the client side.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message of the syntax error
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+translated filename of the syntax error position
+</dd>
+<dt><i>lineNo</i> (int)</dt>
+<dd>
+line number of the syntax error position
+</dd>
+<dt><i>funcName</i> (str)</dt>
+<dd>
+name of the function causing the signal
+</dd>
+<dt><i>funcArgs</i> (str)</dt>
+<dd>
+function arguments
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientStack" ID="DebugServer.signalClientStack"></a>
+<h4>DebugServer.signalClientStack</h4>
+<b>signalClientStack</b>(<i>stack, debuggerId, threadName=""</i>)
+<p>
+        Public method to process a client's stack information.
+</p>
+
+<dl>
+
+<dt><i>stack</i> (list of lists of (string, integer, string))</dt>
+<dd>
+list of stack entries. Each entry is a tuple of three
+            values giving the filename, linenumber and method
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread signaling the event
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientStatement" ID="DebugServer.signalClientStatement"></a>
+<h4>DebugServer.signalClientStatement</h4>
+<b>signalClientStatement</b>(<i>more, debuggerId</i>)
+<p>
+        Public method to process the input response from the client.
+</p>
+
+<dl>
+
+<dt><i>more</i> (bool)</dt>
+<dd>
+flag indicating that more user input is required
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientSyntaxError" ID="DebugServer.signalClientSyntaxError"></a>
+<h4>DebugServer.signalClientSyntaxError</h4>
+<b>signalClientSyntaxError</b>(<i>message, filename, lineNo, characterNo, debuggerId, threadName=""</i>)
+<p>
+        Public method to process a syntax error info from the client.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message of the syntax error
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+translated filename of the syntax error position
+</dd>
+<dt><i>lineNo</i> (int)</dt>
+<dd>
+line number of the syntax error position
+</dd>
+<dt><i>characterNo</i> (int)</dt>
+<dd>
+character number of the syntax error position
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread signaling the event
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientThreadList" ID="DebugServer.signalClientThreadList"></a>
+<h4>DebugServer.signalClientThreadList</h4>
+<b>signalClientThreadList</b>(<i>currentId, threadList, debuggerId</i>)
+<p>
+        Public method to process the client thread list info.
+</p>
+
+<dl>
+
+<dt><i>currentId</i> (int)</dt>
+<dd>
+id of the current thread
+</dd>
+<dt><i>threadList</i> (list of dict)</dt>
+<dd>
+list of dictionaries containing the thread data
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientThreadSet" ID="DebugServer.signalClientThreadSet"></a>
+<h4>DebugServer.signalClientThreadSet</h4>
+<b>signalClientThreadSet</b>(<i>debuggerId</i>)
+<p>
+        Public method to handle the change of the client thread.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientVariable" ID="DebugServer.signalClientVariable"></a>
+<h4>DebugServer.signalClientVariable</h4>
+<b>signalClientVariable</b>(<i>scope, variables, debuggerId</i>)
+<p>
+        Public method to process the client variable info.
+</p>
+
+<dl>
+
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables (-1 = empty global, 1 = global,
+            0 = local)
+</dd>
+<dt><i>variables</i> (list)</dt>
+<dd>
+the list of members of a classvariable from the client
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientVariables" ID="DebugServer.signalClientVariables"></a>
+<h4>DebugServer.signalClientVariables</h4>
+<b>signalClientVariables</b>(<i>scope, variables, debuggerId</i>)
+<p>
+        Public method to process the client variables info.
+</p>
+
+<dl>
+
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables
+            (-2 = no frame found, -1 = empty locals, 1 = global, 0 = local)
+</dd>
+<dt><i>variables</i> (list)</dt>
+<dd>
+the list of variables from the client
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalClientWatchConditionError" ID="DebugServer.signalClientWatchConditionError"></a>
+<h4>DebugServer.signalClientWatchConditionError</h4>
+<b>signalClientWatchConditionError</b>(<i>condition, debuggerId</i>)
+<p>
+        Public method to process the client watch expression error info.
+</p>
+
+<dl>
+
+<dt><i>condition</i> (str)</dt>
+<dd>
+expression of watch expression to clear
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugServer.signalLastClientExited" ID="DebugServer.signalLastClientExited"></a>
+<h4>DebugServer.signalLastClientExited</h4>
+<b>signalLastClientExited</b>(<i></i>)
+<p>
+        Public method to process the last client exit event.
+</p>
+
+<a NAME="DebugServer.signalMainClientExit" ID="DebugServer.signalMainClientExit"></a>
+<h4>DebugServer.signalMainClientExit</h4>
+<b>signalMainClientExit</b>(<i></i>)
+<p>
+        Public method to process the main client exiting.
+</p>
+
+<a NAME="DebugServer.startClient" ID="DebugServer.startClient"></a>
+<h4>DebugServer.startClient</h4>
+<b>startClient</b>(<i>unplanned=True, clType=None, forProject=False, runInConsole=False, venvName="", workingDir="", configOverride=None, startViaServer=None, </i>)
+<p>
+        Public method to start a debug client.
+</p>
+
+<dl>
+
+<dt><i>unplanned</i> (bool (optional))</dt>
+<dd>
+flag indicating that the client has died (defaults to True)
+</dd>
+<dt><i>clType</i> (str (optional))</dt>
+<dd>
+type of client to be started (defaults to None)
+</dd>
+<dt><i>forProject</i> (bool (optional))</dt>
+<dd>
+flag indicating a project related action (defaults to False)
+</dd>
+<dt><i>runInConsole</i> (bool (optional))</dt>
+<dd>
+flag indicating to start the debugger in a
+            console window (defaults to False)
+</dd>
+<dt><i>venvName</i> (str (optional))</dt>
+<dd>
+name of the virtual environment to be used (defaults to "")
+</dd>
+<dt><i>workingDir</i> (str (optional))</dt>
+<dd>
+directory to start the debugger client in (defaults to "")
+</dd>
+<dt><i>configOverride</i> (dict (optional))</dt>
+<dd>
+dictionary containing the global config override data
+            (defaults to None)
+</dd>
+<dt><i>startViaServer</i> (bool (optional))</dt>
+<dd>
+flag indicating to start the client via an eric-ide server
+            (defaults to None)
+</dd>
+</dl>
+<a NAME="DebugServer.unregisterDebuggerInterface" ID="DebugServer.unregisterDebuggerInterface"></a>
+<h4>DebugServer.unregisterDebuggerInterface</h4>
+<b>unregisterDebuggerInterface</b>(<i>interfaceName</i>)
+<p>
+        Public method to unregister a debugger interface.
+</p>
+
+<dl>
+
+<dt><i>interfaceName</i> (str)</dt>
+<dd>
+interfaceName of the debugger interface
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

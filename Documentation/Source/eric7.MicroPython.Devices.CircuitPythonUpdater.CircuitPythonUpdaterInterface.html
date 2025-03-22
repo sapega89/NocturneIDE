@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.Devices.CircuitPythonUpdater.CircuitPythonUpdaterInterface</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.Devices.CircuitPythonUpdater.CircuitPythonUpdaterInterface</h1>
+<p>
+Module implementing an interface to the 'circup' package.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>circup</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface">CircuitPythonUpdaterInterface</a></td>
+<td>Class implementing an interface to the 'circup' package.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#isCircupAvailable">isCircupAvailable</a></td>
+<td>Function to check for the availability of 'circup'.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CircuitPythonUpdaterInterface" ID="CircuitPythonUpdaterInterface"></a>
+<h2>CircuitPythonUpdaterInterface</h2>
+<p>
+    Class implementing an interface to the 'circup' package.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__init__">CircuitPythonUpdaterInterface</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__aboutCircup">__aboutCircup</a></td>
+<td>Private slot to show some info about 'circup'.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__addBundle">__addBundle</a></td>
+<td>Private slot to add a bundle to the local bundles list, by "user/repo" github string.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__doUpdateModules">__doUpdateModules</a></td>
+<td>Private method to perform the update of a list of modules.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__generateRequirements">__generateRequirements</a></td>
+<td>Private slot to generate requirements for the connected device.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__installFromAvailable">__installFromAvailable</a></td>
+<td>Private slot to install modules onto the connected device.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__installFromCode">__installFromCode</a></td>
+<td>Private slot to install modules based on the 'code.py' file of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__installModules">__installModules</a></td>
+<td>Private method to install the given list of modules.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__installRequirements">__installRequirements</a></td>
+<td>Private slot to install modules determined by a requirements file.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__listOutdatedModules">__listOutdatedModules</a></td>
+<td>Private slot to list the outdated modules of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__removeBundle">__removeBundle</a></td>
+<td>Private slot to remove one or more bundles from the local bundles list.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__showAvailableModules">__showAvailableModules</a></td>
+<td>Private slot to show the available modules.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__showBundles">__showBundles</a></td>
+<td>Private slot to show the available bundles (default and local).</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__showBundlesModules">__showBundlesModules</a></td>
+<td>Private slot to show the available bundles (default and local) with their modules.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__showCachePath">__showCachePath</a></td>
+<td>Private slot to show the path used by 'circup' to store the downloaded bundles.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__showInstalledModules">__showInstalledModules</a></td>
+<td>Private slot to show the modules installed on the connected device.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__uninstallModules">__uninstallModules</a></td>
+<td>Private slot to uninstall modules from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__updateAllModules">__updateAllModules</a></td>
+<td>Private slot to update all modules of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.__updateModules">__updateModules</a></td>
+<td>Private slot to update the modules of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.installCircup">installCircup</a></td>
+<td>Public slot to install the 'circup' package via pip.</td>
+</tr>
+<tr>
+<td><a href="#CircuitPythonUpdaterInterface.populateMenu">populateMenu</a></td>
+<td>Public method to populate the 'circup' menu.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CircuitPythonUpdaterInterface.__init__" ID="CircuitPythonUpdaterInterface.__init__"></a>
+<h4>CircuitPythonUpdaterInterface (Constructor)</h4>
+<b>CircuitPythonUpdaterInterface</b>(<i>device, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>device</i> (CircuitPythonDevice)</dt>
+<dd>
+reference to the CircuitPython device interface
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="CircuitPythonUpdaterInterface.__aboutCircup" ID="CircuitPythonUpdaterInterface.__aboutCircup"></a>
+<h4>CircuitPythonUpdaterInterface.__aboutCircup</h4>
+<b>__aboutCircup</b>(<i></i>)
+<p>
+        Private slot to show some info about 'circup'.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__addBundle" ID="CircuitPythonUpdaterInterface.__addBundle"></a>
+<h4>CircuitPythonUpdaterInterface.__addBundle</h4>
+<b>__addBundle</b>(<i></i>)
+<p>
+        Private slot to add a bundle to the local bundles list, by "user/repo" github
+        string.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__doUpdateModules" ID="CircuitPythonUpdaterInterface.__doUpdateModules"></a>
+<h4>CircuitPythonUpdaterInterface.__doUpdateModules</h4>
+<b>__doUpdateModules</b>(<i>modules</i>)
+<p>
+        Private method to perform the update of a list of modules.
+</p>
+
+<dl>
+
+<dt><i>modules</i> (circup.module.Module)</dt>
+<dd>
+list of modules to be updated
+</dd>
+</dl>
+<a NAME="CircuitPythonUpdaterInterface.__generateRequirements" ID="CircuitPythonUpdaterInterface.__generateRequirements"></a>
+<h4>CircuitPythonUpdaterInterface.__generateRequirements</h4>
+<b>__generateRequirements</b>(<i></i>)
+<p>
+        Private slot to generate requirements for the connected device.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__installFromAvailable" ID="CircuitPythonUpdaterInterface.__installFromAvailable"></a>
+<h4>CircuitPythonUpdaterInterface.__installFromAvailable</h4>
+<b>__installFromAvailable</b>(<i></i>)
+<p>
+        Private slot to install modules onto the connected device.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__installFromCode" ID="CircuitPythonUpdaterInterface.__installFromCode"></a>
+<h4>CircuitPythonUpdaterInterface.__installFromCode</h4>
+<b>__installFromCode</b>(<i></i>)
+<p>
+        Private slot to install modules based on the 'code.py' file of the
+        connected device.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__installModules" ID="CircuitPythonUpdaterInterface.__installModules"></a>
+<h4>CircuitPythonUpdaterInterface.__installModules</h4>
+<b>__installModules</b>(<i>installs</i>)
+<p>
+        Private method to install the given list of modules.
+</p>
+
+<dl>
+
+<dt><i>installs</i> (list of str)</dt>
+<dd>
+list of module names to be installed
+</dd>
+</dl>
+<a NAME="CircuitPythonUpdaterInterface.__installRequirements" ID="CircuitPythonUpdaterInterface.__installRequirements"></a>
+<h4>CircuitPythonUpdaterInterface.__installRequirements</h4>
+<b>__installRequirements</b>(<i></i>)
+<p>
+        Private slot to install modules determined by a requirements file.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__listOutdatedModules" ID="CircuitPythonUpdaterInterface.__listOutdatedModules"></a>
+<h4>CircuitPythonUpdaterInterface.__listOutdatedModules</h4>
+<b>__listOutdatedModules</b>(<i></i>)
+<p>
+        Private slot to list the outdated modules of the connected device.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__removeBundle" ID="CircuitPythonUpdaterInterface.__removeBundle"></a>
+<h4>CircuitPythonUpdaterInterface.__removeBundle</h4>
+<b>__removeBundle</b>(<i></i>)
+<p>
+        Private slot to remove one or more bundles from the local bundles list.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__showAvailableModules" ID="CircuitPythonUpdaterInterface.__showAvailableModules"></a>
+<h4>CircuitPythonUpdaterInterface.__showAvailableModules</h4>
+<b>__showAvailableModules</b>(<i></i>)
+<p>
+        Private slot to show the available modules.
+</p>
+<p>
+        These are modules which could be installed on the device.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__showBundles" ID="CircuitPythonUpdaterInterface.__showBundles"></a>
+<h4>CircuitPythonUpdaterInterface.__showBundles</h4>
+<b>__showBundles</b>(<i>withModules=False</i>)
+<p>
+        Private slot to show the available bundles (default and local).
+</p>
+
+<dl>
+
+<dt><i>withModules</i> (bool (optional))</dt>
+<dd>
+flag indicating to list the modules and their version
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="CircuitPythonUpdaterInterface.__showBundlesModules" ID="CircuitPythonUpdaterInterface.__showBundlesModules"></a>
+<h4>CircuitPythonUpdaterInterface.__showBundlesModules</h4>
+<b>__showBundlesModules</b>(<i></i>)
+<p>
+        Private slot to show the available bundles (default and local) with their
+        modules.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__showCachePath" ID="CircuitPythonUpdaterInterface.__showCachePath"></a>
+<h4>CircuitPythonUpdaterInterface.__showCachePath</h4>
+<b>__showCachePath</b>(<i></i>)
+<p>
+        Private slot to show the path used by 'circup' to store the downloaded bundles.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__showInstalledModules" ID="CircuitPythonUpdaterInterface.__showInstalledModules"></a>
+<h4>CircuitPythonUpdaterInterface.__showInstalledModules</h4>
+<b>__showInstalledModules</b>(<i></i>)
+<p>
+        Private slot to show the modules installed on the connected device.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__uninstallModules" ID="CircuitPythonUpdaterInterface.__uninstallModules"></a>
+<h4>CircuitPythonUpdaterInterface.__uninstallModules</h4>
+<b>__uninstallModules</b>(<i></i>)
+<p>
+        Private slot to uninstall modules from the connected device.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__updateAllModules" ID="CircuitPythonUpdaterInterface.__updateAllModules"></a>
+<h4>CircuitPythonUpdaterInterface.__updateAllModules</h4>
+<b>__updateAllModules</b>(<i></i>)
+<p>
+        Private slot to update all modules of the connected device.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.__updateModules" ID="CircuitPythonUpdaterInterface.__updateModules"></a>
+<h4>CircuitPythonUpdaterInterface.__updateModules</h4>
+<b>__updateModules</b>(<i></i>)
+<p>
+        Private slot to update the modules of the connected device.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.installCircup" ID="CircuitPythonUpdaterInterface.installCircup"></a>
+<h4>CircuitPythonUpdaterInterface.installCircup</h4>
+<b>installCircup</b>(<i></i>)
+<p>
+        Public slot to install the 'circup' package via pip.
+</p>
+
+<a NAME="CircuitPythonUpdaterInterface.populateMenu" ID="CircuitPythonUpdaterInterface.populateMenu"></a>
+<h4>CircuitPythonUpdaterInterface.populateMenu</h4>
+<b>populateMenu</b>(<i>menu</i>)
+<p>
+        Public method to populate the 'circup' menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isCircupAvailable" ID="isCircupAvailable"></a>
+<h2>isCircupAvailable</h2>
+<b>isCircupAvailable</b>(<i></i>)
+<p>
+    Function to check for the availability of 'circup'.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of 'circup'
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

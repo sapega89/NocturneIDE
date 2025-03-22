@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonWebreplDeviceInterface</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonWebreplDeviceInterface</h1>
+<p>
+Module  implementing an interface to talk to a connected MicroPython device via
+a webrepl connection.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface">MicroPythonWebreplDeviceInterface</a></td>
+<td>Class implementing an interface to talk to a connected MicroPython device via a webrepl connection.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicroPythonWebreplDeviceInterface" ID="MicroPythonWebreplDeviceInterface"></a>
+<h2>MicroPythonWebreplDeviceInterface</h2>
+<p>
+    Class implementing an interface to talk to a connected MicroPython device via
+    a webrepl connection.
+</p>
+
+<h3>Derived from</h3>
+MicroPythonDeviceInterface
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.__init__">MicroPythonWebreplDeviceInterface</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.__pasteOff">__pasteOff</a></td>
+<td>Private method to switch 'paste' mode off.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.__pasteOn">__pasteOn</a></td>
+<td>Private method to switch the connected device to 'paste' mode.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.__readAll">__readAll</a></td>
+<td>Private method to read all data and emit it for further processing.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.__readSocket">__readSocket</a></td>
+<td>Private slot to read all available data and emit it with the "dataReceived" signal for further processing.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.connectToDevice">connectToDevice</a></td>
+<td>Public method to connect to the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.disconnectFromDevice">disconnectFromDevice</a></td>
+<td>Public slot to disconnect from the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.execute">execute</a></td>
+<td>Public method to send commands to the connected device and return the result.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.executeAsync">executeAsync</a></td>
+<td>Public method to execute a series of commands over a period of time without returning any result (asynchronous execution).</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot to handle a change of the preferences.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.isConnected">isConnected</a></td>
+<td>Public method to get the connection status.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.probeDevice">probeDevice</a></td>
+<td>Public method to check the device is responding.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplDeviceInterface.write">write</a></td>
+<td>Public method to write data to the connected device.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonWebreplDeviceInterface.__init__" ID="MicroPythonWebreplDeviceInterface.__init__"></a>
+<h4>MicroPythonWebreplDeviceInterface (Constructor)</h4>
+<b>MicroPythonWebreplDeviceInterface</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplDeviceInterface.__pasteOff" ID="MicroPythonWebreplDeviceInterface.__pasteOff"></a>
+<h4>MicroPythonWebreplDeviceInterface.__pasteOff</h4>
+<b>__pasteOff</b>(<i></i>)
+<p>
+        Private method to switch 'paste' mode off.
+</p>
+
+<a NAME="MicroPythonWebreplDeviceInterface.__pasteOn" ID="MicroPythonWebreplDeviceInterface.__pasteOn"></a>
+<h4>MicroPythonWebreplDeviceInterface.__pasteOn</h4>
+<b>__pasteOn</b>(<i></i>)
+<p>
+        Private method to switch the connected device to 'paste' mode.
+</p>
+<p>
+        Note: switching to paste mode is done with synchronous writes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplDeviceInterface.__readAll" ID="MicroPythonWebreplDeviceInterface.__readAll"></a>
+<h4>MicroPythonWebreplDeviceInterface.__readAll</h4>
+<b>__readAll</b>(<i></i>)
+<p>
+        Private method to read all data and emit it for further processing.
+</p>
+
+<a NAME="MicroPythonWebreplDeviceInterface.__readSocket" ID="MicroPythonWebreplDeviceInterface.__readSocket"></a>
+<h4>MicroPythonWebreplDeviceInterface.__readSocket</h4>
+<b>__readSocket</b>(<i></i>)
+<p>
+        Private slot to read all available data and emit it with the
+        "dataReceived" signal for further processing.
+</p>
+
+<a NAME="MicroPythonWebreplDeviceInterface.connectToDevice" ID="MicroPythonWebreplDeviceInterface.connectToDevice"></a>
+<h4>MicroPythonWebreplDeviceInterface.connectToDevice</h4>
+<b>connectToDevice</b>(<i>connection</i>)
+<p>
+        Public method to connect to the device.
+</p>
+
+<dl>
+
+<dt><i>connection</i> (str)</dt>
+<dd>
+name of the connection to be used in the form of an URL string
+            (ws://password@host:port)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplDeviceInterface.disconnectFromDevice" ID="MicroPythonWebreplDeviceInterface.disconnectFromDevice"></a>
+<h4>MicroPythonWebreplDeviceInterface.disconnectFromDevice</h4>
+<b>disconnectFromDevice</b>(<i></i>)
+<p>
+        Public slot to disconnect from the device.
+</p>
+
+<a NAME="MicroPythonWebreplDeviceInterface.execute" ID="MicroPythonWebreplDeviceInterface.execute"></a>
+<h4>MicroPythonWebreplDeviceInterface.execute</h4>
+<b>execute</b>(<i>commands, *, mode="raw", timeout=0</i>)
+<p>
+        Public method to send commands to the connected device and return the
+        result.
+</p>
+
+<dl>
+
+<dt><i>commands</i> (str or list of str)</dt>
+<dd>
+list of commands to be executed
+</dd>
+<dt><i>mode=</i> (str)</dt>
+<dd>
+submit mode to be used (one of 'raw' or 'paste') (defaults to
+            'raw'). This is ignored because webrepl always uses 'paste' mode. (unused)
+</dd>
+<dt><i>timeout=</i> (int (optional))</dt>
+<dd>
+per command timeout in milliseconds (0 for configured default)
+            (defaults to 0)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing stdout and stderr output of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bytes, bytes)
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplDeviceInterface.executeAsync" ID="MicroPythonWebreplDeviceInterface.executeAsync"></a>
+<h4>MicroPythonWebreplDeviceInterface.executeAsync</h4>
+<b>executeAsync</b>(<i>commandsList, _submitMode</i>)
+<p>
+        Public method to execute a series of commands over a period of time
+        without returning any result (asynchronous execution).
+</p>
+
+<dl>
+
+<dt><i>commandsList</i> (list of str)</dt>
+<dd>
+list of commands to be execute on the device
+</dd>
+<dt><i>_submitMode</i> (str (one of 'raw' or 'paste'))</dt>
+<dd>
+mode to be used to submit the commands (unused)
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplDeviceInterface.handlePreferencesChanged" ID="MicroPythonWebreplDeviceInterface.handlePreferencesChanged"></a>
+<h4>MicroPythonWebreplDeviceInterface.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of the preferences.
+</p>
+
+<a NAME="MicroPythonWebreplDeviceInterface.isConnected" ID="MicroPythonWebreplDeviceInterface.isConnected"></a>
+<h4>MicroPythonWebreplDeviceInterface.isConnected</h4>
+<b>isConnected</b>(<i></i>)
+<p>
+        Public method to get the connection status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the connection status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplDeviceInterface.probeDevice" ID="MicroPythonWebreplDeviceInterface.probeDevice"></a>
+<h4>MicroPythonWebreplDeviceInterface.probeDevice</h4>
+<b>probeDevice</b>(<i></i>)
+<p>
+        Public method to check the device is responding.
+</p>
+<p>
+        If the device has not been flashed with a MicroPython firmware, the
+        probe will fail.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a communicating MicroPython device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplDeviceInterface.write" ID="MicroPythonWebreplDeviceInterface.write"></a>
+<h4>MicroPythonWebreplDeviceInterface.write</h4>
+<b>write</b>(<i>data</i>)
+<p>
+        Public method to write data to the connected device.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytes or bytearray)</dt>
+<dd>
+data to be written
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

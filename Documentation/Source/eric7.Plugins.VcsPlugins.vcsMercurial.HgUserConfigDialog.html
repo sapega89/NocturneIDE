@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.HgUserConfigDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.HgUserConfigDialog</h1>
+<p>
+Module implementing a dialog to enter some user data.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgUserConfigDialog">HgUserConfigDialog</a></td>
+<td>Class implementing a dialog to enter some user data.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgUserConfigDialog" ID="HgUserConfigDialog"></a>
+<h2>HgUserConfigDialog</h2>
+<p>
+    Class implementing a dialog to enter some user data.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_HgUserConfigDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgUserConfigDialog.__init__">HgUserConfigDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.__assembleFingerprints">__assembleFingerprints</a></td>
+<td>Private method to assemble a list of host fingerprints.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.__assembleMinimumProtocols">__assembleMinimumProtocols</a></td>
+<td>Private method to assemble a list of host minimum protocols.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.__clearDialog">__clearDialog</a></td>
+<td>Private method to clear the data of the dialog.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.__clearFingerprints">__clearFingerprints</a></td>
+<td>Private method to clear the fingerprints from the hostsecurity section.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.__clearMinimumProtocols">__clearMinimumProtocols</a></td>
+<td>Private method to clear the minimum protocols from the hostsecurity section.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.__finalizeFingerprintsColumns">__finalizeFingerprintsColumns</a></td>
+<td>Private method to resize and sort the host fingerprints columns.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.__finalizeProtocolsColumns">__finalizeProtocolsColumns</a></td>
+<td>Private method to resize and sort the host fingerprints columns.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.__updateFingerprintsButtons">__updateFingerprintsButtons</a></td>
+<td>Private slot to update the host fingerprints edit buttons.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.__updateProtocolsButtons">__updateProtocolsButtons</a></td>
+<td>Private slot to update the host minimum protocol edit buttons.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.accept">accept</a></td>
+<td>Public slot to accept the dialog.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.eventFilter">eventFilter</a></td>
+<td>Public method called to filter the event queue.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.on_editorButton_clicked">on_editorButton_clicked</a></td>
+<td>Private slot to open the user configuration file in a text editor.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.on_fingerprintsList_currentItemChanged">on_fingerprintsList_currentItemChanged</a></td>
+<td>Private slot handling a change of the current fingerprints item.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.on_fpAddButton_clicked">on_fpAddButton_clicked</a></td>
+<td>Private slot to add a fingerprints entry.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.on_fpDeleteButton_clicked">on_fpDeleteButton_clicked</a></td>
+<td>Private slot to delete the current fingerprints item.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.on_fpEditButton_clicked">on_fpEditButton_clicked</a></td>
+<td>Private slot to edit the current fingerprints item.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.on_protocolAddButton_clicked">on_protocolAddButton_clicked</a></td>
+<td>Private slot to add a minimum protocol entry.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.on_protocolDeleteButton_clicked">on_protocolDeleteButton_clicked</a></td>
+<td>Private slot to delete the current minimum protocol item.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.on_protocolEditButton_clicked">on_protocolEditButton_clicked</a></td>
+<td>Private slot to edit the current minimum protocol item.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.on_protocolsList_currentItemChanged">on_protocolsList_currentItemChanged</a></td>
+<td>Private slot handling a change of the current minimum protocol item.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.readUserConfig">readUserConfig</a></td>
+<td>Public method to read the user configuration file.</td>
+</tr>
+<tr>
+<td><a href="#HgUserConfigDialog.writeUserConfig">writeUserConfig</a></td>
+<td>Public method to write the user configuration file.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgUserConfigDialog.__init__" ID="HgUserConfigDialog.__init__"></a>
+<h4>HgUserConfigDialog (Constructor)</h4>
+<b>HgUserConfigDialog</b>(<i>version=(0, 0, 0), parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>version</i> (tuple of three integers)</dt>
+<dd>
+Mercurial version info
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="HgUserConfigDialog.__assembleFingerprints" ID="HgUserConfigDialog.__assembleFingerprints"></a>
+<h4>HgUserConfigDialog.__assembleFingerprints</h4>
+<b>__assembleFingerprints</b>(<i></i>)
+<p>
+        Private method to assemble a list of host fingerprints.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with list of fingerprints per host
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict with str as key and list of str as value
+</dd>
+</dl>
+<a NAME="HgUserConfigDialog.__assembleMinimumProtocols" ID="HgUserConfigDialog.__assembleMinimumProtocols"></a>
+<h4>HgUserConfigDialog.__assembleMinimumProtocols</h4>
+<b>__assembleMinimumProtocols</b>(<i></i>)
+<p>
+        Private method to assemble a list of host minimum protocols.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with list of minimum protocol per host
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict with str as key and str as value
+</dd>
+</dl>
+<a NAME="HgUserConfigDialog.__clearDialog" ID="HgUserConfigDialog.__clearDialog"></a>
+<h4>HgUserConfigDialog.__clearDialog</h4>
+<b>__clearDialog</b>(<i></i>)
+<p>
+        Private method to clear the data of the dialog.
+</p>
+
+<a NAME="HgUserConfigDialog.__clearFingerprints" ID="HgUserConfigDialog.__clearFingerprints"></a>
+<h4>HgUserConfigDialog.__clearFingerprints</h4>
+<b>__clearFingerprints</b>(<i></i>)
+<p>
+        Private method to clear the fingerprints from the hostsecurity section.
+</p>
+
+<a NAME="HgUserConfigDialog.__clearMinimumProtocols" ID="HgUserConfigDialog.__clearMinimumProtocols"></a>
+<h4>HgUserConfigDialog.__clearMinimumProtocols</h4>
+<b>__clearMinimumProtocols</b>(<i></i>)
+<p>
+        Private method to clear the minimum protocols from the hostsecurity
+        section.
+</p>
+
+<a NAME="HgUserConfigDialog.__finalizeFingerprintsColumns" ID="HgUserConfigDialog.__finalizeFingerprintsColumns"></a>
+<h4>HgUserConfigDialog.__finalizeFingerprintsColumns</h4>
+<b>__finalizeFingerprintsColumns</b>(<i></i>)
+<p>
+        Private method to resize and sort the host fingerprints columns.
+</p>
+
+<a NAME="HgUserConfigDialog.__finalizeProtocolsColumns" ID="HgUserConfigDialog.__finalizeProtocolsColumns"></a>
+<h4>HgUserConfigDialog.__finalizeProtocolsColumns</h4>
+<b>__finalizeProtocolsColumns</b>(<i></i>)
+<p>
+        Private method to resize and sort the host fingerprints columns.
+</p>
+
+<a NAME="HgUserConfigDialog.__updateFingerprintsButtons" ID="HgUserConfigDialog.__updateFingerprintsButtons"></a>
+<h4>HgUserConfigDialog.__updateFingerprintsButtons</h4>
+<b>__updateFingerprintsButtons</b>(<i></i>)
+<p>
+        Private slot to update the host fingerprints edit buttons.
+</p>
+
+<a NAME="HgUserConfigDialog.__updateProtocolsButtons" ID="HgUserConfigDialog.__updateProtocolsButtons"></a>
+<h4>HgUserConfigDialog.__updateProtocolsButtons</h4>
+<b>__updateProtocolsButtons</b>(<i></i>)
+<p>
+        Private slot to update the host minimum protocol edit buttons.
+</p>
+
+<a NAME="HgUserConfigDialog.accept" ID="HgUserConfigDialog.accept"></a>
+<h4>HgUserConfigDialog.accept</h4>
+<b>accept</b>(<i></i>)
+<p>
+        Public slot to accept the dialog.
+</p>
+
+<a NAME="HgUserConfigDialog.eventFilter" ID="HgUserConfigDialog.eventFilter"></a>
+<h4>HgUserConfigDialog.eventFilter</h4>
+<b>eventFilter</b>(<i>watched, event</i>)
+<p>
+        Public method called to filter the event queue.
+</p>
+
+<dl>
+
+<dt><i>watched</i> (QObject)</dt>
+<dd>
+reference to the object being watched
+</dd>
+<dt><i>event</i> (QEvent)</dt>
+<dd>
+event to be handled
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if we handled the event
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HgUserConfigDialog.on_editorButton_clicked" ID="HgUserConfigDialog.on_editorButton_clicked"></a>
+<h4>HgUserConfigDialog.on_editorButton_clicked</h4>
+<b>on_editorButton_clicked</b>(<i></i>)
+<p>
+        Private slot to open the user configuration file in a text editor.
+</p>
+
+<a NAME="HgUserConfigDialog.on_fingerprintsList_currentItemChanged" ID="HgUserConfigDialog.on_fingerprintsList_currentItemChanged"></a>
+<h4>HgUserConfigDialog.on_fingerprintsList_currentItemChanged</h4>
+<b>on_fingerprintsList_currentItemChanged</b>(<i>_current, _previous</i>)
+<p>
+        Private slot handling a change of the current fingerprints item.
+</p>
+
+<dl>
+
+<dt><i>_current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the current item (unused)
+</dd>
+<dt><i>_previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the previous current item (unused)
+</dd>
+</dl>
+<a NAME="HgUserConfigDialog.on_fpAddButton_clicked" ID="HgUserConfigDialog.on_fpAddButton_clicked"></a>
+<h4>HgUserConfigDialog.on_fpAddButton_clicked</h4>
+<b>on_fpAddButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a fingerprints entry.
+</p>
+
+<a NAME="HgUserConfigDialog.on_fpDeleteButton_clicked" ID="HgUserConfigDialog.on_fpDeleteButton_clicked"></a>
+<h4>HgUserConfigDialog.on_fpDeleteButton_clicked</h4>
+<b>on_fpDeleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the current fingerprints item.
+</p>
+
+<a NAME="HgUserConfigDialog.on_fpEditButton_clicked" ID="HgUserConfigDialog.on_fpEditButton_clicked"></a>
+<h4>HgUserConfigDialog.on_fpEditButton_clicked</h4>
+<b>on_fpEditButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit the current fingerprints item.
+</p>
+
+<a NAME="HgUserConfigDialog.on_protocolAddButton_clicked" ID="HgUserConfigDialog.on_protocolAddButton_clicked"></a>
+<h4>HgUserConfigDialog.on_protocolAddButton_clicked</h4>
+<b>on_protocolAddButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a minimum protocol entry.
+</p>
+
+<a NAME="HgUserConfigDialog.on_protocolDeleteButton_clicked" ID="HgUserConfigDialog.on_protocolDeleteButton_clicked"></a>
+<h4>HgUserConfigDialog.on_protocolDeleteButton_clicked</h4>
+<b>on_protocolDeleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the current minimum protocol item.
+</p>
+
+<a NAME="HgUserConfigDialog.on_protocolEditButton_clicked" ID="HgUserConfigDialog.on_protocolEditButton_clicked"></a>
+<h4>HgUserConfigDialog.on_protocolEditButton_clicked</h4>
+<b>on_protocolEditButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit the current minimum protocol item.
+</p>
+
+<a NAME="HgUserConfigDialog.on_protocolsList_currentItemChanged" ID="HgUserConfigDialog.on_protocolsList_currentItemChanged"></a>
+<h4>HgUserConfigDialog.on_protocolsList_currentItemChanged</h4>
+<b>on_protocolsList_currentItemChanged</b>(<i>_current, _previous</i>)
+<p>
+        Private slot handling a change of the current minimum protocol item.
+</p>
+
+<dl>
+
+<dt><i>_current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the current item (unused)
+</dd>
+<dt><i>_previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the previous current item (unused)
+</dd>
+</dl>
+<a NAME="HgUserConfigDialog.readUserConfig" ID="HgUserConfigDialog.readUserConfig"></a>
+<h4>HgUserConfigDialog.readUserConfig</h4>
+<b>readUserConfig</b>(<i></i>)
+<p>
+        Public method to read the user configuration file.
+</p>
+
+<a NAME="HgUserConfigDialog.writeUserConfig" ID="HgUserConfigDialog.writeUserConfig"></a>
+<h4>HgUserConfigDialog.writeUserConfig</h4>
+<b>writeUserConfig</b>(<i></i>)
+<p>
+        Public method to write the user configuration file.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

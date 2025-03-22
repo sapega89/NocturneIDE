@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonGraphWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonGraphWidget</h1>
+<p>
+Module implementing the MicroPython graph widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonGraphWidget">MicroPythonGraphWidget</a></td>
+<td>Class implementing the MicroPython graph widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicroPythonGraphWidget" ID="MicroPythonGraphWidget"></a>
+<h2>MicroPythonGraphWidget</h2>
+<p>
+    Class implementing the MicroPython graph widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>dataFlood</dt>
+<dd>
+emitted to indicate, that too much data is received
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonGraphWidget.__init__">MicroPythonGraphWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonGraphWidget.__addData">__addData</a></td>
+<td>Private method to add a tuple of values to the graph.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonGraphWidget.__handleMaxXChanged">__handleMaxXChanged</a></td>
+<td>Private slot handling a change of the max.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonGraphWidget.hasData">hasData</a></td>
+<td>Public method to check, if the chart contains some valid data.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonGraphWidget.isDirty">isDirty</a></td>
+<td>Public method to check, if the chart contains unsaved data.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonGraphWidget.on_saveButton_clicked">on_saveButton_clicked</a></td>
+<td>Private slot to save the raw data to a CSV file.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonGraphWidget.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to apply changed preferences.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonGraphWidget.processData">processData</a></td>
+<td>Public slot to process the raw data.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonGraphWidget.saveData">saveData</a></td>
+<td>Public method to save the dialog's raw data.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonGraphWidget.__init__" ID="MicroPythonGraphWidget.__init__"></a>
+<h4>MicroPythonGraphWidget (Constructor)</h4>
+<b>MicroPythonGraphWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="MicroPythonGraphWidget.__addData" ID="MicroPythonGraphWidget.__addData"></a>
+<h4>MicroPythonGraphWidget.__addData</h4>
+<b>__addData</b>(<i>values</i>)
+<p>
+        Private method to add a tuple of values to the graph.
+</p>
+<p>
+        It ensures there are the required number of line series, adds the data
+        to the line series and updates the range of the chart so the chart
+        displays nicely.
+</p>
+
+<dl>
+
+<dt><i>values</i> (tuple of int or float)</dt>
+<dd>
+tuple containing the data to be added
+</dd>
+</dl>
+<a NAME="MicroPythonGraphWidget.__handleMaxXChanged" ID="MicroPythonGraphWidget.__handleMaxXChanged"></a>
+<h4>MicroPythonGraphWidget.__handleMaxXChanged</h4>
+<b>__handleMaxXChanged</b>(<i>value</i>)
+<p>
+        Private slot handling a change of the max. X spin box.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+value of the spin box
+</dd>
+</dl>
+<a NAME="MicroPythonGraphWidget.hasData" ID="MicroPythonGraphWidget.hasData"></a>
+<h4>MicroPythonGraphWidget.hasData</h4>
+<b>hasData</b>(<i></i>)
+<p>
+        Public method to check, if the chart contains some valid data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating valid data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonGraphWidget.isDirty" ID="MicroPythonGraphWidget.isDirty"></a>
+<h4>MicroPythonGraphWidget.isDirty</h4>
+<b>isDirty</b>(<i></i>)
+<p>
+        Public method to check, if the chart contains unsaved data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating unsaved data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonGraphWidget.on_saveButton_clicked" ID="MicroPythonGraphWidget.on_saveButton_clicked"></a>
+<h4>MicroPythonGraphWidget.on_saveButton_clicked</h4>
+<b>on_saveButton_clicked</b>(<i></i>)
+<p>
+        Private slot to save the raw data to a CSV file.
+</p>
+
+<a NAME="MicroPythonGraphWidget.preferencesChanged" ID="MicroPythonGraphWidget.preferencesChanged"></a>
+<h4>MicroPythonGraphWidget.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to apply changed preferences.
+</p>
+
+<a NAME="MicroPythonGraphWidget.processData" ID="MicroPythonGraphWidget.processData"></a>
+<h4>MicroPythonGraphWidget.processData</h4>
+<b>processData</b>(<i>data</i>)
+<p>
+        Public slot to process the raw data.
+</p>
+<p>
+        It takes raw bytes, checks the data for a valid tuple of ints or
+        floats and adds the data to the graph. If the the length of the bytes
+        data is greater than 1024 then a dataFlood signal is emitted to ensure
+        eric can take action to remain responsive.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytes)</dt>
+<dd>
+raw data received from the connected device via the main
+            device widget
+</dd>
+</dl>
+<a NAME="MicroPythonGraphWidget.saveData" ID="MicroPythonGraphWidget.saveData"></a>
+<h4>MicroPythonGraphWidget.saveData</h4>
+<b>saveData</b>(<i></i>)
+<p>
+        Public method to save the dialog's raw data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

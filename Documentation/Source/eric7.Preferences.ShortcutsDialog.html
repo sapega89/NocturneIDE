@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Preferences.ShortcutsDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Preferences.ShortcutsDialog</h1>
+<p>
+Module implementing a dialog for the configuration of eric's keyboard
+shortcuts.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ShortcutsDialog">ShortcutsDialog</a></td>
+<td>Class implementing a dialog for the configuration of eric's keyboard shortcuts.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ShortcutsDialog" ID="ShortcutsDialog"></a>
+<h2>ShortcutsDialog</h2>
+<p>
+    Class implementing a dialog for the configuration of eric's keyboard
+    shortcuts.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>updateShortcuts()</dt>
+<dd>
+emitted when the user pressed the dialogs OK
+        button
+</dd>
+</dl>
+<h3>Derived from</h3>
+QDialog, Ui_ShortcutsDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>noCheckRole</td></tr>
+<tr><td>objectNameRole</td></tr>
+<tr><td>objectTypeRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ShortcutsDialog.__init__">ShortcutsDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.__checkShortcut">__checkShortcut</a></td>
+<td>Private method to check a keysequence for uniqueness.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.__generateCategoryItem">__generateCategoryItem</a></td>
+<td>Private method to generate a category item.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.__generateShortcutItem">__generateShortcutItem</a></td>
+<td>Private method to generate a keyboard shortcut item.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the list columns.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.__saveCategoryActions">__saveCategoryActions</a></td>
+<td>Private method to save the actions for a category.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.__shortcutChanged">__shortcutChanged</a></td>
+<td>Private slot to handle the shortcutChanged signal of the shortcut dialog.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.on_actionButton_toggled">on_actionButton_toggled</a></td>
+<td>Private slot called, when the action radio button is toggled.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.on_buttonBox_accepted">on_buttonBox_accepted</a></td>
+<td>Private slot to handle the OK button press.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.on_searchEdit_textChanged">on_searchEdit_textChanged</a></td>
+<td>Private slot called, when the text in the search edit changes.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.on_shortcutButton_toggled">on_shortcutButton_toggled</a></td>
+<td>Private slot called, when the shortcuts radio button is toggled.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.on_shortcutsList_itemChanged">on_shortcutsList_itemChanged</a></td>
+<td>Private slot to handle the edit of a shortcut key.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.on_shortcutsList_itemClicked">on_shortcutsList_itemClicked</a></td>
+<td>Private slot to handle a click in the shortcuts list.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.on_shortcutsList_itemDoubleClicked">on_shortcutsList_itemDoubleClicked</a></td>
+<td>Private slot to handle a double click in the shortcuts list.</td>
+</tr>
+<tr>
+<td><a href="#ShortcutsDialog.populate">populate</a></td>
+<td>Public method to populate the dialog.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ShortcutsDialog.__init__" ID="ShortcutsDialog.__init__"></a>
+<h4>ShortcutsDialog (Constructor)</h4>
+<b>ShortcutsDialog</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this dialog
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.__checkShortcut" ID="ShortcutsDialog.__checkShortcut"></a>
+<h4>ShortcutsDialog.__checkShortcut</h4>
+<b>__checkShortcut</b>(<i>keysequence, objectType, origTopItem</i>)
+<p>
+        Private method to check a keysequence for uniqueness.
+</p>
+
+<dl>
+
+<dt><i>keysequence</i> (QKeySequence)</dt>
+<dd>
+the keysequence to check
+</dd>
+<dt><i>objectType</i> (str)</dt>
+<dd>
+type of the object. Entries with the same
+            object type are not checked for uniqueness.
+</dd>
+<dt><i>origTopItem</i> (QTreeWidgetItem)</dt>
+<dd>
+refrence to the parent of the item to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating uniqueness
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.__generateCategoryItem" ID="ShortcutsDialog.__generateCategoryItem"></a>
+<h4>ShortcutsDialog.__generateCategoryItem</h4>
+<b>__generateCategoryItem</b>(<i>title</i>)
+<p>
+        Private method to generate a category item.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title for the item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the category item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.__generateShortcutItem" ID="ShortcutsDialog.__generateShortcutItem"></a>
+<h4>ShortcutsDialog.__generateShortcutItem</h4>
+<b>__generateShortcutItem</b>(<i>category, action, noCheck=False, objectType=""</i>)
+<p>
+        Private method to generate a keyboard shortcut item.
+</p>
+
+<dl>
+
+<dt><i>category</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the category item
+</dd>
+<dt><i>action</i> (EricAction)</dt>
+<dd>
+reference to the keyboard action
+</dd>
+<dt><i>noCheck</i> (bool)</dt>
+<dd>
+flag indicating that no uniqueness check should
+            be performed
+</dd>
+<dt><i>objectType</i> (str)</dt>
+<dd>
+type of the object. Objects of the same
+            type are not checked for duplicate shortcuts.
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.__resizeColumns" ID="ShortcutsDialog.__resizeColumns"></a>
+<h4>ShortcutsDialog.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the list columns.
+</p>
+
+<a NAME="ShortcutsDialog.__resort" ID="ShortcutsDialog.__resort"></a>
+<h4>ShortcutsDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="ShortcutsDialog.__saveCategoryActions" ID="ShortcutsDialog.__saveCategoryActions"></a>
+<h4>ShortcutsDialog.__saveCategoryActions</h4>
+<b>__saveCategoryActions</b>(<i>category, actions</i>)
+<p>
+        Private method to save the actions for a category.
+</p>
+
+<dl>
+
+<dt><i>category</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the category item
+</dd>
+<dt><i>actions</i> (list of EricAction)</dt>
+<dd>
+list of actions for the category
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.__shortcutChanged" ID="ShortcutsDialog.__shortcutChanged"></a>
+<h4>ShortcutsDialog.__shortcutChanged</h4>
+<b>__shortcutChanged</b>(<i>keysequence, altKeysequence, noCheck, objectType</i>)
+<p>
+        Private slot to handle the shortcutChanged signal of the shortcut
+        dialog.
+</p>
+
+<dl>
+
+<dt><i>keysequence</i> (QKeySequence)</dt>
+<dd>
+the keysequence of the changed action
+</dd>
+<dt><i>altKeysequence</i> (QKeySequence)</dt>
+<dd>
+the alternative keysequence of the changed action
+</dd>
+<dt><i>noCheck</i> (bool)</dt>
+<dd>
+flag indicating that no uniqueness check should be performed
+</dd>
+<dt><i>objectType</i> (str)</dt>
+<dd>
+type of the object
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.on_actionButton_toggled" ID="ShortcutsDialog.on_actionButton_toggled"></a>
+<h4>ShortcutsDialog.on_actionButton_toggled</h4>
+<b>on_actionButton_toggled</b>(<i>checked</i>)
+<p>
+        Private slot called, when the action radio button is toggled.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the action radio button
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.on_buttonBox_accepted" ID="ShortcutsDialog.on_buttonBox_accepted"></a>
+<h4>ShortcutsDialog.on_buttonBox_accepted</h4>
+<b>on_buttonBox_accepted</b>(<i></i>)
+<p>
+        Private slot to handle the OK button press.
+</p>
+
+<a NAME="ShortcutsDialog.on_searchEdit_textChanged" ID="ShortcutsDialog.on_searchEdit_textChanged"></a>
+<h4>ShortcutsDialog.on_searchEdit_textChanged</h4>
+<b>on_searchEdit_textChanged</b>(<i>txt</i>)
+<p>
+        Private slot called, when the text in the search edit changes.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text of the search edit
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.on_shortcutButton_toggled" ID="ShortcutsDialog.on_shortcutButton_toggled"></a>
+<h4>ShortcutsDialog.on_shortcutButton_toggled</h4>
+<b>on_shortcutButton_toggled</b>(<i>checked</i>)
+<p>
+        Private slot called, when the shortcuts radio button is toggled.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the shortcuts radio button
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.on_shortcutsList_itemChanged" ID="ShortcutsDialog.on_shortcutsList_itemChanged"></a>
+<h4>ShortcutsDialog.on_shortcutsList_itemChanged</h4>
+<b>on_shortcutsList_itemChanged</b>(<i>itm, column</i>)
+<p>
+        Private slot to handle the edit of a shortcut key.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item changed
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column changed
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.on_shortcutsList_itemClicked" ID="ShortcutsDialog.on_shortcutsList_itemClicked"></a>
+<h4>ShortcutsDialog.on_shortcutsList_itemClicked</h4>
+<b>on_shortcutsList_itemClicked</b>(<i>itm, column</i>)
+<p>
+        Private slot to handle a click in the shortcuts list.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+the list item that was clicked
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+the list item was clicked in
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.on_shortcutsList_itemDoubleClicked" ID="ShortcutsDialog.on_shortcutsList_itemDoubleClicked"></a>
+<h4>ShortcutsDialog.on_shortcutsList_itemDoubleClicked</h4>
+<b>on_shortcutsList_itemDoubleClicked</b>(<i>itm, column</i>)
+<p>
+        Private slot to handle a double click in the shortcuts list.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+the list item that was double clicked
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+the list item was double clicked in
+</dd>
+</dl>
+<a NAME="ShortcutsDialog.populate" ID="ShortcutsDialog.populate"></a>
+<h4>ShortcutsDialog.populate</h4>
+<b>populate</b>(<i>webBrowser=None</i>)
+<p>
+        Public method to populate the dialog.
+</p>
+
+<dl>
+
+<dt><i>webBrowser</i> (WebBrowserWindow)</dt>
+<dd>
+reference to the web browser window object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

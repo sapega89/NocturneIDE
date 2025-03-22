@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonReplWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonReplWidget</h1>
+<p>
+Module implementing the MicroPython REPL widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>AnsiColorSchemes</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonReplEdit">MicroPythonReplEdit</a></td>
+<td>Class implementing the REPL edit pane.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplWidget">MicroPythonReplWidget</a></td>
+<td>Class implementing the MicroPython REPL widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicroPythonReplEdit" ID="MicroPythonReplEdit"></a>
+<h2>MicroPythonReplEdit</h2>
+<p>
+    Class implementing the REPL edit pane.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>osdInfo(str)</dt>
+<dd>
+emitted when some OSD data was received from the device
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTextEdit
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonReplEdit.__init__">MicroPythonReplEdit</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.__clear">__clear</a></td>
+<td>Private slot to clear the REPL pane.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.__paste">__paste</a></td>
+<td>Private slot to perform a paste operation.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.__setCharFormat">__setCharFormat</a></td>
+<td>Private method setting the current text format of the REPL pane based on the passed ANSI codes.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the REPL context menu.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.doZoom">doZoom</a></td>
+<td>Public slot to zoom in or out.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot to handle a change in preferences.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method to handle key press events.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.mouseReleaseEvent">mouseReleaseEvent</a></td>
+<td>Protected method to handle mouse release events.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.processData">processData</a></td>
+<td>Public slot to process the data received from the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplEdit.setInterface">setInterface</a></td>
+<td>Public method to set the reference to the device interface object.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonReplEdit.__init__" ID="MicroPythonReplEdit.__init__"></a>
+<h4>MicroPythonReplEdit (Constructor)</h4>
+<b>MicroPythonReplEdit</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="MicroPythonReplEdit.__clear" ID="MicroPythonReplEdit.__clear"></a>
+<h4>MicroPythonReplEdit.__clear</h4>
+<b>__clear</b>(<i></i>)
+<p>
+        Private slot to clear the REPL pane.
+</p>
+
+<a NAME="MicroPythonReplEdit.__paste" ID="MicroPythonReplEdit.__paste"></a>
+<h4>MicroPythonReplEdit.__paste</h4>
+<b>__paste</b>(<i>mode=QClipboard.Mode.Clipboard</i>)
+<p>
+        Private slot to perform a paste operation.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (QClipboard.Mode (optional))</dt>
+<dd>
+paste mode (defaults to QClipboard.Mode.Clipboard)
+</dd>
+</dl>
+<a NAME="MicroPythonReplEdit.__setCharFormat" ID="MicroPythonReplEdit.__setCharFormat"></a>
+<h4>MicroPythonReplEdit.__setCharFormat</h4>
+<b>__setCharFormat</b>(<i>formatCodes, textCursor</i>)
+<p>
+        Private method setting the current text format of the REPL pane based
+        on the passed ANSI codes.
+</p>
+<p>
+        Following codes are used:
+        <ul>
+        <li>0: Reset</li>
+        <li>1: Bold font (weight 75)</li>
+        <li>2: Light font (weight 25)</li>
+        <li>3: Italic font</li>
+        <li>4: Underlined font</li>
+        <li>9: Strikeout font</li>
+        <li>21: Bold off (weight 50)</li>
+        <li>22: Light off (weight 50)</li>
+        <li>23: Italic off</li>
+        <li>24: Underline off</li>
+        <li>29: Strikeout off</li>
+        <li>30: foreground Black</li>
+        <li>31: foreground Dark Red</li>
+        <li>32: foreground Dark Green</li>
+        <li>33: foreground Dark Yellow</li>
+        <li>34: foreground Dark Blue</li>
+        <li>35: foreground Dark Magenta</li>
+        <li>36: foreground Dark Cyan</li>
+        <li>37: foreground Light Gray</li>
+        <li>39: reset foreground to default</li>
+        <li>40: background Black</li>
+        <li>41: background Dark Red</li>
+        <li>42: background Dark Green</li>
+        <li>43: background Dark Yellow</li>
+        <li>44: background Dark Blue</li>
+        <li>45: background Dark Magenta</li>
+        <li>46: background Dark Cyan</li>
+        <li>47: background Light Gray</li>
+        <li>49: reset background to default</li>
+        <li>53: Overlined font</li>
+        <li>55: Overline off</li>
+        <li>90: bright foreground Dark Gray</li>
+        <li>91: bright foreground Red</li>
+        <li>92: bright foreground Green</li>
+        <li>93: bright foreground Yellow</li>
+        <li>94: bright foreground Blue</li>
+        <li>95: bright foreground Magenta</li>
+        <li>96: bright foreground Cyan</li>
+        <li>97: bright foreground White</li>
+        <li>100: bright background Dark Gray</li>
+        <li>101: bright background Red</li>
+        <li>102: bright background Green</li>
+        <li>103: bright background Yellow</li>
+        <li>104: bright background Blue</li>
+        <li>105: bright background Magenta</li>
+        <li>106: bright background Cyan</li>
+        <li>107: bright background White</li>
+        </ul>
+</p>
+
+<dl>
+
+<dt><i>formatCodes</i> (list of str)</dt>
+<dd>
+list of format codes
+</dd>
+<dt><i>textCursor</i> (QTextCursor)</dt>
+<dd>
+reference to the text cursor
+</dd>
+</dl>
+<a NAME="MicroPythonReplEdit.__showContextMenu" ID="MicroPythonReplEdit.__showContextMenu"></a>
+<h4>MicroPythonReplEdit.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show the REPL context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position to show the menu at
+</dd>
+</dl>
+<a NAME="MicroPythonReplEdit.doZoom" ID="MicroPythonReplEdit.doZoom"></a>
+<h4>MicroPythonReplEdit.doZoom</h4>
+<b>doZoom</b>(<i>value</i>)
+<p>
+        Public slot to zoom in or out.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+zoom value
+</dd>
+</dl>
+<a NAME="MicroPythonReplEdit.handlePreferencesChanged" ID="MicroPythonReplEdit.handlePreferencesChanged"></a>
+<h4>MicroPythonReplEdit.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change in preferences.
+</p>
+
+<a NAME="MicroPythonReplEdit.keyPressEvent" ID="MicroPythonReplEdit.keyPressEvent"></a>
+<h4>MicroPythonReplEdit.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle key press events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key press event
+</dd>
+</dl>
+<a NAME="MicroPythonReplEdit.mouseReleaseEvent" ID="MicroPythonReplEdit.mouseReleaseEvent"></a>
+<h4>MicroPythonReplEdit.mouseReleaseEvent</h4>
+<b>mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse release events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the event object
+</dd>
+</dl>
+<a NAME="MicroPythonReplEdit.processData" ID="MicroPythonReplEdit.processData"></a>
+<h4>MicroPythonReplEdit.processData</h4>
+<b>processData</b>(<i>data</i>)
+<p>
+        Public slot to process the data received from the device.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytes)</dt>
+<dd>
+data received from the device
+</dd>
+</dl>
+<a NAME="MicroPythonReplEdit.setInterface" ID="MicroPythonReplEdit.setInterface"></a>
+<h4>MicroPythonReplEdit.setInterface</h4>
+<b>setInterface</b>(<i>deviceInterface</i>)
+<p>
+        Public method to set the reference to the device interface object.
+</p>
+
+<dl>
+
+<dt><i>deviceInterface</i> (MicroPythonDeviceInterface)</dt>
+<dd>
+reference to the device interface object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="MicroPythonReplWidget" ID="MicroPythonReplWidget"></a>
+<h2>MicroPythonReplWidget</h2>
+<p>
+    Class implementing the MicroPython REPL widget.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ZoomMax</td></tr>
+<tr><td>ZoomMin</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonReplWidget.__init__">MicroPythonReplWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplWidget.clearOSD">clearOSD</a></td>
+<td>Public slot to clear the OSD info.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplWidget.replEdit">replEdit</a></td>
+<td>Public method to get a reference to the REPL edit.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonReplWidget.setOSDInfo">setOSDInfo</a></td>
+<td>Public slot to set the OSD information.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonReplWidget.__init__" ID="MicroPythonReplWidget.__init__"></a>
+<h4>MicroPythonReplWidget (Constructor)</h4>
+<b>MicroPythonReplWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="MicroPythonReplWidget.clearOSD" ID="MicroPythonReplWidget.clearOSD"></a>
+<h4>MicroPythonReplWidget.clearOSD</h4>
+<b>clearOSD</b>(<i></i>)
+<p>
+        Public slot to clear the OSD info.
+</p>
+
+<a NAME="MicroPythonReplWidget.replEdit" ID="MicroPythonReplWidget.replEdit"></a>
+<h4>MicroPythonReplWidget.replEdit</h4>
+<b>replEdit</b>(<i></i>)
+<p>
+        Public method to get a reference to the REPL edit.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the REPL edit
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+MicroPythonReplEdit
+</dd>
+</dl>
+<a NAME="MicroPythonReplWidget.setOSDInfo" ID="MicroPythonReplWidget.setOSDInfo"></a>
+<h4>MicroPythonReplWidget.setOSDInfo</h4>
+<b>setOSDInfo</b>(<i>infoStr</i>)
+<p>
+        Public slot to set the OSD information.
+</p>
+
+<dl>
+
+<dt><i>infoStr</i> (str)</dt>
+<dd>
+string to be shown
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

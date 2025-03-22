@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.MarkupProviders.RestructuredTextProvider</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.MarkupProviders.RestructuredTextProvider</h1>
+<p>
+Module implementing the reStructured Text markup provider.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#RestructuredTextProvider">RestructuredTextProvider</a></td>
+<td>Class implementing the reStructured Text markup provider.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createProvider">createProvider</a></td>
+<td>Function to instantiate a markup provider object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="RestructuredTextProvider" ID="RestructuredTextProvider"></a>
+<h2>RestructuredTextProvider</h2>
+<p>
+    Class implementing the reStructured Text markup provider.
+</p>
+
+<h3>Derived from</h3>
+MarkupBase
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#RestructuredTextProvider.__init__">RestructuredTextProvider</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.__insertMarkup">__insertMarkup</a></td>
+<td>Private method to insert the specified markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.__makeList">__makeList</a></td>
+<td>Private method to generate the desired list markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.bold">bold</a></td>
+<td>Public method to generate bold text.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.bulletedList">bulletedList</a></td>
+<td>Public method to generate bulleted list text.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.code">code</a></td>
+<td>Public method to generate inline code text.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.codeBlock">codeBlock</a></td>
+<td>Public method to generate code block text.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasBold">hasBold</a></td>
+<td>Public method to indicate the availability of bold markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasBulletedList">hasBulletedList</a></td>
+<td>Public method to indicate the availability of bulleted list markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasCode">hasCode</a></td>
+<td>Public method to indicate the availability of inline code markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasCodeBlock">hasCodeBlock</a></td>
+<td>Public method to indicate the availability of code block markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasHyperlink">hasHyperlink</a></td>
+<td>Public method to indicate the availability of hyperlink markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasImage">hasImage</a></td>
+<td>Public method to indicate the availability of image markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasItalic">hasItalic</a></td>
+<td>Public method to indicate the availability of italic markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasLine">hasLine</a></td>
+<td>Public method to indicate the availability of a horizontal line markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasNumberedList">hasNumberedList</a></td>
+<td>Public method to indicate the availability of numbered list markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hasQuote">hasQuote</a></td>
+<td>Public method to indicate the availability of block quote markup.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.header">header</a></td>
+<td>Public method to generate a header.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.headerLevels">headerLevels</a></td>
+<td>Public method to determine the available header levels.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.hyperlink">hyperlink</a></td>
+<td>Public method to generate hyperlink text.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.image">image</a></td>
+<td>Public method to generate image text.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.italic">italic</a></td>
+<td>Public method to generate italic text.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.kind">kind</a></td>
+<td>Public method to get the markup kind.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.line">line</a></td>
+<td>Public method to generate a horizontal line text.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.numberedList">numberedList</a></td>
+<td>Public method to generate numbered list text.</td>
+</tr>
+<tr>
+<td><a href="#RestructuredTextProvider.quote">quote</a></td>
+<td>Public method to generate block quote text.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="RestructuredTextProvider.__init__" ID="RestructuredTextProvider.__init__"></a>
+<h4>RestructuredTextProvider (Constructor)</h4>
+<b>RestructuredTextProvider</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="RestructuredTextProvider.__insertMarkup" ID="RestructuredTextProvider.__insertMarkup"></a>
+<h4>RestructuredTextProvider.__insertMarkup</h4>
+<b>__insertMarkup</b>(<i>markup, editor</i>)
+<p>
+        Private method to insert the specified markup.
+</p>
+<p>
+        If the editor has selected text, this text is enclosed by the given
+        markup. If no text is selected, the markup is inserted at the cursor
+        position and the cursor is positioned in between.
+</p>
+
+<dl>
+
+<dt><i>markup</i> (str)</dt>
+<dd>
+markup string to be inserted
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.__makeList" ID="RestructuredTextProvider.__makeList"></a>
+<h4>RestructuredTextProvider.__makeList</h4>
+<b>__makeList</b>(<i>editor, numberedList</i>)
+<p>
+        Private method to generate the desired list markup.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+<dt><i>numberedList</i> (bool)</dt>
+<dd>
+flag indicating the generation of a numbered list
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.bold" ID="RestructuredTextProvider.bold"></a>
+<h4>RestructuredTextProvider.bold</h4>
+<b>bold</b>(<i>editor</i>)
+<p>
+        Public method to generate bold text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.bulletedList" ID="RestructuredTextProvider.bulletedList"></a>
+<h4>RestructuredTextProvider.bulletedList</h4>
+<b>bulletedList</b>(<i>editor</i>)
+<p>
+        Public method to generate bulleted list text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.code" ID="RestructuredTextProvider.code"></a>
+<h4>RestructuredTextProvider.code</h4>
+<b>code</b>(<i>editor</i>)
+<p>
+        Public method to generate inline code text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.codeBlock" ID="RestructuredTextProvider.codeBlock"></a>
+<h4>RestructuredTextProvider.codeBlock</h4>
+<b>codeBlock</b>(<i>editor</i>)
+<p>
+        Public method to generate code block text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasBold" ID="RestructuredTextProvider.hasBold"></a>
+<h4>RestructuredTextProvider.hasBold</h4>
+<b>hasBold</b>(<i></i>)
+<p>
+        Public method to indicate the availability of bold markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of bold markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasBulletedList" ID="RestructuredTextProvider.hasBulletedList"></a>
+<h4>RestructuredTextProvider.hasBulletedList</h4>
+<b>hasBulletedList</b>(<i></i>)
+<p>
+        Public method to indicate the availability of bulleted list markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of bulleted list markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasCode" ID="RestructuredTextProvider.hasCode"></a>
+<h4>RestructuredTextProvider.hasCode</h4>
+<b>hasCode</b>(<i></i>)
+<p>
+        Public method to indicate the availability of inline code markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of inline code markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasCodeBlock" ID="RestructuredTextProvider.hasCodeBlock"></a>
+<h4>RestructuredTextProvider.hasCodeBlock</h4>
+<b>hasCodeBlock</b>(<i></i>)
+<p>
+        Public method to indicate the availability of code block markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of code block markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasHyperlink" ID="RestructuredTextProvider.hasHyperlink"></a>
+<h4>RestructuredTextProvider.hasHyperlink</h4>
+<b>hasHyperlink</b>(<i></i>)
+<p>
+        Public method to indicate the availability of hyperlink markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of hyperlink markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasImage" ID="RestructuredTextProvider.hasImage"></a>
+<h4>RestructuredTextProvider.hasImage</h4>
+<b>hasImage</b>(<i></i>)
+<p>
+        Public method to indicate the availability of image markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of image markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasItalic" ID="RestructuredTextProvider.hasItalic"></a>
+<h4>RestructuredTextProvider.hasItalic</h4>
+<b>hasItalic</b>(<i></i>)
+<p>
+        Public method to indicate the availability of italic markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of italic markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasLine" ID="RestructuredTextProvider.hasLine"></a>
+<h4>RestructuredTextProvider.hasLine</h4>
+<b>hasLine</b>(<i></i>)
+<p>
+        Public method to indicate the availability of a horizontal line markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of a horizontal line markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasNumberedList" ID="RestructuredTextProvider.hasNumberedList"></a>
+<h4>RestructuredTextProvider.hasNumberedList</h4>
+<b>hasNumberedList</b>(<i></i>)
+<p>
+        Public method to indicate the availability of numbered list markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of numbered list markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hasQuote" ID="RestructuredTextProvider.hasQuote"></a>
+<h4>RestructuredTextProvider.hasQuote</h4>
+<b>hasQuote</b>(<i></i>)
+<p>
+        Public method to indicate the availability of block quote markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of block quote markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.header" ID="RestructuredTextProvider.header"></a>
+<h4>RestructuredTextProvider.header</h4>
+<b>header</b>(<i>editor, level</i>)
+<p>
+        Public method to generate a header.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+<dt><i>level</i> (int)</dt>
+<dd>
+header level
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.headerLevels" ID="RestructuredTextProvider.headerLevels"></a>
+<h4>RestructuredTextProvider.headerLevels</h4>
+<b>headerLevels</b>(<i></i>)
+<p>
+        Public method to determine the available header levels.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+supported header levels
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.hyperlink" ID="RestructuredTextProvider.hyperlink"></a>
+<h4>RestructuredTextProvider.hyperlink</h4>
+<b>hyperlink</b>(<i>editor</i>)
+<p>
+        Public method to generate hyperlink text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.image" ID="RestructuredTextProvider.image"></a>
+<h4>RestructuredTextProvider.image</h4>
+<b>image</b>(<i>editor</i>)
+<p>
+        Public method to generate image text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.italic" ID="RestructuredTextProvider.italic"></a>
+<h4>RestructuredTextProvider.italic</h4>
+<b>italic</b>(<i>editor</i>)
+<p>
+        Public method to generate italic text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.kind" ID="RestructuredTextProvider.kind"></a>
+<h4>RestructuredTextProvider.kind</h4>
+<b>kind</b>(<i></i>)
+<p>
+        Public method to get the markup kind.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string with markup kind
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.line" ID="RestructuredTextProvider.line"></a>
+<h4>RestructuredTextProvider.line</h4>
+<b>line</b>(<i>editor</i>)
+<p>
+        Public method to generate a horizontal line text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.numberedList" ID="RestructuredTextProvider.numberedList"></a>
+<h4>RestructuredTextProvider.numberedList</h4>
+<b>numberedList</b>(<i>editor</i>)
+<p>
+        Public method to generate numbered list text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="RestructuredTextProvider.quote" ID="RestructuredTextProvider.quote"></a>
+<h4>RestructuredTextProvider.quote</h4>
+<b>quote</b>(<i>editor</i>)
+<p>
+        Public method to generate block quote text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createProvider" ID="createProvider"></a>
+<h2>createProvider</h2>
+<b>createProvider</b>(<i></i>)
+<p>
+    Function to instantiate a markup provider object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated markup provider opject
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+RestructuredTextProvider
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

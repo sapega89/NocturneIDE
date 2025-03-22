@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Session.SessionManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Session.SessionManager</h1>
+<p>
+Module implementing the session manager.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SessionManager">SessionManager</a></td>
+<td>Class implementing the session manager.</td>
+</tr>
+<tr>
+<td><a href="#SessionMetaData">SessionMetaData</a></td>
+<td>Class implementing a data structure to store meta data for a session.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SessionManager" ID="SessionManager"></a>
+<h2>SessionManager</h2>
+<p>
+    Class implementing the session manager.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>sessionsMetaDataChanged()</dt>
+<dd>
+emitted to indicate a change of the
+        list of session meta data
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>CloneSession</td></tr>
+<tr><td>ReplaceSession</td></tr>
+<tr><td>RestoreSession</td></tr>
+<tr><td>SwitchSession</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#SessionManager.isValidSession">isValidSession</a></td>
+<td>Class method to check the validity of a session.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.readSessionFromFile">readSessionFromFile</a></td>
+<td>Class method to read the session data from a file.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.restoreSessionFromData">restoreSessionFromData</a></td>
+<td>Class method to restore a session from a session data dictionary.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SessionManager.__init__">SessionManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.__autoSaveSession">__autoSaveSession</a></td>
+<td>Private slot to save the current session state.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.__backupSavedSession">__backupSavedSession</a></td>
+<td>Private method to backup the most recently saved session.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.__fillMetaDataList">__fillMetaDataList</a></td>
+<td>Private method to fill the sessions meta data list.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.__initSessionSaveTimer">__initSessionSaveTimer</a></td>
+<td>Private slot to initialize the auto save timer.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.__isActive">__isActive</a></td>
+<td>Private method to check, if a given file is the active one.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.__sessionActTriggered">__sessionActTriggered</a></td>
+<td>Private slot to handle the menu selection of a session.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.__sessionDirectoryChanged">__sessionDirectoryChanged</a></td>
+<td>Private slot handling changes of the sessions directory.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.aboutToShowSessionsMenu">aboutToShowSessionsMenu</a></td>
+<td>Public slot to populate the sessions selection menu.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.activateTimer">activateTimer</a></td>
+<td>Public method to activate the session save timer.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.autoSaveSession">autoSaveSession</a></td>
+<td>Public method to save the current session state.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.cloneSession">cloneSession</a></td>
+<td>Public method to clone a session.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.defaultSessionFile">defaultSessionFile</a></td>
+<td>Public method to get the name of the default session file.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.deleteSession">deleteSession</a></td>
+<td>Public method to delete a session.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.getSessionsDirectory">getSessionsDirectory</a></td>
+<td>Public method to get the directory sessions are stored in.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.lastActiveSessionFile">lastActiveSessionFile</a></td>
+<td>Public method to get the name of the last active session file.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.newSession">newSession</a></td>
+<td>Public method to start a new session.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.openSession">openSession</a></td>
+<td>Public method to open a session from a given session file.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to react upon changes of the settings.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.renameSession">renameSession</a></td>
+<td>Public method to rename or clone a session.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.replaceSession">replaceSession</a></td>
+<td>Public method to replace the current session with the given one.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.saveSession">saveSession</a></td>
+<td>Public method to save the current session.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.selectSession">selectSession</a></td>
+<td>Public method to select a session to be restored.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.sessionMetaData">sessionMetaData</a></td>
+<td>Public method to get the sessions meta data.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.showSessionManagerDialog">showSessionManagerDialog</a></td>
+<td>Public method to show the session manager dialog.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.shutdown">shutdown</a></td>
+<td>Public method to perform any shutdown actions.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.switchToSession">switchToSession</a></td>
+<td>Public method to switch the current session to the given one.</td>
+</tr>
+<tr>
+<td><a href="#SessionManager.writeCurrentSession">writeCurrentSession</a></td>
+<td>Public method to write the current session to the given file name.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SessionManager.isValidSession" ID="SessionManager.isValidSession"></a>
+<h4>SessionManager.isValidSession (class method)</h4>
+<b>isValidSession</b>(<i>session</i>)
+<p>
+        Class method to check the validity of a session.
+</p>
+
+<dl>
+
+<dt><i>session</i> (dict)</dt>
+<dd>
+dictionary containing the session data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating validity
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SessionManager.readSessionFromFile" ID="SessionManager.readSessionFromFile"></a>
+<h4>SessionManager.readSessionFromFile (class method)</h4>
+<b>readSessionFromFile</b>(<i>sessionFileName</i>)
+<p>
+        Class method to read the session data from a file.
+</p>
+
+<dl>
+
+<dt><i>sessionFileName</i> (str)</dt>
+<dd>
+file name of the session file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the session data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="SessionManager.restoreSessionFromData" ID="SessionManager.restoreSessionFromData"></a>
+<h4>SessionManager.restoreSessionFromData (class method)</h4>
+<b>restoreSessionFromData</b>(<i>window=None, sessionData=None</i>)
+<p>
+        Class method to restore a session from a session data dictionary.
+</p>
+
+<dl>
+
+<dt><i>window</i> (WebBrowserWindow)</dt>
+<dd>
+reference to main window to restore to
+</dd>
+<dt><i>sessionData</i> (dict)</dt>
+<dd>
+dictionary containing the session data
+</dd>
+</dl>
+<a NAME="SessionManager.__init__" ID="SessionManager.__init__"></a>
+<h4>SessionManager (Constructor)</h4>
+<b>SessionManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="SessionManager.__autoSaveSession" ID="SessionManager.__autoSaveSession"></a>
+<h4>SessionManager.__autoSaveSession</h4>
+<b>__autoSaveSession</b>(<i>startTimer=True</i>)
+<p>
+        Private slot to save the current session state.
+</p>
+
+<dl>
+
+<dt><i>startTimer</i> (bool)</dt>
+<dd>
+flag indicating to restart the timer
+</dd>
+</dl>
+<a NAME="SessionManager.__backupSavedSession" ID="SessionManager.__backupSavedSession"></a>
+<h4>SessionManager.__backupSavedSession</h4>
+<b>__backupSavedSession</b>(<i></i>)
+<p>
+        Private method to backup the most recently saved session.
+</p>
+
+<a NAME="SessionManager.__fillMetaDataList" ID="SessionManager.__fillMetaDataList"></a>
+<h4>SessionManager.__fillMetaDataList</h4>
+<b>__fillMetaDataList</b>(<i></i>)
+<p>
+        Private method to fill the sessions meta data list.
+</p>
+<p>
+        The sessions meta data list is only populated, if the variable holding
+        it is empty (i.e. it is populated on demand).
+</p>
+
+<a NAME="SessionManager.__initSessionSaveTimer" ID="SessionManager.__initSessionSaveTimer"></a>
+<h4>SessionManager.__initSessionSaveTimer</h4>
+<b>__initSessionSaveTimer</b>(<i></i>)
+<p>
+        Private slot to initialize the auto save timer.
+</p>
+
+<a NAME="SessionManager.__isActive" ID="SessionManager.__isActive"></a>
+<h4>SessionManager.__isActive</h4>
+<b>__isActive</b>(<i>filePath</i>)
+<p>
+        Private method to check, if a given file is the active one.
+</p>
+
+<dl>
+
+<dt><i>filePath</i> (str or pathlib.Path)</dt>
+<dd>
+path of the session file to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the active file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SessionManager.__sessionActTriggered" ID="SessionManager.__sessionActTriggered"></a>
+<h4>SessionManager.__sessionActTriggered</h4>
+<b>__sessionActTriggered</b>(<i>act</i>)
+<p>
+        Private slot to handle the menu selection of a session.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="SessionManager.__sessionDirectoryChanged" ID="SessionManager.__sessionDirectoryChanged"></a>
+<h4>SessionManager.__sessionDirectoryChanged</h4>
+<b>__sessionDirectoryChanged</b>(<i>path</i>)
+<p>
+        Private slot handling changes of the sessions directory.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+name of the changed directory
+</dd>
+</dl>
+<a NAME="SessionManager.aboutToShowSessionsMenu" ID="SessionManager.aboutToShowSessionsMenu"></a>
+<h4>SessionManager.aboutToShowSessionsMenu</h4>
+<b>aboutToShowSessionsMenu</b>(<i>menu</i>)
+<p>
+        Public slot to populate the sessions selection menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu about to be shown
+</dd>
+</dl>
+<a NAME="SessionManager.activateTimer" ID="SessionManager.activateTimer"></a>
+<h4>SessionManager.activateTimer</h4>
+<b>activateTimer</b>(<i></i>)
+<p>
+        Public method to activate the session save timer.
+</p>
+
+<a NAME="SessionManager.autoSaveSession" ID="SessionManager.autoSaveSession"></a>
+<h4>SessionManager.autoSaveSession</h4>
+<b>autoSaveSession</b>(<i></i>)
+<p>
+        Public method to save the current session state.
+</p>
+
+<a NAME="SessionManager.cloneSession" ID="SessionManager.cloneSession"></a>
+<h4>SessionManager.cloneSession</h4>
+<b>cloneSession</b>(<i>sessionFilePath</i>)
+<p>
+        Public method to clone a session.
+</p>
+
+<dl>
+
+<dt><i>sessionFilePath</i> (str)</dt>
+<dd>
+file name of the session file to be cloned
+</dd>
+</dl>
+<a NAME="SessionManager.defaultSessionFile" ID="SessionManager.defaultSessionFile"></a>
+<h4>SessionManager.defaultSessionFile</h4>
+<b>defaultSessionFile</b>(<i></i>)
+<p>
+        Public method to get the name of the default session file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the default session file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SessionManager.deleteSession" ID="SessionManager.deleteSession"></a>
+<h4>SessionManager.deleteSession</h4>
+<b>deleteSession</b>(<i>sessionFilePath</i>)
+<p>
+        Public method to delete a session.
+</p>
+
+<dl>
+
+<dt><i>sessionFilePath</i> (str)</dt>
+<dd>
+file name of the session file to be deleted
+</dd>
+</dl>
+<a NAME="SessionManager.getSessionsDirectory" ID="SessionManager.getSessionsDirectory"></a>
+<h4>SessionManager.getSessionsDirectory</h4>
+<b>getSessionsDirectory</b>(<i></i>)
+<p>
+        Public method to get the directory sessions are stored in.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the sessions directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SessionManager.lastActiveSessionFile" ID="SessionManager.lastActiveSessionFile"></a>
+<h4>SessionManager.lastActiveSessionFile</h4>
+<b>lastActiveSessionFile</b>(<i></i>)
+<p>
+        Public method to get the name of the last active session file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the last active session file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SessionManager.newSession" ID="SessionManager.newSession"></a>
+<h4>SessionManager.newSession</h4>
+<b>newSession</b>(<i></i>)
+<p>
+        Public method to start a new session.
+</p>
+
+<a NAME="SessionManager.openSession" ID="SessionManager.openSession"></a>
+<h4>SessionManager.openSession</h4>
+<b>openSession</b>(<i>sessionFilePath, flags=0</i>)
+<p>
+        Public method to open a session from a given session file.
+</p>
+
+<dl>
+
+<dt><i>sessionFilePath</i> (str)</dt>
+<dd>
+name of the session file to get session from
+</dd>
+<dt><i>flags</i> (int)</dt>
+<dd>
+flags determining the open mode
+</dd>
+</dl>
+<a NAME="SessionManager.preferencesChanged" ID="SessionManager.preferencesChanged"></a>
+<h4>SessionManager.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to react upon changes of the settings.
+</p>
+
+<a NAME="SessionManager.renameSession" ID="SessionManager.renameSession"></a>
+<h4>SessionManager.renameSession</h4>
+<b>renameSession</b>(<i>sessionFilePath, flags=0</i>)
+<p>
+        Public method to rename or clone a session.
+</p>
+
+<dl>
+
+<dt><i>sessionFilePath</i> (str)</dt>
+<dd>
+name of the session file
+</dd>
+<dt><i>flags</i> (int)</dt>
+<dd>
+flags determining a rename or clone operation
+</dd>
+</dl>
+<a NAME="SessionManager.replaceSession" ID="SessionManager.replaceSession"></a>
+<h4>SessionManager.replaceSession</h4>
+<b>replaceSession</b>(<i>sessionFilePath</i>)
+<p>
+        Public method to replace the current session with the given one.
+</p>
+
+<dl>
+
+<dt><i>sessionFilePath</i> (str)</dt>
+<dd>
+file name of the session file to replace with
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SessionManager.saveSession" ID="SessionManager.saveSession"></a>
+<h4>SessionManager.saveSession</h4>
+<b>saveSession</b>(<i></i>)
+<p>
+        Public method to save the current session.
+</p>
+
+<a NAME="SessionManager.selectSession" ID="SessionManager.selectSession"></a>
+<h4>SessionManager.selectSession</h4>
+<b>selectSession</b>(<i></i>)
+<p>
+        Public method to select a session to be restored.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the session file to be restored
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SessionManager.sessionMetaData" ID="SessionManager.sessionMetaData"></a>
+<h4>SessionManager.sessionMetaData</h4>
+<b>sessionMetaData</b>(<i>includeBackups=False</i>)
+<p>
+        Public method to get the sessions meta data.
+</p>
+
+<dl>
+
+<dt><i>includeBackups</i> (bool)</dt>
+<dd>
+flag indicating to include backup sessions
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of session meta data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of SessionMetaData
+</dd>
+</dl>
+<a NAME="SessionManager.showSessionManagerDialog" ID="SessionManager.showSessionManagerDialog"></a>
+<h4>SessionManager.showSessionManagerDialog</h4>
+<b>showSessionManagerDialog</b>(<i></i>)
+<p>
+        Public method to show the session manager dialog.
+</p>
+
+<a NAME="SessionManager.shutdown" ID="SessionManager.shutdown"></a>
+<h4>SessionManager.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to perform any shutdown actions.
+</p>
+
+<a NAME="SessionManager.switchToSession" ID="SessionManager.switchToSession"></a>
+<h4>SessionManager.switchToSession</h4>
+<b>switchToSession</b>(<i>sessionFilePath</i>)
+<p>
+        Public method to switch the current session to the given one.
+</p>
+
+<dl>
+
+<dt><i>sessionFilePath</i> (str)</dt>
+<dd>
+file name of the session file to switch to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SessionManager.writeCurrentSession" ID="SessionManager.writeCurrentSession"></a>
+<h4>SessionManager.writeCurrentSession</h4>
+<b>writeCurrentSession</b>(<i>sessionFileName</i>)
+<p>
+        Public method to write the current session to the given file name.
+</p>
+
+<dl>
+
+<dt><i>sessionFileName</i> (str)</dt>
+<dd>
+file name of the session
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="SessionMetaData" ID="SessionMetaData"></a>
+<h2>SessionMetaData</h2>
+<p>
+    Class implementing a data structure to store meta data for a session.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>filePath</td></tr>
+<tr><td>isActive</td></tr>
+<tr><td>isBackup</td></tr>
+<tr><td>isDefault</td></tr>
+<tr><td>name</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.WebAuth.Fido2ManagementDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.WebAuth.Fido2ManagementDialog</h1>
+<p>
+Module implementing a dialog to manage FIDO2 security keys.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Fido2ManagementDialog">Fido2ManagementDialog</a></td>
+<td>Class implementing a dialog to manage FIDO2 security keys.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Fido2ManagementDialog" ID="Fido2ManagementDialog"></a>
+<h2>Fido2ManagementDialog</h2>
+<p>
+    Class implementing a dialog to manage FIDO2 security keys.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_Fido2ManagementDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>CredentialIdColumn</td></tr>
+<tr><td>CredentialIdRole</td></tr>
+<tr><td>DisplayNameColumn</td></tr>
+<tr><td>RelyingPartyColumn</td></tr>
+<tr><td>UserIdRole</td></tr>
+<tr><td>UserNameColumn</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Fido2ManagementDialog.__init__">Fido2ManagementDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__aboutToShowManagementMenu">__aboutToShowManagementMenu</a></td>
+<td>Private slot to prepare the security key management menu before it is shown.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__changePin">__changePin</a></td>
+<td>Private slot to change the PIN of the selected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__checkPinStatus">__checkPinStatus</a></td>
+<td>Private method to check the PIN status of the connected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__deviceConnected">__deviceConnected</a></td>
+<td>Private slot handling the device connected signal.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__deviceDisconnected">__deviceDisconnected</a></td>
+<td>Private slot handling the device disconnected signal.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__forcePinChange">__forcePinChange</a></td>
+<td>Private slot to force a PIN change before the next use.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__getRequiredPin">__getRequiredPin</a></td>
+<td>Private method to check, if a pin has been set for the selected device, and ask the user to enter it.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__handleError">__handleError</a></td>
+<td>Private method to handle an error reported by the manager.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__initManagementMenu">__initManagementMenu</a></td>
+<td>Private method to initialize the security key management menu with actions not needed so much.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__populateDeviceSelector">__populateDeviceSelector</a></td>
+<td>Private slot to populate the device selector combo box.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__populatePasskeysList">__populatePasskeysList</a></td>
+<td>Private slot to populate the list of store passkeys of the selected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__resetSecurityKey">__resetSecurityKey</a></td>
+<td>Private slot to reset the selected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__setMinimumPinLength">__setMinimumPinLength</a></td>
+<td>Private slot to set the minimum PIN length.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__setPin">__setPin</a></td>
+<td>Private slot to set a PIN for the selected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__showSecurityKeyInfo">__showSecurityKeyInfo</a></td>
+<td>Private slot to show some info about the selected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.__toggleAlwaysUv">__toggleAlwaysUv</a></td>
+<td>Private slot to toggle the state of the 'Always Require User Verification' flag.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.on_deleteButton_clicked">on_deleteButton_clicked</a></td>
+<td>Private slot to delete the selected passkey.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.on_editButton_clicked">on_editButton_clicked</a></td>
+<td>Private slot to edit the selected passkey.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.on_loadPasskeysButton_clicked">on_loadPasskeysButton_clicked</a></td>
+<td>Private slot to (re-)populate the passkeys list.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.on_lockButton_toggled">on_lockButton_toggled</a></td>
+<td>Private slot to handle the toggling of the device locked status.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.on_passkeysList_itemSelectionChanged">on_passkeysList_itemSelectionChanged</a></td>
+<td>Private slot handling the selection of a passkey.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.on_pinButton_clicked">on_pinButton_clicked</a></td>
+<td>Private slot to set or change the PIN for the selected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2ManagementDialog.on_securityKeysComboBox_currentIndexChanged">on_securityKeysComboBox_currentIndexChanged</a></td>
+<td>Private slot handling the selection of security key.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Fido2ManagementDialog.__init__" ID="Fido2ManagementDialog.__init__"></a>
+<h4>Fido2ManagementDialog (Constructor)</h4>
+<b>Fido2ManagementDialog</b>(<i>standalone=False, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>standalone</i> (bool (optional))</dt>
+<dd>
+flag indicating the standalone management application
+            (defaults to False)
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="Fido2ManagementDialog.__aboutToShowManagementMenu" ID="Fido2ManagementDialog.__aboutToShowManagementMenu"></a>
+<h4>Fido2ManagementDialog.__aboutToShowManagementMenu</h4>
+<b>__aboutToShowManagementMenu</b>(<i></i>)
+<p>
+        Private slot to prepare the security key management menu before it is shown.
+</p>
+
+<a NAME="Fido2ManagementDialog.__changePin" ID="Fido2ManagementDialog.__changePin"></a>
+<h4>Fido2ManagementDialog.__changePin</h4>
+<b>__changePin</b>(<i></i>)
+<p>
+        Private slot to change the PIN of the selected security key.
+</p>
+
+<a NAME="Fido2ManagementDialog.__checkPinStatus" ID="Fido2ManagementDialog.__checkPinStatus"></a>
+<h4>Fido2ManagementDialog.__checkPinStatus</h4>
+<b>__checkPinStatus</b>(<i>feature</i>)
+<p>
+        Private method to check the PIN status of the connected security key.
+</p>
+
+<dl>
+
+<dt><i>feature</i> (str (optional))</dt>
+<dd>
+name of the feature requesting the PIN (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a positive status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Fido2ManagementDialog.__deviceConnected" ID="Fido2ManagementDialog.__deviceConnected"></a>
+<h4>Fido2ManagementDialog.__deviceConnected</h4>
+<b>__deviceConnected</b>(<i></i>)
+<p>
+        Private slot handling the device connected signal.
+</p>
+
+<a NAME="Fido2ManagementDialog.__deviceDisconnected" ID="Fido2ManagementDialog.__deviceDisconnected"></a>
+<h4>Fido2ManagementDialog.__deviceDisconnected</h4>
+<b>__deviceDisconnected</b>(<i></i>)
+<p>
+        Private slot handling the device disconnected signal.
+</p>
+
+<a NAME="Fido2ManagementDialog.__forcePinChange" ID="Fido2ManagementDialog.__forcePinChange"></a>
+<h4>Fido2ManagementDialog.__forcePinChange</h4>
+<b>__forcePinChange</b>(<i></i>)
+<p>
+        Private slot to force a PIN change before the next use.
+</p>
+
+<a NAME="Fido2ManagementDialog.__getRequiredPin" ID="Fido2ManagementDialog.__getRequiredPin"></a>
+<h4>Fido2ManagementDialog.__getRequiredPin</h4>
+<b>__getRequiredPin</b>(<i>feature=None</i>)
+<p>
+        Private method to check, if a pin has been set for the selected device, and
+        ask the user to enter it.
+</p>
+
+<dl>
+
+<dt><i>feature</i> (str (optional))</dt>
+<dd>
+name of the feature requesting the PIN (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+PIN of the selected security key or None in case of an issue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str or None
+</dd>
+</dl>
+<a NAME="Fido2ManagementDialog.__handleError" ID="Fido2ManagementDialog.__handleError"></a>
+<h4>Fido2ManagementDialog.__handleError</h4>
+<b>__handleError</b>(<i>error, title, message</i>)
+<p>
+        Private method to handle an error reported by the manager.
+</p>
+
+<dl>
+
+<dt><i>error</i> (Exception)</dt>
+<dd>
+reference to the exception object
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+tirle of the message box
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be shown
+</dd>
+</dl>
+<a NAME="Fido2ManagementDialog.__initManagementMenu" ID="Fido2ManagementDialog.__initManagementMenu"></a>
+<h4>Fido2ManagementDialog.__initManagementMenu</h4>
+<b>__initManagementMenu</b>(<i></i>)
+<p>
+        Private method to initialize the security key management menu with
+        actions not needed so much.
+</p>
+
+<a NAME="Fido2ManagementDialog.__populateDeviceSelector" ID="Fido2ManagementDialog.__populateDeviceSelector"></a>
+<h4>Fido2ManagementDialog.__populateDeviceSelector</h4>
+<b>__populateDeviceSelector</b>(<i></i>)
+<p>
+        Private slot to populate the device selector combo box.
+</p>
+
+<a NAME="Fido2ManagementDialog.__populatePasskeysList" ID="Fido2ManagementDialog.__populatePasskeysList"></a>
+<h4>Fido2ManagementDialog.__populatePasskeysList</h4>
+<b>__populatePasskeysList</b>(<i></i>)
+<p>
+        Private slot to populate the list of store passkeys of the selected security
+        key.
+</p>
+
+<a NAME="Fido2ManagementDialog.__resetSecurityKey" ID="Fido2ManagementDialog.__resetSecurityKey"></a>
+<h4>Fido2ManagementDialog.__resetSecurityKey</h4>
+<b>__resetSecurityKey</b>(<i></i>)
+<p>
+        Private slot to reset the selected security key.
+</p>
+
+<a NAME="Fido2ManagementDialog.__setMinimumPinLength" ID="Fido2ManagementDialog.__setMinimumPinLength"></a>
+<h4>Fido2ManagementDialog.__setMinimumPinLength</h4>
+<b>__setMinimumPinLength</b>(<i></i>)
+<p>
+        Private slot to set the minimum PIN length.
+</p>
+
+<a NAME="Fido2ManagementDialog.__setPin" ID="Fido2ManagementDialog.__setPin"></a>
+<h4>Fido2ManagementDialog.__setPin</h4>
+<b>__setPin</b>(<i></i>)
+<p>
+        Private slot to set a PIN for the selected security key.
+</p>
+
+<a NAME="Fido2ManagementDialog.__showSecurityKeyInfo" ID="Fido2ManagementDialog.__showSecurityKeyInfo"></a>
+<h4>Fido2ManagementDialog.__showSecurityKeyInfo</h4>
+<b>__showSecurityKeyInfo</b>(<i></i>)
+<p>
+        Private slot to show some info about the selected security key.
+</p>
+
+<a NAME="Fido2ManagementDialog.__toggleAlwaysUv" ID="Fido2ManagementDialog.__toggleAlwaysUv"></a>
+<h4>Fido2ManagementDialog.__toggleAlwaysUv</h4>
+<b>__toggleAlwaysUv</b>(<i></i>)
+<p>
+        Private slot to toggle the state of the 'Always Require User Verification'
+        flag.
+</p>
+
+<a NAME="Fido2ManagementDialog.on_deleteButton_clicked" ID="Fido2ManagementDialog.on_deleteButton_clicked"></a>
+<h4>Fido2ManagementDialog.on_deleteButton_clicked</h4>
+<b>on_deleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected passkey.
+</p>
+
+<a NAME="Fido2ManagementDialog.on_editButton_clicked" ID="Fido2ManagementDialog.on_editButton_clicked"></a>
+<h4>Fido2ManagementDialog.on_editButton_clicked</h4>
+<b>on_editButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit the selected passkey.
+</p>
+
+<a NAME="Fido2ManagementDialog.on_loadPasskeysButton_clicked" ID="Fido2ManagementDialog.on_loadPasskeysButton_clicked"></a>
+<h4>Fido2ManagementDialog.on_loadPasskeysButton_clicked</h4>
+<b>on_loadPasskeysButton_clicked</b>(<i></i>)
+<p>
+        Private slot to (re-)populate the passkeys list.
+</p>
+
+<a NAME="Fido2ManagementDialog.on_lockButton_toggled" ID="Fido2ManagementDialog.on_lockButton_toggled"></a>
+<h4>Fido2ManagementDialog.on_lockButton_toggled</h4>
+<b>on_lockButton_toggled</b>(<i>checked</i>)
+<p>
+        Private slot to handle the toggling of the device locked status.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the lock/unlock button
+</dd>
+</dl>
+<a NAME="Fido2ManagementDialog.on_passkeysList_itemSelectionChanged" ID="Fido2ManagementDialog.on_passkeysList_itemSelectionChanged"></a>
+<h4>Fido2ManagementDialog.on_passkeysList_itemSelectionChanged</h4>
+<b>on_passkeysList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot handling the selection of a passkey.
+</p>
+
+<a NAME="Fido2ManagementDialog.on_pinButton_clicked" ID="Fido2ManagementDialog.on_pinButton_clicked"></a>
+<h4>Fido2ManagementDialog.on_pinButton_clicked</h4>
+<b>on_pinButton_clicked</b>(<i></i>)
+<p>
+        Private slot to set or change the PIN for the selected security key.
+</p>
+
+<a NAME="Fido2ManagementDialog.on_securityKeysComboBox_currentIndexChanged" ID="Fido2ManagementDialog.on_securityKeysComboBox_currentIndexChanged"></a>
+<h4>Fido2ManagementDialog.on_securityKeysComboBox_currentIndexChanged</h4>
+<b>on_securityKeysComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot handling the selection of security key.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected security key
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

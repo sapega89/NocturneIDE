@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.SystemUtilities.FileSystemUtilities</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.SystemUtilities.FileSystemUtilities</h1>
+<p>
+Module implementing file system related utility functions.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_DeviceFileMarker</td></tr>
+<tr><td>_RemoteFileMarker</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#absolutePath">absolutePath</a></td>
+<td>Public method to convert a path relative to a start path to an absolute path.</td>
+</tr>
+<tr>
+<td><a href="#absoluteUniversalPath">absoluteUniversalPath</a></td>
+<td>Public method to convert a path relative to a start path with universal separators to an absolute path.</td>
+</tr>
+<tr>
+<td><a href="#compactPath">compactPath</a></td>
+<td>Function to return a compacted path fitting inside the given width.</td>
+</tr>
+<tr>
+<td><a href="#deviceFileName">deviceFileName</a></td>
+<td>Function to create a device (MicroPython) file name given a plain file name.</td>
+</tr>
+<tr>
+<td><a href="#direntries">direntries</a></td>
+<td>Function returning a list of all files and directories.</td>
+</tr>
+<tr>
+<td><a href="#findVolume">findVolume</a></td>
+<td>Function to find the directory belonging to a given volume name.</td>
+</tr>
+<tr>
+<td><a href="#fromNativeSeparators">fromNativeSeparators</a></td>
+<td>Function returning a path, that is using "/" separator characters.</td>
+</tr>
+<tr>
+<td><a href="#getDirs">getDirs</a></td>
+<td>Function returning a list of all directories below path.</td>
+</tr>
+<tr>
+<td><a href="#getExecutablePath">getExecutablePath</a></td>
+<td>Function to build the full path of an executable file from the environment.</td>
+</tr>
+<tr>
+<td><a href="#getExecutablePaths">getExecutablePaths</a></td>
+<td>Function to build all full path of an executable file from the environment.</td>
+</tr>
+<tr>
+<td><a href="#getUserMounts">getUserMounts</a></td>
+<td>Function to determine all available user mounts.</td>
+</tr>
+<tr>
+<td><a href="#getVolumeName">getVolumeName</a></td>
+<td>Local function to determine the volume of a disk or device.</td>
+</tr>
+<tr>
+<td><a href="#isDeviceFileName">isDeviceFileName</a></td>
+<td>Function to check, if the given file name is a device file name.</td>
+</tr>
+<tr>
+<td><a href="#isDrive">isDrive</a></td>
+<td>Function to check, if a path is a Windows drive.</td>
+</tr>
+<tr>
+<td><a href="#isExecutable">isExecutable</a></td>
+<td>Function to check, if a file is executable.</td>
+</tr>
+<tr>
+<td><a href="#isPlainFileName">isPlainFileName</a></td>
+<td>Function to check, if the given file name is a plain (i.e.</td>
+</tr>
+<tr>
+<td><a href="#isRemoteFileName">isRemoteFileName</a></td>
+<td>Function to check, if the given file name is a remote file name.</td>
+</tr>
+<tr>
+<td><a href="#isinpath">isinpath</a></td>
+<td>Function to check for an executable file.</td>
+</tr>
+<tr>
+<td><a href="#joinext">joinext</a></td>
+<td>Function to join a file extension to a path.</td>
+</tr>
+<tr>
+<td><a href="#normabsjoinpath">normabsjoinpath</a></td>
+<td>Function returning a normalized, absolute path of the joined parts passed into it.</td>
+</tr>
+<tr>
+<td><a href="#normcaseabspath">normcaseabspath</a></td>
+<td>Function returning an absolute path, that is normalized with respect to its case and references.</td>
+</tr>
+<tr>
+<td><a href="#normcasepath">normcasepath</a></td>
+<td>Function returning a path, that is normalized with respect to its case and references.</td>
+</tr>
+<tr>
+<td><a href="#normjoinpath">normjoinpath</a></td>
+<td>Function returning a normalized path of the joined parts passed into it.</td>
+</tr>
+<tr>
+<td><a href="#plainFileName">plainFileName</a></td>
+<td>Function to create a plain file name given a device or remote file name.</td>
+</tr>
+<tr>
+<td><a href="#relativeUniversalPath">relativeUniversalPath</a></td>
+<td>Function to convert a file path to a path relative to a start path with universal separators.</td>
+</tr>
+<tr>
+<td><a href="#remoteFileName">remoteFileName</a></td>
+<td>Function to create a remote file name given a plain file name.</td>
+</tr>
+<tr>
+<td><a href="#samefilepath">samefilepath</a></td>
+<td>Function to compare two paths.</td>
+</tr>
+<tr>
+<td><a href="#samepath">samepath</a></td>
+<td>Function to compare two paths.</td>
+</tr>
+<tr>
+<td><a href="#splitPath">splitPath</a></td>
+<td>Function to split a pathname into a directory part and a file part.</td>
+</tr>
+<tr>
+<td><a href="#startfile">startfile</a></td>
+<td>Function to open the given file path with the system default application.</td>
+</tr>
+<tr>
+<td><a href="#startsWithPath">startsWithPath</a></td>
+<td>Function to check, if a path starts with a given start path.</td>
+</tr>
+<tr>
+<td><a href="#toNativeSeparators">toNativeSeparators</a></td>
+<td>Function returning a path, that is using native separator characters.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="absolutePath" ID="absolutePath"></a>
+<h2>absolutePath</h2>
+<b>absolutePath</b>(<i>path, start</i>)
+<p>
+    Public method to convert a path relative to a start path to an
+    absolute path.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+file or directory name to convert
+</dd>
+<dt><i>start</i> (str)</dt>
+<dd>
+start path
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+absolute path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="absoluteUniversalPath" ID="absoluteUniversalPath"></a>
+<h2>absoluteUniversalPath</h2>
+<b>absoluteUniversalPath</b>(<i>path, start</i>)
+<p>
+    Public method to convert a path relative to a start path with
+    universal separators to an absolute path.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+file or directory name to convert
+</dd>
+<dt><i>start</i> (str)</dt>
+<dd>
+start path
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+absolute path with native separators
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="compactPath" ID="compactPath"></a>
+<h2>compactPath</h2>
+<b>compactPath</b>(<i>path, width, measure=len</i>)
+<p>
+    Function to return a compacted path fitting inside the given width.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path to be compacted
+</dd>
+<dt><i>width</i> (int)</dt>
+<dd>
+width for the compacted path
+</dd>
+<dt><i>measure</i> (function(str))</dt>
+<dd>
+reference to a function used to measure the length of the
+        string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+compacted path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="deviceFileName" ID="deviceFileName"></a>
+<h2>deviceFileName</h2>
+<b>deviceFileName</b>(<i>fileName</i>)
+<p>
+    Function to create a device (MicroPython) file name given a plain file name.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+plain file name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+device file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="direntries" ID="direntries"></a>
+<h2>direntries</h2>
+<b>direntries</b>(<i>path, filesonly=False, pattern=None, followsymlinks=True, checkStop=None, ignore=None, recursive=True, dirsonly=False, </i>)
+<p>
+    Function returning a list of all files and directories.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+root of the tree to check
+</dd>
+<dt><i>filesonly</i> (bool (optional))</dt>
+<dd>
+flag indicating that only files are wanted (defaults to False)
+</dd>
+<dt><i>pattern</i> (str or list of str (optional))</dt>
+<dd>
+a filename pattern or list of filename patterns to check
+        against (defaults to None)
+</dd>
+<dt><i>followsymlinks</i> (bool (optional))</dt>
+<dd>
+flag indicating whether symbolic links
+        should be followed (defaults to True)
+</dd>
+<dt><i>checkStop</i> (function (optional))</dt>
+<dd>
+function to be called to check for a stop (defaults to None)
+</dd>
+<dt><i>ignore</i> (list of str (optional))</dt>
+<dd>
+list of entries to be ignored (defaults to None)
+</dd>
+<dt><i>recursive</i> (bool (optional))</dt>
+<dd>
+flag indicating a recursive search (defaults to True)
+</dd>
+<dt><i>dirsonly</i> (bool)</dt>
+<dd>
+flag indicating to return only directories. When True it has
+        precedence over the 'filesonly' parameter ((defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all files and directories in the tree rooted
+        at path. The names are expanded to start with path.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="findVolume" ID="findVolume"></a>
+<h2>findVolume</h2>
+<b>findVolume</b>(<i>volumeName, findAll=False</i>)
+<p>
+    Function to find the directory belonging to a given volume name.
+</p>
+
+<dl>
+
+<dt><i>volumeName</i> (str)</dt>
+<dd>
+name of the volume to search for
+</dd>
+<dt><i>findAll</i> (bool (optional))</dt>
+<dd>
+flag indicating to get the directories for all volumes
+        starting with the given name (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+directory path or list of directory paths for the given volume
+        name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str or list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="fromNativeSeparators" ID="fromNativeSeparators"></a>
+<h2>fromNativeSeparators</h2>
+<b>fromNativeSeparators</b>(<i>path</i>)
+<p>
+    Function returning a path, that is using "/" separator characters.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path with converted separator characters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getDirs" ID="getDirs"></a>
+<h2>getDirs</h2>
+<b>getDirs</b>(<i>path, excludeDirs</i>)
+<p>
+    Function returning a list of all directories below path.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+root of the tree to check
+</dd>
+<dt><i>excludeDirs</i> (list of str)</dt>
+<dd>
+base name of directories to ignore
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all directories found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getExecutablePath" ID="getExecutablePath"></a>
+<h2>getExecutablePath</h2>
+<b>getExecutablePath</b>(<i>file</i>)
+<p>
+    Function to build the full path of an executable file from the environment.
+</p>
+
+<dl>
+
+<dt><i>file</i> (str)</dt>
+<dd>
+filename of the executable to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+full executable name, if the executable file is accessible
+        via the executable search path defined by the PATH environment variable, or an
+        empty string otherwise.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getExecutablePaths" ID="getExecutablePaths"></a>
+<h2>getExecutablePaths</h2>
+<b>getExecutablePaths</b>(<i>file</i>)
+<p>
+    Function to build all full path of an executable file from the environment.
+</p>
+
+<dl>
+
+<dt><i>file</i> (str)</dt>
+<dd>
+filename of the executable
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of full executable names, if the executable file is accessible via
+        the executable search path defined by the PATH environment variable, or an
+        empty list otherwise.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getUserMounts" ID="getUserMounts"></a>
+<h2>getUserMounts</h2>
+<b>getUserMounts</b>(<i></i>)
+<p>
+    Function to determine all available user mounts.
+</p>
+<p>
+    Note: On Windows platforms all available drives are returned.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of user mounts or drives
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getVolumeName" ID="getVolumeName"></a>
+<h2>getVolumeName</h2>
+<b>getVolumeName</b>(<i>diskName</i>)
+<p>
+            Local function to determine the volume of a disk or device.
+</p>
+<p>
+            Each disk or external device connected to windows has an
+            attribute called "volume name". This function returns the
+            volume name for the given disk/device.
+</p>
+<p>
+            Code from http://stackoverflow.com/a/12056414
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isDeviceFileName" ID="isDeviceFileName"></a>
+<h2>isDeviceFileName</h2>
+<b>isDeviceFileName</b>(<i>fileName</i>)
+<p>
+    Function to check, if the given file name is a device file name.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+file name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a device file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isDrive" ID="isDrive"></a>
+<h2>isDrive</h2>
+<b>isDrive</b>(<i>path</i>)
+<p>
+    Function to check, if a path is a Windows drive.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a Windows drive
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isExecutable" ID="isExecutable"></a>
+<h2>isExecutable</h2>
+<b>isExecutable</b>(<i>exe</i>)
+<p>
+    Function to check, if a file is executable.
+</p>
+
+<dl>
+
+<dt><i>exe</i> (str)</dt>
+<dd>
+filename of the executable to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating executable status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isPlainFileName" ID="isPlainFileName"></a>
+<h2>isPlainFileName</h2>
+<b>isPlainFileName</b>(<i>fileName</i>)
+<p>
+    Function to check, if the given file name is a plain (i.e. local) file name.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+file name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a local file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isRemoteFileName" ID="isRemoteFileName"></a>
+<h2>isRemoteFileName</h2>
+<b>isRemoteFileName</b>(<i>fileName</i>)
+<p>
+    Function to check, if the given file name is a remote file name.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+file name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a remote file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isinpath" ID="isinpath"></a>
+<h2>isinpath</h2>
+<b>isinpath</b>(<i>file</i>)
+<p>
+    Function to check for an executable file.
+</p>
+
+<dl>
+
+<dt><i>file</i> (str)</dt>
+<dd>
+filename of the executable to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the executable file is accessible via the executable
+        search path defined by the PATH environment variable.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="joinext" ID="joinext"></a>
+<h2>joinext</h2>
+<b>joinext</b>(<i>prefix, ext</i>)
+<p>
+    Function to join a file extension to a path.
+</p>
+<p>
+    The leading "." of ext is replaced by a platform specific extension
+    separator if necessary.
+</p>
+
+<dl>
+
+<dt><i>prefix</i> (str)</dt>
+<dd>
+the basepart of the filename
+</dd>
+<dt><i>ext</i> (str)</dt>
+<dd>
+the extension part
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the complete filename
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="normabsjoinpath" ID="normabsjoinpath"></a>
+<h2>normabsjoinpath</h2>
+<b>normabsjoinpath</b>(<i>a, *p</i>)
+<p>
+    Function returning a normalized, absolute path of the joined parts passed
+    into it.
+</p>
+
+<dl>
+
+<dt><i>a</i> (str)</dt>
+<dd>
+first path to be joined
+</dd>
+<dt><i>p</i> (str)</dt>
+<dd>
+variable number of path parts to be joined
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+absolute, normalized path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="normcaseabspath" ID="normcaseabspath"></a>
+<h2>normcaseabspath</h2>
+<b>normcaseabspath</b>(<i>path</i>)
+<p>
+    Function returning an absolute path, that is normalized with respect to
+    its case and references.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+file path
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+absolute, normalized path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="normcasepath" ID="normcasepath"></a>
+<h2>normcasepath</h2>
+<b>normcasepath</b>(<i>path</i>)
+<p>
+    Function returning a path, that is normalized with respect to its case
+    and references.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+file path
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+case normalized path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="normjoinpath" ID="normjoinpath"></a>
+<h2>normjoinpath</h2>
+<b>normjoinpath</b>(<i>a, *p</i>)
+<p>
+    Function returning a normalized path of the joined parts passed into it.
+</p>
+
+<dl>
+
+<dt><i>a</i> (str)</dt>
+<dd>
+first path to be joined
+</dd>
+<dt><i>p</i> (str)</dt>
+<dd>
+variable number of path parts to be joined
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+normalized path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="plainFileName" ID="plainFileName"></a>
+<h2>plainFileName</h2>
+<b>plainFileName</b>(<i>fileName</i>)
+<p>
+    Function to create a plain file name given a device or remote file name.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+device or remote file name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+plain file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="relativeUniversalPath" ID="relativeUniversalPath"></a>
+<h2>relativeUniversalPath</h2>
+<b>relativeUniversalPath</b>(<i>path, start</i>)
+<p>
+    Function to convert a file path to a path relative to a start path
+    with universal separators.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+file or directory name to convert
+</dd>
+<dt><i>start</i> (str)</dt>
+<dd>
+start path
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+relative path or unchanged path, if path does not start with
+        the start path with universal separators
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="remoteFileName" ID="remoteFileName"></a>
+<h2>remoteFileName</h2>
+<b>remoteFileName</b>(<i>fileName</i>)
+<p>
+    Function to create a remote file name given a plain file name.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+plain file name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+remote file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="samefilepath" ID="samefilepath"></a>
+<h2>samefilepath</h2>
+<b>samefilepath</b>(<i>f1, f2, followSymlinks=True</i>)
+<p>
+    Function to compare two paths. Strips the filename.
+</p>
+
+<dl>
+
+<dt><i>f1</i> (str)</dt>
+<dd>
+first filepath for the compare
+</dd>
+<dt><i>f2</i> (str)</dt>
+<dd>
+second filepath for the compare
+</dd>
+<dt><i>followSymlinks</i> (bool (optional))</dt>
+<dd>
+flag indicating to respect symbolic links for the comparison
+        (i.e. compare the real paths) (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the two paths represent the
+        same path on disk
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="samepath" ID="samepath"></a>
+<h2>samepath</h2>
+<b>samepath</b>(<i>f1, f2, followSymlinks=True</i>)
+<p>
+    Function to compare two paths.
+</p>
+
+<dl>
+
+<dt><i>f1</i> (str)</dt>
+<dd>
+first filepath for the compare
+</dd>
+<dt><i>f2</i> (str)</dt>
+<dd>
+second filepath for the compare
+</dd>
+<dt><i>followSymlinks</i> (bool (optional))</dt>
+<dd>
+flag indicating to respect symbolic links for the comparison
+        (i.e. compare the real paths) (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the two paths represent the
+        same path on disk
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="splitPath" ID="splitPath"></a>
+<h2>splitPath</h2>
+<b>splitPath</b>(<i>name</i>)
+<p>
+    Function to split a pathname into a directory part and a file part.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+path name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing directory name and file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="startfile" ID="startfile"></a>
+<h2>startfile</h2>
+<b>startfile</b>(<i>filePath</i>)
+<p>
+    Function to open the given file path with the system default application.
+</p>
+
+<dl>
+
+<dt><i>filePath</i> (str or Path)</dt>
+<dd>
+file path to be opened
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful start of the associated application
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="startsWithPath" ID="startsWithPath"></a>
+<h2>startsWithPath</h2>
+<b>startsWithPath</b>(<i>path, start</i>)
+<p>
+    Function to check, if a path starts with a given start path.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path to be checked
+</dd>
+<dt><i>start</i> (str)</dt>
+<dd>
+start path
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the path starts with the given start
+        path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="toNativeSeparators" ID="toNativeSeparators"></a>
+<h2>toNativeSeparators</h2>
+<b>toNativeSeparators</b>(<i>path</i>)
+<p>
+    Function returning a path, that is using native separator characters.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path with converted separator characters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

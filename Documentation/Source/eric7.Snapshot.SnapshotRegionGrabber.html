@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Snapshot.SnapshotRegionGrabber</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Snapshot.SnapshotRegionGrabber</h1>
+<p>
+Module implementing a grabber widget for a rectangular snapshot region.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SnapshotRegionGrabber">SnapshotRegionGrabber</a></td>
+<td>Class implementing a grabber widget for a rectangular snapshot region.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#drawRect">drawRect</a></td>
+<td>Module function to draw a rectangle with the given parameters.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SnapshotRegionGrabber" ID="SnapshotRegionGrabber"></a>
+<h2>SnapshotRegionGrabber</h2>
+<p>
+    Class implementing a grabber widget for a rectangular snapshot region.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>grabbed(QPixmap)</dt>
+<dd>
+emitted after the region was grabbed
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Ellipse</td></tr>
+<tr><td>FillMask</td></tr>
+<tr><td>Rectangle</td></tr>
+<tr><td>StrokeMask</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SnapshotRegionGrabber.__init__">SnapshotRegionGrabber</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.__grabRect">__grabRect</a></td>
+<td>Private method to grab the selected rectangle (i.e.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.__handleMask">__handleMask</a></td>
+<td>Private method to calculate the handle mask.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.__initialize">__initialize</a></td>
+<td>Private slot to initialize the rest of the widget.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.__limitPointToRect">__limitPointToRect</a></td>
+<td>Private method to limit the given point to the given rectangle.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.__normalizeSelection">__normalizeSelection</a></td>
+<td>Private method to normalize the given selection.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.__updateHandles">__updateHandles</a></td>
+<td>Private method to update the handles.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method to handle key presses.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.mouseDoubleClickEvent">mouseDoubleClickEvent</a></td>
+<td>Protected method to handle mouse double clicks.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.mouseMoveEvent">mouseMoveEvent</a></td>
+<td>Protected method to handle mouse movements.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method to handle mouse button presses.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.mouseReleaseEvent">mouseReleaseEvent</a></td>
+<td>Protected method to handle mouse button releases.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.paintEvent">paintEvent</a></td>
+<td>Protected method handling paint events.</td>
+</tr>
+<tr>
+<td><a href="#SnapshotRegionGrabber.resizeEvent">resizeEvent</a></td>
+<td>Protected method to handle resize events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SnapshotRegionGrabber.__init__" ID="SnapshotRegionGrabber.__init__"></a>
+<h4>SnapshotRegionGrabber (Constructor)</h4>
+<b>SnapshotRegionGrabber</b>(<i>mode=Rectangle</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>mode</i> (int)</dt>
+<dd>
+region grabber mode (SnapshotRegionGrabber.Rectangle or
+            SnapshotRegionGrabber.Ellipse)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate a bad value for the 'mode'
+            parameter
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.__grabRect" ID="SnapshotRegionGrabber.__grabRect"></a>
+<h4>SnapshotRegionGrabber.__grabRect</h4>
+<b>__grabRect</b>(<i></i>)
+<p>
+        Private method to grab the selected rectangle (i.e. do the snapshot).
+</p>
+
+<a NAME="SnapshotRegionGrabber.__handleMask" ID="SnapshotRegionGrabber.__handleMask"></a>
+<h4>SnapshotRegionGrabber.__handleMask</h4>
+<b>__handleMask</b>(<i>maskType</i>)
+<p>
+        Private method to calculate the handle mask.
+</p>
+
+<dl>
+
+<dt><i>maskType</i> (int)</dt>
+<dd>
+type of the mask to be used
+            (SnapshotRegionGrabber.FillMask or
+            SnapshotRegionGrabber.StrokeMask)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+calculated mask
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QRegion
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.__initialize" ID="SnapshotRegionGrabber.__initialize"></a>
+<h4>SnapshotRegionGrabber.__initialize</h4>
+<b>__initialize</b>(<i></i>)
+<p>
+        Private slot to initialize the rest of the widget.
+</p>
+
+<a NAME="SnapshotRegionGrabber.__limitPointToRect" ID="SnapshotRegionGrabber.__limitPointToRect"></a>
+<h4>SnapshotRegionGrabber.__limitPointToRect</h4>
+<b>__limitPointToRect</b>(<i>point, rect</i>)
+<p>
+        Private method to limit the given point to the given rectangle.
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+point to be limited
+</dd>
+<dt><i>rect</i> (QRect)</dt>
+<dd>
+rectangle the point shall be limited to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+limited point
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPoint
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.__normalizeSelection" ID="SnapshotRegionGrabber.__normalizeSelection"></a>
+<h4>SnapshotRegionGrabber.__normalizeSelection</h4>
+<b>__normalizeSelection</b>(<i>sel</i>)
+<p>
+        Private method to normalize the given selection.
+</p>
+
+<dl>
+
+<dt><i>sel</i> (QRect)</dt>
+<dd>
+selection to be normalized
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+normalized selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QRect
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.__updateHandles" ID="SnapshotRegionGrabber.__updateHandles"></a>
+<h4>SnapshotRegionGrabber.__updateHandles</h4>
+<b>__updateHandles</b>(<i></i>)
+<p>
+        Private method to update the handles.
+</p>
+
+<a NAME="SnapshotRegionGrabber.keyPressEvent" ID="SnapshotRegionGrabber.keyPressEvent"></a>
+<h4>SnapshotRegionGrabber.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle key presses.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+key press event
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.mouseDoubleClickEvent" ID="SnapshotRegionGrabber.mouseDoubleClickEvent"></a>
+<h4>SnapshotRegionGrabber.mouseDoubleClickEvent</h4>
+<b>mouseDoubleClickEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse double clicks.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+mouse double click event
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.mouseMoveEvent" ID="SnapshotRegionGrabber.mouseMoveEvent"></a>
+<h4>SnapshotRegionGrabber.mouseMoveEvent</h4>
+<b>mouseMoveEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse movements.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+mouse move event
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.mousePressEvent" ID="SnapshotRegionGrabber.mousePressEvent"></a>
+<h4>SnapshotRegionGrabber.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse button presses.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+mouse press event
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.mouseReleaseEvent" ID="SnapshotRegionGrabber.mouseReleaseEvent"></a>
+<h4>SnapshotRegionGrabber.mouseReleaseEvent</h4>
+<b>mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse button releases.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+mouse release event
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.paintEvent" ID="SnapshotRegionGrabber.paintEvent"></a>
+<h4>SnapshotRegionGrabber.paintEvent</h4>
+<b>paintEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling paint events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QPaintEvent)</dt>
+<dd>
+paint event
+</dd>
+</dl>
+<a NAME="SnapshotRegionGrabber.resizeEvent" ID="SnapshotRegionGrabber.resizeEvent"></a>
+<h4>SnapshotRegionGrabber.resizeEvent</h4>
+<b>resizeEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle resize events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QResizeEvent)</dt>
+<dd>
+resize event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="drawRect" ID="drawRect"></a>
+<h2>drawRect</h2>
+<b>drawRect</b>(<i>painter, rect, outline, fill=None</i>)
+<p>
+    Module function to draw a rectangle with the given parameters.
+</p>
+
+<dl>
+
+<dt><i>painter</i> (QPainter)</dt>
+<dd>
+reference to the painter to be used
+</dd>
+<dt><i>rect</i> (QRect)</dt>
+<dd>
+rectangle to be drawn
+</dd>
+<dt><i>outline</i> (QColor)</dt>
+<dd>
+color of the outline
+</dd>
+<dt><i>fill</i> (QColor)</dt>
+<dd>
+fill color
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

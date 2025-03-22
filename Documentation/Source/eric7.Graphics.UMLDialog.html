@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Graphics.UMLDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Graphics.UMLDialog</h1>
+<p>
+Module implementing a dialog showing UML like diagrams.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#UMLDialog">UMLDialog</a></td>
+<td>Class implementing a dialog showing UML like diagrams.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialogType">UMLDialogType</a></td>
+<td>Class defining the UML dialog types.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="UMLDialog" ID="UMLDialog"></a>
+<h2>UMLDialog</h2>
+<p>
+    Class implementing a dialog showing UML like diagrams.
+</p>
+
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>FileVersions</td></tr>
+<tr><td>JsonFileVersions</td></tr>
+<tr><td>UMLDialogType2String</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#UMLDialog.__init__">UMLDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__diagramBuilder">__diagramBuilder</a></td>
+<td>Private method to instantiate a diagram builder object.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__getDiagramTitel">__getDiagramTitel</a></td>
+<td>Private method to get a textual description for the diagram type.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__initActions">__initActions</a></td>
+<td>Private slot to initialize the actions.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__initToolBars">__initToolBars</a></td>
+<td>Private slot to initialize the toolbars.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__readJsonGraphicsFile">__readJsonGraphicsFile</a></td>
+<td>Private method to read an eric graphics file using the JSON based file format.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__relayout">__relayout</a></td>
+<td>Private method to re-layout the diagram.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__save">__save</a></td>
+<td>Private slot to save the diagram with the current name.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__saveAs">__saveAs</a></td>
+<td>Private slot to save the diagram.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__showInvalidDataMessage">__showInvalidDataMessage</a></td>
+<td>Private slot to show a message dialog indicating an invalid data file.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.__writeJsonGraphicsFile">__writeJsonGraphicsFile</a></td>
+<td>Private method to write an eric graphics file using the JSON based file format.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.load">load</a></td>
+<td>Public method to load a diagram from a file.</td>
+</tr>
+<tr>
+<td><a href="#UMLDialog.show">show</a></td>
+<td>Public method to show the dialog.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="UMLDialog.__init__" ID="UMLDialog.__init__"></a>
+<h4>UMLDialog (Constructor)</h4>
+<b>UMLDialog</b>(<i>diagramType, project, path="", parent=None, initBuilder=True, **kwargs</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>diagramType</i> (UMLDialogType)</dt>
+<dd>
+type of the diagram
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+file or directory path to build the diagram from
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of the dialog
+</dd>
+<dt><i>initBuilder</i> (bool)</dt>
+<dd>
+flag indicating to initialize the diagram
+            builder
+</dd>
+<dt><i>kwargs=</i> (dict)</dt>
+<dd>
+diagram specific data
+</dd>
+</dl>
+<a NAME="UMLDialog.__diagramBuilder" ID="UMLDialog.__diagramBuilder"></a>
+<h4>UMLDialog.__diagramBuilder</h4>
+<b>__diagramBuilder</b>(<i>diagramType, path, **kwargs</i>)
+<p>
+        Private method to instantiate a diagram builder object.
+</p>
+
+<dl>
+
+<dt><i>diagramType</i> (UMLDialogType)</dt>
+<dd>
+type of the diagram
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+file or directory path to build the diagram from
+</dd>
+<dt><i>kwargs=</i> (dict)</dt>
+<dd>
+diagram specific data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated diagram builder
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+UMLDiagramBuilder
+</dd>
+</dl>
+<a NAME="UMLDialog.__getDiagramTitel" ID="UMLDialog.__getDiagramTitel"></a>
+<h4>UMLDialog.__getDiagramTitel</h4>
+<b>__getDiagramTitel</b>(<i>diagramType</i>)
+<p>
+        Private method to get a textual description for the diagram type.
+</p>
+
+<dl>
+
+<dt><i>diagramType</i> (str)</dt>
+<dd>
+diagram type string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+titel of the diagram
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UMLDialog.__initActions" ID="UMLDialog.__initActions"></a>
+<h4>UMLDialog.__initActions</h4>
+<b>__initActions</b>(<i></i>)
+<p>
+        Private slot to initialize the actions.
+</p>
+
+<a NAME="UMLDialog.__initToolBars" ID="UMLDialog.__initToolBars"></a>
+<h4>UMLDialog.__initToolBars</h4>
+<b>__initToolBars</b>(<i></i>)
+<p>
+        Private slot to initialize the toolbars.
+</p>
+
+<a NAME="UMLDialog.__readJsonGraphicsFile" ID="UMLDialog.__readJsonGraphicsFile"></a>
+<h4>UMLDialog.__readJsonGraphicsFile</h4>
+<b>__readJsonGraphicsFile</b>(<i>filename</i>)
+<p>
+        Private method to read an eric graphics file using the JSON based
+        file format.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to be read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful read
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UMLDialog.__relayout" ID="UMLDialog.__relayout"></a>
+<h4>UMLDialog.__relayout</h4>
+<b>__relayout</b>(<i></i>)
+<p>
+        Private method to re-layout the diagram.
+</p>
+
+<a NAME="UMLDialog.__save" ID="UMLDialog.__save"></a>
+<h4>UMLDialog.__save</h4>
+<b>__save</b>(<i></i>)
+<p>
+        Private slot to save the diagram with the current name.
+</p>
+
+<a NAME="UMLDialog.__saveAs" ID="UMLDialog.__saveAs"></a>
+<h4>UMLDialog.__saveAs</h4>
+<b>__saveAs</b>(<i>filename=""</i>)
+<p>
+        Private slot to save the diagram.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to write to
+</dd>
+</dl>
+<a NAME="UMLDialog.__showInvalidDataMessage" ID="UMLDialog.__showInvalidDataMessage"></a>
+<h4>UMLDialog.__showInvalidDataMessage</h4>
+<b>__showInvalidDataMessage</b>(<i>filename</i>)
+<p>
+        Private slot to show a message dialog indicating an invalid data file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file containing the invalid data
+</dd>
+</dl>
+<a NAME="UMLDialog.__writeJsonGraphicsFile" ID="UMLDialog.__writeJsonGraphicsFile"></a>
+<h4>UMLDialog.__writeJsonGraphicsFile</h4>
+<b>__writeJsonGraphicsFile</b>(<i>filename</i>)
+<p>
+        Private method to write an eric graphics file using the JSON based
+        file format.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to write to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful write
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UMLDialog.load" ID="UMLDialog.load"></a>
+<h4>UMLDialog.load</h4>
+<b>load</b>(<i>filename=""</i>)
+<p>
+        Public method to load a diagram from a file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to be loaded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UMLDialog.show" ID="UMLDialog.show"></a>
+<h4>UMLDialog.show</h4>
+<b>show</b>(<i>fromFile=False</i>)
+<p>
+        Public method to show the dialog.
+</p>
+
+<dl>
+
+<dt><i>fromFile</i> (bool)</dt>
+<dd>
+flag indicating, that the diagram was loaded
+            from file
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="UMLDialogType" ID="UMLDialogType"></a>
+<h2>UMLDialogType</h2>
+<p>
+    Class defining the UML dialog types.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>APPLICATION_DIAGRAM</td></tr>
+<tr><td>CLASS_DIAGRAM</td></tr>
+<tr><td>IMPORTS_DIAGRAM</td></tr>
+<tr><td>NO_DIAGRAM</td></tr>
+<tr><td>PACKAGE_DIAGRAM</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

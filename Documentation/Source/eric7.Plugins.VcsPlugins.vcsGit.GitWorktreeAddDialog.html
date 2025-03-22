@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.GitWorktreeAddDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.GitWorktreeAddDialog</h1>
+<p>
+Module implementing a dialog to enter the data for a 'git worktree add' operation.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitWorktreeAddDialog">GitWorktreeAddDialog</a></td>
+<td>Class implementing a dialog to enter the data for a 'git worktree add' operation.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitWorktreeAddDialog" ID="GitWorktreeAddDialog"></a>
+<h2>GitWorktreeAddDialog</h2>
+<p>
+    Class implementing a dialog to enter the data for a 'git worktree add' operation.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_GitWorktreeAddDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitWorktreeAddDialog.__init__">GitWorktreeAddDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitWorktreeAddDialog.__updateOK">__updateOK</a></td>
+<td>Private method to set the enabled state of the OK button.</td>
+</tr>
+<tr>
+<td><a href="#GitWorktreeAddDialog.getParameters">getParameters</a></td>
+<td>Public method to get the entered parameters for the 'git worktree add' operation.</td>
+</tr>
+<tr>
+<td><a href="#GitWorktreeAddDialog.on_branchButton_toggled">on_branchButton_toggled</a></td>
+<td>Private slot to handle changes of the Branch select button.</td>
+</tr>
+<tr>
+<td><a href="#GitWorktreeAddDialog.on_branchCombo_editTextChanged">on_branchCombo_editTextChanged</a></td>
+<td>Private slot to handle changes of the Branch combo.</td>
+</tr>
+<tr>
+<td><a href="#GitWorktreeAddDialog.on_revButton_toggled">on_revButton_toggled</a></td>
+<td>Private slot to handle changes of the rev select button.</td>
+</tr>
+<tr>
+<td><a href="#GitWorktreeAddDialog.on_revEdit_textChanged">on_revEdit_textChanged</a></td>
+<td>Private slot to handle changes of the rev edit.</td>
+</tr>
+<tr>
+<td><a href="#GitWorktreeAddDialog.on_tagButton_toggled">on_tagButton_toggled</a></td>
+<td>Private slot to handle changes of the Tag select button.</td>
+</tr>
+<tr>
+<td><a href="#GitWorktreeAddDialog.on_tagCombo_editTextChanged">on_tagCombo_editTextChanged</a></td>
+<td>Private slot to handle changes of the Tag combo.</td>
+</tr>
+<tr>
+<td><a href="#GitWorktreeAddDialog.on_worktreePathPicker_textChanged">on_worktreePathPicker_textChanged</a></td>
+<td>Private slot handling a change of the worktree path.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitWorktreeAddDialog.__init__" ID="GitWorktreeAddDialog.__init__"></a>
+<h4>GitWorktreeAddDialog (Constructor)</h4>
+<b>GitWorktreeAddDialog</b>(<i>parentDirectory, tagsList, branchesList, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parentDirectory</i> (str)</dt>
+<dd>
+path of the worktrees parent directory
+</dd>
+<dt><i>tagsList</i> (list of str)</dt>
+<dd>
+list of tags
+</dd>
+<dt><i>branchesList</i> (list of str)</dt>
+<dd>
+list of branches
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="GitWorktreeAddDialog.__updateOK" ID="GitWorktreeAddDialog.__updateOK"></a>
+<h4>GitWorktreeAddDialog.__updateOK</h4>
+<b>__updateOK</b>(<i></i>)
+<p>
+        Private method to set the enabled state of the OK button.
+</p>
+
+<a NAME="GitWorktreeAddDialog.getParameters" ID="GitWorktreeAddDialog.getParameters"></a>
+<h4>GitWorktreeAddDialog.getParameters</h4>
+<b>getParameters</b>(<i></i>)
+<p>
+        Public method to get the entered parameters for the 'git worktree add'
+        operation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the entered data. This dictionary has these keys.
+            <ul>
+            <li>path: path for the new worktree</li>
+            <li>branch: name for the worktree branch</li>
+            <li>force_branch: enforce creating the branch</li>
+            <li>lock: flag indicating to lock the worktree</li>
+            <li>lock_reason: optional reason string for the lock</li>
+            <li>detach: flag indicating to detach the HEAD in the new worktree</li>
+            <li>commit: commit to check out in the new worktree (branch, tag, commit ID
+                or empty for HEAD) </li>
+            <li>force: flag indicating to enforce the worktree creation</li>
+            </ul>
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="GitWorktreeAddDialog.on_branchButton_toggled" ID="GitWorktreeAddDialog.on_branchButton_toggled"></a>
+<h4>GitWorktreeAddDialog.on_branchButton_toggled</h4>
+<b>on_branchButton_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot to handle changes of the Branch select button.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the button (unused)
+</dd>
+</dl>
+<a NAME="GitWorktreeAddDialog.on_branchCombo_editTextChanged" ID="GitWorktreeAddDialog.on_branchCombo_editTextChanged"></a>
+<h4>GitWorktreeAddDialog.on_branchCombo_editTextChanged</h4>
+<b>on_branchCombo_editTextChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle changes of the Branch combo.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the combo (unused)
+</dd>
+</dl>
+<a NAME="GitWorktreeAddDialog.on_revButton_toggled" ID="GitWorktreeAddDialog.on_revButton_toggled"></a>
+<h4>GitWorktreeAddDialog.on_revButton_toggled</h4>
+<b>on_revButton_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot to handle changes of the rev select button.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the button (unused)
+</dd>
+</dl>
+<a NAME="GitWorktreeAddDialog.on_revEdit_textChanged" ID="GitWorktreeAddDialog.on_revEdit_textChanged"></a>
+<h4>GitWorktreeAddDialog.on_revEdit_textChanged</h4>
+<b>on_revEdit_textChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle changes of the rev edit.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the edit (unused)
+</dd>
+</dl>
+<a NAME="GitWorktreeAddDialog.on_tagButton_toggled" ID="GitWorktreeAddDialog.on_tagButton_toggled"></a>
+<h4>GitWorktreeAddDialog.on_tagButton_toggled</h4>
+<b>on_tagButton_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot to handle changes of the Tag select button.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the button (unused)
+</dd>
+</dl>
+<a NAME="GitWorktreeAddDialog.on_tagCombo_editTextChanged" ID="GitWorktreeAddDialog.on_tagCombo_editTextChanged"></a>
+<h4>GitWorktreeAddDialog.on_tagCombo_editTextChanged</h4>
+<b>on_tagCombo_editTextChanged</b>(<i>_txt</i>)
+<p>
+        Private slot to handle changes of the Tag combo.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+text of the combo (unused)
+</dd>
+</dl>
+<a NAME="GitWorktreeAddDialog.on_worktreePathPicker_textChanged" ID="GitWorktreeAddDialog.on_worktreePathPicker_textChanged"></a>
+<h4>GitWorktreeAddDialog.on_worktreePathPicker_textChanged</h4>
+<b>on_worktreePathPicker_textChanged</b>(<i>_worktree</i>)
+<p>
+        Private slot handling a change of the worktree path.
+</p>
+
+<dl>
+
+<dt><i>_worktree</i> (str)</dt>
+<dd>
+entered worktree path (unused)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.CallTraceViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.CallTraceViewer</h1>
+<p>
+Module implementing the Call Trace viewer widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CallTraceViewer">CallTraceViewer</a></td>
+<td>Class implementing the Call Trace viewer widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CallTraceViewer" ID="CallTraceViewer"></a>
+<h2>CallTraceViewer</h2>
+<p>
+    Class implementing the Call Trace viewer widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>sourceFile(str, int)</dt>
+<dd>
+emitted to show the source of a call/return
+        point
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_CallTraceViewer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CallTraceViewer.__init__">CallTraceViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.__addCallTraceInfo">__addCallTraceInfo</a></td>
+<td>Private method to add an entry to the call trace viewer.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.__clientExit">__clientExit</a></td>
+<td>Private slot to handle a debug client terminating.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.__setCallTraceEnabled">__setCallTraceEnabled</a></td>
+<td>Private slot to set the call trace enabled status.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.clear">clear</a></td>
+<td>Public slot to clear the call trace info.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.isCallTraceEnabled">isCallTraceEnabled</a></td>
+<td>Public method to get the state of the call trace function.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.on_callTrace_itemDoubleClicked">on_callTrace_itemDoubleClicked</a></td>
+<td>Private slot to open the double clicked file in an editor.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.on_clearButton_clicked">on_clearButton_clicked</a></td>
+<td>Private slot to clear the call trace.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.on_resizeButton_clicked">on_resizeButton_clicked</a></td>
+<td>Private slot to resize the columns of the call trace to their contents.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.on_saveButton_clicked">on_saveButton_clicked</a></td>
+<td>Private slot to save the call trace info to a file.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.on_startTraceButton_clicked">on_startTraceButton_clicked</a></td>
+<td>Private slot to start call tracing.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.on_stopCheckBox_clicked">on_stopCheckBox_clicked</a></td>
+<td>Private slot to handle a click on the stop check box.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.on_stopTraceButton_clicked">on_stopTraceButton_clicked</a></td>
+<td>Private slot to start call tracing.</td>
+</tr>
+<tr>
+<td><a href="#CallTraceViewer.setProjectMode">setProjectMode</a></td>
+<td>Public slot to set the call trace viewer to project mode.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CallTraceViewer.__init__" ID="CallTraceViewer.__init__"></a>
+<h4>CallTraceViewer (Constructor)</h4>
+<b>CallTraceViewer</b>(<i>debugServer, debugViewer, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>debugServer</i> (DebugServer)</dt>
+<dd>
+reference to the debug server object
+</dd>
+<dt><i>debugViewer</i> (DebugViewer)</dt>
+<dd>
+reference to the debug viewer object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="CallTraceViewer.__addCallTraceInfo" ID="CallTraceViewer.__addCallTraceInfo"></a>
+<h4>CallTraceViewer.__addCallTraceInfo</h4>
+<b>__addCallTraceInfo</b>(<i>isCall, fromFile, fromLine, fromFunction, toFile, toLine, toFunction, debuggerId, </i>)
+<p>
+        Private method to add an entry to the call trace viewer.
+</p>
+
+<dl>
+
+<dt><i>isCall</i> (bool)</dt>
+<dd>
+flag indicating a 'call'
+</dd>
+<dt><i>fromFile</i> (str)</dt>
+<dd>
+name of the originating file
+</dd>
+<dt><i>fromLine</i> (str)</dt>
+<dd>
+line number in the originating file
+</dd>
+<dt><i>fromFunction</i> (str)</dt>
+<dd>
+name of the originating function
+</dd>
+<dt><i>toFile</i> (str)</dt>
+<dd>
+name of the target file
+</dd>
+<dt><i>toLine</i> (str)</dt>
+<dd>
+line number in the target file
+</dd>
+<dt><i>toFunction</i> (str)</dt>
+<dd>
+name of the target function
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="CallTraceViewer.__clientExit" ID="CallTraceViewer.__clientExit"></a>
+<h4>CallTraceViewer.__clientExit</h4>
+<b>__clientExit</b>(<i>_program, _status, _message, _quiet, debuggerId</i>)
+<p>
+        Private slot to handle a debug client terminating.
+</p>
+
+<dl>
+
+<dt><i>_program</i> (str)</dt>
+<dd>
+name of the exited program (unused)
+</dd>
+<dt><i>_status</i> (int)</dt>
+<dd>
+exit code of the debugged program (unused)
+</dd>
+<dt><i>_message</i> (str)</dt>
+<dd>
+exit message of the debugged program (unused)
+</dd>
+<dt><i>_quiet</i> (bool)</dt>
+<dd>
+flag indicating to suppress exit info display (unused)
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="CallTraceViewer.__setCallTraceEnabled" ID="CallTraceViewer.__setCallTraceEnabled"></a>
+<h4>CallTraceViewer.__setCallTraceEnabled</h4>
+<b>__setCallTraceEnabled</b>(<i>enabled</i>)
+<p>
+        Private slot to set the call trace enabled status.
+</p>
+
+<dl>
+
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating the new state
+</dd>
+</dl>
+<a NAME="CallTraceViewer.clear" ID="CallTraceViewer.clear"></a>
+<h4>CallTraceViewer.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public slot to clear the call trace info.
+</p>
+
+<a NAME="CallTraceViewer.isCallTraceEnabled" ID="CallTraceViewer.isCallTraceEnabled"></a>
+<h4>CallTraceViewer.isCallTraceEnabled</h4>
+<b>isCallTraceEnabled</b>(<i></i>)
+<p>
+        Public method to get the state of the call trace function.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the state of the call trace function
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CallTraceViewer.on_callTrace_itemDoubleClicked" ID="CallTraceViewer.on_callTrace_itemDoubleClicked"></a>
+<h4>CallTraceViewer.on_callTrace_itemDoubleClicked</h4>
+<b>on_callTrace_itemDoubleClicked</b>(<i>item, column</i>)
+<p>
+        Private slot to open the double clicked file in an editor.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the double clicked item
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column that was double clicked
+</dd>
+</dl>
+<a NAME="CallTraceViewer.on_clearButton_clicked" ID="CallTraceViewer.on_clearButton_clicked"></a>
+<h4>CallTraceViewer.on_clearButton_clicked</h4>
+<b>on_clearButton_clicked</b>(<i></i>)
+<p>
+        Private slot to clear the call trace.
+</p>
+
+<a NAME="CallTraceViewer.on_resizeButton_clicked" ID="CallTraceViewer.on_resizeButton_clicked"></a>
+<h4>CallTraceViewer.on_resizeButton_clicked</h4>
+<b>on_resizeButton_clicked</b>(<i></i>)
+<p>
+        Private slot to resize the columns of the call trace to their contents.
+</p>
+
+<a NAME="CallTraceViewer.on_saveButton_clicked" ID="CallTraceViewer.on_saveButton_clicked"></a>
+<h4>CallTraceViewer.on_saveButton_clicked</h4>
+<b>on_saveButton_clicked</b>(<i></i>)
+<p>
+        Private slot to save the call trace info to a file.
+</p>
+
+<a NAME="CallTraceViewer.on_startTraceButton_clicked" ID="CallTraceViewer.on_startTraceButton_clicked"></a>
+<h4>CallTraceViewer.on_startTraceButton_clicked</h4>
+<b>on_startTraceButton_clicked</b>(<i></i>)
+<p>
+        Private slot to start call tracing.
+</p>
+
+<a NAME="CallTraceViewer.on_stopCheckBox_clicked" ID="CallTraceViewer.on_stopCheckBox_clicked"></a>
+<h4>CallTraceViewer.on_stopCheckBox_clicked</h4>
+<b>on_stopCheckBox_clicked</b>(<i>checked</i>)
+<p>
+        Private slot to handle a click on the stop check box.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the check box
+</dd>
+</dl>
+<a NAME="CallTraceViewer.on_stopTraceButton_clicked" ID="CallTraceViewer.on_stopTraceButton_clicked"></a>
+<h4>CallTraceViewer.on_stopTraceButton_clicked</h4>
+<b>on_stopTraceButton_clicked</b>(<i></i>)
+<p>
+        Private slot to start call tracing.
+</p>
+
+<a NAME="CallTraceViewer.setProjectMode" ID="CallTraceViewer.setProjectMode"></a>
+<h4>CallTraceViewer.setProjectMode</h4>
+<b>setProjectMode</b>(<i>enabled</i>)
+<p>
+        Public slot to set the call trace viewer to project mode.
+</p>
+<p>
+        In project mode the call trace info is shown with project relative
+        path names.
+</p>
+
+<dl>
+
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating to enable the project mode
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

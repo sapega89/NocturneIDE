@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Project.ProjectSourcesBrowser</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Project.ProjectSourcesBrowser</h1>
+<p>
+Module implementing a class used to display the Sources part of the project.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ProjectSourcesBrowser">ProjectSourcesBrowser</a></td>
+<td>A class used to display the Sources part of the project.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ProjectSourcesBrowser" ID="ProjectSourcesBrowser"></a>
+<h2>ProjectSourcesBrowser</h2>
+<p>
+    A class used to display the Sources part of the project.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>showMenu(str, QMenu)</dt>
+<dd>
+emitted when a menu is about to be shown.
+        The name of the menu and a reference to the menu are given.
+</dd>
+</dl>
+<h3>Derived from</h3>
+ProjectBaseBrowser
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__init__">ProjectSourcesBrowser</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__addNewPackage">__addNewPackage</a></td>
+<td>Private method to add a new package to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__addNewSourceFile">__addNewSourceFile</a></td>
+<td>Private method to add a new source file to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__addSourceDirectory">__addSourceDirectory</a></td>
+<td>Private method to add source files of a directory to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__addSourceFiles">__addSourceFiles</a></td>
+<td>Private method to add a source file to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__closeAllWindows">__closeAllWindows</a></td>
+<td>Private method to close all project related windows.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__contextMenuCoverageScript">__contextMenuCoverageScript</a></td>
+<td>Private method to run a coverage test of the editor script.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__contextMenuDebugScript">__contextMenuDebugScript</a></td>
+<td>Private method to debug the editor script.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__contextMenuProfileScript">__contextMenuProfileScript</a></td>
+<td>Private method to profile the editor script.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__contextMenuRunScript">__contextMenuRunScript</a></td>
+<td>Private method to run the editor script.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__createJavaScriptPopupMenus">__createJavaScriptPopupMenus</a></td>
+<td>Private method to generate the popup menus for a Python project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__createPythonPopupMenus">__createPythonPopupMenus</a></td>
+<td>Private method to generate the popup menus for a Python project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__createRubyPopupMenus">__createRubyPopupMenus</a></td>
+<td>Private method to generate the popup menus for a Ruby project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__deleteFile">__deleteFile</a></td>
+<td>Private method to delete files from the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__loadDiagram">__loadDiagram</a></td>
+<td>Private slot to load a diagram from file.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__performFormatWithBlack">__performFormatWithBlack</a></td>
+<td>Private method to format the selected project sources using the 'Black' tool.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__performImportSortingWithIsort">__performImportSortingWithIsort</a></td>
+<td>Private method to sort the import statements of the selected project sources using the 'isort' tool.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showApplicationDiagram">__showApplicationDiagram</a></td>
+<td>Private method to handle the application diagram context menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showClassDiagram">__showClassDiagram</a></td>
+<td>Private method to handle the class diagram context menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showCodeCoverage">__showCodeCoverage</a></td>
+<td>Private method to handle the code coverage context menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showCodeMetrics">__showCodeMetrics</a></td>
+<td>Private method to handle the code metrics context menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot called by the sourceMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuAttribute">__showContextMenuAttribute</a></td>
+<td>Private slot called by the attributeMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuBack">__showContextMenuBack</a></td>
+<td>Private slot called by the backMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuCheck">__showContextMenuCheck</a></td>
+<td>Private slot called before the checks menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuDir">__showContextMenuDir</a></td>
+<td>Private slot called by the dirMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuDirMulti">__showContextMenuDirMulti</a></td>
+<td>Private slot called by the dirMultiMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuFormatting">__showContextMenuFormatting</a></td>
+<td>Private slot called before the Code Formatting menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuGeneral">__showContextMenuGeneral</a></td>
+<td>Private slot called by the menu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuGraphics">__showContextMenuGraphics</a></td>
+<td>Private slot called before the checks menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuMulti">__showContextMenuMulti</a></td>
+<td>Private slot called by the multiMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showContextMenuShow">__showContextMenuShow</a></td>
+<td>Private slot called before the show menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showImportsDiagram">__showImportsDiagram</a></td>
+<td>Private method to handle the imports diagram context menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showPackageDiagram">__showPackageDiagram</a></td>
+<td>Private method to handle the package diagram context menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.__showProfileData">__showProfileData</a></td>
+<td>Private method to handle the show profile data context menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser._contextMenuRequested">_contextMenuRequested</a></td>
+<td>Protected slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser._createPopupMenus">_createPopupMenus</a></td>
+<td>Protected overloaded method to generate the popup menu.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser._openItem">_openItem</a></td>
+<td>Protected slot to handle the open popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser._projectClosed">_projectClosed</a></td>
+<td>Protected slot to handle the projectClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectSourcesBrowser.getIcon">getIcon</a></td>
+<td>Public method to get an icon for the project browser.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ProjectSourcesBrowser.__init__" ID="ProjectSourcesBrowser.__init__"></a>
+<h4>ProjectSourcesBrowser (Constructor)</h4>
+<b>ProjectSourcesBrowser</b>(<i>project, projectBrowser, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>projectBrowser</i> (ProjectBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this browser
+</dd>
+</dl>
+<a NAME="ProjectSourcesBrowser.__addNewPackage" ID="ProjectSourcesBrowser.__addNewPackage"></a>
+<h4>ProjectSourcesBrowser.__addNewPackage</h4>
+<b>__addNewPackage</b>(<i></i>)
+<p>
+        Private method to add a new package to the project.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__addNewSourceFile" ID="ProjectSourcesBrowser.__addNewSourceFile"></a>
+<h4>ProjectSourcesBrowser.__addNewSourceFile</h4>
+<b>__addNewSourceFile</b>(<i></i>)
+<p>
+        Private method to add a new source file to the project.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__addSourceDirectory" ID="ProjectSourcesBrowser.__addSourceDirectory"></a>
+<h4>ProjectSourcesBrowser.__addSourceDirectory</h4>
+<b>__addSourceDirectory</b>(<i></i>)
+<p>
+        Private method to add source files of a directory to the project.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__addSourceFiles" ID="ProjectSourcesBrowser.__addSourceFiles"></a>
+<h4>ProjectSourcesBrowser.__addSourceFiles</h4>
+<b>__addSourceFiles</b>(<i></i>)
+<p>
+        Private method to add a source file to the project.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__closeAllWindows" ID="ProjectSourcesBrowser.__closeAllWindows"></a>
+<h4>ProjectSourcesBrowser.__closeAllWindows</h4>
+<b>__closeAllWindows</b>(<i></i>)
+<p>
+        Private method to close all project related windows.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__contextMenuCoverageScript" ID="ProjectSourcesBrowser.__contextMenuCoverageScript"></a>
+<h4>ProjectSourcesBrowser.__contextMenuCoverageScript</h4>
+<b>__contextMenuCoverageScript</b>(<i></i>)
+<p>
+        Private method to run a coverage test of the editor script.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__contextMenuDebugScript" ID="ProjectSourcesBrowser.__contextMenuDebugScript"></a>
+<h4>ProjectSourcesBrowser.__contextMenuDebugScript</h4>
+<b>__contextMenuDebugScript</b>(<i></i>)
+<p>
+        Private method to debug the editor script.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__contextMenuProfileScript" ID="ProjectSourcesBrowser.__contextMenuProfileScript"></a>
+<h4>ProjectSourcesBrowser.__contextMenuProfileScript</h4>
+<b>__contextMenuProfileScript</b>(<i></i>)
+<p>
+        Private method to profile the editor script.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__contextMenuRunScript" ID="ProjectSourcesBrowser.__contextMenuRunScript"></a>
+<h4>ProjectSourcesBrowser.__contextMenuRunScript</h4>
+<b>__contextMenuRunScript</b>(<i></i>)
+<p>
+        Private method to run the editor script.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__createJavaScriptPopupMenus" ID="ProjectSourcesBrowser.__createJavaScriptPopupMenus"></a>
+<h4>ProjectSourcesBrowser.__createJavaScriptPopupMenus</h4>
+<b>__createJavaScriptPopupMenus</b>(<i></i>)
+<p>
+        Private method to generate the popup menus for a Python project.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__createPythonPopupMenus" ID="ProjectSourcesBrowser.__createPythonPopupMenus"></a>
+<h4>ProjectSourcesBrowser.__createPythonPopupMenus</h4>
+<b>__createPythonPopupMenus</b>(<i></i>)
+<p>
+        Private method to generate the popup menus for a Python project.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__createRubyPopupMenus" ID="ProjectSourcesBrowser.__createRubyPopupMenus"></a>
+<h4>ProjectSourcesBrowser.__createRubyPopupMenus</h4>
+<b>__createRubyPopupMenus</b>(<i></i>)
+<p>
+        Private method to generate the popup menus for a Ruby project.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__deleteFile" ID="ProjectSourcesBrowser.__deleteFile"></a>
+<h4>ProjectSourcesBrowser.__deleteFile</h4>
+<b>__deleteFile</b>(<i></i>)
+<p>
+        Private method to delete files from the project.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__loadDiagram" ID="ProjectSourcesBrowser.__loadDiagram"></a>
+<h4>ProjectSourcesBrowser.__loadDiagram</h4>
+<b>__loadDiagram</b>(<i></i>)
+<p>
+        Private slot to load a diagram from file.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__performFormatWithBlack" ID="ProjectSourcesBrowser.__performFormatWithBlack"></a>
+<h4>ProjectSourcesBrowser.__performFormatWithBlack</h4>
+<b>__performFormatWithBlack</b>(<i>action</i>)
+<p>
+        Private method to format the selected project sources using the 'Black' tool.
+</p>
+<p>
+        Following actions are supported.
+        <ul>
+        <li>BlackFormattingAction.Format - the code reformatting is performed</li>
+        <li>BlackFormattingAction.Check - a check is performed, if code formatting
+            is necessary</li>
+        <li>BlackFormattingAction.Diff - a unified diff of potential code formatting
+            changes is generated</li>
+        </ul>
+</p>
+
+<dl>
+
+<dt><i>action</i> (BlackFormattingAction)</dt>
+<dd>
+formatting operation to be performed
+</dd>
+</dl>
+<a NAME="ProjectSourcesBrowser.__performImportSortingWithIsort" ID="ProjectSourcesBrowser.__performImportSortingWithIsort"></a>
+<h4>ProjectSourcesBrowser.__performImportSortingWithIsort</h4>
+<b>__performImportSortingWithIsort</b>(<i>action</i>)
+<p>
+        Private method to sort the import statements of the selected project sources
+        using the 'isort' tool.
+</p>
+<p>
+        Following actions are supported.
+        <ul>
+        <li>IsortFormattingAction.Sort - the import statement sorting is performed</li>
+        <li>IsortFormattingAction.Check - a check is performed, if import statement
+            resorting is necessary</li>
+        <li>IsortFormattingAction.Diff - a unified diff of potential import statement
+            changes is generated</li>
+        </ul>
+</p>
+
+<dl>
+
+<dt><i>action</i> (IsortFormattingAction)</dt>
+<dd>
+sorting operation to be performed
+</dd>
+</dl>
+<a NAME="ProjectSourcesBrowser.__showApplicationDiagram" ID="ProjectSourcesBrowser.__showApplicationDiagram"></a>
+<h4>ProjectSourcesBrowser.__showApplicationDiagram</h4>
+<b>__showApplicationDiagram</b>(<i></i>)
+<p>
+        Private method to handle the application diagram context menu action.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showClassDiagram" ID="ProjectSourcesBrowser.__showClassDiagram"></a>
+<h4>ProjectSourcesBrowser.__showClassDiagram</h4>
+<b>__showClassDiagram</b>(<i></i>)
+<p>
+        Private method to handle the class diagram context menu action.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showCodeCoverage" ID="ProjectSourcesBrowser.__showCodeCoverage"></a>
+<h4>ProjectSourcesBrowser.__showCodeCoverage</h4>
+<b>__showCodeCoverage</b>(<i></i>)
+<p>
+        Private method to handle the code coverage context menu action.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showCodeMetrics" ID="ProjectSourcesBrowser.__showCodeMetrics"></a>
+<h4>ProjectSourcesBrowser.__showCodeMetrics</h4>
+<b>__showCodeMetrics</b>(<i></i>)
+<p>
+        Private method to handle the code metrics context menu action.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenu" ID="ProjectSourcesBrowser.__showContextMenu"></a>
+<h4>ProjectSourcesBrowser.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i></i>)
+<p>
+        Private slot called by the sourceMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuAttribute" ID="ProjectSourcesBrowser.__showContextMenuAttribute"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuAttribute</h4>
+<b>__showContextMenuAttribute</b>(<i></i>)
+<p>
+        Private slot called by the attributeMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuBack" ID="ProjectSourcesBrowser.__showContextMenuBack"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuBack</h4>
+<b>__showContextMenuBack</b>(<i></i>)
+<p>
+        Private slot called by the backMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuCheck" ID="ProjectSourcesBrowser.__showContextMenuCheck"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuCheck</h4>
+<b>__showContextMenuCheck</b>(<i></i>)
+<p>
+        Private slot called before the checks menu is shown.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuDir" ID="ProjectSourcesBrowser.__showContextMenuDir"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuDir</h4>
+<b>__showContextMenuDir</b>(<i></i>)
+<p>
+        Private slot called by the dirMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuDirMulti" ID="ProjectSourcesBrowser.__showContextMenuDirMulti"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuDirMulti</h4>
+<b>__showContextMenuDirMulti</b>(<i></i>)
+<p>
+        Private slot called by the dirMultiMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuFormatting" ID="ProjectSourcesBrowser.__showContextMenuFormatting"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuFormatting</h4>
+<b>__showContextMenuFormatting</b>(<i></i>)
+<p>
+        Private slot called before the Code Formatting menu is shown.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuGeneral" ID="ProjectSourcesBrowser.__showContextMenuGeneral"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuGeneral</h4>
+<b>__showContextMenuGeneral</b>(<i></i>)
+<p>
+        Private slot called by the menu aboutToShow signal.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuGraphics" ID="ProjectSourcesBrowser.__showContextMenuGraphics"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuGraphics</h4>
+<b>__showContextMenuGraphics</b>(<i></i>)
+<p>
+        Private slot called before the checks menu is shown.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuMulti" ID="ProjectSourcesBrowser.__showContextMenuMulti"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuMulti</h4>
+<b>__showContextMenuMulti</b>(<i></i>)
+<p>
+        Private slot called by the multiMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showContextMenuShow" ID="ProjectSourcesBrowser.__showContextMenuShow"></a>
+<h4>ProjectSourcesBrowser.__showContextMenuShow</h4>
+<b>__showContextMenuShow</b>(<i></i>)
+<p>
+        Private slot called before the show menu is shown.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showImportsDiagram" ID="ProjectSourcesBrowser.__showImportsDiagram"></a>
+<h4>ProjectSourcesBrowser.__showImportsDiagram</h4>
+<b>__showImportsDiagram</b>(<i></i>)
+<p>
+        Private method to handle the imports diagram context menu action.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showPackageDiagram" ID="ProjectSourcesBrowser.__showPackageDiagram"></a>
+<h4>ProjectSourcesBrowser.__showPackageDiagram</h4>
+<b>__showPackageDiagram</b>(<i></i>)
+<p>
+        Private method to handle the package diagram context menu action.
+</p>
+
+<a NAME="ProjectSourcesBrowser.__showProfileData" ID="ProjectSourcesBrowser.__showProfileData"></a>
+<h4>ProjectSourcesBrowser.__showProfileData</h4>
+<b>__showProfileData</b>(<i></i>)
+<p>
+        Private method to handle the show profile data context menu action.
+</p>
+
+<a NAME="ProjectSourcesBrowser._contextMenuRequested" ID="ProjectSourcesBrowser._contextMenuRequested"></a>
+<h4>ProjectSourcesBrowser._contextMenuRequested</h4>
+<b>_contextMenuRequested</b>(<i>coord</i>)
+<p>
+        Protected slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="ProjectSourcesBrowser._createPopupMenus" ID="ProjectSourcesBrowser._createPopupMenus"></a>
+<h4>ProjectSourcesBrowser._createPopupMenus</h4>
+<b>_createPopupMenus</b>(<i></i>)
+<p>
+        Protected overloaded method to generate the popup menu.
+</p>
+
+<a NAME="ProjectSourcesBrowser._openItem" ID="ProjectSourcesBrowser._openItem"></a>
+<h4>ProjectSourcesBrowser._openItem</h4>
+<b>_openItem</b>(<i></i>)
+<p>
+        Protected slot to handle the open popup menu entry.
+</p>
+
+<a NAME="ProjectSourcesBrowser._projectClosed" ID="ProjectSourcesBrowser._projectClosed"></a>
+<h4>ProjectSourcesBrowser._projectClosed</h4>
+<b>_projectClosed</b>(<i></i>)
+<p>
+        Protected slot to handle the projectClosed signal.
+</p>
+
+<a NAME="ProjectSourcesBrowser.getIcon" ID="ProjectSourcesBrowser.getIcon"></a>
+<h4>ProjectSourcesBrowser.getIcon</h4>
+<b>getIcon</b>(<i></i>)
+<p>
+        Public method to get an icon for the project browser.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+icon for the browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

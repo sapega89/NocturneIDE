@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsPySvn.ProjectBrowserHelper</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsPySvn.ProjectBrowserHelper</h1>
+<p>
+Module implementing the VCS project browser helper for subversion.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SvnProjectBrowserHelper">SvnProjectBrowserHelper</a></td>
+<td>Class implementing the VCS project browser helper for subversion.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SvnProjectBrowserHelper" ID="SvnProjectBrowserHelper"></a>
+<h2>SvnProjectBrowserHelper</h2>
+<p>
+    Class implementing the VCS project browser helper for subversion.
+</p>
+
+<h3>Derived from</h3>
+VcsProjectBrowserHelper
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__init__">SvnProjectBrowserHelper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNAddToChangelist">__SVNAddToChangelist</a></td>
+<td>Private slot called by the context menu to add files to a changelist.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNBlame">__SVNBlame</a></td>
+<td>Private slot called by the context menu to show the blame of a file.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNBreakLock">__SVNBreakLock</a></td>
+<td>Private slot called by the context menu to break lock files in the repository.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNConfigure">__SVNConfigure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNCopy">__SVNCopy</a></td>
+<td>Private slot called by the context menu to copy the selected file.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNDelProp">__SVNDelProp</a></td>
+<td>Private slot called by the context menu to delete a subversion property of a file.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNExtendedDiff">__SVNExtendedDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file to the repository.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNInfo">__SVNInfo</a></td>
+<td>Private slot called by the context menu to show repository information of a file or directory.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNListProps">__SVNListProps</a></td>
+<td>Private slot called by the context menu to list the subversion properties of a file.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNLock">__SVNLock</a></td>
+<td>Private slot called by the context menu to lock files in the repository.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNMove">__SVNMove</a></td>
+<td>Private slot called by the context menu to move the selected file.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNRemoveFromChangelist">__SVNRemoveFromChangelist</a></td>
+<td>Private slot called by the context menu to remove files from their changelist.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNResolve">__SVNResolve</a></td>
+<td>Private slot called by the context menu to resolve conflicts of a file.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNSbsDiff">__SVNSbsDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file to the repository side-by-side.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNSbsExtendedDiff">__SVNSbsExtendedDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file to the repository side-by-side.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNSetProp">__SVNSetProp</a></td>
+<td>Private slot called by the context menu to set a subversion property of a file.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNStealLock">__SVNStealLock</a></td>
+<td>Private slot called by the context menu to steal lock files in the repository.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNUnlock">__SVNUnlock</a></td>
+<td>Private slot called by the context menu to unlock files in the repository.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__SVNUrlDiff">__SVNUrlDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file of two repository URLs.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.__itemsHaveFiles">__itemsHaveFiles</a></td>
+<td>Private method to check, if items contain file type items.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper._addVCSMenu">_addVCSMenu</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper._addVCSMenuBack">_addVCSMenuBack</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper._addVCSMenuDir">_addVCSMenuDir</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper._addVCSMenuDirMulti">_addVCSMenuDirMulti</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper._addVCSMenuMulti">_addVCSMenuMulti</a></td>
+<td>Protected method used to add the VCS menu for multi selection to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.showContextMenu">showContextMenu</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.showContextMenuDir">showContextMenuDir</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.showContextMenuDirMulti">showContextMenuDirMulti</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectBrowserHelper.showContextMenuMulti">showContextMenuMulti</a></td>
+<td>Public slot called before the context menu (multiple selections) is shown.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SvnProjectBrowserHelper.__init__" ID="SvnProjectBrowserHelper.__init__"></a>
+<h4>SvnProjectBrowserHelper (Constructor)</h4>
+<b>SvnProjectBrowserHelper</b>(<i>vcsObject, browserObject, projectObject, isTranslationsBrowser, parent=None, name=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcsObject</i> (Subversion)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>browserObject</i> (ProjectBaseBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>projectObject</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>isTranslationsBrowser</i> (bool)</dt>
+<dd>
+flag indicating, the helper is requested
+            for the translations browser (this needs some special treatment)
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper.__SVNAddToChangelist" ID="SvnProjectBrowserHelper.__SVNAddToChangelist"></a>
+<h4>SvnProjectBrowserHelper.__SVNAddToChangelist</h4>
+<b>__SVNAddToChangelist</b>(<i></i>)
+<p>
+        Private slot called by the context menu to add files to a changelist.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNBlame" ID="SvnProjectBrowserHelper.__SVNBlame"></a>
+<h4>SvnProjectBrowserHelper.__SVNBlame</h4>
+<b>__SVNBlame</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the blame of a file.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNBreakLock" ID="SvnProjectBrowserHelper.__SVNBreakLock"></a>
+<h4>SvnProjectBrowserHelper.__SVNBreakLock</h4>
+<b>__SVNBreakLock</b>(<i></i>)
+<p>
+        Private slot called by the context menu to break lock files in the
+        repository.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNConfigure" ID="SvnProjectBrowserHelper.__SVNConfigure"></a>
+<h4>SvnProjectBrowserHelper.__SVNConfigure</h4>
+<b>__SVNConfigure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNCopy" ID="SvnProjectBrowserHelper.__SVNCopy"></a>
+<h4>SvnProjectBrowserHelper.__SVNCopy</h4>
+<b>__SVNCopy</b>(<i></i>)
+<p>
+        Private slot called by the context menu to copy the selected file.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNDelProp" ID="SvnProjectBrowserHelper.__SVNDelProp"></a>
+<h4>SvnProjectBrowserHelper.__SVNDelProp</h4>
+<b>__SVNDelProp</b>(<i></i>)
+<p>
+        Private slot called by the context menu to delete a subversion
+        property of a file.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNExtendedDiff" ID="SvnProjectBrowserHelper.__SVNExtendedDiff"></a>
+<h4>SvnProjectBrowserHelper.__SVNExtendedDiff</h4>
+<b>__SVNExtendedDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file to the repository.
+</p>
+<p>
+        This gives the chance to enter the revisions to compare.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNInfo" ID="SvnProjectBrowserHelper.__SVNInfo"></a>
+<h4>SvnProjectBrowserHelper.__SVNInfo</h4>
+<b>__SVNInfo</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show repository information
+        of a file or directory.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNListProps" ID="SvnProjectBrowserHelper.__SVNListProps"></a>
+<h4>SvnProjectBrowserHelper.__SVNListProps</h4>
+<b>__SVNListProps</b>(<i></i>)
+<p>
+        Private slot called by the context menu to list the subversion
+        properties of a file.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNLock" ID="SvnProjectBrowserHelper.__SVNLock"></a>
+<h4>SvnProjectBrowserHelper.__SVNLock</h4>
+<b>__SVNLock</b>(<i></i>)
+<p>
+        Private slot called by the context menu to lock files in the
+        repository.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNMove" ID="SvnProjectBrowserHelper.__SVNMove"></a>
+<h4>SvnProjectBrowserHelper.__SVNMove</h4>
+<b>__SVNMove</b>(<i></i>)
+<p>
+        Private slot called by the context menu to move the selected file.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNRemoveFromChangelist" ID="SvnProjectBrowserHelper.__SVNRemoveFromChangelist"></a>
+<h4>SvnProjectBrowserHelper.__SVNRemoveFromChangelist</h4>
+<b>__SVNRemoveFromChangelist</b>(<i></i>)
+<p>
+        Private slot called by the context menu to remove files from their
+        changelist.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNResolve" ID="SvnProjectBrowserHelper.__SVNResolve"></a>
+<h4>SvnProjectBrowserHelper.__SVNResolve</h4>
+<b>__SVNResolve</b>(<i></i>)
+<p>
+        Private slot called by the context menu to resolve conflicts of a file.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNSbsDiff" ID="SvnProjectBrowserHelper.__SVNSbsDiff"></a>
+<h4>SvnProjectBrowserHelper.__SVNSbsDiff</h4>
+<b>__SVNSbsDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file to the repository side-by-side.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNSbsExtendedDiff" ID="SvnProjectBrowserHelper.__SVNSbsExtendedDiff"></a>
+<h4>SvnProjectBrowserHelper.__SVNSbsExtendedDiff</h4>
+<b>__SVNSbsExtendedDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file to the repository side-by-side.
+</p>
+<p>
+        It allows the selection of revisions to compare.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNSetProp" ID="SvnProjectBrowserHelper.__SVNSetProp"></a>
+<h4>SvnProjectBrowserHelper.__SVNSetProp</h4>
+<b>__SVNSetProp</b>(<i></i>)
+<p>
+        Private slot called by the context menu to set a subversion
+        property of a file.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNStealLock" ID="SvnProjectBrowserHelper.__SVNStealLock"></a>
+<h4>SvnProjectBrowserHelper.__SVNStealLock</h4>
+<b>__SVNStealLock</b>(<i></i>)
+<p>
+        Private slot called by the context menu to steal lock files in the
+        repository.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNUnlock" ID="SvnProjectBrowserHelper.__SVNUnlock"></a>
+<h4>SvnProjectBrowserHelper.__SVNUnlock</h4>
+<b>__SVNUnlock</b>(<i></i>)
+<p>
+        Private slot called by the context menu to unlock files in the
+        repository.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__SVNUrlDiff" ID="SvnProjectBrowserHelper.__SVNUrlDiff"></a>
+<h4>SvnProjectBrowserHelper.__SVNUrlDiff</h4>
+<b>__SVNUrlDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file of two repository URLs.
+</p>
+<p>
+        This gives the chance to enter the repository URLs to compare.
+</p>
+
+<a NAME="SvnProjectBrowserHelper.__itemsHaveFiles" ID="SvnProjectBrowserHelper.__itemsHaveFiles"></a>
+<h4>SvnProjectBrowserHelper.__itemsHaveFiles</h4>
+<b>__itemsHaveFiles</b>(<i>items</i>)
+<p>
+        Private method to check, if items contain file type items.
+</p>
+
+<dl>
+
+<dt><i>items</i> (list of QTreeWidgetItems)</dt>
+<dd>
+items to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating items contain file type items
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper._addVCSMenu" ID="SvnProjectBrowserHelper._addVCSMenu"></a>
+<h4>SvnProjectBrowserHelper._addVCSMenu</h4>
+<b>_addVCSMenu</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper._addVCSMenuBack" ID="SvnProjectBrowserHelper._addVCSMenuBack"></a>
+<h4>SvnProjectBrowserHelper._addVCSMenuBack</h4>
+<b>_addVCSMenuBack</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper._addVCSMenuDir" ID="SvnProjectBrowserHelper._addVCSMenuDir"></a>
+<h4>SvnProjectBrowserHelper._addVCSMenuDir</h4>
+<b>_addVCSMenuDir</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper._addVCSMenuDirMulti" ID="SvnProjectBrowserHelper._addVCSMenuDirMulti"></a>
+<h4>SvnProjectBrowserHelper._addVCSMenuDirMulti</h4>
+<b>_addVCSMenuDirMulti</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper._addVCSMenuMulti" ID="SvnProjectBrowserHelper._addVCSMenuMulti"></a>
+<h4>SvnProjectBrowserHelper._addVCSMenuMulti</h4>
+<b>_addVCSMenuMulti</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu for multi selection to all
+        project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper.showContextMenu" ID="SvnProjectBrowserHelper.showContextMenu"></a>
+<h4>SvnProjectBrowserHelper.showContextMenu</h4>
+<b>showContextMenu</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the file status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper.showContextMenuDir" ID="SvnProjectBrowserHelper.showContextMenuDir"></a>
+<h4>SvnProjectBrowserHelper.showContextMenuDir</h4>
+<b>showContextMenuDir</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper.showContextMenuDirMulti" ID="SvnProjectBrowserHelper.showContextMenuDirMulti"></a>
+<h4>SvnProjectBrowserHelper.showContextMenuDirMulti</h4>
+<b>showContextMenuDirMulti</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<a NAME="SvnProjectBrowserHelper.showContextMenuMulti" ID="SvnProjectBrowserHelper.showContextMenuMulti"></a>
+<h4>SvnProjectBrowserHelper.showContextMenuMulti</h4>
+<b>showContextMenuMulti</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu (multiple selections) is
+        shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the files status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.GitBisectLogBrowserDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.GitBisectLogBrowserDialog</h1>
+<p>
+Module implementing a dialog to browse the bisect log history.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog">GitBisectLogBrowserDialog</a></td>
+<td>Class implementing a dialog to browse the bisect log history.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitBisectLogBrowserDialog" ID="GitBisectLogBrowserDialog"></a>
+<h2>GitBisectLogBrowserDialog</h2>
+<p>
+    Class implementing a dialog to browse the bisect log history.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_GitBisectLogBrowserDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>CommitIdColumn</td></tr>
+<tr><td>OperationColumn</td></tr>
+<tr><td>SubjectColumn</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__init__">GitBisectLogBrowserDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__generateLogItem">__generateLogItem</a></td>
+<td>Private method to generate a bisect log tree entry.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__getLogEntries">__getLogEntries</a></td>
+<td>Private method to retrieve bisect log entries from the repository.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__initData">__initData</a></td>
+<td>Private method to (re-)initialize some data.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__procFinished">__procFinished</a></td>
+<td>Private slot connected to the finished signal.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__processBuffer">__processBuffer</a></td>
+<td>Private method to process the buffered output of the git log command.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__readStderr">__readStderr</a></td>
+<td>Private slot to handle the readyReadStandardError signal.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__readStdout">__readStdout</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__resetUI">__resetUI</a></td>
+<td>Private method to reset the user interface.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__resizeColumnsLog">__resizeColumnsLog</a></td>
+<td>Private method to resize the log tree columns.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.__showError">__showError</a></td>
+<td>Private slot to show some error.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.keyPressEvent">keyPressEvent</a></td>
+<td>Protected slot to handle a key press event.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.on_input_returnPressed">on_input_returnPressed</a></td>
+<td>Private slot to handle the press of the return key in the input field.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.on_passwordCheckBox_toggled">on_passwordCheckBox_toggled</a></td>
+<td>Private slot to handle the password checkbox toggled.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the log.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.on_sendButton_clicked">on_sendButton_clicked</a></td>
+<td>Private slot to send the input to the git process.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+<tr>
+<td><a href="#GitBisectLogBrowserDialog.start">start</a></td>
+<td>Public slot to start the git bisect log command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitBisectLogBrowserDialog.__init__" ID="GitBisectLogBrowserDialog.__init__"></a>
+<h4>GitBisectLogBrowserDialog (Constructor)</h4>
+<b>GitBisectLogBrowserDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Git)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="GitBisectLogBrowserDialog.__finish" ID="GitBisectLogBrowserDialog.__finish"></a>
+<h4>GitBisectLogBrowserDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.__generateLogItem" ID="GitBisectLogBrowserDialog.__generateLogItem"></a>
+<h4>GitBisectLogBrowserDialog.__generateLogItem</h4>
+<b>__generateLogItem</b>(<i>commitId, operation, subject</i>)
+<p>
+        Private method to generate a bisect log tree entry.
+</p>
+
+<dl>
+
+<dt><i>commitId</i> (str)</dt>
+<dd>
+commit id info
+</dd>
+<dt><i>operation</i> (str)</dt>
+<dd>
+bisect operation
+</dd>
+<dt><i>subject</i> (str)</dt>
+<dd>
+subject of the bisect log entry
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitBisectLogBrowserDialog.__getLogEntries" ID="GitBisectLogBrowserDialog.__getLogEntries"></a>
+<h4>GitBisectLogBrowserDialog.__getLogEntries</h4>
+<b>__getLogEntries</b>(<i></i>)
+<p>
+        Private method to retrieve bisect log entries from the repository.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.__initData" ID="GitBisectLogBrowserDialog.__initData"></a>
+<h4>GitBisectLogBrowserDialog.__initData</h4>
+<b>__initData</b>(<i></i>)
+<p>
+        Private method to (re-)initialize some data.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.__procFinished" ID="GitBisectLogBrowserDialog.__procFinished"></a>
+<h4>GitBisectLogBrowserDialog.__procFinished</h4>
+<b>__procFinished</b>(<i>_exitCode, _exitStatus</i>)
+<p>
+        Private slot connected to the finished signal.
+</p>
+
+<dl>
+
+<dt><i>_exitCode</i> (int)</dt>
+<dd>
+exit code of the process (unused)
+</dd>
+<dt><i>_exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process (unused)
+</dd>
+</dl>
+<a NAME="GitBisectLogBrowserDialog.__processBuffer" ID="GitBisectLogBrowserDialog.__processBuffer"></a>
+<h4>GitBisectLogBrowserDialog.__processBuffer</h4>
+<b>__processBuffer</b>(<i></i>)
+<p>
+        Private method to process the buffered output of the git log command.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.__readStderr" ID="GitBisectLogBrowserDialog.__readStderr"></a>
+<h4>GitBisectLogBrowserDialog.__readStderr</h4>
+<b>__readStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardError signal.
+</p>
+<p>
+        It reads the error output of the process and inserts it into the
+        error pane.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.__readStdout" ID="GitBisectLogBrowserDialog.__readStdout"></a>
+<h4>GitBisectLogBrowserDialog.__readStdout</h4>
+<b>__readStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal.
+</p>
+<p>
+        It reads the output of the process and inserts it into a buffer.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.__resetUI" ID="GitBisectLogBrowserDialog.__resetUI"></a>
+<h4>GitBisectLogBrowserDialog.__resetUI</h4>
+<b>__resetUI</b>(<i></i>)
+<p>
+        Private method to reset the user interface.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.__resizeColumnsLog" ID="GitBisectLogBrowserDialog.__resizeColumnsLog"></a>
+<h4>GitBisectLogBrowserDialog.__resizeColumnsLog</h4>
+<b>__resizeColumnsLog</b>(<i></i>)
+<p>
+        Private method to resize the log tree columns.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.__showError" ID="GitBisectLogBrowserDialog.__showError"></a>
+<h4>GitBisectLogBrowserDialog.__showError</h4>
+<b>__showError</b>(<i>out</i>)
+<p>
+        Private slot to show some error.
+</p>
+
+<dl>
+
+<dt><i>out</i> (str)</dt>
+<dd>
+error to be shown
+</dd>
+</dl>
+<a NAME="GitBisectLogBrowserDialog.closeEvent" ID="GitBisectLogBrowserDialog.closeEvent"></a>
+<h4>GitBisectLogBrowserDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="GitBisectLogBrowserDialog.keyPressEvent" ID="GitBisectLogBrowserDialog.keyPressEvent"></a>
+<h4>GitBisectLogBrowserDialog.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected slot to handle a key press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+the key press event
+</dd>
+</dl>
+<a NAME="GitBisectLogBrowserDialog.on_buttonBox_clicked" ID="GitBisectLogBrowserDialog.on_buttonBox_clicked"></a>
+<h4>GitBisectLogBrowserDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="GitBisectLogBrowserDialog.on_input_returnPressed" ID="GitBisectLogBrowserDialog.on_input_returnPressed"></a>
+<h4>GitBisectLogBrowserDialog.on_input_returnPressed</h4>
+<b>on_input_returnPressed</b>(<i></i>)
+<p>
+        Private slot to handle the press of the return key in the input field.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.on_passwordCheckBox_toggled" ID="GitBisectLogBrowserDialog.on_passwordCheckBox_toggled"></a>
+<h4>GitBisectLogBrowserDialog.on_passwordCheckBox_toggled</h4>
+<b>on_passwordCheckBox_toggled</b>(<i>isOn</i>)
+<p>
+        Private slot to handle the password checkbox toggled.
+</p>
+
+<dl>
+
+<dt><i>isOn</i> (bool)</dt>
+<dd>
+flag indicating the status of the check box
+</dd>
+</dl>
+<a NAME="GitBisectLogBrowserDialog.on_refreshButton_clicked" ID="GitBisectLogBrowserDialog.on_refreshButton_clicked"></a>
+<h4>GitBisectLogBrowserDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the log.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.on_sendButton_clicked" ID="GitBisectLogBrowserDialog.on_sendButton_clicked"></a>
+<h4>GitBisectLogBrowserDialog.on_sendButton_clicked</h4>
+<b>on_sendButton_clicked</b>(<i></i>)
+<p>
+        Private slot to send the input to the git process.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.show" ID="GitBisectLogBrowserDialog.show"></a>
+<h4>GitBisectLogBrowserDialog.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<a NAME="GitBisectLogBrowserDialog.start" ID="GitBisectLogBrowserDialog.start"></a>
+<h4>GitBisectLogBrowserDialog.start</h4>
+<b>start</b>(<i>projectdir</i>)
+<p>
+        Public slot to start the git bisect log command.
+</p>
+
+<dl>
+
+<dt><i>projectdir</i> (str)</dt>
+<dd>
+directory name of the project
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

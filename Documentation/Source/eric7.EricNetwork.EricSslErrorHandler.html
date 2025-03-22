@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricNetwork.EricSslErrorHandler</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricNetwork.EricSslErrorHandler</h1>
+<p>
+Module implementing a SSL error handler.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricSslErrorHandler">EricSslErrorHandler</a></td>
+<td>Class implementing a handler for SSL errors.</td>
+</tr>
+<tr>
+<td><a href="#EricSslErrorState">EricSslErrorState</a></td>
+<td>Class defining the SSL error handling states.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricSslErrorHandler" ID="EricSslErrorHandler"></a>
+<h2>EricSslErrorHandler</h2>
+<p>
+    Class implementing a handler for SSL errors.
+</p>
+<p>
+    It also initializes the default SSL configuration with certificates
+    permanently accepted by the user already.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricSslErrorHandler.__init__">EricSslErrorHandler</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricSslErrorHandler.__certToString">__certToString</a></td>
+<td>Private method to convert a certificate to a formatted string.</td>
+</tr>
+<tr>
+<td><a href="#EricSslErrorHandler.__getSystemCaCertificates">__getSystemCaCertificates</a></td>
+<td>Private method to get the list of system certificates.</td>
+</tr>
+<tr>
+<td><a href="#EricSslErrorHandler.sslErrors">sslErrors</a></td>
+<td>Public method to handle SSL errors.</td>
+</tr>
+<tr>
+<td><a href="#EricSslErrorHandler.sslErrorsReply">sslErrorsReply</a></td>
+<td>Public slot to handle SSL errors for a network reply.</td>
+</tr>
+<tr>
+<td><a href="#EricSslErrorHandler.sslErrorsReplySlot">sslErrorsReplySlot</a></td>
+<td>Public slot to handle SSL errors for a network reply.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricSslErrorHandler.__init__" ID="EricSslErrorHandler.__init__"></a>
+<h4>EricSslErrorHandler (Constructor)</h4>
+<b>EricSslErrorHandler</b>(<i>settings, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>settings</i> (QSettings)</dt>
+<dd>
+reference to the settings object
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="EricSslErrorHandler.__certToString" ID="EricSslErrorHandler.__certToString"></a>
+<h4>EricSslErrorHandler.__certToString</h4>
+<b>__certToString</b>(<i>cert</i>)
+<p>
+        Private method to convert a certificate to a formatted string.
+</p>
+
+<dl>
+
+<dt><i>cert</i> (QSslCertificate)</dt>
+<dd>
+certificate to convert
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricSslErrorHandler.__getSystemCaCertificates" ID="EricSslErrorHandler.__getSystemCaCertificates"></a>
+<h4>EricSslErrorHandler.__getSystemCaCertificates</h4>
+<b>__getSystemCaCertificates</b>(<i></i>)
+<p>
+        Private method to get the list of system certificates.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of system certificates
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QSslCertificate
+</dd>
+</dl>
+<a NAME="EricSslErrorHandler.sslErrors" ID="EricSslErrorHandler.sslErrors"></a>
+<h4>EricSslErrorHandler.sslErrors</h4>
+<b>sslErrors</b>(<i>errors, server, port=-1</i>)
+<p>
+        Public method to handle SSL errors.
+</p>
+
+<dl>
+
+<dt><i>errors</i> (list of QSslError)</dt>
+<dd>
+list of SSL errors
+</dd>
+<dt><i>server</i> (str)</dt>
+<dd>
+name of the server
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+value of the port
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple indicating to ignore the SSL errors and indicating a
+            change of the default SSL configuration
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (EricSslErrorState, bool)
+</dd>
+</dl>
+<a NAME="EricSslErrorHandler.sslErrorsReply" ID="EricSslErrorHandler.sslErrorsReply"></a>
+<h4>EricSslErrorHandler.sslErrorsReply</h4>
+<b>sslErrorsReply</b>(<i>reply, errors</i>)
+<p>
+        Public slot to handle SSL errors for a network reply.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+<dt><i>errors</i> (list of QSslError)</dt>
+<dd>
+list of SSL errors
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple indicating to ignore the SSL errors and indicating a change
+            of the default SSL configuration
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (EricSslErrorState, bool)
+</dd>
+</dl>
+<a NAME="EricSslErrorHandler.sslErrorsReplySlot" ID="EricSslErrorHandler.sslErrorsReplySlot"></a>
+<h4>EricSslErrorHandler.sslErrorsReplySlot</h4>
+<b>sslErrorsReplySlot</b>(<i>reply, errors</i>)
+<p>
+        Public slot to handle SSL errors for a network reply.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+<dt><i>errors</i> (list of QSslError)</dt>
+<dd>
+list of SSL errors
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricSslErrorState" ID="EricSslErrorState"></a>
+<h2>EricSslErrorState</h2>
+<p>
+    Class defining the SSL error handling states.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>NOT_IGNORED</td></tr>
+<tr><td>SYSTEM_IGNORED</td></tr>
+<tr><td>USER_IGNORED</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

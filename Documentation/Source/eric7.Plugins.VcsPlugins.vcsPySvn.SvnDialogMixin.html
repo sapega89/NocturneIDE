@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsPySvn.SvnDialogMixin</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsPySvn.SvnDialogMixin</h1>
+<p>
+Module implementing a dialog mixin class providing common callback methods for
+the pysvn client.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SvnDialogMixin">SvnDialogMixin</a></td>
+<td>Class implementing a dialog mixin providing common callback methods for the pysvn client.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SvnDialogMixin" ID="SvnDialogMixin"></a>
+<h2>SvnDialogMixin</h2>
+<p>
+    Class implementing a dialog mixin providing common callback methods for
+    the pysvn client.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SvnDialogMixin.__init__">SvnDialogMixin</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SvnDialogMixin._cancel">_cancel</a></td>
+<td>Protected method to request a cancellation of the current action.</td>
+</tr>
+<tr>
+<td><a href="#SvnDialogMixin._clientCancelCallback">_clientCancelCallback</a></td>
+<td>Protected method called by the client to check for cancellation.</td>
+</tr>
+<tr>
+<td><a href="#SvnDialogMixin._clientLogCallback">_clientLogCallback</a></td>
+<td>Protected method called by the client to request a log message.</td>
+</tr>
+<tr>
+<td><a href="#SvnDialogMixin._clientLoginCallback">_clientLoginCallback</a></td>
+<td>Protected method called by the client to get login information.</td>
+</tr>
+<tr>
+<td><a href="#SvnDialogMixin._clientSslServerTrustPromptCallback">_clientSslServerTrustPromptCallback</a></td>
+<td>Protected method called by the client to request acceptance for a ssl server certificate.</td>
+</tr>
+<tr>
+<td><a href="#SvnDialogMixin._reset">_reset</a></td>
+<td>Protected method to reset the internal state of the dialog.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SvnDialogMixin.__init__" ID="SvnDialogMixin.__init__"></a>
+<h4>SvnDialogMixin (Constructor)</h4>
+<b>SvnDialogMixin</b>(<i>log=""</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>log</i> (str)</dt>
+<dd>
+optional log message
+</dd>
+</dl>
+<a NAME="SvnDialogMixin._cancel" ID="SvnDialogMixin._cancel"></a>
+<h4>SvnDialogMixin._cancel</h4>
+<b>_cancel</b>(<i></i>)
+<p>
+        Protected method to request a cancellation of the current action.
+</p>
+
+<a NAME="SvnDialogMixin._clientCancelCallback" ID="SvnDialogMixin._clientCancelCallback"></a>
+<h4>SvnDialogMixin._clientCancelCallback</h4>
+<b>_clientCancelCallback</b>(<i></i>)
+<p>
+        Protected method called by the client to check for cancellation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a cancellation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SvnDialogMixin._clientLogCallback" ID="SvnDialogMixin._clientLogCallback"></a>
+<h4>SvnDialogMixin._clientLogCallback</h4>
+<b>_clientLogCallback</b>(<i></i>)
+<p>
+        Protected method called by the client to request a log message.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a flag indicating success and the log message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SvnDialogMixin._clientLoginCallback" ID="SvnDialogMixin._clientLoginCallback"></a>
+<h4>SvnDialogMixin._clientLoginCallback</h4>
+<b>_clientLoginCallback</b>(<i>realm, username, may_save</i>)
+<p>
+        Protected method called by the client to get login information.
+</p>
+
+<dl>
+
+<dt><i>realm</i> (str)</dt>
+<dd>
+name of the realm of the requested credentials
+</dd>
+<dt><i>username</i> (str)</dt>
+<dd>
+username as supplied by subversion
+</dd>
+<dt><i>may_save</i> (bool)</dt>
+<dd>
+flag indicating, that subversion is willing to save
+            the answers returned
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of four values (retcode, username, password, save).
+            Retcode should be True, if username and password should be used
+            by subversion, username and password contain the relevant data
+            as strings and save is a flag indicating, that username and
+            password should be saved.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str, str, bool)
+</dd>
+</dl>
+<a NAME="SvnDialogMixin._clientSslServerTrustPromptCallback" ID="SvnDialogMixin._clientSslServerTrustPromptCallback"></a>
+<h4>SvnDialogMixin._clientSslServerTrustPromptCallback</h4>
+<b>_clientSslServerTrustPromptCallback</b>(<i>trust_dict</i>)
+<p>
+        Protected method called by the client to request acceptance for a
+        ssl server certificate.
+</p>
+
+<dl>
+
+<dt><i>trust_dict</i> (dict)</dt>
+<dd>
+dictionary containing the trust data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of three values (retcode, acceptedFailures, save).
+            Retcode should be True, if the certificate should be accepted,
+            acceptedFailures should indicate the accepted certificate failures
+            and save should be True, if subversion should save the certificate.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, list of str, bool)
+</dd>
+</dl>
+<a NAME="SvnDialogMixin._reset" ID="SvnDialogMixin._reset"></a>
+<h4>SvnDialogMixin._reset</h4>
+<b>_reset</b>(<i></i>)
+<p>
+        Protected method to reset the internal state of the dialog.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

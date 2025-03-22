@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonFileManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonFileManager</h1>
+<p>
+Module implementing some file system commands for MicroPython.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonFileManager">MicroPythonFileManager</a></td>
+<td>Class implementing an interface to the device file system commands with some additional sugar.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicroPythonFileManager" ID="MicroPythonFileManager"></a>
+<h2>MicroPythonFileManager</h2>
+<p>
+    Class implementing an interface to the device file system commands with
+    some additional sugar.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>createDirectoryDone()</dt>
+<dd>
+emitted after a directory was created
+</dd>
+<dt>currentDir(dirname)</dt>
+<dd>
+emitted to report the current directory of the
+        device
+</dd>
+<dt>currentDirChanged(dirname)</dt>
+<dd>
+emitted to report back a change of the
+        current directory
+</dd>
+<dt>deleteFileDone(deviceFile)</dt>
+<dd>
+emitted after the file has been deleted
+        on the connected device
+</dd>
+<dt>error(exc)</dt>
+<dd>
+emitted with a failure message to indicate a failure
+        during the most recent operation
+</dd>
+<dt>fsinfoDone(fsinfo)</dt>
+<dd>
+emitted after the file system information was
+        obtained
+</dd>
+<dt>getFileDone(deviceFile, localFile)</dt>
+<dd>
+emitted after the file was
+        fetched from the connected device and written to the local file system
+</dd>
+<dt>longListFiles(result)</dt>
+<dd>
+emitted with a tuple of tuples containing the
+        name, mode, size and time for each directory entry
+</dd>
+<dt>putDataDone(deviceFile)</dt>
+<dd>
+emitted after data has been save to a file
+        on the connected device
+</dd>
+<dt>putFileDone(localFile, deviceFile)</dt>
+<dd>
+emitted after the file was
+        copied to the connected device
+</dd>
+<dt>removeDirectoryDone()</dt>
+<dd>
+emitted after a directory has been deleted
+</dd>
+<dt>rsyncDone(localName, deviceName)</dt>
+<dd>
+emitted after the rsync operation
+        has been completed
+</dd>
+<dt>rsyncProgressMessage(msg)</dt>
+<dd>
+emitted to send a message about what
+        rsync is doing
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonFileManager.__init__">MicroPythonFileManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.__rsync">__rsync</a></td>
+<td>Private method to synchronize a local directory to the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.cd">cd</a></td>
+<td>Public slot to change the current directory of the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.delete">delete</a></td>
+<td>Public slot to delete a file on the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.exists">exists</a></td>
+<td>Public method to check the existence of a file or directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.fileSystemInfo">fileSystemInfo</a></td>
+<td>Public method to obtain information about the currently mounted file systems.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.get">get</a></td>
+<td>Public slot to get a file from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.getData">getData</a></td>
+<td>Public method to read data from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.lls">lls</a></td>
+<td>Public slot to get a long listing of the given directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.makedirs">makedirs</a></td>
+<td>Public slot to create a new directory and all intermediates.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.mkdir">mkdir</a></td>
+<td>Public slot to create a new directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.put">put</a></td>
+<td>Public slot to put a file onto the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.putData">putData</a></td>
+<td>Public method to write data to the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.pwd">pwd</a></td>
+<td>Public slot to get the current directory of the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.rename">rename</a></td>
+<td>Public method to rename a file on the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.rmdir">rmdir</a></td>
+<td>Public slot to (recursively) remove a directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.rsync">rsync</a></td>
+<td>Public slot to synchronize a local directory to the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManager.writeFile">writeFile</a></td>
+<td>Public method to write some text to a file on the connected device.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonFileManager.__init__" ID="MicroPythonFileManager.__init__"></a>
+<h4>MicroPythonFileManager (Constructor)</h4>
+<b>MicroPythonFileManager</b>(<i>device, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>device</i> (BaseDevice)</dt>
+<dd>
+MicroPython device object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.__rsync" ID="MicroPythonFileManager.__rsync"></a>
+<h4>MicroPythonFileManager.__rsync</h4>
+<b>__rsync</b>(<i>hostDirectory, deviceDirectory, mirror=True, localDevice=False, indentLevel=0, </i>)
+<p>
+        Private method to synchronize a local directory to the device.
+</p>
+
+<dl>
+
+<dt><i>hostDirectory</i> (str)</dt>
+<dd>
+name of the local directory
+</dd>
+<dt><i>deviceDirectory</i> (str)</dt>
+<dd>
+name of the directory on the device
+</dd>
+<dt><i>mirror</i> (bool)</dt>
+<dd>
+flag indicating to mirror the local directory to
+            the device directory
+</dd>
+<dt><i>localDevice</i> (bool)</dt>
+<dd>
+flag indicating device access via local file system
+</dd>
+<dt><i>indentLevel</i> (int)</dt>
+<dd>
+indentation level for progress messages
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of errors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.cd" ID="MicroPythonFileManager.cd"></a>
+<h4>MicroPythonFileManager.cd</h4>
+<b>cd</b>(<i>dirname</i>)
+<p>
+        Public slot to change the current directory of the device.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the desired current directory
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.delete" ID="MicroPythonFileManager.delete"></a>
+<h4>MicroPythonFileManager.delete</h4>
+<b>delete</b>(<i>deviceFileName</i>)
+<p>
+        Public slot to delete a file on the device.
+</p>
+
+<dl>
+
+<dt><i>deviceFileName</i> (str)</dt>
+<dd>
+name of the file on the connected device
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.exists" ID="MicroPythonFileManager.exists"></a>
+<h4>MicroPythonFileManager.exists</h4>
+<b>exists</b>(<i>pathname</i>)
+<p>
+        Public method to check the existence of a file or directory.
+</p>
+
+<dl>
+
+<dt><i>pathname</i> (str)</dt>
+<dd>
+name of the path to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.fileSystemInfo" ID="MicroPythonFileManager.fileSystemInfo"></a>
+<h4>MicroPythonFileManager.fileSystemInfo</h4>
+<b>fileSystemInfo</b>(<i></i>)
+<p>
+        Public method to obtain information about the currently mounted file
+        systems.
+</p>
+
+<a NAME="MicroPythonFileManager.get" ID="MicroPythonFileManager.get"></a>
+<h4>MicroPythonFileManager.get</h4>
+<b>get</b>(<i>deviceFileName, hostFileName=""</i>)
+<p>
+        Public slot to get a file from the connected device.
+</p>
+
+<dl>
+
+<dt><i>deviceFileName</i> (str)</dt>
+<dd>
+name of the file on the device
+</dd>
+<dt><i>hostFileName</i> (str)</dt>
+<dd>
+name of the local file
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.getData" ID="MicroPythonFileManager.getData"></a>
+<h4>MicroPythonFileManager.getData</h4>
+<b>getData</b>(<i>deviceFileName</i>)
+<p>
+        Public method to read data from the connected device.
+</p>
+
+<dl>
+
+<dt><i>deviceFileName</i> (str)</dt>
+<dd>
+name of the file to read from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+data read from the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.lls" ID="MicroPythonFileManager.lls"></a>
+<h4>MicroPythonFileManager.lls</h4>
+<b>lls</b>(<i>dirname, showHidden=False</i>)
+<p>
+        Public slot to get a long listing of the given directory.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to list
+</dd>
+<dt><i>showHidden</i> (bool)</dt>
+<dd>
+flag indicating to show hidden files as well
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.makedirs" ID="MicroPythonFileManager.makedirs"></a>
+<h4>MicroPythonFileManager.makedirs</h4>
+<b>makedirs</b>(<i>dirname</i>)
+<p>
+        Public slot to create a new directory and all intermediates.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to create
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.mkdir" ID="MicroPythonFileManager.mkdir"></a>
+<h4>MicroPythonFileManager.mkdir</h4>
+<b>mkdir</b>(<i>dirname</i>)
+<p>
+        Public slot to create a new directory.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to create
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.put" ID="MicroPythonFileManager.put"></a>
+<h4>MicroPythonFileManager.put</h4>
+<b>put</b>(<i>hostFileName, deviceFileName=""</i>)
+<p>
+        Public slot to put a file onto the device.
+</p>
+
+<dl>
+
+<dt><i>hostFileName</i> (str)</dt>
+<dd>
+name of the local file
+</dd>
+<dt><i>deviceFileName</i> (str)</dt>
+<dd>
+name of the file on the connected device
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.putData" ID="MicroPythonFileManager.putData"></a>
+<h4>MicroPythonFileManager.putData</h4>
+<b>putData</b>(<i>deviceFileName, data</i>)
+<p>
+        Public method to write data to the connected device.
+</p>
+
+<dl>
+
+<dt><i>deviceFileName</i> (str)</dt>
+<dd>
+name of the file to write to
+</dd>
+<dt><i>data</i> (bytes)</dt>
+<dd>
+data to write
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.pwd" ID="MicroPythonFileManager.pwd"></a>
+<h4>MicroPythonFileManager.pwd</h4>
+<b>pwd</b>(<i></i>)
+<p>
+        Public slot to get the current directory of the device.
+</p>
+
+<a NAME="MicroPythonFileManager.rename" ID="MicroPythonFileManager.rename"></a>
+<h4>MicroPythonFileManager.rename</h4>
+<b>rename</b>(<i>oldname, newname</i>)
+<p>
+        Public method to rename a file on the device.
+</p>
+
+<dl>
+
+<dt><i>oldname</i> (str)</dt>
+<dd>
+current name of the file
+</dd>
+<dt><i>newname</i> (str)</dt>
+<dd>
+new name for the file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.rmdir" ID="MicroPythonFileManager.rmdir"></a>
+<h4>MicroPythonFileManager.rmdir</h4>
+<b>rmdir</b>(<i>dirname, recursive=False</i>)
+<p>
+        Public slot to (recursively) remove a directory.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to be removed
+</dd>
+<dt><i>recursive</i> (bool)</dt>
+<dd>
+flag indicating a recursive removal
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.rsync" ID="MicroPythonFileManager.rsync"></a>
+<h4>MicroPythonFileManager.rsync</h4>
+<b>rsync</b>(<i>hostDirectory, deviceDirectory, mirror=True, localDevice=False</i>)
+<p>
+        Public slot to synchronize a local directory to the device.
+</p>
+
+<dl>
+
+<dt><i>hostDirectory</i> (str)</dt>
+<dd>
+name of the local directory
+</dd>
+<dt><i>deviceDirectory</i> (str)</dt>
+<dd>
+name of the directory on the device
+</dd>
+<dt><i>mirror</i> (bool)</dt>
+<dd>
+flag indicating to mirror the local directory to
+            the device directory
+</dd>
+<dt><i>localDevice</i> (bool)</dt>
+<dd>
+flag indicating device access via local file system
+</dd>
+</dl>
+<a NAME="MicroPythonFileManager.writeFile" ID="MicroPythonFileManager.writeFile"></a>
+<h4>MicroPythonFileManager.writeFile</h4>
+<b>writeFile</b>(<i>filename, text</i>)
+<p>
+        Public method to write some text to a file on the connected device.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file on the connected device
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be written
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

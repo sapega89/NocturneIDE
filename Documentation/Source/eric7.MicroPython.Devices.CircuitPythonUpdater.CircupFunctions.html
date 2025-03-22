@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.Devices.CircuitPythonUpdater.CircupFunctions</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.Devices.CircuitPythonUpdater.CircupFunctions</h1>
+<p>
+Module implementing variants of some 'circup' functions suitable for 'eric-ide'
+integration.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#ensure_latest_bundle">ensure_latest_bundle</a></td>
+<td>Function to ensure that there's a copy of the latest library bundle available so circup can check the metadata contained therein.</td>
+</tr>
+<tr>
+<td><a href="#find_modules">find_modules</a></td>
+<td>Function to extract metadata from the connected device and available bundles and returns this as a list of Module instances representing the modules on the device.</td>
+</tr>
+<tr>
+<td><a href="#get_circuitpython_version">get_circuitpython_version</a></td>
+<td>Function to return the version number of CircuitPython running on the board connected via ``device_path``, along with the board ID.</td>
+</tr>
+<tr>
+<td><a href="#install_module">install_module</a></td>
+<td>Function to find a connected device and install a given module name.</td>
+</tr>
+<tr>
+<td><a href="#patch_circup">patch_circup</a></td>
+<td>Function to patch 'circup' to use our functions adapted to the use within the eric-ide.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ensure_latest_bundle" ID="ensure_latest_bundle"></a>
+<h2>ensure_latest_bundle</h2>
+<b>ensure_latest_bundle</b>(<i>bundle</i>)
+<p>
+    Function to ensure that there's a copy of the latest library bundle available so
+    circup can check the metadata contained therein.
+</p>
+
+<dl>
+
+<dt><i>bundle</i> (circup.Bundle)</dt>
+<dd>
+reference to the target Bundle object.
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="find_modules" ID="find_modules"></a>
+<h2>find_modules</h2>
+<b>find_modules</b>(<i>device_path, bundles_list</i>)
+<p>
+    Function to extract metadata from the connected device and available bundles and
+    returns this as a list of Module instances representing the modules on the device.
+</p>
+
+<dl>
+
+<dt><i>device_path</i> (str or circup.DiskBackend)</dt>
+<dd>
+path to the connected board or a disk backend object
+</dd>
+<dt><i>bundles_list</i> (list of circup.Bundle)</dt>
+<dd>
+list of supported bundles
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of Module instances describing the current state of the
+        modules on the connected device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of circup.module.Module
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_circuitpython_version" ID="get_circuitpython_version"></a>
+<h2>get_circuitpython_version</h2>
+<b>get_circuitpython_version</b>(<i>device_path</i>)
+<p>
+    Function to return the version number of CircuitPython running on the board
+    connected via ``device_path``, along with the board ID.
+</p>
+<p>
+    This is obtained from the 'boot_out.txt' file on the device, whose first line
+    will start with something like this:
+</p>
+<p>
+        Adafruit CircuitPython 4.1.0 on 2019-08-02;
+</p>
+<p>
+    While the second line is:
+</p>
+<p>
+        Board ID:raspberry_pi_pico
+</p>
+
+<dl>
+
+<dt><i>device_path</i> (str)</dt>
+<dd>
+path to the connected board.
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with the version string for CircuitPython and the board ID string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="install_module" ID="install_module"></a>
+<h2>install_module</h2>
+<b>install_module</b>(<i>device_path, device_modules, name, py, mod_names</i>)
+<p>
+    Function to find a connected device and install a given module name.
+</p>
+<p>
+    Installation is done if it is available in the current module bundle and is not
+    already installed on the device.
+</p>
+
+<dl>
+
+<dt><i>device_path</i> (str)</dt>
+<dd>
+path to the connected board
+</dd>
+<dt><i>device_modules</i> (list of dict)</dt>
+<dd>
+list of module metadata from the device
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the module to be installed
+</dd>
+<dt><i>py</i> (bool)</dt>
+<dd>
+flag indicating if the module should be installed from source or
+        from a pre-compiled module
+</dd>
+<dt><i>mod_names</i> (dict)</dt>
+<dd>
+dictionary containing metadata from modules that can be generated
+        with circup.get_bundle_versions()
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="patch_circup" ID="patch_circup"></a>
+<h2>patch_circup</h2>
+<b>patch_circup</b>(<i></i>)
+<p>
+    Function to patch 'circup' to use our functions adapted to the use within the
+    eric-ide.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

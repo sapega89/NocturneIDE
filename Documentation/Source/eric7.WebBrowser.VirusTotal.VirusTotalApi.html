@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.VirusTotal.VirusTotalApi</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.VirusTotal.VirusTotalApi</h1>
+<p>
+Module implementing the <a href="http://www.virustotal.com">VirusTotal</a>
+API class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#VirusTotalAPI">VirusTotalAPI</a></td>
+<td>Class implementing the <a href="http://www.virustotal.com">VirusTotal</a> API.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="VirusTotalAPI" ID="VirusTotalAPI"></a>
+<h2>VirusTotalAPI</h2>
+<p>
+    Class implementing the <a href="http://www.virustotal.com">VirusTotal</a>
+    API.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>checkServiceKeyFinished(bool, str)</dt>
+<dd>
+emitted after the service key
+        check has been performed. It gives a flag indicating validity
+        (boolean) and an error message in case of a network error (string).
+</dd>
+<dt>fileScanReport(str)</dt>
+<dd>
+emitted with the URL of the file scan report
+        page
+</dd>
+<dt>submitUrlError(str)</dt>
+<dd>
+emitted with the error string, if the URL scan
+        submission returned an error.
+</dd>
+<dt>urlScanReport(str)</dt>
+<dd>
+emitted with the URL of the URL scan report page
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>GetDomainReportPattern</td></tr>
+<tr><td>GetFileReportPattern</td></tr>
+<tr><td>GetIpAddressReportPattern</td></tr>
+<tr><td>GetUrlReportPattern</td></tr>
+<tr><td>ScanUrlPattern</td></tr>
+<tr><td>ServiceCode_InvalidKey</td></tr>
+<tr><td>ServiceCode_InvalidPrivilege</td></tr>
+<tr><td>ServiceCode_RateLimitExceeded</td></tr>
+<tr><td>ServiceResult_ItemNotPresent</td></tr>
+<tr><td>ServiceResult_ItemPresent</td></tr>
+<tr><td>ServiceResult_ItemQueued</td></tr>
+<tr><td>TestServiceKeyScanID</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VirusTotalAPI.__init__">VirusTotalAPI</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.__checkServiceKeyValidityFinished">__checkServiceKeyValidityFinished</a></td>
+<td>Private slot to determine the result of the service key validity check.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.__getDomainReportFinished">__getDomainReportFinished</a></td>
+<td>Private slot to process the IP address report data.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.__getFileScanReportUrl">__getFileScanReportUrl</a></td>
+<td>Private method to get the report URL for a file scan.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.__getFileScanReportUrlFinished">__getFileScanReportUrlFinished</a></td>
+<td>Private slot to determine the result of the file scan report URL request.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.__getIpAddressReportFinished">__getIpAddressReportFinished</a></td>
+<td>Private slot to process the IP address report data.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.__getUrlScanReportUrl">__getUrlScanReportUrl</a></td>
+<td>Private method to get the report URL for a URL scan.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.__getUrlScanReportUrlFinished">__getUrlScanReportUrlFinished</a></td>
+<td>Private slot to determine the result of the URL scan report URL.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.__loadSettings">__loadSettings</a></td>
+<td>Private method to load the settings.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.__submitUrlFinished">__submitUrlFinished</a></td>
+<td>Private slot to determine the result of the URL scan submission.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.checkServiceKeyValidity">checkServiceKeyValidity</a></td>
+<td>Public method to check the validity of the given service key.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.close">close</a></td>
+<td>Public slot to close the API.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.getDomainReport">getDomainReport</a></td>
+<td>Public method to retrieve a report for a domain.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.getIpAddressReport">getIpAddressReport</a></td>
+<td>Public method to retrieve a report for an IP address.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#VirusTotalAPI.submitUrl">submitUrl</a></td>
+<td>Public method to submit an URL to be scanned.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VirusTotalAPI.__init__" ID="VirusTotalAPI.__init__"></a>
+<h4>VirusTotalAPI (Constructor)</h4>
+<b>VirusTotalAPI</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.__checkServiceKeyValidityFinished" ID="VirusTotalAPI.__checkServiceKeyValidityFinished"></a>
+<h4>VirusTotalAPI.__checkServiceKeyValidityFinished</h4>
+<b>__checkServiceKeyValidityFinished</b>(<i>reply</i>)
+<p>
+        Private slot to determine the result of the service key validity check.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.__getDomainReportFinished" ID="VirusTotalAPI.__getDomainReportFinished"></a>
+<h4>VirusTotalAPI.__getDomainReportFinished</h4>
+<b>__getDomainReportFinished</b>(<i>reply</i>)
+<p>
+        Private slot to process the IP address report data.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.__getFileScanReportUrl" ID="VirusTotalAPI.__getFileScanReportUrl"></a>
+<h4>VirusTotalAPI.__getFileScanReportUrl</h4>
+<b>__getFileScanReportUrl</b>(<i>scanId</i>)
+<p>
+        Private method to get the report URL for a file scan.
+</p>
+
+<dl>
+
+<dt><i>scanId</i> (str)</dt>
+<dd>
+ID of the scan to get the report URL for
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.__getFileScanReportUrlFinished" ID="VirusTotalAPI.__getFileScanReportUrlFinished"></a>
+<h4>VirusTotalAPI.__getFileScanReportUrlFinished</h4>
+<b>__getFileScanReportUrlFinished</b>(<i>reply</i>)
+<p>
+        Private slot to determine the result of the file scan report URL
+        request.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.__getIpAddressReportFinished" ID="VirusTotalAPI.__getIpAddressReportFinished"></a>
+<h4>VirusTotalAPI.__getIpAddressReportFinished</h4>
+<b>__getIpAddressReportFinished</b>(<i>reply</i>)
+<p>
+        Private slot to process the IP address report data.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.__getUrlScanReportUrl" ID="VirusTotalAPI.__getUrlScanReportUrl"></a>
+<h4>VirusTotalAPI.__getUrlScanReportUrl</h4>
+<b>__getUrlScanReportUrl</b>(<i>scanId</i>)
+<p>
+        Private method to get the report URL for a URL scan.
+</p>
+
+<dl>
+
+<dt><i>scanId</i> (str)</dt>
+<dd>
+ID of the scan to get the report URL for
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.__getUrlScanReportUrlFinished" ID="VirusTotalAPI.__getUrlScanReportUrlFinished"></a>
+<h4>VirusTotalAPI.__getUrlScanReportUrlFinished</h4>
+<b>__getUrlScanReportUrlFinished</b>(<i>reply</i>)
+<p>
+        Private slot to determine the result of the URL scan report URL.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+        request.
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.__loadSettings" ID="VirusTotalAPI.__loadSettings"></a>
+<h4>VirusTotalAPI.__loadSettings</h4>
+<b>__loadSettings</b>(<i></i>)
+<p>
+        Private method to load the settings.
+</p>
+
+<a NAME="VirusTotalAPI.__submitUrlFinished" ID="VirusTotalAPI.__submitUrlFinished"></a>
+<h4>VirusTotalAPI.__submitUrlFinished</h4>
+<b>__submitUrlFinished</b>(<i>reply</i>)
+<p>
+        Private slot to determine the result of the URL scan submission.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.checkServiceKeyValidity" ID="VirusTotalAPI.checkServiceKeyValidity"></a>
+<h4>VirusTotalAPI.checkServiceKeyValidity</h4>
+<b>checkServiceKeyValidity</b>(<i>key, protocol=""</i>)
+<p>
+        Public method to check the validity of the given service key.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+service key
+</dd>
+<dt><i>protocol</i> (str)</dt>
+<dd>
+protocol used to access VirusTotal
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.close" ID="VirusTotalAPI.close"></a>
+<h4>VirusTotalAPI.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public slot to close the API.
+</p>
+
+<a NAME="VirusTotalAPI.getDomainReport" ID="VirusTotalAPI.getDomainReport"></a>
+<h4>VirusTotalAPI.getDomainReport</h4>
+<b>getDomainReport</b>(<i>domain</i>)
+<p>
+        Public method to retrieve a report for a domain.
+</p>
+
+<dl>
+
+<dt><i>domain</i> (str)</dt>
+<dd>
+domain name
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.getIpAddressReport" ID="VirusTotalAPI.getIpAddressReport"></a>
+<h4>VirusTotalAPI.getIpAddressReport</h4>
+<b>getIpAddressReport</b>(<i>ipAddress</i>)
+<p>
+        Public method to retrieve a report for an IP address.
+</p>
+
+<dl>
+
+<dt><i>ipAddress</i> (str)</dt>
+<dd>
+valid IPv4 address in dotted quad notation
+</dd>
+</dl>
+<a NAME="VirusTotalAPI.preferencesChanged" ID="VirusTotalAPI.preferencesChanged"></a>
+<h4>VirusTotalAPI.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<a NAME="VirusTotalAPI.submitUrl" ID="VirusTotalAPI.submitUrl"></a>
+<h4>VirusTotalAPI.submitUrl</h4>
+<b>submitUrl</b>(<i>url</i>)
+<p>
+        Public method to submit an URL to be scanned.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+url to be scanned
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

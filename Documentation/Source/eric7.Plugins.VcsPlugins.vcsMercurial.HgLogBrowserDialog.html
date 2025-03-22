@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.HgLogBrowserDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.HgLogBrowserDialog</h1>
+<p>
+Module implementing a dialog to browse the log history.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>COLORNAMES</td></tr>
+<tr><td>COLORS</td></tr>
+<tr><td>LIGHTCOLORS</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgLogBrowserDialog">HgLogBrowserDialog</a></td>
+<td>Class implementing a dialog to browse the log history.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgLogBrowserDialog" ID="HgLogBrowserDialog"></a>
+<h2>HgLogBrowserDialog</h2>
+<p>
+    Class implementing a dialog to browse the log history.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_HgLogBrowserDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AuthorColumn</td></tr>
+<tr><td>BookmarksColumn</td></tr>
+<tr><td>BranchColumn</td></tr>
+<tr><td>ClosedIndicator</td></tr>
+<tr><td>DateColumn</td></tr>
+<tr><td>GraftedRe</td></tr>
+<tr><td>GraftedTemplate</td></tr>
+<tr><td>IconColumn</td></tr>
+<tr><td>LargefilesCacheL</td></tr>
+<tr><td>LargefilesCacheW</td></tr>
+<tr><td>MessageColumn</td></tr>
+<tr><td>PathSeparatorRe</td></tr>
+<tr><td>PhaseColumn</td></tr>
+<tr><td>RevisionColumn</td></tr>
+<tr><td>TagsColumn</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgLogBrowserDialog.__init__">HgLogBrowserDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__actionMode">__actionMode</a></td>
+<td>Private method to get the selected action mode.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__addFinishCallback">__addFinishCallback</a></td>
+<td>Private method to add a method to be called once the process finished.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__bookmarkActTriggered">__bookmarkActTriggered</a></td>
+<td>Private slot to bookmark the selected revision.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__bookmarkMoveActTriggered">__bookmarkMoveActTriggered</a></td>
+<td>Private slot to move a bookmark to the selected revision.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__branchColor">__branchColor</a></td>
+<td>Private method to calculate a color for a given branch name.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__bundleActTriggered">__bundleActTriggered</a></td>
+<td>Private slot to create a changegroup file.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__closeHeadsActTriggered">__closeHeadsActTriggered</a></td>
+<td>Private slot to close the selected head revisions.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__filterLogs">__filterLogs</a></td>
+<td>Private method to filter the log entries.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__findItem">__findItem</a></td>
+<td>Private slot to find an item matching the entered criteria.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__generateDetailsTableText">__generateDetailsTableText</a></td>
+<td>Private method to generate an HTML table with the details of the given changeset.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__generateDiffs">__generateDiffs</a></td>
+<td>Private slot to generate diff outputs for the selected item.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__generateEdges">__generateEdges</a></td>
+<td>Private method to generate edge info for the give data.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__generateIcon">__generateIcon</a></td>
+<td>Private method to generate an icon containing the revision tree for the given data.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__generateLogItem">__generateLogItem</a></td>
+<td>Private method to generate a log tree entry.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__generatorFinished">__generatorFinished</a></td>
+<td>Private slot connected to the finished signal of the diff generator.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__getClosedBranches">__getClosedBranches</a></td>
+<td>Private method to get the list of closed branches.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__getColor">__getColor</a></td>
+<td>Private method to get the (rotating) name of the color given an index.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__getHeads">__getHeads</a></td>
+<td>Private method to get the list of all heads.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__getLogEntries">__getLogEntries</a></td>
+<td>Private method to retrieve log entries from the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__getParents">__getParents</a></td>
+<td>Private method to get the parents of the currently viewed file/directory.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__getRevisionOfTag">__getRevisionOfTag</a></td>
+<td>Private method to get the revision of a tag.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__gpgSignActTriggered">__gpgSignActTriggered</a></td>
+<td>Private slot to sign the selected revisions.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__gpgVerifyActTriggered">__gpgVerifyActTriggered</a></td>
+<td>Private slot to verify the signatures of a selected revisions.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__graftActTriggered">__graftActTriggered</a></td>
+<td>Private slot to handle the Copy Changesets action.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__identifyProject">__identifyProject</a></td>
+<td>Private method to determine the revision of the project directory.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__initActionsMenu">__initActionsMenu</a></td>
+<td>Private method to initialize the actions menu.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__initData">__initData</a></td>
+<td>Private method to (re-)initialize some data.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__lfPullActTriggered">__lfPullActTriggered</a></td>
+<td>Private slot to pull large files of selected revisions.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__mergeActTriggered">__mergeActTriggered</a></td>
+<td>Private slot to merge the working directory with the selected changeset.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__modifyForLargeFiles">__modifyForLargeFiles</a></td>
+<td>Private method to convert the displayed file name for a large file.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__phaseActTriggered">__phaseActTriggered</a></td>
+<td>Private slot to handle the Change Phase action.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__prepareFieldSearch">__prepareFieldSearch</a></td>
+<td>Private slot to prepare the filed search data.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__processBuffer">__processBuffer</a></td>
+<td>Private method to process the buffered output of the hg log command.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__pullActTriggered">__pullActTriggered</a></td>
+<td>Private slot to pull all or selected changes from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__pushActTriggered">__pushActTriggered</a></td>
+<td>Private slot to push changes to a remote repository up to a selected changeset.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__pushAllActTriggered">__pushAllActTriggered</a></td>
+<td>Private slot to push all changes to a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__reloadGeometry">__reloadGeometry</a></td>
+<td>Private method to restore the geometry.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__resetUI">__resetUI</a></td>
+<td>Private method to reset the user interface.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__resizeColumnsFiles">__resizeColumnsFiles</a></td>
+<td>Private method to resize the changed files tree columns.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__resizeColumnsLog">__resizeColumnsLog</a></td>
+<td>Private method to resize the log tree columns.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__resortFiles">__resortFiles</a></td>
+<td>Private method to resort the changed files tree.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__restoreSplitterStates">__restoreSplitterStates</a></td>
+<td>Private method to restore the state of the various splitters.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__revisionClicked">__revisionClicked</a></td>
+<td>Private slot to handle the anchorClicked signal of the changeset details pane.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__selectAllActTriggered">__selectAllActTriggered</a></td>
+<td>Private method to select or unselect all log entries.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__selectBranches">__selectBranches</a></td>
+<td>Private slot to select the branches to be shown.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__showError">__showError</a></td>
+<td>Private slot to show some error.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__stripActTriggered">__stripActTriggered</a></td>
+<td>Private slot to strip changesets from the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__switchActTriggered">__switchActTriggered</a></td>
+<td>Private slot to switch the working directory to the selected revision.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__tagActTriggered">__tagActTriggered</a></td>
+<td>Private slot to tag the selected revision.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__unbundleActTriggered">__unbundleActTriggered</a></td>
+<td>Private slot to apply the currently previewed bundle file.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__updateDetailsAndFiles">__updateDetailsAndFiles</a></td>
+<td>Private slot to update the details and file changes panes.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__updateFilesTree">__updateFilesTree</a></td>
+<td>Private method to update the files tree with changes of the given item.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__updateSbsSelectLabel">__updateSbsSelectLabel</a></td>
+<td>Private slot to update the enabled status of the diff buttons.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.__updateToolMenuActions">__updateToolMenuActions</a></td>
+<td>Private slot to update the status of the tool menu actions and the tool menu button.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.col2x">col2x</a></td>
+<td>Local function to calculate a x-position for a column.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_branchCombo_activated">on_branchCombo_activated</a></td>
+<td>Private slot called, when a new branch is selected.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_diffSelectLabel_linkActivated">on_diffSelectLabel_linkActivated</a></td>
+<td>Private slot to handle the selection of a diff target.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_downButton_clicked">on_downButton_clicked</a></td>
+<td>Private slot to move the current item down one entry.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_fieldCombo_activated">on_fieldCombo_activated</a></td>
+<td>Private slot called, when a new filter field is selected.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_filesTree_currentItemChanged">on_filesTree_currentItemChanged</a></td>
+<td>Private slot called, when the current item of the files tree changes.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_findNextButton_clicked">on_findNextButton_clicked</a></td>
+<td>Private slot to find the next item matching the entered criteria.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_findPrevButton_clicked">on_findPrevButton_clicked</a></td>
+<td>Private slot to find the previous item matching the entered criteria.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_fromDate_dateChanged">on_fromDate_dateChanged</a></td>
+<td>Private slot called, when the from date changes.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_logTree_currentItemChanged">on_logTree_currentItemChanged</a></td>
+<td>Private slot called, when the current item of the log tree changes.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_logTree_itemSelectionChanged">on_logTree_itemSelectionChanged</a></td>
+<td>Private slot called, when the selection has changed.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_modeComboBox_currentIndexChanged">on_modeComboBox_currentIndexChanged</a></td>
+<td>Private slot to react on mode changes.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_nextButton_clicked">on_nextButton_clicked</a></td>
+<td>Private slot to handle the Next button.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the log.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_rxEdit_returnPressed">on_rxEdit_returnPressed</a></td>
+<td>Private slot handling a press of the Return key in the rxEdit input.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_rxEdit_textChanged">on_rxEdit_textChanged</a></td>
+<td>Private slot called, when a filter expression is entered.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_saveLabel_linkActivated">on_saveLabel_linkActivated</a></td>
+<td>Private slot to handle the selection of the save link.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_sbsSelectLabel_linkActivated">on_sbsSelectLabel_linkActivated</a></td>
+<td>Private slot to handle selection of a side-by-side link.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_stopCheckBox_clicked">on_stopCheckBox_clicked</a></td>
+<td>Private slot called, when the stop on copy/move checkbox is clicked.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_toDate_dateChanged">on_toDate_dateChanged</a></td>
+<td>Private slot called, when the from date changes.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.on_upButton_clicked">on_upButton_clicked</a></td>
+<td>Private slot to move the current item up one entry.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+<tr>
+<td><a href="#HgLogBrowserDialog.start">start</a></td>
+<td>Public slot to start the hg log command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgLogBrowserDialog.__init__" ID="HgLogBrowserDialog.__init__"></a>
+<h4>HgLogBrowserDialog (Constructor)</h4>
+<b>HgLogBrowserDialog</b>(<i>vcs, mode="", parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>mode</i> (str (one of log, full_log, incoming, outgoing))</dt>
+<dd>
+mode of the dialog
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__actionMode" ID="HgLogBrowserDialog.__actionMode"></a>
+<h4>HgLogBrowserDialog.__actionMode</h4>
+<b>__actionMode</b>(<i></i>)
+<p>
+        Private method to get the selected action mode.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected action mode (one of 'filter' or 'find')
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__addFinishCallback" ID="HgLogBrowserDialog.__addFinishCallback"></a>
+<h4>HgLogBrowserDialog.__addFinishCallback</h4>
+<b>__addFinishCallback</b>(<i>callback</i>)
+<p>
+        Private method to add a method to be called once the process finished.
+</p>
+<p>
+        The callback methods are invoke in a FIFO style and are consumed. If
+        a callback method needs to be called again, it must be added again.
+</p>
+
+<dl>
+
+<dt><i>callback</i> (function)</dt>
+<dd>
+callback method
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__bookmarkActTriggered" ID="HgLogBrowserDialog.__bookmarkActTriggered"></a>
+<h4>HgLogBrowserDialog.__bookmarkActTriggered</h4>
+<b>__bookmarkActTriggered</b>(<i></i>)
+<p>
+        Private slot to bookmark the selected revision.
+</p>
+
+<a NAME="HgLogBrowserDialog.__bookmarkMoveActTriggered" ID="HgLogBrowserDialog.__bookmarkMoveActTriggered"></a>
+<h4>HgLogBrowserDialog.__bookmarkMoveActTriggered</h4>
+<b>__bookmarkMoveActTriggered</b>(<i></i>)
+<p>
+        Private slot to move a bookmark to the selected revision.
+</p>
+
+<a NAME="HgLogBrowserDialog.__branchColor" ID="HgLogBrowserDialog.__branchColor"></a>
+<h4>HgLogBrowserDialog.__branchColor</h4>
+<b>__branchColor</b>(<i>branchName</i>)
+<p>
+        Private method to calculate a color for a given branch name.
+</p>
+
+<dl>
+
+<dt><i>branchName</i> (str)</dt>
+<dd>
+name of the branch
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the color to use
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__bundleActTriggered" ID="HgLogBrowserDialog.__bundleActTriggered"></a>
+<h4>HgLogBrowserDialog.__bundleActTriggered</h4>
+<b>__bundleActTriggered</b>(<i></i>)
+<p>
+        Private slot to create a changegroup file.
+</p>
+
+<a NAME="HgLogBrowserDialog.__closeHeadsActTriggered" ID="HgLogBrowserDialog.__closeHeadsActTriggered"></a>
+<h4>HgLogBrowserDialog.__closeHeadsActTriggered</h4>
+<b>__closeHeadsActTriggered</b>(<i></i>)
+<p>
+        Private slot to close the selected head revisions.
+</p>
+
+<a NAME="HgLogBrowserDialog.__filterLogs" ID="HgLogBrowserDialog.__filterLogs"></a>
+<h4>HgLogBrowserDialog.__filterLogs</h4>
+<b>__filterLogs</b>(<i></i>)
+<p>
+        Private method to filter the log entries.
+</p>
+
+<a NAME="HgLogBrowserDialog.__findItem" ID="HgLogBrowserDialog.__findItem"></a>
+<h4>HgLogBrowserDialog.__findItem</h4>
+<b>__findItem</b>(<i>backwards=False, interactive=False</i>)
+<p>
+        Private slot to find an item matching the entered criteria.
+</p>
+
+<dl>
+
+<dt><i>backwards</i> (bool)</dt>
+<dd>
+flag indicating to search backwards
+</dd>
+<dt><i>interactive</i> (bool)</dt>
+<dd>
+flag indicating an interactive search
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__finish" ID="HgLogBrowserDialog.__finish"></a>
+<h4>HgLogBrowserDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="HgLogBrowserDialog.__generateDetailsTableText" ID="HgLogBrowserDialog.__generateDetailsTableText"></a>
+<h4>HgLogBrowserDialog.__generateDetailsTableText</h4>
+<b>__generateDetailsTableText</b>(<i>itm</i>)
+<p>
+        Private method to generate an HTML table with the details of the given
+        changeset.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item the table should be based on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+HTML table containing details
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__generateDiffs" ID="HgLogBrowserDialog.__generateDiffs"></a>
+<h4>HgLogBrowserDialog.__generateDiffs</h4>
+<b>__generateDiffs</b>(<i>parent=1</i>)
+<p>
+        Private slot to generate diff outputs for the selected item.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (int)</dt>
+<dd>
+number of parent to diff against
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__generateEdges" ID="HgLogBrowserDialog.__generateEdges"></a>
+<h4>HgLogBrowserDialog.__generateEdges</h4>
+<b>__generateEdges</b>(<i>rev, parents</i>)
+<p>
+        Private method to generate edge info for the give data.
+</p>
+
+<dl>
+
+<dt><i>rev</i> (int)</dt>
+<dd>
+revision to calculate edge info for
+</dd>
+<dt><i>parents</i> (list of int)</dt>
+<dd>
+list of parent revisions
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the column and color index for
+            the given node and a list of tuples indicating the edges
+            between the given node and its parents
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, [(int, int, int), ...])
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__generateIcon" ID="HgLogBrowserDialog.__generateIcon"></a>
+<h4>HgLogBrowserDialog.__generateIcon</h4>
+<b>__generateIcon</b>(<i>column, bottomedges, topedges, dotColor, currentRev, closed, isPushableDraft, </i>)
+<p>
+        Private method to generate an icon containing the revision tree for the
+        given data.
+</p>
+
+<dl>
+
+<dt><i>column</i> (int)</dt>
+<dd>
+column index of the revision
+</dd>
+<dt><i>bottomedges</i> (list of tuples of (int, int, int))</dt>
+<dd>
+list of edges for the bottom of the node
+</dd>
+<dt><i>topedges</i> (list of tuples of (int, int, int))</dt>
+<dd>
+list of edges for the top of the node
+</dd>
+<dt><i>dotColor</i> (QColor)</dt>
+<dd>
+color to be used for the dot
+</dd>
+<dt><i>currentRev</i> (bool)</dt>
+<dd>
+flag indicating to draw the icon for the
+            current revision
+</dd>
+<dt><i>closed</i> (bool)</dt>
+<dd>
+flag indicating to draw an icon for a closed
+            branch
+</dd>
+<dt><i>isPushableDraft</i> (bool)</dt>
+<dd>
+flag indicating an entry of phase 'draft',
+            that can by pushed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+icon for the node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__generateLogItem" ID="HgLogBrowserDialog.__generateLogItem"></a>
+<h4>HgLogBrowserDialog.__generateLogItem</h4>
+<b>__generateLogItem</b>(<i>author, date, message, revision, changedPaths, parents, branches, tags, phase, bookmarks, latestTag, canPush=False, </i>)
+<p>
+        Private method to generate a log tree entry.
+</p>
+
+<dl>
+
+<dt><i>author</i> (str)</dt>
+<dd>
+author info
+</dd>
+<dt><i>date</i> (str)</dt>
+<dd>
+date info
+</dd>
+<dt><i>message</i> (list of str)</dt>
+<dd>
+text of the log message
+</dd>
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision info
+</dd>
+<dt><i>changedPaths</i> (dict)</dt>
+<dd>
+list of dictionary objects containing
+            info about the changed files/directories
+</dd>
+<dt><i>parents</i> (list of int)</dt>
+<dd>
+list of parent revisions
+</dd>
+<dt><i>branches</i> (list of str)</dt>
+<dd>
+list of branches
+</dd>
+<dt><i>tags</i> (str)</dt>
+<dd>
+list of tags
+</dd>
+<dt><i>phase</i> (str)</dt>
+<dd>
+phase of the entry
+</dd>
+<dt><i>bookmarks</i> (str)</dt>
+<dd>
+list of bookmarks
+</dd>
+<dt><i>latestTag</i> (list of str)</dt>
+<dd>
+the latest tag(s) reachable from the changeset
+</dd>
+<dt><i>canPush</i> (bool)</dt>
+<dd>
+flag indicating that changesets can be pushed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__generatorFinished" ID="HgLogBrowserDialog.__generatorFinished"></a>
+<h4>HgLogBrowserDialog.__generatorFinished</h4>
+<b>__generatorFinished</b>(<i></i>)
+<p>
+        Private slot connected to the finished signal of the diff generator.
+</p>
+
+<a NAME="HgLogBrowserDialog.__getClosedBranches" ID="HgLogBrowserDialog.__getClosedBranches"></a>
+<h4>HgLogBrowserDialog.__getClosedBranches</h4>
+<b>__getClosedBranches</b>(<i></i>)
+<p>
+        Private method to get the list of closed branches.
+</p>
+
+<a NAME="HgLogBrowserDialog.__getColor" ID="HgLogBrowserDialog.__getColor"></a>
+<h4>HgLogBrowserDialog.__getColor</h4>
+<b>__getColor</b>(<i>n</i>)
+<p>
+        Private method to get the (rotating) name of the color given an index.
+</p>
+
+<dl>
+
+<dt><i>n</i> (int)</dt>
+<dd>
+color index
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+color name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__getHeads" ID="HgLogBrowserDialog.__getHeads"></a>
+<h4>HgLogBrowserDialog.__getHeads</h4>
+<b>__getHeads</b>(<i></i>)
+<p>
+        Private method to get the list of all heads.
+</p>
+
+<a NAME="HgLogBrowserDialog.__getLogEntries" ID="HgLogBrowserDialog.__getLogEntries"></a>
+<h4>HgLogBrowserDialog.__getLogEntries</h4>
+<b>__getLogEntries</b>(<i>startRev=None, noEntries=0</i>)
+<p>
+        Private method to retrieve log entries from the repository.
+</p>
+
+<dl>
+
+<dt><i>startRev</i> (int or str)</dt>
+<dd>
+revision number to start from
+</dd>
+<dt><i>noEntries</i> (int)</dt>
+<dd>
+number of entries to get (0 = default)
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__getParents" ID="HgLogBrowserDialog.__getParents"></a>
+<h4>HgLogBrowserDialog.__getParents</h4>
+<b>__getParents</b>(<i>rev</i>)
+<p>
+        Private method to get the parents of the currently viewed
+        file/directory.
+</p>
+
+<dl>
+
+<dt><i>rev</i> (str)</dt>
+<dd>
+revision number to get parents for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of parent revisions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of int
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__getRevisionOfTag" ID="HgLogBrowserDialog.__getRevisionOfTag"></a>
+<h4>HgLogBrowserDialog.__getRevisionOfTag</h4>
+<b>__getRevisionOfTag</b>(<i>tag</i>)
+<p>
+        Private method to get the revision of a tag.
+</p>
+
+<dl>
+
+<dt><i>tag</i> (str)</dt>
+<dd>
+tag name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the revision and changeset ID
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__gpgSignActTriggered" ID="HgLogBrowserDialog.__gpgSignActTriggered"></a>
+<h4>HgLogBrowserDialog.__gpgSignActTriggered</h4>
+<b>__gpgSignActTriggered</b>(<i></i>)
+<p>
+        Private slot to sign the selected revisions.
+</p>
+
+<a NAME="HgLogBrowserDialog.__gpgVerifyActTriggered" ID="HgLogBrowserDialog.__gpgVerifyActTriggered"></a>
+<h4>HgLogBrowserDialog.__gpgVerifyActTriggered</h4>
+<b>__gpgVerifyActTriggered</b>(<i></i>)
+<p>
+        Private slot to verify the signatures of a selected revisions.
+</p>
+
+<a NAME="HgLogBrowserDialog.__graftActTriggered" ID="HgLogBrowserDialog.__graftActTriggered"></a>
+<h4>HgLogBrowserDialog.__graftActTriggered</h4>
+<b>__graftActTriggered</b>(<i></i>)
+<p>
+        Private slot to handle the Copy Changesets action.
+</p>
+
+<a NAME="HgLogBrowserDialog.__identifyProject" ID="HgLogBrowserDialog.__identifyProject"></a>
+<h4>HgLogBrowserDialog.__identifyProject</h4>
+<b>__identifyProject</b>(<i></i>)
+<p>
+        Private method to determine the revision of the project directory.
+</p>
+
+<a NAME="HgLogBrowserDialog.__initActionsMenu" ID="HgLogBrowserDialog.__initActionsMenu"></a>
+<h4>HgLogBrowserDialog.__initActionsMenu</h4>
+<b>__initActionsMenu</b>(<i></i>)
+<p>
+        Private method to initialize the actions menu.
+</p>
+
+<a NAME="HgLogBrowserDialog.__initData" ID="HgLogBrowserDialog.__initData"></a>
+<h4>HgLogBrowserDialog.__initData</h4>
+<b>__initData</b>(<i></i>)
+<p>
+        Private method to (re-)initialize some data.
+</p>
+
+<a NAME="HgLogBrowserDialog.__lfPullActTriggered" ID="HgLogBrowserDialog.__lfPullActTriggered"></a>
+<h4>HgLogBrowserDialog.__lfPullActTriggered</h4>
+<b>__lfPullActTriggered</b>(<i></i>)
+<p>
+        Private slot to pull large files of selected revisions.
+</p>
+
+<a NAME="HgLogBrowserDialog.__mergeActTriggered" ID="HgLogBrowserDialog.__mergeActTriggered"></a>
+<h4>HgLogBrowserDialog.__mergeActTriggered</h4>
+<b>__mergeActTriggered</b>(<i></i>)
+<p>
+        Private slot to merge the working directory with the selected
+        changeset.
+</p>
+
+<a NAME="HgLogBrowserDialog.__modifyForLargeFiles" ID="HgLogBrowserDialog.__modifyForLargeFiles"></a>
+<h4>HgLogBrowserDialog.__modifyForLargeFiles</h4>
+<b>__modifyForLargeFiles</b>(<i>filename</i>)
+<p>
+        Private method to convert the displayed file name for a large file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+processed file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__phaseActTriggered" ID="HgLogBrowserDialog.__phaseActTriggered"></a>
+<h4>HgLogBrowserDialog.__phaseActTriggered</h4>
+<b>__phaseActTriggered</b>(<i></i>)
+<p>
+        Private slot to handle the Change Phase action.
+</p>
+
+<a NAME="HgLogBrowserDialog.__prepareFieldSearch" ID="HgLogBrowserDialog.__prepareFieldSearch"></a>
+<h4>HgLogBrowserDialog.__prepareFieldSearch</h4>
+<b>__prepareFieldSearch</b>(<i></i>)
+<p>
+        Private slot to prepare the filed search data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of field index, search expression and flag indicating
+            that the field index is a data role
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, bool)
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__processBuffer" ID="HgLogBrowserDialog.__processBuffer"></a>
+<h4>HgLogBrowserDialog.__processBuffer</h4>
+<b>__processBuffer</b>(<i></i>)
+<p>
+        Private method to process the buffered output of the hg log command.
+</p>
+
+<a NAME="HgLogBrowserDialog.__pullActTriggered" ID="HgLogBrowserDialog.__pullActTriggered"></a>
+<h4>HgLogBrowserDialog.__pullActTriggered</h4>
+<b>__pullActTriggered</b>(<i>selectedOnly=False</i>)
+<p>
+        Private slot to pull all or selected changes from a remote repository.
+</p>
+
+<dl>
+
+<dt><i>selectedOnly</i> (bool (optional))</dt>
+<dd>
+flag indicating to pull the selected changes only
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__pushActTriggered" ID="HgLogBrowserDialog.__pushActTriggered"></a>
+<h4>HgLogBrowserDialog.__pushActTriggered</h4>
+<b>__pushActTriggered</b>(<i></i>)
+<p>
+        Private slot to push changes to a remote repository up to a selected
+        changeset.
+</p>
+
+<a NAME="HgLogBrowserDialog.__pushAllActTriggered" ID="HgLogBrowserDialog.__pushAllActTriggered"></a>
+<h4>HgLogBrowserDialog.__pushAllActTriggered</h4>
+<b>__pushAllActTriggered</b>(<i></i>)
+<p>
+        Private slot to push all changes to a remote repository.
+</p>
+
+<a NAME="HgLogBrowserDialog.__reloadGeometry" ID="HgLogBrowserDialog.__reloadGeometry"></a>
+<h4>HgLogBrowserDialog.__reloadGeometry</h4>
+<b>__reloadGeometry</b>(<i></i>)
+<p>
+        Private method to restore the geometry.
+</p>
+
+<a NAME="HgLogBrowserDialog.__resetUI" ID="HgLogBrowserDialog.__resetUI"></a>
+<h4>HgLogBrowserDialog.__resetUI</h4>
+<b>__resetUI</b>(<i></i>)
+<p>
+        Private method to reset the user interface.
+</p>
+
+<a NAME="HgLogBrowserDialog.__resizeColumnsFiles" ID="HgLogBrowserDialog.__resizeColumnsFiles"></a>
+<h4>HgLogBrowserDialog.__resizeColumnsFiles</h4>
+<b>__resizeColumnsFiles</b>(<i></i>)
+<p>
+        Private method to resize the changed files tree columns.
+</p>
+
+<a NAME="HgLogBrowserDialog.__resizeColumnsLog" ID="HgLogBrowserDialog.__resizeColumnsLog"></a>
+<h4>HgLogBrowserDialog.__resizeColumnsLog</h4>
+<b>__resizeColumnsLog</b>(<i></i>)
+<p>
+        Private method to resize the log tree columns.
+</p>
+
+<a NAME="HgLogBrowserDialog.__resortFiles" ID="HgLogBrowserDialog.__resortFiles"></a>
+<h4>HgLogBrowserDialog.__resortFiles</h4>
+<b>__resortFiles</b>(<i></i>)
+<p>
+        Private method to resort the changed files tree.
+</p>
+
+<a NAME="HgLogBrowserDialog.__restoreSplitterStates" ID="HgLogBrowserDialog.__restoreSplitterStates"></a>
+<h4>HgLogBrowserDialog.__restoreSplitterStates</h4>
+<b>__restoreSplitterStates</b>(<i></i>)
+<p>
+        Private method to restore the state of the various splitters.
+</p>
+
+<a NAME="HgLogBrowserDialog.__revisionClicked" ID="HgLogBrowserDialog.__revisionClicked"></a>
+<h4>HgLogBrowserDialog.__revisionClicked</h4>
+<b>__revisionClicked</b>(<i>url</i>)
+<p>
+        Private slot to handle the anchorClicked signal of the changeset
+        details pane.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL that was clicked
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__selectAllActTriggered" ID="HgLogBrowserDialog.__selectAllActTriggered"></a>
+<h4>HgLogBrowserDialog.__selectAllActTriggered</h4>
+<b>__selectAllActTriggered</b>(<i>select=True</i>)
+<p>
+        Private method to select or unselect all log entries.
+</p>
+
+<dl>
+
+<dt><i>select</i> (bool)</dt>
+<dd>
+flag indicating to select all entries
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__selectBranches" ID="HgLogBrowserDialog.__selectBranches"></a>
+<h4>HgLogBrowserDialog.__selectBranches</h4>
+<b>__selectBranches</b>(<i>stateFilter=None</i>)
+<p>
+        Private slot to select the branches to be shown.
+</p>
+
+<dl>
+
+<dt><i>stateFilter</i> (list of str (optional))</dt>
+<dd>
+list of state filters ("", "C" or "I") to be presented for
+            selection (None or empty list  means all) (defaults to None)
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__showError" ID="HgLogBrowserDialog.__showError"></a>
+<h4>HgLogBrowserDialog.__showError</h4>
+<b>__showError</b>(<i>out</i>)
+<p>
+        Private slot to show some error.
+</p>
+
+<dl>
+
+<dt><i>out</i> (str)</dt>
+<dd>
+error to be shown
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__stripActTriggered" ID="HgLogBrowserDialog.__stripActTriggered"></a>
+<h4>HgLogBrowserDialog.__stripActTriggered</h4>
+<b>__stripActTriggered</b>(<i></i>)
+<p>
+        Private slot to strip changesets from the repository.
+</p>
+
+<a NAME="HgLogBrowserDialog.__switchActTriggered" ID="HgLogBrowserDialog.__switchActTriggered"></a>
+<h4>HgLogBrowserDialog.__switchActTriggered</h4>
+<b>__switchActTriggered</b>(<i></i>)
+<p>
+        Private slot to switch the working directory to the
+        selected revision.
+</p>
+
+<a NAME="HgLogBrowserDialog.__tagActTriggered" ID="HgLogBrowserDialog.__tagActTriggered"></a>
+<h4>HgLogBrowserDialog.__tagActTriggered</h4>
+<b>__tagActTriggered</b>(<i></i>)
+<p>
+        Private slot to tag the selected revision.
+</p>
+
+<a NAME="HgLogBrowserDialog.__unbundleActTriggered" ID="HgLogBrowserDialog.__unbundleActTriggered"></a>
+<h4>HgLogBrowserDialog.__unbundleActTriggered</h4>
+<b>__unbundleActTriggered</b>(<i></i>)
+<p>
+        Private slot to apply the currently previewed bundle file.
+</p>
+
+<a NAME="HgLogBrowserDialog.__updateDetailsAndFiles" ID="HgLogBrowserDialog.__updateDetailsAndFiles"></a>
+<h4>HgLogBrowserDialog.__updateDetailsAndFiles</h4>
+<b>__updateDetailsAndFiles</b>(<i></i>)
+<p>
+        Private slot to update the details and file changes panes.
+</p>
+
+<a NAME="HgLogBrowserDialog.__updateFilesTree" ID="HgLogBrowserDialog.__updateFilesTree"></a>
+<h4>HgLogBrowserDialog.__updateFilesTree</h4>
+<b>__updateFilesTree</b>(<i>parent, itm</i>)
+<p>
+        Private method to update the files tree with changes of the given item.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QTreeWidget or QTreeWidgetItem)</dt>
+<dd>
+parent for the items to be added
+</dd>
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item the update should be based on
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.__updateSbsSelectLabel" ID="HgLogBrowserDialog.__updateSbsSelectLabel"></a>
+<h4>HgLogBrowserDialog.__updateSbsSelectLabel</h4>
+<b>__updateSbsSelectLabel</b>(<i></i>)
+<p>
+        Private slot to update the enabled status of the diff buttons.
+</p>
+
+<a NAME="HgLogBrowserDialog.__updateToolMenuActions" ID="HgLogBrowserDialog.__updateToolMenuActions"></a>
+<h4>HgLogBrowserDialog.__updateToolMenuActions</h4>
+<b>__updateToolMenuActions</b>(<i></i>)
+<p>
+        Private slot to update the status of the tool menu actions and
+        the tool menu button.
+</p>
+
+<a NAME="HgLogBrowserDialog.closeEvent" ID="HgLogBrowserDialog.closeEvent"></a>
+<h4>HgLogBrowserDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.col2x" ID="HgLogBrowserDialog.col2x"></a>
+<h4>HgLogBrowserDialog.col2x</h4>
+<b>col2x</b>(<i>radius</i>)
+<p>
+            Local function to calculate a x-position for a column.
+</p>
+
+<dl>
+
+<dt><i>col</i> (int)</dt>
+<dd>
+column number
+</dd>
+<dt><i>radius</i> (int)</dt>
+<dd>
+radius of the indicator circle
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_branchCombo_activated" ID="HgLogBrowserDialog.on_branchCombo_activated"></a>
+<h4>HgLogBrowserDialog.on_branchCombo_activated</h4>
+<b>on_branchCombo_activated</b>(<i>index</i>)
+<p>
+        Private slot called, when a new branch is selected.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_buttonBox_clicked" ID="HgLogBrowserDialog.on_buttonBox_clicked"></a>
+<h4>HgLogBrowserDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_diffSelectLabel_linkActivated" ID="HgLogBrowserDialog.on_diffSelectLabel_linkActivated"></a>
+<h4>HgLogBrowserDialog.on_diffSelectLabel_linkActivated</h4>
+<b>on_diffSelectLabel_linkActivated</b>(<i>link</i>)
+<p>
+        Private slot to handle the selection of a diff target.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str)</dt>
+<dd>
+activated link
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_downButton_clicked" ID="HgLogBrowserDialog.on_downButton_clicked"></a>
+<h4>HgLogBrowserDialog.on_downButton_clicked</h4>
+<b>on_downButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the current item down one entry.
+</p>
+
+<a NAME="HgLogBrowserDialog.on_fieldCombo_activated" ID="HgLogBrowserDialog.on_fieldCombo_activated"></a>
+<h4>HgLogBrowserDialog.on_fieldCombo_activated</h4>
+<b>on_fieldCombo_activated</b>(<i>index</i>)
+<p>
+        Private slot called, when a new filter field is selected.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_filesTree_currentItemChanged" ID="HgLogBrowserDialog.on_filesTree_currentItemChanged"></a>
+<h4>HgLogBrowserDialog.on_filesTree_currentItemChanged</h4>
+<b>on_filesTree_currentItemChanged</b>(<i>current, previous</i>)
+<p>
+        Private slot called, when the current item of the files tree changes.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the new current item
+</dd>
+<dt><i>previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the old current item
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_findNextButton_clicked" ID="HgLogBrowserDialog.on_findNextButton_clicked"></a>
+<h4>HgLogBrowserDialog.on_findNextButton_clicked</h4>
+<b>on_findNextButton_clicked</b>(<i></i>)
+<p>
+        Private slot to find the next item matching the entered criteria.
+</p>
+
+<a NAME="HgLogBrowserDialog.on_findPrevButton_clicked" ID="HgLogBrowserDialog.on_findPrevButton_clicked"></a>
+<h4>HgLogBrowserDialog.on_findPrevButton_clicked</h4>
+<b>on_findPrevButton_clicked</b>(<i></i>)
+<p>
+        Private slot to find the previous item matching the entered criteria.
+</p>
+
+<a NAME="HgLogBrowserDialog.on_fromDate_dateChanged" ID="HgLogBrowserDialog.on_fromDate_dateChanged"></a>
+<h4>HgLogBrowserDialog.on_fromDate_dateChanged</h4>
+<b>on_fromDate_dateChanged</b>(<i>date</i>)
+<p>
+        Private slot called, when the from date changes.
+</p>
+
+<dl>
+
+<dt><i>date</i> (QDate)</dt>
+<dd>
+new date
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_logTree_currentItemChanged" ID="HgLogBrowserDialog.on_logTree_currentItemChanged"></a>
+<h4>HgLogBrowserDialog.on_logTree_currentItemChanged</h4>
+<b>on_logTree_currentItemChanged</b>(<i>current, previous</i>)
+<p>
+        Private slot called, when the current item of the log tree changes.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the new current item
+</dd>
+<dt><i>previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the old current item
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_logTree_itemSelectionChanged" ID="HgLogBrowserDialog.on_logTree_itemSelectionChanged"></a>
+<h4>HgLogBrowserDialog.on_logTree_itemSelectionChanged</h4>
+<b>on_logTree_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot called, when the selection has changed.
+</p>
+
+<a NAME="HgLogBrowserDialog.on_modeComboBox_currentIndexChanged" ID="HgLogBrowserDialog.on_modeComboBox_currentIndexChanged"></a>
+<h4>HgLogBrowserDialog.on_modeComboBox_currentIndexChanged</h4>
+<b>on_modeComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to react on mode changes.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_nextButton_clicked" ID="HgLogBrowserDialog.on_nextButton_clicked"></a>
+<h4>HgLogBrowserDialog.on_nextButton_clicked</h4>
+<b>on_nextButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the Next button.
+</p>
+
+<a NAME="HgLogBrowserDialog.on_refreshButton_clicked" ID="HgLogBrowserDialog.on_refreshButton_clicked"></a>
+<h4>HgLogBrowserDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i>addNext=False</i>)
+<p>
+        Private slot to refresh the log.
+</p>
+
+<dl>
+
+<dt><i>addNext</i> (bool)</dt>
+<dd>
+flag indicating to get a second batch of log entries as
+            well
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_rxEdit_returnPressed" ID="HgLogBrowserDialog.on_rxEdit_returnPressed"></a>
+<h4>HgLogBrowserDialog.on_rxEdit_returnPressed</h4>
+<b>on_rxEdit_returnPressed</b>(<i></i>)
+<p>
+        Private slot handling a press of the Return key in the rxEdit input.
+</p>
+
+<a NAME="HgLogBrowserDialog.on_rxEdit_textChanged" ID="HgLogBrowserDialog.on_rxEdit_textChanged"></a>
+<h4>HgLogBrowserDialog.on_rxEdit_textChanged</h4>
+<b>on_rxEdit_textChanged</b>(<i>txt</i>)
+<p>
+        Private slot called, when a filter expression is entered.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+filter expression
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_saveLabel_linkActivated" ID="HgLogBrowserDialog.on_saveLabel_linkActivated"></a>
+<h4>HgLogBrowserDialog.on_saveLabel_linkActivated</h4>
+<b>on_saveLabel_linkActivated</b>(<i>link</i>)
+<p>
+        Private slot to handle the selection of the save link.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str)</dt>
+<dd>
+activated link
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_sbsSelectLabel_linkActivated" ID="HgLogBrowserDialog.on_sbsSelectLabel_linkActivated"></a>
+<h4>HgLogBrowserDialog.on_sbsSelectLabel_linkActivated</h4>
+<b>on_sbsSelectLabel_linkActivated</b>(<i>link</i>)
+<p>
+        Private slot to handle selection of a side-by-side link.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str)</dt>
+<dd>
+text of the selected link
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_stopCheckBox_clicked" ID="HgLogBrowserDialog.on_stopCheckBox_clicked"></a>
+<h4>HgLogBrowserDialog.on_stopCheckBox_clicked</h4>
+<b>on_stopCheckBox_clicked</b>(<i>_checked</i>)
+<p>
+        Private slot called, when the stop on copy/move checkbox is clicked.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+flag indicating the state of the check box (unused)
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_toDate_dateChanged" ID="HgLogBrowserDialog.on_toDate_dateChanged"></a>
+<h4>HgLogBrowserDialog.on_toDate_dateChanged</h4>
+<b>on_toDate_dateChanged</b>(<i>date</i>)
+<p>
+        Private slot called, when the from date changes.
+</p>
+
+<dl>
+
+<dt><i>date</i> (QDate)</dt>
+<dd>
+new date
+</dd>
+</dl>
+<a NAME="HgLogBrowserDialog.on_upButton_clicked" ID="HgLogBrowserDialog.on_upButton_clicked"></a>
+<h4>HgLogBrowserDialog.on_upButton_clicked</h4>
+<b>on_upButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the current item up one entry.
+</p>
+
+<a NAME="HgLogBrowserDialog.show" ID="HgLogBrowserDialog.show"></a>
+<h4>HgLogBrowserDialog.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<a NAME="HgLogBrowserDialog.start" ID="HgLogBrowserDialog.start"></a>
+<h4>HgLogBrowserDialog.start</h4>
+<b>start</b>(<i>name=None, bundle=None, isFile=False, noEntries=0</i>)
+<p>
+        Public slot to start the hg log command.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to show the log for
+</dd>
+<dt><i>bundle</i> (str)</dt>
+<dd>
+name of a bundle file
+</dd>
+<dt><i>isFile</i> (bool)</dt>
+<dd>
+flag indicating log for a file is to be shown
+</dd>
+<dt><i>noEntries</i> (int)</dt>
+<dd>
+number of entries to get (0 = default)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

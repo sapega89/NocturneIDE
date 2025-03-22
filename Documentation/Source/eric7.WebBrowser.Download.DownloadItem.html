@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Download.DownloadItem</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Download.DownloadItem</h1>
+<p>
+Module implementing a widget controlling a download.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#DownloadItem">DownloadItem</a></td>
+<td>Class implementing a widget controlling a download.</td>
+</tr>
+<tr>
+<td><a href="#DownloadState">DownloadState</a></td>
+<td>Class implementing the various download states.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="DownloadItem" ID="DownloadItem"></a>
+<h2>DownloadItem</h2>
+<p>
+    Class implementing a widget controlling a download.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>downloadFinished(success)</dt>
+<dd>
+emitted when a download finished
+</dd>
+<dt>progress(int, int)</dt>
+<dd>
+emitted to signal the download progress
+</dd>
+<dt>statusChanged()</dt>
+<dd>
+emitted upon a status change of a download
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_DownloadItem
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DownloadItem.__init__">DownloadItem</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__adjustSize">__adjustSize</a></td>
+<td>Private method to adjust the size of the download item.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__downloadProgress">__downloadProgress</a></td>
+<td>Private slot to show the download progress.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__finished">__finished</a></td>
+<td>Private slot to handle the download finished.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__getFileName">__getFileName</a></td>
+<td>Private method to get the file name to save to from the user.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__initialize">__initialize</a></td>
+<td>Private method to initialize the widget.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__saveFileName">__saveFileName</a></td>
+<td>Private method to calculate a name for the file to download.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__setDateTime">__setDateTime</a></td>
+<td>Private method to set the download date and time.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__setFileLabels">__setFileLabels</a></td>
+<td>Private slot to set and format the info label.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__setFileName">__setFileName</a></td>
+<td>Private method to set the file name to save the download into.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.__updateInfoLabel">__updateInfoLabel</a></td>
+<td>Private method to update the info label.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.absoluteFilePath">absoluteFilePath</a></td>
+<td>Public method to get the absolute path of the output file.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.bytesReceived">bytesReceived</a></td>
+<td>Public method to get the number of bytes received.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.bytesTotal">bytesTotal</a></td>
+<td>Public method to get the total number of bytes of the download.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.cancelDownload">cancelDownload</a></td>
+<td>Public slot to stop the download.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.canceledFileSelect">canceledFileSelect</a></td>
+<td>Public method to check, if the user canceled the file selection.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.currentSpeed">currentSpeed</a></td>
+<td>Public method to get an estimation for the download speed.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.downloadCanceled">downloadCanceled</a></td>
+<td>Public method to check, if the download was cancelled.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.downloadProgress">downloadProgress</a></td>
+<td>Public method to get the download progress.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.downloadedSuccessfully">downloadedSuccessfully</a></td>
+<td>Public method to check for a successful download.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.downloading">downloading</a></td>
+<td>Public method to determine, if a download is in progress.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.exists">exists</a></td>
+<td>Public method to check, if the downloaded file exists.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.fileName">fileName</a></td>
+<td>Public method to get the name of the output file.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.getData">getData</a></td>
+<td>Public method to get the relevant download data.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.getInfoData">getInfoData</a></td>
+<td>Public method to get the text of the info label.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.getPageUrl">getPageUrl</a></td>
+<td>Public method to get the URL of the download page.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.on_openButton_clicked">on_openButton_clicked</a></td>
+<td>Private slot to open the downloaded file.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.on_pauseButton_clicked">on_pauseButton_clicked</a></td>
+<td>Private slot to pause the download.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.on_stopButton_clicked">on_stopButton_clicked</a></td>
+<td>Private slot to stop the download.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.openFile">openFile</a></td>
+<td>Public slot to open the downloaded file.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.openFolder">openFolder</a></td>
+<td>Public slot to open the folder containing the downloaded file.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.remainingTime">remainingTime</a></td>
+<td>Public method to get an estimation for the remaining time.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.setData">setData</a></td>
+<td>Public method to set the relevant download data.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.setIcon">setIcon</a></td>
+<td>Public method to set the download icon.</td>
+</tr>
+<tr>
+<td><a href="#DownloadItem.updateButtonsAndLabels">updateButtonsAndLabels</a></td>
+<td>Public method to update the buttons.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DownloadItem.__init__" ID="DownloadItem.__init__"></a>
+<h4>DownloadItem (Constructor)</h4>
+<b>DownloadItem</b>(<i>downloadRequest=None, pageUrl=None, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>downloadRequest</i> (QWebEngineDownloadRequest)</dt>
+<dd>
+reference to the download object containing the
+        download data.
+</dd>
+<dt><i>pageUrl</i> (QUrl)</dt>
+<dd>
+URL of the calling page
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="DownloadItem.__adjustSize" ID="DownloadItem.__adjustSize"></a>
+<h4>DownloadItem.__adjustSize</h4>
+<b>__adjustSize</b>(<i></i>)
+<p>
+        Private method to adjust the size of the download item.
+</p>
+
+<a NAME="DownloadItem.__downloadProgress" ID="DownloadItem.__downloadProgress"></a>
+<h4>DownloadItem.__downloadProgress</h4>
+<b>__downloadProgress</b>(<i></i>)
+<p>
+        Private slot to show the download progress.
+</p>
+
+<a NAME="DownloadItem.__finished" ID="DownloadItem.__finished"></a>
+<h4>DownloadItem.__finished</h4>
+<b>__finished</b>(<i></i>)
+<p>
+        Private slot to handle the download finished.
+</p>
+
+<a NAME="DownloadItem.__getFileName" ID="DownloadItem.__getFileName"></a>
+<h4>DownloadItem.__getFileName</h4>
+<b>__getFileName</b>(<i></i>)
+<p>
+        Private method to get the file name to save to from the user.
+</p>
+
+<a NAME="DownloadItem.__initialize" ID="DownloadItem.__initialize"></a>
+<h4>DownloadItem.__initialize</h4>
+<b>__initialize</b>(<i></i>)
+<p>
+        Private method to initialize the widget.
+</p>
+
+<a NAME="DownloadItem.__saveFileName" ID="DownloadItem.__saveFileName"></a>
+<h4>DownloadItem.__saveFileName</h4>
+<b>__saveFileName</b>(<i>directory</i>)
+<p>
+        Private method to calculate a name for the file to download.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+name of the directory to store the file into
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+proposed filename and original filename
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="DownloadItem.__setDateTime" ID="DownloadItem.__setDateTime"></a>
+<h4>DownloadItem.__setDateTime</h4>
+<b>__setDateTime</b>(<i>dateTime=None</i>)
+<p>
+        Private method to set the download date and time.
+</p>
+
+<dl>
+
+<dt><i>dateTime</i> (QDateTime)</dt>
+<dd>
+date and time to be set
+</dd>
+</dl>
+<a NAME="DownloadItem.__setFileLabels" ID="DownloadItem.__setFileLabels"></a>
+<h4>DownloadItem.__setFileLabels</h4>
+<b>__setFileLabels</b>(<i></i>)
+<p>
+        Private slot to set and format the info label.
+</p>
+
+<a NAME="DownloadItem.__setFileName" ID="DownloadItem.__setFileName"></a>
+<h4>DownloadItem.__setFileName</h4>
+<b>__setFileName</b>(<i>fileName</i>)
+<p>
+        Private method to set the file name to save the download into.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to save into
+</dd>
+</dl>
+<a NAME="DownloadItem.__updateInfoLabel" ID="DownloadItem.__updateInfoLabel"></a>
+<h4>DownloadItem.__updateInfoLabel</h4>
+<b>__updateInfoLabel</b>(<i></i>)
+<p>
+        Private method to update the info label.
+</p>
+
+<a NAME="DownloadItem.absoluteFilePath" ID="DownloadItem.absoluteFilePath"></a>
+<h4>DownloadItem.absoluteFilePath</h4>
+<b>absoluteFilePath</b>(<i></i>)
+<p>
+        Public method to get the absolute path of the output file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+absolute path of the output file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DownloadItem.bytesReceived" ID="DownloadItem.bytesReceived"></a>
+<h4>DownloadItem.bytesReceived</h4>
+<b>bytesReceived</b>(<i></i>)
+<p>
+        Public method to get the number of bytes received.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of bytes received
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DownloadItem.bytesTotal" ID="DownloadItem.bytesTotal"></a>
+<h4>DownloadItem.bytesTotal</h4>
+<b>bytesTotal</b>(<i></i>)
+<p>
+        Public method to get the total number of bytes of the download.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+total number of bytes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DownloadItem.cancelDownload" ID="DownloadItem.cancelDownload"></a>
+<h4>DownloadItem.cancelDownload</h4>
+<b>cancelDownload</b>(<i></i>)
+<p>
+        Public slot to stop the download.
+</p>
+
+<a NAME="DownloadItem.canceledFileSelect" ID="DownloadItem.canceledFileSelect"></a>
+<h4>DownloadItem.canceledFileSelect</h4>
+<b>canceledFileSelect</b>(<i></i>)
+<p>
+        Public method to check, if the user canceled the file selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating cancellation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DownloadItem.currentSpeed" ID="DownloadItem.currentSpeed"></a>
+<h4>DownloadItem.currentSpeed</h4>
+<b>currentSpeed</b>(<i></i>)
+<p>
+        Public method to get an estimation for the download speed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+estimation for the download speed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+float
+</dd>
+</dl>
+<a NAME="DownloadItem.downloadCanceled" ID="DownloadItem.downloadCanceled"></a>
+<h4>DownloadItem.downloadCanceled</h4>
+<b>downloadCanceled</b>(<i></i>)
+<p>
+        Public method to check, if the download was cancelled.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a canceled download
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DownloadItem.downloadProgress" ID="DownloadItem.downloadProgress"></a>
+<h4>DownloadItem.downloadProgress</h4>
+<b>downloadProgress</b>(<i></i>)
+<p>
+        Public method to get the download progress.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current download progress
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DownloadItem.downloadedSuccessfully" ID="DownloadItem.downloadedSuccessfully"></a>
+<h4>DownloadItem.downloadedSuccessfully</h4>
+<b>downloadedSuccessfully</b>(<i></i>)
+<p>
+        Public method to check for a successful download.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful download
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DownloadItem.downloading" ID="DownloadItem.downloading"></a>
+<h4>DownloadItem.downloading</h4>
+<b>downloading</b>(<i></i>)
+<p>
+        Public method to determine, if a download is in progress.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a download is in progress
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DownloadItem.exists" ID="DownloadItem.exists"></a>
+<h4>DownloadItem.exists</h4>
+<b>exists</b>(<i></i>)
+<p>
+        Public method to check, if the downloaded file exists.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of the downloaded file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DownloadItem.fileName" ID="DownloadItem.fileName"></a>
+<h4>DownloadItem.fileName</h4>
+<b>fileName</b>(<i></i>)
+<p>
+        Public method to get the name of the output file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the output file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DownloadItem.getData" ID="DownloadItem.getData"></a>
+<h4>DownloadItem.getData</h4>
+<b>getData</b>(<i></i>)
+<p>
+        Public method to get the relevant download data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the URL, save location, done flag,
+            the URL of the related web page and the date and time of the
+            download
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict of {"URL": QUrl, "Location": str, "Done": bool,
+            "PageURL": QUrl, "Downloaded": QDateTime}
+</dd>
+</dl>
+<a NAME="DownloadItem.getInfoData" ID="DownloadItem.getInfoData"></a>
+<h4>DownloadItem.getInfoData</h4>
+<b>getInfoData</b>(<i></i>)
+<p>
+        Public method to get the text of the info label.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+text of the info label
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DownloadItem.getPageUrl" ID="DownloadItem.getPageUrl"></a>
+<h4>DownloadItem.getPageUrl</h4>
+<b>getPageUrl</b>(<i></i>)
+<p>
+        Public method to get the URL of the download page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+URL of the download page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="DownloadItem.on_openButton_clicked" ID="DownloadItem.on_openButton_clicked"></a>
+<h4>DownloadItem.on_openButton_clicked</h4>
+<b>on_openButton_clicked</b>(<i></i>)
+<p>
+        Private slot to open the downloaded file.
+</p>
+
+<a NAME="DownloadItem.on_pauseButton_clicked" ID="DownloadItem.on_pauseButton_clicked"></a>
+<h4>DownloadItem.on_pauseButton_clicked</h4>
+<b>on_pauseButton_clicked</b>(<i>checked</i>)
+<p>
+        Private slot to pause the download.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+flag indicating the state of the button
+</dd>
+</dl>
+<a NAME="DownloadItem.on_stopButton_clicked" ID="DownloadItem.on_stopButton_clicked"></a>
+<h4>DownloadItem.on_stopButton_clicked</h4>
+<b>on_stopButton_clicked</b>(<i></i>)
+<p>
+        Private slot to stop the download.
+</p>
+
+<a NAME="DownloadItem.openFile" ID="DownloadItem.openFile"></a>
+<h4>DownloadItem.openFile</h4>
+<b>openFile</b>(<i></i>)
+<p>
+        Public slot to open the downloaded file.
+</p>
+
+<a NAME="DownloadItem.openFolder" ID="DownloadItem.openFolder"></a>
+<h4>DownloadItem.openFolder</h4>
+<b>openFolder</b>(<i></i>)
+<p>
+        Public slot to open the folder containing the downloaded file.
+</p>
+
+<a NAME="DownloadItem.remainingTime" ID="DownloadItem.remainingTime"></a>
+<h4>DownloadItem.remainingTime</h4>
+<b>remainingTime</b>(<i></i>)
+<p>
+        Public method to get an estimation for the remaining time.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+estimation for the remaining time
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+float
+</dd>
+</dl>
+<a NAME="DownloadItem.setData" ID="DownloadItem.setData"></a>
+<h4>DownloadItem.setData</h4>
+<b>setData</b>(<i>data</i>)
+<p>
+        Public method to set the relevant download data.
+</p>
+
+<dl>
+
+<dt><i>data</i> (dict of {"URL": QUrl, "Location": str, "Done": bool,)</dt>
+<dd>
+dictionary containing the URL, save location, done flag,
+            the URL of the related web page and the date and time of the
+            download
+            "PageURL": QUrl, "Downloaded": QDateTime}
+</dd>
+</dl>
+<a NAME="DownloadItem.setIcon" ID="DownloadItem.setIcon"></a>
+<h4>DownloadItem.setIcon</h4>
+<b>setIcon</b>(<i>icon</i>)
+<p>
+        Public method to set the download icon.
+</p>
+
+<dl>
+
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+reference to the icon to be set
+</dd>
+</dl>
+<a NAME="DownloadItem.updateButtonsAndLabels" ID="DownloadItem.updateButtonsAndLabels"></a>
+<h4>DownloadItem.updateButtonsAndLabels</h4>
+<b>updateButtonsAndLabels</b>(<i></i>)
+<p>
+        Public method to update the buttons.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DownloadState" ID="DownloadState"></a>
+<h2>DownloadState</h2>
+<p>
+    Class implementing the various download states.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Cancelled</td></tr>
+<tr><td>Downloading</td></tr>
+<tr><td>Successful</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

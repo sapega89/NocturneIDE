@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Tools.TrayStarter</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Tools.TrayStarter</h1>
+<p>
+Module implementing a starter for the system tray.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TrayStarter">TrayStarter</a></td>
+<td>Class implementing a starter for the system tray.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TrayStarter" ID="TrayStarter"></a>
+<h2>TrayStarter</h2>
+<p>
+    Class implementing a starter for the system tray.
+</p>
+
+<h3>Derived from</h3>
+QSystemTrayIcon
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TrayStarter.__init__">TrayStarter</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__about">__about</a></td>
+<td>Private slot to handle the About dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__activated">__activated</a></td>
+<td>Private slot to handle the activated signal.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__loadRecentFiles">__loadRecentFiles</a></td>
+<td>Private method to load the recently opened filenames.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__loadRecentMultiProjects">__loadRecentMultiProjects</a></td>
+<td>Private method to load the recently opened multi project filenames.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__loadRecentProjects">__loadRecentProjects</a></td>
+<td>Private method to load the recently opened project filenames.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__openRecent">__openRecent</a></td>
+<td>Private method to open a project or file from the list of recently opened projects or files.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__showPreferences">__showPreferences</a></td>
+<td>Private slot to set the preferences.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__showRecentFilesMenu">__showRecentFilesMenu</a></td>
+<td>Private method to set up the recent files menu.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__showRecentMultiProjectsMenu">__showRecentMultiProjectsMenu</a></td>
+<td>Private method to set up the recent multi projects menu.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__showRecentProjectsMenu">__showRecentProjectsMenu</a></td>
+<td>Private method to set up the recent projects menu.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__showVersions">__showVersions</a></td>
+<td>Private slot to handle the Versions dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startCompare">__startCompare</a></td>
+<td>Private slot to start the eric compare dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startDiff">__startDiff</a></td>
+<td>Private slot to start the eric diff dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startEric">__startEric</a></td>
+<td>Private slot to start the eric IDE.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startHexEditor">__startHexEditor</a></td>
+<td>Private slot to start the eric hex editor dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startIconEditor">__startIconEditor</a></td>
+<td>Private slot to start the eric icon editor dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startMiniEditor">__startMiniEditor</a></td>
+<td>Private slot to start the eric Mini Editor.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startPdfViewer">__startPdfViewer</a></td>
+<td>Private slot to start the eric PDF Viewer window.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startPip">__startPip</a></td>
+<td>Private slot to start the eric package manager (PyPI) window.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startPluginInstall">__startPluginInstall</a></td>
+<td>Private slot to start the eric plugin installation dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startPluginRepository">__startPluginRepository</a></td>
+<td>Private slot to start the eric plugin repository dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startPluginUninstall">__startPluginUninstall</a></td>
+<td>Private slot to start the eric plugin uninstallation dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startPreferences">__startPreferences</a></td>
+<td>Private slot to start the eric configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startProc">__startProc</a></td>
+<td>Private method to start an eric application.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startPyRe">__startPyRe</a></td>
+<td>Private slot to start the eric Python re editor dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startQRegularExpression">__startQRegularExpression</a></td>
+<td>Private slot to start the eric QRegularExpression editor dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startShell">__startShell</a></td>
+<td>Private slot to start the eric Shell window.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startSnapshot">__startSnapshot</a></td>
+<td>Private slot to start the eric snapshot dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startSqlBrowser">__startSqlBrowser</a></td>
+<td>Private slot to start the eric sql browser dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startTRPreviewer">__startTRPreviewer</a></td>
+<td>Private slot to start the eric translations previewer.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startTesting">__startTesting</a></td>
+<td>Private slot to start the eric testing dialog.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startUIPreviewer">__startUIPreviewer</a></td>
+<td>Private slot to start the eric UI previewer.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startVirtualenvManager">__startVirtualenvManager</a></td>
+<td>Private slot to start the eric virtual environments manager window.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startWebBrowser">__startWebBrowser</a></td>
+<td>Private slot to start the eric web browser.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startWebBrowserPrivate">__startWebBrowserPrivate</a></td>
+<td>Private slot to start the eric web browser in private mode.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.__startWebBrowserQtHelp">__startWebBrowserQtHelp</a></td>
+<td>Private slot to start the eric web browser with QtHelp support.</td>
+</tr>
+<tr>
+<td><a href="#TrayStarter.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TrayStarter.__init__" ID="TrayStarter.__init__"></a>
+<h4>TrayStarter (Constructor)</h4>
+<b>TrayStarter</b>(<i>settingsDir</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>settingsDir</i> (str)</dt>
+<dd>
+directory to be used for the settings files
+</dd>
+</dl>
+<a NAME="TrayStarter.__about" ID="TrayStarter.__about"></a>
+<h4>TrayStarter.__about</h4>
+<b>__about</b>(<i></i>)
+<p>
+        Private slot to handle the About dialog.
+</p>
+
+<a NAME="TrayStarter.__activated" ID="TrayStarter.__activated"></a>
+<h4>TrayStarter.__activated</h4>
+<b>__activated</b>(<i>reason</i>)
+<p>
+        Private slot to handle the activated signal.
+</p>
+
+<dl>
+
+<dt><i>reason</i> (QSystemTrayIcon.ActivationReason)</dt>
+<dd>
+reason code of the signal
+</dd>
+</dl>
+<a NAME="TrayStarter.__loadRecentFiles" ID="TrayStarter.__loadRecentFiles"></a>
+<h4>TrayStarter.__loadRecentFiles</h4>
+<b>__loadRecentFiles</b>(<i></i>)
+<p>
+        Private method to load the recently opened filenames.
+</p>
+
+<a NAME="TrayStarter.__loadRecentMultiProjects" ID="TrayStarter.__loadRecentMultiProjects"></a>
+<h4>TrayStarter.__loadRecentMultiProjects</h4>
+<b>__loadRecentMultiProjects</b>(<i></i>)
+<p>
+        Private method to load the recently opened multi project filenames.
+</p>
+
+<a NAME="TrayStarter.__loadRecentProjects" ID="TrayStarter.__loadRecentProjects"></a>
+<h4>TrayStarter.__loadRecentProjects</h4>
+<b>__loadRecentProjects</b>(<i></i>)
+<p>
+        Private method to load the recently opened project filenames.
+</p>
+
+<a NAME="TrayStarter.__openRecent" ID="TrayStarter.__openRecent"></a>
+<h4>TrayStarter.__openRecent</h4>
+<b>__openRecent</b>(<i>act</i>)
+<p>
+        Private method to open a project or file from the list of recently
+        opened projects or files.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="TrayStarter.__showContextMenu" ID="TrayStarter.__showContextMenu"></a>
+<h4>TrayStarter.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i></i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<a NAME="TrayStarter.__showPreferences" ID="TrayStarter.__showPreferences"></a>
+<h4>TrayStarter.__showPreferences</h4>
+<b>__showPreferences</b>(<i></i>)
+<p>
+        Private slot to set the preferences.
+</p>
+
+<a NAME="TrayStarter.__showRecentFilesMenu" ID="TrayStarter.__showRecentFilesMenu"></a>
+<h4>TrayStarter.__showRecentFilesMenu</h4>
+<b>__showRecentFilesMenu</b>(<i></i>)
+<p>
+        Private method to set up the recent files menu.
+</p>
+
+<a NAME="TrayStarter.__showRecentMultiProjectsMenu" ID="TrayStarter.__showRecentMultiProjectsMenu"></a>
+<h4>TrayStarter.__showRecentMultiProjectsMenu</h4>
+<b>__showRecentMultiProjectsMenu</b>(<i></i>)
+<p>
+        Private method to set up the recent multi projects menu.
+</p>
+
+<a NAME="TrayStarter.__showRecentProjectsMenu" ID="TrayStarter.__showRecentProjectsMenu"></a>
+<h4>TrayStarter.__showRecentProjectsMenu</h4>
+<b>__showRecentProjectsMenu</b>(<i></i>)
+<p>
+        Private method to set up the recent projects menu.
+</p>
+
+<a NAME="TrayStarter.__showVersions" ID="TrayStarter.__showVersions"></a>
+<h4>TrayStarter.__showVersions</h4>
+<b>__showVersions</b>(<i></i>)
+<p>
+        Private slot to handle the Versions dialog.
+</p>
+
+<a NAME="TrayStarter.__startCompare" ID="TrayStarter.__startCompare"></a>
+<h4>TrayStarter.__startCompare</h4>
+<b>__startCompare</b>(<i></i>)
+<p>
+        Private slot to start the eric compare dialog.
+</p>
+
+<a NAME="TrayStarter.__startDiff" ID="TrayStarter.__startDiff"></a>
+<h4>TrayStarter.__startDiff</h4>
+<b>__startDiff</b>(<i></i>)
+<p>
+        Private slot to start the eric diff dialog.
+</p>
+
+<a NAME="TrayStarter.__startEric" ID="TrayStarter.__startEric"></a>
+<h4>TrayStarter.__startEric</h4>
+<b>__startEric</b>(<i></i>)
+<p>
+        Private slot to start the eric IDE.
+</p>
+
+<a NAME="TrayStarter.__startHexEditor" ID="TrayStarter.__startHexEditor"></a>
+<h4>TrayStarter.__startHexEditor</h4>
+<b>__startHexEditor</b>(<i></i>)
+<p>
+        Private slot to start the eric hex editor dialog.
+</p>
+
+<a NAME="TrayStarter.__startIconEditor" ID="TrayStarter.__startIconEditor"></a>
+<h4>TrayStarter.__startIconEditor</h4>
+<b>__startIconEditor</b>(<i></i>)
+<p>
+        Private slot to start the eric icon editor dialog.
+</p>
+
+<a NAME="TrayStarter.__startMiniEditor" ID="TrayStarter.__startMiniEditor"></a>
+<h4>TrayStarter.__startMiniEditor</h4>
+<b>__startMiniEditor</b>(<i></i>)
+<p>
+        Private slot to start the eric Mini Editor.
+</p>
+
+<a NAME="TrayStarter.__startPdfViewer" ID="TrayStarter.__startPdfViewer"></a>
+<h4>TrayStarter.__startPdfViewer</h4>
+<b>__startPdfViewer</b>(<i></i>)
+<p>
+        Private slot to start the eric PDF Viewer window.
+</p>
+
+<a NAME="TrayStarter.__startPip" ID="TrayStarter.__startPip"></a>
+<h4>TrayStarter.__startPip</h4>
+<b>__startPip</b>(<i></i>)
+<p>
+        Private slot to start the eric package manager (PyPI) window.
+</p>
+
+<a NAME="TrayStarter.__startPluginInstall" ID="TrayStarter.__startPluginInstall"></a>
+<h4>TrayStarter.__startPluginInstall</h4>
+<b>__startPluginInstall</b>(<i></i>)
+<p>
+        Private slot to start the eric plugin installation dialog.
+</p>
+
+<a NAME="TrayStarter.__startPluginRepository" ID="TrayStarter.__startPluginRepository"></a>
+<h4>TrayStarter.__startPluginRepository</h4>
+<b>__startPluginRepository</b>(<i></i>)
+<p>
+        Private slot to start the eric plugin repository dialog.
+</p>
+
+<a NAME="TrayStarter.__startPluginUninstall" ID="TrayStarter.__startPluginUninstall"></a>
+<h4>TrayStarter.__startPluginUninstall</h4>
+<b>__startPluginUninstall</b>(<i></i>)
+<p>
+        Private slot to start the eric plugin uninstallation dialog.
+</p>
+
+<a NAME="TrayStarter.__startPreferences" ID="TrayStarter.__startPreferences"></a>
+<h4>TrayStarter.__startPreferences</h4>
+<b>__startPreferences</b>(<i></i>)
+<p>
+        Private slot to start the eric configuration dialog.
+</p>
+
+<a NAME="TrayStarter.__startProc" ID="TrayStarter.__startProc"></a>
+<h4>TrayStarter.__startProc</h4>
+<b>__startProc</b>(<i>applName, *applArgs</i>)
+<p>
+        Private method to start an eric application.
+</p>
+
+<dl>
+
+<dt><i>applName</i> (str)</dt>
+<dd>
+name of the eric application script
+</dd>
+<dt><i>*applArgs</i> (list of str)</dt>
+<dd>
+variable list of application arguments
+</dd>
+</dl>
+<a NAME="TrayStarter.__startPyRe" ID="TrayStarter.__startPyRe"></a>
+<h4>TrayStarter.__startPyRe</h4>
+<b>__startPyRe</b>(<i></i>)
+<p>
+        Private slot to start the eric Python re editor dialog.
+</p>
+
+<a NAME="TrayStarter.__startQRegularExpression" ID="TrayStarter.__startQRegularExpression"></a>
+<h4>TrayStarter.__startQRegularExpression</h4>
+<b>__startQRegularExpression</b>(<i></i>)
+<p>
+        Private slot to start the eric QRegularExpression editor dialog.
+</p>
+
+<a NAME="TrayStarter.__startShell" ID="TrayStarter.__startShell"></a>
+<h4>TrayStarter.__startShell</h4>
+<b>__startShell</b>(<i></i>)
+<p>
+        Private slot to start the eric Shell window.
+</p>
+
+<a NAME="TrayStarter.__startSnapshot" ID="TrayStarter.__startSnapshot"></a>
+<h4>TrayStarter.__startSnapshot</h4>
+<b>__startSnapshot</b>(<i></i>)
+<p>
+        Private slot to start the eric snapshot dialog.
+</p>
+
+<a NAME="TrayStarter.__startSqlBrowser" ID="TrayStarter.__startSqlBrowser"></a>
+<h4>TrayStarter.__startSqlBrowser</h4>
+<b>__startSqlBrowser</b>(<i></i>)
+<p>
+        Private slot to start the eric sql browser dialog.
+</p>
+
+<a NAME="TrayStarter.__startTRPreviewer" ID="TrayStarter.__startTRPreviewer"></a>
+<h4>TrayStarter.__startTRPreviewer</h4>
+<b>__startTRPreviewer</b>(<i></i>)
+<p>
+        Private slot to start the eric translations previewer.
+</p>
+
+<a NAME="TrayStarter.__startTesting" ID="TrayStarter.__startTesting"></a>
+<h4>TrayStarter.__startTesting</h4>
+<b>__startTesting</b>(<i></i>)
+<p>
+        Private slot to start the eric testing dialog.
+</p>
+
+<a NAME="TrayStarter.__startUIPreviewer" ID="TrayStarter.__startUIPreviewer"></a>
+<h4>TrayStarter.__startUIPreviewer</h4>
+<b>__startUIPreviewer</b>(<i></i>)
+<p>
+        Private slot to start the eric UI previewer.
+</p>
+
+<a NAME="TrayStarter.__startVirtualenvManager" ID="TrayStarter.__startVirtualenvManager"></a>
+<h4>TrayStarter.__startVirtualenvManager</h4>
+<b>__startVirtualenvManager</b>(<i></i>)
+<p>
+        Private slot to start the eric virtual environments manager window.
+</p>
+
+<a NAME="TrayStarter.__startWebBrowser" ID="TrayStarter.__startWebBrowser"></a>
+<h4>TrayStarter.__startWebBrowser</h4>
+<b>__startWebBrowser</b>(<i></i>)
+<p>
+        Private slot to start the eric web browser.
+</p>
+
+<a NAME="TrayStarter.__startWebBrowserPrivate" ID="TrayStarter.__startWebBrowserPrivate"></a>
+<h4>TrayStarter.__startWebBrowserPrivate</h4>
+<b>__startWebBrowserPrivate</b>(<i></i>)
+<p>
+        Private slot to start the eric web browser in private mode.
+</p>
+
+<a NAME="TrayStarter.__startWebBrowserQtHelp" ID="TrayStarter.__startWebBrowserQtHelp"></a>
+<h4>TrayStarter.__startWebBrowserQtHelp</h4>
+<b>__startWebBrowserQtHelp</b>(<i></i>)
+<p>
+        Private slot to start the eric web browser with QtHelp support.
+</p>
+
+<a NAME="TrayStarter.preferencesChanged" ID="TrayStarter.preferencesChanged"></a>
+<h4>TrayStarter.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

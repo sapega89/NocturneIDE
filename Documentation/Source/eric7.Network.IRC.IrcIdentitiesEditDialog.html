@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Network.IRC.IrcIdentitiesEditDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Network.IRC.IrcIdentitiesEditDialog</h1>
+<p>
+Module implementing the identities management dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog">IrcIdentitiesEditDialog</a></td>
+<td>Class implementing the identities management dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="IrcIdentitiesEditDialog" ID="IrcIdentitiesEditDialog"></a>
+<h2>IrcIdentitiesEditDialog</h2>
+<p>
+    Class implementing the identities management dialog.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_IrcIdentitiesEditDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.__init__">IrcIdentitiesEditDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.__checkCurrentIdentity">__checkCurrentIdentity</a></td>
+<td>Private method to check the data for the current identity.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.__refreshCurrentIdentity">__refreshCurrentIdentity</a></td>
+<td>Private method to read back the data for the current identity.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.__updateIdentitiesButtons">__updateIdentitiesButtons</a></td>
+<td>Private slot to update the status of the identity related buttons.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.__updateNicknameButtons">__updateNicknameButtons</a></td>
+<td>Private slot to update the nick name buttons except the up and down buttons.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.__updateNicknameUpDownButtons">__updateNicknameUpDownButtons</a></td>
+<td>Private method to set the enabled state of the nick name up and down buttons.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.accept">accept</a></td>
+<td>Public slot handling the acceptance of the dialog.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.eventFilter">eventFilter</a></td>
+<td>Public method to handle events for other objects.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_addButton_clicked">on_addButton_clicked</a></td>
+<td>Private slot to add a new idntity.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_copyButton_clicked">on_copyButton_clicked</a></td>
+<td>Private slot to copy the selected identity.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_deleteButton_clicked">on_deleteButton_clicked</a></td>
+<td>Private slot to rename the selected identity.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_identitiesCombo_currentIndexChanged">on_identitiesCombo_currentIndexChanged</a></td>
+<td>Private slot to handle the selection of an identity.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_nicknameAddButton_clicked">on_nicknameAddButton_clicked</a></td>
+<td>Private slot to add a new nickname.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_nicknameDeleteButton_clicked">on_nicknameDeleteButton_clicked</a></td>
+<td>Private slot to delete a nick name.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_nicknameDownButton_clicked">on_nicknameDownButton_clicked</a></td>
+<td>Private slot to move the selected entry down one row.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_nicknameEdit_textEdited">on_nicknameEdit_textEdited</a></td>
+<td>Private slot handling a change of the nick name.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_nicknameUpButton_clicked">on_nicknameUpButton_clicked</a></td>
+<td>Private slot to move the selected entry up one row.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_nicknamesList_itemSelectionChanged">on_nicknamesList_itemSelectionChanged</a></td>
+<td>Private slot handling the selection of a nick name.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_renameButton_clicked">on_renameButton_clicked</a></td>
+<td>Private slot to rename the selected identity.</td>
+</tr>
+<tr>
+<td><a href="#IrcIdentitiesEditDialog.on_showPasswordButton_clicked">on_showPasswordButton_clicked</a></td>
+<td>Private slot to show or hide the password.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IrcIdentitiesEditDialog.__init__" ID="IrcIdentitiesEditDialog.__init__"></a>
+<h4>IrcIdentitiesEditDialog (Constructor)</h4>
+<b>IrcIdentitiesEditDialog</b>(<i>manager, identityName, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>manager</i> (IrcNetworkManager)</dt>
+<dd>
+reference to the IRC network manager object
+</dd>
+<dt><i>identityName</i> (str)</dt>
+<dd>
+name of the identity to be selected
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="IrcIdentitiesEditDialog.__checkCurrentIdentity" ID="IrcIdentitiesEditDialog.__checkCurrentIdentity"></a>
+<h4>IrcIdentitiesEditDialog.__checkCurrentIdentity</h4>
+<b>__checkCurrentIdentity</b>(<i></i>)
+<p>
+        Private method to check the data for the current identity.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful check
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcIdentitiesEditDialog.__refreshCurrentIdentity" ID="IrcIdentitiesEditDialog.__refreshCurrentIdentity"></a>
+<h4>IrcIdentitiesEditDialog.__refreshCurrentIdentity</h4>
+<b>__refreshCurrentIdentity</b>(<i></i>)
+<p>
+        Private method to read back the data for the current identity.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.__updateIdentitiesButtons" ID="IrcIdentitiesEditDialog.__updateIdentitiesButtons"></a>
+<h4>IrcIdentitiesEditDialog.__updateIdentitiesButtons</h4>
+<b>__updateIdentitiesButtons</b>(<i></i>)
+<p>
+        Private slot to update the status of the identity related buttons.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.__updateNicknameButtons" ID="IrcIdentitiesEditDialog.__updateNicknameButtons"></a>
+<h4>IrcIdentitiesEditDialog.__updateNicknameButtons</h4>
+<b>__updateNicknameButtons</b>(<i></i>)
+<p>
+        Private slot to update the nick name buttons except the up and
+        down buttons.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.__updateNicknameUpDownButtons" ID="IrcIdentitiesEditDialog.__updateNicknameUpDownButtons"></a>
+<h4>IrcIdentitiesEditDialog.__updateNicknameUpDownButtons</h4>
+<b>__updateNicknameUpDownButtons</b>(<i></i>)
+<p>
+        Private method to set the enabled state of the nick name up and
+        down buttons.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.accept" ID="IrcIdentitiesEditDialog.accept"></a>
+<h4>IrcIdentitiesEditDialog.accept</h4>
+<b>accept</b>(<i></i>)
+<p>
+        Public slot handling the acceptance of the dialog.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.eventFilter" ID="IrcIdentitiesEditDialog.eventFilter"></a>
+<h4>IrcIdentitiesEditDialog.eventFilter</h4>
+<b>eventFilter</b>(<i>obj, evt</i>)
+<p>
+        Public method to handle events for other objects.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (QObject)</dt>
+<dd>
+reference to the object
+</dd>
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the event should be filtered out
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcIdentitiesEditDialog.on_addButton_clicked" ID="IrcIdentitiesEditDialog.on_addButton_clicked"></a>
+<h4>IrcIdentitiesEditDialog.on_addButton_clicked</h4>
+<b>on_addButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a new idntity.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.on_copyButton_clicked" ID="IrcIdentitiesEditDialog.on_copyButton_clicked"></a>
+<h4>IrcIdentitiesEditDialog.on_copyButton_clicked</h4>
+<b>on_copyButton_clicked</b>(<i></i>)
+<p>
+        Private slot to copy the selected identity.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.on_deleteButton_clicked" ID="IrcIdentitiesEditDialog.on_deleteButton_clicked"></a>
+<h4>IrcIdentitiesEditDialog.on_deleteButton_clicked</h4>
+<b>on_deleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to rename the selected identity.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.on_identitiesCombo_currentIndexChanged" ID="IrcIdentitiesEditDialog.on_identitiesCombo_currentIndexChanged"></a>
+<h4>IrcIdentitiesEditDialog.on_identitiesCombo_currentIndexChanged</h4>
+<b>on_identitiesCombo_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of an identity.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="IrcIdentitiesEditDialog.on_nicknameAddButton_clicked" ID="IrcIdentitiesEditDialog.on_nicknameAddButton_clicked"></a>
+<h4>IrcIdentitiesEditDialog.on_nicknameAddButton_clicked</h4>
+<b>on_nicknameAddButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a new nickname.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.on_nicknameDeleteButton_clicked" ID="IrcIdentitiesEditDialog.on_nicknameDeleteButton_clicked"></a>
+<h4>IrcIdentitiesEditDialog.on_nicknameDeleteButton_clicked</h4>
+<b>on_nicknameDeleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete a nick name.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.on_nicknameDownButton_clicked" ID="IrcIdentitiesEditDialog.on_nicknameDownButton_clicked"></a>
+<h4>IrcIdentitiesEditDialog.on_nicknameDownButton_clicked</h4>
+<b>on_nicknameDownButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the selected entry down one row.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.on_nicknameEdit_textEdited" ID="IrcIdentitiesEditDialog.on_nicknameEdit_textEdited"></a>
+<h4>IrcIdentitiesEditDialog.on_nicknameEdit_textEdited</h4>
+<b>on_nicknameEdit_textEdited</b>(<i>nick</i>)
+<p>
+        Private slot handling a change of the nick name.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (str)</dt>
+<dd>
+new nick name
+</dd>
+</dl>
+<a NAME="IrcIdentitiesEditDialog.on_nicknameUpButton_clicked" ID="IrcIdentitiesEditDialog.on_nicknameUpButton_clicked"></a>
+<h4>IrcIdentitiesEditDialog.on_nicknameUpButton_clicked</h4>
+<b>on_nicknameUpButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the selected entry up one row.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.on_nicknamesList_itemSelectionChanged" ID="IrcIdentitiesEditDialog.on_nicknamesList_itemSelectionChanged"></a>
+<h4>IrcIdentitiesEditDialog.on_nicknamesList_itemSelectionChanged</h4>
+<b>on_nicknamesList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot handling the selection of a nick name.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.on_renameButton_clicked" ID="IrcIdentitiesEditDialog.on_renameButton_clicked"></a>
+<h4>IrcIdentitiesEditDialog.on_renameButton_clicked</h4>
+<b>on_renameButton_clicked</b>(<i></i>)
+<p>
+        Private slot to rename the selected identity.
+</p>
+
+<a NAME="IrcIdentitiesEditDialog.on_showPasswordButton_clicked" ID="IrcIdentitiesEditDialog.on_showPasswordButton_clicked"></a>
+<h4>IrcIdentitiesEditDialog.on_showPasswordButton_clicked</h4>
+<b>on_showPasswordButton_clicked</b>(<i>checked</i>)
+<p>
+        Private slot to show or hide the password.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the button
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

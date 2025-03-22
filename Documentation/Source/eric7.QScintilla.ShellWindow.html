@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.ShellWindow</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.ShellWindow</h1>
+<p>
+Module implementing a stand alone shell window.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ShellWindow">ShellWindow</a></td>
+<td>Class implementing a stand alone shell window.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ShellWindow" ID="ShellWindow"></a>
+<h2>ShellWindow</h2>
+<p>
+    Class implementing a stand alone shell window.
+</p>
+
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ShellWindow.__init__">ShellWindow</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__about">__about</a></td>
+<td>Private slot to show a little About message.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__aboutQt">__aboutQt</a></td>
+<td>Private slot to handle the About Qt dialog.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__clientDebuggerId">__clientDebuggerId</a></td>
+<td>Private slot to receive the ID of a newly connected debugger backend.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createActions">__createActions</a></td>
+<td>Private method to create the actions.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createEditActions">__createEditActions</a></td>
+<td>Private method defining the user interface actions for the edit commands.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createFileActions">__createFileActions</a></td>
+<td>Private method defining the user interface actions for the file commands.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createHelpActions">__createHelpActions</a></td>
+<td>Private method to create the Help actions.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createHistoryActions">__createHistoryActions</a></td>
+<td>Private method defining the user interface actions for the history commands.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createMenus">__createMenus</a></td>
+<td>Private method to create the menus of the menu bar.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createSearchActions">__createSearchActions</a></td>
+<td>Private method defining the user interface actions for the search commands.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createSettingsActions">__createSettingsActions</a></td>
+<td>Private method to create the Settings actions.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createStatusBar">__createStatusBar</a></td>
+<td>Private slot to set up the status bar.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createToolBars">__createToolBars</a></td>
+<td>Private method to create the various toolbars.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__createViewActions">__createViewActions</a></td>
+<td>Private method defining the user interface actions for the view commands.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__historyStyleChanged">__historyStyleChanged</a></td>
+<td>Private slot to handle a change of the shell history style.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__newWindow">__newWindow</a></td>
+<td>Private slot to start a new instance of eric.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__readSettings">__readSettings</a></td>
+<td>Private method to read the settings remembered last time.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__readShortcut">__readShortcut</a></td>
+<td>Private function to read a single keyboard shortcut from the settings.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__showFind">__showFind</a></td>
+<td>Private method to display the search widget.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__showPreferences">__showPreferences</a></td>
+<td>Private slot to set the preferences.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__showStartMenu">__showStartMenu</a></td>
+<td>Private slot to prepare the language menu.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__startShell">__startShell</a></td>
+<td>Private slot to start a shell according to the action triggered.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__virtualEnvironmentChanged">__virtualEnvironmentChanged</a></td>
+<td>Private slot handling a change of the shell's virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__whatsThis">__whatsThis</a></td>
+<td>Private slot called in to enter Whats This mode.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__writeSettings">__writeSettings</a></td>
+<td>Private method to write the settings for reuse.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__zoom">__zoom</a></td>
+<td>Private method to handle the zoom action.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__zoomIn">__zoomIn</a></td>
+<td>Private method to handle the zoom in action.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__zoomOut">__zoomOut</a></td>
+<td>Private method to handle the zoom out action.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__zoomReset">__zoomReset</a></td>
+<td>Private method to reset the zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__zoomTo">__zoomTo</a></td>
+<td>Private slot to zoom to a given value.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.__zoomValueChanged">__zoomValueChanged</a></td>
+<td>Private slot to handle changes of the zoom value.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.activeWindow">activeWindow</a></td>
+<td>Public method to get a reference to the active shell.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.closeEvent">closeEvent</a></td>
+<td>Protected method to handle the close event.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.getAPIsManager">getAPIsManager</a></td>
+<td>Public method to get a reference to the APIs manager.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.getDebuggerId">getDebuggerId</a></td>
+<td>Public method to get the most recently registered debugger ID.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.quit">quit</a></td>
+<td>Public method to quit the application.</td>
+</tr>
+<tr>
+<td><a href="#ShellWindow.showFind">showFind</a></td>
+<td>Public method to display the search widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ShellWindow.__init__" ID="ShellWindow.__init__"></a>
+<h4>ShellWindow (Constructor)</h4>
+<b>ShellWindow</b>(<i>originalPathString, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>originalPathString</i> (str)</dt>
+<dd>
+original PATH environment variable
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+object name of the window
+</dd>
+</dl>
+<a NAME="ShellWindow.__about" ID="ShellWindow.__about"></a>
+<h4>ShellWindow.__about</h4>
+<b>__about</b>(<i></i>)
+<p>
+        Private slot to show a little About message.
+</p>
+
+<a NAME="ShellWindow.__aboutQt" ID="ShellWindow.__aboutQt"></a>
+<h4>ShellWindow.__aboutQt</h4>
+<b>__aboutQt</b>(<i></i>)
+<p>
+        Private slot to handle the About Qt dialog.
+</p>
+
+<a NAME="ShellWindow.__clientDebuggerId" ID="ShellWindow.__clientDebuggerId"></a>
+<h4>ShellWindow.__clientDebuggerId</h4>
+<b>__clientDebuggerId</b>(<i>debuggerId</i>)
+<p>
+        Private slot to receive the ID of a newly connected debugger backend.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of a newly connected debugger backend
+</dd>
+</dl>
+<a NAME="ShellWindow.__createActions" ID="ShellWindow.__createActions"></a>
+<h4>ShellWindow.__createActions</h4>
+<b>__createActions</b>(<i></i>)
+<p>
+        Private method to create the actions.
+</p>
+
+<a NAME="ShellWindow.__createEditActions" ID="ShellWindow.__createEditActions"></a>
+<h4>ShellWindow.__createEditActions</h4>
+<b>__createEditActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the edit
+        commands.
+</p>
+
+<a NAME="ShellWindow.__createFileActions" ID="ShellWindow.__createFileActions"></a>
+<h4>ShellWindow.__createFileActions</h4>
+<b>__createFileActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the file
+        commands.
+</p>
+
+<a NAME="ShellWindow.__createHelpActions" ID="ShellWindow.__createHelpActions"></a>
+<h4>ShellWindow.__createHelpActions</h4>
+<b>__createHelpActions</b>(<i></i>)
+<p>
+        Private method to create the Help actions.
+</p>
+
+<a NAME="ShellWindow.__createHistoryActions" ID="ShellWindow.__createHistoryActions"></a>
+<h4>ShellWindow.__createHistoryActions</h4>
+<b>__createHistoryActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the history
+        commands.
+</p>
+
+<a NAME="ShellWindow.__createMenus" ID="ShellWindow.__createMenus"></a>
+<h4>ShellWindow.__createMenus</h4>
+<b>__createMenus</b>(<i></i>)
+<p>
+        Private method to create the menus of the menu bar.
+</p>
+
+<a NAME="ShellWindow.__createSearchActions" ID="ShellWindow.__createSearchActions"></a>
+<h4>ShellWindow.__createSearchActions</h4>
+<b>__createSearchActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the search
+        commands.
+</p>
+
+<a NAME="ShellWindow.__createSettingsActions" ID="ShellWindow.__createSettingsActions"></a>
+<h4>ShellWindow.__createSettingsActions</h4>
+<b>__createSettingsActions</b>(<i></i>)
+<p>
+        Private method to create the Settings actions.
+</p>
+
+<a NAME="ShellWindow.__createStatusBar" ID="ShellWindow.__createStatusBar"></a>
+<h4>ShellWindow.__createStatusBar</h4>
+<b>__createStatusBar</b>(<i></i>)
+<p>
+        Private slot to set up the status bar.
+</p>
+
+<a NAME="ShellWindow.__createToolBars" ID="ShellWindow.__createToolBars"></a>
+<h4>ShellWindow.__createToolBars</h4>
+<b>__createToolBars</b>(<i></i>)
+<p>
+        Private method to create the various toolbars.
+</p>
+
+<a NAME="ShellWindow.__createViewActions" ID="ShellWindow.__createViewActions"></a>
+<h4>ShellWindow.__createViewActions</h4>
+<b>__createViewActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the view
+        commands.
+</p>
+
+<a NAME="ShellWindow.__historyStyleChanged" ID="ShellWindow.__historyStyleChanged"></a>
+<h4>ShellWindow.__historyStyleChanged</h4>
+<b>__historyStyleChanged</b>(<i>_historyStyle</i>)
+<p>
+        Private slot to handle a change of the shell history style.
+</p>
+
+<dl>
+
+<dt><i>_historyStyle</i> (ShellHistoryStyle)</dt>
+<dd>
+style to be used for the history (unused)
+</dd>
+</dl>
+<a NAME="ShellWindow.__newWindow" ID="ShellWindow.__newWindow"></a>
+<h4>ShellWindow.__newWindow</h4>
+<b>__newWindow</b>(<i></i>)
+<p>
+        Private slot to start a new instance of eric.
+</p>
+
+<a NAME="ShellWindow.__readSettings" ID="ShellWindow.__readSettings"></a>
+<h4>ShellWindow.__readSettings</h4>
+<b>__readSettings</b>(<i></i>)
+<p>
+        Private method to read the settings remembered last time.
+</p>
+
+<a NAME="ShellWindow.__readShortcut" ID="ShellWindow.__readShortcut"></a>
+<h4>ShellWindow.__readShortcut</h4>
+<b>__readShortcut</b>(<i>act, category</i>)
+<p>
+        Private function to read a single keyboard shortcut from the settings.
+</p>
+
+<dl>
+
+<dt><i>act</i> (EricAction)</dt>
+<dd>
+reference to the action object
+</dd>
+<dt><i>category</i> (str)</dt>
+<dd>
+category the action belongs to
+</dd>
+</dl>
+<a NAME="ShellWindow.__showFind" ID="ShellWindow.__showFind"></a>
+<h4>ShellWindow.__showFind</h4>
+<b>__showFind</b>(<i></i>)
+<p>
+        Private method to display the search widget.
+</p>
+
+<a NAME="ShellWindow.__showPreferences" ID="ShellWindow.__showPreferences"></a>
+<h4>ShellWindow.__showPreferences</h4>
+<b>__showPreferences</b>(<i></i>)
+<p>
+        Private slot to set the preferences.
+</p>
+
+<a NAME="ShellWindow.__showStartMenu" ID="ShellWindow.__showStartMenu"></a>
+<h4>ShellWindow.__showStartMenu</h4>
+<b>__showStartMenu</b>(<i></i>)
+<p>
+        Private slot to prepare the language menu.
+</p>
+
+<a NAME="ShellWindow.__startShell" ID="ShellWindow.__startShell"></a>
+<h4>ShellWindow.__startShell</h4>
+<b>__startShell</b>(<i>action</i>)
+<p>
+        Private slot to start a shell according to the action triggered.
+</p>
+
+<dl>
+
+<dt><i>action</i> (QAction)</dt>
+<dd>
+menu action that was triggered
+</dd>
+</dl>
+<a NAME="ShellWindow.__virtualEnvironmentChanged" ID="ShellWindow.__virtualEnvironmentChanged"></a>
+<h4>ShellWindow.__virtualEnvironmentChanged</h4>
+<b>__virtualEnvironmentChanged</b>(<i>venvName</i>)
+<p>
+        Private slot handling a change of the shell's virtual environment.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment of the shell
+</dd>
+</dl>
+<a NAME="ShellWindow.__whatsThis" ID="ShellWindow.__whatsThis"></a>
+<h4>ShellWindow.__whatsThis</h4>
+<b>__whatsThis</b>(<i></i>)
+<p>
+        Private slot called in to enter Whats This mode.
+</p>
+
+<a NAME="ShellWindow.__writeSettings" ID="ShellWindow.__writeSettings"></a>
+<h4>ShellWindow.__writeSettings</h4>
+<b>__writeSettings</b>(<i></i>)
+<p>
+        Private method to write the settings for reuse.
+</p>
+
+<a NAME="ShellWindow.__zoom" ID="ShellWindow.__zoom"></a>
+<h4>ShellWindow.__zoom</h4>
+<b>__zoom</b>(<i></i>)
+<p>
+        Private method to handle the zoom action.
+</p>
+
+<a NAME="ShellWindow.__zoomIn" ID="ShellWindow.__zoomIn"></a>
+<h4>ShellWindow.__zoomIn</h4>
+<b>__zoomIn</b>(<i></i>)
+<p>
+        Private method to handle the zoom in action.
+</p>
+
+<a NAME="ShellWindow.__zoomOut" ID="ShellWindow.__zoomOut"></a>
+<h4>ShellWindow.__zoomOut</h4>
+<b>__zoomOut</b>(<i></i>)
+<p>
+        Private method to handle the zoom out action.
+</p>
+
+<a NAME="ShellWindow.__zoomReset" ID="ShellWindow.__zoomReset"></a>
+<h4>ShellWindow.__zoomReset</h4>
+<b>__zoomReset</b>(<i></i>)
+<p>
+        Private method to reset the zoom factor.
+</p>
+
+<a NAME="ShellWindow.__zoomTo" ID="ShellWindow.__zoomTo"></a>
+<h4>ShellWindow.__zoomTo</h4>
+<b>__zoomTo</b>(<i>value</i>)
+<p>
+        Private slot to zoom to a given value.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+zoom value to be set
+</dd>
+</dl>
+<a NAME="ShellWindow.__zoomValueChanged" ID="ShellWindow.__zoomValueChanged"></a>
+<h4>ShellWindow.__zoomValueChanged</h4>
+<b>__zoomValueChanged</b>(<i>value</i>)
+<p>
+        Private slot to handle changes of the zoom value.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+new zoom value
+</dd>
+</dl>
+<a NAME="ShellWindow.activeWindow" ID="ShellWindow.activeWindow"></a>
+<h4>ShellWindow.activeWindow</h4>
+<b>activeWindow</b>(<i></i>)
+<p>
+        Public method to get a reference to the active shell.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the shell widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Shell
+</dd>
+</dl>
+<a NAME="ShellWindow.closeEvent" ID="ShellWindow.closeEvent"></a>
+<h4>ShellWindow.closeEvent</h4>
+<b>closeEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the close event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="ShellWindow.getAPIsManager" ID="ShellWindow.getAPIsManager"></a>
+<h4>ShellWindow.getAPIsManager</h4>
+<b>getAPIsManager</b>(<i></i>)
+<p>
+        Public method to get a reference to the APIs manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the APIs manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QScintilla.APIsManager
+</dd>
+</dl>
+<a NAME="ShellWindow.getDebuggerId" ID="ShellWindow.getDebuggerId"></a>
+<h4>ShellWindow.getDebuggerId</h4>
+<b>getDebuggerId</b>(<i></i>)
+<p>
+        Public method to get the most recently registered debugger ID.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+debugger ID
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ShellWindow.quit" ID="ShellWindow.quit"></a>
+<h4>ShellWindow.quit</h4>
+<b>quit</b>(<i></i>)
+<p>
+        Public method to quit the application.
+</p>
+
+<a NAME="ShellWindow.showFind" ID="ShellWindow.showFind"></a>
+<h4>ShellWindow.showFind</h4>
+<b>showFind</b>(<i>txt=""</i>)
+<p>
+        Public method to display the search widget.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be shown in the combo
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

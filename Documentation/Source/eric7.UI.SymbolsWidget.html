@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.SymbolsWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.SymbolsWidget</h1>
+<p>
+Module implementing a widget to select a symbol in various formats.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SymbolsModel">SymbolsModel</a></td>
+<td>Class implementing the model for the symbols widget.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsWidget">SymbolsWidget</a></td>
+<td>Class implementing a widget to select a symbol in various formats.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SymbolsModel" ID="SymbolsModel"></a>
+<h2>SymbolsModel</h2>
+<p>
+    Class implementing the model for the symbols widget.
+</p>
+
+<h3>Derived from</h3>
+QAbstractTableModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SymbolsModel.__init__">SymbolsModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.__isDigit">__isDigit</a></td>
+<td>Private method to check, if a character is a digit.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.__isLetter">__isLetter</a></td>
+<td>Private method to check, if a character is a letter.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.__isMark">__isMark</a></td>
+<td>Private method to check, if a character is a mark character.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.__isPunct">__isPunct</a></td>
+<td>Private method to check, if a character is a punctuation character.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.__isSymbol">__isSymbol</a></td>
+<td>Private method to check, if a character is a symbol.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.columnCount">columnCount</a></td>
+<td>Public method to get the number of columns of the model.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.data">data</a></td>
+<td>Public method to get data from the model.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.getLocale">getLocale</a></td>
+<td>Public method to get the used locale.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.getTableBoundaries">getTableBoundaries</a></td>
+<td>Public method to get the first and last character position of the given table.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.getTableIndex">getTableIndex</a></td>
+<td>Public method to get the current table index.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.getTableNames">getTableNames</a></td>
+<td>Public method to get a list of table names.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.headerData">headerData</a></td>
+<td>Public method to get header data from the model.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.rowCount">rowCount</a></td>
+<td>Public method to get the number of rows of the model.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsModel.selectTable">selectTable</a></td>
+<td>Public method to select the shown character table.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SymbolsModel.__init__" ID="SymbolsModel.__init__"></a>
+<h4>SymbolsModel (Constructor)</h4>
+<b>SymbolsModel</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="SymbolsModel.__isDigit" ID="SymbolsModel.__isDigit"></a>
+<h4>SymbolsModel.__isDigit</h4>
+<b>__isDigit</b>(<i>char</i>)
+<p>
+        Private method to check, if a character is a digit.
+</p>
+
+<dl>
+
+<dt><i>char</i> (str)</dt>
+<dd>
+character to test
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a digit
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SymbolsModel.__isLetter" ID="SymbolsModel.__isLetter"></a>
+<h4>SymbolsModel.__isLetter</h4>
+<b>__isLetter</b>(<i>char</i>)
+<p>
+        Private method to check, if a character is a letter.
+</p>
+
+<dl>
+
+<dt><i>char</i> (str)</dt>
+<dd>
+character to test
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a letter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SymbolsModel.__isMark" ID="SymbolsModel.__isMark"></a>
+<h4>SymbolsModel.__isMark</h4>
+<b>__isMark</b>(<i>char</i>)
+<p>
+        Private method to check, if a character is a mark character.
+</p>
+
+<dl>
+
+<dt><i>char</i> (str)</dt>
+<dd>
+character to test
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a mark character
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SymbolsModel.__isPunct" ID="SymbolsModel.__isPunct"></a>
+<h4>SymbolsModel.__isPunct</h4>
+<b>__isPunct</b>(<i>char</i>)
+<p>
+        Private method to check, if a character is a punctuation character.
+</p>
+
+<dl>
+
+<dt><i>char</i> (str)</dt>
+<dd>
+character to test
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a punctuation character
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+boolean)
+</dd>
+</dl>
+<a NAME="SymbolsModel.__isSymbol" ID="SymbolsModel.__isSymbol"></a>
+<h4>SymbolsModel.__isSymbol</h4>
+<b>__isSymbol</b>(<i>char</i>)
+<p>
+        Private method to check, if a character is a symbol.
+</p>
+
+<dl>
+
+<dt><i>char</i> (str)</dt>
+<dd>
+character to test
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a symbol
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SymbolsModel.columnCount" ID="SymbolsModel.columnCount"></a>
+<h4>SymbolsModel.columnCount</h4>
+<b>columnCount</b>(<i>parent</i>)
+<p>
+        Public method to get the number of columns of the model.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+parent index
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of columns
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SymbolsModel.data" ID="SymbolsModel.data"></a>
+<h4>SymbolsModel.data</h4>
+<b>data</b>(<i>index, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method to get data from the model.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index to get data for
+</dd>
+<dt><i>role</i> (int)</dt>
+<dd>
+role of the data to retrieve
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="SymbolsModel.getLocale" ID="SymbolsModel.getLocale"></a>
+<h4>SymbolsModel.getLocale</h4>
+<b>getLocale</b>(<i></i>)
+<p>
+        Public method to get the used locale.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+used locale
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QLocale
+</dd>
+</dl>
+<a NAME="SymbolsModel.getTableBoundaries" ID="SymbolsModel.getTableBoundaries"></a>
+<h4>SymbolsModel.getTableBoundaries</h4>
+<b>getTableBoundaries</b>(<i>index</i>)
+<p>
+        Public method to get the first and last character position
+        of the given table.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the character table
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+first and last character position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="SymbolsModel.getTableIndex" ID="SymbolsModel.getTableIndex"></a>
+<h4>SymbolsModel.getTableIndex</h4>
+<b>getTableIndex</b>(<i></i>)
+<p>
+        Public method to get the current table index.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current table index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SymbolsModel.getTableNames" ID="SymbolsModel.getTableNames"></a>
+<h4>SymbolsModel.getTableNames</h4>
+<b>getTableNames</b>(<i></i>)
+<p>
+        Public method to get a list of table names.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of table names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SymbolsModel.headerData" ID="SymbolsModel.headerData"></a>
+<h4>SymbolsModel.headerData</h4>
+<b>headerData</b>(<i>section, orientation, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method to get header data from the model.
+</p>
+
+<dl>
+
+<dt><i>section</i> (int)</dt>
+<dd>
+section number
+</dd>
+<dt><i>orientation</i> (Qt.Orientation)</dt>
+<dd>
+orientation
+</dd>
+<dt><i>role</i> (Qt.ItemDataRole)</dt>
+<dd>
+role of the data to retrieve
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="SymbolsModel.rowCount" ID="SymbolsModel.rowCount"></a>
+<h4>SymbolsModel.rowCount</h4>
+<b>rowCount</b>(<i>parent</i>)
+<p>
+        Public method to get the number of rows of the model.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+parent index
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of columns
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SymbolsModel.selectTable" ID="SymbolsModel.selectTable"></a>
+<h4>SymbolsModel.selectTable</h4>
+<b>selectTable</b>(<i>index</i>)
+<p>
+        Public method to select the shown character table.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the character table
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="SymbolsWidget" ID="SymbolsWidget"></a>
+<h2>SymbolsWidget</h2>
+<p>
+    Class implementing a widget to select a symbol in various formats.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>insertSymbol(str)</dt>
+<dd>
+emitted after the user has selected a symbol
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_SymbolsWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SymbolsWidget.__init__">SymbolsWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SymbolsWidget.__currentRowChanged">__currentRowChanged</a></td>
+<td>Private slot recording the currently selected row.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsWidget.on_symbolSpinBox_editingFinished">on_symbolSpinBox_editingFinished</a></td>
+<td>Private slot to move the table to the entered symbol id.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsWidget.on_symbolsTable_activated">on_symbolsTable_activated</a></td>
+<td>Private slot to signal the selection of a symbol.</td>
+</tr>
+<tr>
+<td><a href="#SymbolsWidget.on_tableCombo_currentIndexChanged">on_tableCombo_currentIndexChanged</a></td>
+<td>Private slot to select the current character table.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SymbolsWidget.__init__" ID="SymbolsWidget.__init__"></a>
+<h4>SymbolsWidget (Constructor)</h4>
+<b>SymbolsWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="SymbolsWidget.__currentRowChanged" ID="SymbolsWidget.__currentRowChanged"></a>
+<h4>SymbolsWidget.__currentRowChanged</h4>
+<b>__currentRowChanged</b>(<i>current, _previous</i>)
+<p>
+        Private slot recording the currently selected row.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QModelIndex)</dt>
+<dd>
+current index
+</dd>
+<dt><i>_previous</i> (QModelIndex)</dt>
+<dd>
+previous current index (unused)
+</dd>
+</dl>
+<a NAME="SymbolsWidget.on_symbolSpinBox_editingFinished" ID="SymbolsWidget.on_symbolSpinBox_editingFinished"></a>
+<h4>SymbolsWidget.on_symbolSpinBox_editingFinished</h4>
+<b>on_symbolSpinBox_editingFinished</b>(<i></i>)
+<p>
+        Private slot to move the table to the entered symbol id.
+</p>
+
+<a NAME="SymbolsWidget.on_symbolsTable_activated" ID="SymbolsWidget.on_symbolsTable_activated"></a>
+<h4>SymbolsWidget.on_symbolsTable_activated</h4>
+<b>on_symbolsTable_activated</b>(<i>index</i>)
+<p>
+        Private slot to signal the selection of a symbol.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the selected symbol
+</dd>
+</dl>
+<a NAME="SymbolsWidget.on_tableCombo_currentIndexChanged" ID="SymbolsWidget.on_tableCombo_currentIndexChanged"></a>
+<h4>SymbolsWidget.on_tableCombo_currentIndexChanged</h4>
+<b>on_tableCombo_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to select the current character table.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the character table
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

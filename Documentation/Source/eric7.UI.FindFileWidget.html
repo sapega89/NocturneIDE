@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.FindFileWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.FindFileWidget</h1>
+<p>
+Module implementing a dialog to search for text in files.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#FindFileDialog">FindFileDialog</a></td>
+<td>Class implementing a dialog to search for text in files and replace it with some other text.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget">FindFileWidget</a></td>
+<td>Class implementing a widget to search for text in files and replace it with some other text.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="FindFileDialog" ID="FindFileDialog"></a>
+<h2>FindFileDialog</h2>
+<p>
+    Class implementing a dialog to search for text in files and replace it
+    with some other text.
+</p>
+<p>
+    The occurrences found are displayed in a tree showing the file name,
+    the line number and the text found. The file will be opened upon a double
+    click onto the respective entry of the list. If the widget is in replace
+    mode the line below shows the text after replacement. Replacements can
+    be authorized by ticking them on. Pressing the replace button performs
+    all ticked replacement operations.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>designerFile(str)</dt>
+<dd>
+emitted to open a Qt-Designer file
+</dd>
+<dt>linguistFile(str)</dt>
+<dd>
+emitted to open a Qt-Linguist (*.ts) file
+</dd>
+<dt>pixmapFile(str)</dt>
+<dd>
+emitted to open a pixmap file
+</dd>
+<dt>sourceFile(str, int, str, int, int)</dt>
+<dd>
+emitted to open a source file
+        at a specificline
+</dd>
+<dt>svgFile(str)</dt>
+<dd>
+emitted to open a SVG file
+</dd>
+<dt>trpreview([str])</dt>
+<dd>
+emitted to preview Qt-Linguist (*.qm) files
+</dd>
+<dt>umlFile(str)</dt>
+<dd>
+emitted to open an eric UML file
+</dd>
+</dl>
+<h3>Derived from</h3>
+QDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FindFileDialog.__init__">FindFileDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FindFileDialog.activate">activate</a></td>
+<td>Public method to activate the dialog with a given mode, a text to search for and some search parameters.</td>
+</tr>
+<tr>
+<td><a href="#FindFileDialog.populateFileCategories">populateFileCategories</a></td>
+<td>Public method to populate the search file categories list.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FindFileDialog.__init__" ID="FindFileDialog.__init__"></a>
+<h4>FindFileDialog (Constructor)</h4>
+<b>FindFileDialog</b>(<i>project, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of this dialog (defaults to None)
+</dd>
+</dl>
+<a NAME="FindFileDialog.activate" ID="FindFileDialog.activate"></a>
+<h4>FindFileDialog.activate</h4>
+<b>activate</b>(<i>replaceMode=False, txt="", searchDir="", openFiles=False</i>)
+<p>
+        Public method to activate the dialog with a given mode, a text
+        to search for and some search parameters.
+</p>
+
+<dl>
+
+<dt><i>replaceMode</i> (bool (optional))</dt>
+<dd>
+flag indicating replacement mode (defaults to False)
+</dd>
+<dt><i>txt</i> (str (optional))</dt>
+<dd>
+text to be searched for (defaults to "")
+</dd>
+<dt><i>searchDir</i> (str (optional))</dt>
+<dd>
+directory to search in (defaults to "")
+</dd>
+<dt><i>openFiles</i> (bool (optional))</dt>
+<dd>
+flag indicating to operate on open files only
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="FindFileDialog.populateFileCategories" ID="FindFileDialog.populateFileCategories"></a>
+<h4>FindFileDialog.populateFileCategories</h4>
+<b>populateFileCategories</b>(<i></i>)
+<p>
+        Public method to populate the search file categories list.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="FindFileWidget" ID="FindFileWidget"></a>
+<h2>FindFileWidget</h2>
+<p>
+    Class implementing a widget to search for text in files and replace it
+    with some other text.
+</p>
+<p>
+    The occurrences found are displayed in a tree showing the file name,
+    the line number and the text found. The file will be opened upon a double
+    click onto the respective entry of the list. If the widget is in replace
+    mode the line below shows the text after replacement. Replacements can
+    be authorized by ticking them on. Pressing the replace button performs
+    all ticked replacement operations.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>designerFile(str)</dt>
+<dd>
+emitted to open a Qt-Designer file
+</dd>
+<dt>linguistFile(str)</dt>
+<dd>
+emitted to open a Qt-Linguist (*.ts) file
+</dd>
+<dt>pixmapFile(str)</dt>
+<dd>
+emitted to open a pixmap file
+</dd>
+<dt>sourceFile(str, int, str, int, int)</dt>
+<dd>
+emitted to open a source file
+        at a specific line
+</dd>
+<dt>svgFile(str)</dt>
+<dd>
+emitted to open a SVG file
+</dd>
+<dt>trpreview([str])</dt>
+<dd>
+emitted to preview Qt-Linguist (*.qm) files
+</dd>
+<dt>umlFile(str)</dt>
+<dd>
+emitted to open an eric UML file
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_FindFileWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>endRole</td></tr>
+<tr><td>lineRole</td></tr>
+<tr><td>md5Role</td></tr>
+<tr><td>replaceRole</td></tr>
+<tr><td>startRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FindFileWidget.__init__">FindFileWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__buildReFileFilter">__buildReFileFilter</a></td>
+<td>Private method to convert a file filter expression into a valid re search pattern.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__clearResults">__clearResults</a></td>
+<td>Private slot to clear the current search results.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__contextMenuRequested">__contextMenuRequested</a></td>
+<td>Private slot to handle the context menu request.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__copyToClipboard">__copyToClipboard</a></td>
+<td>Private slot to copy the path of an entry to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__createItem">__createItem</a></td>
+<td>Private method to create an entry in the file list.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__deselectAll">__deselectAll</a></td>
+<td>Private slot to deselect all entries.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__doSearch">__doSearch</a></td>
+<td>Private slot to handle the find button being pressed.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__enableFindButton">__enableFindButton</a></td>
+<td>Private slot called to enable the find button.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__getFileList">__getFileList</a></td>
+<td>Private method to get a list of files to search.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__openFile">__openFile</a></td>
+<td>Private slot to open the currently selected entry.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__populateFilterSelectors">__populateFilterSelectors</a></td>
+<td>Private method to (re-)populate the file filters selector.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__projectClosed">__projectClosed</a></td>
+<td>Private slot to react to the closing of a project.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__projectOpened">__projectOpened</a></td>
+<td>Private slot to react to the opening of a project.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__selectAll">__selectAll</a></td>
+<td>Private slot to select all entries.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__setOpenFiles">__setOpenFiles</a></td>
+<td>Private slot to set the mode to search in open files.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__setSearchDirectory">__setSearchDirectory</a></td>
+<td>Private slot to set the name of the directory to search in.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__stopSearch">__stopSearch</a></td>
+<td>Private slot to handle the stop button being pressed.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__stripEol">__stripEol</a></td>
+<td>Private method to strip the eol part.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.__toggleReplaceMode">__toggleReplaceMode</a></td>
+<td>Private slot to toggle the dialog mode.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.activate">activate</a></td>
+<td>Public method to activate the widget with a given mode, a text to search for and some search parameters.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_dirButton_clicked">on_dirButton_clicked</a></td>
+<td>Private slot to handle the selection of the 'Directory' radio button.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_dirPicker_editTextChanged">on_dirPicker_editTextChanged</a></td>
+<td>Private slot to handle the textChanged signal of the directory picker.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_escapeToolButton_toggled">on_escapeToolButton_toggled</a></td>
+<td>Private slot handling a change of the escape selector.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_excludeFilterCheckBox_clicked">on_excludeFilterCheckBox_clicked</a></td>
+<td>Private slot to handle the selection of the exclude file filter check box.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_excludeFilterComboBox_currentIndexChanged">on_excludeFilterComboBox_currentIndexChanged</a></td>
+<td>Private slot to handle the selection of an exclude file filter.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_excludeFiltersConfigButton_clicked">on_excludeFiltersConfigButton_clicked</a></td>
+<td>Private slot to edit the list of defined exclude file filter entries.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_filterCheckBox_clicked">on_filterCheckBox_clicked</a></td>
+<td>Private slot to handle the selection of the file filter check box.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_filterComboBox_currentIndexChanged">on_filterComboBox_currentIndexChanged</a></td>
+<td>Private slot to handle the selection of a file filter.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_filtersConfigButton_clicked">on_filtersConfigButton_clicked</a></td>
+<td>Private slot to edit the list of defined file filter entries.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_findList_itemDoubleClicked">on_findList_itemDoubleClicked</a></td>
+<td>Private slot to handle the double click on a file item.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_findtextCombo_editTextChanged">on_findtextCombo_editTextChanged</a></td>
+<td>Private slot to handle the editTextChanged signal of the find text combo.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_openFilesButton_clicked">on_openFilesButton_clicked</a></td>
+<td>Private slot to handle the selection of the 'Open Files' radio button.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_projectButton_clicked">on_projectButton_clicked</a></td>
+<td>Private slot to handle the selection of the 'Project' radio button.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_regexpToolButton_toggled">on_regexpToolButton_toggled</a></td>
+<td>Private slot handling a change of the regexp selector.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_replaceButton_clicked">on_replaceButton_clicked</a></td>
+<td>Private slot to perform the requested replace actions.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.on_replacetextCombo_editTextChanged">on_replacetextCombo_editTextChanged</a></td>
+<td>Private slot to handle the editTextChanged signal of the replace text combo.</td>
+</tr>
+<tr>
+<td><a href="#FindFileWidget.populateFileCategories">populateFileCategories</a></td>
+<td>Public method to populate the search file categories list.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FindFileWidget.__init__" ID="FindFileWidget.__init__"></a>
+<h4>FindFileWidget (Constructor)</h4>
+<b>FindFileWidget</b>(<i>project, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of this dialog (defaults to None)
+</dd>
+</dl>
+<a NAME="FindFileWidget.__buildReFileFilter" ID="FindFileWidget.__buildReFileFilter"></a>
+<h4>FindFileWidget.__buildReFileFilter</h4>
+<b>__buildReFileFilter</b>(<i>fileFilter</i>)
+<p>
+        Private method to convert a file filter expression into a valid re search
+        pattern.
+</p>
+
+<dl>
+
+<dt><i>fileFilter</i> (str)</dt>
+<dd>
+file filter expression
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+re search pattern with dot, question mark and star converted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="FindFileWidget.__clearResults" ID="FindFileWidget.__clearResults"></a>
+<h4>FindFileWidget.__clearResults</h4>
+<b>__clearResults</b>(<i></i>)
+<p>
+        Private slot to clear the current search results.
+</p>
+
+<a NAME="FindFileWidget.__contextMenuRequested" ID="FindFileWidget.__contextMenuRequested"></a>
+<h4>FindFileWidget.__contextMenuRequested</h4>
+<b>__contextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to handle the context menu request.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the context menu shall be shown
+</dd>
+</dl>
+<a NAME="FindFileWidget.__copyToClipboard" ID="FindFileWidget.__copyToClipboard"></a>
+<h4>FindFileWidget.__copyToClipboard</h4>
+<b>__copyToClipboard</b>(<i></i>)
+<p>
+        Private slot to copy the path of an entry to the clipboard.
+</p>
+
+<a NAME="FindFileWidget.__createItem" ID="FindFileWidget.__createItem"></a>
+<h4>FindFileWidget.__createItem</h4>
+<b>__createItem</b>(<i>file, line, text, start, end, replTxt="", md5=""</i>)
+<p>
+        Private method to create an entry in the file list.
+</p>
+
+<dl>
+
+<dt><i>file</i> (str)</dt>
+<dd>
+filename of file
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text found
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start position of match
+</dd>
+<dt><i>end</i> (int)</dt>
+<dd>
+end position of match
+</dd>
+<dt><i>replTxt</i> (str (optional))</dt>
+<dd>
+text with replacements applied (defaults to "")
+</dd>
+<dt><i>md5</i> (str (optional))</dt>
+<dd>
+MD5 hash of the file (defaults to "")
+</dd>
+</dl>
+<a NAME="FindFileWidget.__deselectAll" ID="FindFileWidget.__deselectAll"></a>
+<h4>FindFileWidget.__deselectAll</h4>
+<b>__deselectAll</b>(<i></i>)
+<p>
+        Private slot to deselect all entries.
+</p>
+
+<a NAME="FindFileWidget.__doSearch" ID="FindFileWidget.__doSearch"></a>
+<h4>FindFileWidget.__doSearch</h4>
+<b>__doSearch</b>(<i></i>)
+<p>
+        Private slot to handle the find button being pressed.
+</p>
+
+<a NAME="FindFileWidget.__enableFindButton" ID="FindFileWidget.__enableFindButton"></a>
+<h4>FindFileWidget.__enableFindButton</h4>
+<b>__enableFindButton</b>(<i></i>)
+<p>
+        Private slot called to enable the find button.
+</p>
+
+<a NAME="FindFileWidget.__getFileList" ID="FindFileWidget.__getFileList"></a>
+<h4>FindFileWidget.__getFileList</h4>
+<b>__getFileList</b>(<i>path, filterRe, excludeHiddenDirs=False, excludeHiddenFiles=False</i>)
+<p>
+        Private method to get a list of files to search.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+the root directory to search in
+</dd>
+<dt><i>filterRe</i> (regexp object)</dt>
+<dd>
+regular expression defining the filter
+            criteria
+</dd>
+<dt><i>excludeHiddenDirs</i> (bool)</dt>
+<dd>
+flag indicating to exclude hidden directories
+</dd>
+<dt><i>excludeHiddenFiles</i> (bool)</dt>
+<dd>
+flag indicating to exclude hidden files
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of files to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="FindFileWidget.__openFile" ID="FindFileWidget.__openFile"></a>
+<h4>FindFileWidget.__openFile</h4>
+<b>__openFile</b>(<i></i>)
+<p>
+        Private slot to open the currently selected entry.
+</p>
+
+<a NAME="FindFileWidget.__populateFilterSelectors" ID="FindFileWidget.__populateFilterSelectors"></a>
+<h4>FindFileWidget.__populateFilterSelectors</h4>
+<b>__populateFilterSelectors</b>(<i></i>)
+<p>
+        Private method to (re-)populate the file filters selector.
+</p>
+
+<a NAME="FindFileWidget.__projectClosed" ID="FindFileWidget.__projectClosed"></a>
+<h4>FindFileWidget.__projectClosed</h4>
+<b>__projectClosed</b>(<i></i>)
+<p>
+        Private slot to react to the closing of a project.
+</p>
+
+<a NAME="FindFileWidget.__projectOpened" ID="FindFileWidget.__projectOpened"></a>
+<h4>FindFileWidget.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to react to the opening of a project.
+</p>
+
+<a NAME="FindFileWidget.__selectAll" ID="FindFileWidget.__selectAll"></a>
+<h4>FindFileWidget.__selectAll</h4>
+<b>__selectAll</b>(<i>check=True</i>)
+<p>
+        Private slot to select all entries.
+</p>
+
+<dl>
+
+<dt><i>check</i> (bool (optional))</dt>
+<dd>
+flag indicating the desired check state (defaults to True)
+</dd>
+</dl>
+<a NAME="FindFileWidget.__setOpenFiles" ID="FindFileWidget.__setOpenFiles"></a>
+<h4>FindFileWidget.__setOpenFiles</h4>
+<b>__setOpenFiles</b>(<i></i>)
+<p>
+        Private slot to set the mode to search in open files.
+</p>
+
+<a NAME="FindFileWidget.__setSearchDirectory" ID="FindFileWidget.__setSearchDirectory"></a>
+<h4>FindFileWidget.__setSearchDirectory</h4>
+<b>__setSearchDirectory</b>(<i>searchDir</i>)
+<p>
+        Private slot to set the name of the directory to search in.
+</p>
+
+<dl>
+
+<dt><i>searchDir</i> (str)</dt>
+<dd>
+name of the directory to search in
+</dd>
+</dl>
+<a NAME="FindFileWidget.__stopSearch" ID="FindFileWidget.__stopSearch"></a>
+<h4>FindFileWidget.__stopSearch</h4>
+<b>__stopSearch</b>(<i></i>)
+<p>
+        Private slot to handle the stop button being pressed.
+</p>
+
+<a NAME="FindFileWidget.__stripEol" ID="FindFileWidget.__stripEol"></a>
+<h4>FindFileWidget.__stripEol</h4>
+<b>__stripEol</b>(<i>txt</i>)
+<p>
+        Private method to strip the eol part.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+line of text that should be treated
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+text with eol stripped
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="FindFileWidget.__toggleReplaceMode" ID="FindFileWidget.__toggleReplaceMode"></a>
+<h4>FindFileWidget.__toggleReplaceMode</h4>
+<b>__toggleReplaceMode</b>(<i></i>)
+<p>
+        Private slot to toggle the dialog mode.
+</p>
+
+<a NAME="FindFileWidget.activate" ID="FindFileWidget.activate"></a>
+<h4>FindFileWidget.activate</h4>
+<b>activate</b>(<i>replaceMode=False, txt="", searchDir="", openFiles=False</i>)
+<p>
+        Public method to activate the widget with a given mode, a text
+        to search for and some search parameters.
+</p>
+
+<dl>
+
+<dt><i>replaceMode</i> (bool (optional))</dt>
+<dd>
+flag indicating replacement mode (defaults to False)
+</dd>
+<dt><i>txt</i> (str (optional))</dt>
+<dd>
+text to be searched for (defaults to "")
+</dd>
+<dt><i>searchDir</i> (str (optional))</dt>
+<dd>
+directory to search in (defaults to "")
+</dd>
+<dt><i>openFiles</i> (bool (optional))</dt>
+<dd>
+flag indicating to operate on open files only
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="FindFileWidget.on_dirButton_clicked" ID="FindFileWidget.on_dirButton_clicked"></a>
+<h4>FindFileWidget.on_dirButton_clicked</h4>
+<b>on_dirButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the selection of the 'Directory' radio button.
+</p>
+
+<a NAME="FindFileWidget.on_dirPicker_editTextChanged" ID="FindFileWidget.on_dirPicker_editTextChanged"></a>
+<h4>FindFileWidget.on_dirPicker_editTextChanged</h4>
+<b>on_dirPicker_editTextChanged</b>(<i>text</i>)
+<p>
+        Private slot to handle the textChanged signal of the directory
+        picker.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+(ignored)
+</dd>
+</dl>
+<a NAME="FindFileWidget.on_escapeToolButton_toggled" ID="FindFileWidget.on_escapeToolButton_toggled"></a>
+<h4>FindFileWidget.on_escapeToolButton_toggled</h4>
+<b>on_escapeToolButton_toggled</b>(<i>checked</i>)
+<p>
+        Private slot handling a change of the escape selector.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the escape selector
+</dd>
+</dl>
+<a NAME="FindFileWidget.on_excludeFilterCheckBox_clicked" ID="FindFileWidget.on_excludeFilterCheckBox_clicked"></a>
+<h4>FindFileWidget.on_excludeFilterCheckBox_clicked</h4>
+<b>on_excludeFilterCheckBox_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the selection of the exclude file filter check box.
+</p>
+
+<a NAME="FindFileWidget.on_excludeFilterComboBox_currentIndexChanged" ID="FindFileWidget.on_excludeFilterComboBox_currentIndexChanged"></a>
+<h4>FindFileWidget.on_excludeFilterComboBox_currentIndexChanged</h4>
+<b>on_excludeFilterComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of an exclude file filter.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="FindFileWidget.on_excludeFiltersConfigButton_clicked" ID="FindFileWidget.on_excludeFiltersConfigButton_clicked"></a>
+<h4>FindFileWidget.on_excludeFiltersConfigButton_clicked</h4>
+<b>on_excludeFiltersConfigButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit the list of defined exclude file filter entries.
+</p>
+
+<a NAME="FindFileWidget.on_filterCheckBox_clicked" ID="FindFileWidget.on_filterCheckBox_clicked"></a>
+<h4>FindFileWidget.on_filterCheckBox_clicked</h4>
+<b>on_filterCheckBox_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the selection of the file filter check box.
+</p>
+
+<a NAME="FindFileWidget.on_filterComboBox_currentIndexChanged" ID="FindFileWidget.on_filterComboBox_currentIndexChanged"></a>
+<h4>FindFileWidget.on_filterComboBox_currentIndexChanged</h4>
+<b>on_filterComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of a file filter.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="FindFileWidget.on_filtersConfigButton_clicked" ID="FindFileWidget.on_filtersConfigButton_clicked"></a>
+<h4>FindFileWidget.on_filtersConfigButton_clicked</h4>
+<b>on_filtersConfigButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit the list of defined file filter entries.
+</p>
+
+<a NAME="FindFileWidget.on_findList_itemDoubleClicked" ID="FindFileWidget.on_findList_itemDoubleClicked"></a>
+<h4>FindFileWidget.on_findList_itemDoubleClicked</h4>
+<b>on_findList_itemDoubleClicked</b>(<i>itm, _column</i>)
+<p>
+        Private slot to handle the double click on a file item.
+</p>
+<p>
+        It emits a signal depending on the file extension.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+the double clicked tree item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column that was double clicked (unused)
+</dd>
+</dl>
+<a NAME="FindFileWidget.on_findtextCombo_editTextChanged" ID="FindFileWidget.on_findtextCombo_editTextChanged"></a>
+<h4>FindFileWidget.on_findtextCombo_editTextChanged</h4>
+<b>on_findtextCombo_editTextChanged</b>(<i>text</i>)
+<p>
+        Private slot to handle the editTextChanged signal of the find
+        text combo.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+(ignored)
+</dd>
+</dl>
+<a NAME="FindFileWidget.on_openFilesButton_clicked" ID="FindFileWidget.on_openFilesButton_clicked"></a>
+<h4>FindFileWidget.on_openFilesButton_clicked</h4>
+<b>on_openFilesButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the selection of the 'Open Files' radio button.
+</p>
+
+<a NAME="FindFileWidget.on_projectButton_clicked" ID="FindFileWidget.on_projectButton_clicked"></a>
+<h4>FindFileWidget.on_projectButton_clicked</h4>
+<b>on_projectButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the selection of the 'Project' radio button.
+</p>
+
+<a NAME="FindFileWidget.on_regexpToolButton_toggled" ID="FindFileWidget.on_regexpToolButton_toggled"></a>
+<h4>FindFileWidget.on_regexpToolButton_toggled</h4>
+<b>on_regexpToolButton_toggled</b>(<i>checked</i>)
+<p>
+        Private slot handling a change of the regexp selector.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the regexp selector
+</dd>
+</dl>
+<a NAME="FindFileWidget.on_replaceButton_clicked" ID="FindFileWidget.on_replaceButton_clicked"></a>
+<h4>FindFileWidget.on_replaceButton_clicked</h4>
+<b>on_replaceButton_clicked</b>(<i></i>)
+<p>
+        Private slot to perform the requested replace actions.
+</p>
+
+<a NAME="FindFileWidget.on_replacetextCombo_editTextChanged" ID="FindFileWidget.on_replacetextCombo_editTextChanged"></a>
+<h4>FindFileWidget.on_replacetextCombo_editTextChanged</h4>
+<b>on_replacetextCombo_editTextChanged</b>(<i>text</i>)
+<p>
+        Private slot to handle the editTextChanged signal of the replace
+        text combo.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+(ignored)
+</dd>
+</dl>
+<a NAME="FindFileWidget.populateFileCategories" ID="FindFileWidget.populateFileCategories"></a>
+<h4>FindFileWidget.populateFileCategories</h4>
+<b>populateFileCategories</b>(<i></i>)
+<p>
+        Public method to populate the search file categories list.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

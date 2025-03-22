@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.BreakPointViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.BreakPointViewer</h1>
+<p>
+Module implementing the Breakpoint viewer widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BreakPointViewer">BreakPointViewer</a></td>
+<td>Class implementing the Breakpoint viewer widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BreakPointViewer" ID="BreakPointViewer"></a>
+<h2>BreakPointViewer</h2>
+<p>
+    Class implementing the Breakpoint viewer widget.
+</p>
+<p>
+    Breakpoints will be shown with all their details. They can be modified
+    through the context menu of this widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>sourceFile(str, int)</dt>
+<dd>
+emitted to show the source of a breakpoint
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTreeView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BreakPointViewer.__init__">BreakPointViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__addBreak">__addBreak</a></td>
+<td>Private slot to handle the add breakpoint context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__clearSelection">__clearSelection</a></td>
+<td>Private slot to clear the selection.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__configure">__configure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__createPopupMenus">__createPopupMenus</a></td>
+<td>Private method to generate the popup menus.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__deleteAllBreaks">__deleteAllBreaks</a></td>
+<td>Private slot to handle the delete all breakpoints context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__deleteBreak">__deleteBreak</a></td>
+<td>Private slot to handle the delete breakpoint context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__deleteSelectedBreaks">__deleteSelectedBreaks</a></td>
+<td>Private slot to handle the delete selected breakpoints context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__disableAllBreaks">__disableAllBreaks</a></td>
+<td>Private slot to handle the disable all breakpoints context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__disableBreak">__disableBreak</a></td>
+<td>Private slot to handle the disable breakpoint context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__disableSelectedBreaks">__disableSelectedBreaks</a></td>
+<td>Private slot to handle the disable selected breakpoints context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__doubleClicked">__doubleClicked</a></td>
+<td>Private slot to handle the double clicked signal.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__editBreak">__editBreak</a></td>
+<td>Private slot to handle the edit breakpoint context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__editBreakpoint">__editBreakpoint</a></td>
+<td>Private slot to edit a breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__enableAllBreaks">__enableAllBreaks</a></td>
+<td>Private slot to handle the enable all breakpoints context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__enableBreak">__enableBreak</a></td>
+<td>Private slot to handle the enable breakpoint context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__enableSelectedBreaks">__enableSelectedBreaks</a></td>
+<td>Private slot to handle the enable selected breakpoints context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__fromSourceIndex">__fromSourceIndex</a></td>
+<td>Private slot to convert a source index to an index.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__getSelectedItemsCount">__getSelectedItemsCount</a></td>
+<td>Private method to get the count of items selected.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__layoutDisplay">__layoutDisplay</a></td>
+<td>Private slot to perform a layout operation.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__loadRecent">__loadRecent</a></td>
+<td>Private method to load the recently used file names and breakpoint conditions.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__resizeColumns">__resizeColumns</a></td>
+<td>Private slot to resize the view when items get added, edited or deleted.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__resort">__resort</a></td>
+<td>Private slot to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__saveRecent">__saveRecent</a></td>
+<td>Private method to save the list of recently used file names and breakpoint conditions.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__setBpEnabled">__setBpEnabled</a></td>
+<td>Private method to set the enabled status of a breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__setRowSelected">__setRowSelected</a></td>
+<td>Private slot to select a complete row.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__showBackMenu">__showBackMenu</a></td>
+<td>Private slot to handle the aboutToShow signal of the background menu.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__showSource">__showSource</a></td>
+<td>Private slot to handle the goto context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.__toSourceIndex">__toSourceIndex</a></td>
+<td>Private slot to convert an index to a source index.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.clearHistories">clearHistories</a></td>
+<td>Public method to clear the recently used file names and breakpoint conditions.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.handleResetUI">handleResetUI</a></td>
+<td>Public slot to reset the breakpoint viewer.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.highlightBreakpoint">highlightBreakpoint</a></td>
+<td>Public slot to handle the clientLine signal.</td>
+</tr>
+<tr>
+<td><a href="#BreakPointViewer.setModel">setModel</a></td>
+<td>Public slot to set the breakpoint model.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BreakPointViewer.__init__" ID="BreakPointViewer.__init__"></a>
+<h4>BreakPointViewer (Constructor)</h4>
+<b>BreakPointViewer</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+the parent
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__addBreak" ID="BreakPointViewer.__addBreak"></a>
+<h4>BreakPointViewer.__addBreak</h4>
+<b>__addBreak</b>(<i></i>)
+<p>
+        Private slot to handle the add breakpoint context menu entry.
+</p>
+
+<a NAME="BreakPointViewer.__clearSelection" ID="BreakPointViewer.__clearSelection"></a>
+<h4>BreakPointViewer.__clearSelection</h4>
+<b>__clearSelection</b>(<i></i>)
+<p>
+        Private slot to clear the selection.
+</p>
+
+<a NAME="BreakPointViewer.__configure" ID="BreakPointViewer.__configure"></a>
+<h4>BreakPointViewer.__configure</h4>
+<b>__configure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="BreakPointViewer.__createPopupMenus" ID="BreakPointViewer.__createPopupMenus"></a>
+<h4>BreakPointViewer.__createPopupMenus</h4>
+<b>__createPopupMenus</b>(<i></i>)
+<p>
+        Private method to generate the popup menus.
+</p>
+
+<a NAME="BreakPointViewer.__deleteAllBreaks" ID="BreakPointViewer.__deleteAllBreaks"></a>
+<h4>BreakPointViewer.__deleteAllBreaks</h4>
+<b>__deleteAllBreaks</b>(<i></i>)
+<p>
+        Private slot to handle the delete all breakpoints context menu entry.
+</p>
+
+<a NAME="BreakPointViewer.__deleteBreak" ID="BreakPointViewer.__deleteBreak"></a>
+<h4>BreakPointViewer.__deleteBreak</h4>
+<b>__deleteBreak</b>(<i></i>)
+<p>
+        Private slot to handle the delete breakpoint context menu entry.
+</p>
+
+<a NAME="BreakPointViewer.__deleteSelectedBreaks" ID="BreakPointViewer.__deleteSelectedBreaks"></a>
+<h4>BreakPointViewer.__deleteSelectedBreaks</h4>
+<b>__deleteSelectedBreaks</b>(<i></i>)
+<p>
+        Private slot to handle the delete selected breakpoints context menu
+        entry.
+</p>
+
+<a NAME="BreakPointViewer.__disableAllBreaks" ID="BreakPointViewer.__disableAllBreaks"></a>
+<h4>BreakPointViewer.__disableAllBreaks</h4>
+<b>__disableAllBreaks</b>(<i></i>)
+<p>
+        Private slot to handle the disable all breakpoints context menu entry.
+</p>
+
+<a NAME="BreakPointViewer.__disableBreak" ID="BreakPointViewer.__disableBreak"></a>
+<h4>BreakPointViewer.__disableBreak</h4>
+<b>__disableBreak</b>(<i></i>)
+<p>
+        Private slot to handle the disable breakpoint context menu entry.
+</p>
+
+<a NAME="BreakPointViewer.__disableSelectedBreaks" ID="BreakPointViewer.__disableSelectedBreaks"></a>
+<h4>BreakPointViewer.__disableSelectedBreaks</h4>
+<b>__disableSelectedBreaks</b>(<i></i>)
+<p>
+        Private slot to handle the disable selected breakpoints context menu
+        entry.
+</p>
+
+<a NAME="BreakPointViewer.__doubleClicked" ID="BreakPointViewer.__doubleClicked"></a>
+<h4>BreakPointViewer.__doubleClicked</h4>
+<b>__doubleClicked</b>(<i>index</i>)
+<p>
+        Private slot to handle the double clicked signal.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the entry that was double clicked
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__editBreak" ID="BreakPointViewer.__editBreak"></a>
+<h4>BreakPointViewer.__editBreak</h4>
+<b>__editBreak</b>(<i></i>)
+<p>
+        Private slot to handle the edit breakpoint context menu entry.
+</p>
+
+<a NAME="BreakPointViewer.__editBreakpoint" ID="BreakPointViewer.__editBreakpoint"></a>
+<h4>BreakPointViewer.__editBreakpoint</h4>
+<b>__editBreakpoint</b>(<i>index</i>)
+<p>
+        Private slot to edit a breakpoint.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of breakpoint to be edited
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__enableAllBreaks" ID="BreakPointViewer.__enableAllBreaks"></a>
+<h4>BreakPointViewer.__enableAllBreaks</h4>
+<b>__enableAllBreaks</b>(<i></i>)
+<p>
+        Private slot to handle the enable all breakpoints context menu entry.
+</p>
+
+<a NAME="BreakPointViewer.__enableBreak" ID="BreakPointViewer.__enableBreak"></a>
+<h4>BreakPointViewer.__enableBreak</h4>
+<b>__enableBreak</b>(<i></i>)
+<p>
+        Private slot to handle the enable breakpoint context menu entry.
+</p>
+
+<a NAME="BreakPointViewer.__enableSelectedBreaks" ID="BreakPointViewer.__enableSelectedBreaks"></a>
+<h4>BreakPointViewer.__enableSelectedBreaks</h4>
+<b>__enableSelectedBreaks</b>(<i></i>)
+<p>
+        Private slot to handle the enable selected breakpoints context menu
+        entry.
+</p>
+
+<a NAME="BreakPointViewer.__fromSourceIndex" ID="BreakPointViewer.__fromSourceIndex"></a>
+<h4>BreakPointViewer.__fromSourceIndex</h4>
+<b>__fromSourceIndex</b>(<i>sindex</i>)
+<p>
+        Private slot to convert a source index to an index.
+</p>
+
+<dl>
+
+<dt><i>sindex</i> (QModelIndex)</dt>
+<dd>
+source index to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+mapped index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__getSelectedItemsCount" ID="BreakPointViewer.__getSelectedItemsCount"></a>
+<h4>BreakPointViewer.__getSelectedItemsCount</h4>
+<b>__getSelectedItemsCount</b>(<i></i>)
+<p>
+        Private method to get the count of items selected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+count of items selected
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__layoutDisplay" ID="BreakPointViewer.__layoutDisplay"></a>
+<h4>BreakPointViewer.__layoutDisplay</h4>
+<b>__layoutDisplay</b>(<i></i>)
+<p>
+        Private slot to perform a layout operation.
+</p>
+
+<a NAME="BreakPointViewer.__loadRecent" ID="BreakPointViewer.__loadRecent"></a>
+<h4>BreakPointViewer.__loadRecent</h4>
+<b>__loadRecent</b>(<i></i>)
+<p>
+        Private method to load the recently used file names and breakpoint
+        conditions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the recently used file names and breakpoint
+            conditions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, list of str)
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__resizeColumns" ID="BreakPointViewer.__resizeColumns"></a>
+<h4>BreakPointViewer.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private slot to resize the view when items get added, edited or
+        deleted.
+</p>
+
+<a NAME="BreakPointViewer.__resort" ID="BreakPointViewer.__resort"></a>
+<h4>BreakPointViewer.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private slot to resort the tree.
+</p>
+
+<a NAME="BreakPointViewer.__saveRecent" ID="BreakPointViewer.__saveRecent"></a>
+<h4>BreakPointViewer.__saveRecent</h4>
+<b>__saveRecent</b>(<i>fnHistory, condHistory</i>)
+<p>
+        Private method to save the list of recently used file names and
+        breakpoint conditions.
+</p>
+
+<dl>
+
+<dt><i>fnHistory</i> (list of str)</dt>
+<dd>
+list of recently used file names
+</dd>
+<dt><i>condHistory</i> (list of str)</dt>
+<dd>
+list of recently used breakpoint conditions
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__setBpEnabled" ID="BreakPointViewer.__setBpEnabled"></a>
+<h4>BreakPointViewer.__setBpEnabled</h4>
+<b>__setBpEnabled</b>(<i>index, enabled</i>)
+<p>
+        Private method to set the enabled status of a breakpoint.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of breakpoint to be enabled/disabled
+</dd>
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating the enabled status to be set
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__setRowSelected" ID="BreakPointViewer.__setRowSelected"></a>
+<h4>BreakPointViewer.__setRowSelected</h4>
+<b>__setRowSelected</b>(<i>index, selected=True</i>)
+<p>
+        Private slot to select a complete row.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index determining the row to be selected
+</dd>
+<dt><i>selected</i> (bool)</dt>
+<dd>
+flag indicating the action
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__showBackMenu" ID="BreakPointViewer.__showBackMenu"></a>
+<h4>BreakPointViewer.__showBackMenu</h4>
+<b>__showBackMenu</b>(<i></i>)
+<p>
+        Private slot to handle the aboutToShow signal of the background menu.
+</p>
+
+<a NAME="BreakPointViewer.__showContextMenu" ID="BreakPointViewer.__showContextMenu"></a>
+<h4>BreakPointViewer.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="BreakPointViewer.__showSource" ID="BreakPointViewer.__showSource"></a>
+<h4>BreakPointViewer.__showSource</h4>
+<b>__showSource</b>(<i></i>)
+<p>
+        Private slot to handle the goto context menu entry.
+</p>
+
+<a NAME="BreakPointViewer.__toSourceIndex" ID="BreakPointViewer.__toSourceIndex"></a>
+<h4>BreakPointViewer.__toSourceIndex</h4>
+<b>__toSourceIndex</b>(<i>index</i>)
+<p>
+        Private slot to convert an index to a source index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+mapped index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="BreakPointViewer.clearHistories" ID="BreakPointViewer.clearHistories"></a>
+<h4>BreakPointViewer.clearHistories</h4>
+<b>clearHistories</b>(<i></i>)
+<p>
+        Public method to clear the recently used file names and breakpoint
+        conditions.
+</p>
+
+<a NAME="BreakPointViewer.handleResetUI" ID="BreakPointViewer.handleResetUI"></a>
+<h4>BreakPointViewer.handleResetUI</h4>
+<b>handleResetUI</b>(<i></i>)
+<p>
+        Public slot to reset the breakpoint viewer.
+</p>
+
+<a NAME="BreakPointViewer.highlightBreakpoint" ID="BreakPointViewer.highlightBreakpoint"></a>
+<h4>BreakPointViewer.highlightBreakpoint</h4>
+<b>highlightBreakpoint</b>(<i>fn, lineno</i>)
+<p>
+        Public slot to handle the clientLine signal.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the breakpoint
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the breakpoint
+</dd>
+</dl>
+<a NAME="BreakPointViewer.setModel" ID="BreakPointViewer.setModel"></a>
+<h4>BreakPointViewer.setModel</h4>
+<b>setModel</b>(<i>model</i>)
+<p>
+        Public slot to set the breakpoint model.
+</p>
+
+<dl>
+
+<dt><i>model</i> (BreakPointModel)</dt>
+<dd>
+reference to the breakpoint model
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

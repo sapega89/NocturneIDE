@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.PathLib.PathlibChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.PathLib.PathlibChecker</h1>
+<p>
+Module implementing the checker for functions that can be replaced by use of
+the pathlib module.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#NameResolver">NameResolver</a></td>
+<td>Class to resolve a Name or Attribute node.</td>
+</tr>
+<tr>
+<td><a href="#PathlibChecker">PathlibChecker</a></td>
+<td>Class implementing a checker for functions that can be replaced by use of the pathlib module.</td>
+</tr>
+<tr>
+<td><a href="#PathlibVisitor">PathlibVisitor</a></td>
+<td>Class to traverse the AST node tree and check for potential issues.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="NameResolver" ID="NameResolver"></a>
+<h2>NameResolver</h2>
+<p>
+    Class to resolve a Name or Attribute node.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NameResolver.__init__">NameResolver</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#NameResolver.name">name</a></td>
+<td>Public method to resolve the name.</td>
+</tr>
+<tr>
+<td><a href="#NameResolver.visit_Attribute">visit_Attribute</a></td>
+<td>Public method to handle the Attribute AST node.</td>
+</tr>
+<tr>
+<td><a href="#NameResolver.visit_Name">visit_Name</a></td>
+<td>Public method to handle the Name AST node.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NameResolver.__init__" ID="NameResolver.__init__"></a>
+<h4>NameResolver (Constructor)</h4>
+<b>NameResolver</b>(<i>importAlias</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>importAlias</i> (dict)</dt>
+<dd>
+reference to the import aliases dictionary
+</dd>
+</dl>
+<a NAME="NameResolver.name" ID="NameResolver.name"></a>
+<h4>NameResolver.name</h4>
+<b>name</b>(<i></i>)
+<p>
+        Public method to resolve the name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+resolved name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="NameResolver.visit_Attribute" ID="NameResolver.visit_Attribute"></a>
+<h4>NameResolver.visit_Attribute</h4>
+<b>visit_Attribute</b>(<i>node</i>)
+<p>
+        Public method to handle the Attribute AST node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Attribute)</dt>
+<dd>
+reference to the Attribute AST node
+</dd>
+</dl>
+<a NAME="NameResolver.visit_Name" ID="NameResolver.visit_Name"></a>
+<h4>NameResolver.visit_Name</h4>
+<b>visit_Name</b>(<i>node</i>)
+<p>
+        Public method to handle the Name AST node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Name)</dt>
+<dd>
+reference to the Name AST node
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PathlibChecker" ID="PathlibChecker"></a>
+<h2>PathlibChecker</h2>
+<p>
+    Class implementing a checker for functions that can be replaced by use of
+    the pathlib module.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Codes</td></tr>
+<tr><td>Function2Code</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PathlibChecker.__init__">PathlibChecker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PathlibChecker.__checkForReplacement">__checkForReplacement</a></td>
+<td>Private method to check the given node for the need for a replacement.</td>
+</tr>
+<tr>
+<td><a href="#PathlibChecker.__error">__error</a></td>
+<td>Private method to record an issue.</td>
+</tr>
+<tr>
+<td><a href="#PathlibChecker.__ignoreCode">__ignoreCode</a></td>
+<td>Private method to check if the message code should be ignored.</td>
+</tr>
+<tr>
+<td><a href="#PathlibChecker.run">run</a></td>
+<td>Public method to check the given source against functions to be replaced by 'pathlib' equivalents.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PathlibChecker.__init__" ID="PathlibChecker.__init__"></a>
+<h4>PathlibChecker (Constructor)</h4>
+<b>PathlibChecker</b>(<i>source, filename, tree, selected, ignored, expected, repeat</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str)</dt>
+<dd>
+source code to be checked
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>tree</i> (ast.Module)</dt>
+<dd>
+AST tree of the source code
+</dd>
+<dt><i>selected</i> (list of str)</dt>
+<dd>
+list of selected codes
+</dd>
+<dt><i>ignored</i> (list of str)</dt>
+<dd>
+list of codes to be ignored
+</dd>
+<dt><i>expected</i> (list of str)</dt>
+<dd>
+list of expected codes
+</dd>
+<dt><i>repeat</i> (bool)</dt>
+<dd>
+flag indicating to report each occurrence of a code
+</dd>
+</dl>
+<a NAME="PathlibChecker.__checkForReplacement" ID="PathlibChecker.__checkForReplacement"></a>
+<h4>PathlibChecker.__checkForReplacement</h4>
+<b>__checkForReplacement</b>(<i>node, name</i>)
+<p>
+        Private method to check the given node for the need for a
+        replacement.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the AST node to check
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+resolved name of the node
+</dd>
+</dl>
+<a NAME="PathlibChecker.__error" ID="PathlibChecker.__error"></a>
+<h4>PathlibChecker.__error</h4>
+<b>__error</b>(<i>lineNumber, offset, code, *args</i>)
+<p>
+        Private method to record an issue.
+</p>
+
+<dl>
+
+<dt><i>lineNumber</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+position within line of the issue
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+message code
+</dd>
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments for the message
+</dd>
+</dl>
+<a NAME="PathlibChecker.__ignoreCode" ID="PathlibChecker.__ignoreCode"></a>
+<h4>PathlibChecker.__ignoreCode</h4>
+<b>__ignoreCode</b>(<i>code</i>)
+<p>
+        Private method to check if the message code should be ignored.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+message code to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore the given code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PathlibChecker.run" ID="PathlibChecker.run"></a>
+<h4>PathlibChecker.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method to check the given source against functions
+        to be replaced by 'pathlib' equivalents.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PathlibVisitor" ID="PathlibVisitor"></a>
+<h2>PathlibVisitor</h2>
+<p>
+    Class to traverse the AST node tree and check for potential issues.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PathlibVisitor.__init__">PathlibVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PathlibVisitor.visit_Call">visit_Call</a></td>
+<td>Public method to handle the Call AST node.</td>
+</tr>
+<tr>
+<td><a href="#PathlibVisitor.visit_Import">visit_Import</a></td>
+<td>Public method to handle the Import AST node.</td>
+</tr>
+<tr>
+<td><a href="#PathlibVisitor.visit_ImportFrom">visit_ImportFrom</a></td>
+<td>Public method handle the ImportFrom AST node.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PathlibVisitor.__init__" ID="PathlibVisitor.__init__"></a>
+<h4>PathlibVisitor (Constructor)</h4>
+<b>PathlibVisitor</b>(<i>checkCallback</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>checkCallback</i> (func)</dt>
+<dd>
+callback function taking a reference to the
+            AST node and the resolved name
+</dd>
+</dl>
+<a NAME="PathlibVisitor.visit_Call" ID="PathlibVisitor.visit_Call"></a>
+<h4>PathlibVisitor.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+<p>
+        Public method to handle the Call AST node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the Call AST node
+</dd>
+</dl>
+<a NAME="PathlibVisitor.visit_Import" ID="PathlibVisitor.visit_Import"></a>
+<h4>PathlibVisitor.visit_Import</h4>
+<b>visit_Import</b>(<i>node</i>)
+<p>
+        Public method to handle the Import AST node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Import)</dt>
+<dd>
+reference to the Import AST node
+</dd>
+</dl>
+<a NAME="PathlibVisitor.visit_ImportFrom" ID="PathlibVisitor.visit_ImportFrom"></a>
+<h4>PathlibVisitor.visit_ImportFrom</h4>
+<b>visit_ImportFrom</b>(<i>node</i>)
+<p>
+        Public method handle the ImportFrom AST node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ImportFrom)</dt>
+<dd>
+reference to the ImportFrom AST node
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.BreakpointWatch</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.BreakpointWatch</h1>
+<p>
+Module implementing the breakpoint and watch class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Breakpoint">Breakpoint</a></td>
+<td>Breakpoint class.</td>
+</tr>
+<tr>
+<td><a href="#Watch">Watch</a></td>
+<td>Watch class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Breakpoint" ID="Breakpoint"></a>
+<h2>Breakpoint</h2>
+<p>
+    Breakpoint class.
+</p>
+<p>
+    Implements temporary breakpoints, ignore counts, disabling and
+    (re)-enabling, and conditionals.
+</p>
+<p>
+    Breakpoints are indexed by the file,line tuple using breaks. It
+    points to a single Breakpoint instance. This is rather different to
+    the original bdb, since there may be more than one breakpoint per line.
+</p>
+<p>
+    To test for a specific line in a file there is another dict breakInFile,
+    which is indexed only by filename and holds all line numbers where
+    breakpoints are.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>breakInFile</td></tr>
+<tr><td>breakInFrameCache</td></tr>
+<tr><td>breaks</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Breakpoint.__init__">Breakpoint</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Breakpoint.deleteMe">deleteMe</a></td>
+<td>Public method to clear this breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#Breakpoint.disable">disable</a></td>
+<td>Public method to disable this breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#Breakpoint.enable">enable</a></td>
+<td>Public method to enable this breakpoint.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr>
+<td><a href="#Breakpoint.clear_all_breaks">clear_all_breaks</a></td>
+<td>Static method to clear all breakpoints.</td>
+</tr>
+<tr>
+<td><a href="#Breakpoint.clear_break">clear_break</a></td>
+<td>Static method reimplemented from bdb.py to clear a breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#Breakpoint.effectiveBreak">effectiveBreak</a></td>
+<td>Static method to determine which breakpoint for this filename:lineno is to be acted upon.</td>
+</tr>
+<tr>
+<td><a href="#Breakpoint.get_break">get_break</a></td>
+<td>Static method to get the breakpoint of a particular line.</td>
+</tr>
+</table>
+
+
+<a NAME="Breakpoint.__init__" ID="Breakpoint.__init__"></a>
+<h4>Breakpoint (Constructor)</h4>
+<b>Breakpoint</b>(<i>filename, lineno, temporary=False, cond=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name where a breakpoint is set
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the breakpoint
+</dd>
+<dt><i>temporary</i> (bool)</dt>
+<dd>
+flag to indicate a temporary breakpoint
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+Python expression which dynamically enables this bp
+</dd>
+</dl>
+<a NAME="Breakpoint.deleteMe" ID="Breakpoint.deleteMe"></a>
+<h4>Breakpoint.deleteMe</h4>
+<b>deleteMe</b>(<i></i>)
+<p>
+        Public method to clear this breakpoint.
+</p>
+
+<a NAME="Breakpoint.disable" ID="Breakpoint.disable"></a>
+<h4>Breakpoint.disable</h4>
+<b>disable</b>(<i></i>)
+<p>
+        Public method to disable this breakpoint.
+</p>
+
+<a NAME="Breakpoint.enable" ID="Breakpoint.enable"></a>
+<h4>Breakpoint.enable</h4>
+<b>enable</b>(<i></i>)
+<p>
+        Public method to enable this breakpoint.
+</p>
+
+<a NAME="Breakpoint.clear_all_breaks" ID="Breakpoint.clear_all_breaks"></a>
+<h4>Breakpoint.clear_all_breaks (static)</h4>
+<b>clear_all_breaks</b>(<i></i>)
+<p>
+        Static method to clear all breakpoints.
+</p>
+
+<a NAME="Breakpoint.clear_break" ID="Breakpoint.clear_break"></a>
+<h4>Breakpoint.clear_break (static)</h4>
+<b>clear_break</b>(<i>lineno</i>)
+<p>
+        Static method reimplemented from bdb.py to clear a breakpoint.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name of the bp to retrieve
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the bp to retrieve
+</dd>
+</dl>
+<a NAME="Breakpoint.effectiveBreak" ID="Breakpoint.effectiveBreak"></a>
+<h4>Breakpoint.effectiveBreak (static)</h4>
+<b>effectiveBreak</b>(<i>lineno, frame</i>)
+<p>
+        Static method to determine which breakpoint for this filename:lineno
+        is to be acted upon.
+</p>
+<p>
+        Called only if we know there is a bpt at this
+        location.  Returns breakpoint that was triggered and a flag
+        that indicates if it is ok to delete a temporary bp.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name of the bp to retrieve
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the bp to retrieve
+</dd>
+<dt><i>frame</i> (frame object)</dt>
+<dd>
+the current execution frame
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of Breakpoint and a flag to indicate, that a
+            temporary breakpoint may be deleted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of Breakpoint, bool
+</dd>
+</dl>
+<a NAME="Breakpoint.get_break" ID="Breakpoint.get_break"></a>
+<h4>Breakpoint.get_break (static)</h4>
+<b>get_break</b>(<i>lineno</i>)
+<p>
+        Static method to get the breakpoint of a particular line.
+</p>
+<p>
+        Because eric supports only one breakpoint per line, this
+        method will return only one breakpoint.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name of the bp to retrieve
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the bp to retrieve
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+Breakpoint or None, if there is no bp
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Breakpoint object or None
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Watch" ID="Watch"></a>
+<h2>Watch</h2>
+<p>
+    Watch class.
+</p>
+<p>
+    Implements temporary watches, ignore counts, disabling and
+    (re)-enabling, and conditionals.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>watches</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Watch.__init__">Watch</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Watch.deleteMe">deleteMe</a></td>
+<td>Public method to clear this watch expression.</td>
+</tr>
+<tr>
+<td><a href="#Watch.disable">disable</a></td>
+<td>Public method to disable this watch.</td>
+</tr>
+<tr>
+<td><a href="#Watch.enable">enable</a></td>
+<td>Public method to enable this watch.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr>
+<td><a href="#Watch.clear_all_watches">clear_all_watches</a></td>
+<td>Static method to clear all watch expressions.</td>
+</tr>
+<tr>
+<td><a href="#Watch.clear_watch">clear_watch</a></td>
+<td>Static method to clear a watch expression.</td>
+</tr>
+<tr>
+<td><a href="#Watch.effectiveWatch">effectiveWatch</a></td>
+<td>Static method to determine, if a watch expression is effective.</td>
+</tr>
+<tr>
+<td><a href="#Watch.get_watch">get_watch</a></td>
+<td>Static method to get a watch expression.</td>
+</tr>
+</table>
+
+
+<a NAME="Watch.__init__" ID="Watch.__init__"></a>
+<h4>Watch (Constructor)</h4>
+<b>Watch</b>(<i>cond, compiledCond, flag, temporary=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>cond</i> (str)</dt>
+<dd>
+condition as string with flag
+</dd>
+<dt><i>compiledCond</i> (code object)</dt>
+<dd>
+precompiled condition
+</dd>
+<dt><i>flag</i> (str)</dt>
+<dd>
+indicates type of watch (created or changed)
+</dd>
+<dt><i>temporary</i> (bool)</dt>
+<dd>
+flag for temporary watches
+</dd>
+</dl>
+<a NAME="Watch.deleteMe" ID="Watch.deleteMe"></a>
+<h4>Watch.deleteMe</h4>
+<b>deleteMe</b>(<i></i>)
+<p>
+        Public method to clear this watch expression.
+</p>
+
+<a NAME="Watch.disable" ID="Watch.disable"></a>
+<h4>Watch.disable</h4>
+<b>disable</b>(<i></i>)
+<p>
+        Public method to disable this watch.
+</p>
+
+<a NAME="Watch.enable" ID="Watch.enable"></a>
+<h4>Watch.enable</h4>
+<b>enable</b>(<i></i>)
+<p>
+        Public method to enable this watch.
+</p>
+
+<a NAME="Watch.clear_all_watches" ID="Watch.clear_all_watches"></a>
+<h4>Watch.clear_all_watches (static)</h4>
+<b>clear_all_watches</b>(<i></i>)
+<p>
+        Static method to clear all watch expressions.
+</p>
+
+<a NAME="Watch.clear_watch" ID="Watch.clear_watch"></a>
+<h4>Watch.clear_watch (static)</h4>
+<b>clear_watch</b>(<i></i>)
+<p>
+        Static method to clear a watch expression.
+</p>
+
+<dl>
+
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression to be cleared
+</dd>
+</dl>
+<a NAME="Watch.effectiveWatch" ID="Watch.effectiveWatch"></a>
+<h4>Watch.effectiveWatch (static)</h4>
+<b>effectiveWatch</b>(<i></i>)
+<p>
+        Static method to determine, if a watch expression is effective.
+</p>
+
+<dl>
+
+<dt><i>frame</i> (frame object)</dt>
+<dd>
+the current execution frame
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of watch expression and a flag to indicate, that a
+            temporary watch expression may be deleted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of Watch, int
+</dd>
+</dl>
+<a NAME="Watch.get_watch" ID="Watch.get_watch"></a>
+<h4>Watch.get_watch (static)</h4>
+<b>get_watch</b>(<i></i>)
+<p>
+        Static method to get a watch expression.
+</p>
+
+<dl>
+
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression to be cleared
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the watch point
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Watch or None
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

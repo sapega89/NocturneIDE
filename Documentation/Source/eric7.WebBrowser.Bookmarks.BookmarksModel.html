@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Bookmarks.BookmarksModel</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Bookmarks.BookmarksModel</h1>
+<p>
+Module implementing the bookmark model class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BookmarksModel">BookmarksModel</a></td>
+<td>Class implementing the bookmark model.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BookmarksModel" ID="BookmarksModel"></a>
+<h2>BookmarksModel</h2>
+<p>
+    Class implementing the bookmark model.
+</p>
+
+<h3>Derived from</h3>
+QAbstractItemModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>MIMETYPE</td></tr>
+<tr><td>SeparatorRole</td></tr>
+<tr><td>TypeRole</td></tr>
+<tr><td>UrlRole</td></tr>
+<tr><td>UrlStringRole</td></tr>
+<tr><td>VisitCountRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BookmarksModel.__init__">BookmarksModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.bookmarksManager">bookmarksManager</a></td>
+<td>Public method to get a reference to the bookmarks manager.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.columnCount">columnCount</a></td>
+<td>Public method to get the number of columns.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.data">data</a></td>
+<td>Public method to get data from the model.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.dropMimeData">dropMimeData</a></td>
+<td>Public method to accept the mime data of a drop action.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.entryAdded">entryAdded</a></td>
+<td>Public slot to add a bookmark node.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.entryChanged">entryChanged</a></td>
+<td>Public method to change a node.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.entryRemoved">entryRemoved</a></td>
+<td>Public slot to remove a bookmark node.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.flags">flags</a></td>
+<td>Public method to get flags for a node cell.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.hasChildren">hasChildren</a></td>
+<td>Public method to check, if a parent node has some children.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.headerData">headerData</a></td>
+<td>Public method to get the header data.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.index">index</a></td>
+<td>Public method to get a model index for a node cell.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.mimeData">mimeData</a></td>
+<td>Public method to return the mime data.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.mimeTypes">mimeTypes</a></td>
+<td>Public method to report the supported mime types.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.node">node</a></td>
+<td>Public method to get a bookmark node given its index.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.nodeIndex">nodeIndex</a></td>
+<td>Public method to get a model index.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.parent">parent</a></td>
+<td>Public method to get the index of the parent node.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.removeRows">removeRows</a></td>
+<td>Public method to remove bookmarks from the model.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.rowCount">rowCount</a></td>
+<td>Public method to determine the number of rows.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.setData">setData</a></td>
+<td>Public method to set the data of a node cell.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksModel.supportedDropActions">supportedDropActions</a></td>
+<td>Public method to report the supported drop actions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BookmarksModel.__init__" ID="BookmarksModel.__init__"></a>
+<h4>BookmarksModel (Constructor)</h4>
+<b>BookmarksModel</b>(<i>manager, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>manager</i> (BookmarksManager)</dt>
+<dd>
+reference to the bookmarks manager object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="BookmarksModel.bookmarksManager" ID="BookmarksModel.bookmarksManager"></a>
+<h4>BookmarksModel.bookmarksManager</h4>
+<b>bookmarksManager</b>(<i></i>)
+<p>
+        Public method to get a reference to the bookmarks manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the bookmarks manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarksManager
+</dd>
+</dl>
+<a NAME="BookmarksModel.columnCount" ID="BookmarksModel.columnCount"></a>
+<h4>BookmarksModel.columnCount</h4>
+<b>columnCount</b>(<i>parent=None</i>)
+<p>
+        Public method to get the number of columns.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of parent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of columns
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="BookmarksModel.data" ID="BookmarksModel.data"></a>
+<h4>BookmarksModel.data</h4>
+<b>data</b>(<i>index, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method to get data from the model.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of bookmark to get data for
+</dd>
+<dt><i>role</i> (int)</dt>
+<dd>
+data role
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+bookmark data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="BookmarksModel.dropMimeData" ID="BookmarksModel.dropMimeData"></a>
+<h4>BookmarksModel.dropMimeData</h4>
+<b>dropMimeData</b>(<i>data, action, row, column, parent</i>)
+<p>
+        Public method to accept the mime data of a drop action.
+</p>
+
+<dl>
+
+<dt><i>data</i> (QMimeData)</dt>
+<dd>
+reference to the mime data
+</dd>
+<dt><i>action</i> (Qt.DropAction)</dt>
+<dd>
+drop action requested
+</dd>
+<dt><i>row</i> (int)</dt>
+<dd>
+row number
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column number
+</dd>
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful acceptance of the data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BookmarksModel.entryAdded" ID="BookmarksModel.entryAdded"></a>
+<h4>BookmarksModel.entryAdded</h4>
+<b>entryAdded</b>(<i>node</i>)
+<p>
+        Public slot to add a bookmark node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the bookmark node to add
+</dd>
+</dl>
+<a NAME="BookmarksModel.entryChanged" ID="BookmarksModel.entryChanged"></a>
+<h4>BookmarksModel.entryChanged</h4>
+<b>entryChanged</b>(<i>node</i>)
+<p>
+        Public method to change a node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the bookmark node to change
+</dd>
+</dl>
+<a NAME="BookmarksModel.entryRemoved" ID="BookmarksModel.entryRemoved"></a>
+<h4>BookmarksModel.entryRemoved</h4>
+<b>entryRemoved</b>(<i>parent, row, node</i>)
+<p>
+        Public slot to remove a bookmark node.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (BookmarkNode)</dt>
+<dd>
+reference to the parent bookmark node
+</dd>
+<dt><i>row</i> (int)</dt>
+<dd>
+row number of the node
+</dd>
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the bookmark node to remove
+</dd>
+</dl>
+<a NAME="BookmarksModel.flags" ID="BookmarksModel.flags"></a>
+<h4>BookmarksModel.flags</h4>
+<b>flags</b>(<i>index</i>)
+<p>
+        Public method to get flags for a node cell.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the node cell
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flags
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Qt.ItemFlags
+</dd>
+</dl>
+<a NAME="BookmarksModel.hasChildren" ID="BookmarksModel.hasChildren"></a>
+<h4>BookmarksModel.hasChildren</h4>
+<b>hasChildren</b>(<i>parent=None</i>)
+<p>
+        Public method to check, if a parent node has some children.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of children
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BookmarksModel.headerData" ID="BookmarksModel.headerData"></a>
+<h4>BookmarksModel.headerData</h4>
+<b>headerData</b>(<i>section, orientation, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method to get the header data.
+</p>
+
+<dl>
+
+<dt><i>section</i> (int)</dt>
+<dd>
+section number
+</dd>
+<dt><i>orientation</i> (Qt.Orientation)</dt>
+<dd>
+header orientation
+</dd>
+<dt><i>role</i> (Qt.ItemDataRole)</dt>
+<dd>
+data role
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+header data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="BookmarksModel.index" ID="BookmarksModel.index"></a>
+<h4>BookmarksModel.index</h4>
+<b>index</b>(<i>row, column, parent=None</i>)
+<p>
+        Public method to get a model index for a node cell.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row number
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column number
+</dd>
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="BookmarksModel.mimeData" ID="BookmarksModel.mimeData"></a>
+<h4>BookmarksModel.mimeData</h4>
+<b>mimeData</b>(<i>indexes</i>)
+<p>
+        Public method to return the mime data.
+</p>
+
+<dl>
+
+<dt><i>indexes</i> (QModelIndexList)</dt>
+<dd>
+list of indexes
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+mime data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMimeData
+</dd>
+</dl>
+<a NAME="BookmarksModel.mimeTypes" ID="BookmarksModel.mimeTypes"></a>
+<h4>BookmarksModel.mimeTypes</h4>
+<b>mimeTypes</b>(<i></i>)
+<p>
+        Public method to report the supported mime types.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+supported mime types
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="BookmarksModel.node" ID="BookmarksModel.node"></a>
+<h4>BookmarksModel.node</h4>
+<b>node</b>(<i>index</i>)
+<p>
+        Public method to get a bookmark node given its index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+bookmark node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarkNode
+</dd>
+</dl>
+<a NAME="BookmarksModel.nodeIndex" ID="BookmarksModel.nodeIndex"></a>
+<h4>BookmarksModel.nodeIndex</h4>
+<b>nodeIndex</b>(<i>node</i>)
+<p>
+        Public method to get a model index.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the node to get the index for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+model index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="BookmarksModel.parent" ID="BookmarksModel.parent"></a>
+<h4>BookmarksModel.parent</h4>
+<b>parent</b>(<i>index=None</i>)
+<p>
+        Public method to get the index of the parent node.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the child node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the parent node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="BookmarksModel.removeRows" ID="BookmarksModel.removeRows"></a>
+<h4>BookmarksModel.removeRows</h4>
+<b>removeRows</b>(<i>row, count, parent=None</i>)
+<p>
+        Public method to remove bookmarks from the model.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row of the first bookmark to remove
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+number of bookmarks to remove
+</dd>
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent bookmark node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful removal
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BookmarksModel.rowCount" ID="BookmarksModel.rowCount"></a>
+<h4>BookmarksModel.rowCount</h4>
+<b>rowCount</b>(<i>parent=None</i>)
+<p>
+        Public method to determine the number of rows.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of parent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of rows
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="BookmarksModel.setData" ID="BookmarksModel.setData"></a>
+<h4>BookmarksModel.setData</h4>
+<b>setData</b>(<i>index, value, role=Qt.ItemDataRole.EditRole</i>)
+<p>
+        Public method to set the data of a node cell.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the node cell
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+value to be set
+</dd>
+<dt><i>role</i> (int)</dt>
+<dd>
+role of the data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BookmarksModel.supportedDropActions" ID="BookmarksModel.supportedDropActions"></a>
+<h4>BookmarksModel.supportedDropActions</h4>
+<b>supportedDropActions</b>(<i></i>)
+<p>
+        Public method to report the supported drop actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+supported drop actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Qt.DropAction
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

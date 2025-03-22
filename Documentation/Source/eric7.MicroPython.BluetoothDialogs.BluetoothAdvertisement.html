@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.BluetoothDialogs.BluetoothAdvertisement</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.BluetoothDialogs.BluetoothAdvertisement</h1>
+<p>
+Module implementing a class to parse and store the Bluetooth device advertisement data.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>ADV_DIRECT_IND</td></tr>
+<tr><td>ADV_IND</td></tr>
+<tr><td>ADV_NONCONN_IND</td></tr>
+<tr><td>ADV_SCAN_IND</td></tr>
+<tr><td>ADV_TYPE_COMPLETE_NAME</td></tr>
+<tr><td>ADV_TYPE_MANUFACTURER</td></tr>
+<tr><td>ADV_TYPE_SHORT_NAME</td></tr>
+<tr><td>ADV_TYPE_SVC_DATA</td></tr>
+<tr><td>ADV_TYPE_TX_POWER_LEVEL</td></tr>
+<tr><td>ADV_TYPE_UUID128_COMPLETE</td></tr>
+<tr><td>ADV_TYPE_UUID128_INCOMPLETE</td></tr>
+<tr><td>ADV_TYPE_UUID16_COMPLETE</td></tr>
+<tr><td>ADV_TYPE_UUID16_INCOMPLETE</td></tr>
+<tr><td>ADV_TYPE_UUID32_COMPLETE</td></tr>
+<tr><td>ADV_TYPE_UUID32_INCOMPLETE</td></tr>
+<tr><td>ManufacturerIDs</td></tr>
+<tr><td>SCAN_RSP</td></tr>
+<tr><td>ServiceIDs</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BluetoothAdvertisement">BluetoothAdvertisement</a></td>
+<td>Class to parse and store the Bluetooth device advertisement data.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_loadManufacturerIDs">_loadManufacturerIDs</a></td>
+<td>Function to load the manufacturer IDs.</td>
+</tr>
+<tr>
+<td><a href="#_loadServiceUUIDs">_loadServiceUUIDs</a></td>
+<td>Function to load the service UUIDs.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BluetoothAdvertisement" ID="BluetoothAdvertisement"></a>
+<h2>BluetoothAdvertisement</h2>
+<p>
+    Class to parse and store the Bluetooth device advertisement data.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BluetoothAdvertisement.__init__">BluetoothAdvertisement</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.__decodeField">__decodeField</a></td>
+<td>Private method to get all fields of the specified types.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.__splitBytes">__splitBytes</a></td>
+<td>Private method to split some data into chunks of given size.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.__str__">__str__</a></td>
+<td>Special method to generate a string representation.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.address">address</a></td>
+<td>Public method to get the address string.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.completeName">completeName</a></td>
+<td>Public method to get the complete advertised name, if available.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.manufacturer">manufacturer</a></td>
+<td>Public method to get the manufacturer data.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.name">name</a></td>
+<td>Public method to get the complete or shortened advertised name, if available.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.rssi">rssi</a></td>
+<td>Public method to get the RSSI value.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.services">services</a></td>
+<td>Public method to get the service IDs.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.shortName">shortName</a></td>
+<td>Public method to get the shortened advertised name, if available.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.txPower">txPower</a></td>
+<td>Public method to get the advertised power level in dBm.</td>
+</tr>
+<tr>
+<td><a href="#BluetoothAdvertisement.update">update</a></td>
+<td>Public method to update the advertisement data.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BluetoothAdvertisement.__init__" ID="BluetoothAdvertisement.__init__"></a>
+<h4>BluetoothAdvertisement (Constructor)</h4>
+<b>BluetoothAdvertisement</b>(<i>address</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>address</i> (str)</dt>
+<dd>
+address of the device advertisement
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.__decodeField" ID="BluetoothAdvertisement.__decodeField"></a>
+<h4>BluetoothAdvertisement.__decodeField</h4>
+<b>__decodeField</b>(<i>*advType</i>)
+<p>
+        Private method to get all fields of the specified types.
+</p>
+
+<dl>
+
+<dt><i>*advType</i> (int)</dt>
+<dd>
+type of fields to be extracted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+requested fields
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.__splitBytes" ID="BluetoothAdvertisement.__splitBytes"></a>
+<h4>BluetoothAdvertisement.__splitBytes</h4>
+<b>__splitBytes</b>(<i>data, chunkSize</i>)
+<p>
+        Private method to split some data into chunks of given size.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytes, bytearray, str)</dt>
+<dd>
+data to be chunked
+</dd>
+<dt><i>chunkSize</i> (int)</dt>
+<dd>
+size for each chunk
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of chunks
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of bytes, bytearray, str
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.__str__" ID="BluetoothAdvertisement.__str__"></a>
+<h4>BluetoothAdvertisement.__str__</h4>
+<b>__str__</b>(<i></i>)
+<p>
+        Special method to generate a string representation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string representation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.address" ID="BluetoothAdvertisement.address"></a>
+<h4>BluetoothAdvertisement.address</h4>
+<b>address</b>(<i></i>)
+<p>
+        Public method to get the address string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+address of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.completeName" ID="BluetoothAdvertisement.completeName"></a>
+<h4>BluetoothAdvertisement.completeName</h4>
+<b>completeName</b>(<i></i>)
+<p>
+        Public method to get the complete advertised name, if available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+advertised name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.manufacturer" ID="BluetoothAdvertisement.manufacturer"></a>
+<h4>BluetoothAdvertisement.manufacturer</h4>
+<b>manufacturer</b>(<i>filterId=None, withName=False</i>)
+<p>
+        Public method to get the manufacturer data.
+</p>
+
+<dl>
+
+<dt><i>filterId</i> (int (optional))</dt>
+<dd>
+manufacturer ID to filter on (defaults to None)
+</dd>
+<dt><i>withName</i> (bool)</dt>
+<dd>
+flag indicating to report the manufacturer name as well
+            (if available) (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the manufacturer ID, associated data and manufacturer
+            name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, bytes, str)
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.name" ID="BluetoothAdvertisement.name"></a>
+<h4>BluetoothAdvertisement.name</h4>
+<b>name</b>(<i></i>)
+<p>
+        Public method to get the complete or shortened advertised name, if available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+advertised name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.rssi" ID="BluetoothAdvertisement.rssi"></a>
+<h4>BluetoothAdvertisement.rssi</h4>
+<b>rssi</b>(<i></i>)
+<p>
+        Public method to get the RSSI value.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+RSSI value in dBm
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.services" ID="BluetoothAdvertisement.services"></a>
+<h4>BluetoothAdvertisement.services</h4>
+<b>services</b>(<i></i>)
+<p>
+        Public method to get the service IDs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the advertised service ID, the associated
+            service name (if available) and a flag indicating a complete ID
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (str, bool)
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.shortName" ID="BluetoothAdvertisement.shortName"></a>
+<h4>BluetoothAdvertisement.shortName</h4>
+<b>shortName</b>(<i></i>)
+<p>
+        Public method to get the shortened advertised name, if available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+advertised name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.txPower" ID="BluetoothAdvertisement.txPower"></a>
+<h4>BluetoothAdvertisement.txPower</h4>
+<b>txPower</b>(<i></i>)
+<p>
+        Public method to get the advertised power level in dBm.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+transmit power of the device (in dBm)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="BluetoothAdvertisement.update" ID="BluetoothAdvertisement.update"></a>
+<h4>BluetoothAdvertisement.update</h4>
+<b>update</b>(<i>advType, rssi, advData</i>)
+<p>
+        Public method to update the advertisement data.
+</p>
+
+<dl>
+
+<dt><i>advType</i> (int)</dt>
+<dd>
+type of advertisement data
+</dd>
+<dt><i>rssi</i> (int)</dt>
+<dd>
+RSSI value in dBm
+</dd>
+<dt><i>advData</i> (bytes)</dt>
+<dd>
+advertisement data
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_loadManufacturerIDs" ID="_loadManufacturerIDs"></a>
+<h2>_loadManufacturerIDs</h2>
+<b>_loadManufacturerIDs</b>(<i></i>)
+<p>
+    Function to load the manufacturer IDs.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_loadServiceUUIDs" ID="_loadServiceUUIDs"></a>
+<h2>_loadServiceUUIDs</h2>
+<b>_loadServiceUUIDs</b>(<i></i>)
+<p>
+    Function to load the service UUIDs.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

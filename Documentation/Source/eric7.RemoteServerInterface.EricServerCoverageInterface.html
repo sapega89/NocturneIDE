@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.RemoteServerInterface.EricServerCoverageInterface</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.RemoteServerInterface.EricServerCoverageInterface</h1>
+<p>
+Module implementing the code coverage interface to the eric-ide server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricServerCoverageError">EricServerCoverageError</a></td>
+<td>Class defining a substitute exception for coverage errors of the server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerCoverageInterface">EricServerCoverageInterface</a></td>
+<td>Class implementing the code coverage interface to the eric-ide server.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricServerCoverageError" ID="EricServerCoverageError"></a>
+<h2>EricServerCoverageError</h2>
+<p>
+    Class defining a substitute exception for coverage errors of the server.
+</p>
+
+<h3>Derived from</h3>
+Exception
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricServerCoverageInterface" ID="EricServerCoverageInterface"></a>
+<h2>EricServerCoverageInterface</h2>
+<p>
+    Class implementing the code coverage interface to the eric-ide server.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricServerCoverageInterface.__init__">EricServerCoverageInterface</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricServerCoverageInterface.analyzeDirectory">analyzeDirectory</a></td>
+<td>Public method to analyze the code coverage of a directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerCoverageInterface.analyzeFile">analyzeFile</a></td>
+<td>Public method to analyze the code coverage of one file.</td>
+</tr>
+<tr>
+<td><a href="#EricServerCoverageInterface.analyzeFiles">analyzeFiles</a></td>
+<td>Public method to analyze the code coverage of a list of files.</td>
+</tr>
+<tr>
+<td><a href="#EricServerCoverageInterface.callback">callback</a></td>
+<td>Function to handle the server reply</td>
+</tr>
+<tr>
+<td><a href="#EricServerCoverageInterface.loadCoverageData">loadCoverageData</a></td>
+<td>Public method to tell the server to load the coverage data for a later analysis.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricServerCoverageInterface.__init__" ID="EricServerCoverageInterface.__init__"></a>
+<h4>EricServerCoverageInterface (Constructor)</h4>
+<b>EricServerCoverageInterface</b>(<i>serverInterface</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>serverInterface</i> (EricServerInterface)</dt>
+<dd>
+reference to the eric-ide server interface
+</dd>
+</dl>
+<a NAME="EricServerCoverageInterface.analyzeDirectory" ID="EricServerCoverageInterface.analyzeDirectory"></a>
+<h4>EricServerCoverageInterface.analyzeDirectory</h4>
+<b>analyzeDirectory</b>(<i>directory</i>)
+<p>
+        Public method to analyze the code coverage of a directory.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+directory name to be analyzed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+lists containing coverage results as reported by Coverage.analysis2()
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [list of [str, list of int, list of int, list of int, str]]
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>EricServerCoverageError</b>:</dt>
+<dd>
+raised to indicate a coverage exception
+</dd>
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate that server is not connected
+</dd>
+</dl>
+<a NAME="EricServerCoverageInterface.analyzeFile" ID="EricServerCoverageInterface.analyzeFile"></a>
+<h4>EricServerCoverageInterface.analyzeFile</h4>
+<b>analyzeFile</b>(<i>filename</i>)
+<p>
+        Public method to analyze the code coverage of one file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to be analyzed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing coverage result as reported by Coverage.analysis2()
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [str, list of int, list of int, list of int, str]
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>EricServerCoverageError</b>:</dt>
+<dd>
+raised to indicate a coverage exception
+</dd>
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate that server is not connected
+</dd>
+</dl>
+<a NAME="EricServerCoverageInterface.analyzeFiles" ID="EricServerCoverageInterface.analyzeFiles"></a>
+<h4>EricServerCoverageInterface.analyzeFiles</h4>
+<b>analyzeFiles</b>(<i>filenames</i>)
+<p>
+        Public method to analyze the code coverage of a list of files.
+</p>
+
+<dl>
+
+<dt><i>filenames</i> (str)</dt>
+<dd>
+list of file names to be analyzed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+lists containing coverage results as reported by Coverage.analysis2()
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [list of [str, list of int, list of int, list of int, str]]
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>EricServerCoverageError</b>:</dt>
+<dd>
+raised to indicate a coverage exception
+</dd>
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate that server is not connected
+</dd>
+</dl>
+<a NAME="EricServerCoverageInterface.callback" ID="EricServerCoverageInterface.callback"></a>
+<h4>EricServerCoverageInterface.callback</h4>
+<b>callback</b>(<i>params</i>)
+<p>
+            Function to handle the server reply
+</p>
+
+<dl>
+
+<dt><i>reply</i> (str)</dt>
+<dd>
+name of the server reply
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerCoverageInterface.loadCoverageData" ID="EricServerCoverageInterface.loadCoverageData"></a>
+<h4>EricServerCoverageInterface.loadCoverageData</h4>
+<b>loadCoverageData</b>(<i>dataFile, excludePattern=""</i>)
+<p>
+        Public method to tell the server to load the coverage data for a later analysis.
+</p>
+
+<dl>
+
+<dt><i>dataFile</i> (str)</dt>
+<dd>
+name of the data file to be loaded
+</dd>
+<dt><i>excludePattern</i> (str (optional))</dt>
+<dd>
+regular expression determining files to be excluded
+            (defaults to "")
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a success flag and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HexEdit.HexEditWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HexEdit.HexEditWidget</h1>
+<p>
+Module implementing an editor for binary data.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HexEditWidget">HexEditWidget</a></td>
+<td>Class implementing an editor for binary data.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HexEditWidget" ID="HexEditWidget"></a>
+<h2>HexEditWidget</h2>
+<p>
+    Class implementing an editor for binary data.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>canRedoChanged(bool)</dt>
+<dd>
+emitted after the redo status has changed
+</dd>
+<dt>canUndoChanged(bool)</dt>
+<dd>
+emitted after the undo status has changed
+</dd>
+<dt>currentAddressChanged(address)</dt>
+<dd>
+emitted to indicate the new
+        cursor position
+</dd>
+<dt>currentSizeChanged(size)</dt>
+<dd>
+emitted to indicate the new size of
+        the data
+</dd>
+<dt>dataChanged(modified)</dt>
+<dd>
+emitted to indicate a change of the data
+</dd>
+<dt>overwriteModeChanged(state)</dt>
+<dd>
+emitted to indicate a change of
+        the overwrite mode
+</dd>
+<dt>readOnlyChanged(state)</dt>
+<dd>
+emitted to indicate a change of the
+        read only state
+</dd>
+<dt>selectionAvailable(bool)</dt>
+<dd>
+emitted to signal a change of the
+        selection
+</dd>
+</dl>
+<h3>Derived from</h3>
+QAbstractScrollArea
+<h3>Class Attributes</h3>
+<table>
+<tr><td>BYTES_PER_LINE</td></tr>
+<tr><td>HEXCHARS_PER_LINE</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HexEditWidget.__init__">HexEditWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__adjust">__adjust</a></td>
+<td>Private slot to recalculate pixel positions.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__canRedoChanged">__canRedoChanged</a></td>
+<td>Private slot handling changes of the Redo state.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__canUndoChanged">__canUndoChanged</a></td>
+<td>Private slot handling changes of the Undo state.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__dataChangedPrivate">__dataChangedPrivate</a></td>
+<td>Private slot to handle data changes.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__fromHex">__fromHex</a></td>
+<td>Private method to convert data of a Python bytearray from hex.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__initialize">__initialize</a></td>
+<td>Private method to do some initialization.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__readBuffers">__readBuffers</a></td>
+<td>Private method to read the buffers.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__refresh">__refresh</a></td>
+<td>Private slot to refresh the display.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__resetSelection">__resetSelection</a></td>
+<td>Private method to reset the selection.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__setData">__setData</a></td>
+<td>Private method to set the data to show.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__setHexCursorRect">__setHexCursorRect</a></td>
+<td>Private method to set the cursor.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__setSelection">__setSelection</a></td>
+<td>Private method to set the selection.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__toHex">__toHex</a></td>
+<td>Private method to convert the data of a Python bytearray to hex.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__toReadable">__toReadable</a></td>
+<td>Private method to convert some data into a readable format.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.__updateCursor">__updateCursor</a></td>
+<td>Private slot to update the blinking cursor.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.addressArea">addressArea</a></td>
+<td>Public method to get the address area visibility.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.addressOffset">addressOffset</a></td>
+<td>Public method to get the address offset.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.addressWidth">addressWidth</a></td>
+<td>Public method to get the width of the address area in characters.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.asciiArea">asciiArea</a></td>
+<td>Public method to get the visibility of the ASCII area.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.copy">copy</a></td>
+<td>Public method to copy the selected bytes to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.cursorBytePosition">cursorBytePosition</a></td>
+<td>Public method to get the cursor position in bytes.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.cursorPosition">cursorPosition</a></td>
+<td>Public method to get the cursor position.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.cursorPositionFromPoint">cursorPositionFromPoint</a></td>
+<td>Public method to calculate a cursor position from a graphics position.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.cut">cut</a></td>
+<td>Public method to cut the selected bytes and move them to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.data">data</a></td>
+<td>Public method to get the binary data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.dataAt">dataAt</a></td>
+<td>Public method to get data from a given position.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.deleteByte">deleteByte</a></td>
+<td>Public method to delete the current byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.deleteByteBack">deleteByteBack</a></td>
+<td>Public method to delete the previous byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.deselectAll">deselectAll</a></td>
+<td>Public method to deselect all data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.ensureVisible">ensureVisible</a></td>
+<td>Public method to ensure, that the cursor is visible.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.font">font</a></td>
+<td>Public method to get the font used to show the data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.getSelectionBegin">getSelectionBegin</a></td>
+<td>Public method to get the start of the selection.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.getSelectionEnd">getSelectionEnd</a></td>
+<td>Public method to get the end of the selection.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.getSelectionLength">getSelectionLength</a></td>
+<td>Public method to get the length of the selection.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.goto">goto</a></td>
+<td>Public method to move the cursor.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.hasSelection">hasSelection</a></td>
+<td>Public method to test for a selection.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.highlighting">highlighting</a></td>
+<td>Public method to get the highlighting state.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.indexOf">indexOf</a></td>
+<td>Public method to find the first occurrence of a byte array in our data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.insert">insert</a></td>
+<td>Public method to insert a byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.insertByteArray">insertByteArray</a></td>
+<td>Public method to insert bytes.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.isModified">isModified</a></td>
+<td>Public method to check for any modification.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.isReadOnly">isReadOnly</a></td>
+<td>Public method to test the read only state.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method to handle key press events.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.lastIndexOf">lastIndexOf</a></td>
+<td>Public method to find the last occurrence of a byte array in our data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.mouseMoveEvent">mouseMoveEvent</a></td>
+<td>Protected method to handle mouse moves.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method to handle mouse button presses.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToEndOfDocument">moveCursorToEndOfDocument</a></td>
+<td>Public method to move the cursor to the end of the data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToEndOfLine">moveCursorToEndOfLine</a></td>
+<td>Public method to move the cursor to the end of the current line.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToNextChar">moveCursorToNextChar</a></td>
+<td>Public method to move the cursor to the next byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToNextLine">moveCursorToNextLine</a></td>
+<td>Public method to move the cursor to the next line.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToNextPage">moveCursorToNextPage</a></td>
+<td>Public method to move the cursor to the next page.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToPreviousChar">moveCursorToPreviousChar</a></td>
+<td>Public method to move the cursor to the previous byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToPreviousLine">moveCursorToPreviousLine</a></td>
+<td>Public method to move the cursor to the previous line.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToPreviousPage">moveCursorToPreviousPage</a></td>
+<td>Public method to move the cursor to the previous page.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToStartOfDocument">moveCursorToStartOfDocument</a></td>
+<td>Public method to move the cursor to the start of the data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.moveCursorToStartOfLine">moveCursorToStartOfLine</a></td>
+<td>Public method to move the cursor to the beginning of the current line.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.overwriteMode">overwriteMode</a></td>
+<td>Public method to get the overwrite mode.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.paintEvent">paintEvent</a></td>
+<td>Protected method to handle paint events.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.paste">paste</a></td>
+<td>Public method to paste bytes from the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.redo">redo</a></td>
+<td>Public slot to redo the last operation.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.remove">remove</a></td>
+<td>Public method to remove bytes.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.replace">replace</a></td>
+<td>Public method to replace a byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.replaceByteArray">replaceByteArray</a></td>
+<td>Public method to replace bytes.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.resizeEvent">resizeEvent</a></td>
+<td>Protected method to handle resize events.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.revertToUnmodified">revertToUnmodified</a></td>
+<td>Public slot to revert all changes.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectAll">selectAll</a></td>
+<td>Public method to select all data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectEndOfDocument">selectEndOfDocument</a></td>
+<td>Public method to extend the selection to the end of the data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectNextChar">selectNextChar</a></td>
+<td>Public method to extend the selection by one byte right.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectNextLine">selectNextLine</a></td>
+<td>Public method to extend the selection one line down.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectNextPage">selectNextPage</a></td>
+<td>Public method to extend the selection one page down.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectPreviousChar">selectPreviousChar</a></td>
+<td>Public method to extend the selection by one byte left.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectPreviousLine">selectPreviousLine</a></td>
+<td>Public method to extend the selection one line up.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectPreviousPage">selectPreviousPage</a></td>
+<td>Public method to extend the selection one page up.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectStartOfDocument">selectStartOfDocument</a></td>
+<td>Public method to extend the selection to the start of the data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectToEndOfLine">selectToEndOfLine</a></td>
+<td>Public method to extend the selection to the end of line.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectToStartOfLine">selectToStartOfLine</a></td>
+<td>Public method to extend the selection to the start of line.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectionToHexString">selectionToHexString</a></td>
+<td>Public method to get a hexadecimal representation of the selection.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.selectionToReadableString">selectionToReadableString</a></td>
+<td>Public method to get a formatted representation of the selection.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setAddressArea">setAddressArea</a></td>
+<td>Public method to set the address area visibility.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setAddressOffset">setAddressOffset</a></td>
+<td>Public method to set the address offset.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setAddressWidth">setAddressWidth</a></td>
+<td>Public method to set the width of the address area.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setAsciiArea">setAsciiArea</a></td>
+<td>Public method to set the visibility of the ASCII area.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setCursorBytePosition">setCursorBytePosition</a></td>
+<td>Public method to set the cursor position in bytes.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setCursorPosition">setCursorPosition</a></td>
+<td>Public method to set the cursor position.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setData">setData</a></td>
+<td>Public method to set the data to show.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setFont">setFont</a></td>
+<td>Public method to set the font used to show the data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setHighlighting">setHighlighting</a></td>
+<td>Public method to set the highlighting state.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setModified">setModified</a></td>
+<td>Public slot to set the modified flag.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setOverwriteMode">setOverwriteMode</a></td>
+<td>Public method to set the overwrite mode.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.setReadOnly">setReadOnly</a></td>
+<td>Public method to set the read only state.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.toReadableString">toReadableString</a></td>
+<td>Public method to get a formatted representation of our data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.undo">undo</a></td>
+<td>Public slot to undo the last operation.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.undoStack">undoStack</a></td>
+<td>Public method to get a reference to the undo stack.</td>
+</tr>
+<tr>
+<td><a href="#HexEditWidget.write">write</a></td>
+<td>Public method to write data from a given position to a device.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HexEditWidget.__init__" ID="HexEditWidget.__init__"></a>
+<h4>HexEditWidget (Constructor)</h4>
+<b>HexEditWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+refernce to the parent widget
+</dd>
+</dl>
+<a NAME="HexEditWidget.__adjust" ID="HexEditWidget.__adjust"></a>
+<h4>HexEditWidget.__adjust</h4>
+<b>__adjust</b>(<i></i>)
+<p>
+        Private slot to recalculate pixel positions.
+</p>
+
+<a NAME="HexEditWidget.__canRedoChanged" ID="HexEditWidget.__canRedoChanged"></a>
+<h4>HexEditWidget.__canRedoChanged</h4>
+<b>__canRedoChanged</b>(<i></i>)
+<p>
+        Private slot handling changes of the Redo state.
+</p>
+
+<a NAME="HexEditWidget.__canUndoChanged" ID="HexEditWidget.__canUndoChanged"></a>
+<h4>HexEditWidget.__canUndoChanged</h4>
+<b>__canUndoChanged</b>(<i></i>)
+<p>
+        Private slot handling changes of the Undo state.
+</p>
+
+<a NAME="HexEditWidget.__dataChangedPrivate" ID="HexEditWidget.__dataChangedPrivate"></a>
+<h4>HexEditWidget.__dataChangedPrivate</h4>
+<b>__dataChangedPrivate</b>(<i>idx=0</i>)
+<p>
+        Private slot to handle data changes.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (int)</dt>
+<dd>
+index
+</dd>
+</dl>
+<a NAME="HexEditWidget.__fromHex" ID="HexEditWidget.__fromHex"></a>
+<h4>HexEditWidget.__fromHex</h4>
+<b>__fromHex</b>(<i>byteArray</i>)
+<p>
+        Private method to convert data of a Python bytearray from hex.
+</p>
+
+<dl>
+
+<dt><i>byteArray</i> (bytearray)</dt>
+<dd>
+byte array to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="HexEditWidget.__initialize" ID="HexEditWidget.__initialize"></a>
+<h4>HexEditWidget.__initialize</h4>
+<b>__initialize</b>(<i></i>)
+<p>
+        Private method to do some initialization.
+</p>
+
+<a NAME="HexEditWidget.__readBuffers" ID="HexEditWidget.__readBuffers"></a>
+<h4>HexEditWidget.__readBuffers</h4>
+<b>__readBuffers</b>(<i></i>)
+<p>
+        Private method to read the buffers.
+</p>
+
+<a NAME="HexEditWidget.__refresh" ID="HexEditWidget.__refresh"></a>
+<h4>HexEditWidget.__refresh</h4>
+<b>__refresh</b>(<i></i>)
+<p>
+        Private slot to refresh the display.
+</p>
+
+<a NAME="HexEditWidget.__resetSelection" ID="HexEditWidget.__resetSelection"></a>
+<h4>HexEditWidget.__resetSelection</h4>
+<b>__resetSelection</b>(<i>pos=None</i>)
+<p>
+        Private method to reset the selection.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int or None)</dt>
+<dd>
+position to set selection start and end to
+            (if this is None, selection end is set to selection start)
+</dd>
+</dl>
+<a NAME="HexEditWidget.__setData" ID="HexEditWidget.__setData"></a>
+<h4>HexEditWidget.__setData</h4>
+<b>__setData</b>(<i>ioDevice</i>)
+<p>
+        Private method to set the data to show.
+</p>
+
+<dl>
+
+<dt><i>ioDevice</i> (QIODevice)</dt>
+<dd>
+device containing the data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditWidget.__setHexCursorRect" ID="HexEditWidget.__setHexCursorRect"></a>
+<h4>HexEditWidget.__setHexCursorRect</h4>
+<b>__setHexCursorRect</b>(<i></i>)
+<p>
+        Private method to set the cursor.
+</p>
+
+<a NAME="HexEditWidget.__setSelection" ID="HexEditWidget.__setSelection"></a>
+<h4>HexEditWidget.__setSelection</h4>
+<b>__setSelection</b>(<i>pos</i>)
+<p>
+        Private method to set the selection.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position
+</dd>
+</dl>
+<a NAME="HexEditWidget.__toHex" ID="HexEditWidget.__toHex"></a>
+<h4>HexEditWidget.__toHex</h4>
+<b>__toHex</b>(<i>byteArray</i>)
+<p>
+        Private method to convert the data of a Python bytearray to hex.
+</p>
+
+<dl>
+
+<dt><i>byteArray</i> (bytearray)</dt>
+<dd>
+byte array to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="HexEditWidget.__toReadable" ID="HexEditWidget.__toReadable"></a>
+<h4>HexEditWidget.__toReadable</h4>
+<b>__toReadable</b>(<i>byteArray</i>)
+<p>
+        Private method to convert some data into a readable format.
+</p>
+
+<dl>
+
+<dt><i>byteArray</i> (bytearray or QByteArray)</dt>
+<dd>
+data to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+readable data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HexEditWidget.__updateCursor" ID="HexEditWidget.__updateCursor"></a>
+<h4>HexEditWidget.__updateCursor</h4>
+<b>__updateCursor</b>(<i></i>)
+<p>
+        Private slot to update the blinking cursor.
+</p>
+
+<a NAME="HexEditWidget.addressArea" ID="HexEditWidget.addressArea"></a>
+<h4>HexEditWidget.addressArea</h4>
+<b>addressArea</b>(<i></i>)
+<p>
+        Public method to get the address area visibility.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the address area visibility
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditWidget.addressOffset" ID="HexEditWidget.addressOffset"></a>
+<h4>HexEditWidget.addressOffset</h4>
+<b>addressOffset</b>(<i></i>)
+<p>
+        Public method to get the address offset.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+address offset
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.addressWidth" ID="HexEditWidget.addressWidth"></a>
+<h4>HexEditWidget.addressWidth</h4>
+<b>addressWidth</b>(<i></i>)
+<p>
+        Public method to get the width of the address area in
+        characters.
+</p>
+<p>
+        Note: The address area width is always a multiple of four.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+minimum width of the address area
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.asciiArea" ID="HexEditWidget.asciiArea"></a>
+<h4>HexEditWidget.asciiArea</h4>
+<b>asciiArea</b>(<i></i>)
+<p>
+        Public method to get the visibility of the ASCII area.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+visibility of the ASCII area
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditWidget.copy" ID="HexEditWidget.copy"></a>
+<h4>HexEditWidget.copy</h4>
+<b>copy</b>(<i></i>)
+<p>
+        Public method to copy the selected bytes to the clipboard.
+</p>
+
+<a NAME="HexEditWidget.cursorBytePosition" ID="HexEditWidget.cursorBytePosition"></a>
+<h4>HexEditWidget.cursorBytePosition</h4>
+<b>cursorBytePosition</b>(<i></i>)
+<p>
+        Public method to get the cursor position in bytes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+cursor position in bytes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.cursorPosition" ID="HexEditWidget.cursorPosition"></a>
+<h4>HexEditWidget.cursorPosition</h4>
+<b>cursorPosition</b>(<i></i>)
+<p>
+        Public method to get the cursor position.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+cursor position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.cursorPositionFromPoint" ID="HexEditWidget.cursorPositionFromPoint"></a>
+<h4>HexEditWidget.cursorPositionFromPoint</h4>
+<b>cursorPositionFromPoint</b>(<i>point</i>)
+<p>
+        Public method to calculate a cursor position from a graphics position.
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+graphics position
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+cursor position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.cut" ID="HexEditWidget.cut"></a>
+<h4>HexEditWidget.cut</h4>
+<b>cut</b>(<i></i>)
+<p>
+        Public method to cut the selected bytes and move them to the clipboard.
+</p>
+
+<a NAME="HexEditWidget.data" ID="HexEditWidget.data"></a>
+<h4>HexEditWidget.data</h4>
+<b>data</b>(<i></i>)
+<p>
+        Public method to get the binary data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+binary data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="HexEditWidget.dataAt" ID="HexEditWidget.dataAt"></a>
+<h4>HexEditWidget.dataAt</h4>
+<b>dataAt</b>(<i>pos, count=-1</i>)
+<p>
+        Public method to get data from a given position.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to get data from
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+amount of bytes to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="HexEditWidget.deleteByte" ID="HexEditWidget.deleteByte"></a>
+<h4>HexEditWidget.deleteByte</h4>
+<b>deleteByte</b>(<i></i>)
+<p>
+        Public method to delete the current byte.
+</p>
+
+<a NAME="HexEditWidget.deleteByteBack" ID="HexEditWidget.deleteByteBack"></a>
+<h4>HexEditWidget.deleteByteBack</h4>
+<b>deleteByteBack</b>(<i></i>)
+<p>
+        Public method to delete the previous byte.
+</p>
+
+<a NAME="HexEditWidget.deselectAll" ID="HexEditWidget.deselectAll"></a>
+<h4>HexEditWidget.deselectAll</h4>
+<b>deselectAll</b>(<i></i>)
+<p>
+        Public method to deselect all data.
+</p>
+
+<a NAME="HexEditWidget.ensureVisible" ID="HexEditWidget.ensureVisible"></a>
+<h4>HexEditWidget.ensureVisible</h4>
+<b>ensureVisible</b>(<i></i>)
+<p>
+        Public method to ensure, that the cursor is visible.
+</p>
+
+<a NAME="HexEditWidget.font" ID="HexEditWidget.font"></a>
+<h4>HexEditWidget.font</h4>
+<b>font</b>(<i></i>)
+<p>
+        Public method to get the font used to show the data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+font used to show the data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QFont
+</dd>
+</dl>
+<a NAME="HexEditWidget.getSelectionBegin" ID="HexEditWidget.getSelectionBegin"></a>
+<h4>HexEditWidget.getSelectionBegin</h4>
+<b>getSelectionBegin</b>(<i></i>)
+<p>
+        Public method to get the start of the selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selection start
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.getSelectionEnd" ID="HexEditWidget.getSelectionEnd"></a>
+<h4>HexEditWidget.getSelectionEnd</h4>
+<b>getSelectionEnd</b>(<i></i>)
+<p>
+        Public method to get the end of the selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selection end
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.getSelectionLength" ID="HexEditWidget.getSelectionLength"></a>
+<h4>HexEditWidget.getSelectionLength</h4>
+<b>getSelectionLength</b>(<i></i>)
+<p>
+        Public method to get the length of the selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selection length
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.goto" ID="HexEditWidget.goto"></a>
+<h4>HexEditWidget.goto</h4>
+<b>goto</b>(<i>offset, fromCursor=False, backwards=False, extendSelection=False</i>)
+<p>
+        Public method to move the cursor.
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+offset to move to
+</dd>
+<dt><i>fromCursor</i> (bool)</dt>
+<dd>
+flag indicating a move relative to the current cursor
+</dd>
+<dt><i>backwards</i> (bool)</dt>
+<dd>
+flag indicating a backwards move
+</dd>
+<dt><i>extendSelection</i> (bool)</dt>
+<dd>
+flag indicating to extend the selection
+</dd>
+</dl>
+<a NAME="HexEditWidget.hasSelection" ID="HexEditWidget.hasSelection"></a>
+<h4>HexEditWidget.hasSelection</h4>
+<b>hasSelection</b>(<i></i>)
+<p>
+        Public method to test for a selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of a selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditWidget.highlighting" ID="HexEditWidget.highlighting"></a>
+<h4>HexEditWidget.highlighting</h4>
+<b>highlighting</b>(<i></i>)
+<p>
+        Public method to get the highlighting state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+highlighting state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditWidget.indexOf" ID="HexEditWidget.indexOf"></a>
+<h4>HexEditWidget.indexOf</h4>
+<b>indexOf</b>(<i>byteArray, start</i>)
+<p>
+        Public method to find the first occurrence of a byte array in our data.
+</p>
+
+<dl>
+
+<dt><i>byteArray</i> (bytearray or QByteArray)</dt>
+<dd>
+data to search for
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start position of the search
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+position of match (or -1 if not found)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.insert" ID="HexEditWidget.insert"></a>
+<h4>HexEditWidget.insert</h4>
+<b>insert</b>(<i>pos, ch</i>)
+<p>
+        Public method to insert a byte.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to insert the byte at
+</dd>
+<dt><i>ch</i> (int in the range 0x00 to 0xff)</dt>
+<dd>
+byte to insert
+</dd>
+</dl>
+<a NAME="HexEditWidget.insertByteArray" ID="HexEditWidget.insertByteArray"></a>
+<h4>HexEditWidget.insertByteArray</h4>
+<b>insertByteArray</b>(<i>pos, byteArray</i>)
+<p>
+        Public method to insert bytes.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to insert the bytes at
+</dd>
+<dt><i>byteArray</i> (bytearray or QByteArray)</dt>
+<dd>
+bytes to be insert
+</dd>
+</dl>
+<a NAME="HexEditWidget.isModified" ID="HexEditWidget.isModified"></a>
+<h4>HexEditWidget.isModified</h4>
+<b>isModified</b>(<i></i>)
+<p>
+        Public method to check for any modification.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a modified state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditWidget.isReadOnly" ID="HexEditWidget.isReadOnly"></a>
+<h4>HexEditWidget.isReadOnly</h4>
+<b>isReadOnly</b>(<i></i>)
+<p>
+        Public method to test the read only state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the read only state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditWidget.keyPressEvent" ID="HexEditWidget.keyPressEvent"></a>
+<h4>HexEditWidget.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle key press events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key event
+</dd>
+</dl>
+<a NAME="HexEditWidget.lastIndexOf" ID="HexEditWidget.lastIndexOf"></a>
+<h4>HexEditWidget.lastIndexOf</h4>
+<b>lastIndexOf</b>(<i>byteArray, start</i>)
+<p>
+        Public method to find the last occurrence of a byte array in our data.
+</p>
+
+<dl>
+
+<dt><i>byteArray</i> (bytearray or QByteArray)</dt>
+<dd>
+data to search for
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start position of the search
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+position of match (or -1 if not found)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditWidget.mouseMoveEvent" ID="HexEditWidget.mouseMoveEvent"></a>
+<h4>HexEditWidget.mouseMoveEvent</h4>
+<b>mouseMoveEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse moves.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="HexEditWidget.mousePressEvent" ID="HexEditWidget.mousePressEvent"></a>
+<h4>HexEditWidget.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse button presses.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="HexEditWidget.moveCursorToEndOfDocument" ID="HexEditWidget.moveCursorToEndOfDocument"></a>
+<h4>HexEditWidget.moveCursorToEndOfDocument</h4>
+<b>moveCursorToEndOfDocument</b>(<i></i>)
+<p>
+        Public method to move the cursor to the end of the data.
+</p>
+
+<a NAME="HexEditWidget.moveCursorToEndOfLine" ID="HexEditWidget.moveCursorToEndOfLine"></a>
+<h4>HexEditWidget.moveCursorToEndOfLine</h4>
+<b>moveCursorToEndOfLine</b>(<i></i>)
+<p>
+        Public method to move the cursor to the end of the current line.
+</p>
+
+<a NAME="HexEditWidget.moveCursorToNextChar" ID="HexEditWidget.moveCursorToNextChar"></a>
+<h4>HexEditWidget.moveCursorToNextChar</h4>
+<b>moveCursorToNextChar</b>(<i></i>)
+<p>
+        Public method to move the cursor to the next byte.
+</p>
+
+<a NAME="HexEditWidget.moveCursorToNextLine" ID="HexEditWidget.moveCursorToNextLine"></a>
+<h4>HexEditWidget.moveCursorToNextLine</h4>
+<b>moveCursorToNextLine</b>(<i></i>)
+<p>
+        Public method to move the cursor to the next line.
+</p>
+
+<a NAME="HexEditWidget.moveCursorToNextPage" ID="HexEditWidget.moveCursorToNextPage"></a>
+<h4>HexEditWidget.moveCursorToNextPage</h4>
+<b>moveCursorToNextPage</b>(<i></i>)
+<p>
+        Public method to move the cursor to the next page.
+</p>
+
+<a NAME="HexEditWidget.moveCursorToPreviousChar" ID="HexEditWidget.moveCursorToPreviousChar"></a>
+<h4>HexEditWidget.moveCursorToPreviousChar</h4>
+<b>moveCursorToPreviousChar</b>(<i></i>)
+<p>
+        Public method to move the cursor to the previous byte.
+</p>
+
+<a NAME="HexEditWidget.moveCursorToPreviousLine" ID="HexEditWidget.moveCursorToPreviousLine"></a>
+<h4>HexEditWidget.moveCursorToPreviousLine</h4>
+<b>moveCursorToPreviousLine</b>(<i></i>)
+<p>
+        Public method to move the cursor to the previous line.
+</p>
+
+<a NAME="HexEditWidget.moveCursorToPreviousPage" ID="HexEditWidget.moveCursorToPreviousPage"></a>
+<h4>HexEditWidget.moveCursorToPreviousPage</h4>
+<b>moveCursorToPreviousPage</b>(<i></i>)
+<p>
+        Public method to move the cursor to the previous page.
+</p>
+
+<a NAME="HexEditWidget.moveCursorToStartOfDocument" ID="HexEditWidget.moveCursorToStartOfDocument"></a>
+<h4>HexEditWidget.moveCursorToStartOfDocument</h4>
+<b>moveCursorToStartOfDocument</b>(<i></i>)
+<p>
+        Public method to move the cursor to the start of the data.
+</p>
+
+<a NAME="HexEditWidget.moveCursorToStartOfLine" ID="HexEditWidget.moveCursorToStartOfLine"></a>
+<h4>HexEditWidget.moveCursorToStartOfLine</h4>
+<b>moveCursorToStartOfLine</b>(<i></i>)
+<p>
+        Public method to move the cursor to the beginning of the current line.
+</p>
+
+<a NAME="HexEditWidget.overwriteMode" ID="HexEditWidget.overwriteMode"></a>
+<h4>HexEditWidget.overwriteMode</h4>
+<b>overwriteMode</b>(<i></i>)
+<p>
+        Public method to get the overwrite mode.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+overwrite mode
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditWidget.paintEvent" ID="HexEditWidget.paintEvent"></a>
+<h4>HexEditWidget.paintEvent</h4>
+<b>paintEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle paint events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QPaintEvent)</dt>
+<dd>
+reference to the paint event
+</dd>
+</dl>
+<a NAME="HexEditWidget.paste" ID="HexEditWidget.paste"></a>
+<h4>HexEditWidget.paste</h4>
+<b>paste</b>(<i></i>)
+<p>
+        Public method to paste bytes from the clipboard.
+</p>
+
+<a NAME="HexEditWidget.redo" ID="HexEditWidget.redo"></a>
+<h4>HexEditWidget.redo</h4>
+<b>redo</b>(<i></i>)
+<p>
+        Public slot to redo the last operation.
+</p>
+
+<a NAME="HexEditWidget.remove" ID="HexEditWidget.remove"></a>
+<h4>HexEditWidget.remove</h4>
+<b>remove</b>(<i>pos, length=1</i>)
+<p>
+        Public method to remove bytes.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to remove bytes from
+</dd>
+<dt><i>length</i> (int)</dt>
+<dd>
+amount of bytes to remove
+</dd>
+</dl>
+<a NAME="HexEditWidget.replace" ID="HexEditWidget.replace"></a>
+<h4>HexEditWidget.replace</h4>
+<b>replace</b>(<i>pos, ch</i>)
+<p>
+        Public method to replace a byte.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to replace the byte at
+</dd>
+<dt><i>ch</i> (int in the range 0x00 to 0xff)</dt>
+<dd>
+byte to replace with
+</dd>
+</dl>
+<a NAME="HexEditWidget.replaceByteArray" ID="HexEditWidget.replaceByteArray"></a>
+<h4>HexEditWidget.replaceByteArray</h4>
+<b>replaceByteArray</b>(<i>pos, length, byteArray</i>)
+<p>
+        Public method to replace bytes.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to replace the bytes at
+</dd>
+<dt><i>length</i> (int)</dt>
+<dd>
+amount of bytes to replace
+</dd>
+<dt><i>byteArray</i> (bytearray or QByteArray)</dt>
+<dd>
+bytes to replace with
+</dd>
+</dl>
+<a NAME="HexEditWidget.resizeEvent" ID="HexEditWidget.resizeEvent"></a>
+<h4>HexEditWidget.resizeEvent</h4>
+<b>resizeEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle resize events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QResizeEvent)</dt>
+<dd>
+reference to the resize event
+</dd>
+</dl>
+<a NAME="HexEditWidget.revertToUnmodified" ID="HexEditWidget.revertToUnmodified"></a>
+<h4>HexEditWidget.revertToUnmodified</h4>
+<b>revertToUnmodified</b>(<i></i>)
+<p>
+        Public slot to revert all changes.
+</p>
+
+<a NAME="HexEditWidget.selectAll" ID="HexEditWidget.selectAll"></a>
+<h4>HexEditWidget.selectAll</h4>
+<b>selectAll</b>(<i></i>)
+<p>
+        Public method to select all data.
+</p>
+
+<a NAME="HexEditWidget.selectEndOfDocument" ID="HexEditWidget.selectEndOfDocument"></a>
+<h4>HexEditWidget.selectEndOfDocument</h4>
+<b>selectEndOfDocument</b>(<i></i>)
+<p>
+        Public method to extend the selection to the end of the data.
+</p>
+
+<a NAME="HexEditWidget.selectNextChar" ID="HexEditWidget.selectNextChar"></a>
+<h4>HexEditWidget.selectNextChar</h4>
+<b>selectNextChar</b>(<i></i>)
+<p>
+        Public method to extend the selection by one byte right.
+</p>
+
+<a NAME="HexEditWidget.selectNextLine" ID="HexEditWidget.selectNextLine"></a>
+<h4>HexEditWidget.selectNextLine</h4>
+<b>selectNextLine</b>(<i></i>)
+<p>
+        Public method to extend the selection one line down.
+</p>
+
+<a NAME="HexEditWidget.selectNextPage" ID="HexEditWidget.selectNextPage"></a>
+<h4>HexEditWidget.selectNextPage</h4>
+<b>selectNextPage</b>(<i></i>)
+<p>
+        Public method to extend the selection one page down.
+</p>
+
+<a NAME="HexEditWidget.selectPreviousChar" ID="HexEditWidget.selectPreviousChar"></a>
+<h4>HexEditWidget.selectPreviousChar</h4>
+<b>selectPreviousChar</b>(<i></i>)
+<p>
+        Public method to extend the selection by one byte left.
+</p>
+
+<a NAME="HexEditWidget.selectPreviousLine" ID="HexEditWidget.selectPreviousLine"></a>
+<h4>HexEditWidget.selectPreviousLine</h4>
+<b>selectPreviousLine</b>(<i></i>)
+<p>
+        Public method to extend the selection one line up.
+</p>
+
+<a NAME="HexEditWidget.selectPreviousPage" ID="HexEditWidget.selectPreviousPage"></a>
+<h4>HexEditWidget.selectPreviousPage</h4>
+<b>selectPreviousPage</b>(<i></i>)
+<p>
+        Public method to extend the selection one page up.
+</p>
+
+<a NAME="HexEditWidget.selectStartOfDocument" ID="HexEditWidget.selectStartOfDocument"></a>
+<h4>HexEditWidget.selectStartOfDocument</h4>
+<b>selectStartOfDocument</b>(<i></i>)
+<p>
+        Public method to extend the selection to the start of the data.
+</p>
+
+<a NAME="HexEditWidget.selectToEndOfLine" ID="HexEditWidget.selectToEndOfLine"></a>
+<h4>HexEditWidget.selectToEndOfLine</h4>
+<b>selectToEndOfLine</b>(<i></i>)
+<p>
+        Public method to extend the selection to the end of line.
+</p>
+
+<a NAME="HexEditWidget.selectToStartOfLine" ID="HexEditWidget.selectToStartOfLine"></a>
+<h4>HexEditWidget.selectToStartOfLine</h4>
+<b>selectToStartOfLine</b>(<i></i>)
+<p>
+        Public method to extend the selection to the start of line.
+</p>
+
+<a NAME="HexEditWidget.selectionToHexString" ID="HexEditWidget.selectionToHexString"></a>
+<h4>HexEditWidget.selectionToHexString</h4>
+<b>selectionToHexString</b>(<i></i>)
+<p>
+        Public method to get a hexadecimal representation of the selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+hexadecimal representation of the selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HexEditWidget.selectionToReadableString" ID="HexEditWidget.selectionToReadableString"></a>
+<h4>HexEditWidget.selectionToReadableString</h4>
+<b>selectionToReadableString</b>(<i></i>)
+<p>
+        Public method to get a formatted representation of the selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted representation of the selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HexEditWidget.setAddressArea" ID="HexEditWidget.setAddressArea"></a>
+<h4>HexEditWidget.setAddressArea</h4>
+<b>setAddressArea</b>(<i>on</i>)
+<p>
+        Public method to set the address area visibility.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the address area visibility
+</dd>
+</dl>
+<a NAME="HexEditWidget.setAddressOffset" ID="HexEditWidget.setAddressOffset"></a>
+<h4>HexEditWidget.setAddressOffset</h4>
+<b>setAddressOffset</b>(<i>offset</i>)
+<p>
+        Public method to set the address offset.
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+address offset
+</dd>
+</dl>
+<a NAME="HexEditWidget.setAddressWidth" ID="HexEditWidget.setAddressWidth"></a>
+<h4>HexEditWidget.setAddressWidth</h4>
+<b>setAddressWidth</b>(<i>width</i>)
+<p>
+        Public method to set the width of the address area.
+</p>
+<p>
+        Note: The address area width is always a multiple of four.
+        The given value will be adjusted as required.
+</p>
+
+<dl>
+
+<dt><i>width</i> (int)</dt>
+<dd>
+width of the address area in characters
+</dd>
+</dl>
+<a NAME="HexEditWidget.setAsciiArea" ID="HexEditWidget.setAsciiArea"></a>
+<h4>HexEditWidget.setAsciiArea</h4>
+<b>setAsciiArea</b>(<i>on</i>)
+<p>
+        Public method to set the visibility of the ASCII area.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the visibility of the ASCII area
+</dd>
+</dl>
+<a NAME="HexEditWidget.setCursorBytePosition" ID="HexEditWidget.setCursorBytePosition"></a>
+<h4>HexEditWidget.setCursorBytePosition</h4>
+<b>setCursorBytePosition</b>(<i>pos</i>)
+<p>
+        Public method to set the cursor position in bytes.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+cursor position in bytes
+</dd>
+</dl>
+<a NAME="HexEditWidget.setCursorPosition" ID="HexEditWidget.setCursorPosition"></a>
+<h4>HexEditWidget.setCursorPosition</h4>
+<b>setCursorPosition</b>(<i>pos</i>)
+<p>
+        Public method to set the cursor position.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+cursor position
+</dd>
+</dl>
+<a NAME="HexEditWidget.setData" ID="HexEditWidget.setData"></a>
+<h4>HexEditWidget.setData</h4>
+<b>setData</b>(<i>dataOrDevice</i>)
+<p>
+        Public method to set the data to show.
+</p>
+
+<dl>
+
+<dt><i>dataOrDevice</i> (bytes, bytearray, QByteArray or QIODevice)</dt>
+<dd>
+byte array or device containing the data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>TypeError</b>:</dt>
+<dd>
+raised to indicate a wrong parameter type
+</dd>
+</dl>
+<a NAME="HexEditWidget.setFont" ID="HexEditWidget.setFont"></a>
+<h4>HexEditWidget.setFont</h4>
+<b>setFont</b>(<i>font</i>)
+<p>
+        Public method to set the font used to show the data.
+</p>
+
+<dl>
+
+<dt><i>font</i> (QFont)</dt>
+<dd>
+font used to show the data
+</dd>
+</dl>
+<a NAME="HexEditWidget.setHighlighting" ID="HexEditWidget.setHighlighting"></a>
+<h4>HexEditWidget.setHighlighting</h4>
+<b>setHighlighting</b>(<i>on</i>)
+<p>
+        Public method to set the highlighting state.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+new highlighting state
+</dd>
+</dl>
+<a NAME="HexEditWidget.setModified" ID="HexEditWidget.setModified"></a>
+<h4>HexEditWidget.setModified</h4>
+<b>setModified</b>(<i>modified, setCleanState=False</i>)
+<p>
+        Public slot to set the modified flag.
+</p>
+
+<dl>
+
+<dt><i>modified</i> (bool)</dt>
+<dd>
+flag indicating the new modification status
+</dd>
+<dt><i>setCleanState</i> (bool)</dt>
+<dd>
+flag indicating to set the undo stack to clean
+</dd>
+</dl>
+<a NAME="HexEditWidget.setOverwriteMode" ID="HexEditWidget.setOverwriteMode"></a>
+<h4>HexEditWidget.setOverwriteMode</h4>
+<b>setOverwriteMode</b>(<i>on</i>)
+<p>
+        Public method to set the overwrite mode.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the new overwrite mode
+</dd>
+</dl>
+<a NAME="HexEditWidget.setReadOnly" ID="HexEditWidget.setReadOnly"></a>
+<h4>HexEditWidget.setReadOnly</h4>
+<b>setReadOnly</b>(<i>on</i>)
+<p>
+        Public method to set the read only state.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+new read only state
+</dd>
+</dl>
+<a NAME="HexEditWidget.toReadableString" ID="HexEditWidget.toReadableString"></a>
+<h4>HexEditWidget.toReadableString</h4>
+<b>toReadableString</b>(<i></i>)
+<p>
+        Public method to get a formatted representation of our data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted representation of our data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HexEditWidget.undo" ID="HexEditWidget.undo"></a>
+<h4>HexEditWidget.undo</h4>
+<b>undo</b>(<i></i>)
+<p>
+        Public slot to undo the last operation.
+</p>
+
+<a NAME="HexEditWidget.undoStack" ID="HexEditWidget.undoStack"></a>
+<h4>HexEditWidget.undoStack</h4>
+<b>undoStack</b>(<i></i>)
+<p>
+        Public method to get a reference to the undo stack.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the undo stack
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HexEditUndoStack
+</dd>
+</dl>
+<a NAME="HexEditWidget.write" ID="HexEditWidget.write"></a>
+<h4>HexEditWidget.write</h4>
+<b>write</b>(<i>device, pos=0, count=-1</i>)
+<p>
+        Public method to write data from a given position to a device.
+</p>
+
+<dl>
+
+<dt><i>device</i> (QIODevice)</dt>
+<dd>
+device to write to
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to start the write at
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+amount of bytes to write
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

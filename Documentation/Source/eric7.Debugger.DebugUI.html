@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.DebugUI</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.DebugUI</h1>
+<p>
+Module implementing the debugger UI.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#DebugUI">DebugUI</a></td>
+<td>Class implementing the debugger part of the UI.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="DebugUI" ID="DebugUI"></a>
+<h2>DebugUI</h2>
+<p>
+    Class implementing the debugger part of the UI.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>clientStack(stack, debuggerId)</dt>
+<dd>
+emitted at breaking after a reported
+        exception
+</dd>
+<dt>debuggingFinished</dt>
+<dd>
+emitted to signal the end of a debugging session
+</dd>
+<dt>debuggingStarted(filename)</dt>
+<dd>
+emitted when a debugging session was
+        started
+</dd>
+<dt>exceptionInterrupt()</dt>
+<dd>
+emitted after the execution was interrupted
+        by an exception and acknowledged by the user
+</dd>
+<dt>processChangedProjectFiles()</dt>
+<dd>
+emitted to indicate, that changed project files
+        should be processed
+</dd>
+<dt>resetUI(full)</dt>
+<dd>
+emitted to reset the UI partially or fully
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DebugUI.__init__">DebugUI</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__applyVariablesFilters">__applyVariablesFilters</a></td>
+<td>Private slot to apply the given variables filter lists.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__breakpointSelected">__breakpointSelected</a></td>
+<td>Private method to handle the breakpoint selected signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__checkActions">__checkActions</a></td>
+<td>Private slot to check some actions for their enable/disable status.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clearBreakpoints">__clearBreakpoints</a></td>
+<td>Private slot to handle the 'Clear breakpoints' action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientBreakConditionError">__clientBreakConditionError</a></td>
+<td>Private method to handle a condition error of a breakpoint.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientDebuggerId">__clientDebuggerId</a></td>
+<td>Private slot to track the list of connected debuggers.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientDisconnected">__clientDisconnected</a></td>
+<td>Private slot to handle a debug client disconnecting its control socket.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientException">__clientException</a></td>
+<td>Private method to handle an exception of the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientExit">__clientExit</a></td>
+<td>Private slot to handle the debugged program terminating.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientGone">__clientGone</a></td>
+<td>Private method to handle the disconnection of the debugger client.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientLine">__clientLine</a></td>
+<td>Private method to handle a change to the current line.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientSignal">__clientSignal</a></td>
+<td>Private method to handle a signal generated on the client side.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientSyntaxError">__clientSyntaxError</a></td>
+<td>Private method to handle a syntax error in the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientThreadSet">__clientThreadSet</a></td>
+<td>Private method to handle a change of the client's current thread.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientVariable">__clientVariable</a></td>
+<td>Private method to write the contents of a clients classvariable to the user interface.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientVariables">__clientVariables</a></td>
+<td>Private method to write the clients variables to the user interface.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__clientWatchConditionError">__clientWatchConditionError</a></td>
+<td>Private method to handle a expression error of a watch expression.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__configureExceptionsFilter">__configureExceptionsFilter</a></td>
+<td>Private slot for displaying the exception filter dialog.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__configureIgnoredExceptions">__configureIgnoredExceptions</a></td>
+<td>Private slot for displaying the ignored exceptions dialog.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__configureVariablesFilters">__configureVariablesFilters</a></td>
+<td>Private slot for displaying the variables filter configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__continue">__continue</a></td>
+<td>Private method to handle the Continue action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__coverageProject">__coverageProject</a></td>
+<td>Private slot to handle the coverage of project action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__coverageScript">__coverageScript</a></td>
+<td>Private slot to handle the coverage of script action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__cursorChanged">__cursorChanged</a></td>
+<td>Private slot handling the cursorChanged signal of the viewmanager.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__debugProject">__debugProject</a></td>
+<td>Private slot to handle the debug project action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__debugScript">__debugScript</a></td>
+<td>Private slot to handle the debug script action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__doRestart">__doRestart</a></td>
+<td>Private slot to handle the restart action to restart the last debugged file.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__editBreakpoint">__editBreakpoint</a></td>
+<td>Private slot to handle the 'Edit breakpoint' action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__editorOpened">__editorOpened</a></td>
+<td>Private slot to handle the editorOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__enterRemote">__enterRemote</a></td>
+<td>Private method to update the user interface.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__getClientDisassembly">__getClientDisassembly</a></td>
+<td>Private method to ask the client for the latest traceback disassembly.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__getClientVariables">__getClientVariables</a></td>
+<td>Private method to request the global and local variables.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__getThreadList">__getThreadList</a></td>
+<td>Private method to get the list of threads from the client.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__lastEditorClosed">__lastEditorClosed</a></td>
+<td>Private slot to handle the closeProgram signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__mainClientExit">__mainClientExit</a></td>
+<td>Private slot handling the exit of the last client.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__moveInstructionPointer">__moveInstructionPointer</a></td>
+<td>Private method to move the instruction pointer to a different line.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__nextBreakpoint">__nextBreakpoint</a></td>
+<td>Private slot to handle the 'Next breakpoint' action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__passiveDebugStarted">__passiveDebugStarted</a></td>
+<td>Private slot to handle a passive debug session start.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__previousBreakpoint">__previousBreakpoint</a></td>
+<td>Private slot to handle the 'Previous breakpoint' action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__profileProject">__profileProject</a></td>
+<td>Private slot to handle the profile project action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__profileScript">__profileScript</a></td>
+<td>Private slot to handle the profile script action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__projectClosed">__projectClosed</a></td>
+<td>Private slot to handle the projectClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__projectOpened">__projectOpened</a></td>
+<td>Private slot to handle the projectOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__resetUI">__resetUI</a></td>
+<td>Private slot to reset the user interface.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__runProject">__runProject</a></td>
+<td>Private slot to handle the run project action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__runScript">__runScript</a></td>
+<td>Private slot to handle the run script action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__runToCursor">__runToCursor</a></td>
+<td>Private method to handle the Run to Cursor action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__runUntil">__runUntil</a></td>
+<td>Private method to handle the Run Until action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__showBreakpointsMenu">__showBreakpointsMenu</a></td>
+<td>Private method to handle the show breakpoints menu signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__showDebugMenu">__showDebugMenu</a></td>
+<td>Private method to set up the debug menu.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__showNotConnectedWarning">__showNotConnectedWarning</a></td>
+<td>Private method to show a warning about a not connected eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__specialContinue">__specialContinue</a></td>
+<td>Private method to handle the Special Continue action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__step">__step</a></td>
+<td>Private method to handle the Step action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__stepOut">__stepOut</a></td>
+<td>Private method to handle the Step Out action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__stepOver">__stepOver</a></td>
+<td>Private method to handle the Step Over action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__stepQuit">__stepQuit</a></td>
+<td>Private method to handle the Step Quit action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__stopScript">__stopScript</a></td>
+<td>Private slot to stop the running script.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.__toggleBreakpoint">__toggleBreakpoint</a></td>
+<td>Private slot to handle the 'Set/Reset breakpoint' action.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.clearHistories">clearHistories</a></td>
+<td>Public method to clear the various debug histories.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.debugInternalScript">debugInternalScript</a></td>
+<td>Public method to run an internal script with debugger support.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.doCoverage">doCoverage</a></td>
+<td>Public method to handle the coverage actions.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.doDebug">doDebug</a></td>
+<td>Public method to handle the debug actions.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.doProfile">doProfile</a></td>
+<td>Public method to handle the profile actions.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.doRun">doRun</a></td>
+<td>Public method to handle the run actions.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.getActions">getActions</a></td>
+<td>Public method to get a list of all actions.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.getProjectEnvironmentString">getProjectEnvironmentString</a></td>
+<td>Public method to get the string for the project environment.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.getSelectedDebuggerId">getSelectedDebuggerId</a></td>
+<td>Public method to get the currently selected debugger ID.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.initActions">initActions</a></td>
+<td>Public method defining the user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.initMenus">initMenus</a></td>
+<td>Public slot to initialize the project menu.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.initToolbars">initToolbars</a></td>
+<td>Public slot to initialize the debug toolbars.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setArgvHistory">setArgvHistory</a></td>
+<td>Public slot to initialize the argv history.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setAutoClearShell">setAutoClearShell</a></td>
+<td>Public slot to initialize the autoClearShell flag.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setAutoContinue">setAutoContinue</a></td>
+<td>Public slot to initialize the autoContinue flag.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setDebugActionsEnabled">setDebugActionsEnabled</a></td>
+<td>Public method to set the enabled state of the debug actions.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setEnableGlobalConfigOverride">setEnableGlobalConfigOverride</a></td>
+<td>Public method to initialize the global config override data.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setEnableMultiprocess">setEnableMultiprocess</a></td>
+<td>Public slot to initialize the enableMultiprocess flag.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setEnvHistory">setEnvHistory</a></td>
+<td>Public slot to initialize the env history.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setExcIgnoreList">setExcIgnoreList</a></td>
+<td>Public slot to initialize the ignored exceptions type list.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setExcList">setExcList</a></td>
+<td>Public slot to initialize the exceptions type list.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setExceptionReporting">setExceptionReporting</a></td>
+<td>Public slot to initialize the exception reporting flag.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setMultiprocessNoDebugHistory">setMultiprocessNoDebugHistory</a></td>
+<td>Public slot to initialize the no debug list history.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setScriptsHistory">setScriptsHistory</a></td>
+<td>Public slot to initialize the scripts history.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setTracePython">setTracePython</a></td>
+<td>Public slot to initialize the trace Python flag.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.setWdHistory">setWdHistory</a></td>
+<td>Public slot to initialize the wd history.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.showNotification">showNotification</a></td>
+<td>Public method to show some notification message.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.shutdown">shutdown</a></td>
+<td>Public method to perform shutdown actions.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.shutdownServer">shutdownServer</a></td>
+<td>Public method to shut down the debug server.</td>
+</tr>
+<tr>
+<td><a href="#DebugUI.variablesFilter">variablesFilter</a></td>
+<td>Public method to get the variables filter for a scope.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DebugUI.__init__" ID="DebugUI.__init__"></a>
+<h4>DebugUI (Constructor)</h4>
+<b>DebugUI</b>(<i>ui, vm, debugServer, debugViewer, project</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main UI
+</dd>
+<dt><i>vm</i> (ViewManager)</dt>
+<dd>
+reference to the viewmanager
+</dd>
+<dt><i>debugServer</i> (DebugServer)</dt>
+<dd>
+reference to the debug server
+</dd>
+<dt><i>debugViewer</i> (DebugViewer)</dt>
+<dd>
+reference to the debug viewer widget
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="DebugUI.__applyVariablesFilters" ID="DebugUI.__applyVariablesFilters"></a>
+<h4>DebugUI.__applyVariablesFilters</h4>
+<b>__applyVariablesFilters</b>(<i>localsFilter, globalsFilter</i>)
+<p>
+        Private slot to apply the given variables filter lists.
+</p>
+
+<dl>
+
+<dt><i>localsFilter</i> (list of str)</dt>
+<dd>
+variables filter for the local variables
+</dd>
+<dt><i>globalsFilter</i> (list of str)</dt>
+<dd>
+variables filter for the global variables
+</dd>
+</dl>
+<a NAME="DebugUI.__breakpointSelected" ID="DebugUI.__breakpointSelected"></a>
+<h4>DebugUI.__breakpointSelected</h4>
+<b>__breakpointSelected</b>(<i>act</i>)
+<p>
+        Private method to handle the breakpoint selected signal.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="DebugUI.__checkActions" ID="DebugUI.__checkActions"></a>
+<h4>DebugUI.__checkActions</h4>
+<b>__checkActions</b>(<i>editor</i>)
+<p>
+        Private slot to check some actions for their enable/disable status.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window
+</dd>
+</dl>
+<a NAME="DebugUI.__clearBreakpoints" ID="DebugUI.__clearBreakpoints"></a>
+<h4>DebugUI.__clearBreakpoints</h4>
+<b>__clearBreakpoints</b>(<i></i>)
+<p>
+        Private slot to handle the 'Clear breakpoints' action.
+</p>
+
+<a NAME="DebugUI.__clientBreakConditionError" ID="DebugUI.__clientBreakConditionError"></a>
+<h4>DebugUI.__clientBreakConditionError</h4>
+<b>__clientBreakConditionError</b>(<i>filename, lineno, _debuggerId</i>)
+<p>
+        Private method to handle a condition error of a breakpoint.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+filename of the breakpoint
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line umber of the breakpoint
+</dd>
+<dt><i>_debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend (unused)
+</dd>
+</dl>
+<a NAME="DebugUI.__clientDebuggerId" ID="DebugUI.__clientDebuggerId"></a>
+<h4>DebugUI.__clientDebuggerId</h4>
+<b>__clientDebuggerId</b>(<i>debuggerId</i>)
+<p>
+        Private slot to track the list of connected debuggers.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__clientDisconnected" ID="DebugUI.__clientDisconnected"></a>
+<h4>DebugUI.__clientDisconnected</h4>
+<b>__clientDisconnected</b>(<i>debuggerId</i>)
+<p>
+        Private slot to handle a debug client disconnecting its control
+        socket.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__clientException" ID="DebugUI.__clientException"></a>
+<h4>DebugUI.__clientException</h4>
+<b>__clientException</b>(<i>exceptionType, exceptionMessage, stackTrace, debuggerId</i>)
+<p>
+        Private method to handle an exception of the debugged program.
+</p>
+
+<dl>
+
+<dt><i>exceptionType</i> (str)</dt>
+<dd>
+type of exception raised
+</dd>
+<dt><i>exceptionMessage</i> ((str)</dt>
+<dd>
+message given by the exception
+</dd>
+<dt><i>stackTrace</i> (list of str)</dt>
+<dd>
+list of stack entries
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__clientExit" ID="DebugUI.__clientExit"></a>
+<h4>DebugUI.__clientExit</h4>
+<b>__clientExit</b>(<i>program, status, message, quiet, debuggerId</i>)
+<p>
+        Private slot to handle the debugged program terminating.
+</p>
+
+<dl>
+
+<dt><i>program</i> (str)</dt>
+<dd>
+name of the exited program
+</dd>
+<dt><i>status</i> (int)</dt>
+<dd>
+exit code of the debugged program
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+exit message of the debugged program
+</dd>
+<dt><i>quiet</i> (bool)</dt>
+<dd>
+flag indicating to suppress exit info display
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__clientGone" ID="DebugUI.__clientGone"></a>
+<h4>DebugUI.__clientGone</h4>
+<b>__clientGone</b>(<i>unplanned</i>)
+<p>
+        Private method to handle the disconnection of the debugger client.
+</p>
+
+<dl>
+
+<dt><i>unplanned</i> (bool)</dt>
+<dd>
+True if the client died, False otherwise
+</dd>
+</dl>
+<a NAME="DebugUI.__clientLine" ID="DebugUI.__clientLine"></a>
+<h4>DebugUI.__clientLine</h4>
+<b>__clientLine</b>(<i>fn, line, debuggerId, _threadName, forStack</i>)
+<p>
+        Private method to handle a change to the current line.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+linenumber
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>_threadName</i> (str)</dt>
+<dd>
+name of the thread signaling the event (unused)
+</dd>
+<dt><i>forStack</i> (bool)</dt>
+<dd>
+flag indicating this is for a stack dump
+</dd>
+</dl>
+<a NAME="DebugUI.__clientSignal" ID="DebugUI.__clientSignal"></a>
+<h4>DebugUI.__clientSignal</h4>
+<b>__clientSignal</b>(<i>message, filename, lineNo, _funcName, _funcArgs, _debuggerId</i>)
+<p>
+        Private method to handle a signal generated on the client side.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message of the syntax error
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+translated filename of the syntax error position
+</dd>
+<dt><i>lineNo</i> (int)</dt>
+<dd>
+line number of the syntax error position
+</dd>
+<dt><i>_funcName</i> (str)</dt>
+<dd>
+name of the function causing the signal (unused)
+</dd>
+<dt><i>_funcArgs</i> (str)</dt>
+<dd>
+function arguments (unused)
+</dd>
+<dt><i>_debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend (unused)
+</dd>
+</dl>
+<a NAME="DebugUI.__clientSyntaxError" ID="DebugUI.__clientSyntaxError"></a>
+<h4>DebugUI.__clientSyntaxError</h4>
+<b>__clientSyntaxError</b>(<i>message, filename, lineNo, characterNo</i>)
+<p>
+        Private method to handle a syntax error in the debugged program.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message of the syntax error
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+translated filename of the syntax error position
+</dd>
+<dt><i>lineNo</i> (int)</dt>
+<dd>
+line number of the syntax error position
+</dd>
+<dt><i>characterNo</i> (int)</dt>
+<dd>
+character number of the syntax error position
+</dd>
+</dl>
+<a NAME="DebugUI.__clientThreadSet" ID="DebugUI.__clientThreadSet"></a>
+<h4>DebugUI.__clientThreadSet</h4>
+<b>__clientThreadSet</b>(<i>debuggerId</i>)
+<p>
+        Private method to handle a change of the client's current thread.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__clientVariable" ID="DebugUI.__clientVariable"></a>
+<h4>DebugUI.__clientVariable</h4>
+<b>__clientVariable</b>(<i>scope, variables, debuggerId</i>)
+<p>
+        Private method to write the contents of a clients classvariable to
+        the user interface.
+</p>
+
+<dl>
+
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables (-1 = empty locals, 1 = global,
+            0 = local)
+</dd>
+<dt><i>variables</i> (list)</dt>
+<dd>
+the list of variables from the client
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__clientVariables" ID="DebugUI.__clientVariables"></a>
+<h4>DebugUI.__clientVariables</h4>
+<b>__clientVariables</b>(<i>scope, variables, debuggerId</i>)
+<p>
+        Private method to write the clients variables to the user interface.
+</p>
+
+<dl>
+
+<dt><i>scope</i> (int)</dt>
+<dd>
+scope of the variables
+            (-2 = no frame found, -1 = empty locals, 1 = global, 0 = local)
+</dd>
+<dt><i>variables</i> (list)</dt>
+<dd>
+the list of variables from the client
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__clientWatchConditionError" ID="DebugUI.__clientWatchConditionError"></a>
+<h4>DebugUI.__clientWatchConditionError</h4>
+<b>__clientWatchConditionError</b>(<i>cond, _debuggerId</i>)
+<p>
+        Private method to handle a expression error of a watch expression.
+</p>
+<p>
+        Note: This can only happen for normal watch expressions
+</p>
+
+<dl>
+
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>_debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend (unused)
+</dd>
+</dl>
+<a NAME="DebugUI.__configureExceptionsFilter" ID="DebugUI.__configureExceptionsFilter"></a>
+<h4>DebugUI.__configureExceptionsFilter</h4>
+<b>__configureExceptionsFilter</b>(<i></i>)
+<p>
+        Private slot for displaying the exception filter dialog.
+</p>
+
+<a NAME="DebugUI.__configureIgnoredExceptions" ID="DebugUI.__configureIgnoredExceptions"></a>
+<h4>DebugUI.__configureIgnoredExceptions</h4>
+<b>__configureIgnoredExceptions</b>(<i></i>)
+<p>
+        Private slot for displaying the ignored exceptions dialog.
+</p>
+
+<a NAME="DebugUI.__configureVariablesFilters" ID="DebugUI.__configureVariablesFilters"></a>
+<h4>DebugUI.__configureVariablesFilters</h4>
+<b>__configureVariablesFilters</b>(<i></i>)
+<p>
+        Private slot for displaying the variables filter configuration dialog.
+</p>
+
+<a NAME="DebugUI.__continue" ID="DebugUI.__continue"></a>
+<h4>DebugUI.__continue</h4>
+<b>__continue</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to handle the Continue action.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__coverageProject" ID="DebugUI.__coverageProject"></a>
+<h4>DebugUI.__coverageProject</h4>
+<b>__coverageProject</b>(<i></i>)
+<p>
+        Private slot to handle the coverage of project action.
+</p>
+
+<a NAME="DebugUI.__coverageScript" ID="DebugUI.__coverageScript"></a>
+<h4>DebugUI.__coverageScript</h4>
+<b>__coverageScript</b>(<i></i>)
+<p>
+        Private slot to handle the coverage of script action.
+</p>
+
+<a NAME="DebugUI.__cursorChanged" ID="DebugUI.__cursorChanged"></a>
+<h4>DebugUI.__cursorChanged</h4>
+<b>__cursorChanged</b>(<i>editor</i>)
+<p>
+        Private slot handling the cursorChanged signal of the viewmanager.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window
+</dd>
+</dl>
+<a NAME="DebugUI.__debugProject" ID="DebugUI.__debugProject"></a>
+<h4>DebugUI.__debugProject</h4>
+<b>__debugProject</b>(<i></i>)
+<p>
+        Private slot to handle the debug project action.
+</p>
+
+<a NAME="DebugUI.__debugScript" ID="DebugUI.__debugScript"></a>
+<h4>DebugUI.__debugScript</h4>
+<b>__debugScript</b>(<i></i>)
+<p>
+        Private slot to handle the debug script action.
+</p>
+
+<a NAME="DebugUI.__doRestart" ID="DebugUI.__doRestart"></a>
+<h4>DebugUI.__doRestart</h4>
+<b>__doRestart</b>(<i></i>)
+<p>
+        Private slot to handle the restart action to restart the last
+        debugged file.
+</p>
+
+<a NAME="DebugUI.__editBreakpoint" ID="DebugUI.__editBreakpoint"></a>
+<h4>DebugUI.__editBreakpoint</h4>
+<b>__editBreakpoint</b>(<i></i>)
+<p>
+        Private slot to handle the 'Edit breakpoint' action.
+</p>
+
+<a NAME="DebugUI.__editorOpened" ID="DebugUI.__editorOpened"></a>
+<h4>DebugUI.__editorOpened</h4>
+<b>__editorOpened</b>(<i>fn</i>)
+<p>
+        Private slot to handle the editorOpened signal.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the opened editor
+</dd>
+</dl>
+<a NAME="DebugUI.__enterRemote" ID="DebugUI.__enterRemote"></a>
+<h4>DebugUI.__enterRemote</h4>
+<b>__enterRemote</b>(<i></i>)
+<p>
+        Private method to update the user interface.
+</p>
+<p>
+        This method is called just prior to executing some of
+        the program being debugged.
+</p>
+
+<a NAME="DebugUI.__getClientDisassembly" ID="DebugUI.__getClientDisassembly"></a>
+<h4>DebugUI.__getClientDisassembly</h4>
+<b>__getClientDisassembly</b>(<i>debuggerId</i>)
+<p>
+        Private method to ask the client for the latest traceback disassembly.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__getClientVariables" ID="DebugUI.__getClientVariables"></a>
+<h4>DebugUI.__getClientVariables</h4>
+<b>__getClientVariables</b>(<i>debuggerId</i>)
+<p>
+        Private method to request the global and local variables.
+</p>
+<p>
+        In the first step, the global variables are requested from the client.
+        Once these have been received, the local variables are requested.
+        This happens in the method '__clientVariables'.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__getThreadList" ID="DebugUI.__getThreadList"></a>
+<h4>DebugUI.__getThreadList</h4>
+<b>__getThreadList</b>(<i>debuggerId</i>)
+<p>
+        Private method to get the list of threads from the client.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__lastEditorClosed" ID="DebugUI.__lastEditorClosed"></a>
+<h4>DebugUI.__lastEditorClosed</h4>
+<b>__lastEditorClosed</b>(<i></i>)
+<p>
+        Private slot to handle the closeProgram signal.
+</p>
+
+<a NAME="DebugUI.__mainClientExit" ID="DebugUI.__mainClientExit"></a>
+<h4>DebugUI.__mainClientExit</h4>
+<b>__mainClientExit</b>(<i></i>)
+<p>
+        Private slot handling the exit of the last client.
+</p>
+
+<a NAME="DebugUI.__moveInstructionPointer" ID="DebugUI.__moveInstructionPointer"></a>
+<h4>DebugUI.__moveInstructionPointer</h4>
+<b>__moveInstructionPointer</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to move the instruction pointer to a different line.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__nextBreakpoint" ID="DebugUI.__nextBreakpoint"></a>
+<h4>DebugUI.__nextBreakpoint</h4>
+<b>__nextBreakpoint</b>(<i></i>)
+<p>
+        Private slot to handle the 'Next breakpoint' action.
+</p>
+
+<a NAME="DebugUI.__passiveDebugStarted" ID="DebugUI.__passiveDebugStarted"></a>
+<h4>DebugUI.__passiveDebugStarted</h4>
+<b>__passiveDebugStarted</b>(<i>fn, exc</i>)
+<p>
+        Private slot to handle a passive debug session start.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the debugged script
+</dd>
+<dt><i>exc</i> (bool)</dt>
+<dd>
+flag to enable exception reporting of the IDE
+</dd>
+</dl>
+<a NAME="DebugUI.__previousBreakpoint" ID="DebugUI.__previousBreakpoint"></a>
+<h4>DebugUI.__previousBreakpoint</h4>
+<b>__previousBreakpoint</b>(<i></i>)
+<p>
+        Private slot to handle the 'Previous breakpoint' action.
+</p>
+
+<a NAME="DebugUI.__profileProject" ID="DebugUI.__profileProject"></a>
+<h4>DebugUI.__profileProject</h4>
+<b>__profileProject</b>(<i></i>)
+<p>
+        Private slot to handle the profile project action.
+</p>
+
+<a NAME="DebugUI.__profileScript" ID="DebugUI.__profileScript"></a>
+<h4>DebugUI.__profileScript</h4>
+<b>__profileScript</b>(<i></i>)
+<p>
+        Private slot to handle the profile script action.
+</p>
+
+<a NAME="DebugUI.__projectClosed" ID="DebugUI.__projectClosed"></a>
+<h4>DebugUI.__projectClosed</h4>
+<b>__projectClosed</b>(<i></i>)
+<p>
+        Private slot to handle the projectClosed signal.
+</p>
+
+<a NAME="DebugUI.__projectOpened" ID="DebugUI.__projectOpened"></a>
+<h4>DebugUI.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to handle the projectOpened signal.
+</p>
+
+<a NAME="DebugUI.__resetUI" ID="DebugUI.__resetUI"></a>
+<h4>DebugUI.__resetUI</h4>
+<b>__resetUI</b>(<i>fullReset=True</i>)
+<p>
+        Private slot to reset the user interface.
+</p>
+
+<dl>
+
+<dt><i>fullReset</i> (bool)</dt>
+<dd>
+flag indicating a full reset is required
+</dd>
+</dl>
+<a NAME="DebugUI.__runProject" ID="DebugUI.__runProject"></a>
+<h4>DebugUI.__runProject</h4>
+<b>__runProject</b>(<i></i>)
+<p>
+        Private slot to handle the run project action.
+</p>
+
+<a NAME="DebugUI.__runScript" ID="DebugUI.__runScript"></a>
+<h4>DebugUI.__runScript</h4>
+<b>__runScript</b>(<i></i>)
+<p>
+        Private slot to handle the run script action.
+</p>
+
+<a NAME="DebugUI.__runToCursor" ID="DebugUI.__runToCursor"></a>
+<h4>DebugUI.__runToCursor</h4>
+<b>__runToCursor</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to handle the Run to Cursor action.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__runUntil" ID="DebugUI.__runUntil"></a>
+<h4>DebugUI.__runUntil</h4>
+<b>__runUntil</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to handle the Run Until action.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__showBreakpointsMenu" ID="DebugUI.__showBreakpointsMenu"></a>
+<h4>DebugUI.__showBreakpointsMenu</h4>
+<b>__showBreakpointsMenu</b>(<i></i>)
+<p>
+        Private method to handle the show breakpoints menu signal.
+</p>
+
+<a NAME="DebugUI.__showDebugMenu" ID="DebugUI.__showDebugMenu"></a>
+<h4>DebugUI.__showDebugMenu</h4>
+<b>__showDebugMenu</b>(<i></i>)
+<p>
+        Private method to set up the debug menu.
+</p>
+
+<a NAME="DebugUI.__showNotConnectedWarning" ID="DebugUI.__showNotConnectedWarning"></a>
+<h4>DebugUI.__showNotConnectedWarning</h4>
+<b>__showNotConnectedWarning</b>(<i>title, name=""</i>)
+<p>
+        Private method to show a warning about a not connected eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title for the dialog
+</dd>
+<dt><i>name</i> (str (optional))</dt>
+<dd>
+name of the file (defaults to "")
+</dd>
+</dl>
+<a NAME="DebugUI.__specialContinue" ID="DebugUI.__specialContinue"></a>
+<h4>DebugUI.__specialContinue</h4>
+<b>__specialContinue</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to handle the Special Continue action.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__step" ID="DebugUI.__step"></a>
+<h4>DebugUI.__step</h4>
+<b>__step</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to handle the Step action.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__stepOut" ID="DebugUI.__stepOut"></a>
+<h4>DebugUI.__stepOut</h4>
+<b>__stepOut</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to handle the Step Out action.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__stepOver" ID="DebugUI.__stepOver"></a>
+<h4>DebugUI.__stepOver</h4>
+<b>__stepOver</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to handle the Step Over action.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__stepQuit" ID="DebugUI.__stepQuit"></a>
+<h4>DebugUI.__stepQuit</h4>
+<b>__stepQuit</b>(<i>debuggerId=""</i>)
+<p>
+        Private method to handle the Step Quit action.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugUI.__stopScript" ID="DebugUI.__stopScript"></a>
+<h4>DebugUI.__stopScript</h4>
+<b>__stopScript</b>(<i></i>)
+<p>
+        Private slot to stop the running script.
+</p>
+
+<a NAME="DebugUI.__toggleBreakpoint" ID="DebugUI.__toggleBreakpoint"></a>
+<h4>DebugUI.__toggleBreakpoint</h4>
+<b>__toggleBreakpoint</b>(<i></i>)
+<p>
+        Private slot to handle the 'Set/Reset breakpoint' action.
+</p>
+
+<a NAME="DebugUI.clearHistories" ID="DebugUI.clearHistories"></a>
+<h4>DebugUI.clearHistories</h4>
+<b>clearHistories</b>(<i></i>)
+<p>
+        Public method to clear the various debug histories.
+</p>
+
+<a NAME="DebugUI.debugInternalScript" ID="DebugUI.debugInternalScript"></a>
+<h4>DebugUI.debugInternalScript</h4>
+<b>debugInternalScript</b>(<i>venvName, scriptName, argv, workDir, environment, clientType, forProject</i>)
+<p>
+        Public method to run an internal script with debugger support.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the environment for the debug tests run
+</dd>
+<dt><i>scriptName</i> (str)</dt>
+<dd>
+name of the internal script to be run
+</dd>
+<dt><i>argv</i> (str or list of str)</dt>
+<dd>
+string or list containing the parameters for the script
+</dd>
+<dt><i>workDir</i> (str)</dt>
+<dd>
+working directory for the script
+</dd>
+<dt><i>environment</i> (str or dict)</dt>
+<dd>
+environment parameter override for the debug run
+</dd>
+<dt><i>clientType</i> (str)</dt>
+<dd>
+type (language) of the debug client to be used
+</dd>
+<dt><i>forProject</i> (bool)</dt>
+<dd>
+flag indicating a project related debug session
+</dd>
+</dl>
+<a NAME="DebugUI.doCoverage" ID="DebugUI.doCoverage"></a>
+<h4>DebugUI.doCoverage</h4>
+<b>doCoverage</b>(<i>runProject, script=""</i>)
+<p>
+        Public method to handle the coverage actions.
+</p>
+
+<dl>
+
+<dt><i>runProject</i> (bool)</dt>
+<dd>
+flag indicating coverage of the current project
+            (True) or script (false)
+</dd>
+<dt><i>script</i> (str)</dt>
+<dd>
+name of a script (optional)
+</dd>
+</dl>
+<a NAME="DebugUI.doDebug" ID="DebugUI.doDebug"></a>
+<h4>DebugUI.doDebug</h4>
+<b>doDebug</b>(<i>debugProject, script=""</i>)
+<p>
+        Public method to handle the debug actions.
+</p>
+
+<dl>
+
+<dt><i>debugProject</i> (bool)</dt>
+<dd>
+flag indicating debugging the current project
+            (True) or script (False)
+</dd>
+<dt><i>script</i> (str (optional))</dt>
+<dd>
+name of a script (defaults to "")
+</dd>
+</dl>
+<a NAME="DebugUI.doProfile" ID="DebugUI.doProfile"></a>
+<h4>DebugUI.doProfile</h4>
+<b>doProfile</b>(<i>runProject, script=""</i>)
+<p>
+        Public method to handle the profile actions.
+</p>
+
+<dl>
+
+<dt><i>runProject</i> (bool)</dt>
+<dd>
+flag indicating profiling of the current project
+            (True) or script (False)
+</dd>
+<dt><i>script</i> (str)</dt>
+<dd>
+name of a script (optional)
+</dd>
+</dl>
+<a NAME="DebugUI.doRun" ID="DebugUI.doRun"></a>
+<h4>DebugUI.doRun</h4>
+<b>doRun</b>(<i>runProject, script=""</i>)
+<p>
+        Public method to handle the run actions.
+</p>
+
+<dl>
+
+<dt><i>runProject</i> (bool)</dt>
+<dd>
+flag indicating running the current project (True)
+                or script (False)
+</dd>
+<dt><i>script</i> (str)</dt>
+<dd>
+name of a script (optional)
+</dd>
+</dl>
+<a NAME="DebugUI.getActions" ID="DebugUI.getActions"></a>
+<h4>DebugUI.getActions</h4>
+<b>getActions</b>(<i></i>)
+<p>
+        Public method to get a list of all actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of EricAction
+</dd>
+</dl>
+<a NAME="DebugUI.getProjectEnvironmentString" ID="DebugUI.getProjectEnvironmentString"></a>
+<h4>DebugUI.getProjectEnvironmentString</h4>
+<b>getProjectEnvironmentString</b>(<i></i>)
+<p>
+        Public method to get the string for the project environment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string for the project environment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugUI.getSelectedDebuggerId" ID="DebugUI.getSelectedDebuggerId"></a>
+<h4>DebugUI.getSelectedDebuggerId</h4>
+<b>getSelectedDebuggerId</b>(<i></i>)
+<p>
+        Public method to get the currently selected debugger ID.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected debugger ID
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugUI.initActions" ID="DebugUI.initActions"></a>
+<h4>DebugUI.initActions</h4>
+<b>initActions</b>(<i></i>)
+<p>
+        Public method defining the user interface actions.
+</p>
+
+<a NAME="DebugUI.initMenus" ID="DebugUI.initMenus"></a>
+<h4>DebugUI.initMenus</h4>
+<b>initMenus</b>(<i></i>)
+<p>
+        Public slot to initialize the project menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="DebugUI.initToolbars" ID="DebugUI.initToolbars"></a>
+<h4>DebugUI.initToolbars</h4>
+<b>initToolbars</b>(<i>toolbarManager</i>)
+<p>
+        Public slot to initialize the debug toolbars.
+</p>
+
+<dl>
+
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated toolbars
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QToolBar
+</dd>
+</dl>
+<a NAME="DebugUI.setArgvHistory" ID="DebugUI.setArgvHistory"></a>
+<h4>DebugUI.setArgvHistory</h4>
+<b>setArgvHistory</b>(<i>argsStr, clearHistories=False, history=None</i>)
+<p>
+        Public slot to initialize the argv history.
+</p>
+
+<dl>
+
+<dt><i>argsStr</i> (str)</dt>
+<dd>
+command line arguments
+</dd>
+<dt><i>clearHistories</i> (bool)</dt>
+<dd>
+flag indicating, that the list should be cleared
+</dd>
+<dt><i>history</i> (list of str)</dt>
+<dd>
+list of history entries to be set
+</dd>
+</dl>
+<a NAME="DebugUI.setAutoClearShell" ID="DebugUI.setAutoClearShell"></a>
+<h4>DebugUI.setAutoClearShell</h4>
+<b>setAutoClearShell</b>(<i>autoClearShell</i>)
+<p>
+        Public slot to initialize the autoClearShell flag.
+</p>
+
+<dl>
+
+<dt><i>autoClearShell</i> (bool)</dt>
+<dd>
+flag indicating, that the interpreter window
+            should be cleared
+</dd>
+</dl>
+<a NAME="DebugUI.setAutoContinue" ID="DebugUI.setAutoContinue"></a>
+<h4>DebugUI.setAutoContinue</h4>
+<b>setAutoContinue</b>(<i>autoContinue</i>)
+<p>
+        Public slot to initialize the autoContinue flag.
+</p>
+
+<dl>
+
+<dt><i>autoContinue</i> (bool)</dt>
+<dd>
+flag indicating, that the debugger should not
+            stop at the first executable line
+</dd>
+</dl>
+<a NAME="DebugUI.setDebugActionsEnabled" ID="DebugUI.setDebugActionsEnabled"></a>
+<h4>DebugUI.setDebugActionsEnabled</h4>
+<b>setDebugActionsEnabled</b>(<i>enable</i>)
+<p>
+        Public method to set the enabled state of the debug actions.
+</p>
+
+<dl>
+
+<dt><i>enable</i> (bool)</dt>
+<dd>
+enable state to be set
+</dd>
+</dl>
+<a NAME="DebugUI.setEnableGlobalConfigOverride" ID="DebugUI.setEnableGlobalConfigOverride"></a>
+<h4>DebugUI.setEnableGlobalConfigOverride</h4>
+<b>setEnableGlobalConfigOverride</b>(<i>overrideData</i>)
+<p>
+        Public method to initialize the global config override data.
+</p>
+
+<dl>
+
+<dt><i>overrideData</i> (dict)</dt>
+<dd>
+dictionary containing a flag indicating to enable
+            global config override and a flag indicating to redirect
+            stdin/stdout/stderr
+</dd>
+</dl>
+<a NAME="DebugUI.setEnableMultiprocess" ID="DebugUI.setEnableMultiprocess"></a>
+<h4>DebugUI.setEnableMultiprocess</h4>
+<b>setEnableMultiprocess</b>(<i>enableMultiprocess</i>)
+<p>
+        Public slot to initialize the enableMultiprocess flag.
+</p>
+
+<dl>
+
+<dt><i>enableMultiprocess</i> (bool)</dt>
+<dd>
+flag indicating, that the debugger should be
+            run in multi process mode
+</dd>
+</dl>
+<a NAME="DebugUI.setEnvHistory" ID="DebugUI.setEnvHistory"></a>
+<h4>DebugUI.setEnvHistory</h4>
+<b>setEnvHistory</b>(<i>envStr, clearHistories=False, history=None</i>)
+<p>
+        Public slot to initialize the env history.
+</p>
+
+<dl>
+
+<dt><i>envStr</i> (str)</dt>
+<dd>
+the environment settings
+</dd>
+<dt><i>clearHistories</i> (bool)</dt>
+<dd>
+flag indicating, that the list should be cleared
+</dd>
+<dt><i>history</i> (list of str)</dt>
+<dd>
+list of history entries to be set
+</dd>
+</dl>
+<a NAME="DebugUI.setExcIgnoreList" ID="DebugUI.setExcIgnoreList"></a>
+<h4>DebugUI.setExcIgnoreList</h4>
+<b>setExcIgnoreList</b>(<i>excIgnoreList</i>)
+<p>
+        Public slot to initialize the ignored exceptions type list.
+</p>
+
+<dl>
+
+<dt><i>excIgnoreList</i> (list of str)</dt>
+<dd>
+list of ignored exception types
+</dd>
+</dl>
+<a NAME="DebugUI.setExcList" ID="DebugUI.setExcList"></a>
+<h4>DebugUI.setExcList</h4>
+<b>setExcList</b>(<i>excList</i>)
+<p>
+        Public slot to initialize the exceptions type list.
+</p>
+
+<dl>
+
+<dt><i>excList</i> (list of str)</dt>
+<dd>
+list of exception types
+</dd>
+</dl>
+<a NAME="DebugUI.setExceptionReporting" ID="DebugUI.setExceptionReporting"></a>
+<h4>DebugUI.setExceptionReporting</h4>
+<b>setExceptionReporting</b>(<i>reportAllExceptions</i>)
+<p>
+        Public slot to initialize the exception reporting flag.
+</p>
+
+<dl>
+
+<dt><i>reportAllExceptions</i> (bool)</dt>
+<dd>
+flag indicating to report all exceptions
+</dd>
+</dl>
+<a NAME="DebugUI.setMultiprocessNoDebugHistory" ID="DebugUI.setMultiprocessNoDebugHistory"></a>
+<h4>DebugUI.setMultiprocessNoDebugHistory</h4>
+<b>setMultiprocessNoDebugHistory</b>(<i>noDebugList, clearHistories=False, history=None</i>)
+<p>
+        Public slot to initialize the no debug list history.
+</p>
+
+<dl>
+
+<dt><i>noDebugList</i> (str)</dt>
+<dd>
+whitespace separated list of programs not to be
+            debugged
+</dd>
+<dt><i>clearHistories</i> (bool)</dt>
+<dd>
+flag indicating, that the list should be cleared
+</dd>
+<dt><i>history</i> (list of str)</dt>
+<dd>
+list of history entries to be set
+</dd>
+</dl>
+<a NAME="DebugUI.setScriptsHistory" ID="DebugUI.setScriptsHistory"></a>
+<h4>DebugUI.setScriptsHistory</h4>
+<b>setScriptsHistory</b>(<i>scriptName, clearHistories=False, history=None</i>)
+<p>
+        Public slot to initialize the scripts history.
+</p>
+
+<dl>
+
+<dt><i>scriptName</i> (str)</dt>
+<dd>
+script name
+</dd>
+<dt><i>clearHistories</i> (bool (optional))</dt>
+<dd>
+flag indicating, that the list should
+            be cleared (defaults to False)
+</dd>
+<dt><i>history</i> (list of str (optional))</dt>
+<dd>
+list of history entries to be set (defaults to None)
+</dd>
+</dl>
+<a NAME="DebugUI.setTracePython" ID="DebugUI.setTracePython"></a>
+<h4>DebugUI.setTracePython</h4>
+<b>setTracePython</b>(<i>tracePython</i>)
+<p>
+        Public slot to initialize the trace Python flag.
+</p>
+
+<dl>
+
+<dt><i>tracePython</i> (bool)</dt>
+<dd>
+flag indicating if the Python library should be
+            traced as well
+</dd>
+</dl>
+<a NAME="DebugUI.setWdHistory" ID="DebugUI.setWdHistory"></a>
+<h4>DebugUI.setWdHistory</h4>
+<b>setWdHistory</b>(<i>wdStr, clearHistories=False, history=None</i>)
+<p>
+        Public slot to initialize the wd history.
+</p>
+
+<dl>
+
+<dt><i>wdStr</i> (str)</dt>
+<dd>
+working directory
+</dd>
+<dt><i>clearHistories</i> (bool)</dt>
+<dd>
+flag indicating, that the list should be cleared
+</dd>
+<dt><i>history</i> (list of str)</dt>
+<dd>
+list of history entries to be set
+</dd>
+</dl>
+<a NAME="DebugUI.showNotification" ID="DebugUI.showNotification"></a>
+<h4>DebugUI.showNotification</h4>
+<b>showNotification</b>(<i>notification, kind=NotificationTypes.INFORMATION, timeout=None</i>)
+<p>
+        Public method to show some notification message.
+</p>
+
+<dl>
+
+<dt><i>notification</i> (str)</dt>
+<dd>
+message to be shown
+</dd>
+<dt><i>kind</i> (NotificationTypes)</dt>
+<dd>
+kind of notification to be shown
+</dd>
+<dt><i>timeout</i> (int)</dt>
+<dd>
+timeout for the notification (None = use configured
+            default, 0 = indefinitely)
+</dd>
+</dl>
+<a NAME="DebugUI.shutdown" ID="DebugUI.shutdown"></a>
+<h4>DebugUI.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to perform shutdown actions.
+</p>
+
+<a NAME="DebugUI.shutdownServer" ID="DebugUI.shutdownServer"></a>
+<h4>DebugUI.shutdownServer</h4>
+<b>shutdownServer</b>(<i></i>)
+<p>
+        Public method to shut down the debug server.
+</p>
+<p>
+        This is needed to cleanly close the sockets on Win OS.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+always true
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebugUI.variablesFilter" ID="DebugUI.variablesFilter"></a>
+<h4>DebugUI.variablesFilter</h4>
+<b>variablesFilter</b>(<i>scope</i>)
+<p>
+        Public method to get the variables filter for a scope.
+</p>
+
+<dl>
+
+<dt><i>scope</i> (bool)</dt>
+<dd>
+flag indicating global (True) or local (False) scope
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+filters list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

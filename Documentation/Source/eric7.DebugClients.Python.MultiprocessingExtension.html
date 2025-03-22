@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.MultiprocessingExtension</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.MultiprocessingExtension</h1>
+<p>
+Module implementing a function to patch multiprocessing.Process to support
+debugging of the process.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_debugClient</td></tr>
+<tr><td>_originalBootstrap</td></tr>
+<tr><td>_originalProcess</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ProcessWrapper">ProcessWrapper</a></td>
+<td>Wrapper class for multiprocessing.Process.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#patchMultiprocessing">patchMultiprocessing</a></td>
+<td>Function to patch the multiprocessing module.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ProcessWrapper" ID="ProcessWrapper"></a>
+<h2>ProcessWrapper</h2>
+<p>
+        Wrapper class for multiprocessing.Process.
+</p>
+
+<h3>Derived from</h3>
+_originalProcess
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ProcessWrapper._bootstrap">_bootstrap</a></td>
+<td>Wrapper around _bootstrap to start debugger.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ProcessWrapper._bootstrap" ID="ProcessWrapper._bootstrap"></a>
+<h4>ProcessWrapper._bootstrap</h4>
+<b>_bootstrap</b>(<i>*args, **kwargs</i>)
+<p>
+            Wrapper around _bootstrap to start debugger.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list)</dt>
+<dd>
+function arguments
+</dd>
+<dt><i>kwargs</i> (dict)</dt>
+<dd>
+keyword only arguments
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+exit code of the process
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="patchMultiprocessing" ID="patchMultiprocessing"></a>
+<h2>patchMultiprocessing</h2>
+<b>patchMultiprocessing</b>(<i>module, debugClient</i>)
+<p>
+    Function to patch the multiprocessing module.
+</p>
+
+<dl>
+
+<dt><i>module</i> (module)</dt>
+<dd>
+reference to the imported module to be patched
+</dd>
+<dt><i>debugClient</i> (DebugClient)</dt>
+<dd>
+reference to the debug client object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

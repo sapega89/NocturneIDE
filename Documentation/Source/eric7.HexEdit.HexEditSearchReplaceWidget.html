@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HexEdit.HexEditSearchReplaceWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HexEdit.HexEditSearchReplaceWidget</h1>
+<p>
+Module implementing a search and replace widget for the hex editor.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget">HexEditSearchReplaceWidget</a></td>
+<td>Class implementing a search and replace widget for the hex editor.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HexEditSearchReplaceWidget" ID="HexEditSearchReplaceWidget"></a>
+<h2>HexEditSearchReplaceWidget</h2>
+<p>
+    Class implementing a search and replace widget for the hex editor.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__init__">HexEditSearchReplaceWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__bytearray2int">__bytearray2int</a></td>
+<td>Private method to convert a byte array to an integer value.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__bytearray2text">__bytearray2text</a></td>
+<td>Private method to convert a byte array to a text.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__convertText">__convertText</a></td>
+<td>Private method to convert text from one format into another.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__doReplace">__doReplace</a></td>
+<td>Private method to replace one occurrence of data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__findByReturnPressed">__findByReturnPressed</a></td>
+<td>Private slot to handle a return pressed in the find combo.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__getContent">__getContent</a></td>
+<td>Private method to get the contents of the find/replace combo as a bytearray.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__int2bytearray">__int2bytearray</a></td>
+<td>Private method to convert an integer to a byte array.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__showFind">__showFind</a></td>
+<td>Private method to display this widget in find mode.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__showReplace">__showReplace</a></td>
+<td>Private slot to display this widget in replace mode.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.__text2bytearray">__text2bytearray</a></td>
+<td>Private method to convert a text to a byte array.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.findPrevNext">findPrevNext</a></td>
+<td>Public slot to find the next occurrence of the search term.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.keyPressEvent">keyPressEvent</a></td>
+<td>Protected slot to handle key press events.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_closeButton_clicked">on_closeButton_clicked</a></td>
+<td>Private slot to close the widget.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_findFormatCombo_currentIndexChanged">on_findFormatCombo_currentIndexChanged</a></td>
+<td>Private slot to handle a selection from the find format.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_findNextButton_clicked">on_findNextButton_clicked</a></td>
+<td>Private slot to find the next occurrence.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_findPrevButton_clicked">on_findPrevButton_clicked</a></td>
+<td>Private slot to find the previous occurrence.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_findtextCombo_activated">on_findtextCombo_activated</a></td>
+<td>Private slot to handle a selection from the find history.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_findtextCombo_editTextChanged">on_findtextCombo_editTextChanged</a></td>
+<td>Private slot to enable/disable the find buttons.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_replaceAllButton_clicked">on_replaceAllButton_clicked</a></td>
+<td>Private slot to replace all occurrences of data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_replaceButton_clicked">on_replaceButton_clicked</a></td>
+<td>Private slot to replace one occurrence of data.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_replaceFormatCombo_currentIndexChanged">on_replaceFormatCombo_currentIndexChanged</a></td>
+<td>Private slot to handle a selection from the replace format.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_replaceSearchButton_clicked">on_replaceSearchButton_clicked</a></td>
+<td>Private slot to replace one occurrence of data and search for the next one.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.on_replacetextCombo_activated">on_replacetextCombo_activated</a></td>
+<td>Private slot to handle a selection from the replace history.</td>
+</tr>
+<tr>
+<td><a href="#HexEditSearchReplaceWidget.show">show</a></td>
+<td>Public slot to show the widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HexEditSearchReplaceWidget.__init__" ID="HexEditSearchReplaceWidget.__init__"></a>
+<h4>HexEditSearchReplaceWidget (Constructor)</h4>
+<b>HexEditSearchReplaceWidget</b>(<i>editor, mainWindow, replace=False, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (HexEditWidget)</dt>
+<dd>
+reference to the hex editor widget
+</dd>
+<dt><i>mainWindow</i> (HexEditMainWindow)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>replace</i> (bool)</dt>
+<dd>
+flag indicating a replace widget
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.__bytearray2int" ID="HexEditSearchReplaceWidget.__bytearray2int"></a>
+<h4>HexEditSearchReplaceWidget.__bytearray2int</h4>
+<b>__bytearray2int</b>(<i>array</i>)
+<p>
+        Private method to convert a byte array to an integer value.
+</p>
+
+<dl>
+
+<dt><i>array</i> (bytearray)</dt>
+<dd>
+byte array to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+integer value of the given array
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.__bytearray2text" ID="HexEditSearchReplaceWidget.__bytearray2text"></a>
+<h4>HexEditSearchReplaceWidget.__bytearray2text</h4>
+<b>__bytearray2text</b>(<i>array, dataFormat</i>)
+<p>
+        Private method to convert a byte array to a text.
+</p>
+
+<dl>
+
+<dt><i>array</i> (bytearray)</dt>
+<dd>
+byte array to be converted
+</dd>
+<dt><i>dataFormat</i> (str)</dt>
+<dd>
+format of the text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid dataFormat
+            parameter
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.__convertText" ID="HexEditSearchReplaceWidget.__convertText"></a>
+<h4>HexEditSearchReplaceWidget.__convertText</h4>
+<b>__convertText</b>(<i>txt, oldFormat, newFormat</i>)
+<p>
+        Private method to convert text from one format into another.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be converted
+</dd>
+<dt><i>oldFormat</i> (str)</dt>
+<dd>
+current format of the text
+</dd>
+<dt><i>newFormat</i> (str)</dt>
+<dd>
+format to convert to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.__doReplace" ID="HexEditSearchReplaceWidget.__doReplace"></a>
+<h4>HexEditSearchReplaceWidget.__doReplace</h4>
+<b>__doReplace</b>(<i>searchNext</i>)
+<p>
+        Private method to replace one occurrence of data.
+</p>
+
+<dl>
+
+<dt><i>searchNext</i> (bool)</dt>
+<dd>
+flag indicating to search for the next occurrence
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.__findByReturnPressed" ID="HexEditSearchReplaceWidget.__findByReturnPressed"></a>
+<h4>HexEditSearchReplaceWidget.__findByReturnPressed</h4>
+<b>__findByReturnPressed</b>(<i></i>)
+<p>
+        Private slot to handle a return pressed in the find combo.
+</p>
+
+<a NAME="HexEditSearchReplaceWidget.__getContent" ID="HexEditSearchReplaceWidget.__getContent"></a>
+<h4>HexEditSearchReplaceWidget.__getContent</h4>
+<b>__getContent</b>(<i>replace=False</i>)
+<p>
+        Private method to get the contents of the find/replace combo as
+        a bytearray.
+</p>
+
+<dl>
+
+<dt><i>replace</i> (bool)</dt>
+<dd>
+flag indicating to retrieve the replace contents
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+search or replace term as text and binary data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of bytearray and str
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.__int2bytearray" ID="HexEditSearchReplaceWidget.__int2bytearray"></a>
+<h4>HexEditSearchReplaceWidget.__int2bytearray</h4>
+<b>__int2bytearray</b>(<i>value</i>)
+<p>
+        Private method to convert an integer to a byte array.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+value to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+byte array for the given value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.__showFind" ID="HexEditSearchReplaceWidget.__showFind"></a>
+<h4>HexEditSearchReplaceWidget.__showFind</h4>
+<b>__showFind</b>(<i>text=""</i>)
+<p>
+        Private method to display this widget in find mode.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+hex encoded text to be shown in the findtext edit
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.__showReplace" ID="HexEditSearchReplaceWidget.__showReplace"></a>
+<h4>HexEditSearchReplaceWidget.__showReplace</h4>
+<b>__showReplace</b>(<i>text=""</i>)
+<p>
+        Private slot to display this widget in replace mode.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+hex encoded text to be shown in the findtext edit
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.__text2bytearray" ID="HexEditSearchReplaceWidget.__text2bytearray"></a>
+<h4>HexEditSearchReplaceWidget.__text2bytearray</h4>
+<b>__text2bytearray</b>(<i>txt, dataFormat</i>)
+<p>
+        Private method to convert a text to a byte array.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be converted
+</dd>
+<dt><i>dataFormat</i> (str)</dt>
+<dd>
+format of the text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytearray
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid dataFormat
+            parameter
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.findPrevNext" ID="HexEditSearchReplaceWidget.findPrevNext"></a>
+<h4>HexEditSearchReplaceWidget.findPrevNext</h4>
+<b>findPrevNext</b>(<i>prev=False</i>)
+<p>
+        Public slot to find the next occurrence of the search term.
+</p>
+
+<dl>
+
+<dt><i>prev</i> (bool)</dt>
+<dd>
+flag indicating a backwards search
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful search
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.keyPressEvent" ID="HexEditSearchReplaceWidget.keyPressEvent"></a>
+<h4>HexEditSearchReplaceWidget.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>event</i>)
+<p>
+        Protected slot to handle key press events.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QKeyEvent)</dt>
+<dd>
+reference to the key press event
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.on_closeButton_clicked" ID="HexEditSearchReplaceWidget.on_closeButton_clicked"></a>
+<h4>HexEditSearchReplaceWidget.on_closeButton_clicked</h4>
+<b>on_closeButton_clicked</b>(<i></i>)
+<p>
+        Private slot to close the widget.
+</p>
+
+<a NAME="HexEditSearchReplaceWidget.on_findFormatCombo_currentIndexChanged" ID="HexEditSearchReplaceWidget.on_findFormatCombo_currentIndexChanged"></a>
+<h4>HexEditSearchReplaceWidget.on_findFormatCombo_currentIndexChanged</h4>
+<b>on_findFormatCombo_currentIndexChanged</b>(<i>idx</i>)
+<p>
+        Private slot to handle a selection from the find format.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.on_findNextButton_clicked" ID="HexEditSearchReplaceWidget.on_findNextButton_clicked"></a>
+<h4>HexEditSearchReplaceWidget.on_findNextButton_clicked</h4>
+<b>on_findNextButton_clicked</b>(<i></i>)
+<p>
+        Private slot to find the next occurrence.
+</p>
+
+<a NAME="HexEditSearchReplaceWidget.on_findPrevButton_clicked" ID="HexEditSearchReplaceWidget.on_findPrevButton_clicked"></a>
+<h4>HexEditSearchReplaceWidget.on_findPrevButton_clicked</h4>
+<b>on_findPrevButton_clicked</b>(<i></i>)
+<p>
+        Private slot to find the previous occurrence.
+</p>
+
+<a NAME="HexEditSearchReplaceWidget.on_findtextCombo_activated" ID="HexEditSearchReplaceWidget.on_findtextCombo_activated"></a>
+<h4>HexEditSearchReplaceWidget.on_findtextCombo_activated</h4>
+<b>on_findtextCombo_activated</b>(<i>idx</i>)
+<p>
+        Private slot to handle a selection from the find history.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.on_findtextCombo_editTextChanged" ID="HexEditSearchReplaceWidget.on_findtextCombo_editTextChanged"></a>
+<h4>HexEditSearchReplaceWidget.on_findtextCombo_editTextChanged</h4>
+<b>on_findtextCombo_editTextChanged</b>(<i>txt</i>)
+<p>
+        Private slot to enable/disable the find buttons.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text of the find text combo
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.on_replaceAllButton_clicked" ID="HexEditSearchReplaceWidget.on_replaceAllButton_clicked"></a>
+<h4>HexEditSearchReplaceWidget.on_replaceAllButton_clicked</h4>
+<b>on_replaceAllButton_clicked</b>(<i></i>)
+<p>
+        Private slot to replace all occurrences of data.
+</p>
+
+<a NAME="HexEditSearchReplaceWidget.on_replaceButton_clicked" ID="HexEditSearchReplaceWidget.on_replaceButton_clicked"></a>
+<h4>HexEditSearchReplaceWidget.on_replaceButton_clicked</h4>
+<b>on_replaceButton_clicked</b>(<i></i>)
+<p>
+        Private slot to replace one occurrence of data.
+</p>
+
+<a NAME="HexEditSearchReplaceWidget.on_replaceFormatCombo_currentIndexChanged" ID="HexEditSearchReplaceWidget.on_replaceFormatCombo_currentIndexChanged"></a>
+<h4>HexEditSearchReplaceWidget.on_replaceFormatCombo_currentIndexChanged</h4>
+<b>on_replaceFormatCombo_currentIndexChanged</b>(<i>idx</i>)
+<p>
+        Private slot to handle a selection from the replace format.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.on_replaceSearchButton_clicked" ID="HexEditSearchReplaceWidget.on_replaceSearchButton_clicked"></a>
+<h4>HexEditSearchReplaceWidget.on_replaceSearchButton_clicked</h4>
+<b>on_replaceSearchButton_clicked</b>(<i></i>)
+<p>
+        Private slot to replace one occurrence of data and search for the next
+        one.
+</p>
+
+<a NAME="HexEditSearchReplaceWidget.on_replacetextCombo_activated" ID="HexEditSearchReplaceWidget.on_replacetextCombo_activated"></a>
+<h4>HexEditSearchReplaceWidget.on_replacetextCombo_activated</h4>
+<b>on_replacetextCombo_activated</b>(<i>idx</i>)
+<p>
+        Private slot to handle a selection from the replace history.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="HexEditSearchReplaceWidget.show" ID="HexEditSearchReplaceWidget.show"></a>
+<h4>HexEditSearchReplaceWidget.show</h4>
+<b>show</b>(<i>text=""</i>)
+<p>
+        Public slot to show the widget.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+hex encoded text to be shown in the findtext edit
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

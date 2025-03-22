@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.CodeFormatting.IsortConfigurationDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.CodeFormatting.IsortConfigurationDialog</h1>
+<p>
+Module implementing a dialog to enter the parameters for an isort formatting run.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#IsortConfigurationDialog">IsortConfigurationDialog</a></td>
+<td>Class implementing a dialog to enter the parameters for an isort formatting run.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="IsortConfigurationDialog" ID="IsortConfigurationDialog"></a>
+<h2>IsortConfigurationDialog</h2>
+<p>
+    Class implementing a dialog to enter the parameters for an isort formatting run.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_IsortConfigurationDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IsortConfigurationDialog.__init__">IsortConfigurationDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IsortConfigurationDialog.__createTomlSnippet">__createTomlSnippet</a></td>
+<td>Private slot to generate a TOML snippet of the current configuration.</td>
+</tr>
+<tr>
+<td><a href="#IsortConfigurationDialog.__getConfigurationDict">__getConfigurationDict</a></td>
+<td>Private method to assemble and return a dictionary containing the entered non-default configuration parameters.</td>
+</tr>
+<tr>
+<td><a href="#IsortConfigurationDialog.__loadConfiguration">__loadConfiguration</a></td>
+<td>Private method to load the configuration section with data of the given dictionary.</td>
+</tr>
+<tr>
+<td><a href="#IsortConfigurationDialog.__populateMultiLineComboBox">__populateMultiLineComboBox</a></td>
+<td>Private method to populate the multi line output selector.</td>
+</tr>
+<tr>
+<td><a href="#IsortConfigurationDialog.getConfiguration">getConfiguration</a></td>
+<td>Public method to get the current configuration parameters.</td>
+</tr>
+<tr>
+<td><a href="#IsortConfigurationDialog.on_profileComboBox_editTextChanged">on_profileComboBox_editTextChanged</a></td>
+<td>Private slot to react upon changes of the selected/entered profile.</td>
+</tr>
+<tr>
+<td><a href="#IsortConfigurationDialog.on_sourceComboBox_currentTextChanged">on_sourceComboBox_currentTextChanged</a></td>
+<td>Private slot to handle the selection of a configuration source.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IsortConfigurationDialog.__init__" ID="IsortConfigurationDialog.__init__"></a>
+<h4>IsortConfigurationDialog (Constructor)</h4>
+<b>IsortConfigurationDialog</b>(<i>withProject=True, onlyProject=False, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>withProject</i> (bool (optional))</dt>
+<dd>
+flag indicating to look for project configurations
+            (defaults to True)
+</dd>
+<dt><i>onlyProject</i> (bool (optional))</dt>
+<dd>
+flag indicating to only look for project configurations
+            (defaults to False)
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="IsortConfigurationDialog.__createTomlSnippet" ID="IsortConfigurationDialog.__createTomlSnippet"></a>
+<h4>IsortConfigurationDialog.__createTomlSnippet</h4>
+<b>__createTomlSnippet</b>(<i></i>)
+<p>
+        Private slot to generate a TOML snippet of the current configuration.
+</p>
+<p>
+        Note: Only non-default values are included in this snippet.
+</p>
+<p>
+        The code snippet is copied to the clipboard and may be placed inside the
+        'pyproject.toml' file.
+</p>
+
+<a NAME="IsortConfigurationDialog.__getConfigurationDict" ID="IsortConfigurationDialog.__getConfigurationDict"></a>
+<h4>IsortConfigurationDialog.__getConfigurationDict</h4>
+<b>__getConfigurationDict</b>(<i></i>)
+<p>
+        Private method to assemble and return a dictionary containing the entered
+        non-default configuration parameters.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the non-default configuration parameters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="IsortConfigurationDialog.__loadConfiguration" ID="IsortConfigurationDialog.__loadConfiguration"></a>
+<h4>IsortConfigurationDialog.__loadConfiguration</h4>
+<b>__loadConfiguration</b>(<i>confDict</i>)
+<p>
+        Private method to load the configuration section with data of the given
+        dictionary.
+</p>
+<p>
+        Note: Default values will be loaded for missing parameters.
+</p>
+
+<dl>
+
+<dt><i>confDict</i> (dict)</dt>
+<dd>
+reference to the data to be loaded
+</dd>
+</dl>
+<a NAME="IsortConfigurationDialog.__populateMultiLineComboBox" ID="IsortConfigurationDialog.__populateMultiLineComboBox"></a>
+<h4>IsortConfigurationDialog.__populateMultiLineComboBox</h4>
+<b>__populateMultiLineComboBox</b>(<i></i>)
+<p>
+        Private method to populate the multi line output selector.
+</p>
+
+<a NAME="IsortConfigurationDialog.getConfiguration" ID="IsortConfigurationDialog.getConfiguration"></a>
+<h4>IsortConfigurationDialog.getConfiguration</h4>
+<b>getConfiguration</b>(<i>saveToProject=False</i>)
+<p>
+        Public method to get the current configuration parameters.
+</p>
+
+<dl>
+
+<dt><i>saveToProject</i> (bool (optional))</dt>
+<dd>
+flag indicating to save the configuration data in the
+            project file (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the configuration parameters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="IsortConfigurationDialog.on_profileComboBox_editTextChanged" ID="IsortConfigurationDialog.on_profileComboBox_editTextChanged"></a>
+<h4>IsortConfigurationDialog.on_profileComboBox_editTextChanged</h4>
+<b>on_profileComboBox_editTextChanged</b>(<i>profileName</i>)
+<p>
+        Private slot to react upon changes of the selected/entered profile.
+</p>
+
+<dl>
+
+<dt><i>profileName</i> (str)</dt>
+<dd>
+name of the current profile
+</dd>
+</dl>
+<a NAME="IsortConfigurationDialog.on_sourceComboBox_currentTextChanged" ID="IsortConfigurationDialog.on_sourceComboBox_currentTextChanged"></a>
+<h4>IsortConfigurationDialog.on_sourceComboBox_currentTextChanged</h4>
+<b>on_sourceComboBox_currentTextChanged</b>(<i>selection</i>)
+<p>
+        Private slot to handle the selection of a configuration source.
+</p>
+
+<dl>
+
+<dt><i>selection</i> (str)</dt>
+<dd>
+text of the currently selected item
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

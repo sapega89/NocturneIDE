@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricSideBar</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricSideBar</h1>
+<p>
+Module implementing a sidebar class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricSideBar">EricSideBar</a></td>
+<td>Class implementing a sidebar with a widget area, that is hidden or shown, if the current tab is clicked again.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBarSide">EricSideBarSide</a></td>
+<td>Class defining the sidebar sides.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricSideBar" ID="EricSideBar"></a>
+<h2>EricSideBar</h2>
+<p>
+    Class implementing a sidebar with a widget area, that is hidden or shown,
+    if the current tab is clicked again.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>currentChanged(index)</dt>
+<dd>
+emitted to indicate a change of the current
+        index
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Version</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricSideBar.__init__">EricSideBar</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.__currentIconChanged">__currentIconChanged</a></td>
+<td>Private slot to handle a change of the current icon.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.__expandIt">__expandIt</a></td>
+<td>Private method to expand the sidebar.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.__shrinkIt">__shrinkIt</a></td>
+<td>Private method to shrink the sidebar.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.__shrinkOrExpandIt">__shrinkOrExpandIt</a></td>
+<td>Private slot to shrink or expand the widget stack.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.addTab">addTab</a></td>
+<td>Public method to add a tab to the sidebar.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.barSize">barSize</a></td>
+<td>Public method to get the icon bar size.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.clear">clear</a></td>
+<td>Public method to remove all tabs.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.count">count</a></td>
+<td>Public method to get the number of tabs.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.currentIndex">currentIndex</a></td>
+<td>Public method to get the index of the current tab.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.currentWidget">currentWidget</a></td>
+<td>Public method to get a reference to the current widget.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.iconBarColor">iconBarColor</a></td>
+<td>Public method to get the icon bar color.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.indexOf">indexOf</a></td>
+<td>Public method to get the index of the given widget.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.insertTab">insertTab</a></td>
+<td>Public method to insert a tab into the sidebar.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.isMinimized">isMinimized</a></td>
+<td>Public method to check the minimized state.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.nextTab">nextTab</a></td>
+<td>Public slot used to show the next tab.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.orientation">orientation</a></td>
+<td>Public method to get the orientation of the sidebar.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.prevTab">prevTab</a></td>
+<td>Public slot used to show the previous tab.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.removeTab">removeTab</a></td>
+<td>Public method to remove a tab.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.restoreState">restoreState</a></td>
+<td>Public method to restore the state of the sidebar.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.saveState">saveState</a></td>
+<td>Public method to save the state of the sidebar.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.setCurrentIndex">setCurrentIndex</a></td>
+<td>Public slot to set the current index.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.setCurrentWidget">setCurrentWidget</a></td>
+<td>Public slot to set the current widget.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.setIconBarColor">setIconBarColor</a></td>
+<td>Public method to set the icon bar color.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.setIconBarSize">setIconBarSize</a></td>
+<td>Public method to set the icon bar size.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.setOrientation">setOrientation</a></td>
+<td>Public method to set the orientation of the sidebar.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.setTabIcon">setTabIcon</a></td>
+<td>Public method to set the icon at the given index.</td>
+</tr>
+<tr>
+<td><a href="#EricSideBar.widget">widget</a></td>
+<td>Public method to get a reference to the widget associated with a tab.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricSideBar.__init__" ID="EricSideBar.__init__"></a>
+<h4>EricSideBar (Constructor)</h4>
+<b>EricSideBar</b>(<i>orientation=None, iconBarSize=EricIconBar.DefaultBarSize, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>orientation</i> (EricSideBarSide)</dt>
+<dd>
+orientation of the sidebar widget
+</dd>
+<dt><i>iconBarSize</i> (str)</dt>
+<dd>
+size category for the bar (one of 'xs', 'sm', 'md',
+            'lg', 'xl', 'xxl')
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="EricSideBar.__currentIconChanged" ID="EricSideBar.__currentIconChanged"></a>
+<h4>EricSideBar.__currentIconChanged</h4>
+<b>__currentIconChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle a change of the current icon.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the current icon
+</dd>
+</dl>
+<a NAME="EricSideBar.__expandIt" ID="EricSideBar.__expandIt"></a>
+<h4>EricSideBar.__expandIt</h4>
+<b>__expandIt</b>(<i></i>)
+<p>
+        Private method to expand the sidebar.
+</p>
+
+<a NAME="EricSideBar.__shrinkIt" ID="EricSideBar.__shrinkIt"></a>
+<h4>EricSideBar.__shrinkIt</h4>
+<b>__shrinkIt</b>(<i></i>)
+<p>
+        Private method to shrink the sidebar.
+</p>
+
+<a NAME="EricSideBar.__shrinkOrExpandIt" ID="EricSideBar.__shrinkOrExpandIt"></a>
+<h4>EricSideBar.__shrinkOrExpandIt</h4>
+<b>__shrinkOrExpandIt</b>(<i></i>)
+<p>
+        Private slot to shrink or expand the widget stack.
+</p>
+
+<a NAME="EricSideBar.addTab" ID="EricSideBar.addTab"></a>
+<h4>EricSideBar.addTab</h4>
+<b>addTab</b>(<i>widget, icon, label=None</i>)
+<p>
+        Public method to add a tab to the sidebar.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to add
+</dd>
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+reference to the icon of the widget
+</dd>
+<dt><i>label</i> (str)</dt>
+<dd>
+the label text of the widget
+</dd>
+</dl>
+<a NAME="EricSideBar.barSize" ID="EricSideBar.barSize"></a>
+<h4>EricSideBar.barSize</h4>
+<b>barSize</b>(<i></i>)
+<p>
+        Public method to get the icon bar size.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+barSize size category for the bar (one of 'xs', 'sm', 'md',
+            'lg', 'xl', 'xxl')
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricSideBar.clear" ID="EricSideBar.clear"></a>
+<h4>EricSideBar.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to remove all tabs.
+</p>
+
+<a NAME="EricSideBar.count" ID="EricSideBar.count"></a>
+<h4>EricSideBar.count</h4>
+<b>count</b>(<i></i>)
+<p>
+        Public method to get the number of tabs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of tabs in the sidebar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricSideBar.currentIndex" ID="EricSideBar.currentIndex"></a>
+<h4>EricSideBar.currentIndex</h4>
+<b>currentIndex</b>(<i></i>)
+<p>
+        Public method to get the index of the current tab.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the current tab
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricSideBar.currentWidget" ID="EricSideBar.currentWidget"></a>
+<h4>EricSideBar.currentWidget</h4>
+<b>currentWidget</b>(<i></i>)
+<p>
+        Public method to get a reference to the current widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<a NAME="EricSideBar.iconBarColor" ID="EricSideBar.iconBarColor"></a>
+<h4>EricSideBar.iconBarColor</h4>
+<b>iconBarColor</b>(<i></i>)
+<p>
+        Public method to get the icon bar color.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+icon bar color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="EricSideBar.indexOf" ID="EricSideBar.indexOf"></a>
+<h4>EricSideBar.indexOf</h4>
+<b>indexOf</b>(<i>widget</i>)
+<p>
+        Public method to get the index of the given widget.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to get the index of
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the given widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricSideBar.insertTab" ID="EricSideBar.insertTab"></a>
+<h4>EricSideBar.insertTab</h4>
+<b>insertTab</b>(<i>index, widget, icon, label=None</i>)
+<p>
+        Public method to insert a tab into the sidebar.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+the index to insert the tab at
+</dd>
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to insert
+</dd>
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+reference to the icon of the widget
+</dd>
+<dt><i>label</i> (str)</dt>
+<dd>
+the label text of the widget
+</dd>
+</dl>
+<a NAME="EricSideBar.isMinimized" ID="EricSideBar.isMinimized"></a>
+<h4>EricSideBar.isMinimized</h4>
+<b>isMinimized</b>(<i></i>)
+<p>
+        Public method to check the minimized state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the minimized state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricSideBar.nextTab" ID="EricSideBar.nextTab"></a>
+<h4>EricSideBar.nextTab</h4>
+<b>nextTab</b>(<i></i>)
+<p>
+        Public slot used to show the next tab.
+</p>
+
+<a NAME="EricSideBar.orientation" ID="EricSideBar.orientation"></a>
+<h4>EricSideBar.orientation</h4>
+<b>orientation</b>(<i></i>)
+<p>
+        Public method to get the orientation of the sidebar.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+orientation of the sidebar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricSideBarSide
+</dd>
+</dl>
+<a NAME="EricSideBar.prevTab" ID="EricSideBar.prevTab"></a>
+<h4>EricSideBar.prevTab</h4>
+<b>prevTab</b>(<i></i>)
+<p>
+        Public slot used to show the previous tab.
+</p>
+
+<a NAME="EricSideBar.removeTab" ID="EricSideBar.removeTab"></a>
+<h4>EricSideBar.removeTab</h4>
+<b>removeTab</b>(<i>index</i>)
+<p>
+        Public method to remove a tab.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+the index of the tab to remove
+</dd>
+</dl>
+<a NAME="EricSideBar.restoreState" ID="EricSideBar.restoreState"></a>
+<h4>EricSideBar.restoreState</h4>
+<b>restoreState</b>(<i>state</i>)
+<p>
+        Public method to restore the state of the sidebar.
+</p>
+
+<dl>
+
+<dt><i>state</i> (QByteArray)</dt>
+<dd>
+byte array containing the saved state
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricSideBar.saveState" ID="EricSideBar.saveState"></a>
+<h4>EricSideBar.saveState</h4>
+<b>saveState</b>(<i></i>)
+<p>
+        Public method to save the state of the sidebar.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+saved state as a byte array
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QByteArray
+</dd>
+</dl>
+<a NAME="EricSideBar.setCurrentIndex" ID="EricSideBar.setCurrentIndex"></a>
+<h4>EricSideBar.setCurrentIndex</h4>
+<b>setCurrentIndex</b>(<i>index</i>)
+<p>
+        Public slot to set the current index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+the index to set as the current index
+</dd>
+</dl>
+<a NAME="EricSideBar.setCurrentWidget" ID="EricSideBar.setCurrentWidget"></a>
+<h4>EricSideBar.setCurrentWidget</h4>
+<b>setCurrentWidget</b>(<i>widget</i>)
+<p>
+        Public slot to set the current widget.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to become the current widget
+</dd>
+</dl>
+<a NAME="EricSideBar.setIconBarColor" ID="EricSideBar.setIconBarColor"></a>
+<h4>EricSideBar.setIconBarColor</h4>
+<b>setIconBarColor</b>(<i>color</i>)
+<p>
+        Public method to set the icon bar color.
+</p>
+
+<dl>
+
+<dt><i>color</i> (QColor)</dt>
+<dd>
+icon bar color
+</dd>
+</dl>
+<a NAME="EricSideBar.setIconBarSize" ID="EricSideBar.setIconBarSize"></a>
+<h4>EricSideBar.setIconBarSize</h4>
+<b>setIconBarSize</b>(<i>barSize</i>)
+<p>
+        Public method to set the icon bar size.
+</p>
+
+<dl>
+
+<dt><i>barSize</i> (str)</dt>
+<dd>
+size category for the bar (one of 'xs', 'sm', 'md',
+            'lg', 'xl', 'xxl')
+</dd>
+</dl>
+<a NAME="EricSideBar.setOrientation" ID="EricSideBar.setOrientation"></a>
+<h4>EricSideBar.setOrientation</h4>
+<b>setOrientation</b>(<i>orient</i>)
+<p>
+        Public method to set the orientation of the sidebar.
+</p>
+
+<dl>
+
+<dt><i>orient</i> (EricSideBarSide)</dt>
+<dd>
+orientation of the sidebar
+</dd>
+</dl>
+<a NAME="EricSideBar.setTabIcon" ID="EricSideBar.setTabIcon"></a>
+<h4>EricSideBar.setTabIcon</h4>
+<b>setTabIcon</b>(<i>index, icon</i>)
+<p>
+        Public method to set the icon at the given index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+icon index
+</dd>
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+reference to the icon
+</dd>
+</dl>
+<a NAME="EricSideBar.widget" ID="EricSideBar.widget"></a>
+<h4>EricSideBar.widget</h4>
+<b>widget</b>(<i>index</i>)
+<p>
+        Public method to get a reference to the widget associated with a tab.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the tab
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricSideBarSide" ID="EricSideBarSide"></a>
+<h2>EricSideBarSide</h2>
+<p>
+    Class defining the sidebar sides.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>EAST</td></tr>
+<tr><td>NORTH</td></tr>
+<tr><td>SOUTH</td></tr>
+<tr><td>WEST</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

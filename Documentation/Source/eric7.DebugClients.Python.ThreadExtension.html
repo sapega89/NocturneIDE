@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.ThreadExtension</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.ThreadExtension</h1>
+<p>
+Module implementing an import hook patching thread modules to get debugged too.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_qtThreadNumber</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#DummyThreadWrapper">DummyThreadWrapper</a></td>
+<td>Wrapper class for threading._DummyThread.</td>
+</tr>
+<tr>
+<td><a href="#QRunnableWrapper">QRunnableWrapper</a></td>
+<td>Wrapper class for *.QRunnable.</td>
+</tr>
+<tr>
+<td><a href="#QThreadWrapper">QThreadWrapper</a></td>
+<td>Wrapper class for *.QThread.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension">ThreadExtension</a></td>
+<td>Class implementing the thread support for the debugger.</td>
+</tr>
+<tr>
+<td><a href="#ThreadWrapper">ThreadWrapper</a></td>
+<td>Wrapper class for threading.Thread.</td>
+</tr>
+<tr>
+<td><a href="#TimerWrapper">TimerWrapper</a></td>
+<td>Wrapper class for threading.(_)Timer.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="DummyThreadWrapper" ID="DummyThreadWrapper"></a>
+<h2>DummyThreadWrapper</h2>
+<p>
+            Wrapper class for threading._DummyThread.
+</p>
+
+<h3>Derived from</h3>
+module._DummyThread, ThreadWrapper
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DummyThreadWrapper.__init__">DummyThreadWrapper</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DummyThreadWrapper.__init__" ID="DummyThreadWrapper.__init__"></a>
+<h4>DummyThreadWrapper (Constructor)</h4>
+<b>DummyThreadWrapper</b>(<i>*args, **kwargs</i>)
+<p>
+                Constructor
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="QRunnableWrapper" ID="QRunnableWrapper"></a>
+<h2>QRunnableWrapper</h2>
+<p>
+            Wrapper class for *.QRunnable.
+</p>
+
+<h3>Derived from</h3>
+module.QRunnable
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#QRunnableWrapper.__init__">QRunnableWrapper</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="QRunnableWrapper.__init__" ID="QRunnableWrapper.__init__"></a>
+<h4>QRunnableWrapper (Constructor)</h4>
+<b>QRunnableWrapper</b>(<i>*args, **kwargs</i>)
+<p>
+                Constructor
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="QThreadWrapper" ID="QThreadWrapper"></a>
+<h2>QThreadWrapper</h2>
+<p>
+            Wrapper class for *.QThread.
+</p>
+
+<h3>Derived from</h3>
+module.QThread
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#QThreadWrapper.__init__">QThreadWrapper</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="QThreadWrapper.__init__" ID="QThreadWrapper.__init__"></a>
+<h4>QThreadWrapper (Constructor)</h4>
+<b>QThreadWrapper</b>(<i>*args, **kwargs</i>)
+<p>
+                Constructor
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ThreadExtension" ID="ThreadExtension"></a>
+<h2>ThreadExtension</h2>
+<p>
+    Class implementing the thread support for the debugger.
+</p>
+<p>
+    Provides methods for intercepting thread creation, retrieving the running
+    threads and their name and state.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ThreadExtension.__init__">ThreadExtension</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension._bootstrap">_bootstrap</a></td>
+<td>Bootstrap for threading, which reports exceptions correctly.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension._bootstrapQThread">_bootstrapQThread</a></td>
+<td>Bootstrap for QThread, which reports exceptions correctly.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.attachThread">attachThread</a></td>
+<td>Public method to setup a standard thread for DebugClient to debug.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.dumpThreadList">dumpThreadList</a></td>
+<td>Public method to send the list of threads.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.getExecutedFrame">getExecutedFrame</a></td>
+<td>Public method to return the currently executed frame.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.lockClient">lockClient</a></td>
+<td>Public method to acquire the lock for this client.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.patchGreenlet">patchGreenlet</a></td>
+<td>Public method to patch the 'greenlet' module.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.patchPyThread">patchPyThread</a></td>
+<td>Public method to patch Python _thread module.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.patchPyThreading">patchPyThreading</a></td>
+<td>Public method to patch the Python threading module.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.patchQThread">patchQThread</a></td>
+<td>Public method to patch the QtCore module's QThread.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.setCurrentThread">setCurrentThread</a></td>
+<td>Public method to set the current thread.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.threadTerminated">threadTerminated</a></td>
+<td>Public method called when a DebugThread has exited.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.unlockClient">unlockClient</a></td>
+<td>Public method to release the lock for this client.</td>
+</tr>
+<tr>
+<td><a href="#ThreadExtension.updateThreadList">updateThreadList</a></td>
+<td>Public method to update the list of running threads.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ThreadExtension.__init__" ID="ThreadExtension.__init__"></a>
+<h4>ThreadExtension (Constructor)</h4>
+<b>ThreadExtension</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="ThreadExtension._bootstrap" ID="ThreadExtension._bootstrap"></a>
+<h4>ThreadExtension._bootstrap</h4>
+<b>_bootstrap</b>(<i>run</i>)
+<p>
+            Bootstrap for threading, which reports exceptions correctly.
+</p>
+
+<dl>
+
+<dt><i>run</i> (method pointer)</dt>
+<dd>
+the run method of threading.Thread
+</dd>
+</dl>
+<a NAME="ThreadExtension._bootstrapQThread" ID="ThreadExtension._bootstrapQThread"></a>
+<h4>ThreadExtension._bootstrapQThread</h4>
+<b>_bootstrapQThread</b>(<i>run</i>)
+<p>
+            Bootstrap for QThread, which reports exceptions correctly.
+</p>
+
+<dl>
+
+<dt><i>run</i> (method pointer)</dt>
+<dd>
+the run method of *.QThread
+</dd>
+</dl>
+<a NAME="ThreadExtension.attachThread" ID="ThreadExtension.attachThread"></a>
+<h4>ThreadExtension.attachThread</h4>
+<b>attachThread</b>(<i>target=None, args=None, kwargs=None, mainThread=False</i>)
+<p>
+        Public method to setup a standard thread for DebugClient to debug.
+</p>
+<p>
+        If mainThread is True, then we are attaching to the already
+        started mainthread of the app and the rest of the args are ignored.
+</p>
+
+<dl>
+
+<dt><i>target</i> (function)</dt>
+<dd>
+start function of the target thread (i.e. the user
+            code)
+</dd>
+<dt><i>args</i> (list of Any)</dt>
+<dd>
+arguments to pass to target
+</dd>
+<dt><i>kwargs</i> (dict of Any)</dt>
+<dd>
+keyword arguments to pass to target
+</dd>
+<dt><i>mainThread</i> (bool)</dt>
+<dd>
+True, if we are attaching to the already started
+            mainthread of the app
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+identifier of the created thread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="ThreadExtension.dumpThreadList" ID="ThreadExtension.dumpThreadList"></a>
+<h4>ThreadExtension.dumpThreadList</h4>
+<b>dumpThreadList</b>(<i></i>)
+<p>
+        Public method to send the list of threads.
+</p>
+
+<a NAME="ThreadExtension.getExecutedFrame" ID="ThreadExtension.getExecutedFrame"></a>
+<h4>ThreadExtension.getExecutedFrame</h4>
+<b>getExecutedFrame</b>(<i>frame</i>)
+<p>
+        Public method to return the currently executed frame.
+</p>
+
+<dl>
+
+<dt><i>frame</i> (frame object)</dt>
+<dd>
+the current frame
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the frame which is excecuted (without debugger frames)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+frame object
+</dd>
+</dl>
+<a NAME="ThreadExtension.lockClient" ID="ThreadExtension.lockClient"></a>
+<h4>ThreadExtension.lockClient</h4>
+<b>lockClient</b>(<i>blocking=True</i>)
+<p>
+        Public method to acquire the lock for this client.
+</p>
+
+<dl>
+
+<dt><i>blocking</i> (bool)</dt>
+<dd>
+flag to indicating a blocking lock
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful locking
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ThreadExtension.patchGreenlet" ID="ThreadExtension.patchGreenlet"></a>
+<h4>ThreadExtension.patchGreenlet</h4>
+<b>patchGreenlet</b>(<i>module</i>)
+<p>
+        Public method to patch the 'greenlet' module.
+</p>
+
+<dl>
+
+<dt><i>module</i> (module)</dt>
+<dd>
+reference to the imported module to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the module was processed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ThreadExtension.patchPyThread" ID="ThreadExtension.patchPyThread"></a>
+<h4>ThreadExtension.patchPyThread</h4>
+<b>patchPyThread</b>(<i>module</i>)
+<p>
+        Public method to patch Python _thread module.
+</p>
+
+<dl>
+
+<dt><i>module</i> (module)</dt>
+<dd>
+reference to the imported module to be patched
+</dd>
+</dl>
+<a NAME="ThreadExtension.patchPyThreading" ID="ThreadExtension.patchPyThreading"></a>
+<h4>ThreadExtension.patchPyThreading</h4>
+<b>patchPyThreading</b>(<i>module</i>)
+<p>
+        Public method to patch the Python threading module.
+</p>
+
+<dl>
+
+<dt><i>module</i> (module)</dt>
+<dd>
+reference to the imported module to be patched
+</dd>
+</dl>
+<a NAME="ThreadExtension.patchQThread" ID="ThreadExtension.patchQThread"></a>
+<h4>ThreadExtension.patchQThread</h4>
+<b>patchQThread</b>(<i>module</i>)
+<p>
+        Public method to patch the QtCore module's QThread.
+</p>
+
+<dl>
+
+<dt><i>module</i> (module)</dt>
+<dd>
+reference to the imported module to be patched
+</dd>
+</dl>
+<a NAME="ThreadExtension.setCurrentThread" ID="ThreadExtension.setCurrentThread"></a>
+<h4>ThreadExtension.setCurrentThread</h4>
+<b>setCurrentThread</b>(<i>threadId</i>)
+<p>
+        Public method to set the current thread.
+</p>
+
+<dl>
+
+<dt><i>threadId</i> (int)</dt>
+<dd>
+the id the current thread should be set to.
+</dd>
+</dl>
+<a NAME="ThreadExtension.threadTerminated" ID="ThreadExtension.threadTerminated"></a>
+<h4>ThreadExtension.threadTerminated</h4>
+<b>threadTerminated</b>(<i>threadId</i>)
+<p>
+        Public method called when a DebugThread has exited.
+</p>
+
+<dl>
+
+<dt><i>threadId</i> (int)</dt>
+<dd>
+id of the DebugThread that has exited
+</dd>
+</dl>
+<a NAME="ThreadExtension.unlockClient" ID="ThreadExtension.unlockClient"></a>
+<h4>ThreadExtension.unlockClient</h4>
+<b>unlockClient</b>(<i></i>)
+<p>
+        Public method to release the lock for this client.
+</p>
+
+<a NAME="ThreadExtension.updateThreadList" ID="ThreadExtension.updateThreadList"></a>
+<h4>ThreadExtension.updateThreadList</h4>
+<b>updateThreadList</b>(<i></i>)
+<p>
+        Public method to update the list of running threads.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ThreadWrapper" ID="ThreadWrapper"></a>
+<h2>ThreadWrapper</h2>
+<p>
+            Wrapper class for threading.Thread.
+</p>
+
+<h3>Derived from</h3>
+module.Thread
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ThreadWrapper.__init__">ThreadWrapper</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ThreadWrapper.__init__" ID="ThreadWrapper.__init__"></a>
+<h4>ThreadWrapper (Constructor)</h4>
+<b>ThreadWrapper</b>(<i>*args, **kwargs</i>)
+<p>
+                Constructor
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TimerWrapper" ID="TimerWrapper"></a>
+<h2>TimerWrapper</h2>
+<p>
+            Wrapper class for threading.(_)Timer.
+</p>
+
+<h3>Derived from</h3>
+timer, ThreadWrapper
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TimerWrapper.__init__">TimerWrapper</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TimerWrapper.__init__" ID="TimerWrapper.__init__"></a>
+<h4>TimerWrapper (Constructor)</h4>
+<b>TimerWrapper</b>(<i>interval, function, *args, **kwargs</i>)
+<p>
+                Constructor
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

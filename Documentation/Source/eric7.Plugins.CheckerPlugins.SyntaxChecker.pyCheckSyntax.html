@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.SyntaxChecker.pyCheckSyntax</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.SyntaxChecker.pyCheckSyntax</h1>
+<p>
+Module implementing the syntax check for Python 3.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>VcsConflictMarkerRegExpList</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#__pySyntaxAndPyflakesCheck">__pySyntaxAndPyflakesCheck</a></td>
+<td>Function to compile one Python source file to Python bytecode and to perform a pyflakes check.</td>
+</tr>
+<tr>
+<td><a href="#extractLineFlags">extractLineFlags</a></td>
+<td>Function to extract flags starting and ending with '__' from a line comment.</td>
+</tr>
+<tr>
+<td><a href="#initBatchService">initBatchService</a></td>
+<td>Initialize the batch service and return the entry point.</td>
+</tr>
+<tr>
+<td><a href="#initService">initService</a></td>
+<td>Initialize the service and return the entry point.</td>
+</tr>
+<tr>
+<td><a href="#pySyntaxAndPyflakesBatchCheck">pySyntaxAndPyflakesBatchCheck</a></td>
+<td>Module function to check syntax for a batch of files.</td>
+</tr>
+<tr>
+<td><a href="#pySyntaxAndPyflakesCheck">pySyntaxAndPyflakesCheck</a></td>
+<td>Function to compile one Python source file to Python bytecode and to perform a pyflakes check.</td>
+</tr>
+<tr>
+<td><a href="#showwarning">showwarning</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#workerTask">workerTask</a></td>
+<td>Module function acting as the parallel worker for the syntax check.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="__pySyntaxAndPyflakesCheck" ID="__pySyntaxAndPyflakesCheck"></a>
+<h2>__pySyntaxAndPyflakesCheck</h2>
+<b>__pySyntaxAndPyflakesCheck</b>(<i>filename, codestring, checkFlakes=True, ignoreStarImportWarnings=False, additionalBuiltins=None, </i>)
+<p>
+    Function to compile one Python source file to Python bytecode
+    and to perform a pyflakes check.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+source filename
+</dd>
+<dt><i>codestring</i> (str)</dt>
+<dd>
+string containing the code to compile
+</dd>
+<dt><i>checkFlakes</i> (bool)</dt>
+<dd>
+flag indicating to do a pyflakes check
+</dd>
+<dt><i>ignoreStarImportWarnings</i> (bool)</dt>
+<dd>
+flag indicating to
+        ignore 'star import' warnings
+</dd>
+<dt><i>additionalBuiltins</i> (list of str)</dt>
+<dd>
+list of names pyflakes should consider as builtins
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of dictionaries with the keys 'error', 'py_warnings' and 'warnings'
+        which contain a tuple with details about the syntax error or a list of
+        tuples with details about Python warnings and PyFlakes warnings. Each tuple
+        contains the file name, line number, column, code string (only for syntax
+        errors), the message and an optional list with arguments for the message.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="extractLineFlags" ID="extractLineFlags"></a>
+<h2>extractLineFlags</h2>
+<b>extractLineFlags</b>(<i>line, startComment="</i>)
+<p>
+    Function to extract flags starting and ending with '__' from a line
+    comment.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to extract flags from
+</dd>
+<dt><i>startComment</i> (str)</dt>
+<dd>
+string identifying the start of the comment
+</dd>
+<dt><i>endComment</i> (str)</dt>
+<dd>
+string identifying the end of a comment
+</dd>
+<dt><i>flagsLine</i> (bool)</dt>
+<dd>
+flag indicating to check for a flags only line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing the extracted flags
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="initBatchService" ID="initBatchService"></a>
+<h2>initBatchService</h2>
+<b>initBatchService</b>(<i></i>)
+<p>
+    Initialize the batch service and return the entry point.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the entry point for the background client
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="initService" ID="initService"></a>
+<h2>initService</h2>
+<b>initService</b>(<i></i>)
+<p>
+    Initialize the service and return the entry point.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the entry point for the background client
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="pySyntaxAndPyflakesBatchCheck" ID="pySyntaxAndPyflakesBatchCheck"></a>
+<h2>pySyntaxAndPyflakesBatchCheck</h2>
+<b>pySyntaxAndPyflakesBatchCheck</b>(<i>argumentsList, send, fx, cancelled, maxProcesses=0</i>)
+<p>
+    Module function to check syntax for a batch of files.
+</p>
+
+<dl>
+
+<dt><i>argumentsList</i> (list)</dt>
+<dd>
+list of arguments tuples as given for pySyntaxAndPyflakesCheck
+</dd>
+<dt><i>send</i> (function)</dt>
+<dd>
+reference to send function
+</dd>
+<dt><i>fx</i> (str)</dt>
+<dd>
+registered service name
+</dd>
+<dt><i>cancelled</i> (function)</dt>
+<dd>
+reference to function checking for a cancellation
+</dd>
+<dt><i>maxProcesses</i> (int)</dt>
+<dd>
+number of processes to be used
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="pySyntaxAndPyflakesCheck" ID="pySyntaxAndPyflakesCheck"></a>
+<h2>pySyntaxAndPyflakesCheck</h2>
+<b>pySyntaxAndPyflakesCheck</b>(<i>filename, codestring, checkFlakes=True, ignoreStarImportWarnings=False, additionalBuiltins=None, </i>)
+<p>
+    Function to compile one Python source file to Python bytecode
+    and to perform a pyflakes check.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+source filename
+</dd>
+<dt><i>codestring</i> (str)</dt>
+<dd>
+string containing the code to compile
+</dd>
+<dt><i>checkFlakes</i> (bool)</dt>
+<dd>
+flag indicating to do a pyflakes check
+</dd>
+<dt><i>ignoreStarImportWarnings</i> (bool)</dt>
+<dd>
+flag indicating to ignore 'star import' warnings
+</dd>
+<dt><i>additionalBuiltins</i> (list of str)</dt>
+<dd>
+list of names pyflakes should consider as builtins
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of dictionaries with the keys 'error', 'py_warnings' and 'warnings'
+        which contain a tuple with details about the syntax error or a list of
+        tuples with details about Python warnings and PyFlakes warnings. Each tuple
+        contains the file name, line number, column, code string (only for syntax
+        errors), the message and an optional list with arguments for the message.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="showwarning" ID="showwarning"></a>
+<h2>showwarning</h2>
+<b>showwarning</b>(<i>message, category, filename, lineno, file=None, line=None, </i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="workerTask" ID="workerTask"></a>
+<h2>workerTask</h2>
+<b>workerTask</b>(<i>inputQueue, outputQueue</i>)
+<p>
+    Module function acting as the parallel worker for the syntax check.
+</p>
+
+<dl>
+
+<dt><i>inputQueue</i> (multiprocessing.Queue)</dt>
+<dd>
+input queue
+</dd>
+<dt><i>outputQueue</i> (multiprocessing.Queue)</dt>
+<dd>
+output queue
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

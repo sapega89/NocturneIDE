@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsPySvn.SvnDiffDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsPySvn.SvnDiffDialog</h1>
+<p>
+Module implementing a dialog to show the output of the svn diff command
+process.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SvnDiffDialog">SvnDiffDialog</a></td>
+<td>Class implementing a dialog to show the output of the svn diff command.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SvnDiffDialog" ID="SvnDiffDialog"></a>
+<h2>SvnDiffDialog</h2>
+<p>
+    Class implementing a dialog to show the output of the svn diff command.
+</p>
+
+<h3>Derived from</h3>
+QWidget, SvnDialogMixin, Ui_SvnDiffDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SvnDiffDialog.__init__">SvnDiffDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.__appendText">__appendText</a></td>
+<td>Private method to append text to the end of the contents pane.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.__extractFileName">__extractFileName</a></td>
+<td>Private method to extract the file name out of a file separator line.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.__finish">__finish</a></td>
+<td>Private slot called when the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.__getDiffSummaryKind">__getDiffSummaryKind</a></td>
+<td>Private method to get a string descripion of the diff summary.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.__getVersionArg">__getVersionArg</a></td>
+<td>Private method to get a pysvn revision object for the given version number.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.__processFileLine">__processFileLine</a></td>
+<td>Private slot to process a line giving the old/new file.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.__showError">__showError</a></td>
+<td>Private slot to show an error message.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.on_filesCombo_activated">on_filesCombo_activated</a></td>
+<td>Private slot to handle the selection of a file.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the display.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.on_saveButton_clicked">on_saveButton_clicked</a></td>
+<td>Private slot to handle the Save button press.</td>
+</tr>
+<tr>
+<td><a href="#SvnDiffDialog.start">start</a></td>
+<td>Public slot to start the svn diff command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SvnDiffDialog.__init__" ID="SvnDiffDialog.__init__"></a>
+<h4>SvnDiffDialog (Constructor)</h4>
+<b>SvnDiffDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Subversion)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="SvnDiffDialog.__appendText" ID="SvnDiffDialog.__appendText"></a>
+<h4>SvnDiffDialog.__appendText</h4>
+<b>__appendText</b>(<i>line</i>)
+<p>
+        Private method to append text to the end of the contents pane.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line of text to insert
+</dd>
+</dl>
+<a NAME="SvnDiffDialog.__extractFileName" ID="SvnDiffDialog.__extractFileName"></a>
+<h4>SvnDiffDialog.__extractFileName</h4>
+<b>__extractFileName</b>(<i>line</i>)
+<p>
+        Private method to extract the file name out of a file separator line.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+extracted file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SvnDiffDialog.__finish" ID="SvnDiffDialog.__finish"></a>
+<h4>SvnDiffDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the user pressed the button.
+</p>
+
+<a NAME="SvnDiffDialog.__getDiffSummaryKind" ID="SvnDiffDialog.__getDiffSummaryKind"></a>
+<h4>SvnDiffDialog.__getDiffSummaryKind</h4>
+<b>__getDiffSummaryKind</b>(<i>summaryKind</i>)
+<p>
+        Private method to get a string descripion of the diff summary.
+</p>
+
+<dl>
+
+<dt><i>summaryKind</i> (pysvn.diff_summarize.summarize_kind)</dt>
+<dd>
+
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+one letter string indicating the change type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SvnDiffDialog.__getVersionArg" ID="SvnDiffDialog.__getVersionArg"></a>
+<h4>SvnDiffDialog.__getVersionArg</h4>
+<b>__getVersionArg</b>(<i>version</i>)
+<p>
+        Private method to get a pysvn revision object for the given version
+        number.
+</p>
+
+<dl>
+
+<dt><i>version</i> (int or str)</dt>
+<dd>
+revision
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+revision object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+pysvn.Revision
+</dd>
+</dl>
+<a NAME="SvnDiffDialog.__processFileLine" ID="SvnDiffDialog.__processFileLine"></a>
+<h4>SvnDiffDialog.__processFileLine</h4>
+<b>__processFileLine</b>(<i>line</i>)
+<p>
+        Private slot to process a line giving the old/new file.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to be processed
+</dd>
+</dl>
+<a NAME="SvnDiffDialog.__showError" ID="SvnDiffDialog.__showError"></a>
+<h4>SvnDiffDialog.__showError</h4>
+<b>__showError</b>(<i>msg</i>)
+<p>
+        Private slot to show an error message.
+</p>
+
+<dl>
+
+<dt><i>msg</i> (str)</dt>
+<dd>
+error message to show
+</dd>
+</dl>
+<a NAME="SvnDiffDialog.on_buttonBox_clicked" ID="SvnDiffDialog.on_buttonBox_clicked"></a>
+<h4>SvnDiffDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="SvnDiffDialog.on_filesCombo_activated" ID="SvnDiffDialog.on_filesCombo_activated"></a>
+<h4>SvnDiffDialog.on_filesCombo_activated</h4>
+<b>on_filesCombo_activated</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of a file.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+activated row
+</dd>
+</dl>
+<a NAME="SvnDiffDialog.on_refreshButton_clicked" ID="SvnDiffDialog.on_refreshButton_clicked"></a>
+<h4>SvnDiffDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the display.
+</p>
+
+<a NAME="SvnDiffDialog.on_saveButton_clicked" ID="SvnDiffDialog.on_saveButton_clicked"></a>
+<h4>SvnDiffDialog.on_saveButton_clicked</h4>
+<b>on_saveButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the Save button press.
+</p>
+<p>
+        It saves the diff shown in the dialog to a file in the local
+        filesystem.
+</p>
+
+<a NAME="SvnDiffDialog.start" ID="SvnDiffDialog.start"></a>
+<h4>SvnDiffDialog.start</h4>
+<b>start</b>(<i>fn, versions=None, urls=None, summary=False, pegRev=None, refreshable=False, </i>)
+<p>
+        Public slot to start the svn diff command.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to be diffed
+</dd>
+<dt><i>versions</i> (list of up to 2 int or None)</dt>
+<dd>
+list of versions to be diffed
+</dd>
+<dt><i>urls</i> (list of [str, str])</dt>
+<dd>
+list of repository URLs
+</dd>
+<dt><i>summary</i> (bool)</dt>
+<dd>
+flag indicating a summarizing diff
+            (only valid for URL diffs)
+</dd>
+<dt><i>pegRev</i> (int)</dt>
+<dd>
+revision number the filename is valid
+</dd>
+<dt><i>refreshable</i> (bool)</dt>
+<dd>
+flag indicating a refreshable diff
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

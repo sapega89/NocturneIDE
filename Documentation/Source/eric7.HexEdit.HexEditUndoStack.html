@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HexEdit.HexEditUndoStack</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HexEdit.HexEditUndoStack</h1>
+<p>
+Module implementing the Undo stack for the hex edit widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HexEditCommand">HexEditCommand</a></td>
+<td>Class implementing the edit commands.</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoCommand">HexEditUndoCommand</a></td>
+<td>Class implementing the Undo command.</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoStack">HexEditUndoStack</a></td>
+<td>Class implementing an Undo stack for the hex edit widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HexEditCommand" ID="HexEditCommand"></a>
+<h2>HexEditCommand</h2>
+<p>
+    Class implementing the edit commands.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>INSERT</td></tr>
+<tr><td>OVERWRITE</td></tr>
+<tr><td>REMOVEAT</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HexEditUndoCommand" ID="HexEditUndoCommand"></a>
+<h2>HexEditUndoCommand</h2>
+<p>
+    Class implementing the Undo command.
+</p>
+
+<h3>Derived from</h3>
+QUndoCommand
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HexEditUndoCommand.__init__">HexEditUndoCommand</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoCommand.id">id</a></td>
+<td>Public method to get the ID of this undo command class.</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoCommand.mergeWith">mergeWith</a></td>
+<td>Public method to merge this command with another one.</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoCommand.redo">redo</a></td>
+<td>Public method to redo the command.</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoCommand.undo">undo</a></td>
+<td>Public method to undo the command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HexEditUndoCommand.__init__" ID="HexEditUndoCommand.__init__"></a>
+<h4>HexEditUndoCommand (Constructor)</h4>
+<b>HexEditUndoCommand</b>(<i>chunks, cmd, pos, newByte, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>chunks</i> (HexEditChunks)</dt>
+<dd>
+reference to the data container
+</dd>
+<dt><i>cmd</i> (HexEditCommand)</dt>
+<dd>
+edit command
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+edit position
+</dd>
+<dt><i>newByte</i> (int (range 0 to 255))</dt>
+<dd>
+new byte value
+</dd>
+<dt><i>parent</i> (QUndoCommand)</dt>
+<dd>
+reference to the parent command
+</dd>
+</dl>
+<a NAME="HexEditUndoCommand.id" ID="HexEditUndoCommand.id"></a>
+<h4>HexEditUndoCommand.id</h4>
+<b>id</b>(<i></i>)
+<p>
+        Public method to get the ID of this undo command class.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+ID of the undo command class
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HexEditUndoCommand.mergeWith" ID="HexEditUndoCommand.mergeWith"></a>
+<h4>HexEditUndoCommand.mergeWith</h4>
+<b>mergeWith</b>(<i>command</i>)
+<p>
+        Public method to merge this command with another one.
+</p>
+
+<dl>
+
+<dt><i>command</i> (QUndoCommand)</dt>
+<dd>
+reference to the command to merge with
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful merge
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HexEditUndoCommand.redo" ID="HexEditUndoCommand.redo"></a>
+<h4>HexEditUndoCommand.redo</h4>
+<b>redo</b>(<i></i>)
+<p>
+        Public method to redo the command.
+</p>
+
+<a NAME="HexEditUndoCommand.undo" ID="HexEditUndoCommand.undo"></a>
+<h4>HexEditUndoCommand.undo</h4>
+<b>undo</b>(<i></i>)
+<p>
+        Public method to undo the command.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HexEditUndoStack" ID="HexEditUndoStack"></a>
+<h2>HexEditUndoStack</h2>
+<p>
+    Class implementing an Undo stack for the hex edit widget.
+</p>
+
+<h3>Derived from</h3>
+QUndoStack
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HexEditUndoStack.__init__">HexEditUndoStack</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoStack.insert">insert</a></td>
+<td>Public method to insert a byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoStack.insertByteArray">insertByteArray</a></td>
+<td>Public method to insert bytes.</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoStack.overwrite">overwrite</a></td>
+<td>Public method to replace a byte.</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoStack.overwriteByteArray">overwriteByteArray</a></td>
+<td>Public method to replace bytes.</td>
+</tr>
+<tr>
+<td><a href="#HexEditUndoStack.removeAt">removeAt</a></td>
+<td>Public method to remove bytes.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HexEditUndoStack.__init__" ID="HexEditUndoStack.__init__"></a>
+<h4>HexEditUndoStack (Constructor)</h4>
+<b>HexEditUndoStack</b>(<i>chunks, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>chunks</i> (HexEditChunks)</dt>
+<dd>
+reference to the data container
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="HexEditUndoStack.insert" ID="HexEditUndoStack.insert"></a>
+<h4>HexEditUndoStack.insert</h4>
+<b>insert</b>(<i>pos, data</i>)
+<p>
+        Public method to insert a byte.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to insert at
+</dd>
+<dt><i>data</i> (int (range 0 to 255))</dt>
+<dd>
+byte to be inserted
+</dd>
+</dl>
+<a NAME="HexEditUndoStack.insertByteArray" ID="HexEditUndoStack.insertByteArray"></a>
+<h4>HexEditUndoStack.insertByteArray</h4>
+<b>insertByteArray</b>(<i>pos, byteArray</i>)
+<p>
+        Public method to insert bytes.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to insert at
+</dd>
+<dt><i>byteArray</i> (byteArray or QByteArray)</dt>
+<dd>
+data to be inserted
+</dd>
+</dl>
+<a NAME="HexEditUndoStack.overwrite" ID="HexEditUndoStack.overwrite"></a>
+<h4>HexEditUndoStack.overwrite</h4>
+<b>overwrite</b>(<i>pos, data</i>)
+<p>
+        Public method to replace a byte.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to replace the byte at
+</dd>
+<dt><i>data</i> (int (range 0 to 255))</dt>
+<dd>
+byte to replace with
+</dd>
+</dl>
+<a NAME="HexEditUndoStack.overwriteByteArray" ID="HexEditUndoStack.overwriteByteArray"></a>
+<h4>HexEditUndoStack.overwriteByteArray</h4>
+<b>overwriteByteArray</b>(<i>pos, length, byteArray</i>)
+<p>
+        Public method to replace bytes.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to replace the bytes at
+</dd>
+<dt><i>length</i> (int)</dt>
+<dd>
+amount of bytes to replace
+</dd>
+<dt><i>byteArray</i> (bytearray or QByteArray)</dt>
+<dd>
+bytes to replace with
+</dd>
+</dl>
+<a NAME="HexEditUndoStack.removeAt" ID="HexEditUndoStack.removeAt"></a>
+<h4>HexEditUndoStack.removeAt</h4>
+<b>removeAt</b>(<i>pos, length=1</i>)
+<p>
+        Public method to remove bytes.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (int)</dt>
+<dd>
+position to remove bytes from
+</dd>
+<dt><i>length</i> (int)</dt>
+<dd>
+amount of bytes to remove
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

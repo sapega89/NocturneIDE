@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.PluginManager.PluginInstallDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.PluginManager.PluginInstallDialog</h1>
+<p>
+Module implementing the Plugin installation dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PluginInstallDialog">PluginInstallDialog</a></td>
+<td>Class for the dialog variant.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget">PluginInstallWidget</a></td>
+<td>Class implementing the Plugin installation dialog.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWindow">PluginInstallWindow</a></td>
+<td>Main window class for the standalone dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PluginInstallDialog" ID="PluginInstallDialog"></a>
+<h2>PluginInstallDialog</h2>
+<p>
+    Class for the dialog variant.
+</p>
+
+<h3>Derived from</h3>
+QDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PluginInstallDialog.__init__">PluginInstallDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallDialog.restartNeeded">restartNeeded</a></td>
+<td>Public method to check, if a restart of the IDE is required.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PluginInstallDialog.__init__" ID="PluginInstallDialog.__init__"></a>
+<h4>PluginInstallDialog (Constructor)</h4>
+<b>PluginInstallDialog</b>(<i>pluginManager, pluginFileNames, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>pluginManager</i> (PluginManager)</dt>
+<dd>
+reference to the plugin manager object
+</dd>
+<dt><i>pluginFileNames</i> (list of str)</dt>
+<dd>
+list of plugin files suggested for installation
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="PluginInstallDialog.restartNeeded" ID="PluginInstallDialog.restartNeeded"></a>
+<h4>PluginInstallDialog.restartNeeded</h4>
+<b>restartNeeded</b>(<i></i>)
+<p>
+        Public method to check, if a restart of the IDE is required.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a restart is required
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PluginInstallWidget" ID="PluginInstallWidget"></a>
+<h2>PluginInstallWidget</h2>
+<p>
+    Class implementing the Plugin installation dialog.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_PluginInstallDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PluginInstallWidget.__init__">PluginInstallWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.__createArchivesList">__createArchivesList</a></td>
+<td>Private method to create a list of plugin archive names.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.__installPlugin">__installPlugin</a></td>
+<td>Private slot to install the selected plugin.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.__installPlugins">__installPlugins</a></td>
+<td>Private method to install the selected plugin archives.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.__makedirs">__makedirs</a></td>
+<td>Private method to create a directory and all intermediate ones.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.__rollback">__rollback</a></td>
+<td>Private method to rollback a failed installation.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.__selectPage">__selectPage</a></td>
+<td>Private method to show the right wizard page.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.__uninstallPackage">__uninstallPackage</a></td>
+<td>Private method to uninstall an already installed plugin to prepare the update.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.on_addArchivesButton_clicked">on_addArchivesButton_clicked</a></td>
+<td>Private slot to select plugin ZIP-archives via a file selection dialog.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.on_archivesList_itemSelectionChanged">on_archivesList_itemSelectionChanged</a></td>
+<td>Private slot called, when the selection of the archives list changes.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot to handle the click of a button of the button box.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.on_removeArchivesButton_clicked">on_removeArchivesButton_clicked</a></td>
+<td>Private slot to remove archives from the list.</td>
+</tr>
+<tr>
+<td><a href="#PluginInstallWidget.restartNeeded">restartNeeded</a></td>
+<td>Public method to check, if a restart of the IDE is required.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PluginInstallWidget.__init__" ID="PluginInstallWidget.__init__"></a>
+<h4>PluginInstallWidget (Constructor)</h4>
+<b>PluginInstallWidget</b>(<i>pluginManager, pluginFileNames, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>pluginManager</i> (PluginManager)</dt>
+<dd>
+reference to the plugin manager object
+</dd>
+<dt><i>pluginFileNames</i> (list of str)</dt>
+<dd>
+list of plugin files suggested for
+            installation
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent of this dialog
+</dd>
+</dl>
+<a NAME="PluginInstallWidget.__createArchivesList" ID="PluginInstallWidget.__createArchivesList"></a>
+<h4>PluginInstallWidget.__createArchivesList</h4>
+<b>__createArchivesList</b>(<i></i>)
+<p>
+        Private method to create a list of plugin archive names.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of plugin archive names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="PluginInstallWidget.__installPlugin" ID="PluginInstallWidget.__installPlugin"></a>
+<h4>PluginInstallWidget.__installPlugin</h4>
+<b>__installPlugin</b>(<i>archiveFilename</i>)
+<p>
+        Private slot to install the selected plugin.
+</p>
+
+<dl>
+
+<dt><i>archiveFilename</i> (str)</dt>
+<dd>
+name of the plugin archive
+            file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success (boolean), error message
+            upon failure (string) and flag indicating a restart
+            of the IDE is required
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PluginInstallWidget.__installPlugins" ID="PluginInstallWidget.__installPlugins"></a>
+<h4>PluginInstallWidget.__installPlugins</h4>
+<b>__installPlugins</b>(<i></i>)
+<p>
+        Private method to install the selected plugin archives.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PluginInstallWidget.__makedirs" ID="PluginInstallWidget.__makedirs"></a>
+<h4>PluginInstallWidget.__makedirs</h4>
+<b>__makedirs</b>(<i>name, mode=0o777</i>)
+<p>
+        Private method to create a directory and all intermediate ones.
+</p>
+<p>
+        This is an extended version of the Python one in order to
+        record the created directories.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the directory to create
+</dd>
+<dt><i>mode</i> (int)</dt>
+<dd>
+permission to set for the new directory
+</dd>
+</dl>
+<a NAME="PluginInstallWidget.__rollback" ID="PluginInstallWidget.__rollback"></a>
+<h4>PluginInstallWidget.__rollback</h4>
+<b>__rollback</b>(<i></i>)
+<p>
+        Private method to rollback a failed installation.
+</p>
+
+<a NAME="PluginInstallWidget.__selectPage" ID="PluginInstallWidget.__selectPage"></a>
+<h4>PluginInstallWidget.__selectPage</h4>
+<b>__selectPage</b>(<i></i>)
+<p>
+        Private method to show the right wizard page.
+</p>
+
+<a NAME="PluginInstallWidget.__uninstallPackage" ID="PluginInstallWidget.__uninstallPackage"></a>
+<h4>PluginInstallWidget.__uninstallPackage</h4>
+<b>__uninstallPackage</b>(<i>destination, pluginFileName, packageName</i>)
+<p>
+        Private method to uninstall an already installed plugin to prepare
+        the update.
+</p>
+
+<dl>
+
+<dt><i>destination</i> (str)</dt>
+<dd>
+name of the plugin directory
+</dd>
+<dt><i>pluginFileName</i> (str)</dt>
+<dd>
+name of the plugin file
+</dd>
+<dt><i>packageName</i> (str)</dt>
+<dd>
+name of the plugin package
+</dd>
+</dl>
+<a NAME="PluginInstallWidget.on_addArchivesButton_clicked" ID="PluginInstallWidget.on_addArchivesButton_clicked"></a>
+<h4>PluginInstallWidget.on_addArchivesButton_clicked</h4>
+<b>on_addArchivesButton_clicked</b>(<i></i>)
+<p>
+        Private slot to select plugin ZIP-archives via a file selection dialog.
+</p>
+
+<a NAME="PluginInstallWidget.on_archivesList_itemSelectionChanged" ID="PluginInstallWidget.on_archivesList_itemSelectionChanged"></a>
+<h4>PluginInstallWidget.on_archivesList_itemSelectionChanged</h4>
+<b>on_archivesList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot called, when the selection of the archives list changes.
+</p>
+
+<a NAME="PluginInstallWidget.on_buttonBox_clicked" ID="PluginInstallWidget.on_buttonBox_clicked"></a>
+<h4>PluginInstallWidget.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot to handle the click of a button of the button box.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+reference to the button pressed
+</dd>
+</dl>
+<a NAME="PluginInstallWidget.on_removeArchivesButton_clicked" ID="PluginInstallWidget.on_removeArchivesButton_clicked"></a>
+<h4>PluginInstallWidget.on_removeArchivesButton_clicked</h4>
+<b>on_removeArchivesButton_clicked</b>(<i></i>)
+<p>
+        Private slot to remove archives from the list.
+</p>
+
+<a NAME="PluginInstallWidget.restartNeeded" ID="PluginInstallWidget.restartNeeded"></a>
+<h4>PluginInstallWidget.restartNeeded</h4>
+<b>restartNeeded</b>(<i></i>)
+<p>
+        Public method to check, if a restart of the IDE is required.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a restart is required
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PluginInstallWindow" ID="PluginInstallWindow"></a>
+<h2>PluginInstallWindow</h2>
+<p>
+    Main window class for the standalone dialog.
+</p>
+
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PluginInstallWindow.__init__">PluginInstallWindow</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PluginInstallWindow.__init__" ID="PluginInstallWindow.__init__"></a>
+<h4>PluginInstallWindow (Constructor)</h4>
+<b>PluginInstallWindow</b>(<i>pluginFileNames, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>pluginFileNames</i> (list of str)</dt>
+<dd>
+list of plugin files suggested for
+            installation
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

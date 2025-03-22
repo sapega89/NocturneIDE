@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.ProjectHelper</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.ProjectHelper</h1>
+<p>
+Module implementing the VCS project helper for Git.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitProjectHelper">GitProjectHelper</a></td>
+<td>Class implementing the VCS project helper for Git.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitProjectHelper" ID="GitProjectHelper"></a>
+<h2>GitProjectHelper</h2>
+<p>
+    Class implementing the VCS project helper for Git.
+</p>
+
+<h3>Derived from</h3>
+VcsProjectHelper
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitProjectHelper.__init__">GitProjectHelper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitAddRemote">__gitAddRemote</a></td>
+<td>Private slot to add a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitApplyPatches">__gitApplyPatches</a></td>
+<td>Private slot to apply a list of patch files.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectBad">__gitBisectBad</a></td>
+<td>Private slot used to execute the bisect bad command.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectCreateReplay">__gitBisectCreateReplay</a></td>
+<td>Private slot used to create a replay file for the current bisect session.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectEditReplay">__gitBisectEditReplay</a></td>
+<td>Private slot used to edit a bisect replay file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectGood">__gitBisectGood</a></td>
+<td>Private slot used to execute the bisect good command.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectLogBrowser">__gitBisectLogBrowser</a></td>
+<td>Private slot used to show the bisect log browser window.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectReplay">__gitBisectReplay</a></td>
+<td>Private slot used to replay a bisect session.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectReset">__gitBisectReset</a></td>
+<td>Private slot used to execute the bisect reset command.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectSkip">__gitBisectSkip</a></td>
+<td>Private slot used to execute the bisect skip command.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectStart">__gitBisectStart</a></td>
+<td>Private slot used to execute the bisect start command.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBisectStartExtended">__gitBisectStartExtended</a></td>
+<td>Private slot used to execute the bisect start command with options.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBranch">__gitBranch</a></td>
+<td>Private slot used to perform branch operations for the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBranchList">__gitBranchList</a></td>
+<td>Private slot used to list the branches of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBundle">__gitBundle</a></td>
+<td>Private slot used to create a bundle file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBundleFetch">__gitBundleFetch</a></td>
+<td>Private slot to apply a head of a bundle file using the fetch method.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBundleListHeads">__gitBundleListHeads</a></td>
+<td>Private slot used to list the heads contained in a bundle file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitBundlePull">__gitBundlePull</a></td>
+<td>Private slot to apply a head of a bundle file using the pull method.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitCancelMerge">__gitCancelMerge</a></td>
+<td>Private slot used to cancel an uncommitted or failed merge.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitChangeRemoteUrl">__gitChangeRemoteUrl</a></td>
+<td>Private slot to change the URL of a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitCheckPatches">__gitCheckPatches</a></td>
+<td>Private slot to check a list of patch files, if they would apply cleanly.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitCherryPick">__gitCherryPick</a></td>
+<td>Private slot used to copy commits into the current branch.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitCherryPickAbort">__gitCherryPickAbort</a></td>
+<td>Private slot used to cancel the last copying session and return to the previous state.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitCherryPickContinue">__gitCherryPickContinue</a></td>
+<td>Private slot used to continue the last copying session after conflicts were resolved.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitCherryPickQuit">__gitCherryPickQuit</a></td>
+<td>Private slot used to quit the current copying operation.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitCommitMerge">__gitCommitMerge</a></td>
+<td>Private slot used to commit the ongoing merge.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitConfigure">__gitConfigure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitCreateArchive">__gitCreateArchive</a></td>
+<td>Private slot used to create an archive from the local repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitCreateIgnore">__gitCreateIgnore</a></td>
+<td>Private slot used to create a .gitignore file for the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitDeleteBranch">__gitDeleteBranch</a></td>
+<td>Private slot used to delete a branch from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitDescribeTag">__gitDescribeTag</a></td>
+<td>Private slot to show the most recent tag.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitEditRepoConfig">__gitEditRepoConfig</a></td>
+<td>Private slot used to edit the repository configuration file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitEditUserConfig">__gitEditUserConfig</a></td>
+<td>Private slot used to edit the user configuration file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitExtendedDiff">__gitExtendedDiff</a></td>
+<td>Private slot used to perform a git diff with the selection of revisions.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitFetch">__gitFetch</a></td>
+<td>Private slot used to fetch changes from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitHouseKeeping">__gitHouseKeeping</a></td>
+<td>Private slot used to cleanup and optimize the local repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitMergedBranchList">__gitMergedBranchList</a></td>
+<td>Private slot used to list the merged branches of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitNotMergedBranchList">__gitNotMergedBranchList</a></td>
+<td>Private slot used to list the not merged branches of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitPruneRemote">__gitPruneRemote</a></td>
+<td>Private slot to prune stale tracking branches of a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitPull">__gitPull</a></td>
+<td>Private slot used to pull changes from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitPush">__gitPush</a></td>
+<td>Private slot used to push changes to a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitReflogBrowser">__gitReflogBrowser</a></td>
+<td>Private slot to show the reflog of the current project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitRemoteCredentials">__gitRemoteCredentials</a></td>
+<td>Private slot to change or set the user credentials for a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitRemoveRemote">__gitRemoveRemote</a></td>
+<td>Private slot to remove a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitRenameRemote">__gitRenameRemote</a></td>
+<td>Private slot to rename a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitRevert">__gitRevert</a></td>
+<td>Private slot used to revert changes made to the local project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitShowBranch">__gitShowBranch</a></td>
+<td>Private slot used to show the current branch for the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitShowConfig">__gitShowConfig</a></td>
+<td>Private slot used to show the combined configuration.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitShowPatchStatistics">__gitShowPatchStatistics</a></td>
+<td>Private slot to show some patch statistics.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitShowRemote">__gitShowRemote</a></td>
+<td>Private slot used to show information about a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitShowRemotes">__gitShowRemotes</a></td>
+<td>Private slot used to show the available remote repositories.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitStashApply">__gitStashApply</a></td>
+<td>Private slot to restore a stash and keep it.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitStashBranch">__gitStashBranch</a></td>
+<td>Private slot to create a new branch and restore a stash into it.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitStashBrowser">__gitStashBrowser</a></td>
+<td>Private slot used to show the stash browser dialog.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitStashClear">__gitStashClear</a></td>
+<td>Private slot to clear all stashes.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitStashDrop">__gitStashDrop</a></td>
+<td>Private slot to drop a stash.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitStashPop">__gitStashPop</a></td>
+<td>Private slot to restore a stash and delete it.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitStashSave">__gitStashSave</a></td>
+<td>Private slot to stash all current changes.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitStashShow">__gitStashShow</a></td>
+<td>Private slot to show the contents of the selected stash.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitStatistics">__gitStatistics</a></td>
+<td>Private slot used to show some statistics of the local repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmoduleAdd">__gitSubmoduleAdd</a></td>
+<td>Private slot to add a submodule to the current project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesDeinit">__gitSubmodulesDeinit</a></td>
+<td>Private slot to unregister submodules of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesInit">__gitSubmodulesInit</a></td>
+<td>Private slot to initialize submodules of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesList">__gitSubmodulesList</a></td>
+<td>Private slot to list the submodules defined for the current project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesStatus">__gitSubmodulesStatus</a></td>
+<td>Private slot to show the status of submodules of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesSummary">__gitSubmodulesSummary</a></td>
+<td>Private slot to show summary information for submodules of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesSync">__gitSubmodulesSync</a></td>
+<td>Private slot to synchronize URLs of submodules of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesUpdate">__gitSubmodulesUpdate</a></td>
+<td>Private slot to update submodules of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesUpdateInit">__gitSubmodulesUpdateInit</a></td>
+<td>Private slot to initialize and update submodules of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesUpdateOptions">__gitSubmodulesUpdateOptions</a></td>
+<td>Private slot to update submodules of the project with options.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitSubmodulesUpdateRemote">__gitSubmodulesUpdateRemote</a></td>
+<td>Private slot to fetch and update submodules of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitTagList">__gitTagList</a></td>
+<td>Private slot used to list the tags of the project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitUnstage">__gitUnstage</a></td>
+<td>Private slot used to unstage changes made to the local project.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitVerify">__gitVerify</a></td>
+<td>Private slot used to verify the connectivity and validity of objects of the database.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitVerifyBundle">__gitVerifyBundle</a></td>
+<td>Private slot used to verify a bundle file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.__gitWorktreeManagement">__gitWorktreeManagement</a></td>
+<td>Private slot to show the worktree management dialog.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.getActions">getActions</a></td>
+<td>Public method to get a list of all actions.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.getProject">getProject</a></td>
+<td>Public method to get a reference to the project object.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.initActions">initActions</a></td>
+<td>Public method to generate the action objects.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.initMenu">initMenu</a></td>
+<td>Public method to generate the VCS menu.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.initToolbar">initToolbar</a></td>
+<td>Public slot to initialize the VCS toolbar.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.removeToolbar">removeToolbar</a></td>
+<td>Public method to remove a toolbar created by initToolbar().</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.setObjects">setObjects</a></td>
+<td>Public method to set references to the vcs and project objects.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectHelper.shutdown">shutdown</a></td>
+<td>Public method to perform shutdown actions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitProjectHelper.__init__" ID="GitProjectHelper.__init__"></a>
+<h4>GitProjectHelper (Constructor)</h4>
+<b>GitProjectHelper</b>(<i>vcsObject, projectObject, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcsObject</i> (Git)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>projectObject</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="GitProjectHelper.__gitAddRemote" ID="GitProjectHelper.__gitAddRemote"></a>
+<h4>GitProjectHelper.__gitAddRemote</h4>
+<b>__gitAddRemote</b>(<i></i>)
+<p>
+        Private slot to add a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitApplyPatches" ID="GitProjectHelper.__gitApplyPatches"></a>
+<h4>GitProjectHelper.__gitApplyPatches</h4>
+<b>__gitApplyPatches</b>(<i></i>)
+<p>
+        Private slot to apply a list of patch files.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectBad" ID="GitProjectHelper.__gitBisectBad"></a>
+<h4>GitProjectHelper.__gitBisectBad</h4>
+<b>__gitBisectBad</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect bad command.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectCreateReplay" ID="GitProjectHelper.__gitBisectCreateReplay"></a>
+<h4>GitProjectHelper.__gitBisectCreateReplay</h4>
+<b>__gitBisectCreateReplay</b>(<i></i>)
+<p>
+        Private slot used to create a replay file for the current bisect
+        session.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectEditReplay" ID="GitProjectHelper.__gitBisectEditReplay"></a>
+<h4>GitProjectHelper.__gitBisectEditReplay</h4>
+<b>__gitBisectEditReplay</b>(<i></i>)
+<p>
+        Private slot used to edit a bisect replay file.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectGood" ID="GitProjectHelper.__gitBisectGood"></a>
+<h4>GitProjectHelper.__gitBisectGood</h4>
+<b>__gitBisectGood</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect good command.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectLogBrowser" ID="GitProjectHelper.__gitBisectLogBrowser"></a>
+<h4>GitProjectHelper.__gitBisectLogBrowser</h4>
+<b>__gitBisectLogBrowser</b>(<i></i>)
+<p>
+        Private slot used to show the bisect log browser window.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectReplay" ID="GitProjectHelper.__gitBisectReplay"></a>
+<h4>GitProjectHelper.__gitBisectReplay</h4>
+<b>__gitBisectReplay</b>(<i></i>)
+<p>
+        Private slot used to replay a bisect session.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectReset" ID="GitProjectHelper.__gitBisectReset"></a>
+<h4>GitProjectHelper.__gitBisectReset</h4>
+<b>__gitBisectReset</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect reset command.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectSkip" ID="GitProjectHelper.__gitBisectSkip"></a>
+<h4>GitProjectHelper.__gitBisectSkip</h4>
+<b>__gitBisectSkip</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect skip command.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectStart" ID="GitProjectHelper.__gitBisectStart"></a>
+<h4>GitProjectHelper.__gitBisectStart</h4>
+<b>__gitBisectStart</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect start command.
+</p>
+
+<a NAME="GitProjectHelper.__gitBisectStartExtended" ID="GitProjectHelper.__gitBisectStartExtended"></a>
+<h4>GitProjectHelper.__gitBisectStartExtended</h4>
+<b>__gitBisectStartExtended</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect start command with options.
+</p>
+
+<a NAME="GitProjectHelper.__gitBranch" ID="GitProjectHelper.__gitBranch"></a>
+<h4>GitProjectHelper.__gitBranch</h4>
+<b>__gitBranch</b>(<i></i>)
+<p>
+        Private slot used to perform branch operations for the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitBranchList" ID="GitProjectHelper.__gitBranchList"></a>
+<h4>GitProjectHelper.__gitBranchList</h4>
+<b>__gitBranchList</b>(<i></i>)
+<p>
+        Private slot used to list the branches of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitBundle" ID="GitProjectHelper.__gitBundle"></a>
+<h4>GitProjectHelper.__gitBundle</h4>
+<b>__gitBundle</b>(<i></i>)
+<p>
+        Private slot used to create a bundle file.
+</p>
+
+<a NAME="GitProjectHelper.__gitBundleFetch" ID="GitProjectHelper.__gitBundleFetch"></a>
+<h4>GitProjectHelper.__gitBundleFetch</h4>
+<b>__gitBundleFetch</b>(<i></i>)
+<p>
+        Private slot to apply a head of a bundle file using the fetch method.
+</p>
+
+<a NAME="GitProjectHelper.__gitBundleListHeads" ID="GitProjectHelper.__gitBundleListHeads"></a>
+<h4>GitProjectHelper.__gitBundleListHeads</h4>
+<b>__gitBundleListHeads</b>(<i></i>)
+<p>
+        Private slot used to list the heads contained in a bundle file.
+</p>
+
+<a NAME="GitProjectHelper.__gitBundlePull" ID="GitProjectHelper.__gitBundlePull"></a>
+<h4>GitProjectHelper.__gitBundlePull</h4>
+<b>__gitBundlePull</b>(<i></i>)
+<p>
+        Private slot to apply a head of a bundle file using the pull method.
+</p>
+
+<a NAME="GitProjectHelper.__gitCancelMerge" ID="GitProjectHelper.__gitCancelMerge"></a>
+<h4>GitProjectHelper.__gitCancelMerge</h4>
+<b>__gitCancelMerge</b>(<i></i>)
+<p>
+        Private slot used to cancel an uncommitted or failed merge.
+</p>
+
+<a NAME="GitProjectHelper.__gitChangeRemoteUrl" ID="GitProjectHelper.__gitChangeRemoteUrl"></a>
+<h4>GitProjectHelper.__gitChangeRemoteUrl</h4>
+<b>__gitChangeRemoteUrl</b>(<i></i>)
+<p>
+        Private slot to change the URL of a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitCheckPatches" ID="GitProjectHelper.__gitCheckPatches"></a>
+<h4>GitProjectHelper.__gitCheckPatches</h4>
+<b>__gitCheckPatches</b>(<i></i>)
+<p>
+        Private slot to check a list of patch files, if they would apply
+        cleanly.
+</p>
+
+<a NAME="GitProjectHelper.__gitCherryPick" ID="GitProjectHelper.__gitCherryPick"></a>
+<h4>GitProjectHelper.__gitCherryPick</h4>
+<b>__gitCherryPick</b>(<i></i>)
+<p>
+        Private slot used to copy commits into the current branch.
+</p>
+
+<a NAME="GitProjectHelper.__gitCherryPickAbort" ID="GitProjectHelper.__gitCherryPickAbort"></a>
+<h4>GitProjectHelper.__gitCherryPickAbort</h4>
+<b>__gitCherryPickAbort</b>(<i></i>)
+<p>
+        Private slot used to cancel the last copying session and return to
+        the previous state.
+</p>
+
+<a NAME="GitProjectHelper.__gitCherryPickContinue" ID="GitProjectHelper.__gitCherryPickContinue"></a>
+<h4>GitProjectHelper.__gitCherryPickContinue</h4>
+<b>__gitCherryPickContinue</b>(<i></i>)
+<p>
+        Private slot used to continue the last copying session after conflicts
+        were resolved.
+</p>
+
+<a NAME="GitProjectHelper.__gitCherryPickQuit" ID="GitProjectHelper.__gitCherryPickQuit"></a>
+<h4>GitProjectHelper.__gitCherryPickQuit</h4>
+<b>__gitCherryPickQuit</b>(<i></i>)
+<p>
+        Private slot used to quit the current copying operation.
+</p>
+
+<a NAME="GitProjectHelper.__gitCommitMerge" ID="GitProjectHelper.__gitCommitMerge"></a>
+<h4>GitProjectHelper.__gitCommitMerge</h4>
+<b>__gitCommitMerge</b>(<i></i>)
+<p>
+        Private slot used to commit the ongoing merge.
+</p>
+
+<a NAME="GitProjectHelper.__gitConfigure" ID="GitProjectHelper.__gitConfigure"></a>
+<h4>GitProjectHelper.__gitConfigure</h4>
+<b>__gitConfigure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="GitProjectHelper.__gitCreateArchive" ID="GitProjectHelper.__gitCreateArchive"></a>
+<h4>GitProjectHelper.__gitCreateArchive</h4>
+<b>__gitCreateArchive</b>(<i></i>)
+<p>
+        Private slot used to create an archive from the local repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitCreateIgnore" ID="GitProjectHelper.__gitCreateIgnore"></a>
+<h4>GitProjectHelper.__gitCreateIgnore</h4>
+<b>__gitCreateIgnore</b>(<i></i>)
+<p>
+        Private slot used to create a .gitignore file for the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitDeleteBranch" ID="GitProjectHelper.__gitDeleteBranch"></a>
+<h4>GitProjectHelper.__gitDeleteBranch</h4>
+<b>__gitDeleteBranch</b>(<i></i>)
+<p>
+        Private slot used to delete a branch from a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitDescribeTag" ID="GitProjectHelper.__gitDescribeTag"></a>
+<h4>GitProjectHelper.__gitDescribeTag</h4>
+<b>__gitDescribeTag</b>(<i></i>)
+<p>
+        Private slot to show the most recent tag.
+</p>
+
+<a NAME="GitProjectHelper.__gitEditRepoConfig" ID="GitProjectHelper.__gitEditRepoConfig"></a>
+<h4>GitProjectHelper.__gitEditRepoConfig</h4>
+<b>__gitEditRepoConfig</b>(<i></i>)
+<p>
+        Private slot used to edit the repository configuration file.
+</p>
+
+<a NAME="GitProjectHelper.__gitEditUserConfig" ID="GitProjectHelper.__gitEditUserConfig"></a>
+<h4>GitProjectHelper.__gitEditUserConfig</h4>
+<b>__gitEditUserConfig</b>(<i></i>)
+<p>
+        Private slot used to edit the user configuration file.
+</p>
+
+<a NAME="GitProjectHelper.__gitExtendedDiff" ID="GitProjectHelper.__gitExtendedDiff"></a>
+<h4>GitProjectHelper.__gitExtendedDiff</h4>
+<b>__gitExtendedDiff</b>(<i></i>)
+<p>
+        Private slot used to perform a git diff with the selection of
+        revisions.
+</p>
+
+<a NAME="GitProjectHelper.__gitFetch" ID="GitProjectHelper.__gitFetch"></a>
+<h4>GitProjectHelper.__gitFetch</h4>
+<b>__gitFetch</b>(<i></i>)
+<p>
+        Private slot used to fetch changes from a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitHouseKeeping" ID="GitProjectHelper.__gitHouseKeeping"></a>
+<h4>GitProjectHelper.__gitHouseKeeping</h4>
+<b>__gitHouseKeeping</b>(<i></i>)
+<p>
+        Private slot used to cleanup and optimize the local repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitMergedBranchList" ID="GitProjectHelper.__gitMergedBranchList"></a>
+<h4>GitProjectHelper.__gitMergedBranchList</h4>
+<b>__gitMergedBranchList</b>(<i></i>)
+<p>
+        Private slot used to list the merged branches of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitNotMergedBranchList" ID="GitProjectHelper.__gitNotMergedBranchList"></a>
+<h4>GitProjectHelper.__gitNotMergedBranchList</h4>
+<b>__gitNotMergedBranchList</b>(<i></i>)
+<p>
+        Private slot used to list the not merged branches of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitPruneRemote" ID="GitProjectHelper.__gitPruneRemote"></a>
+<h4>GitProjectHelper.__gitPruneRemote</h4>
+<b>__gitPruneRemote</b>(<i></i>)
+<p>
+        Private slot to prune stale tracking branches of a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitPull" ID="GitProjectHelper.__gitPull"></a>
+<h4>GitProjectHelper.__gitPull</h4>
+<b>__gitPull</b>(<i></i>)
+<p>
+        Private slot used to pull changes from a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitPush" ID="GitProjectHelper.__gitPush"></a>
+<h4>GitProjectHelper.__gitPush</h4>
+<b>__gitPush</b>(<i></i>)
+<p>
+        Private slot used to push changes to a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitReflogBrowser" ID="GitProjectHelper.__gitReflogBrowser"></a>
+<h4>GitProjectHelper.__gitReflogBrowser</h4>
+<b>__gitReflogBrowser</b>(<i></i>)
+<p>
+        Private slot to show the reflog of the current project.
+</p>
+
+<a NAME="GitProjectHelper.__gitRemoteCredentials" ID="GitProjectHelper.__gitRemoteCredentials"></a>
+<h4>GitProjectHelper.__gitRemoteCredentials</h4>
+<b>__gitRemoteCredentials</b>(<i></i>)
+<p>
+        Private slot to change or set the user credentials for a remote
+        repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitRemoveRemote" ID="GitProjectHelper.__gitRemoveRemote"></a>
+<h4>GitProjectHelper.__gitRemoveRemote</h4>
+<b>__gitRemoveRemote</b>(<i></i>)
+<p>
+        Private slot to remove a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitRenameRemote" ID="GitProjectHelper.__gitRenameRemote"></a>
+<h4>GitProjectHelper.__gitRenameRemote</h4>
+<b>__gitRenameRemote</b>(<i></i>)
+<p>
+        Private slot to rename a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitRevert" ID="GitProjectHelper.__gitRevert"></a>
+<h4>GitProjectHelper.__gitRevert</h4>
+<b>__gitRevert</b>(<i></i>)
+<p>
+        Private slot used to revert changes made to the local project.
+</p>
+
+<a NAME="GitProjectHelper.__gitShowBranch" ID="GitProjectHelper.__gitShowBranch"></a>
+<h4>GitProjectHelper.__gitShowBranch</h4>
+<b>__gitShowBranch</b>(<i></i>)
+<p>
+        Private slot used to show the current branch for the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitShowConfig" ID="GitProjectHelper.__gitShowConfig"></a>
+<h4>GitProjectHelper.__gitShowConfig</h4>
+<b>__gitShowConfig</b>(<i></i>)
+<p>
+        Private slot used to show the combined configuration.
+</p>
+
+<a NAME="GitProjectHelper.__gitShowPatchStatistics" ID="GitProjectHelper.__gitShowPatchStatistics"></a>
+<h4>GitProjectHelper.__gitShowPatchStatistics</h4>
+<b>__gitShowPatchStatistics</b>(<i></i>)
+<p>
+        Private slot to show some patch statistics.
+</p>
+
+<a NAME="GitProjectHelper.__gitShowRemote" ID="GitProjectHelper.__gitShowRemote"></a>
+<h4>GitProjectHelper.__gitShowRemote</h4>
+<b>__gitShowRemote</b>(<i></i>)
+<p>
+        Private slot used to show information about a remote repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitShowRemotes" ID="GitProjectHelper.__gitShowRemotes"></a>
+<h4>GitProjectHelper.__gitShowRemotes</h4>
+<b>__gitShowRemotes</b>(<i></i>)
+<p>
+        Private slot used to show the available remote repositories.
+</p>
+
+<a NAME="GitProjectHelper.__gitStashApply" ID="GitProjectHelper.__gitStashApply"></a>
+<h4>GitProjectHelper.__gitStashApply</h4>
+<b>__gitStashApply</b>(<i></i>)
+<p>
+        Private slot to restore a stash and keep it.
+</p>
+
+<a NAME="GitProjectHelper.__gitStashBranch" ID="GitProjectHelper.__gitStashBranch"></a>
+<h4>GitProjectHelper.__gitStashBranch</h4>
+<b>__gitStashBranch</b>(<i></i>)
+<p>
+        Private slot to create a new branch and restore a stash into it.
+</p>
+
+<a NAME="GitProjectHelper.__gitStashBrowser" ID="GitProjectHelper.__gitStashBrowser"></a>
+<h4>GitProjectHelper.__gitStashBrowser</h4>
+<b>__gitStashBrowser</b>(<i></i>)
+<p>
+        Private slot used to show the stash browser dialog.
+</p>
+
+<a NAME="GitProjectHelper.__gitStashClear" ID="GitProjectHelper.__gitStashClear"></a>
+<h4>GitProjectHelper.__gitStashClear</h4>
+<b>__gitStashClear</b>(<i></i>)
+<p>
+        Private slot to clear all stashes.
+</p>
+
+<a NAME="GitProjectHelper.__gitStashDrop" ID="GitProjectHelper.__gitStashDrop"></a>
+<h4>GitProjectHelper.__gitStashDrop</h4>
+<b>__gitStashDrop</b>(<i></i>)
+<p>
+        Private slot to drop a stash.
+</p>
+
+<a NAME="GitProjectHelper.__gitStashPop" ID="GitProjectHelper.__gitStashPop"></a>
+<h4>GitProjectHelper.__gitStashPop</h4>
+<b>__gitStashPop</b>(<i></i>)
+<p>
+        Private slot to restore a stash and delete it.
+</p>
+
+<a NAME="GitProjectHelper.__gitStashSave" ID="GitProjectHelper.__gitStashSave"></a>
+<h4>GitProjectHelper.__gitStashSave</h4>
+<b>__gitStashSave</b>(<i></i>)
+<p>
+        Private slot to stash all current changes.
+</p>
+
+<a NAME="GitProjectHelper.__gitStashShow" ID="GitProjectHelper.__gitStashShow"></a>
+<h4>GitProjectHelper.__gitStashShow</h4>
+<b>__gitStashShow</b>(<i></i>)
+<p>
+        Private slot to show the contents of the selected stash.
+</p>
+
+<a NAME="GitProjectHelper.__gitStatistics" ID="GitProjectHelper.__gitStatistics"></a>
+<h4>GitProjectHelper.__gitStatistics</h4>
+<b>__gitStatistics</b>(<i></i>)
+<p>
+        Private slot used to show some statistics of the local repository.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmoduleAdd" ID="GitProjectHelper.__gitSubmoduleAdd"></a>
+<h4>GitProjectHelper.__gitSubmoduleAdd</h4>
+<b>__gitSubmoduleAdd</b>(<i></i>)
+<p>
+        Private slot to add a submodule to the current project.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesDeinit" ID="GitProjectHelper.__gitSubmodulesDeinit"></a>
+<h4>GitProjectHelper.__gitSubmodulesDeinit</h4>
+<b>__gitSubmodulesDeinit</b>(<i></i>)
+<p>
+        Private slot to unregister submodules of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesInit" ID="GitProjectHelper.__gitSubmodulesInit"></a>
+<h4>GitProjectHelper.__gitSubmodulesInit</h4>
+<b>__gitSubmodulesInit</b>(<i></i>)
+<p>
+        Private slot to initialize submodules of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesList" ID="GitProjectHelper.__gitSubmodulesList"></a>
+<h4>GitProjectHelper.__gitSubmodulesList</h4>
+<b>__gitSubmodulesList</b>(<i></i>)
+<p>
+        Private slot to list the submodules defined for the current project.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesStatus" ID="GitProjectHelper.__gitSubmodulesStatus"></a>
+<h4>GitProjectHelper.__gitSubmodulesStatus</h4>
+<b>__gitSubmodulesStatus</b>(<i></i>)
+<p>
+        Private slot to show the status of submodules of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesSummary" ID="GitProjectHelper.__gitSubmodulesSummary"></a>
+<h4>GitProjectHelper.__gitSubmodulesSummary</h4>
+<b>__gitSubmodulesSummary</b>(<i></i>)
+<p>
+        Private slot to show summary information for submodules of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesSync" ID="GitProjectHelper.__gitSubmodulesSync"></a>
+<h4>GitProjectHelper.__gitSubmodulesSync</h4>
+<b>__gitSubmodulesSync</b>(<i></i>)
+<p>
+        Private slot to synchronize URLs of submodules of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesUpdate" ID="GitProjectHelper.__gitSubmodulesUpdate"></a>
+<h4>GitProjectHelper.__gitSubmodulesUpdate</h4>
+<b>__gitSubmodulesUpdate</b>(<i></i>)
+<p>
+        Private slot to update submodules of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesUpdateInit" ID="GitProjectHelper.__gitSubmodulesUpdateInit"></a>
+<h4>GitProjectHelper.__gitSubmodulesUpdateInit</h4>
+<b>__gitSubmodulesUpdateInit</b>(<i></i>)
+<p>
+        Private slot to initialize and update submodules of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesUpdateOptions" ID="GitProjectHelper.__gitSubmodulesUpdateOptions"></a>
+<h4>GitProjectHelper.__gitSubmodulesUpdateOptions</h4>
+<b>__gitSubmodulesUpdateOptions</b>(<i></i>)
+<p>
+        Private slot to update submodules of the project with options.
+</p>
+
+<a NAME="GitProjectHelper.__gitSubmodulesUpdateRemote" ID="GitProjectHelper.__gitSubmodulesUpdateRemote"></a>
+<h4>GitProjectHelper.__gitSubmodulesUpdateRemote</h4>
+<b>__gitSubmodulesUpdateRemote</b>(<i></i>)
+<p>
+        Private slot to fetch and update submodules of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitTagList" ID="GitProjectHelper.__gitTagList"></a>
+<h4>GitProjectHelper.__gitTagList</h4>
+<b>__gitTagList</b>(<i></i>)
+<p>
+        Private slot used to list the tags of the project.
+</p>
+
+<a NAME="GitProjectHelper.__gitUnstage" ID="GitProjectHelper.__gitUnstage"></a>
+<h4>GitProjectHelper.__gitUnstage</h4>
+<b>__gitUnstage</b>(<i></i>)
+<p>
+        Private slot used to unstage changes made to the local project.
+</p>
+
+<a NAME="GitProjectHelper.__gitVerify" ID="GitProjectHelper.__gitVerify"></a>
+<h4>GitProjectHelper.__gitVerify</h4>
+<b>__gitVerify</b>(<i></i>)
+<p>
+        Private slot used to verify the connectivity and validity of objects
+        of the database.
+</p>
+
+<a NAME="GitProjectHelper.__gitVerifyBundle" ID="GitProjectHelper.__gitVerifyBundle"></a>
+<h4>GitProjectHelper.__gitVerifyBundle</h4>
+<b>__gitVerifyBundle</b>(<i></i>)
+<p>
+        Private slot used to verify a bundle file.
+</p>
+
+<a NAME="GitProjectHelper.__gitWorktreeManagement" ID="GitProjectHelper.__gitWorktreeManagement"></a>
+<h4>GitProjectHelper.__gitWorktreeManagement</h4>
+<b>__gitWorktreeManagement</b>(<i></i>)
+<p>
+        Private slot to show the worktree management dialog.
+</p>
+
+<a NAME="GitProjectHelper.getActions" ID="GitProjectHelper.getActions"></a>
+<h4>GitProjectHelper.getActions</h4>
+<b>getActions</b>(<i></i>)
+<p>
+        Public method to get a list of all actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of EricAction
+</dd>
+</dl>
+<a NAME="GitProjectHelper.getProject" ID="GitProjectHelper.getProject"></a>
+<h4>GitProjectHelper.getProject</h4>
+<b>getProject</b>(<i></i>)
+<p>
+        Public method to get a reference to the project object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Project
+</dd>
+</dl>
+<a NAME="GitProjectHelper.initActions" ID="GitProjectHelper.initActions"></a>
+<h4>GitProjectHelper.initActions</h4>
+<b>initActions</b>(<i></i>)
+<p>
+        Public method to generate the action objects.
+</p>
+
+<a NAME="GitProjectHelper.initMenu" ID="GitProjectHelper.initMenu"></a>
+<h4>GitProjectHelper.initMenu</h4>
+<b>initMenu</b>(<i>menu</i>)
+<p>
+        Public method to generate the VCS menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+</dl>
+<a NAME="GitProjectHelper.initToolbar" ID="GitProjectHelper.initToolbar"></a>
+<h4>GitProjectHelper.initToolbar</h4>
+<b>initToolbar</b>(<i>ui, toolbarManager</i>)
+<p>
+        Public slot to initialize the VCS toolbar.
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<a NAME="GitProjectHelper.removeToolbar" ID="GitProjectHelper.removeToolbar"></a>
+<h4>GitProjectHelper.removeToolbar</h4>
+<b>removeToolbar</b>(<i>ui, toolbarManager</i>)
+<p>
+        Public method to remove a toolbar created by initToolbar().
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<a NAME="GitProjectHelper.setObjects" ID="GitProjectHelper.setObjects"></a>
+<h4>GitProjectHelper.setObjects</h4>
+<b>setObjects</b>(<i>vcsObject, projectObject</i>)
+<p>
+        Public method to set references to the vcs and project objects.
+</p>
+
+<dl>
+
+<dt><i>vcsObject</i> (Git)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>projectObject</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="GitProjectHelper.shutdown" ID="GitProjectHelper.shutdown"></a>
+<h4>GitProjectHelper.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to perform shutdown actions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

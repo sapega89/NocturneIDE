@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.HgDiffGenerator</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.HgDiffGenerator</h1>
+<p>
+Module implementing a class to generate the output of the hg diff command.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgDiffGenerator">HgDiffGenerator</a></td>
+<td>Class implementing the generation of output of the hg diff command.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgDiffGenerator" ID="HgDiffGenerator"></a>
+<h2>HgDiffGenerator</h2>
+<p>
+    Class implementing the generation of output of the hg diff command.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>finished()</dt>
+<dd>
+emitted when all processes have finished
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgDiffGenerator.__init__">HgDiffGenerator</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgDiffGenerator.__extractFileName">__extractFileName</a></td>
+<td>Private method to extract the file name out of a file separator line.</td>
+</tr>
+<tr>
+<td><a href="#HgDiffGenerator.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#HgDiffGenerator.__getVersionArg">__getVersionArg</a></td>
+<td>Private method to get a hg revision argument for the given revision.</td>
+</tr>
+<tr>
+<td><a href="#HgDiffGenerator.__processFileLine">__processFileLine</a></td>
+<td>Private slot to process a line giving the old/new file.</td>
+</tr>
+<tr>
+<td><a href="#HgDiffGenerator.getResult">getResult</a></td>
+<td>Public method to return the result data.</td>
+</tr>
+<tr>
+<td><a href="#HgDiffGenerator.start">start</a></td>
+<td>Public slot to start the hg diff command.</td>
+</tr>
+<tr>
+<td><a href="#HgDiffGenerator.stopProcess">stopProcess</a></td>
+<td>Public slot to stop the diff process.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgDiffGenerator.__init__" ID="HgDiffGenerator.__init__"></a>
+<h4>HgDiffGenerator (Constructor)</h4>
+<b>HgDiffGenerator</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="HgDiffGenerator.__extractFileName" ID="HgDiffGenerator.__extractFileName"></a>
+<h4>HgDiffGenerator.__extractFileName</h4>
+<b>__extractFileName</b>(<i>line</i>)
+<p>
+        Private method to extract the file name out of a file separator line.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+extracted file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgDiffGenerator.__finish" ID="HgDiffGenerator.__finish"></a>
+<h4>HgDiffGenerator.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="HgDiffGenerator.__getVersionArg" ID="HgDiffGenerator.__getVersionArg"></a>
+<h4>HgDiffGenerator.__getVersionArg</h4>
+<b>__getVersionArg</b>(<i>version</i>)
+<p>
+        Private method to get a hg revision argument for the given revision.
+</p>
+
+<dl>
+
+<dt><i>version</i> (int or str)</dt>
+<dd>
+revision
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+version argument
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgDiffGenerator.__processFileLine" ID="HgDiffGenerator.__processFileLine"></a>
+<h4>HgDiffGenerator.__processFileLine</h4>
+<b>__processFileLine</b>(<i>lineno, line</i>)
+<p>
+        Private slot to process a line giving the old/new file.
+</p>
+
+<dl>
+
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of line to be processed
+</dd>
+<dt><i>line</i> (str)</dt>
+<dd>
+line to be processed
+</dd>
+</dl>
+<a NAME="HgDiffGenerator.getResult" ID="HgDiffGenerator.getResult"></a>
+<h4>HgDiffGenerator.getResult</h4>
+<b>getResult</b>(<i></i>)
+<p>
+        Public method to return the result data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a list of lines of the diff, a list of errors
+            and a list of tuples of filenames and the line into the diff output
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, list of str, list of tuple of (str, int))
+</dd>
+</dl>
+<a NAME="HgDiffGenerator.start" ID="HgDiffGenerator.start"></a>
+<h4>HgDiffGenerator.start</h4>
+<b>start</b>(<i>fn, versions=None, bundle=None, qdiff=False</i>)
+<p>
+        Public slot to start the hg diff command.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to be diffed
+</dd>
+<dt><i>versions</i> (list of up to 2 str or None)</dt>
+<dd>
+list of versions to be diffed
+</dd>
+<dt><i>bundle</i> (str)</dt>
+<dd>
+name of a bundle file
+</dd>
+<dt><i>qdiff</i> (bool)</dt>
+<dd>
+flag indicating qdiff command shall be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful start of the diff command
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HgDiffGenerator.stopProcess" ID="HgDiffGenerator.stopProcess"></a>
+<h4>HgDiffGenerator.stopProcess</h4>
+<b>stopProcess</b>(<i></i>)
+<p>
+        Public slot to stop the diff process.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

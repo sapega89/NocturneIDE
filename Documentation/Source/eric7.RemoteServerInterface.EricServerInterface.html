@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.RemoteServerInterface.EricServerInterface</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.RemoteServerInterface.EricServerInterface</h1>
+<p>
+Module implementing the interface to the eric remote server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricServerInterface">EricServerInterface</a></td>
+<td>Class implementing the interface to the eric remote server.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricServerInterface" ID="EricServerInterface"></a>
+<h2>EricServerInterface</h2>
+<p>
+    Class implementing the interface to the eric remote server.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>aboutToDisconnect()</dt>
+<dd>
+emitted just befor the remote server is disconnected
+</dd>
+<dt>connectionStateChanged(state:bool)</dt>
+<dd>
+emitted to indicate a change of the
+        connection state
+</dd>
+<dt>remoteCoverageReply(request:str, params:dict)</dt>
+<dd>
+emitted to deliver the reply
+        of a remote server code coverage request
+</dd>
+<dt>remoteDebuggerReply(request:str, params:dict)</dt>
+<dd>
+emitted to deliver the reply
+        of a remote server debugger request
+</dd>
+<dt>remoteEchoReply(request:str, params:dict)</dt>
+<dd>
+emitted to deliver the reply of
+        a remote server echo request
+</dd>
+<dt>remoteEditorConfig(request:str, params:dict)</dt>
+<dd>
+emitted to deliver the reply
+        of a remote server  editor config request
+</dd>
+<dt>remoteFileSystemReply(request:str, params:dict)</dt>
+<dd>
+emitted to deliver the
+        reply of a remote server file system request
+</dd>
+<dt>remoteProjectReply(request:str, params:dict)</dt>
+<dd>
+emitted to deliver the reply
+        of a remote server project related request
+</dd>
+<dt>remoteReply(category:int, request:str, params:dict)</dt>
+<dd>
+emitted to deliver the
+        reply of an unknown category
+</dd>
+<dt>remoteServerReply(request:str, params:dict)</dt>
+<dd>
+emitted to deliver the reply
+        of a remote server control request
+</dd>
+<dt>showMenu(name:str, menu:QMenu)</dt>
+<dd>
+emitted when a menu is about to be shown.
+        The name of the menu and a reference to the menu are given.
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricServerInterface.__init__">EricServerInterface</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__connectToServer">__connectToServer</a></td>
+<td>Private slot to connect to a remote eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__connectionStateChanged">__connectionStateChanged</a></td>
+<td>Private slot to handle the connection state change.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__createCoverageInterface">__createCoverageInterface</a></td>
+<td>Private method to create and register the 'Coverage' eric-ide server interface.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__createDebuggerInterface">__createDebuggerInterface</a></td>
+<td>Private method to create and register the 'Debugger' eric-ide server interface.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__createEditorConfigInterface">__createEditorConfigInterface</a></td>
+<td>Private method to create and register the 'EditorConfig' eric-ide server interface.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__createFilesystemInterface">__createFilesystemInterface</a></td>
+<td>Private method to create and register the 'Filesystem' eric-ide server interface.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__handleDisconnect">__handleDisconnect</a></td>
+<td>Private slot handling a disconnect of the client.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__handleServerError">__handleServerError</a></td>
+<td>Private method handling server error replies.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__handleServerVersionReply">__handleServerVersionReply</a></td>
+<td>Private method to handle the reply of a 'Version' request.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__manageServerProfiles">__manageServerProfiles</a></td>
+<td>Private slot to show a dialog to manage the eric-ide server connection profiles.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__receiveJson">__receiveJson</a></td>
+<td>Private slot handling received data from the eric remote server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__serverProfileTriggered">__serverProfileTriggered</a></td>
+<td>Private slot to handle the selection of a remote server connection.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__showEricServerMenu">__showEricServerMenu</a></td>
+<td>Private slot to display the server menu.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__showServerProfilesMenu">__showServerProfilesMenu</a></td>
+<td>Private slot to prepare the eric server profiles menu.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.__shutdownServer">__shutdownServer</a></td>
+<td>Private slot to shut down the currently connected eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.connectToServer">connectToServer</a></td>
+<td>Public method to connect to the given host and port.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.disconnectFromServer">disconnectFromServer</a></td>
+<td>Public method to disconnect from the eric remote server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.getHost">getHost</a></td>
+<td>Public method to get the connected host as "host name:port".</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.getHostName">getHostName</a></td>
+<td>Public method to get the name of the connected host.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.getServiceInterface">getServiceInterface</a></td>
+<td>Public method to get a references to a specific service interface by service name.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.initActions">initActions</a></td>
+<td>Public slot to initialize the eric-ide server actions.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.initMenus">initMenus</a></td>
+<td>Public slot to initialize the eric-ide server menus.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.initToolbar">initToolbar</a></td>
+<td>Public slot to initialize the eric-ide server toolbar.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.isServerConnected">isServerConnected</a></td>
+<td>Public method to check, if a connection to an eric-ide server has been established.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.parseHost">parseHost</a></td>
+<td>Public method to parse a host string generated with 'getHost()'.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.sendJson">sendJson</a></td>
+<td>Public method to send a single command to a client.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.serverVersions">serverVersions</a></td>
+<td>Public slot to request the eric-ide version of the server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerInterface.shutdownServer">shutdownServer</a></td>
+<td>Public method shutdown the currebtly connected eric-ide remote server.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricServerInterface.__init__" ID="EricServerInterface.__init__"></a>
+<h4>EricServerInterface (Constructor)</h4>
+<b>EricServerInterface</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="EricServerInterface.__connectToServer" ID="EricServerInterface.__connectToServer"></a>
+<h4>EricServerInterface.__connectToServer</h4>
+<b>__connectToServer</b>(<i></i>)
+<p>
+        Private slot to connect to a remote eric-ide server.
+</p>
+
+<a NAME="EricServerInterface.__connectionStateChanged" ID="EricServerInterface.__connectionStateChanged"></a>
+<h4>EricServerInterface.__connectionStateChanged</h4>
+<b>__connectionStateChanged</b>(<i>connected</i>)
+<p>
+        Private slot to handle the connection state change.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+flag indicating the connection state
+</dd>
+</dl>
+<a NAME="EricServerInterface.__createCoverageInterface" ID="EricServerInterface.__createCoverageInterface"></a>
+<h4>EricServerInterface.__createCoverageInterface</h4>
+<b>__createCoverageInterface</b>(<i></i>)
+<p>
+        Private method to create and register the 'Coverage' eric-ide server interface.
+</p>
+
+<a NAME="EricServerInterface.__createDebuggerInterface" ID="EricServerInterface.__createDebuggerInterface"></a>
+<h4>EricServerInterface.__createDebuggerInterface</h4>
+<b>__createDebuggerInterface</b>(<i></i>)
+<p>
+        Private method to create and register the 'Debugger' eric-ide server interface.
+</p>
+
+<a NAME="EricServerInterface.__createEditorConfigInterface" ID="EricServerInterface.__createEditorConfigInterface"></a>
+<h4>EricServerInterface.__createEditorConfigInterface</h4>
+<b>__createEditorConfigInterface</b>(<i></i>)
+<p>
+        Private method to create and register the 'EditorConfig' eric-ide server
+        interface.
+</p>
+
+<a NAME="EricServerInterface.__createFilesystemInterface" ID="EricServerInterface.__createFilesystemInterface"></a>
+<h4>EricServerInterface.__createFilesystemInterface</h4>
+<b>__createFilesystemInterface</b>(<i></i>)
+<p>
+        Private method to create and register the 'Filesystem' eric-ide server
+        interface.
+</p>
+
+<a NAME="EricServerInterface.__handleDisconnect" ID="EricServerInterface.__handleDisconnect"></a>
+<h4>EricServerInterface.__handleDisconnect</h4>
+<b>__handleDisconnect</b>(<i></i>)
+<p>
+        Private slot handling a disconnect of the client.
+</p>
+
+<a NAME="EricServerInterface.__handleServerError" ID="EricServerInterface.__handleServerError"></a>
+<h4>EricServerInterface.__handleServerError</h4>
+<b>__handleServerError</b>(<i>reply, params</i>)
+<p>
+        Private method handling server error replies.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (str)</dt>
+<dd>
+name of the error reply
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the specific reply data
+</dd>
+</dl>
+<a NAME="EricServerInterface.__handleServerVersionReply" ID="EricServerInterface.__handleServerVersionReply"></a>
+<h4>EricServerInterface.__handleServerVersionReply</h4>
+<b>__handleServerVersionReply</b>(<i>reply, params</i>)
+<p>
+        Private method to handle the reply of a 'Version' request.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (str)</dt>
+<dd>
+name of the eric-ide server reply
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised in case of an unsupported reply
+</dd>
+</dl>
+<a NAME="EricServerInterface.__manageServerProfiles" ID="EricServerInterface.__manageServerProfiles"></a>
+<h4>EricServerInterface.__manageServerProfiles</h4>
+<b>__manageServerProfiles</b>(<i></i>)
+<p>
+        Private slot to show a dialog to manage the eric-ide server connection
+        profiles.
+</p>
+
+<a NAME="EricServerInterface.__receiveJson" ID="EricServerInterface.__receiveJson"></a>
+<h4>EricServerInterface.__receiveJson</h4>
+<b>__receiveJson</b>(<i></i>)
+<p>
+        Private slot handling received data from the eric remote server.
+</p>
+
+<a NAME="EricServerInterface.__serverProfileTriggered" ID="EricServerInterface.__serverProfileTriggered"></a>
+<h4>EricServerInterface.__serverProfileTriggered</h4>
+<b>__serverProfileTriggered</b>(<i>act</i>)
+<p>
+        Private slot to handle the selection of a remote server connection.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggered profile action
+</dd>
+</dl>
+<a NAME="EricServerInterface.__showEricServerMenu" ID="EricServerInterface.__showEricServerMenu"></a>
+<h4>EricServerInterface.__showEricServerMenu</h4>
+<b>__showEricServerMenu</b>(<i></i>)
+<p>
+        Private slot to display the server menu.
+</p>
+
+<a NAME="EricServerInterface.__showServerProfilesMenu" ID="EricServerInterface.__showServerProfilesMenu"></a>
+<h4>EricServerInterface.__showServerProfilesMenu</h4>
+<b>__showServerProfilesMenu</b>(<i></i>)
+<p>
+        Private slot to prepare the eric server profiles menu.
+</p>
+
+<a NAME="EricServerInterface.__shutdownServer" ID="EricServerInterface.__shutdownServer"></a>
+<h4>EricServerInterface.__shutdownServer</h4>
+<b>__shutdownServer</b>(<i></i>)
+<p>
+        Private slot to shut down the currently connected eric-ide server.
+</p>
+
+<a NAME="EricServerInterface.connectToServer" ID="EricServerInterface.connectToServer"></a>
+<h4>EricServerInterface.connectToServer</h4>
+<b>connectToServer</b>(<i>host, port=None, timeout=None, clientId=""</i>)
+<p>
+        Public method to connect to the given host and port.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host name or IP address of the eric remote server
+</dd>
+<dt><i>port</i> (int (optional))</dt>
+<dd>
+port number to connect to (defaults to None)
+</dd>
+<dt><i>timeout</i> (int (optional))</dt>
+<dd>
+timeout im seconds for the connection attempt
+            (defaults to None)
+</dd>
+<dt><i>clientId</i> (str (optional))</dt>
+<dd>
+string prepended to each message for validity checking
+            (defaults to "")
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServerInterface.disconnectFromServer" ID="EricServerInterface.disconnectFromServer"></a>
+<h4>EricServerInterface.disconnectFromServer</h4>
+<b>disconnectFromServer</b>(<i></i>)
+<p>
+        Public method to disconnect from the eric remote server.
+</p>
+
+<a NAME="EricServerInterface.getHost" ID="EricServerInterface.getHost"></a>
+<h4>EricServerInterface.getHost</h4>
+<b>getHost</b>(<i></i>)
+<p>
+        Public method to get the connected host as "host name:port".
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+connected host as "host name:port" or an empty string, if there is no
+            valid connection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerInterface.getHostName" ID="EricServerInterface.getHostName"></a>
+<h4>EricServerInterface.getHostName</h4>
+<b>getHostName</b>(<i></i>)
+<p>
+        Public method to get the name of the connected host.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the connected host or an empty string, if there is no
+            valid connection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerInterface.getServiceInterface" ID="EricServerInterface.getServiceInterface"></a>
+<h4>EricServerInterface.getServiceInterface</h4>
+<b>getServiceInterface</b>(<i>name</i>)
+<p>
+        Public method to get a references to a specific service interface by
+        service name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+service name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the service interface
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QObject
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an unsupported server interface
+            was requested
+</dd>
+</dl>
+<a NAME="EricServerInterface.initActions" ID="EricServerInterface.initActions"></a>
+<h4>EricServerInterface.initActions</h4>
+<b>initActions</b>(<i></i>)
+<p>
+        Public slot to initialize the eric-ide server actions.
+</p>
+
+<a NAME="EricServerInterface.initMenus" ID="EricServerInterface.initMenus"></a>
+<h4>EricServerInterface.initMenus</h4>
+<b>initMenus</b>(<i></i>)
+<p>
+        Public slot to initialize the eric-ide server menus.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the main eric-ide server menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="EricServerInterface.initToolbar" ID="EricServerInterface.initToolbar"></a>
+<h4>EricServerInterface.initToolbar</h4>
+<b>initToolbar</b>(<i>toolbarManager</i>)
+<p>
+        Public slot to initialize the eric-ide server toolbar.
+</p>
+
+<dl>
+
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the toolbar generated
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="EricServerInterface.isServerConnected" ID="EricServerInterface.isServerConnected"></a>
+<h4>EricServerInterface.isServerConnected</h4>
+<b>isServerConnected</b>(<i></i>)
+<p>
+        Public method to check, if a connection to an eric-ide server has been
+        established.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the interface connection state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServerInterface.parseHost" ID="EricServerInterface.parseHost"></a>
+<h4>EricServerInterface.parseHost</h4>
+<b>parseHost</b>(<i>host</i>)
+<p>
+        Public method to parse a host string generated with 'getHost()'.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the host name and the port
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, int)
+</dd>
+</dl>
+<a NAME="EricServerInterface.sendJson" ID="EricServerInterface.sendJson"></a>
+<h4>EricServerInterface.sendJson</h4>
+<b>sendJson</b>(<i>category, request, params, callback=None, flush=False</i>)
+<p>
+        Public method to send a single command to a client.
+</p>
+
+<dl>
+
+<dt><i>category</i> (EricRequestCategory)</dt>
+<dd>
+service category
+</dd>
+<dt><i>request</i> (str)</dt>
+<dd>
+request name to be sent
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary of named parameters for the request
+</dd>
+<dt><i>callback</i> (function (optional))</dt>
+<dd>
+callback function for the reply from the eric remote server
+            (defaults to None)
+</dd>
+<dt><i>flush</i> (bool (optional))</dt>
+<dd>
+flag indicating to flush the data to the socket
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="EricServerInterface.serverVersions" ID="EricServerInterface.serverVersions"></a>
+<h4>EricServerInterface.serverVersions</h4>
+<b>serverVersions</b>(<i></i>)
+<p>
+        Public slot to request the eric-ide version of the server.
+</p>
+
+<a NAME="EricServerInterface.shutdownServer" ID="EricServerInterface.shutdownServer"></a>
+<h4>EricServerInterface.shutdownServer</h4>
+<b>shutdownServer</b>(<i></i>)
+<p>
+        Public method shutdown the currebtly connected eric-ide remote server.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

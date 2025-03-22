@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Feeds.FeedsManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Feeds.FeedsManager</h1>
+<p>
+Module implementing a RSS feeds manager dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#FeedsManager">FeedsManager</a></td>
+<td>Class implementing a RSS feeds manager dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="FeedsManager" ID="FeedsManager"></a>
+<h2>FeedsManager</h2>
+<p>
+    Class implementing a RSS feeds manager dialog.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>newBackgroundTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new
+        background tab
+</dd>
+<dt>newPrivateWindow(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new
+        private window
+</dd>
+<dt>newTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new tab
+</dd>
+<dt>newWindow(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new window
+</dd>
+<dt>openUrl(QUrl, str)</dt>
+<dd>
+emitted to open a URL in the current tab
+</dd>
+</dl>
+<h3>Derived from</h3>
+QDialog, Ui_FeedsManager
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ErrorDataRole</td></tr>
+<tr><td>UrlStringRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FeedsManager.__init__">FeedsManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__addFeedItem">__addFeedItem</a></td>
+<td>Private slot to add a top level feed item.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__copyUrlToClipboard">__copyUrlToClipboard</a></td>
+<td>Private slot to copy the URL of the selected item to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__customContextMenuRequested">__customContextMenuRequested</a></td>
+<td>Private slot to handle the context menu request for the feeds tree.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__enableButtons">__enableButtons</a></td>
+<td>Private slot to disable/enable various buttons.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__feedLoaded">__feedLoaded</a></td>
+<td>Private slot to extract the loaded feed data.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__itemActivated">__itemActivated</a></td>
+<td>Private slot to handle the activation of an item.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__load">__load</a></td>
+<td>Private method to load the feeds data.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__openMessage">__openMessage</a></td>
+<td>Private method to open a feed message.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__openMessageInCurrentTab">__openMessageInCurrentTab</a></td>
+<td>Private slot to open a feed message in the current browser tab.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__openMessageInNewBackgroundTab">__openMessageInNewBackgroundTab</a></td>
+<td>Private slot to open a feed message in a new background tab.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__openMessageInNewTab">__openMessageInNewTab</a></td>
+<td>Private slot to open a feed message in a new browser tab.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__openMessageInNewWindow">__openMessageInNewWindow</a></td>
+<td>Private slot to open a feed message in a new browser window.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__openMessageInPrivateWindow">__openMessageInPrivateWindow</a></td>
+<td>Private slot to open a feed message in a new private browser window.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__reloadFeed">__reloadFeed</a></td>
+<td>Private method to reload the given feed.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__save">__save</a></td>
+<td>Private method to store the feeds data.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.__showError">__showError</a></td>
+<td>Private slot to show error info for a failed load operation.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.addFeed">addFeed</a></td>
+<td>Public method to add a feed.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.on_deleteButton_clicked">on_deleteButton_clicked</a></td>
+<td>Private slot to delete the selected feed.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.on_editButton_clicked">on_editButton_clicked</a></td>
+<td>Private slot to edit the selected feed.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.on_feedsTree_itemSelectionChanged">on_feedsTree_itemSelectionChanged</a></td>
+<td>Private slot to enable the various buttons depending on the selection.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.on_reloadAllButton_clicked">on_reloadAllButton_clicked</a></td>
+<td>Private slot to reload all feeds.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.on_reloadButton_clicked">on_reloadButton_clicked</a></td>
+<td>Private slot to reload the selected feed.</td>
+</tr>
+<tr>
+<td><a href="#FeedsManager.show">show</a></td>
+<td>Public slot to show the feeds manager dialog.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FeedsManager.__init__" ID="FeedsManager.__init__"></a>
+<h4>FeedsManager (Constructor)</h4>
+<b>FeedsManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="FeedsManager.__addFeedItem" ID="FeedsManager.__addFeedItem"></a>
+<h4>FeedsManager.__addFeedItem</h4>
+<b>__addFeedItem</b>(<i>feed</i>)
+<p>
+        Private slot to add a top level feed item.
+</p>
+
+<dl>
+
+<dt><i>feed</i> (tuple of (str, str, QIcon))</dt>
+<dd>
+tuple containing feed info (URL, title, icon)
+</dd>
+</dl>
+<a NAME="FeedsManager.__copyUrlToClipboard" ID="FeedsManager.__copyUrlToClipboard"></a>
+<h4>FeedsManager.__copyUrlToClipboard</h4>
+<b>__copyUrlToClipboard</b>(<i></i>)
+<p>
+        Private slot to copy the URL of the selected item to the clipboard.
+</p>
+
+<a NAME="FeedsManager.__customContextMenuRequested" ID="FeedsManager.__customContextMenuRequested"></a>
+<h4>FeedsManager.__customContextMenuRequested</h4>
+<b>__customContextMenuRequested</b>(<i>_pos</i>)
+<p>
+        Private slot to handle the context menu request for the feeds tree.
+</p>
+
+<dl>
+
+<dt><i>_pos</i> (QPoint)</dt>
+<dd>
+position the context menu was requested (unused)
+</dd>
+</dl>
+<a NAME="FeedsManager.__enableButtons" ID="FeedsManager.__enableButtons"></a>
+<h4>FeedsManager.__enableButtons</h4>
+<b>__enableButtons</b>(<i></i>)
+<p>
+        Private slot to disable/enable various buttons.
+</p>
+
+<a NAME="FeedsManager.__feedLoaded" ID="FeedsManager.__feedLoaded"></a>
+<h4>FeedsManager.__feedLoaded</h4>
+<b>__feedLoaded</b>(<i>reply</i>)
+<p>
+        Private slot to extract the loaded feed data.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="FeedsManager.__itemActivated" ID="FeedsManager.__itemActivated"></a>
+<h4>FeedsManager.__itemActivated</h4>
+<b>__itemActivated</b>(<i>itm, _column</i>)
+<p>
+        Private slot to handle the activation of an item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column of the activation (unused)
+</dd>
+</dl>
+<a NAME="FeedsManager.__load" ID="FeedsManager.__load"></a>
+<h4>FeedsManager.__load</h4>
+<b>__load</b>(<i></i>)
+<p>
+        Private method to load the feeds data.
+</p>
+
+<a NAME="FeedsManager.__openMessage" ID="FeedsManager.__openMessage"></a>
+<h4>FeedsManager.__openMessage</h4>
+<b>__openMessage</b>(<i>newTab=False, background=False, newWindow=False, privateWindow=False</i>)
+<p>
+        Private method to open a feed message.
+</p>
+
+<dl>
+
+<dt><i>newTab</i> (bool)</dt>
+<dd>
+flag indicating to open the feed message in a new tab
+</dd>
+<dt><i>background</i> (bool)</dt>
+<dd>
+flag indicating to open the bookmark in a new
+            background tab
+</dd>
+<dt><i>newWindow</i> (bool)</dt>
+<dd>
+flag indicating to open the bookmark in a new window
+</dd>
+<dt><i>privateWindow</i> (bool)</dt>
+<dd>
+flag indicating to open the bookmark in a new
+            private window
+</dd>
+</dl>
+<a NAME="FeedsManager.__openMessageInCurrentTab" ID="FeedsManager.__openMessageInCurrentTab"></a>
+<h4>FeedsManager.__openMessageInCurrentTab</h4>
+<b>__openMessageInCurrentTab</b>(<i></i>)
+<p>
+        Private slot to open a feed message in the current browser tab.
+</p>
+
+<a NAME="FeedsManager.__openMessageInNewBackgroundTab" ID="FeedsManager.__openMessageInNewBackgroundTab"></a>
+<h4>FeedsManager.__openMessageInNewBackgroundTab</h4>
+<b>__openMessageInNewBackgroundTab</b>(<i></i>)
+<p>
+        Private slot to open a feed message in a new background tab.
+</p>
+
+<a NAME="FeedsManager.__openMessageInNewTab" ID="FeedsManager.__openMessageInNewTab"></a>
+<h4>FeedsManager.__openMessageInNewTab</h4>
+<b>__openMessageInNewTab</b>(<i></i>)
+<p>
+        Private slot to open a feed message in a new browser tab.
+</p>
+
+<a NAME="FeedsManager.__openMessageInNewWindow" ID="FeedsManager.__openMessageInNewWindow"></a>
+<h4>FeedsManager.__openMessageInNewWindow</h4>
+<b>__openMessageInNewWindow</b>(<i></i>)
+<p>
+        Private slot to open a feed message in a new browser window.
+</p>
+
+<a NAME="FeedsManager.__openMessageInPrivateWindow" ID="FeedsManager.__openMessageInPrivateWindow"></a>
+<h4>FeedsManager.__openMessageInPrivateWindow</h4>
+<b>__openMessageInPrivateWindow</b>(<i></i>)
+<p>
+        Private slot to open a feed message in a new private browser window.
+</p>
+
+<a NAME="FeedsManager.__reloadFeed" ID="FeedsManager.__reloadFeed"></a>
+<h4>FeedsManager.__reloadFeed</h4>
+<b>__reloadFeed</b>(<i>itm</i>)
+<p>
+        Private method to reload the given feed.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+feed item to be reloaded
+</dd>
+</dl>
+<a NAME="FeedsManager.__save" ID="FeedsManager.__save"></a>
+<h4>FeedsManager.__save</h4>
+<b>__save</b>(<i></i>)
+<p>
+        Private method to store the feeds data.
+</p>
+
+<a NAME="FeedsManager.__showError" ID="FeedsManager.__showError"></a>
+<h4>FeedsManager.__showError</h4>
+<b>__showError</b>(<i></i>)
+<p>
+        Private slot to show error info for a failed load operation.
+</p>
+
+<a NAME="FeedsManager.addFeed" ID="FeedsManager.addFeed"></a>
+<h4>FeedsManager.addFeed</h4>
+<b>addFeed</b>(<i>urlString, title, icon</i>)
+<p>
+        Public method to add a feed.
+</p>
+
+<dl>
+
+<dt><i>urlString</i> (str)</dt>
+<dd>
+URL of the feed
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the feed
+</dd>
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+icon for the feed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful addition of the feed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="FeedsManager.on_deleteButton_clicked" ID="FeedsManager.on_deleteButton_clicked"></a>
+<h4>FeedsManager.on_deleteButton_clicked</h4>
+<b>on_deleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected feed.
+</p>
+
+<a NAME="FeedsManager.on_editButton_clicked" ID="FeedsManager.on_editButton_clicked"></a>
+<h4>FeedsManager.on_editButton_clicked</h4>
+<b>on_editButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit the selected feed.
+</p>
+
+<a NAME="FeedsManager.on_feedsTree_itemSelectionChanged" ID="FeedsManager.on_feedsTree_itemSelectionChanged"></a>
+<h4>FeedsManager.on_feedsTree_itemSelectionChanged</h4>
+<b>on_feedsTree_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to enable the various buttons depending on the selection.
+</p>
+
+<a NAME="FeedsManager.on_reloadAllButton_clicked" ID="FeedsManager.on_reloadAllButton_clicked"></a>
+<h4>FeedsManager.on_reloadAllButton_clicked</h4>
+<b>on_reloadAllButton_clicked</b>(<i></i>)
+<p>
+        Private slot to reload all feeds.
+</p>
+
+<a NAME="FeedsManager.on_reloadButton_clicked" ID="FeedsManager.on_reloadButton_clicked"></a>
+<h4>FeedsManager.on_reloadButton_clicked</h4>
+<b>on_reloadButton_clicked</b>(<i></i>)
+<p>
+        Private slot to reload the selected feed.
+</p>
+
+<a NAME="FeedsManager.show" ID="FeedsManager.show"></a>
+<h4>FeedsManager.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the feeds manager dialog.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

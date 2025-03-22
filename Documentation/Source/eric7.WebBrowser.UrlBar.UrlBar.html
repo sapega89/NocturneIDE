@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.UrlBar.UrlBar</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.UrlBar.UrlBar</h1>
+<p>
+Module implementing the URL bar widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>QSslCertificate</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#UrlBar">UrlBar</a></td>
+<td>Class implementing a line edit for entering URLs.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="UrlBar" ID="UrlBar"></a>
+<h2>UrlBar</h2>
+<p>
+    Class implementing a line edit for entering URLs.
+</p>
+
+<h3>Derived from</h3>
+EricClearableLineEdit
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#UrlBar.__init__">UrlBar</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__bookmarkChanged">__bookmarkChanged</a></td>
+<td>Private slot to handle bookmark or speed dial changes.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__browserUrlChanged">__browserUrlChanged</a></td>
+<td>Private slot to handle a URL change of the associated browser.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__checkBookmark">__checkBookmark</a></td>
+<td>Private slot to check the current URL for the bookmarked state.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__loadFinished">__loadFinished</a></td>
+<td>Private slot to set some data after the page was loaded.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__loadProgress">__loadProgress</a></td>
+<td>Private slot to track the load progress.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__loadStarted">__loadStarted</a></td>
+<td>Private slot to perform actions before the page is loaded.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__rssTriggered">__rssTriggered</a></td>
+<td>Private slot to handle clicking the RSS icon.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__setRssButton">__setRssButton</a></td>
+<td>Private slot to show the RSS button.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__showBookmarkInfo">__showBookmarkInfo</a></td>
+<td>Private slot to show a dialog with some bookmark info.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__showThreatInfo">__showThreatInfo</a></td>
+<td>Private slot to show the threat info widget.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.__sslConfigurationChanged">__sslConfigurationChanged</a></td>
+<td>Private slot to handle a change of the associated web page SSL configuration.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.browser">browser</a></td>
+<td>Public method to get the associated browser.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.dragEnterEvent">dragEnterEvent</a></td>
+<td>Protected method to handle drag enter events.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.dropEvent">dropEvent</a></td>
+<td>Protected method to handle drop events.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.focusOutEvent">focusOutEvent</a></td>
+<td>Protected method to handle focus out event.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method to handle key presses.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.mouseDoubleClickEvent">mouseDoubleClickEvent</a></td>
+<td>Protected method to handle mouse double click events.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method called by a mouse press event.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#UrlBar.setBrowser">setBrowser</a></td>
+<td>Public method to set the browser connection.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="UrlBar.__init__" ID="UrlBar.__init__"></a>
+<h4>UrlBar (Constructor)</h4>
+<b>UrlBar</b>(<i>mainWindow, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>mainWindow</i> (WebBrowserWindow)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>parent</i> (WebBrowserView)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="UrlBar.__bookmarkChanged" ID="UrlBar.__bookmarkChanged"></a>
+<h4>UrlBar.__bookmarkChanged</h4>
+<b>__bookmarkChanged</b>(<i></i>)
+<p>
+        Private slot to handle bookmark or speed dial changes.
+</p>
+
+<a NAME="UrlBar.__browserUrlChanged" ID="UrlBar.__browserUrlChanged"></a>
+<h4>UrlBar.__browserUrlChanged</h4>
+<b>__browserUrlChanged</b>(<i>url</i>)
+<p>
+        Private slot to handle a URL change of the associated browser.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+new URL of the browser
+</dd>
+</dl>
+<a NAME="UrlBar.__checkBookmark" ID="UrlBar.__checkBookmark"></a>
+<h4>UrlBar.__checkBookmark</h4>
+<b>__checkBookmark</b>(<i></i>)
+<p>
+        Private slot to check the current URL for the bookmarked state.
+</p>
+
+<a NAME="UrlBar.__loadFinished" ID="UrlBar.__loadFinished"></a>
+<h4>UrlBar.__loadFinished</h4>
+<b>__loadFinished</b>(<i>ok</i>)
+<p>
+        Private slot to set some data after the page was loaded.
+</p>
+
+<dl>
+
+<dt><i>ok</i> (bool)</dt>
+<dd>
+flag indicating a successful load
+</dd>
+</dl>
+<a NAME="UrlBar.__loadProgress" ID="UrlBar.__loadProgress"></a>
+<h4>UrlBar.__loadProgress</h4>
+<b>__loadProgress</b>(<i>progress</i>)
+<p>
+        Private slot to track the load progress.
+</p>
+
+<dl>
+
+<dt><i>progress</i> (int)</dt>
+<dd>
+load progress in percent
+</dd>
+</dl>
+<a NAME="UrlBar.__loadStarted" ID="UrlBar.__loadStarted"></a>
+<h4>UrlBar.__loadStarted</h4>
+<b>__loadStarted</b>(<i></i>)
+<p>
+        Private slot to perform actions before the page is loaded.
+</p>
+
+<a NAME="UrlBar.__rssTriggered" ID="UrlBar.__rssTriggered"></a>
+<h4>UrlBar.__rssTriggered</h4>
+<b>__rssTriggered</b>(<i></i>)
+<p>
+        Private slot to handle clicking the RSS icon.
+</p>
+
+<a NAME="UrlBar.__setRssButton" ID="UrlBar.__setRssButton"></a>
+<h4>UrlBar.__setRssButton</h4>
+<b>__setRssButton</b>(<i></i>)
+<p>
+        Private slot to show the RSS button.
+</p>
+
+<a NAME="UrlBar.__showBookmarkInfo" ID="UrlBar.__showBookmarkInfo"></a>
+<h4>UrlBar.__showBookmarkInfo</h4>
+<b>__showBookmarkInfo</b>(<i></i>)
+<p>
+        Private slot to show a dialog with some bookmark info.
+</p>
+
+<a NAME="UrlBar.__showThreatInfo" ID="UrlBar.__showThreatInfo"></a>
+<h4>UrlBar.__showThreatInfo</h4>
+<b>__showThreatInfo</b>(<i>pos</i>)
+<p>
+        Private slot to show the threat info widget.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position to show the info at
+</dd>
+</dl>
+<a NAME="UrlBar.__sslConfigurationChanged" ID="UrlBar.__sslConfigurationChanged"></a>
+<h4>UrlBar.__sslConfigurationChanged</h4>
+<b>__sslConfigurationChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of the associated web page SSL
+        configuration.
+</p>
+
+<a NAME="UrlBar.browser" ID="UrlBar.browser"></a>
+<h4>UrlBar.browser</h4>
+<b>browser</b>(<i></i>)
+<p>
+        Public method to get the associated browser.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the associated browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserView
+</dd>
+</dl>
+<a NAME="UrlBar.dragEnterEvent" ID="UrlBar.dragEnterEvent"></a>
+<h4>UrlBar.dragEnterEvent</h4>
+<b>dragEnterEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle drag enter events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QDragEnterEvent)</dt>
+<dd>
+reference to the drag enter event
+</dd>
+</dl>
+<a NAME="UrlBar.dropEvent" ID="UrlBar.dropEvent"></a>
+<h4>UrlBar.dropEvent</h4>
+<b>dropEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle drop events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QDropEvent)</dt>
+<dd>
+reference to the drop event
+</dd>
+</dl>
+<a NAME="UrlBar.focusOutEvent" ID="UrlBar.focusOutEvent"></a>
+<h4>UrlBar.focusOutEvent</h4>
+<b>focusOutEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle focus out event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QFocusEvent)</dt>
+<dd>
+reference to the focus event
+</dd>
+</dl>
+<a NAME="UrlBar.keyPressEvent" ID="UrlBar.keyPressEvent"></a>
+<h4>UrlBar.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle key presses.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key press event
+</dd>
+</dl>
+<a NAME="UrlBar.mouseDoubleClickEvent" ID="UrlBar.mouseDoubleClickEvent"></a>
+<h4>UrlBar.mouseDoubleClickEvent</h4>
+<b>mouseDoubleClickEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse double click events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="UrlBar.mousePressEvent" ID="UrlBar.mousePressEvent"></a>
+<h4>UrlBar.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a mouse press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="UrlBar.preferencesChanged" ID="UrlBar.preferencesChanged"></a>
+<h4>UrlBar.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<a NAME="UrlBar.setBrowser" ID="UrlBar.setBrowser"></a>
+<h4>UrlBar.setBrowser</h4>
+<b>setBrowser</b>(<i>browser</i>)
+<p>
+        Public method to set the browser connection.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the browser widget
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

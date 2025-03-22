@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricCore.EricStdRedirector</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricCore.EricStdRedirector</h1>
+<p>
+Module implementing a redirector for stderr and stdout to be able to send data written
+to these streams via Qt signals.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricStdRedirector">EricStdRedirector</a></td>
+<td>Class for replacement of stdout and stderr in order to send the data via Qt signals.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricStdRedirector" ID="EricStdRedirector"></a>
+<h2>EricStdRedirector</h2>
+<p>
+    Class for replacement of stdout and stderr in order to send the data via
+    Qt signals.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>stderrString(str)</dt>
+<dd>
+emitted to signal data written to stderr
+</dd>
+<dt>stdoutString(str)</dt>
+<dd>
+emitted to signal data written to stdout
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricStdRedirector.__init__">EricStdRedirector</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricStdRedirector.__bufferedLength">__bufferedLength</a></td>
+<td>Private method returning number of characters of buffered lines.</td>
+</tr>
+<tr>
+<td><a href="#EricStdRedirector.__signalData">__signalData</a></td>
+<td>Private method used to signal data written to the instance object.</td>
+</tr>
+<tr>
+<td><a href="#EricStdRedirector.encoding">encoding</a></td>
+<td>Public method to report the used encoding.</td>
+</tr>
+<tr>
+<td><a href="#EricStdRedirector.flush">flush</a></td>
+<td>Public method used to flush all buffered data.</td>
+</tr>
+<tr>
+<td><a href="#EricStdRedirector.isatty">isatty</a></td>
+<td>Public method to indicate a TTY.</td>
+</tr>
+<tr>
+<td><a href="#EricStdRedirector.readable">readable</a></td>
+<td>Public method to check, if the stream is readable.</td>
+</tr>
+<tr>
+<td><a href="#EricStdRedirector.writable">writable</a></td>
+<td>Public method to check, if a stream is writable.</td>
+</tr>
+<tr>
+<td><a href="#EricStdRedirector.write">write</a></td>
+<td>Public method used to write data.</td>
+</tr>
+<tr>
+<td><a href="#EricStdRedirector.writelines">writelines</a></td>
+<td>Public method used to write a list of strings to the file.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricStdRedirector.__init__" ID="EricStdRedirector.__init__"></a>
+<h4>EricStdRedirector (Constructor)</h4>
+<b>EricStdRedirector</b>(<i>stderr, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>stderr</i> (bool)</dt>
+<dd>
+flag indicating stderr is being redirected
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="EricStdRedirector.__bufferedLength" ID="EricStdRedirector.__bufferedLength"></a>
+<h4>EricStdRedirector.__bufferedLength</h4>
+<b>__bufferedLength</b>(<i></i>)
+<p>
+        Private method returning number of characters of buffered lines.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of characters of buffered lines (complete lines only)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricStdRedirector.__signalData" ID="EricStdRedirector.__signalData"></a>
+<h4>EricStdRedirector.__signalData</h4>
+<b>__signalData</b>(<i>n</i>)
+<p>
+        Private method used to signal data written to the instance object.
+</p>
+
+<dl>
+
+<dt><i>n</i> (int)</dt>
+<dd>
+max number of characters to send via a Qt signal
+</dd>
+</dl>
+<a NAME="EricStdRedirector.encoding" ID="EricStdRedirector.encoding"></a>
+<h4>EricStdRedirector.encoding</h4>
+<b>encoding</b>(<i></i>)
+<p>
+        Public method to report the used encoding.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+used encoding
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricStdRedirector.flush" ID="EricStdRedirector.flush"></a>
+<h4>EricStdRedirector.flush</h4>
+<b>flush</b>(<i></i>)
+<p>
+        Public method used to flush all buffered data.
+</p>
+
+<a NAME="EricStdRedirector.isatty" ID="EricStdRedirector.isatty"></a>
+<h4>EricStdRedirector.isatty</h4>
+<b>isatty</b>(<i></i>)
+<p>
+        Public method to indicate a TTY.
+</p>
+<p>
+        Note: This always reports 'False' because the redirector class is no TTY.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a TTY
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricStdRedirector.readable" ID="EricStdRedirector.readable"></a>
+<h4>EricStdRedirector.readable</h4>
+<b>readable</b>(<i></i>)
+<p>
+        Public method to check, if the stream is readable.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a readable stream
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricStdRedirector.writable" ID="EricStdRedirector.writable"></a>
+<h4>EricStdRedirector.writable</h4>
+<b>writable</b>(<i></i>)
+<p>
+        Public method to check, if a stream is writable.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a writable stream
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricStdRedirector.write" ID="EricStdRedirector.write"></a>
+<h4>EricStdRedirector.write</h4>
+<b>write</b>(<i>s</i>)
+<p>
+        Public method used to write data.
+</p>
+
+<dl>
+
+<dt><i>s</i> (Any)</dt>
+<dd>
+data to be written (it must support the str-method)
+</dd>
+</dl>
+<a NAME="EricStdRedirector.writelines" ID="EricStdRedirector.writelines"></a>
+<h4>EricStdRedirector.writelines</h4>
+<b>writelines</b>(<i>lines</i>)
+<p>
+        Public method used to write a list of strings to the file.
+</p>
+
+<dl>
+
+<dt><i>lines</i> (list of str)</dt>
+<dd>
+list of texts to be written
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

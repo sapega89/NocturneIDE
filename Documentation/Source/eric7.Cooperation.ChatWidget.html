@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Cooperation.ChatWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Cooperation.ChatWidget</h1>
+<p>
+Module implementing the chat dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ChatWidget">ChatWidget</a></td>
+<td>Class implementing the chat dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ChatWidget" ID="ChatWidget"></a>
+<h2>ChatWidget</h2>
+<p>
+    Class implementing the chat dialog.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>cancelEdit()</dt>
+<dd>
+emitted to cancel a shared edit session
+</dd>
+<dt>connected(connected)</dt>
+<dd>
+emitted to signal a change of the connected
+            state (bool)
+</dd>
+<dt>editorCommand(hashStr, filename, message)</dt>
+<dd>
+emitted when an editor
+            command has been received (string, string, string)
+</dd>
+<dt>sendEdit()</dt>
+<dd>
+emitted to send a shared edit session
+</dd>
+<dt>shareEditor(share)</dt>
+<dd>
+emitted to signal a share is requested (bool)
+</dd>
+<dt>startEdit()</dt>
+<dd>
+emitted to start a shared edit session
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_ChatWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ChatWidget.__init__">ChatWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__banKickUser">__banKickUser</a></td>
+<td>Private slot to ban and kick a user.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__banUser">__banUser</a></td>
+<td>Private slot to ban a user.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__clearChat">__clearChat</a></td>
+<td>Private slot to clear the contents of the chat display.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__clearHostsHistory">__clearHostsHistory</a></td>
+<td>Private slot to clear the hosts history.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__copyAllChat">__copyAllChat</a></td>
+<td>Private slot to copy the contents of the chat display to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__copyChat">__copyChat</a></td>
+<td>Private slot to copy the contents of the chat display to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__cutAllChat">__cutAllChat</a></td>
+<td>Private slot to cut the contents of the chat display to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__editorCommandMessage">__editorCommandMessage</a></td>
+<td>Private slot to handle editor command messages from the client.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__getConnectionParameters">__getConnectionParameters</a></td>
+<td>Private method to determine the connection parameters.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__handleMessage">__handleMessage</a></td>
+<td>Private slot handling the Return key pressed in the message edit.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__initChatMenu">__initChatMenu</a></td>
+<td>Private slot to initialize the chat edit context menu.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__initUsersMenu">__initUsersMenu</a></td>
+<td>Private slot to initialize the users list context menu.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__initialConnectionRefused">__initialConnectionRefused</a></td>
+<td>Private slot to handle the refusal of the initial connection.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__kickUser">__kickUser</a></td>
+<td>Private slot to disconnect a user.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__loadHostsHistory">__loadHostsHistory</a></td>
+<td>Private method to load the recently connected hosts.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__newParticipant">__newParticipant</a></td>
+<td>Private slot handling a new participant joining.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__participantLeft">__participantLeft</a></td>
+<td>Private slot handling a participant leaving the session.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__saveChat">__saveChat</a></td>
+<td>Private slot to save the contents of the chat display.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__saveHostsHistory">__saveHostsHistory</a></td>
+<td>Private method to save the list of recently connected hosts.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__setConnected">__setConnected</a></td>
+<td>Private slot to set the connected state.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__setHostsHistory">__setHostsHistory</a></td>
+<td>Private method to remember the given host as the most recent entry.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.__showErrorMessage">__showErrorMessage</a></td>
+<td>Private slot to show an error message.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.appendMessage">appendMessage</a></td>
+<td>Public slot to append a message to the display.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.checkEditorActions">checkEditorActions</a></td>
+<td>Public slot to set action according to an editor's state.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.getClient">getClient</a></td>
+<td>Public method to get a reference to the cooperation client.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_cancelEditButton_clicked">on_cancelEditButton_clicked</a></td>
+<td>Private slot to cancel a shared edit session.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_chatEdit_copyAvailable">on_chatEdit_copyAvailable</a></td>
+<td>Private slot to react to text selection/deselection of the chat edit.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_chatEdit_customContextMenuRequested">on_chatEdit_customContextMenuRequested</a></td>
+<td>Private slot to show the context menu for the chat.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_clearHostsButton_clicked">on_clearHostsButton_clicked</a></td>
+<td>Private slot to clear the hosts list.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_connectButton_clicked">on_connectButton_clicked</a></td>
+<td>Private slot initiating the connection.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_hostEdit_editTextChanged">on_hostEdit_editTextChanged</a></td>
+<td>Private slot handling the entry of a host to connect to.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_sendEditButton_clicked">on_sendEditButton_clicked</a></td>
+<td>Private slot to end a shared edit session and send the changes.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_serverButton_clicked">on_serverButton_clicked</a></td>
+<td>Private slot to start the server.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_shareButton_clicked">on_shareButton_clicked</a></td>
+<td>Private slot to share the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_startEditButton_clicked">on_startEditButton_clicked</a></td>
+<td>Private slot to start a shared edit session.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.on_usersList_customContextMenuRequested">on_usersList_customContextMenuRequested</a></td>
+<td>Private slot to show the context menu for the users list.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#ChatWidget.shutdown">shutdown</a></td>
+<td>Public method to shut down the cooperation system.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ChatWidget.__init__" ID="ChatWidget.__init__"></a>
+<h4>ChatWidget (Constructor)</h4>
+<b>ChatWidget</b>(<i>ui, port=-1, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the user interface object
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+port to be used for the cooperation server
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="ChatWidget.__banKickUser" ID="ChatWidget.__banKickUser"></a>
+<h4>ChatWidget.__banKickUser</h4>
+<b>__banKickUser</b>(<i></i>)
+<p>
+        Private slot to ban and kick a user.
+</p>
+
+<a NAME="ChatWidget.__banUser" ID="ChatWidget.__banUser"></a>
+<h4>ChatWidget.__banUser</h4>
+<b>__banUser</b>(<i></i>)
+<p>
+        Private slot to ban a user.
+</p>
+
+<a NAME="ChatWidget.__clearChat" ID="ChatWidget.__clearChat"></a>
+<h4>ChatWidget.__clearChat</h4>
+<b>__clearChat</b>(<i></i>)
+<p>
+        Private slot to clear the contents of the chat display.
+</p>
+
+<a NAME="ChatWidget.__clearHostsHistory" ID="ChatWidget.__clearHostsHistory"></a>
+<h4>ChatWidget.__clearHostsHistory</h4>
+<b>__clearHostsHistory</b>(<i></i>)
+<p>
+        Private slot to clear the hosts history.
+</p>
+
+<a NAME="ChatWidget.__copyAllChat" ID="ChatWidget.__copyAllChat"></a>
+<h4>ChatWidget.__copyAllChat</h4>
+<b>__copyAllChat</b>(<i></i>)
+<p>
+        Private slot to copy the contents of the chat display to the clipboard.
+</p>
+
+<a NAME="ChatWidget.__copyChat" ID="ChatWidget.__copyChat"></a>
+<h4>ChatWidget.__copyChat</h4>
+<b>__copyChat</b>(<i></i>)
+<p>
+        Private slot to copy the contents of the chat display to the clipboard.
+</p>
+
+<a NAME="ChatWidget.__cutAllChat" ID="ChatWidget.__cutAllChat"></a>
+<h4>ChatWidget.__cutAllChat</h4>
+<b>__cutAllChat</b>(<i></i>)
+<p>
+        Private slot to cut the contents of the chat display to the clipboard.
+</p>
+
+<a NAME="ChatWidget.__editorCommandMessage" ID="ChatWidget.__editorCommandMessage"></a>
+<h4>ChatWidget.__editorCommandMessage</h4>
+<b>__editorCommandMessage</b>(<i>hashStr, fileName, message</i>)
+<p>
+        Private slot to handle editor command messages from the client.
+</p>
+
+<dl>
+
+<dt><i>hashStr</i> (str)</dt>
+<dd>
+hash of the project
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+project relative file name of the editor
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+command message
+</dd>
+</dl>
+<a NAME="ChatWidget.__getConnectionParameters" ID="ChatWidget.__getConnectionParameters"></a>
+<h4>ChatWidget.__getConnectionParameters</h4>
+<b>__getConnectionParameters</b>(<i></i>)
+<p>
+        Private method to determine the connection parameters.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with hostname and port
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, int)
+</dd>
+</dl>
+<a NAME="ChatWidget.__handleMessage" ID="ChatWidget.__handleMessage"></a>
+<h4>ChatWidget.__handleMessage</h4>
+<b>__handleMessage</b>(<i></i>)
+<p>
+        Private slot handling the Return key pressed in the message edit.
+</p>
+
+<a NAME="ChatWidget.__initChatMenu" ID="ChatWidget.__initChatMenu"></a>
+<h4>ChatWidget.__initChatMenu</h4>
+<b>__initChatMenu</b>(<i></i>)
+<p>
+        Private slot to initialize the chat edit context menu.
+</p>
+
+<a NAME="ChatWidget.__initUsersMenu" ID="ChatWidget.__initUsersMenu"></a>
+<h4>ChatWidget.__initUsersMenu</h4>
+<b>__initUsersMenu</b>(<i></i>)
+<p>
+        Private slot to initialize the users list context menu.
+</p>
+
+<a NAME="ChatWidget.__initialConnectionRefused" ID="ChatWidget.__initialConnectionRefused"></a>
+<h4>ChatWidget.__initialConnectionRefused</h4>
+<b>__initialConnectionRefused</b>(<i></i>)
+<p>
+        Private slot to handle the refusal of the initial connection.
+</p>
+
+<a NAME="ChatWidget.__kickUser" ID="ChatWidget.__kickUser"></a>
+<h4>ChatWidget.__kickUser</h4>
+<b>__kickUser</b>(<i></i>)
+<p>
+        Private slot to disconnect a user.
+</p>
+
+<a NAME="ChatWidget.__loadHostsHistory" ID="ChatWidget.__loadHostsHistory"></a>
+<h4>ChatWidget.__loadHostsHistory</h4>
+<b>__loadHostsHistory</b>(<i></i>)
+<p>
+        Private method to load the recently connected hosts.
+</p>
+
+<a NAME="ChatWidget.__newParticipant" ID="ChatWidget.__newParticipant"></a>
+<h4>ChatWidget.__newParticipant</h4>
+<b>__newParticipant</b>(<i>nick</i>)
+<p>
+        Private slot handling a new participant joining.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (str)</dt>
+<dd>
+nick name of the new participant
+</dd>
+</dl>
+<a NAME="ChatWidget.__participantLeft" ID="ChatWidget.__participantLeft"></a>
+<h4>ChatWidget.__participantLeft</h4>
+<b>__participantLeft</b>(<i>nick</i>)
+<p>
+        Private slot handling a participant leaving the session.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (str)</dt>
+<dd>
+nick name of the participant
+</dd>
+</dl>
+<a NAME="ChatWidget.__saveChat" ID="ChatWidget.__saveChat"></a>
+<h4>ChatWidget.__saveChat</h4>
+<b>__saveChat</b>(<i></i>)
+<p>
+        Private slot to save the contents of the chat display.
+</p>
+
+<a NAME="ChatWidget.__saveHostsHistory" ID="ChatWidget.__saveHostsHistory"></a>
+<h4>ChatWidget.__saveHostsHistory</h4>
+<b>__saveHostsHistory</b>(<i></i>)
+<p>
+        Private method to save the list of recently connected hosts.
+</p>
+
+<a NAME="ChatWidget.__setConnected" ID="ChatWidget.__setConnected"></a>
+<h4>ChatWidget.__setConnected</h4>
+<b>__setConnected</b>(<i>connected</i>)
+<p>
+        Private slot to set the connected state.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+new connected state
+</dd>
+</dl>
+<a NAME="ChatWidget.__setHostsHistory" ID="ChatWidget.__setHostsHistory"></a>
+<h4>ChatWidget.__setHostsHistory</h4>
+<b>__setHostsHistory</b>(<i>host</i>)
+<p>
+        Private method to remember the given host as the most recent entry.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host entry to remember
+</dd>
+</dl>
+<a NAME="ChatWidget.__showErrorMessage" ID="ChatWidget.__showErrorMessage"></a>
+<h4>ChatWidget.__showErrorMessage</h4>
+<b>__showErrorMessage</b>(<i>message</i>)
+<p>
+        Private slot to show an error message.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+error message to show
+</dd>
+</dl>
+<a NAME="ChatWidget.appendMessage" ID="ChatWidget.appendMessage"></a>
+<h4>ChatWidget.appendMessage</h4>
+<b>appendMessage</b>(<i>from_, message</i>)
+<p>
+        Public slot to append a message to the display.
+</p>
+
+<dl>
+
+<dt><i>from_</i> (str)</dt>
+<dd>
+originator of the message
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be appended
+</dd>
+</dl>
+<a NAME="ChatWidget.checkEditorActions" ID="ChatWidget.checkEditorActions"></a>
+<h4>ChatWidget.checkEditorActions</h4>
+<b>checkEditorActions</b>(<i>editor</i>)
+<p>
+        Public slot to set action according to an editor's state.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="ChatWidget.getClient" ID="ChatWidget.getClient"></a>
+<h4>ChatWidget.getClient</h4>
+<b>getClient</b>(<i></i>)
+<p>
+        Public method to get a reference to the cooperation client.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the cooperation client
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+CooperationClient
+</dd>
+</dl>
+<a NAME="ChatWidget.on_cancelEditButton_clicked" ID="ChatWidget.on_cancelEditButton_clicked"></a>
+<h4>ChatWidget.on_cancelEditButton_clicked</h4>
+<b>on_cancelEditButton_clicked</b>(<i></i>)
+<p>
+        Private slot to cancel a shared edit session.
+</p>
+
+<a NAME="ChatWidget.on_chatEdit_copyAvailable" ID="ChatWidget.on_chatEdit_copyAvailable"></a>
+<h4>ChatWidget.on_chatEdit_copyAvailable</h4>
+<b>on_chatEdit_copyAvailable</b>(<i>yes</i>)
+<p>
+        Private slot to react to text selection/deselection of the chat edit.
+</p>
+
+<dl>
+
+<dt><i>yes</i> (bool)</dt>
+<dd>
+flag signaling the availability of selected text
+</dd>
+</dl>
+<a NAME="ChatWidget.on_chatEdit_customContextMenuRequested" ID="ChatWidget.on_chatEdit_customContextMenuRequested"></a>
+<h4>ChatWidget.on_chatEdit_customContextMenuRequested</h4>
+<b>on_chatEdit_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu for the chat.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="ChatWidget.on_clearHostsButton_clicked" ID="ChatWidget.on_clearHostsButton_clicked"></a>
+<h4>ChatWidget.on_clearHostsButton_clicked</h4>
+<b>on_clearHostsButton_clicked</b>(<i></i>)
+<p>
+        Private slot to clear the hosts list.
+</p>
+
+<a NAME="ChatWidget.on_connectButton_clicked" ID="ChatWidget.on_connectButton_clicked"></a>
+<h4>ChatWidget.on_connectButton_clicked</h4>
+<b>on_connectButton_clicked</b>(<i></i>)
+<p>
+        Private slot initiating the connection.
+</p>
+
+<a NAME="ChatWidget.on_hostEdit_editTextChanged" ID="ChatWidget.on_hostEdit_editTextChanged"></a>
+<h4>ChatWidget.on_hostEdit_editTextChanged</h4>
+<b>on_hostEdit_editTextChanged</b>(<i>host</i>)
+<p>
+        Private slot handling the entry of a host to connect to.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host to connect to
+</dd>
+</dl>
+<a NAME="ChatWidget.on_sendEditButton_clicked" ID="ChatWidget.on_sendEditButton_clicked"></a>
+<h4>ChatWidget.on_sendEditButton_clicked</h4>
+<b>on_sendEditButton_clicked</b>(<i></i>)
+<p>
+        Private slot to end a shared edit session and send the changes.
+</p>
+
+<a NAME="ChatWidget.on_serverButton_clicked" ID="ChatWidget.on_serverButton_clicked"></a>
+<h4>ChatWidget.on_serverButton_clicked</h4>
+<b>on_serverButton_clicked</b>(<i></i>)
+<p>
+        Private slot to start the server.
+</p>
+
+<a NAME="ChatWidget.on_shareButton_clicked" ID="ChatWidget.on_shareButton_clicked"></a>
+<h4>ChatWidget.on_shareButton_clicked</h4>
+<b>on_shareButton_clicked</b>(<i>checked</i>)
+<p>
+        Private slot to share the current editor.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+flag indicating the button state
+</dd>
+</dl>
+<a NAME="ChatWidget.on_startEditButton_clicked" ID="ChatWidget.on_startEditButton_clicked"></a>
+<h4>ChatWidget.on_startEditButton_clicked</h4>
+<b>on_startEditButton_clicked</b>(<i>checked</i>)
+<p>
+        Private slot to start a shared edit session.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+flag indicating the button state
+</dd>
+</dl>
+<a NAME="ChatWidget.on_usersList_customContextMenuRequested" ID="ChatWidget.on_usersList_customContextMenuRequested"></a>
+<h4>ChatWidget.on_usersList_customContextMenuRequested</h4>
+<b>on_usersList_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu for the users list.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="ChatWidget.preferencesChanged" ID="ChatWidget.preferencesChanged"></a>
+<h4>ChatWidget.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<a NAME="ChatWidget.shutdown" ID="ChatWidget.shutdown"></a>
+<h4>ChatWidget.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to shut down the cooperation system.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

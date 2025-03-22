@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsSubversion.SvnLogBrowserDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsSubversion.SvnLogBrowserDialog</h1>
+<p>
+Module implementing a dialog to browse the log history.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SvnLogBrowserDialog">SvnLogBrowserDialog</a></td>
+<td>Class implementing a dialog to browse the log history.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SvnLogBrowserDialog" ID="SvnLogBrowserDialog"></a>
+<h2>SvnLogBrowserDialog</h2>
+<p>
+    Class implementing a dialog to browse the log history.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_SvnLogBrowserDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__init__">SvnLogBrowserDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__addFinishCallback">__addFinishCallback</a></td>
+<td>Private method to add a method to be called once the process finished.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__diffRevisions">__diffRevisions</a></td>
+<td>Private method to do a diff of two revisions.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__filterLogs">__filterLogs</a></td>
+<td>Private method to filter the log entries.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__generateFileItem">__generateFileItem</a></td>
+<td>Private method to generate a changed files tree entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__generateLogItem">__generateLogItem</a></td>
+<td>Private method to generate a log tree entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__getLogEntries">__getLogEntries</a></td>
+<td>Private method to retrieve log entries from the repository.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__initData">__initData</a></td>
+<td>Private method to (re-)initialize some data.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__procFinished">__procFinished</a></td>
+<td>Private slot connected to the finished signal.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__processBuffer">__processBuffer</a></td>
+<td>Private method to process the buffered output of the svn log command.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__readStderr">__readStderr</a></td>
+<td>Private slot to handle the readyReadStandardError signal.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__readStdout">__readStdout</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__resetUI">__resetUI</a></td>
+<td>Private method to reset the user interface.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__resizeColumnsFiles">__resizeColumnsFiles</a></td>
+<td>Private method to resize the changed files tree columns.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__resizeColumnsLog">__resizeColumnsLog</a></td>
+<td>Private method to resize the log tree columns.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__resortFiles">__resortFiles</a></td>
+<td>Private method to resort the changed files tree.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.__resortLog">__resortLog</a></td>
+<td>Private method to resort the log tree.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.keyPressEvent">keyPressEvent</a></td>
+<td>Protected slot to handle a key press event.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_diffPreviousButton_clicked">on_diffPreviousButton_clicked</a></td>
+<td>Private slot to handle the Diff to Previous button.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_diffRevisionsButton_clicked">on_diffRevisionsButton_clicked</a></td>
+<td>Private slot to handle the Compare Revisions button.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_downButton_clicked">on_downButton_clicked</a></td>
+<td>Private slot to move the current item down one entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_fieldCombo_activated">on_fieldCombo_activated</a></td>
+<td>Private slot called, when a new filter field is selected.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_fromDate_dateChanged">on_fromDate_dateChanged</a></td>
+<td>Private slot called, when the from date changes.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_input_returnPressed">on_input_returnPressed</a></td>
+<td>Private slot to handle the press of the return key in the input field.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_logTree_currentItemChanged">on_logTree_currentItemChanged</a></td>
+<td>Private slot called, when the current item of the log tree changes.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_logTree_itemSelectionChanged">on_logTree_itemSelectionChanged</a></td>
+<td>Private slot called, when the selection has changed.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_nextButton_clicked">on_nextButton_clicked</a></td>
+<td>Private slot to handle the Next button.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_passwordCheckBox_toggled">on_passwordCheckBox_toggled</a></td>
+<td>Private slot to handle the password checkbox toggled.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_rxEdit_textChanged">on_rxEdit_textChanged</a></td>
+<td>Private slot called, when a filter expression is entered.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_sendButton_clicked">on_sendButton_clicked</a></td>
+<td>Private slot to send the input to the subversion process.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_stopCheckBox_clicked">on_stopCheckBox_clicked</a></td>
+<td>Private slot called, when the stop on copy/move checkbox is clicked.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_toDate_dateChanged">on_toDate_dateChanged</a></td>
+<td>Private slot called, when the from date changes.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.on_upButton_clicked">on_upButton_clicked</a></td>
+<td>Private slot to move the current item up one entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+<tr>
+<td><a href="#SvnLogBrowserDialog.start">start</a></td>
+<td>Public slot to start the svn log command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SvnLogBrowserDialog.__init__" ID="SvnLogBrowserDialog.__init__"></a>
+<h4>SvnLogBrowserDialog (Constructor)</h4>
+<b>SvnLogBrowserDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Subversion)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.__addFinishCallback" ID="SvnLogBrowserDialog.__addFinishCallback"></a>
+<h4>SvnLogBrowserDialog.__addFinishCallback</h4>
+<b>__addFinishCallback</b>(<i>callback</i>)
+<p>
+        Private method to add a method to be called once the process finished.
+</p>
+<p>
+        The callback methods are invoke in a FIFO style and are consumed. If
+        a callback method needs to be called again, it must be added again.
+</p>
+
+<dl>
+
+<dt><i>callback</i> (function)</dt>
+<dd>
+callback method
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.__diffRevisions" ID="SvnLogBrowserDialog.__diffRevisions"></a>
+<h4>SvnLogBrowserDialog.__diffRevisions</h4>
+<b>__diffRevisions</b>(<i>rev1, rev2</i>)
+<p>
+        Private method to do a diff of two revisions.
+</p>
+
+<dl>
+
+<dt><i>rev1</i> (int)</dt>
+<dd>
+first revision number
+</dd>
+<dt><i>rev2</i> (int)</dt>
+<dd>
+second revision number
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.__filterLogs" ID="SvnLogBrowserDialog.__filterLogs"></a>
+<h4>SvnLogBrowserDialog.__filterLogs</h4>
+<b>__filterLogs</b>(<i></i>)
+<p>
+        Private method to filter the log entries.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__finish" ID="SvnLogBrowserDialog.__finish"></a>
+<h4>SvnLogBrowserDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed the
+        button.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__generateFileItem" ID="SvnLogBrowserDialog.__generateFileItem"></a>
+<h4>SvnLogBrowserDialog.__generateFileItem</h4>
+<b>__generateFileItem</b>(<i>action, path, copyFrom, copyRev</i>)
+<p>
+        Private method to generate a changed files tree entry.
+</p>
+
+<dl>
+
+<dt><i>action</i> (str)</dt>
+<dd>
+indicator for the change action ("A", "D" or "M")
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the file in the repository
+</dd>
+<dt><i>copyFrom</i> (str)</dt>
+<dd>
+path the file was copied from
+</dd>
+<dt><i>copyRev</i> (str)</dt>
+<dd>
+revision the file was copied from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.__generateLogItem" ID="SvnLogBrowserDialog.__generateLogItem"></a>
+<h4>SvnLogBrowserDialog.__generateLogItem</h4>
+<b>__generateLogItem</b>(<i>author, date, message, revision, changedPaths</i>)
+<p>
+        Private method to generate a log tree entry.
+</p>
+
+<dl>
+
+<dt><i>author</i> (str)</dt>
+<dd>
+author info
+</dd>
+<dt><i>date</i> (str)</dt>
+<dd>
+date info
+</dd>
+<dt><i>message</i> (list of str)</dt>
+<dd>
+text of the log message
+</dd>
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision info
+</dd>
+<dt><i>changedPaths</i> (dict)</dt>
+<dd>
+list of dictionary objects containing
+            info about the changed files/directories
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.__getLogEntries" ID="SvnLogBrowserDialog.__getLogEntries"></a>
+<h4>SvnLogBrowserDialog.__getLogEntries</h4>
+<b>__getLogEntries</b>(<i>startRev=None</i>)
+<p>
+        Private method to retrieve log entries from the repository.
+</p>
+
+<dl>
+
+<dt><i>startRev</i> (int or str)</dt>
+<dd>
+revision number to start from
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.__initData" ID="SvnLogBrowserDialog.__initData"></a>
+<h4>SvnLogBrowserDialog.__initData</h4>
+<b>__initData</b>(<i></i>)
+<p>
+        Private method to (re-)initialize some data.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__procFinished" ID="SvnLogBrowserDialog.__procFinished"></a>
+<h4>SvnLogBrowserDialog.__procFinished</h4>
+<b>__procFinished</b>(<i>_exitCode, _exitStatus</i>)
+<p>
+        Private slot connected to the finished signal.
+</p>
+
+<dl>
+
+<dt><i>_exitCode</i> (int)</dt>
+<dd>
+exit code of the process (unused)
+</dd>
+<dt><i>_exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process (unused)
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.__processBuffer" ID="SvnLogBrowserDialog.__processBuffer"></a>
+<h4>SvnLogBrowserDialog.__processBuffer</h4>
+<b>__processBuffer</b>(<i></i>)
+<p>
+        Private method to process the buffered output of the svn log command.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__readStderr" ID="SvnLogBrowserDialog.__readStderr"></a>
+<h4>SvnLogBrowserDialog.__readStderr</h4>
+<b>__readStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardError signal.
+</p>
+<p>
+        It reads the error output of the process and inserts it into the
+        error pane.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__readStdout" ID="SvnLogBrowserDialog.__readStdout"></a>
+<h4>SvnLogBrowserDialog.__readStdout</h4>
+<b>__readStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal.
+</p>
+<p>
+        It reads the output of the process and inserts it into a buffer.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__resetUI" ID="SvnLogBrowserDialog.__resetUI"></a>
+<h4>SvnLogBrowserDialog.__resetUI</h4>
+<b>__resetUI</b>(<i></i>)
+<p>
+        Private method to reset the user interface.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__resizeColumnsFiles" ID="SvnLogBrowserDialog.__resizeColumnsFiles"></a>
+<h4>SvnLogBrowserDialog.__resizeColumnsFiles</h4>
+<b>__resizeColumnsFiles</b>(<i></i>)
+<p>
+        Private method to resize the changed files tree columns.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__resizeColumnsLog" ID="SvnLogBrowserDialog.__resizeColumnsLog"></a>
+<h4>SvnLogBrowserDialog.__resizeColumnsLog</h4>
+<b>__resizeColumnsLog</b>(<i></i>)
+<p>
+        Private method to resize the log tree columns.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__resortFiles" ID="SvnLogBrowserDialog.__resortFiles"></a>
+<h4>SvnLogBrowserDialog.__resortFiles</h4>
+<b>__resortFiles</b>(<i></i>)
+<p>
+        Private method to resort the changed files tree.
+</p>
+
+<a NAME="SvnLogBrowserDialog.__resortLog" ID="SvnLogBrowserDialog.__resortLog"></a>
+<h4>SvnLogBrowserDialog.__resortLog</h4>
+<b>__resortLog</b>(<i></i>)
+<p>
+        Private method to resort the log tree.
+</p>
+
+<a NAME="SvnLogBrowserDialog.closeEvent" ID="SvnLogBrowserDialog.closeEvent"></a>
+<h4>SvnLogBrowserDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.keyPressEvent" ID="SvnLogBrowserDialog.keyPressEvent"></a>
+<h4>SvnLogBrowserDialog.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected slot to handle a key press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+the key press event
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.on_buttonBox_clicked" ID="SvnLogBrowserDialog.on_buttonBox_clicked"></a>
+<h4>SvnLogBrowserDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.on_diffPreviousButton_clicked" ID="SvnLogBrowserDialog.on_diffPreviousButton_clicked"></a>
+<h4>SvnLogBrowserDialog.on_diffPreviousButton_clicked</h4>
+<b>on_diffPreviousButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the Diff to Previous button.
+</p>
+
+<a NAME="SvnLogBrowserDialog.on_diffRevisionsButton_clicked" ID="SvnLogBrowserDialog.on_diffRevisionsButton_clicked"></a>
+<h4>SvnLogBrowserDialog.on_diffRevisionsButton_clicked</h4>
+<b>on_diffRevisionsButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the Compare Revisions button.
+</p>
+
+<a NAME="SvnLogBrowserDialog.on_downButton_clicked" ID="SvnLogBrowserDialog.on_downButton_clicked"></a>
+<h4>SvnLogBrowserDialog.on_downButton_clicked</h4>
+<b>on_downButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the current item down one entry.
+</p>
+
+<a NAME="SvnLogBrowserDialog.on_fieldCombo_activated" ID="SvnLogBrowserDialog.on_fieldCombo_activated"></a>
+<h4>SvnLogBrowserDialog.on_fieldCombo_activated</h4>
+<b>on_fieldCombo_activated</b>(<i>_index</i>)
+<p>
+        Private slot called, when a new filter field is selected.
+</p>
+
+<dl>
+
+<dt><i>_index</i> (int)</dt>
+<dd>
+index of the selected entry (unused)
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.on_fromDate_dateChanged" ID="SvnLogBrowserDialog.on_fromDate_dateChanged"></a>
+<h4>SvnLogBrowserDialog.on_fromDate_dateChanged</h4>
+<b>on_fromDate_dateChanged</b>(<i>_date</i>)
+<p>
+        Private slot called, when the from date changes.
+</p>
+
+<dl>
+
+<dt><i>_date</i> (QDate)</dt>
+<dd>
+new date (unused)
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.on_input_returnPressed" ID="SvnLogBrowserDialog.on_input_returnPressed"></a>
+<h4>SvnLogBrowserDialog.on_input_returnPressed</h4>
+<b>on_input_returnPressed</b>(<i></i>)
+<p>
+        Private slot to handle the press of the return key in the input field.
+</p>
+
+<a NAME="SvnLogBrowserDialog.on_logTree_currentItemChanged" ID="SvnLogBrowserDialog.on_logTree_currentItemChanged"></a>
+<h4>SvnLogBrowserDialog.on_logTree_currentItemChanged</h4>
+<b>on_logTree_currentItemChanged</b>(<i>current, previous</i>)
+<p>
+        Private slot called, when the current item of the log tree changes.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the new current item
+</dd>
+<dt><i>previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the old current item
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.on_logTree_itemSelectionChanged" ID="SvnLogBrowserDialog.on_logTree_itemSelectionChanged"></a>
+<h4>SvnLogBrowserDialog.on_logTree_itemSelectionChanged</h4>
+<b>on_logTree_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot called, when the selection has changed.
+</p>
+
+<a NAME="SvnLogBrowserDialog.on_nextButton_clicked" ID="SvnLogBrowserDialog.on_nextButton_clicked"></a>
+<h4>SvnLogBrowserDialog.on_nextButton_clicked</h4>
+<b>on_nextButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the Next button.
+</p>
+
+<a NAME="SvnLogBrowserDialog.on_passwordCheckBox_toggled" ID="SvnLogBrowserDialog.on_passwordCheckBox_toggled"></a>
+<h4>SvnLogBrowserDialog.on_passwordCheckBox_toggled</h4>
+<b>on_passwordCheckBox_toggled</b>(<i>isOn</i>)
+<p>
+        Private slot to handle the password checkbox toggled.
+</p>
+
+<dl>
+
+<dt><i>isOn</i> (bool)</dt>
+<dd>
+flag indicating the status of the check box
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.on_rxEdit_textChanged" ID="SvnLogBrowserDialog.on_rxEdit_textChanged"></a>
+<h4>SvnLogBrowserDialog.on_rxEdit_textChanged</h4>
+<b>on_rxEdit_textChanged</b>(<i>_txt</i>)
+<p>
+        Private slot called, when a filter expression is entered.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+filter expression
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.on_sendButton_clicked" ID="SvnLogBrowserDialog.on_sendButton_clicked"></a>
+<h4>SvnLogBrowserDialog.on_sendButton_clicked</h4>
+<b>on_sendButton_clicked</b>(<i></i>)
+<p>
+        Private slot to send the input to the subversion process.
+</p>
+
+<a NAME="SvnLogBrowserDialog.on_stopCheckBox_clicked" ID="SvnLogBrowserDialog.on_stopCheckBox_clicked"></a>
+<h4>SvnLogBrowserDialog.on_stopCheckBox_clicked</h4>
+<b>on_stopCheckBox_clicked</b>(<i>_checked</i>)
+<p>
+        Private slot called, when the stop on copy/move checkbox is clicked.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+flag indicating the checked state (unused)
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.on_toDate_dateChanged" ID="SvnLogBrowserDialog.on_toDate_dateChanged"></a>
+<h4>SvnLogBrowserDialog.on_toDate_dateChanged</h4>
+<b>on_toDate_dateChanged</b>(<i>_date</i>)
+<p>
+        Private slot called, when the from date changes.
+</p>
+
+<dl>
+
+<dt><i>_date</i> (QDate)</dt>
+<dd>
+new date (unused)
+</dd>
+</dl>
+<a NAME="SvnLogBrowserDialog.on_upButton_clicked" ID="SvnLogBrowserDialog.on_upButton_clicked"></a>
+<h4>SvnLogBrowserDialog.on_upButton_clicked</h4>
+<b>on_upButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the current item up one entry.
+</p>
+
+<a NAME="SvnLogBrowserDialog.show" ID="SvnLogBrowserDialog.show"></a>
+<h4>SvnLogBrowserDialog.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<a NAME="SvnLogBrowserDialog.start" ID="SvnLogBrowserDialog.start"></a>
+<h4>SvnLogBrowserDialog.start</h4>
+<b>start</b>(<i>fn, isFile=False</i>)
+<p>
+        Public slot to start the svn log command.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to show the log for
+</dd>
+<dt><i>isFile</i> (bool)</dt>
+<dd>
+flag indicating log for a file is to be shown
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

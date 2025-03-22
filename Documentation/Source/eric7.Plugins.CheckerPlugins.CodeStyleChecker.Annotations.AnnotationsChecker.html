@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Annotations.AnnotationsChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Annotations.AnnotationsChecker</h1>
+<p>
+Module implementing a checker for function type annotations.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AnnotationsChecker">AnnotationsChecker</a></td>
+<td>Class implementing a checker for function type annotations.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AnnotationsChecker" ID="AnnotationsChecker"></a>
+<h2>AnnotationsChecker</h2>
+<p>
+    Class implementing a checker for function type annotations.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Codes</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AnnotationsChecker.__init__">AnnotationsChecker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__argumentErrorClassifier">__argumentErrorClassifier</a></td>
+<td>Private method to classify an argument type annotation issue.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__checkAnnotationComplexity">__checkAnnotationComplexity</a></td>
+<td>Private method to check the type annotation complexity.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__checkAnnotationPep604">__checkAnnotationPep604</a></td>
+<td>Private method to check the use of typing.Union.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__checkAnnotationsCoverage">__checkAnnotationsCoverage</a></td>
+<td>Private method to check for function annotation coverage.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__checkAnnotationsFuture">__checkAnnotationsFuture</a></td>
+<td>Private method to check the use of __future__ and typing imports.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__checkDeprecatedTypingSymbols">__checkDeprecatedTypingSymbols</a></td>
+<td>Private method to check the use of deprecated 'typing' symbols.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__checkFunctionAnnotations">__checkFunctionAnnotations</a></td>
+<td>Private method to check for function annotation issues.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__classifyError">__classifyError</a></td>
+<td>Private method to classify the missing type annotation based on the Function & Argument metadata.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__error">__error</a></td>
+<td>Private method to record an issue.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__getAnnotationComplexity">__getAnnotationComplexity</a></td>
+<td>Private method to determine the annotation complexity.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__getAnnotationLength">__getAnnotationLength</a></td>
+<td>Private method to determine the annotation length.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__hasTypeAnnotations">__hasTypeAnnotations</a></td>
+<td>Private method to check for type annotations.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__ignoreCode">__ignoreCode</a></td>
+<td>Private method to check if the message code should be ignored.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.__returnErrorClassifier">__returnErrorClassifier</a></td>
+<td>Private method to classify a return type annotation issue.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsChecker.run">run</a></td>
+<td>Public method to check the given source against annotation issues.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AnnotationsChecker.__init__" ID="AnnotationsChecker.__init__"></a>
+<h4>AnnotationsChecker (Constructor)</h4>
+<b>AnnotationsChecker</b>(<i>source, filename, tree, select, ignore, expected, repeat, args</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str)</dt>
+<dd>
+source code to be checked
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>tree</i> (ast.Module)</dt>
+<dd>
+AST tree of the source code
+</dd>
+<dt><i>select</i> (list of str)</dt>
+<dd>
+list of selected codes
+</dd>
+<dt><i>ignore</i> (list of str)</dt>
+<dd>
+list of codes to be ignored
+</dd>
+<dt><i>expected</i> (list of str)</dt>
+<dd>
+list of expected codes
+</dd>
+<dt><i>repeat</i> (bool)</dt>
+<dd>
+flag indicating to report each occurrence of a code
+</dd>
+<dt><i>args</i> (dict)</dt>
+<dd>
+dictionary of arguments for the annotation checks
+</dd>
+</dl>
+<a NAME="AnnotationsChecker.__argumentErrorClassifier" ID="AnnotationsChecker.__argumentErrorClassifier"></a>
+<h4>AnnotationsChecker.__argumentErrorClassifier</h4>
+<b>__argumentErrorClassifier</b>(<i>isClassMethod, isFirstArg, classDecoratorType, annotationType</i>)
+<p>
+        Private method to classify an argument type annotation issue.
+</p>
+
+<dl>
+
+<dt><i>isClassMethod</i> (bool)</dt>
+<dd>
+flag indicating a classmethod type function
+</dd>
+<dt><i>isFirstArg</i> (bool)</dt>
+<dd>
+flag indicating the first argument
+</dd>
+<dt><i>classDecoratorType</i> (enums.ClassDecoratorType)</dt>
+<dd>
+type of class decorator
+</dd>
+<dt><i>annotationType</i> (AnnotationType)</dt>
+<dd>
+type of annotation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+error code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AnnotationsChecker.__checkAnnotationComplexity" ID="AnnotationsChecker.__checkAnnotationComplexity"></a>
+<h4>AnnotationsChecker.__checkAnnotationComplexity</h4>
+<b>__checkAnnotationComplexity</b>(<i></i>)
+<p>
+        Private method to check the type annotation complexity.
+</p>
+
+<a NAME="AnnotationsChecker.__checkAnnotationPep604" ID="AnnotationsChecker.__checkAnnotationPep604"></a>
+<h4>AnnotationsChecker.__checkAnnotationPep604</h4>
+<b>__checkAnnotationPep604</b>(<i></i>)
+<p>
+        Private method to check the use of typing.Union.
+</p>
+
+<a NAME="AnnotationsChecker.__checkAnnotationsCoverage" ID="AnnotationsChecker.__checkAnnotationsCoverage"></a>
+<h4>AnnotationsChecker.__checkAnnotationsCoverage</h4>
+<b>__checkAnnotationsCoverage</b>(<i></i>)
+<p>
+        Private method to check for function annotation coverage.
+</p>
+
+<a NAME="AnnotationsChecker.__checkAnnotationsFuture" ID="AnnotationsChecker.__checkAnnotationsFuture"></a>
+<h4>AnnotationsChecker.__checkAnnotationsFuture</h4>
+<b>__checkAnnotationsFuture</b>(<i></i>)
+<p>
+        Private method to check the use of __future__ and typing imports.
+</p>
+
+<a NAME="AnnotationsChecker.__checkDeprecatedTypingSymbols" ID="AnnotationsChecker.__checkDeprecatedTypingSymbols"></a>
+<h4>AnnotationsChecker.__checkDeprecatedTypingSymbols</h4>
+<b>__checkDeprecatedTypingSymbols</b>(<i></i>)
+<p>
+        Private method to check the use of deprecated 'typing' symbols.
+</p>
+
+<a NAME="AnnotationsChecker.__checkFunctionAnnotations" ID="AnnotationsChecker.__checkFunctionAnnotations"></a>
+<h4>AnnotationsChecker.__checkFunctionAnnotations</h4>
+<b>__checkFunctionAnnotations</b>(<i></i>)
+<p>
+        Private method to check for function annotation issues.
+</p>
+
+<a NAME="AnnotationsChecker.__classifyError" ID="AnnotationsChecker.__classifyError"></a>
+<h4>AnnotationsChecker.__classifyError</h4>
+<b>__classifyError</b>(<i>function, arg</i>)
+<p>
+        Private method to classify the missing type annotation based on the
+        Function & Argument metadata.
+</p>
+<p>
+        For the currently defined rules & program flow, the assumption can be
+        made that an argument passed to this method will match a linting error,
+        and will only match a single linting error
+</p>
+<p>
+        This function provides an initial classificaton, then passes relevant
+        attributes to cached helper function(s).
+</p>
+
+<dl>
+
+<dt><i>function</i> (Function)</dt>
+<dd>
+reference to the Function object
+</dd>
+<dt><i>arg</i> (Argument)</dt>
+<dd>
+reference to the Argument object
+</dd>
+</dl>
+<a NAME="AnnotationsChecker.__error" ID="AnnotationsChecker.__error"></a>
+<h4>AnnotationsChecker.__error</h4>
+<b>__error</b>(<i>lineNumber, offset, code, *args</i>)
+<p>
+        Private method to record an issue.
+</p>
+
+<dl>
+
+<dt><i>lineNumber</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+position within line of the issue
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+message code
+</dd>
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments for the message
+</dd>
+</dl>
+<a NAME="AnnotationsChecker.__getAnnotationComplexity" ID="AnnotationsChecker.__getAnnotationComplexity"></a>
+<h4>AnnotationsChecker.__getAnnotationComplexity</h4>
+<b>__getAnnotationComplexity</b>(<i>annotationNode, defaultComplexity=1</i>)
+<p>
+        Private method to determine the annotation complexity.
+</p>
+
+<dl>
+
+<dt><i>annotationNode</i> (ast.AST)</dt>
+<dd>
+reference to the node to determine the annotation
+            complexity for
+</dd>
+<dt><i>defaultComplexity</i> (int)</dt>
+<dd>
+default complexity value
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+annotation complexity
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+= int
+</dd>
+</dl>
+<a NAME="AnnotationsChecker.__getAnnotationLength" ID="AnnotationsChecker.__getAnnotationLength"></a>
+<h4>AnnotationsChecker.__getAnnotationLength</h4>
+<b>__getAnnotationLength</b>(<i>annotationNode</i>)
+<p>
+        Private method to determine the annotation length.
+</p>
+
+<dl>
+
+<dt><i>annotationNode</i> (ast.AST)</dt>
+<dd>
+reference to the node to determine the annotation
+            length for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+annotation length
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+= int
+</dd>
+</dl>
+<a NAME="AnnotationsChecker.__hasTypeAnnotations" ID="AnnotationsChecker.__hasTypeAnnotations"></a>
+<h4>AnnotationsChecker.__hasTypeAnnotations</h4>
+<b>__hasTypeAnnotations</b>(<i>funcNode</i>)
+<p>
+        Private method to check for type annotations.
+</p>
+
+<dl>
+
+<dt><i>funcNode</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the function definition node to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of type annotations
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AnnotationsChecker.__ignoreCode" ID="AnnotationsChecker.__ignoreCode"></a>
+<h4>AnnotationsChecker.__ignoreCode</h4>
+<b>__ignoreCode</b>(<i>code</i>)
+<p>
+        Private method to check if the message code should be ignored.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+message code to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore the given code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AnnotationsChecker.__returnErrorClassifier" ID="AnnotationsChecker.__returnErrorClassifier"></a>
+<h4>AnnotationsChecker.__returnErrorClassifier</h4>
+<b>__returnErrorClassifier</b>(<i>isClassMethod, classDecoratorType, functionType</i>)
+<p>
+        Private method to classify a return type annotation issue.
+</p>
+
+<dl>
+
+<dt><i>isClassMethod</i> (bool)</dt>
+<dd>
+flag indicating a classmethod type function
+</dd>
+<dt><i>classDecoratorType</i> (ClassDecoratorType)</dt>
+<dd>
+type of class decorator
+</dd>
+<dt><i>functionType</i> (FunctionType)</dt>
+<dd>
+type of function
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+error code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AnnotationsChecker.run" ID="AnnotationsChecker.run"></a>
+<h4>AnnotationsChecker.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method to check the given source against annotation issues.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

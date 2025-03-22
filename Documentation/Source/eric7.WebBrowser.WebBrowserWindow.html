@@ -1,0 +1,3427 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.WebBrowserWindow</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.WebBrowserWindow</h1>
+<p>
+Module implementing the web browser main window.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>QTHELP_AVAILABLE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserWindow">WebBrowserWindow</a></td>
+<td>Class implementing the web browser main window.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="WebBrowserWindow" ID="WebBrowserWindow"></a>
+<h2>WebBrowserWindow</h2>
+<p>
+    Class implementing the web browser main window.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>webBrowserClosed(browser)</dt>
+<dd>
+emitted after a web browser tab was
+        closed
+</dd>
+<dt>webBrowserOpened(browser)</dt>
+<dd>
+emitted after a new web browser tab was
+        created
+</dd>
+<dt>webBrowserWindowClosed(window)</dt>
+<dd>
+emitted after the window was
+        requested to close
+</dd>
+<dt>webBrowserWindowOpened(window)</dt>
+<dd>
+emitted after a new web browser
+        window was opened
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>BrowserWindows</td></tr>
+<tr><td>_adblockManager</td></tr>
+<tr><td>_autoScroller</td></tr>
+<tr><td>_bookmarksManager</td></tr>
+<tr><td>_cookieJar</td></tr>
+<tr><td>_downloadManager</td></tr>
+<tr><td>_featurePermissionManager</td></tr>
+<tr><td>_feedsManager</td></tr>
+<tr><td>_greaseMonkeyManager</td></tr>
+<tr><td>_helpEngine</td></tr>
+<tr><td>_historyManager</td></tr>
+<tr><td>_imageSearchEngine</td></tr>
+<tr><td>_isPrivate</td></tr>
+<tr><td>_lastActiveWindow</td></tr>
+<tr><td>_networkManager</td></tr>
+<tr><td>_notification</td></tr>
+<tr><td>_passwordManager</td></tr>
+<tr><td>_performingShutdown</td></tr>
+<tr><td>_performingStartup</td></tr>
+<tr><td>_personalInformationManager</td></tr>
+<tr><td>_protocolHandlerManager</td></tr>
+<tr><td>_safeBrowsingManager</td></tr>
+<tr><td>_sessionManager</td></tr>
+<tr><td>_speedDial</td></tr>
+<tr><td>_syncManager</td></tr>
+<tr><td>_tabManager</td></tr>
+<tr><td>_useQtHelp</td></tr>
+<tr><td>_userAgentsManager</td></tr>
+<tr><td>_webProfile</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserWindow.__showWebNotification">__showWebNotification</a></td>
+<td>Class method to show a notification sent by Chromium.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.adBlockManager">adBlockManager</a></td>
+<td>Class method to get a reference to the AdBlock manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.autoScroller">autoScroller</a></td>
+<td>Class method to get a reference to the auto scroller.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.bookmarksManager">bookmarksManager</a></td>
+<td>Class method to get a reference to the bookmarks manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.cookieJar">cookieJar</a></td>
+<td>Class method to get a reference to the cookie jar.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.downloadManager">downloadManager</a></td>
+<td>Class method to get a reference to the download manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.downloadRequested">downloadRequested</a></td>
+<td>Class method to handle a download request.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.featurePermissionManager">featurePermissionManager</a></td>
+<td>Class method to get a reference to the feature permission manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.feedsManager">feedsManager</a></td>
+<td>Class method to get a reference to the RSS feeds manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.getQtHelpCollectionFileName">getQtHelpCollectionFileName</a></td>
+<td>Class method to determine the name of the QtHelp collection file.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.getWindow">getWindow</a></td>
+<td>Class method to get a reference to the most recent active web browser window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.globalStatusBar">globalStatusBar</a></td>
+<td>Class method to get a reference to a global status bar.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.greaseMonkeyManager">greaseMonkeyManager</a></td>
+<td>Class method to get a reference to the GreaseMonkey manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.helpEngine">helpEngine</a></td>
+<td>Class method to get a reference to the help engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.historyManager">historyManager</a></td>
+<td>Class method to get a reference to the history manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.icon">icon</a></td>
+<td>Class method to get the icon for an URL.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.imageSearchEngine">imageSearchEngine</a></td>
+<td>Class method to get a reference to the image search engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.isPrivate">isPrivate</a></td>
+<td>Class method to check the private browsing mode.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.mainWindow">mainWindow</a></td>
+<td>Class method to get a reference to the main window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.mainWindows">mainWindows</a></td>
+<td>Class method to get references to all main windows.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.networkManager">networkManager</a></td>
+<td>Class method to get a reference to the network manager object.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.passwordManager">passwordManager</a></td>
+<td>Class method to get a reference to the password manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.personalInformationManager">personalInformationManager</a></td>
+<td>Class method to get a reference to the personal information manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.protocolHandlerManager">protocolHandlerManager</a></td>
+<td>Class method to get a reference to the protocol handler manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.safeBrowsingManager">safeBrowsingManager</a></td>
+<td>Class method to get a reference to the safe browsing interface.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.sessionManager">sessionManager</a></td>
+<td>Class method to get a reference to the session manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.setIconDatabasePath">setIconDatabasePath</a></td>
+<td>Class method to set the favicons path.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.setUseQtHelp">setUseQtHelp</a></td>
+<td>Class method to set the QtHelp usage.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.showNotification">showNotification</a></td>
+<td>Class method to show a desktop notification.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.speedDial">speedDial</a></td>
+<td>Class method to get a reference to the speed dial.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.syncManager">syncManager</a></td>
+<td>Class method to get a reference to the data synchronization manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.tabManager">tabManager</a></td>
+<td>Class method to get a reference to the tab manager widget.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.userAgentsManager">userAgentsManager</a></td>
+<td>Class method to get a reference to the user agents manager.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.webProfile">webProfile</a></td>
+<td>Class method handling the web engine profile.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.webSettings">webSettings</a></td>
+<td>Class method to get the web settings of the current profile.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserWindow.__init__">WebBrowserWindow</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__TBMenuTriggered">__TBMenuTriggered</a></td>
+<td>Private method to handle the toggle of a toolbar via the Window-> Toolbars submenu or the toolbars popup menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__about">__about</a></td>
+<td>Private slot to show the about information.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__aboutQt">__aboutQt</a></td>
+<td>Private slot to show info about Qt.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__aboutToShowSettingsMenu">__aboutToShowSettingsMenu</a></td>
+<td>Private slot to show the Settings menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__aboutToShowTextEncodingMenu">__aboutToShowTextEncodingMenu</a></td>
+<td>Private slot to populate the text encoding menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__activateCurrentBrowser">__activateCurrentBrowser</a></td>
+<td>Private slot to activate the current browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__activateDock">__activateDock</a></td>
+<td>Private method to activate the dock widget of the given widget.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__addBookmark">__addBookmark</a></td>
+<td>Private slot called to add the displayed file to the bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__addBookmarkCallback">__addBookmarkCallback</a></td>
+<td>Private callback method of __addBookmark().</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__addBookmarkFolder">__addBookmarkFolder</a></td>
+<td>Private slot to add a new bookmarks folder.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__appFocusChanged">__appFocusChanged</a></td>
+<td>Private slot to handle a change of the focus.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__backward">__backward</a></td>
+<td>Private slot called to handle the backward action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__bookmarkAllCallback">__bookmarkAllCallback</a></td>
+<td>Private callback method of __addBookmark().</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__clearIconsDatabase">__clearIconsDatabase</a></td>
+<td>Private slot to clear the favicons databse.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__clearPrivateData">__clearPrivateData</a></td>
+<td>Private slot to clear the private data.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__configShortcuts">__configShortcuts</a></td>
+<td>Private slot to configure the keyboard shortcuts.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__copy">__copy</a></td>
+<td>Private slot called to handle the copy action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__createTextEncodingAction">__createTextEncodingAction</a></td>
+<td>Private method to create an action for the text encoding menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__createTextEncodingSubmenu">__createTextEncodingSubmenu</a></td>
+<td>Private method to create a text encoding sub menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__currentChanged">__currentChanged</a></td>
+<td>Private slot to handle the currentChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__cut">__cut</a></td>
+<td>Private slot called to handle the cut action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__del__">__del__</a></td>
+<td>Special method called during object destruction.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__docsInstalled">__docsInstalled</a></td>
+<td>Private slot handling the end of documentation installation.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__exportShortcuts">__exportShortcuts</a></td>
+<td>Private slot to export the keyboard shortcuts.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__feedsManagerClosed">__feedsManagerClosed</a></td>
+<td>Private slot to handle closing the feeds manager dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__filterQtHelpDocumentation">__filterQtHelpDocumentation</a></td>
+<td>Private slot to filter the QtHelp documentation.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__find">__find</a></td>
+<td>Private slot to handle the find action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__forward">__forward</a></td>
+<td>Private slot called to handle the forward action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__hideNavigation">__hideNavigation</a></td>
+<td>Private slot to hide full screen navigation by timer.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__home">__home</a></td>
+<td>Private slot called to handle the home action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__importShortcuts">__importShortcuts</a></td>
+<td>Private slot to import the keyboard shortcuts.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__indexingFinished">__indexingFinished</a></td>
+<td>Private slot to handle the start of the indexing process.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__indexingStarted">__indexingStarted</a></td>
+<td>Private slot to handle the start of the indexing process.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__initActions">__initActions</a></td>
+<td>Private method to define the user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__initMenus">__initMenus</a></td>
+<td>Private method to create the menus.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__initSuperMenu">__initSuperMenu</a></td>
+<td>Private method to create the super menu and attach it to the super menu button.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__initToolbars">__initToolbars</a></td>
+<td>Private method to create the toolbars.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__initWebEngineSettings">__initWebEngineSettings</a></td>
+<td>Private method to set the global web settings.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__linkActivated">__linkActivated</a></td>
+<td>Private slot to handle the selection of a link.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__lookForNewDocumentation">__lookForNewDocumentation</a></td>
+<td>Private slot to look for new documentation to be loaded into the help database.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__manageQtHelpDocumentation">__manageQtHelpDocumentation</a></td>
+<td>Private slot to manage the QtHelp documentation database.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__nextTab">__nextTab</a></td>
+<td>Private slot used to show the next tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__openFile">__openFile</a></td>
+<td>Private slot called to open a file.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__openFileNewTab">__openFileNewTab</a></td>
+<td>Private slot called to open a file in a new tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__paste">__paste</a></td>
+<td>Private slot called to handle the paste action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__populateToolbarsMenu">__populateToolbarsMenu</a></td>
+<td>Private method to populate the toolbars menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__prevTab">__prevTab</a></td>
+<td>Private slot used to show the previous tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__redo">__redo</a></td>
+<td>Private slot to handle the redo action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__reload">__reload</a></td>
+<td>Private slot called to handle the reload action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__removeOldDocumentation">__removeOldDocumentation</a></td>
+<td>Private slot to remove non-existing documentation from the help engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__saLoadUrl">__saLoadUrl</a></td>
+<td>Private slot to load an URL received via the single application protocol.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__saNewTab">__saNewTab</a></td>
+<td>Private slot to load an URL received via the single application protocol in a new tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__saSearchWord">__saSearchWord</a></td>
+<td>Private slot to search for the given word.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__savePageAs">__savePageAs</a></td>
+<td>Private slot to save the current page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__saveVisiblePageScreen">__saveVisiblePageScreen</a></td>
+<td>Private slot to save the visible part of the current page as a screen shot.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__searchForWord">__searchForWord</a></td>
+<td>Private slot to search for a word.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__selectAll">__selectAll</a></td>
+<td>Private slot to handle the select all action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__sendPageLink">__sendPageLink</a></td>
+<td>Private slot to send the link of the current page via email.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__setBookmarksToolbarVisibility">__setBookmarksToolbarVisibility</a></td>
+<td>Private method to set the visibility of the bookmarks toolbar.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__setMenuBarVisibility">__setMenuBarVisibility</a></td>
+<td>Private method to set the visibility of the menu bar.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__setStatusBarVisible">__setStatusBarVisible</a></td>
+<td>Private method to set the visibility of the status bar.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__setTextEncoding">__setTextEncoding</a></td>
+<td>Private slot to set the selected text encoding as the default for this session.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__setUserStyleSheet">__setUserStyleSheet</a></td>
+<td>Private method to set a user style sheet.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__setupFilterCombo">__setupFilterCombo</a></td>
+<td>Private slot to setup the filter combo box.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__shallShutDown">__shallShutDown</a></td>
+<td>Private method to check, if the application should be shut down.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showAcceptedLanguages">__showAcceptedLanguages</a></td>
+<td>Private slot to configure the accepted languages for web pages.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showAdBlockDialog">__showAdBlockDialog</a></td>
+<td>Private slot to show the AdBlock configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showBookmarksDialog">__showBookmarksDialog</a></td>
+<td>Private slot to show the bookmarks dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showCertificateErrorsDialog">__showCertificateErrorsDialog</a></td>
+<td>Private slot to show the certificate errors management dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showCookiesConfiguration">__showCookiesConfiguration</a></td>
+<td>Private slot to configure the cookies handling.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showDownloadsWindow">__showDownloadsWindow</a></td>
+<td>Private slot to show the downloads dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showEnginesConfigurationDialog">__showEnginesConfigurationDialog</a></td>
+<td>Private slot to show the search engines configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showFeaturePermissionDialog">__showFeaturePermissionDialog</a></td>
+<td>Private slot to show the feature permission dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showFeedsManager">__showFeedsManager</a></td>
+<td>Private slot to show the feeds manager dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showGreaseMonkeyConfigDialog">__showGreaseMonkeyConfigDialog</a></td>
+<td>Private slot to show the GreaseMonkey scripts configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showIndexWindow">__showIndexWindow</a></td>
+<td>Private method to show the index window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showInstallationError">__showInstallationError</a></td>
+<td>Private slot to show installation errors.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showPageSource">__showPageSource</a></td>
+<td>Private slot to show the source of the current page in an editor.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showPageSourceCallback">__showPageSourceCallback</a></td>
+<td>Private method to show the source of the current page in an editor.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showPasswordsDialog">__showPasswordsDialog</a></td>
+<td>Private slot to show the passwords management dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showPersonalInformationDialog">__showPersonalInformationDialog</a></td>
+<td>Private slot to show the Personal Information configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showPreferences">__showPreferences</a></td>
+<td>Private slot to set the preferences.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showProtocolHandlerManagerDialog">__showProtocolHandlerManagerDialog</a></td>
+<td>Private slot to show the protocol handler manager dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showSafeBrowsingDialog">__showSafeBrowsingDialog</a></td>
+<td>Private slot to show the safe browsing management dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showSearchWindow">__showSearchWindow</a></td>
+<td>Private method to show the search window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showSecurityKeysDialog">__showSecurityKeysDialog</a></td>
+<td>Private slot to show a dialog for managing FIDO2 security keys.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showSessionManagerDialog">__showSessionManagerDialog</a></td>
+<td>Private slot to show the session manager dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showSiteinfoDialog">__showSiteinfoDialog</a></td>
+<td>Private slot to show the site info dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showSyncDialog">__showSyncDialog</a></td>
+<td>Private slot to show the synchronization dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showTabManager">__showTabManager</a></td>
+<td>Private method to show the tab manager window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showTocWindow">__showTocWindow</a></td>
+<td>Private method to show the table of contents window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showToolbarsMenu">__showToolbarsMenu</a></td>
+<td>Private slot to display the Toolbars menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showUserAgentsDialog">__showUserAgentsDialog</a></td>
+<td>Private slot to show the user agents management dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showWebIconsDialog">__showWebIconsDialog</a></td>
+<td>Private slot to show a dialog to manage the favicons database.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__showZoomValuesDialog">__showZoomValuesDialog</a></td>
+<td>Private slot to show the zoom values management dialog.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__shutdownWindow">__shutdownWindow</a></td>
+<td>Private method to shut down a web browser window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__stopLoading">__stopLoading</a></td>
+<td>Private slot called to handle loading of the current page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__switchTab">__switchTab</a></td>
+<td>Private slot used to switch between the current and the previous current tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__syncTOC">__syncTOC</a></td>
+<td>Private slot to synchronize the TOC with the currently shown page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__titleChanged">__titleChanged</a></td>
+<td>Private slot called to handle a change of a browser's title.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__toggleJavaScriptConsole">__toggleJavaScriptConsole</a></td>
+<td>Private slot to toggle the JavaScript console.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__undo">__undo</a></td>
+<td>Private slot to handle the undo action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__unselect">__unselect</a></td>
+<td>Private slot to clear the selection of the current browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__virusTotalDomainReport">__virusTotalDomainReport</a></td>
+<td>Private slot to retrieve a domain report.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__virusTotalFileScanReport">__virusTotalFileScanReport</a></td>
+<td>Private slot to initiate the display of the file scan report page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__virusTotalIpAddressReport">__virusTotalIpAddressReport</a></td>
+<td>Private slot to retrieve an IP address report.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__virusTotalScanCurrentSite">__virusTotalScanCurrentSite</a></td>
+<td>Private slot to ask VirusTotal for a scan of the URL of the current browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__virusTotalSubmitUrlError">__virusTotalSubmitUrlError</a></td>
+<td>Private slot to handle an URL scan submission error.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__virusTotalUrlScanReport">__virusTotalUrlScanReport</a></td>
+<td>Private slot to initiate the display of the URL scan report page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__warning">__warning</a></td>
+<td>Private slot handling warnings from the help engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__whatsThis">__whatsThis</a></td>
+<td>Private slot called in to enter Whats This mode.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__zoomIn">__zoomIn</a></td>
+<td>Private slot called to handle the zoom in action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__zoomOut">__zoomOut</a></td>
+<td>Private slot called to handle the zoom out action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__zoomReset">__zoomReset</a></td>
+<td>Private slot called to handle the zoom reset action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.__zoomValueChanged">__zoomValueChanged</a></td>
+<td>Private slot to handle value changes of the zoom widget.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.adBlockIcon">adBlockIcon</a></td>
+<td>Public method to get a reference to the AdBlock icon.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.bookmarkAll">bookmarkAll</a></td>
+<td>Public slot to bookmark all open tabs.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.browserAt">browserAt</a></td>
+<td>Public method to get a reference to the web browser with the given index.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.browsers">browsers</a></td>
+<td>Public method to get a list of references to all web browsers.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.closeBrowser">closeBrowser</a></td>
+<td>Public method to close the given browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.closeCurrentBrowser">closeCurrentBrowser</a></td>
+<td>Public method to close the current web browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.closeEvent">closeEvent</a></td>
+<td>Protected event handler for the close event.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.createPopupMenu">createPopupMenu</a></td>
+<td>Public method to create the toolbars menu for Qt.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.currentBrowser">currentBrowser</a></td>
+<td>Public method to get a reference to the current web browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.enterHtmlFullScreen">enterHtmlFullScreen</a></td>
+<td>Public method to switch to full screen initiated by the HTML page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.event">event</a></td>
+<td>Public method handling events.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.forceClose">forceClose</a></td>
+<td>Public method to force closing the window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.getActions">getActions</a></td>
+<td>Public method to get a list of all actions.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.getActionsCategory">getActionsCategory</a></td>
+<td>Public method to get the category of the defined actions.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.getSourceFileList">getSourceFileList</a></td>
+<td>Public method to get a list of all opened source files.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.hideFullScreenNavigation">hideFullScreenNavigation</a></td>
+<td>Public slot to hide full screen navigation.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.isClosing">isClosing</a></td>
+<td>Public method to test, if the window is closing.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.isFullScreenNavigationVisible">isFullScreenNavigationVisible</a></td>
+<td>Public method to check, if full screen navigation is active.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.javascriptConsole">javascriptConsole</a></td>
+<td>Public method to get a reference to the JavaScript console widget.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method to handle key presses.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.mainPasswordChanged">mainPasswordChanged</a></td>
+<td>Public slot to handle the change of the main password.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.newPrivateWindow">newPrivateWindow</a></td>
+<td>Public slot called to open a new private web browser window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.newTab">newTab</a></td>
+<td>Public slot called to open a new web browser tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.newWindow">newWindow</a></td>
+<td>Public slot called to open a new web browser window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.openSearchManager">openSearchManager</a></td>
+<td>Public method to get a reference to the opensearch manager object.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.openUrl">openUrl</a></td>
+<td>Public slot to load a URL in the current tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.openUrlNewBackgroundTab">openUrlNewBackgroundTab</a></td>
+<td>Public slot to load a URL in a new background tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.openUrlNewPrivateWindow">openUrlNewPrivateWindow</a></td>
+<td>Public slot to load a URL in a new private window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.openUrlNewTab">openUrlNewTab</a></td>
+<td>Public slot to load a URL in a new tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.openUrlNewWindow">openUrlNewWindow</a></td>
+<td>Public slot to load a URL in a new window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.reloadUserStyleSheet">reloadUserStyleSheet</a></td>
+<td>Public method to reload the user style sheet.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.requestVirusTotalScan">requestVirusTotalScan</a></td>
+<td>Public method to submit a request to scan an URL by VirusTotal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.search">search</a></td>
+<td>Public method to search for a word.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.searchEnginesAction">searchEnginesAction</a></td>
+<td>Public method to get a reference to the search engines configuration action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.setBackwardAvailable">setBackwardAvailable</a></td>
+<td>Public slot called when backward references are available.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.setForwardAvailable">setForwardAvailable</a></td>
+<td>Public slot called when forward references are available.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.setLoadingActions">setLoadingActions</a></td>
+<td>Public slot to set the loading dependent actions.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.showFullScreenNavigation">showFullScreenNavigation</a></td>
+<td>Public slot to show full screen navigation.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.shutdown">shutdown</a></td>
+<td>Public method to shut down the web browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.tabWidget">tabWidget</a></td>
+<td>Public method to get a reference to the tab widget.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.toggleFullScreen">toggleFullScreen</a></td>
+<td>Public slot called to toggle the full screen mode.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWindow.urlHandler">urlHandler</a></td>
+<td>Public slot used as desktop URL handler.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WebBrowserWindow.__showWebNotification" ID="WebBrowserWindow.__showWebNotification"></a>
+<h4>WebBrowserWindow.__showWebNotification (class method)</h4>
+<b>__showWebNotification</b>(<i>webNotification</i>)
+<p>
+        Class method to show a notification sent by Chromium.
+</p>
+
+<dl>
+
+<dt><i>webNotification</i> (QWebEngineNotification)</dt>
+<dd>
+notification sent by Chromium
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.adBlockManager" ID="WebBrowserWindow.adBlockManager"></a>
+<h4>WebBrowserWindow.adBlockManager (class method)</h4>
+<b>adBlockManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the AdBlock manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the AdBlock manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.autoScroller" ID="WebBrowserWindow.autoScroller"></a>
+<h4>WebBrowserWindow.autoScroller (class method)</h4>
+<b>autoScroller</b>(<i></i>)
+<p>
+        Class method to get a reference to the auto scroller.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the auto scroller object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AutoScroller
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.bookmarksManager" ID="WebBrowserWindow.bookmarksManager"></a>
+<h4>WebBrowserWindow.bookmarksManager (class method)</h4>
+<b>bookmarksManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the bookmarks manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the bookmarks manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarksManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.cookieJar" ID="WebBrowserWindow.cookieJar"></a>
+<h4>WebBrowserWindow.cookieJar (class method)</h4>
+<b>cookieJar</b>(<i></i>)
+<p>
+        Class method to get a reference to the cookie jar.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the cookie jar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+CookieJar
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.downloadManager" ID="WebBrowserWindow.downloadManager"></a>
+<h4>WebBrowserWindow.downloadManager (class method)</h4>
+<b>downloadManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the download manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the download manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+DownloadManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.downloadRequested" ID="WebBrowserWindow.downloadRequested"></a>
+<h4>WebBrowserWindow.downloadRequested (class method)</h4>
+<b>downloadRequested</b>(<i>downloadRequest</i>)
+<p>
+        Class method to handle a download request.
+</p>
+
+<dl>
+
+<dt><i>downloadRequest</i> (QWebEngineDownloadRequest)</dt>
+<dd>
+reference to the download data
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.featurePermissionManager" ID="WebBrowserWindow.featurePermissionManager"></a>
+<h4>WebBrowserWindow.featurePermissionManager (class method)</h4>
+<b>featurePermissionManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the feature permission manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the feature permission manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+FeaturePermissionManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.feedsManager" ID="WebBrowserWindow.feedsManager"></a>
+<h4>WebBrowserWindow.feedsManager (class method)</h4>
+<b>feedsManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the RSS feeds manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the RSS feeds manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+FeedsManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.getQtHelpCollectionFileName" ID="WebBrowserWindow.getQtHelpCollectionFileName"></a>
+<h4>WebBrowserWindow.getQtHelpCollectionFileName (class method)</h4>
+<b>getQtHelpCollectionFileName</b>(<i></i>)
+<p>
+        Class method to determine the name of the QtHelp collection file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the QtHelp collection file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.getWindow" ID="WebBrowserWindow.getWindow"></a>
+<h4>WebBrowserWindow.getWindow (class method)</h4>
+<b>getWindow</b>(<i></i>)
+<p>
+        Class method to get a reference to the most recent active
+        web browser window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to most recent web browser window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserWindow
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.globalStatusBar" ID="WebBrowserWindow.globalStatusBar"></a>
+<h4>WebBrowserWindow.globalStatusBar (class method)</h4>
+<b>globalStatusBar</b>(<i></i>)
+<p>
+        Class method to get a reference to a global status bar.
+</p>
+<p>
+        The global status bar is the status bar of the main window. If
+        no such window exists and the web browser was called from the eric IDE,
+        the status bar of the IDE is returned.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the global status bar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QStatusBar
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.greaseMonkeyManager" ID="WebBrowserWindow.greaseMonkeyManager"></a>
+<h4>WebBrowserWindow.greaseMonkeyManager (class method)</h4>
+<b>greaseMonkeyManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the GreaseMonkey manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the GreaseMonkey manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GreaseMonkeyManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.helpEngine" ID="WebBrowserWindow.helpEngine"></a>
+<h4>WebBrowserWindow.helpEngine (class method)</h4>
+<b>helpEngine</b>(<i></i>)
+<p>
+        Class method to get a reference to the help engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the help engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QHelpEngine
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.historyManager" ID="WebBrowserWindow.historyManager"></a>
+<h4>WebBrowserWindow.historyManager (class method)</h4>
+<b>historyManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the history manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the history manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HistoryManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.icon" ID="WebBrowserWindow.icon"></a>
+<h4>WebBrowserWindow.icon (class method)</h4>
+<b>icon</b>(<i>url</i>)
+<p>
+        Class method to get the icon for an URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to get icon for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+icon for the URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.imageSearchEngine" ID="WebBrowserWindow.imageSearchEngine"></a>
+<h4>WebBrowserWindow.imageSearchEngine (class method)</h4>
+<b>imageSearchEngine</b>(<i></i>)
+<p>
+        Class method to get a reference to the image search engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the image finder object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ImageSearchEngine
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.isPrivate" ID="WebBrowserWindow.isPrivate"></a>
+<h4>WebBrowserWindow.isPrivate (class method)</h4>
+<b>isPrivate</b>(<i></i>)
+<p>
+        Class method to check the private browsing mode.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating private browsing mode
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.mainWindow" ID="WebBrowserWindow.mainWindow"></a>
+<h4>WebBrowserWindow.mainWindow (class method)</h4>
+<b>mainWindow</b>(<i></i>)
+<p>
+        Class method to get a reference to the main window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the main window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserWindow
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.mainWindows" ID="WebBrowserWindow.mainWindows"></a>
+<h4>WebBrowserWindow.mainWindows (class method)</h4>
+<b>mainWindows</b>(<i></i>)
+<p>
+        Class method to get references to all main windows.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+references to all main window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of WebBrowserWindow
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.networkManager" ID="WebBrowserWindow.networkManager"></a>
+<h4>WebBrowserWindow.networkManager (class method)</h4>
+<b>networkManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the network manager object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the network access manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+NetworkManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.passwordManager" ID="WebBrowserWindow.passwordManager"></a>
+<h4>WebBrowserWindow.passwordManager (class method)</h4>
+<b>passwordManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the password manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the password manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+PasswordManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.personalInformationManager" ID="WebBrowserWindow.personalInformationManager"></a>
+<h4>WebBrowserWindow.personalInformationManager (class method)</h4>
+<b>personalInformationManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the personal information manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the personal information manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+PersonalInformationManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.protocolHandlerManager" ID="WebBrowserWindow.protocolHandlerManager"></a>
+<h4>WebBrowserWindow.protocolHandlerManager (class method)</h4>
+<b>protocolHandlerManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the protocol handler manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the protocol handler manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ProtocolHandlerManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.safeBrowsingManager" ID="WebBrowserWindow.safeBrowsingManager"></a>
+<h4>WebBrowserWindow.safeBrowsingManager (class method)</h4>
+<b>safeBrowsingManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the safe browsing interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the safe browsing manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SafeBrowsingManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.sessionManager" ID="WebBrowserWindow.sessionManager"></a>
+<h4>WebBrowserWindow.sessionManager (class method)</h4>
+<b>sessionManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the session manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the session manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SessionManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.setIconDatabasePath" ID="WebBrowserWindow.setIconDatabasePath"></a>
+<h4>WebBrowserWindow.setIconDatabasePath (class method)</h4>
+<b>setIconDatabasePath</b>(<i>enable=True</i>)
+<p>
+        Class method to set the favicons path.
+</p>
+
+<dl>
+
+<dt><i>enable</i> (bool)</dt>
+<dd>
+flag indicating to enabled icon storage
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.setUseQtHelp" ID="WebBrowserWindow.setUseQtHelp"></a>
+<h4>WebBrowserWindow.setUseQtHelp (class method)</h4>
+<b>setUseQtHelp</b>(<i>use</i>)
+<p>
+        Class method to set the QtHelp usage.
+</p>
+
+<dl>
+
+<dt><i>use</i> (bool)</dt>
+<dd>
+flag indicating usage
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.showNotification" ID="WebBrowserWindow.showNotification"></a>
+<h4>WebBrowserWindow.showNotification (class method)</h4>
+<b>showNotification</b>(<i>icon, heading, text, kind=NotificationTypes.INFORMATION, timeout=None</i>)
+<p>
+        Class method to show a desktop notification.
+</p>
+
+<dl>
+
+<dt><i>icon</i> (QPixmap)</dt>
+<dd>
+icon to be shown in the notification
+</dd>
+<dt><i>heading</i> (str)</dt>
+<dd>
+heading of the notification
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text of the notification
+</dd>
+<dt><i>kind</i> (NotificationTypes)</dt>
+<dd>
+kind of notification to be shown
+</dd>
+<dt><i>timeout</i> (int)</dt>
+<dd>
+time in seconds the notification should be shown
+            (None = use configured timeout, 0 = indefinitely)
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.speedDial" ID="WebBrowserWindow.speedDial"></a>
+<h4>WebBrowserWindow.speedDial (class method)</h4>
+<b>speedDial</b>(<i></i>)
+<p>
+        Class method to get a reference to the speed dial.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the speed dial
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SpeedDial
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.syncManager" ID="WebBrowserWindow.syncManager"></a>
+<h4>WebBrowserWindow.syncManager (class method)</h4>
+<b>syncManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the data synchronization manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the data synchronization manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SyncManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.tabManager" ID="WebBrowserWindow.tabManager"></a>
+<h4>WebBrowserWindow.tabManager (class method)</h4>
+<b>tabManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the tab manager widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the tab manager widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+TabManagerWidget
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.userAgentsManager" ID="WebBrowserWindow.userAgentsManager"></a>
+<h4>WebBrowserWindow.userAgentsManager (class method)</h4>
+<b>userAgentsManager</b>(<i></i>)
+<p>
+        Class method to get a reference to the user agents manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the user agents manager
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+UserAgentManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.webProfile" ID="WebBrowserWindow.webProfile"></a>
+<h4>WebBrowserWindow.webProfile (class method)</h4>
+<b>webProfile</b>(<i>private=False</i>)
+<p>
+        Class method handling the web engine profile.
+</p>
+
+<dl>
+
+<dt><i>private</i> (bool)</dt>
+<dd>
+flag indicating the privacy mode
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the web profile object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWebEngineProfile
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.webSettings" ID="WebBrowserWindow.webSettings"></a>
+<h4>WebBrowserWindow.webSettings (class method)</h4>
+<b>webSettings</b>(<i></i>)
+<p>
+        Class method to get the web settings of the current profile.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+web settings of the current profile
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWebEngineSettings
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__init__" ID="WebBrowserWindow.__init__"></a>
+<h4>WebBrowserWindow (Constructor)</h4>
+<b>WebBrowserWindow</b>(<i>home, path, parent, name, searchWord=None, private=False, qthelp=False, settingsDir="", restoreSession=False, single=False, saname="", </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>home</i> (str)</dt>
+<dd>
+the URL to be shown
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+the path of the working dir (usually '.')
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this window
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this window
+</dd>
+<dt><i>searchWord</i> (str)</dt>
+<dd>
+word to search for
+</dd>
+<dt><i>private</i> (bool)</dt>
+<dd>
+flag indicating a private browsing window
+</dd>
+<dt><i>qthelp</i> (bool)</dt>
+<dd>
+flag indicating to enable the QtHelp support
+</dd>
+<dt><i>settingsDir</i> (str)</dt>
+<dd>
+directory to be used for the settings files
+</dd>
+<dt><i>restoreSession</i> (bool)</dt>
+<dd>
+flag indicating a restore session action
+</dd>
+<dt><i>single</i> (bool)</dt>
+<dd>
+flag indicating to start in single application mode
+</dd>
+<dt><i>saname</i> (str)</dt>
+<dd>
+name to be used for the single application server
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__TBMenuTriggered" ID="WebBrowserWindow.__TBMenuTriggered"></a>
+<h4>WebBrowserWindow.__TBMenuTriggered</h4>
+<b>__TBMenuTriggered</b>(<i>act</i>)
+<p>
+        Private method to handle the toggle of a toolbar via the Window->
+        Toolbars submenu or the toolbars popup menu.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that was triggered
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__about" ID="WebBrowserWindow.__about"></a>
+<h4>WebBrowserWindow.__about</h4>
+<b>__about</b>(<i></i>)
+<p>
+        Private slot to show the about information.
+</p>
+
+<a NAME="WebBrowserWindow.__aboutQt" ID="WebBrowserWindow.__aboutQt"></a>
+<h4>WebBrowserWindow.__aboutQt</h4>
+<b>__aboutQt</b>(<i></i>)
+<p>
+        Private slot to show info about Qt.
+</p>
+
+<a NAME="WebBrowserWindow.__aboutToShowSettingsMenu" ID="WebBrowserWindow.__aboutToShowSettingsMenu"></a>
+<h4>WebBrowserWindow.__aboutToShowSettingsMenu</h4>
+<b>__aboutToShowSettingsMenu</b>(<i></i>)
+<p>
+        Private slot to show the Settings menu.
+</p>
+
+<a NAME="WebBrowserWindow.__aboutToShowTextEncodingMenu" ID="WebBrowserWindow.__aboutToShowTextEncodingMenu"></a>
+<h4>WebBrowserWindow.__aboutToShowTextEncodingMenu</h4>
+<b>__aboutToShowTextEncodingMenu</b>(<i></i>)
+<p>
+        Private slot to populate the text encoding menu.
+</p>
+
+<a NAME="WebBrowserWindow.__activateCurrentBrowser" ID="WebBrowserWindow.__activateCurrentBrowser"></a>
+<h4>WebBrowserWindow.__activateCurrentBrowser</h4>
+<b>__activateCurrentBrowser</b>(<i></i>)
+<p>
+        Private slot to activate the current browser.
+</p>
+
+<a NAME="WebBrowserWindow.__activateDock" ID="WebBrowserWindow.__activateDock"></a>
+<h4>WebBrowserWindow.__activateDock</h4>
+<b>__activateDock</b>(<i>widget</i>)
+<p>
+        Private method to activate the dock widget of the given widget.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to be activated
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__addBookmark" ID="WebBrowserWindow.__addBookmark"></a>
+<h4>WebBrowserWindow.__addBookmark</h4>
+<b>__addBookmark</b>(<i></i>)
+<p>
+        Private slot called to add the displayed file to the bookmarks.
+</p>
+
+<a NAME="WebBrowserWindow.__addBookmarkCallback" ID="WebBrowserWindow.__addBookmarkCallback"></a>
+<h4>WebBrowserWindow.__addBookmarkCallback</h4>
+<b>__addBookmarkCallback</b>(<i>url, title, res</i>)
+<p>
+        Private callback method of __addBookmark().
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL for the bookmark
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title for the bookmark
+</dd>
+<dt><i>res</i> (list)</dt>
+<dd>
+result of the JavaScript
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__addBookmarkFolder" ID="WebBrowserWindow.__addBookmarkFolder"></a>
+<h4>WebBrowserWindow.__addBookmarkFolder</h4>
+<b>__addBookmarkFolder</b>(<i></i>)
+<p>
+        Private slot to add a new bookmarks folder.
+</p>
+
+<a NAME="WebBrowserWindow.__appFocusChanged" ID="WebBrowserWindow.__appFocusChanged"></a>
+<h4>WebBrowserWindow.__appFocusChanged</h4>
+<b>__appFocusChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of the focus.
+</p>
+
+<a NAME="WebBrowserWindow.__backward" ID="WebBrowserWindow.__backward"></a>
+<h4>WebBrowserWindow.__backward</h4>
+<b>__backward</b>(<i></i>)
+<p>
+        Private slot called to handle the backward action.
+</p>
+
+<a NAME="WebBrowserWindow.__bookmarkAllCallback" ID="WebBrowserWindow.__bookmarkAllCallback"></a>
+<h4>WebBrowserWindow.__bookmarkAllCallback</h4>
+<b>__bookmarkAllCallback</b>(<i>folder, url, title, res</i>)
+<p>
+        Private callback method of __addBookmark().
+</p>
+
+<dl>
+
+<dt><i>folder</i> (BookmarkNode)</dt>
+<dd>
+reference to the bookmarks folder
+</dd>
+<dt><i>url</i> (str)</dt>
+<dd>
+URL for the bookmark
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title for the bookmark
+</dd>
+<dt><i>res</i> (list)</dt>
+<dd>
+result of the JavaScript
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__clearIconsDatabase" ID="WebBrowserWindow.__clearIconsDatabase"></a>
+<h4>WebBrowserWindow.__clearIconsDatabase</h4>
+<b>__clearIconsDatabase</b>(<i></i>)
+<p>
+        Private slot to clear the favicons databse.
+</p>
+
+<a NAME="WebBrowserWindow.__clearPrivateData" ID="WebBrowserWindow.__clearPrivateData"></a>
+<h4>WebBrowserWindow.__clearPrivateData</h4>
+<b>__clearPrivateData</b>(<i></i>)
+<p>
+        Private slot to clear the private data.
+</p>
+
+<a NAME="WebBrowserWindow.__configShortcuts" ID="WebBrowserWindow.__configShortcuts"></a>
+<h4>WebBrowserWindow.__configShortcuts</h4>
+<b>__configShortcuts</b>(<i></i>)
+<p>
+        Private slot to configure the keyboard shortcuts.
+</p>
+
+<a NAME="WebBrowserWindow.__copy" ID="WebBrowserWindow.__copy"></a>
+<h4>WebBrowserWindow.__copy</h4>
+<b>__copy</b>(<i></i>)
+<p>
+        Private slot called to handle the copy action.
+</p>
+
+<a NAME="WebBrowserWindow.__createTextEncodingAction" ID="WebBrowserWindow.__createTextEncodingAction"></a>
+<h4>WebBrowserWindow.__createTextEncodingAction</h4>
+<b>__createTextEncodingAction</b>(<i>codec, defaultCodec, parentMenu, name=None</i>)
+<p>
+        Private method to create an action for the text encoding menu.
+</p>
+
+<dl>
+
+<dt><i>codec</i> (str)</dt>
+<dd>
+name of the codec to create an action for
+</dd>
+<dt><i>defaultCodec</i> (str)</dt>
+<dd>
+name of the default codec
+</dd>
+<dt><i>parentMenu</i> (QMenu)</dt>
+<dd>
+reference to the parent menu
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name for the action
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__createTextEncodingSubmenu" ID="WebBrowserWindow.__createTextEncodingSubmenu"></a>
+<h4>WebBrowserWindow.__createTextEncodingSubmenu</h4>
+<b>__createTextEncodingSubmenu</b>(<i>title, codecNames, parentMenu</i>)
+<p>
+        Private method to create a text encoding sub menu.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the menu
+</dd>
+<dt><i>codecNames</i> (list of str)</dt>
+<dd>
+list of codec names for the menu
+</dd>
+<dt><i>parentMenu</i> (QMenu)</dt>
+<dd>
+reference to the parent menu
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__currentChanged" ID="WebBrowserWindow.__currentChanged"></a>
+<h4>WebBrowserWindow.__currentChanged</h4>
+<b>__currentChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the currentChanged signal.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the current tab
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__cut" ID="WebBrowserWindow.__cut"></a>
+<h4>WebBrowserWindow.__cut</h4>
+<b>__cut</b>(<i></i>)
+<p>
+        Private slot called to handle the cut action.
+</p>
+
+<a NAME="WebBrowserWindow.__del__" ID="WebBrowserWindow.__del__"></a>
+<h4>WebBrowserWindow.__del__</h4>
+<b>__del__</b>(<i></i>)
+<p>
+        Special method called during object destruction.
+</p>
+<p>
+        Note: This empty variant seems to get rid of the Qt message
+        'Warning: QBasicTimer::start: QBasicTimer can only be used with
+        threads started with QThread'
+</p>
+
+<a NAME="WebBrowserWindow.__docsInstalled" ID="WebBrowserWindow.__docsInstalled"></a>
+<h4>WebBrowserWindow.__docsInstalled</h4>
+<b>__docsInstalled</b>(<i>_installed</i>)
+<p>
+        Private slot handling the end of documentation installation.
+</p>
+
+<dl>
+
+<dt><i>_installed</i> (bool)</dt>
+<dd>
+flag indicating that documents were installed (unused)
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__exportShortcuts" ID="WebBrowserWindow.__exportShortcuts"></a>
+<h4>WebBrowserWindow.__exportShortcuts</h4>
+<b>__exportShortcuts</b>(<i></i>)
+<p>
+        Private slot to export the keyboard shortcuts.
+</p>
+
+<a NAME="WebBrowserWindow.__feedsManagerClosed" ID="WebBrowserWindow.__feedsManagerClosed"></a>
+<h4>WebBrowserWindow.__feedsManagerClosed</h4>
+<b>__feedsManagerClosed</b>(<i>feedsManager</i>)
+<p>
+        Private slot to handle closing the feeds manager dialog.
+</p>
+
+<dl>
+
+<dt><i>feedsManager</i> (FeedsManager)</dt>
+<dd>
+reference to the feeds manager object
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__filterQtHelpDocumentation" ID="WebBrowserWindow.__filterQtHelpDocumentation"></a>
+<h4>WebBrowserWindow.__filterQtHelpDocumentation</h4>
+<b>__filterQtHelpDocumentation</b>(<i>index</i>)
+<p>
+        Private slot to filter the QtHelp documentation.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected QtHelp documentation filter
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__find" ID="WebBrowserWindow.__find"></a>
+<h4>WebBrowserWindow.__find</h4>
+<b>__find</b>(<i></i>)
+<p>
+        Private slot to handle the find action.
+</p>
+<p>
+        It opens the search dialog in order to perform the various
+        search actions and to collect the various search info.
+</p>
+
+<a NAME="WebBrowserWindow.__forward" ID="WebBrowserWindow.__forward"></a>
+<h4>WebBrowserWindow.__forward</h4>
+<b>__forward</b>(<i></i>)
+<p>
+        Private slot called to handle the forward action.
+</p>
+
+<a NAME="WebBrowserWindow.__hideNavigation" ID="WebBrowserWindow.__hideNavigation"></a>
+<h4>WebBrowserWindow.__hideNavigation</h4>
+<b>__hideNavigation</b>(<i></i>)
+<p>
+        Private slot to hide full screen navigation by timer.
+</p>
+
+<a NAME="WebBrowserWindow.__home" ID="WebBrowserWindow.__home"></a>
+<h4>WebBrowserWindow.__home</h4>
+<b>__home</b>(<i></i>)
+<p>
+        Private slot called to handle the home action.
+</p>
+
+<a NAME="WebBrowserWindow.__importShortcuts" ID="WebBrowserWindow.__importShortcuts"></a>
+<h4>WebBrowserWindow.__importShortcuts</h4>
+<b>__importShortcuts</b>(<i></i>)
+<p>
+        Private slot to import the keyboard shortcuts.
+</p>
+
+<a NAME="WebBrowserWindow.__indexingFinished" ID="WebBrowserWindow.__indexingFinished"></a>
+<h4>WebBrowserWindow.__indexingFinished</h4>
+<b>__indexingFinished</b>(<i></i>)
+<p>
+        Private slot to handle the start of the indexing process.
+</p>
+
+<a NAME="WebBrowserWindow.__indexingStarted" ID="WebBrowserWindow.__indexingStarted"></a>
+<h4>WebBrowserWindow.__indexingStarted</h4>
+<b>__indexingStarted</b>(<i></i>)
+<p>
+        Private slot to handle the start of the indexing process.
+</p>
+
+<a NAME="WebBrowserWindow.__initActions" ID="WebBrowserWindow.__initActions"></a>
+<h4>WebBrowserWindow.__initActions</h4>
+<b>__initActions</b>(<i></i>)
+<p>
+        Private method to define the user interface actions.
+</p>
+
+<a NAME="WebBrowserWindow.__initMenus" ID="WebBrowserWindow.__initMenus"></a>
+<h4>WebBrowserWindow.__initMenus</h4>
+<b>__initMenus</b>(<i></i>)
+<p>
+        Private method to create the menus.
+</p>
+
+<a NAME="WebBrowserWindow.__initSuperMenu" ID="WebBrowserWindow.__initSuperMenu"></a>
+<h4>WebBrowserWindow.__initSuperMenu</h4>
+<b>__initSuperMenu</b>(<i></i>)
+<p>
+        Private method to create the super menu and attach it to the super
+        menu button.
+</p>
+
+<a NAME="WebBrowserWindow.__initToolbars" ID="WebBrowserWindow.__initToolbars"></a>
+<h4>WebBrowserWindow.__initToolbars</h4>
+<b>__initToolbars</b>(<i></i>)
+<p>
+        Private method to create the toolbars.
+</p>
+
+<a NAME="WebBrowserWindow.__initWebEngineSettings" ID="WebBrowserWindow.__initWebEngineSettings"></a>
+<h4>WebBrowserWindow.__initWebEngineSettings</h4>
+<b>__initWebEngineSettings</b>(<i></i>)
+<p>
+        Private method to set the global web settings.
+</p>
+
+<a NAME="WebBrowserWindow.__linkActivated" ID="WebBrowserWindow.__linkActivated"></a>
+<h4>WebBrowserWindow.__linkActivated</h4>
+<b>__linkActivated</b>(<i>url</i>)
+<p>
+        Private slot to handle the selection of a link.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be shown
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__lookForNewDocumentation" ID="WebBrowserWindow.__lookForNewDocumentation"></a>
+<h4>WebBrowserWindow.__lookForNewDocumentation</h4>
+<b>__lookForNewDocumentation</b>(<i></i>)
+<p>
+        Private slot to look for new documentation to be loaded into the
+        help database.
+</p>
+
+<a NAME="WebBrowserWindow.__manageQtHelpDocumentation" ID="WebBrowserWindow.__manageQtHelpDocumentation"></a>
+<h4>WebBrowserWindow.__manageQtHelpDocumentation</h4>
+<b>__manageQtHelpDocumentation</b>(<i></i>)
+<p>
+        Private slot to manage the QtHelp documentation database.
+</p>
+
+<a NAME="WebBrowserWindow.__nextTab" ID="WebBrowserWindow.__nextTab"></a>
+<h4>WebBrowserWindow.__nextTab</h4>
+<b>__nextTab</b>(<i></i>)
+<p>
+        Private slot used to show the next tab.
+</p>
+
+<a NAME="WebBrowserWindow.__openFile" ID="WebBrowserWindow.__openFile"></a>
+<h4>WebBrowserWindow.__openFile</h4>
+<b>__openFile</b>(<i></i>)
+<p>
+        Private slot called to open a file.
+</p>
+
+<a NAME="WebBrowserWindow.__openFileNewTab" ID="WebBrowserWindow.__openFileNewTab"></a>
+<h4>WebBrowserWindow.__openFileNewTab</h4>
+<b>__openFileNewTab</b>(<i></i>)
+<p>
+        Private slot called to open a file in a new tab.
+</p>
+
+<a NAME="WebBrowserWindow.__paste" ID="WebBrowserWindow.__paste"></a>
+<h4>WebBrowserWindow.__paste</h4>
+<b>__paste</b>(<i></i>)
+<p>
+        Private slot called to handle the paste action.
+</p>
+
+<a NAME="WebBrowserWindow.__populateToolbarsMenu" ID="WebBrowserWindow.__populateToolbarsMenu"></a>
+<h4>WebBrowserWindow.__populateToolbarsMenu</h4>
+<b>__populateToolbarsMenu</b>(<i>menu</i>)
+<p>
+        Private method to populate the toolbars menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__prevTab" ID="WebBrowserWindow.__prevTab"></a>
+<h4>WebBrowserWindow.__prevTab</h4>
+<b>__prevTab</b>(<i></i>)
+<p>
+        Private slot used to show the previous tab.
+</p>
+
+<a NAME="WebBrowserWindow.__redo" ID="WebBrowserWindow.__redo"></a>
+<h4>WebBrowserWindow.__redo</h4>
+<b>__redo</b>(<i></i>)
+<p>
+        Private slot to handle the redo action.
+</p>
+
+<a NAME="WebBrowserWindow.__reload" ID="WebBrowserWindow.__reload"></a>
+<h4>WebBrowserWindow.__reload</h4>
+<b>__reload</b>(<i></i>)
+<p>
+        Private slot called to handle the reload action.
+</p>
+
+<a NAME="WebBrowserWindow.__removeOldDocumentation" ID="WebBrowserWindow.__removeOldDocumentation"></a>
+<h4>WebBrowserWindow.__removeOldDocumentation</h4>
+<b>__removeOldDocumentation</b>(<i></i>)
+<p>
+        Private slot to remove non-existing documentation from the help engine.
+</p>
+
+<a NAME="WebBrowserWindow.__saLoadUrl" ID="WebBrowserWindow.__saLoadUrl"></a>
+<h4>WebBrowserWindow.__saLoadUrl</h4>
+<b>__saLoadUrl</b>(<i>urlStr</i>)
+<p>
+        Private slot to load an URL received via the single application
+        protocol.
+</p>
+
+<dl>
+
+<dt><i>urlStr</i> (str)</dt>
+<dd>
+URL to be loaded
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__saNewTab" ID="WebBrowserWindow.__saNewTab"></a>
+<h4>WebBrowserWindow.__saNewTab</h4>
+<b>__saNewTab</b>(<i>urlStr</i>)
+<p>
+        Private slot to load an URL received via the single application
+        protocol in a new tab.
+</p>
+
+<dl>
+
+<dt><i>urlStr</i> (str)</dt>
+<dd>
+URL to be loaded
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__saSearchWord" ID="WebBrowserWindow.__saSearchWord"></a>
+<h4>WebBrowserWindow.__saSearchWord</h4>
+<b>__saSearchWord</b>(<i>word</i>)
+<p>
+        Private slot to search for the given word.
+</p>
+
+<dl>
+
+<dt><i>word</i> (str)</dt>
+<dd>
+word to be searched for
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__savePageAs" ID="WebBrowserWindow.__savePageAs"></a>
+<h4>WebBrowserWindow.__savePageAs</h4>
+<b>__savePageAs</b>(<i></i>)
+<p>
+        Private slot to save the current page.
+</p>
+
+<a NAME="WebBrowserWindow.__saveVisiblePageScreen" ID="WebBrowserWindow.__saveVisiblePageScreen"></a>
+<h4>WebBrowserWindow.__saveVisiblePageScreen</h4>
+<b>__saveVisiblePageScreen</b>(<i></i>)
+<p>
+        Private slot to save the visible part of the current page as a screen
+        shot.
+</p>
+
+<a NAME="WebBrowserWindow.__searchForWord" ID="WebBrowserWindow.__searchForWord"></a>
+<h4>WebBrowserWindow.__searchForWord</h4>
+<b>__searchForWord</b>(<i>searchWord</i>)
+<p>
+        Private slot to search for a word.
+</p>
+
+<dl>
+
+<dt><i>searchWord</i> (str)</dt>
+<dd>
+word to search for
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__selectAll" ID="WebBrowserWindow.__selectAll"></a>
+<h4>WebBrowserWindow.__selectAll</h4>
+<b>__selectAll</b>(<i></i>)
+<p>
+        Private slot to handle the select all action.
+</p>
+
+<a NAME="WebBrowserWindow.__sendPageLink" ID="WebBrowserWindow.__sendPageLink"></a>
+<h4>WebBrowserWindow.__sendPageLink</h4>
+<b>__sendPageLink</b>(<i></i>)
+<p>
+        Private slot to send the link of the current page via email.
+</p>
+
+<a NAME="WebBrowserWindow.__setBookmarksToolbarVisibility" ID="WebBrowserWindow.__setBookmarksToolbarVisibility"></a>
+<h4>WebBrowserWindow.__setBookmarksToolbarVisibility</h4>
+<b>__setBookmarksToolbarVisibility</b>(<i>visible</i>)
+<p>
+        Private method to set the visibility of the bookmarks toolbar.
+</p>
+
+<dl>
+
+<dt><i>visible</i> (bool)</dt>
+<dd>
+flag indicating the toolbar visibility
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__setMenuBarVisibility" ID="WebBrowserWindow.__setMenuBarVisibility"></a>
+<h4>WebBrowserWindow.__setMenuBarVisibility</h4>
+<b>__setMenuBarVisibility</b>(<i>visible</i>)
+<p>
+        Private method to set the visibility of the menu bar.
+</p>
+
+<dl>
+
+<dt><i>visible</i> (bool)</dt>
+<dd>
+flag indicating the menu bar visibility
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__setStatusBarVisible" ID="WebBrowserWindow.__setStatusBarVisible"></a>
+<h4>WebBrowserWindow.__setStatusBarVisible</h4>
+<b>__setStatusBarVisible</b>(<i>visible</i>)
+<p>
+        Private method to set the visibility of the status bar.
+</p>
+
+<dl>
+
+<dt><i>visible</i> (bool)</dt>
+<dd>
+flag indicating the status bar visibility
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__setTextEncoding" ID="WebBrowserWindow.__setTextEncoding"></a>
+<h4>WebBrowserWindow.__setTextEncoding</h4>
+<b>__setTextEncoding</b>(<i>act</i>)
+<p>
+        Private slot to set the selected text encoding as the default for
+        this session.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the selected action
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__setUserStyleSheet" ID="WebBrowserWindow.__setUserStyleSheet"></a>
+<h4>WebBrowserWindow.__setUserStyleSheet</h4>
+<b>__setUserStyleSheet</b>(<i>styleSheetFile</i>)
+<p>
+        Private method to set a user style sheet.
+</p>
+
+<dl>
+
+<dt><i>styleSheetFile</i> (str)</dt>
+<dd>
+name of the user style sheet file
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__setupFilterCombo" ID="WebBrowserWindow.__setupFilterCombo"></a>
+<h4>WebBrowserWindow.__setupFilterCombo</h4>
+<b>__setupFilterCombo</b>(<i></i>)
+<p>
+        Private slot to setup the filter combo box.
+</p>
+
+<a NAME="WebBrowserWindow.__shallShutDown" ID="WebBrowserWindow.__shallShutDown"></a>
+<h4>WebBrowserWindow.__shallShutDown</h4>
+<b>__shallShutDown</b>(<i></i>)
+<p>
+        Private method to check, if the application should be shut down.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a shut down
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__showAcceptedLanguages" ID="WebBrowserWindow.__showAcceptedLanguages"></a>
+<h4>WebBrowserWindow.__showAcceptedLanguages</h4>
+<b>__showAcceptedLanguages</b>(<i></i>)
+<p>
+        Private slot to configure the accepted languages for web pages.
+</p>
+
+<a NAME="WebBrowserWindow.__showAdBlockDialog" ID="WebBrowserWindow.__showAdBlockDialog"></a>
+<h4>WebBrowserWindow.__showAdBlockDialog</h4>
+<b>__showAdBlockDialog</b>(<i></i>)
+<p>
+        Private slot to show the AdBlock configuration dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showBookmarksDialog" ID="WebBrowserWindow.__showBookmarksDialog"></a>
+<h4>WebBrowserWindow.__showBookmarksDialog</h4>
+<b>__showBookmarksDialog</b>(<i></i>)
+<p>
+        Private slot to show the bookmarks dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showCertificateErrorsDialog" ID="WebBrowserWindow.__showCertificateErrorsDialog"></a>
+<h4>WebBrowserWindow.__showCertificateErrorsDialog</h4>
+<b>__showCertificateErrorsDialog</b>(<i></i>)
+<p>
+        Private slot to show the certificate errors management dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showCookiesConfiguration" ID="WebBrowserWindow.__showCookiesConfiguration"></a>
+<h4>WebBrowserWindow.__showCookiesConfiguration</h4>
+<b>__showCookiesConfiguration</b>(<i></i>)
+<p>
+        Private slot to configure the cookies handling.
+</p>
+
+<a NAME="WebBrowserWindow.__showDownloadsWindow" ID="WebBrowserWindow.__showDownloadsWindow"></a>
+<h4>WebBrowserWindow.__showDownloadsWindow</h4>
+<b>__showDownloadsWindow</b>(<i></i>)
+<p>
+        Private slot to show the downloads dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showEnginesConfigurationDialog" ID="WebBrowserWindow.__showEnginesConfigurationDialog"></a>
+<h4>WebBrowserWindow.__showEnginesConfigurationDialog</h4>
+<b>__showEnginesConfigurationDialog</b>(<i></i>)
+<p>
+        Private slot to show the search engines configuration dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showFeaturePermissionDialog" ID="WebBrowserWindow.__showFeaturePermissionDialog"></a>
+<h4>WebBrowserWindow.__showFeaturePermissionDialog</h4>
+<b>__showFeaturePermissionDialog</b>(<i></i>)
+<p>
+        Private slot to show the feature permission dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showFeedsManager" ID="WebBrowserWindow.__showFeedsManager"></a>
+<h4>WebBrowserWindow.__showFeedsManager</h4>
+<b>__showFeedsManager</b>(<i></i>)
+<p>
+        Private slot to show the feeds manager dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showGreaseMonkeyConfigDialog" ID="WebBrowserWindow.__showGreaseMonkeyConfigDialog"></a>
+<h4>WebBrowserWindow.__showGreaseMonkeyConfigDialog</h4>
+<b>__showGreaseMonkeyConfigDialog</b>(<i></i>)
+<p>
+        Private slot to show the GreaseMonkey scripts configuration dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showIndexWindow" ID="WebBrowserWindow.__showIndexWindow"></a>
+<h4>WebBrowserWindow.__showIndexWindow</h4>
+<b>__showIndexWindow</b>(<i></i>)
+<p>
+        Private method to show the index window.
+</p>
+
+<a NAME="WebBrowserWindow.__showInstallationError" ID="WebBrowserWindow.__showInstallationError"></a>
+<h4>WebBrowserWindow.__showInstallationError</h4>
+<b>__showInstallationError</b>(<i>message</i>)
+<p>
+        Private slot to show installation errors.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be shown
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__showPageSource" ID="WebBrowserWindow.__showPageSource"></a>
+<h4>WebBrowserWindow.__showPageSource</h4>
+<b>__showPageSource</b>(<i></i>)
+<p>
+        Private slot to show the source of the current page in an editor.
+</p>
+
+<a NAME="WebBrowserWindow.__showPageSourceCallback" ID="WebBrowserWindow.__showPageSourceCallback"></a>
+<h4>WebBrowserWindow.__showPageSourceCallback</h4>
+<b>__showPageSourceCallback</b>(<i>src</i>)
+<p>
+        Private method to show the source of the current page in an editor.
+</p>
+
+<dl>
+
+<dt><i>src</i> (str)</dt>
+<dd>
+source of the web page
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__showPasswordsDialog" ID="WebBrowserWindow.__showPasswordsDialog"></a>
+<h4>WebBrowserWindow.__showPasswordsDialog</h4>
+<b>__showPasswordsDialog</b>(<i></i>)
+<p>
+        Private slot to show the passwords management dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showPersonalInformationDialog" ID="WebBrowserWindow.__showPersonalInformationDialog"></a>
+<h4>WebBrowserWindow.__showPersonalInformationDialog</h4>
+<b>__showPersonalInformationDialog</b>(<i></i>)
+<p>
+        Private slot to show the Personal Information configuration dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showPreferences" ID="WebBrowserWindow.__showPreferences"></a>
+<h4>WebBrowserWindow.__showPreferences</h4>
+<b>__showPreferences</b>(<i></i>)
+<p>
+        Private slot to set the preferences.
+</p>
+
+<a NAME="WebBrowserWindow.__showProtocolHandlerManagerDialog" ID="WebBrowserWindow.__showProtocolHandlerManagerDialog"></a>
+<h4>WebBrowserWindow.__showProtocolHandlerManagerDialog</h4>
+<b>__showProtocolHandlerManagerDialog</b>(<i></i>)
+<p>
+        Private slot to show the protocol handler manager dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showSafeBrowsingDialog" ID="WebBrowserWindow.__showSafeBrowsingDialog"></a>
+<h4>WebBrowserWindow.__showSafeBrowsingDialog</h4>
+<b>__showSafeBrowsingDialog</b>(<i></i>)
+<p>
+        Private slot to show the safe browsing management dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showSearchWindow" ID="WebBrowserWindow.__showSearchWindow"></a>
+<h4>WebBrowserWindow.__showSearchWindow</h4>
+<b>__showSearchWindow</b>(<i></i>)
+<p>
+        Private method to show the search window.
+</p>
+
+<a NAME="WebBrowserWindow.__showSecurityKeysDialog" ID="WebBrowserWindow.__showSecurityKeysDialog"></a>
+<h4>WebBrowserWindow.__showSecurityKeysDialog</h4>
+<b>__showSecurityKeysDialog</b>(<i></i>)
+<p>
+        Private slot to show a dialog for managing FIDO2 security keys.
+</p>
+
+<a NAME="WebBrowserWindow.__showSessionManagerDialog" ID="WebBrowserWindow.__showSessionManagerDialog"></a>
+<h4>WebBrowserWindow.__showSessionManagerDialog</h4>
+<b>__showSessionManagerDialog</b>(<i></i>)
+<p>
+        Private slot to show the session manager dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showSiteinfoDialog" ID="WebBrowserWindow.__showSiteinfoDialog"></a>
+<h4>WebBrowserWindow.__showSiteinfoDialog</h4>
+<b>__showSiteinfoDialog</b>(<i></i>)
+<p>
+        Private slot to show the site info dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showSyncDialog" ID="WebBrowserWindow.__showSyncDialog"></a>
+<h4>WebBrowserWindow.__showSyncDialog</h4>
+<b>__showSyncDialog</b>(<i></i>)
+<p>
+        Private slot to show the synchronization dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showTabManager" ID="WebBrowserWindow.__showTabManager"></a>
+<h4>WebBrowserWindow.__showTabManager</h4>
+<b>__showTabManager</b>(<i>act</i>)
+<p>
+        Private method to show the tab manager window.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the act that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__showTocWindow" ID="WebBrowserWindow.__showTocWindow"></a>
+<h4>WebBrowserWindow.__showTocWindow</h4>
+<b>__showTocWindow</b>(<i></i>)
+<p>
+        Private method to show the table of contents window.
+</p>
+
+<a NAME="WebBrowserWindow.__showToolbarsMenu" ID="WebBrowserWindow.__showToolbarsMenu"></a>
+<h4>WebBrowserWindow.__showToolbarsMenu</h4>
+<b>__showToolbarsMenu</b>(<i></i>)
+<p>
+        Private slot to display the Toolbars menu.
+</p>
+
+<a NAME="WebBrowserWindow.__showUserAgentsDialog" ID="WebBrowserWindow.__showUserAgentsDialog"></a>
+<h4>WebBrowserWindow.__showUserAgentsDialog</h4>
+<b>__showUserAgentsDialog</b>(<i></i>)
+<p>
+        Private slot to show the user agents management dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__showWebIconsDialog" ID="WebBrowserWindow.__showWebIconsDialog"></a>
+<h4>WebBrowserWindow.__showWebIconsDialog</h4>
+<b>__showWebIconsDialog</b>(<i></i>)
+<p>
+        Private slot to show a dialog to manage the favicons database.
+</p>
+
+<a NAME="WebBrowserWindow.__showZoomValuesDialog" ID="WebBrowserWindow.__showZoomValuesDialog"></a>
+<h4>WebBrowserWindow.__showZoomValuesDialog</h4>
+<b>__showZoomValuesDialog</b>(<i></i>)
+<p>
+        Private slot to show the zoom values management dialog.
+</p>
+
+<a NAME="WebBrowserWindow.__shutdownWindow" ID="WebBrowserWindow.__shutdownWindow"></a>
+<h4>WebBrowserWindow.__shutdownWindow</h4>
+<b>__shutdownWindow</b>(<i></i>)
+<p>
+        Private method to shut down a web browser window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful shutdown
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__stopLoading" ID="WebBrowserWindow.__stopLoading"></a>
+<h4>WebBrowserWindow.__stopLoading</h4>
+<b>__stopLoading</b>(<i></i>)
+<p>
+        Private slot called to handle loading of the current page.
+</p>
+
+<a NAME="WebBrowserWindow.__switchTab" ID="WebBrowserWindow.__switchTab"></a>
+<h4>WebBrowserWindow.__switchTab</h4>
+<b>__switchTab</b>(<i></i>)
+<p>
+        Private slot used to switch between the current and the previous
+        current tab.
+</p>
+
+<a NAME="WebBrowserWindow.__syncTOC" ID="WebBrowserWindow.__syncTOC"></a>
+<h4>WebBrowserWindow.__syncTOC</h4>
+<b>__syncTOC</b>(<i></i>)
+<p>
+        Private slot to synchronize the TOC with the currently shown page.
+</p>
+
+<a NAME="WebBrowserWindow.__titleChanged" ID="WebBrowserWindow.__titleChanged"></a>
+<h4>WebBrowserWindow.__titleChanged</h4>
+<b>__titleChanged</b>(<i>browser, title</i>)
+<p>
+        Private slot called to handle a change of a browser's title.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the browser
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+new title
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__toggleJavaScriptConsole" ID="WebBrowserWindow.__toggleJavaScriptConsole"></a>
+<h4>WebBrowserWindow.__toggleJavaScriptConsole</h4>
+<b>__toggleJavaScriptConsole</b>(<i></i>)
+<p>
+        Private slot to toggle the JavaScript console.
+</p>
+
+<a NAME="WebBrowserWindow.__undo" ID="WebBrowserWindow.__undo"></a>
+<h4>WebBrowserWindow.__undo</h4>
+<b>__undo</b>(<i></i>)
+<p>
+        Private slot to handle the undo action.
+</p>
+
+<a NAME="WebBrowserWindow.__unselect" ID="WebBrowserWindow.__unselect"></a>
+<h4>WebBrowserWindow.__unselect</h4>
+<b>__unselect</b>(<i></i>)
+<p>
+        Private slot to clear the selection of the current browser.
+</p>
+
+<a NAME="WebBrowserWindow.__virusTotalDomainReport" ID="WebBrowserWindow.__virusTotalDomainReport"></a>
+<h4>WebBrowserWindow.__virusTotalDomainReport</h4>
+<b>__virusTotalDomainReport</b>(<i></i>)
+<p>
+        Private slot to retrieve a domain report.
+</p>
+
+<a NAME="WebBrowserWindow.__virusTotalFileScanReport" ID="WebBrowserWindow.__virusTotalFileScanReport"></a>
+<h4>WebBrowserWindow.__virusTotalFileScanReport</h4>
+<b>__virusTotalFileScanReport</b>(<i>url</i>)
+<p>
+        Private slot to initiate the display of the file scan report page.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL of the file scan report page
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__virusTotalIpAddressReport" ID="WebBrowserWindow.__virusTotalIpAddressReport"></a>
+<h4>WebBrowserWindow.__virusTotalIpAddressReport</h4>
+<b>__virusTotalIpAddressReport</b>(<i></i>)
+<p>
+        Private slot to retrieve an IP address report.
+</p>
+
+<a NAME="WebBrowserWindow.__virusTotalScanCurrentSite" ID="WebBrowserWindow.__virusTotalScanCurrentSite"></a>
+<h4>WebBrowserWindow.__virusTotalScanCurrentSite</h4>
+<b>__virusTotalScanCurrentSite</b>(<i></i>)
+<p>
+        Private slot to ask VirusTotal for a scan of the URL of the current
+        browser.
+</p>
+
+<a NAME="WebBrowserWindow.__virusTotalSubmitUrlError" ID="WebBrowserWindow.__virusTotalSubmitUrlError"></a>
+<h4>WebBrowserWindow.__virusTotalSubmitUrlError</h4>
+<b>__virusTotalSubmitUrlError</b>(<i>msg</i>)
+<p>
+        Private slot to handle an URL scan submission error.
+</p>
+
+<dl>
+
+<dt><i>msg</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__virusTotalUrlScanReport" ID="WebBrowserWindow.__virusTotalUrlScanReport"></a>
+<h4>WebBrowserWindow.__virusTotalUrlScanReport</h4>
+<b>__virusTotalUrlScanReport</b>(<i>url</i>)
+<p>
+        Private slot to initiate the display of the URL scan report page.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL of the URL scan report page
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__warning" ID="WebBrowserWindow.__warning"></a>
+<h4>WebBrowserWindow.__warning</h4>
+<b>__warning</b>(<i>msg</i>)
+<p>
+        Private slot handling warnings from the help engine.
+</p>
+
+<dl>
+
+<dt><i>msg</i> (str)</dt>
+<dd>
+message sent by the help  engine
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.__whatsThis" ID="WebBrowserWindow.__whatsThis"></a>
+<h4>WebBrowserWindow.__whatsThis</h4>
+<b>__whatsThis</b>(<i></i>)
+<p>
+        Private slot called in to enter Whats This mode.
+</p>
+
+<a NAME="WebBrowserWindow.__zoomIn" ID="WebBrowserWindow.__zoomIn"></a>
+<h4>WebBrowserWindow.__zoomIn</h4>
+<b>__zoomIn</b>(<i></i>)
+<p>
+        Private slot called to handle the zoom in action.
+</p>
+
+<a NAME="WebBrowserWindow.__zoomOut" ID="WebBrowserWindow.__zoomOut"></a>
+<h4>WebBrowserWindow.__zoomOut</h4>
+<b>__zoomOut</b>(<i></i>)
+<p>
+        Private slot called to handle the zoom out action.
+</p>
+
+<a NAME="WebBrowserWindow.__zoomReset" ID="WebBrowserWindow.__zoomReset"></a>
+<h4>WebBrowserWindow.__zoomReset</h4>
+<b>__zoomReset</b>(<i></i>)
+<p>
+        Private slot called to handle the zoom reset action.
+</p>
+
+<a NAME="WebBrowserWindow.__zoomValueChanged" ID="WebBrowserWindow.__zoomValueChanged"></a>
+<h4>WebBrowserWindow.__zoomValueChanged</h4>
+<b>__zoomValueChanged</b>(<i>value</i>)
+<p>
+        Private slot to handle value changes of the zoom widget.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+zoom value
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.adBlockIcon" ID="WebBrowserWindow.adBlockIcon"></a>
+<h4>WebBrowserWindow.adBlockIcon</h4>
+<b>adBlockIcon</b>(<i></i>)
+<p>
+        Public method to get a reference to the AdBlock icon.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the AdBlock icon
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockIcon
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.bookmarkAll" ID="WebBrowserWindow.bookmarkAll"></a>
+<h4>WebBrowserWindow.bookmarkAll</h4>
+<b>bookmarkAll</b>(<i></i>)
+<p>
+        Public slot to bookmark all open tabs.
+</p>
+
+<a NAME="WebBrowserWindow.browserAt" ID="WebBrowserWindow.browserAt"></a>
+<h4>WebBrowserWindow.browserAt</h4>
+<b>browserAt</b>(<i>index</i>)
+<p>
+        Public method to get a reference to the web browser with the given
+        index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the browser to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the indexed web browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.browsers" ID="WebBrowserWindow.browsers"></a>
+<h4>WebBrowserWindow.browsers</h4>
+<b>browsers</b>(<i></i>)
+<p>
+        Public method to get a list of references to all web browsers.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of references to web browsers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.closeBrowser" ID="WebBrowserWindow.closeBrowser"></a>
+<h4>WebBrowserWindow.closeBrowser</h4>
+<b>closeBrowser</b>(<i>browser</i>)
+<p>
+        Public method to close the given browser.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (WebBrowserView)</dt>
+<dd>
+reference to the web browser view to be closed
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.closeCurrentBrowser" ID="WebBrowserWindow.closeCurrentBrowser"></a>
+<h4>WebBrowserWindow.closeCurrentBrowser</h4>
+<b>closeCurrentBrowser</b>(<i></i>)
+<p>
+        Public method to close the current web browser.
+</p>
+
+<a NAME="WebBrowserWindow.closeEvent" ID="WebBrowserWindow.closeEvent"></a>
+<h4>WebBrowserWindow.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected event handler for the close event.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+the close event
+            <br />This event is simply accepted after the history has been
+            saved and all window references have been deleted.
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.createPopupMenu" ID="WebBrowserWindow.createPopupMenu"></a>
+<h4>WebBrowserWindow.createPopupMenu</h4>
+<b>createPopupMenu</b>(<i></i>)
+<p>
+        Public method to create the toolbars menu for Qt.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+toolbars menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.currentBrowser" ID="WebBrowserWindow.currentBrowser"></a>
+<h4>WebBrowserWindow.currentBrowser</h4>
+<b>currentBrowser</b>(<i></i>)
+<p>
+        Public method to get a reference to the current web browser.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current help browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.enterHtmlFullScreen" ID="WebBrowserWindow.enterHtmlFullScreen"></a>
+<h4>WebBrowserWindow.enterHtmlFullScreen</h4>
+<b>enterHtmlFullScreen</b>(<i></i>)
+<p>
+        Public method to switch to full screen initiated by the
+        HTML page.
+</p>
+
+<a NAME="WebBrowserWindow.event" ID="WebBrowserWindow.event"></a>
+<h4>WebBrowserWindow.event</h4>
+<b>event</b>(<i>evt</i>)
+<p>
+        Public method handling events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a handled event
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.forceClose" ID="WebBrowserWindow.forceClose"></a>
+<h4>WebBrowserWindow.forceClose</h4>
+<b>forceClose</b>(<i></i>)
+<p>
+        Public method to force closing the window.
+</p>
+
+<a NAME="WebBrowserWindow.getActions" ID="WebBrowserWindow.getActions"></a>
+<h4>WebBrowserWindow.getActions</h4>
+<b>getActions</b>(<i></i>)
+<p>
+        Public method to get a list of all actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of EricAction
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.getActionsCategory" ID="WebBrowserWindow.getActionsCategory"></a>
+<h4>WebBrowserWindow.getActionsCategory</h4>
+<b>getActionsCategory</b>(<i></i>)
+<p>
+        Public method to get the category of the defined actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+category of the actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.getSourceFileList" ID="WebBrowserWindow.getSourceFileList"></a>
+<h4>WebBrowserWindow.getSourceFileList</h4>
+<b>getSourceFileList</b>(<i></i>)
+<p>
+        Public method to get a list of all opened source files.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with tab id as key and host/namespace as value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.hideFullScreenNavigation" ID="WebBrowserWindow.hideFullScreenNavigation"></a>
+<h4>WebBrowserWindow.hideFullScreenNavigation</h4>
+<b>hideFullScreenNavigation</b>(<i></i>)
+<p>
+        Public slot to hide full screen navigation.
+</p>
+
+<a NAME="WebBrowserWindow.isClosing" ID="WebBrowserWindow.isClosing"></a>
+<h4>WebBrowserWindow.isClosing</h4>
+<b>isClosing</b>(<i></i>)
+<p>
+        Public method to test, if the window is closing.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the window is closing
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.isFullScreenNavigationVisible" ID="WebBrowserWindow.isFullScreenNavigationVisible"></a>
+<h4>WebBrowserWindow.isFullScreenNavigationVisible</h4>
+<b>isFullScreenNavigationVisible</b>(<i></i>)
+<p>
+        Public method to check, if full screen navigation is active.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating visibility of the navigation container in full
+            screen mode
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.javascriptConsole" ID="WebBrowserWindow.javascriptConsole"></a>
+<h4>WebBrowserWindow.javascriptConsole</h4>
+<b>javascriptConsole</b>(<i></i>)
+<p>
+        Public method to get a reference to the JavaScript console widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the JavaScript console
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserJavaScriptConsole
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.keyPressEvent" ID="WebBrowserWindow.keyPressEvent"></a>
+<h4>WebBrowserWindow.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle key presses.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key press event
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.mainPasswordChanged" ID="WebBrowserWindow.mainPasswordChanged"></a>
+<h4>WebBrowserWindow.mainPasswordChanged</h4>
+<b>mainPasswordChanged</b>(<i>oldPassword, newPassword, local=False</i>)
+<p>
+        Public slot to handle the change of the main password.
+</p>
+
+<dl>
+
+<dt><i>oldPassword</i> (str)</dt>
+<dd>
+current main password
+</dd>
+<dt><i>newPassword</i> (str)</dt>
+<dd>
+new main password
+</dd>
+<dt><i>local</i> (bool)</dt>
+<dd>
+flag indicating being called from the local configuration
+            dialog
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.newPrivateWindow" ID="WebBrowserWindow.newPrivateWindow"></a>
+<h4>WebBrowserWindow.newPrivateWindow</h4>
+<b>newPrivateWindow</b>(<i>link=None</i>)
+<p>
+        Public slot called to open a new private web browser window.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str or QUrl)</dt>
+<dd>
+URL to be displayed in the new window
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.newTab" ID="WebBrowserWindow.newTab"></a>
+<h4>WebBrowserWindow.newTab</h4>
+<b>newTab</b>(<i>link=None, addNextTo=None, background=False</i>)
+<p>
+        Public slot called to open a new web browser tab.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str or QUrl)</dt>
+<dd>
+file to be displayed in the new window
+</dd>
+<dt><i>addNextTo</i> (WebBrowserView)</dt>
+<dd>
+reference to the browser to open the tab after
+</dd>
+<dt><i>background</i> (bool)</dt>
+<dd>
+flag indicating to open the tab in the background
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the new browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.newWindow" ID="WebBrowserWindow.newWindow"></a>
+<h4>WebBrowserWindow.newWindow</h4>
+<b>newWindow</b>(<i>link=None, restoreSession=False</i>)
+<p>
+        Public slot called to open a new web browser window.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str or QUrl)</dt>
+<dd>
+URL to be displayed in the new window
+</dd>
+<dt><i>restoreSession</i> (bool)</dt>
+<dd>
+flag indicating a restore session action
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the new window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserWindow
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.openSearchManager" ID="WebBrowserWindow.openSearchManager"></a>
+<h4>WebBrowserWindow.openSearchManager</h4>
+<b>openSearchManager</b>(<i></i>)
+<p>
+        Public method to get a reference to the opensearch manager object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the opensearch manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+OpenSearchManager
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.openUrl" ID="WebBrowserWindow.openUrl"></a>
+<h4>WebBrowserWindow.openUrl</h4>
+<b>openUrl</b>(<i>url, title=None</i>)
+<p>
+        Public slot to load a URL in the current tab.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the bookmark
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.openUrlNewBackgroundTab" ID="WebBrowserWindow.openUrlNewBackgroundTab"></a>
+<h4>WebBrowserWindow.openUrlNewBackgroundTab</h4>
+<b>openUrlNewBackgroundTab</b>(<i>url, title=None</i>)
+<p>
+        Public slot to load a URL in a new background tab.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the bookmark
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.openUrlNewPrivateWindow" ID="WebBrowserWindow.openUrlNewPrivateWindow"></a>
+<h4>WebBrowserWindow.openUrlNewPrivateWindow</h4>
+<b>openUrlNewPrivateWindow</b>(<i>url, title=None</i>)
+<p>
+        Public slot to load a URL in a new private window.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the bookmark
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.openUrlNewTab" ID="WebBrowserWindow.openUrlNewTab"></a>
+<h4>WebBrowserWindow.openUrlNewTab</h4>
+<b>openUrlNewTab</b>(<i>url, title=None</i>)
+<p>
+        Public slot to load a URL in a new tab.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the bookmark
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.openUrlNewWindow" ID="WebBrowserWindow.openUrlNewWindow"></a>
+<h4>WebBrowserWindow.openUrlNewWindow</h4>
+<b>openUrlNewWindow</b>(<i>url, title=None</i>)
+<p>
+        Public slot to load a URL in a new window.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the bookmark
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.preferencesChanged" ID="WebBrowserWindow.preferencesChanged"></a>
+<h4>WebBrowserWindow.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<a NAME="WebBrowserWindow.reloadUserStyleSheet" ID="WebBrowserWindow.reloadUserStyleSheet"></a>
+<h4>WebBrowserWindow.reloadUserStyleSheet</h4>
+<b>reloadUserStyleSheet</b>(<i></i>)
+<p>
+        Public method to reload the user style sheet.
+</p>
+
+<a NAME="WebBrowserWindow.requestVirusTotalScan" ID="WebBrowserWindow.requestVirusTotalScan"></a>
+<h4>WebBrowserWindow.requestVirusTotalScan</h4>
+<b>requestVirusTotalScan</b>(<i>url</i>)
+<p>
+        Public method to submit a request to scan an URL by VirusTotal.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be scanned
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.search" ID="WebBrowserWindow.search"></a>
+<h4>WebBrowserWindow.search</h4>
+<b>search</b>(<i>word</i>)
+<p>
+        Public method to search for a word.
+</p>
+
+<dl>
+
+<dt><i>word</i> (str)</dt>
+<dd>
+word to search for
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.searchEnginesAction" ID="WebBrowserWindow.searchEnginesAction"></a>
+<h4>WebBrowserWindow.searchEnginesAction</h4>
+<b>searchEnginesAction</b>(<i></i>)
+<p>
+        Public method to get a reference to the search engines configuration
+        action.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the search engines configuration action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAction
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.setBackwardAvailable" ID="WebBrowserWindow.setBackwardAvailable"></a>
+<h4>WebBrowserWindow.setBackwardAvailable</h4>
+<b>setBackwardAvailable</b>(<i>b</i>)
+<p>
+        Public slot called when backward references are available.
+</p>
+
+<dl>
+
+<dt><i>b</i> (bool)</dt>
+<dd>
+flag indicating availability of the backwards action
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.setForwardAvailable" ID="WebBrowserWindow.setForwardAvailable"></a>
+<h4>WebBrowserWindow.setForwardAvailable</h4>
+<b>setForwardAvailable</b>(<i>b</i>)
+<p>
+        Public slot called when forward references are available.
+</p>
+
+<dl>
+
+<dt><i>b</i> (bool)</dt>
+<dd>
+flag indicating the availability of the forwards action
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.setLoadingActions" ID="WebBrowserWindow.setLoadingActions"></a>
+<h4>WebBrowserWindow.setLoadingActions</h4>
+<b>setLoadingActions</b>(<i>b</i>)
+<p>
+        Public slot to set the loading dependent actions.
+</p>
+
+<dl>
+
+<dt><i>b</i> (bool)</dt>
+<dd>
+flag indicating the loading state to consider
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.showFullScreenNavigation" ID="WebBrowserWindow.showFullScreenNavigation"></a>
+<h4>WebBrowserWindow.showFullScreenNavigation</h4>
+<b>showFullScreenNavigation</b>(<i></i>)
+<p>
+        Public slot to show full screen navigation.
+</p>
+
+<a NAME="WebBrowserWindow.shutdown" ID="WebBrowserWindow.shutdown"></a>
+<h4>WebBrowserWindow.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to shut down the web browser.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful shutdown
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.tabWidget" ID="WebBrowserWindow.tabWidget"></a>
+<h4>WebBrowserWindow.tabWidget</h4>
+<b>tabWidget</b>(<i></i>)
+<p>
+        Public method to get a reference to the tab widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the tab widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserTabWidget
+</dd>
+</dl>
+<a NAME="WebBrowserWindow.toggleFullScreen" ID="WebBrowserWindow.toggleFullScreen"></a>
+<h4>WebBrowserWindow.toggleFullScreen</h4>
+<b>toggleFullScreen</b>(<i></i>)
+<p>
+        Public slot called to toggle the full screen mode.
+</p>
+
+<a NAME="WebBrowserWindow.urlHandler" ID="WebBrowserWindow.urlHandler"></a>
+<h4>WebBrowserWindow.urlHandler</h4>
+<b>urlHandler</b>(<i>url</i>)
+<p>
+        Public slot used as desktop URL handler.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be handled
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

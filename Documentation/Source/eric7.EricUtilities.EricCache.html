@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricUtilities.EricCache</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricUtilities.EricCache</h1>
+<p>
+Module implementing classes used for caching objects.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricCache">EricCache</a></td>
+<td>Class implementing a LRU cache of a specific size.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricCache" ID="EricCache"></a>
+<h2>EricCache</h2>
+<p>
+    Class implementing a LRU cache of a specific size.
+</p>
+<p>
+    If the maximum number of entries is exceeded, the least recently used item
+    is removed from the cache. A cache hit moves the entry to the front of the
+    cache.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricCache.__init__">EricCache</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricCache.__adjustToSize">__adjustToSize</a></td>
+<td>Private method to adjust the cache to its size.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.__moveLast">__moveLast</a></td>
+<td>Private method to move a cached item to the MRU position.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.__pruneCache">__pruneCache</a></td>
+<td>Private slot to prune outdated cache entries and restart the timer.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.add">add</a></td>
+<td>Public method to add an item to the cache.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.clear">clear</a></td>
+<td>Public method to clear the cache.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.get">get</a></td>
+<td>Public method to get an entry from the cache given its key.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.getMaximumCacheTime">getMaximumCacheTime</a></td>
+<td>Public method to get the maximum time entries may exist in the cache.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.getSize">getSize</a></td>
+<td>Public method to get the maximum size of the cache.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.info">info</a></td>
+<td>Public method to get some information about the cache.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.length">length</a></td>
+<td>Public method to get the current length of the cache.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.remove">remove</a></td>
+<td>Public method to remove an item from the cache.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.reset">reset</a></td>
+<td>Public method to reset the cache.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.setMaximumCacheTime">setMaximumCacheTime</a></td>
+<td>Public method to set the maximum time entries may exist in the cache.</td>
+</tr>
+<tr>
+<td><a href="#EricCache.setSize">setSize</a></td>
+<td>Public method to change the maximum size of the cache.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricCache.__init__" ID="EricCache.__init__"></a>
+<h4>EricCache (Constructor)</h4>
+<b>EricCache</b>(<i>size=100</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+maximum number of entries that may be stored in the cache
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an illegal 'size' parameter
+</dd>
+</dl>
+<a NAME="EricCache.__adjustToSize" ID="EricCache.__adjustToSize"></a>
+<h4>EricCache.__adjustToSize</h4>
+<b>__adjustToSize</b>(<i></i>)
+<p>
+        Private method to adjust the cache to its size.
+</p>
+
+<a NAME="EricCache.__moveLast" ID="EricCache.__moveLast"></a>
+<h4>EricCache.__moveLast</h4>
+<b>__moveLast</b>(<i>key</i>)
+<p>
+        Private method to move a cached item to the MRU position.
+</p>
+
+<dl>
+
+<dt><i>key</i> (any hashable type that can be used as a dict key)</dt>
+<dd>
+key of the item to be retrieved
+</dd>
+</dl>
+<a NAME="EricCache.__pruneCache" ID="EricCache.__pruneCache"></a>
+<h4>EricCache.__pruneCache</h4>
+<b>__pruneCache</b>(<i></i>)
+<p>
+        Private slot to prune outdated cache entries and restart the timer.
+</p>
+
+<a NAME="EricCache.add" ID="EricCache.add"></a>
+<h4>EricCache.add</h4>
+<b>add</b>(<i>key, item</i>)
+<p>
+        Public method to add an item to the cache.
+</p>
+<p>
+        If the key is already in use, the cached item is replaced by the new
+        one given and is moved to the MRU position
+</p>
+
+<dl>
+
+<dt><i>key</i> (any hashable type that can be used as a dict key)</dt>
+<dd>
+key of the item to be retrieved
+</dd>
+<dt><i>item</i> (object)</dt>
+<dd>
+item to be cached under the given key
+</dd>
+</dl>
+<a NAME="EricCache.clear" ID="EricCache.clear"></a>
+<h4>EricCache.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to clear the cache.
+</p>
+
+<a NAME="EricCache.get" ID="EricCache.get"></a>
+<h4>EricCache.get</h4>
+<b>get</b>(<i>key</i>)
+<p>
+        Public method to get an entry from the cache given its key.
+</p>
+<p>
+        If the key is present in the cache, it is moved to the MRU position.
+</p>
+
+<dl>
+
+<dt><i>key</i> (any hashable type that can be used as a dict key)</dt>
+<dd>
+key of the item to be retrieved
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+cached item for the given key or None, if the key is not
+            present
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+object or None
+</dd>
+</dl>
+<a NAME="EricCache.getMaximumCacheTime" ID="EricCache.getMaximumCacheTime"></a>
+<h4>EricCache.getMaximumCacheTime</h4>
+<b>getMaximumCacheTime</b>(<i></i>)
+<p>
+        Public method to get the maximum time entries may exist in the cache.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+maximum cache time in seconds
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricCache.getSize" ID="EricCache.getSize"></a>
+<h4>EricCache.getSize</h4>
+<b>getSize</b>(<i></i>)
+<p>
+        Public method to get the maximum size of the cache.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+maximum number of entries of the cache
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricCache.info" ID="EricCache.info"></a>
+<h4>EricCache.info</h4>
+<b>info</b>(<i></i>)
+<p>
+        Public method to get some information about the cache.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the cache info
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict (with keys "hits", "misses", "maxsize", "currsize")
+</dd>
+</dl>
+<a NAME="EricCache.length" ID="EricCache.length"></a>
+<h4>EricCache.length</h4>
+<b>length</b>(<i></i>)
+<p>
+        Public method to get the current length of the cache.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current length of the cache
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricCache.remove" ID="EricCache.remove"></a>
+<h4>EricCache.remove</h4>
+<b>remove</b>(<i>key</i>)
+<p>
+        Public method to remove an item from the cache.
+</p>
+
+<dl>
+
+<dt><i>key</i> (any hashable type that can be used as a dict key)</dt>
+<dd>
+key of the item to be retrieved
+</dd>
+</dl>
+<a NAME="EricCache.reset" ID="EricCache.reset"></a>
+<h4>EricCache.reset</h4>
+<b>reset</b>(<i></i>)
+<p>
+        Public method to reset the cache.
+</p>
+<p>
+        This is like clear() but sets the various counters to their initial
+        value as well.
+</p>
+
+<a NAME="EricCache.setMaximumCacheTime" ID="EricCache.setMaximumCacheTime"></a>
+<h4>EricCache.setMaximumCacheTime</h4>
+<b>setMaximumCacheTime</b>(<i>time</i>)
+<p>
+        Public method to set the maximum time entries may exist in the cache.
+</p>
+
+<dl>
+
+<dt><i>time</i> (int)</dt>
+<dd>
+maximum cache time in seconds
+</dd>
+</dl>
+<a NAME="EricCache.setSize" ID="EricCache.setSize"></a>
+<h4>EricCache.setSize</h4>
+<b>setSize</b>(<i>newSize</i>)
+<p>
+        Public method to change the maximum size of the cache.
+</p>
+
+<dl>
+
+<dt><i>newSize</i> (int)</dt>
+<dd>
+maximum number of entries that may be stored in the
+            cache
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.DocstringGenerator.PyDocstringGenerator</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.DocstringGenerator.PyDocstringGenerator</h1>
+<p>
+Module implementing a docstring generator for Python.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PyDocstringGenerator">PyDocstringGenerator</a></td>
+<td>Class implementing a docstring generator for Python.</td>
+</tr>
+<tr>
+<td><a href="#PyFunctionInfo">PyFunctionInfo</a></td>
+<td>Class implementing an object to extract and store function information.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PyDocstringGenerator" ID="PyDocstringGenerator"></a>
+<h2>PyDocstringGenerator</h2>
+<p>
+    Class implementing a docstring generator for Python.
+</p>
+
+<h3>Derived from</h3>
+BaseDocstringGenerator
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PyDocstringGenerator.__init__">PyDocstringGenerator</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.__generateDocstring">__generateDocstring</a></td>
+<td>Private method to generate the list of docstring lines.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.__generateDocstringFromBelow">__generateDocstringFromBelow</a></td>
+<td>Private method to generate a docstring when the given position is on the line below the end of the definition.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.__generateDocstringFromStart">__generateDocstringFromStart</a></td>
+<td>Private method to generate a docstring based on the cursor being placed on the first line of the definition.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.__getFunctionBody">__getFunctionBody</a></td>
+<td>Private method to get the function body.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.__getFunctionDefinitionFromBelow">__getFunctionDefinitionFromBelow</a></td>
+<td>Private method to extract the function definition based on the cursor being placed on the first line after the definition.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.__getFunctionDefinitionFromStart">__getFunctionDefinitionFromStart</a></td>
+<td>Private method to extract the function definition based on the cursor being placed on the first line of the definition.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.__getIndentationInsertString">__getIndentationInsertString</a></td>
+<td>Private method to create the indentation string for the docstring.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.__isTripleQuotesStart">__isTripleQuotesStart</a></td>
+<td>Private method to test, if the given text is the start of a triple quoted string.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.hasFunctionDefinition">hasFunctionDefinition</a></td>
+<td>Public method to test, if the cursor is right below a function definition.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.insertDocstring">insertDocstring</a></td>
+<td>Public method to insert a docstring for the function at the cursor position.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.insertDocstringFromShortcut">insertDocstringFromShortcut</a></td>
+<td>Public method to insert a docstring for the function at the cursor position initiated via a keyboard shortcut.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.isDocstringIntro">isDocstringIntro</a></td>
+<td>Public function to test, if the line up to the cursor position might be introducing a docstring.</td>
+</tr>
+<tr>
+<td><a href="#PyDocstringGenerator.isFunctionStart">isFunctionStart</a></td>
+<td>Public method to test, if a text is the start of a function or method definition.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PyDocstringGenerator.__init__" ID="PyDocstringGenerator.__init__"></a>
+<h4>PyDocstringGenerator (Constructor)</h4>
+<b>PyDocstringGenerator</b>(<i>editor</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor widget
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.__generateDocstring" ID="PyDocstringGenerator.__generateDocstring"></a>
+<h4>PyDocstringGenerator.__generateDocstring</h4>
+<b>__generateDocstring</b>(<i>quote, functionDef, bodyStartLine</i>)
+<p>
+        Private method to generate the list of docstring lines.
+</p>
+
+<dl>
+
+<dt><i>quote</i> (str)</dt>
+<dd>
+quote string
+</dd>
+<dt><i>functionDef</i> (str)</dt>
+<dd>
+text containing the function definition
+</dd>
+<dt><i>bodyStartLine</i> (int)</dt>
+<dd>
+starting line of the function body
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of docstring lines
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.__generateDocstringFromBelow" ID="PyDocstringGenerator.__generateDocstringFromBelow"></a>
+<h4>PyDocstringGenerator.__generateDocstringFromBelow</h4>
+<b>__generateDocstringFromBelow</b>(<i>cursorPosition</i>)
+<p>
+        Private method to generate a docstring when the given position is on
+        the line below the end of the definition.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+position of the cursor (line and index)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the docstring and a tuple containing the
+            insertion line and index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, tuple(int, int))
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.__generateDocstringFromStart" ID="PyDocstringGenerator.__generateDocstringFromStart"></a>
+<h4>PyDocstringGenerator.__generateDocstringFromStart</h4>
+<b>__generateDocstringFromStart</b>(<i></i>)
+<p>
+        Private method to generate a docstring based on the cursor being
+        placed on the first line of the definition.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the docstring and a tuple containing the
+            insertion line and index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, tuple(int, int))
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.__getFunctionBody" ID="PyDocstringGenerator.__getFunctionBody"></a>
+<h4>PyDocstringGenerator.__getFunctionBody</h4>
+<b>__getFunctionBody</b>(<i>functionIndent, startLine</i>)
+<p>
+        Private method to get the function body.
+</p>
+
+<dl>
+
+<dt><i>functionIndent</i> (str)</dt>
+<dd>
+indentation string of the function definition
+</dd>
+<dt><i>startLine</i> (int)</dt>
+<dd>
+starting line for the extraction process
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+text containing the function body
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.__getFunctionDefinitionFromBelow" ID="PyDocstringGenerator.__getFunctionDefinitionFromBelow"></a>
+<h4>PyDocstringGenerator.__getFunctionDefinitionFromBelow</h4>
+<b>__getFunctionDefinitionFromBelow</b>(<i>cursorPosition</i>)
+<p>
+        Private method to extract the function definition based on the cursor
+        being placed on the first line after the definition.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+current cursor position (line and column)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+text containing the function definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.__getFunctionDefinitionFromStart" ID="PyDocstringGenerator.__getFunctionDefinitionFromStart"></a>
+<h4>PyDocstringGenerator.__getFunctionDefinitionFromStart</h4>
+<b>__getFunctionDefinitionFromStart</b>(<i></i>)
+<p>
+        Private method to extract the function definition based on the cursor
+        being placed on the first line of the definition.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+text containing the function definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.__getIndentationInsertString" ID="PyDocstringGenerator.__getIndentationInsertString"></a>
+<h4>PyDocstringGenerator.__getIndentationInsertString</h4>
+<b>__getIndentationInsertString</b>(<i>text</i>)
+<p>
+        Private method to create the indentation string for the docstring.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to based the indentation on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+indentation string for docstring
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.__isTripleQuotesStart" ID="PyDocstringGenerator.__isTripleQuotesStart"></a>
+<h4>PyDocstringGenerator.__isTripleQuotesStart</h4>
+<b>__isTripleQuotesStart</b>(<i>text</i>)
+<p>
+        Private method to test, if the given text is the start of a triple
+        quoted string.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be inspected
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a triple quote start
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.hasFunctionDefinition" ID="PyDocstringGenerator.hasFunctionDefinition"></a>
+<h4>PyDocstringGenerator.hasFunctionDefinition</h4>
+<b>hasFunctionDefinition</b>(<i>cursorPosition</i>)
+<p>
+        Public method to test, if the cursor is right below a function
+        definition.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+current cursor position (line and column)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating cursor is right below a function definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.insertDocstring" ID="PyDocstringGenerator.insertDocstring"></a>
+<h4>PyDocstringGenerator.insertDocstring</h4>
+<b>insertDocstring</b>(<i>cursorPosition, fromStart=True</i>)
+<p>
+        Public method to insert a docstring for the function at the cursor
+        position.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+position of the cursor (line and index)
+</dd>
+<dt><i>fromStart</i> (bool)</dt>
+<dd>
+flag indicating that the editor text cursor is placed
+            on the line starting the function definition
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.insertDocstringFromShortcut" ID="PyDocstringGenerator.insertDocstringFromShortcut"></a>
+<h4>PyDocstringGenerator.insertDocstringFromShortcut</h4>
+<b>insertDocstringFromShortcut</b>(<i>cursorPosition</i>)
+<p>
+        Public method to insert a docstring for the function at the cursor
+        position initiated via a keyboard shortcut.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+position of the cursor (line and index)
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.isDocstringIntro" ID="PyDocstringGenerator.isDocstringIntro"></a>
+<h4>PyDocstringGenerator.isDocstringIntro</h4>
+<b>isDocstringIntro</b>(<i>cursorPosition</i>)
+<p>
+        Public function to test, if the line up to the cursor position might be
+        introducing a docstring.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+current cursor position (line and column)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a potential start of a docstring
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PyDocstringGenerator.isFunctionStart" ID="PyDocstringGenerator.isFunctionStart"></a>
+<h4>PyDocstringGenerator.isFunctionStart</h4>
+<b>isFunctionStart</b>(<i>text</i>)
+<p>
+        Public method to test, if a text is the start of a function or method
+        definition.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+line of text to be tested
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the given text starts a function or
+            method definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PyFunctionInfo" ID="PyFunctionInfo"></a>
+<h2>PyFunctionInfo</h2>
+<p>
+    Class implementing an object to extract and store function information.
+</p>
+
+<h3>Derived from</h3>
+FunctionInfo
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PyFunctionInfo.__init__">PyFunctionInfo</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PyFunctionInfo.__findBracketPosition">__findBracketPosition</a></td>
+<td>Private method to find the start and end position of pairs of brackets.</td>
+</tr>
+<tr>
+<td><a href="#PyFunctionInfo.__findQuotePosition">__findQuotePosition</a></td>
+<td>Private method to find the start and end position of pairs of quotes.</td>
+</tr>
+<tr>
+<td><a href="#PyFunctionInfo.__isCharInPairs">__isCharInPairs</a></td>
+<td>Private method to test, if the given character position is between pairs of brackets or quotes.</td>
+</tr>
+<tr>
+<td><a href="#PyFunctionInfo.__splitArgumentToNameTypeValue">__splitArgumentToNameTypeValue</a></td>
+<td>Private method to split some argument text to name, type and value.</td>
+</tr>
+<tr>
+<td><a href="#PyFunctionInfo.__splitArgumentsTextToList">__splitArgumentsTextToList</a></td>
+<td>Private method to split the given arguments text into a list of arguments.</td>
+</tr>
+<tr>
+<td><a href="#PyFunctionInfo.parseBody">parseBody</a></td>
+<td>Public method to parse the function body text.</td>
+</tr>
+<tr>
+<td><a href="#PyFunctionInfo.parseDefinition">parseDefinition</a></td>
+<td>Public method to parse the function definition text.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PyFunctionInfo.__init__" ID="PyFunctionInfo.__init__"></a>
+<h4>PyFunctionInfo (Constructor)</h4>
+<b>PyFunctionInfo</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="PyFunctionInfo.__findBracketPosition" ID="PyFunctionInfo.__findBracketPosition"></a>
+<h4>PyFunctionInfo.__findBracketPosition</h4>
+<b>__findBracketPosition</b>(<i>text, bracketLeft, bracketRight, posQuote</i>)
+<p>
+        Private method to find the start and end position of pairs of brackets.
+</p>
+<p>
+        https://stackoverflow.com/questions/29991917/
+        indices-of-matching-parentheses-in-python
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be parsed
+</dd>
+<dt><i>bracketLeft</i> (str)</dt>
+<dd>
+character of the left bracket
+</dd>
+<dt><i>bracketRight</i> (str)</dt>
+<dd>
+character of the right bracket
+</dd>
+<dt><i>posQuote</i> (list of tuple of (int, int))</dt>
+<dd>
+list of tuple with start and end position of pairs
+            of quotes
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuple with start and end position of pairs of brackets
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (int, int)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>IndexError</b>:</dt>
+<dd>
+raised when a closing or opening bracket is
+            missing
+</dd>
+</dl>
+<a NAME="PyFunctionInfo.__findQuotePosition" ID="PyFunctionInfo.__findQuotePosition"></a>
+<h4>PyFunctionInfo.__findQuotePosition</h4>
+<b>__findQuotePosition</b>(<i>text</i>)
+<p>
+        Private method to find the start and end position of pairs of quotes.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuple with start and end position of pairs of quotes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (int, int)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>IndexError</b>:</dt>
+<dd>
+raised when a matching close quote is missing
+</dd>
+</dl>
+<a NAME="PyFunctionInfo.__isCharInPairs" ID="PyFunctionInfo.__isCharInPairs"></a>
+<h4>PyFunctionInfo.__isCharInPairs</h4>
+<b>__isCharInPairs</b>(<i>posChar, pairs</i>)
+<p>
+        Private method to test, if the given character position is between
+        pairs of brackets or quotes.
+</p>
+
+<dl>
+
+<dt><i>posChar</i> (int)</dt>
+<dd>
+character position to be tested
+</dd>
+<dt><i>pairs</i> (list of tuple of (int, int))</dt>
+<dd>
+list containing pairs of positions
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the position is in between
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PyFunctionInfo.__splitArgumentToNameTypeValue" ID="PyFunctionInfo.__splitArgumentToNameTypeValue"></a>
+<h4>PyFunctionInfo.__splitArgumentToNameTypeValue</h4>
+<b>__splitArgumentToNameTypeValue</b>(<i>argumentsList, quote, quoteReplace</i>)
+<p>
+        Private method to split some argument text to name, type and value.
+</p>
+
+<dl>
+
+<dt><i>argumentsList</i> (list of str)</dt>
+<dd>
+list of function argument definitions
+</dd>
+<dt><i>quote</i> (str)</dt>
+<dd>
+quote string to be replaced
+</dd>
+<dt><i>quoteReplace</i> (str)</dt>
+<dd>
+quote string to replace the original
+</dd>
+</dl>
+<a NAME="PyFunctionInfo.__splitArgumentsTextToList" ID="PyFunctionInfo.__splitArgumentsTextToList"></a>
+<h4>PyFunctionInfo.__splitArgumentsTextToList</h4>
+<b>__splitArgumentsTextToList</b>(<i>argumentsText</i>)
+<p>
+        Private method to split the given arguments text into a list of
+        arguments.
+</p>
+<p>
+        This function uses a comma to separate arguments and ignores a comma in
+        brackets and quotes.
+</p>
+
+<dl>
+
+<dt><i>argumentsText</i> (str)</dt>
+<dd>
+text containing the list of arguments
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of individual argument texts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="PyFunctionInfo.parseBody" ID="PyFunctionInfo.parseBody"></a>
+<h4>PyFunctionInfo.parseBody</h4>
+<b>parseBody</b>(<i>text</i>)
+<p>
+        Public method to parse the function body text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+function body text
+</dd>
+</dl>
+<a NAME="PyFunctionInfo.parseDefinition" ID="PyFunctionInfo.parseDefinition"></a>
+<h4>PyFunctionInfo.parseDefinition</h4>
+<b>parseDefinition</b>(<i>text, quote, quoteReplace</i>)
+<p>
+        Public method to parse the function definition text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text containing the function definition
+</dd>
+<dt><i>quote</i> (str)</dt>
+<dd>
+quote string to be replaced
+</dd>
+<dt><i>quoteReplace</i> (str)</dt>
+<dd>
+quote string to replace the original
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

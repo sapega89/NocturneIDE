@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Preferences.ToolConfigurationDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Preferences.ToolConfigurationDialog</h1>
+<p>
+Module implementing a configuration dialog for the tools menu.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ToolConfigurationDialog">ToolConfigurationDialog</a></td>
+<td>Class implementing a configuration dialog for the tools menu.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ToolConfigurationDialog" ID="ToolConfigurationDialog"></a>
+<h2>ToolConfigurationDialog</h2>
+<p>
+    Class implementing a configuration dialog for the tools menu.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_ToolConfigurationDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ToolConfigurationDialog.__init__">ToolConfigurationDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.__findModeIndex">__findModeIndex</a></td>
+<td>Private method to find the mode index by its short name.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.__swap">__swap</a></td>
+<td>Private method used two swap two list entries given by their index.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.__toolEntryChanged">__toolEntryChanged</a></td>
+<td>Private slot to perform actions when a tool entry was changed.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.getToollist">getToollist</a></td>
+<td>Public method to retrieve the tools list.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_addButton_clicked">on_addButton_clicked</a></td>
+<td>Private slot to add a new entry.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_argumentsEdit_textChanged">on_argumentsEdit_textChanged</a></td>
+<td>Private slot called, when the arguments string was changed.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_changeButton_clicked">on_changeButton_clicked</a></td>
+<td>Private slot to change an entry.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_deleteButton_clicked">on_deleteButton_clicked</a></td>
+<td>Private slot to delete the selected entry.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_downButton_clicked">on_downButton_clicked</a></td>
+<td>Private slot to move an entry down in the list.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_executablePicker_pathSelected">on_executablePicker_pathSelected</a></td>
+<td>Private slot to check the executable after it has been selected.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_executablePicker_textChanged">on_executablePicker_textChanged</a></td>
+<td>Private slot called, when the executable was changed.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_iconPicker_textChanged">on_iconPicker_textChanged</a></td>
+<td>Private slot called, when the icon path was changed.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_menuEdit_textChanged">on_menuEdit_textChanged</a></td>
+<td>Private slot called, when the menu text was changed.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_newButton_clicked">on_newButton_clicked</a></td>
+<td>Private slot to clear all entry fields.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_redirectCombo_currentIndexChanged">on_redirectCombo_currentIndexChanged</a></td>
+<td>Private slot called, when the redirection mode was changed.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_separatorButton_clicked">on_separatorButton_clicked</a></td>
+<td>Private slot to add a menu separator.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_toolsList_currentRowChanged">on_toolsList_currentRowChanged</a></td>
+<td>Private slot to set the lineedits depending on the selected entry.</td>
+</tr>
+<tr>
+<td><a href="#ToolConfigurationDialog.on_upButton_clicked">on_upButton_clicked</a></td>
+<td>Private slot to move an entry up in the list.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ToolConfigurationDialog.__init__" ID="ToolConfigurationDialog.__init__"></a>
+<h4>ToolConfigurationDialog (Constructor)</h4>
+<b>ToolConfigurationDialog</b>(<i>toollist, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>toollist</i> (list)</dt>
+<dd>
+list of configured tools
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.__findModeIndex" ID="ToolConfigurationDialog.__findModeIndex"></a>
+<h4>ToolConfigurationDialog.__findModeIndex</h4>
+<b>__findModeIndex</b>(<i>shortName</i>)
+<p>
+        Private method to find the mode index by its short name.
+</p>
+
+<dl>
+
+<dt><i>shortName</i> (str)</dt>
+<dd>
+short name of the mode
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the mode
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.__swap" ID="ToolConfigurationDialog.__swap"></a>
+<h4>ToolConfigurationDialog.__swap</h4>
+<b>__swap</b>(<i>itm1, itm2</i>)
+<p>
+        Private method used two swap two list entries given by their index.
+</p>
+
+<dl>
+
+<dt><i>itm1</i> (int)</dt>
+<dd>
+index of first entry
+</dd>
+<dt><i>itm2</i> (int)</dt>
+<dd>
+index of second entry
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.__toolEntryChanged" ID="ToolConfigurationDialog.__toolEntryChanged"></a>
+<h4>ToolConfigurationDialog.__toolEntryChanged</h4>
+<b>__toolEntryChanged</b>(<i></i>)
+<p>
+        Private slot to perform actions when a tool entry was changed.
+</p>
+
+<a NAME="ToolConfigurationDialog.getToollist" ID="ToolConfigurationDialog.getToollist"></a>
+<h4>ToolConfigurationDialog.getToollist</h4>
+<b>getToollist</b>(<i></i>)
+<p>
+        Public method to retrieve the tools list.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a list of tuples containing the menu text, the executable,
+            the executables arguments and a redirection flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [tuple of (str, str, list of str, bool)]
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.on_addButton_clicked" ID="ToolConfigurationDialog.on_addButton_clicked"></a>
+<h4>ToolConfigurationDialog.on_addButton_clicked</h4>
+<b>on_addButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a new entry.
+</p>
+
+<a NAME="ToolConfigurationDialog.on_argumentsEdit_textChanged" ID="ToolConfigurationDialog.on_argumentsEdit_textChanged"></a>
+<h4>ToolConfigurationDialog.on_argumentsEdit_textChanged</h4>
+<b>on_argumentsEdit_textChanged</b>(<i>text</i>)
+<p>
+        Private slot called, when the arguments string was changed.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+the new text (ignored)
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.on_changeButton_clicked" ID="ToolConfigurationDialog.on_changeButton_clicked"></a>
+<h4>ToolConfigurationDialog.on_changeButton_clicked</h4>
+<b>on_changeButton_clicked</b>(<i></i>)
+<p>
+        Private slot to change an entry.
+</p>
+
+<a NAME="ToolConfigurationDialog.on_deleteButton_clicked" ID="ToolConfigurationDialog.on_deleteButton_clicked"></a>
+<h4>ToolConfigurationDialog.on_deleteButton_clicked</h4>
+<b>on_deleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected entry.
+</p>
+
+<a NAME="ToolConfigurationDialog.on_downButton_clicked" ID="ToolConfigurationDialog.on_downButton_clicked"></a>
+<h4>ToolConfigurationDialog.on_downButton_clicked</h4>
+<b>on_downButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move an entry down in the list.
+</p>
+
+<a NAME="ToolConfigurationDialog.on_executablePicker_pathSelected" ID="ToolConfigurationDialog.on_executablePicker_pathSelected"></a>
+<h4>ToolConfigurationDialog.on_executablePicker_pathSelected</h4>
+<b>on_executablePicker_pathSelected</b>(<i>path</i>)
+<p>
+        Private slot to check the executable after it has been selected.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the executable
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.on_executablePicker_textChanged" ID="ToolConfigurationDialog.on_executablePicker_textChanged"></a>
+<h4>ToolConfigurationDialog.on_executablePicker_textChanged</h4>
+<b>on_executablePicker_textChanged</b>(<i>text</i>)
+<p>
+        Private slot called, when the executable was changed.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+the new text (ignored)
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.on_iconPicker_textChanged" ID="ToolConfigurationDialog.on_iconPicker_textChanged"></a>
+<h4>ToolConfigurationDialog.on_iconPicker_textChanged</h4>
+<b>on_iconPicker_textChanged</b>(<i>text</i>)
+<p>
+        Private slot called, when the icon path was changed.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+the new text (ignored)
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.on_menuEdit_textChanged" ID="ToolConfigurationDialog.on_menuEdit_textChanged"></a>
+<h4>ToolConfigurationDialog.on_menuEdit_textChanged</h4>
+<b>on_menuEdit_textChanged</b>(<i>text</i>)
+<p>
+        Private slot called, when the menu text was changed.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+the new text (ignored)
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.on_newButton_clicked" ID="ToolConfigurationDialog.on_newButton_clicked"></a>
+<h4>ToolConfigurationDialog.on_newButton_clicked</h4>
+<b>on_newButton_clicked</b>(<i></i>)
+<p>
+        Private slot to clear all entry fields.
+</p>
+
+<a NAME="ToolConfigurationDialog.on_redirectCombo_currentIndexChanged" ID="ToolConfigurationDialog.on_redirectCombo_currentIndexChanged"></a>
+<h4>ToolConfigurationDialog.on_redirectCombo_currentIndexChanged</h4>
+<b>on_redirectCombo_currentIndexChanged</b>(<i>_index</i>)
+<p>
+        Private slot called, when the redirection mode was changed.
+</p>
+
+<dl>
+
+<dt><i>_index</i> (int)</dt>
+<dd>
+the selected mode index (unused)
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.on_separatorButton_clicked" ID="ToolConfigurationDialog.on_separatorButton_clicked"></a>
+<h4>ToolConfigurationDialog.on_separatorButton_clicked</h4>
+<b>on_separatorButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a menu separator.
+</p>
+
+<a NAME="ToolConfigurationDialog.on_toolsList_currentRowChanged" ID="ToolConfigurationDialog.on_toolsList_currentRowChanged"></a>
+<h4>ToolConfigurationDialog.on_toolsList_currentRowChanged</h4>
+<b>on_toolsList_currentRowChanged</b>(<i>row</i>)
+<p>
+        Private slot to set the lineedits depending on the selected entry.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+the row of the selected entry
+</dd>
+</dl>
+<a NAME="ToolConfigurationDialog.on_upButton_clicked" ID="ToolConfigurationDialog.on_upButton_clicked"></a>
+<h4>ToolConfigurationDialog.on_upButton_clicked</h4>
+<b>on_upButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move an entry up in the list.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.Exporters.ExporterPDF</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.Exporters.ExporterPDF</h1>
+<p>
+Module implementing an exporter for PDF.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>PDF_ENCODING</td></tr>
+<tr><td>PDF_FONTSIZE_DEFAULT</td></tr>
+<tr><td>PDF_FONT_DEFAULT</td></tr>
+<tr><td>PDF_MARGIN_DEFAULT</td></tr>
+<tr><td>PDF_SPACING_DEFAULT</td></tr>
+<tr><td>PDFfontAscenders</td></tr>
+<tr><td>PDFfontDescenders</td></tr>
+<tr><td>PDFfontNames</td></tr>
+<tr><td>PDFfontWidths</td></tr>
+<tr><td>PDFpageSizes</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ExporterPDF">ExporterPDF</a></td>
+<td>Class implementing an exporter for PDF.</td>
+</tr>
+<tr>
+<td><a href="#PDFObjectTracker">PDFObjectTracker</a></td>
+<td>Class to conveniently handle the tracking of PDF objects so that the cross-reference table can be built (PDF1.4Ref(p39)).</td>
+</tr>
+<tr>
+<td><a href="#PDFRender">PDFRender</a></td>
+<td>Class to manage line and page rendering.</td>
+</tr>
+<tr>
+<td><a href="#PDFStyle">PDFStyle</a></td>
+<td>Simple class to store the values of a PDF style.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createExporter">createExporter</a></td>
+<td>Function to instantiate an exporter object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ExporterPDF" ID="ExporterPDF"></a>
+<h2>ExporterPDF</h2>
+<p>
+    Class implementing an exporter for PDF.
+</p>
+
+<h3>Derived from</h3>
+ExporterBase
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ExporterPDF.__init__">ExporterPDF</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ExporterPDF.__getPDFRGB">__getPDFRGB</a></td>
+<td>Private method to convert a color object to the correct PDF color.</td>
+</tr>
+<tr>
+<td><a href="#ExporterPDF.exportSource">exportSource</a></td>
+<td>Public method performing the export.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ExporterPDF.__init__" ID="ExporterPDF.__init__"></a>
+<h4>ExporterPDF (Constructor)</h4>
+<b>ExporterPDF</b>(<i>editor, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QScintilla.Editor.Editor)</dt>
+<dd>
+reference to the editor object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+parent object of the exporter
+</dd>
+</dl>
+<a NAME="ExporterPDF.__getPDFRGB" ID="ExporterPDF.__getPDFRGB"></a>
+<h4>ExporterPDF.__getPDFRGB</h4>
+<b>__getPDFRGB</b>(<i>color</i>)
+<p>
+        Private method to convert a color object to the correct PDF color.
+</p>
+
+<dl>
+
+<dt><i>color</i> (QColor)</dt>
+<dd>
+color object to convert
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+PDF color description
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ExporterPDF.exportSource" ID="ExporterPDF.exportSource"></a>
+<h4>ExporterPDF.exportSource</h4>
+<b>exportSource</b>(<i></i>)
+<p>
+        Public method performing the export.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PDFObjectTracker" ID="PDFObjectTracker"></a>
+<h2>PDFObjectTracker</h2>
+<p>
+    Class to conveniently handle the tracking of PDF objects so that the
+    cross-reference table can be built (PDF1.4Ref(p39)).
+</p>
+<p>
+    All writes to the file are passed through a PDFObjectTracker object.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PDFObjectTracker.__init__">PDFObjectTracker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PDFObjectTracker.add">add</a></td>
+<td>Public method to add a new object.</td>
+</tr>
+<tr>
+<td><a href="#PDFObjectTracker.write">write</a></td>
+<td>Public method to write the data to the file.</td>
+</tr>
+<tr>
+<td><a href="#PDFObjectTracker.xref">xref</a></td>
+<td>Public method to build the xref table.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PDFObjectTracker.__init__" ID="PDFObjectTracker.__init__"></a>
+<h4>PDFObjectTracker (Constructor)</h4>
+<b>PDFObjectTracker</b>(<i>file</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>file</i> (file)</dt>
+<dd>
+file object open for writing
+</dd>
+</dl>
+<a NAME="PDFObjectTracker.add" ID="PDFObjectTracker.add"></a>
+<h4>PDFObjectTracker.add</h4>
+<b>add</b>(<i>objectData</i>)
+<p>
+        Public method to add a new object.
+</p>
+
+<dl>
+
+<dt><i>objectData</i> (int or str)</dt>
+<dd>
+data to be added
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+object number assigned to the supplied data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="PDFObjectTracker.write" ID="PDFObjectTracker.write"></a>
+<h4>PDFObjectTracker.write</h4>
+<b>write</b>(<i>objectData</i>)
+<p>
+        Public method to write the data to the file.
+</p>
+
+<dl>
+
+<dt><i>objectData</i> (int or str)</dt>
+<dd>
+data to be written
+</dd>
+</dl>
+<a NAME="PDFObjectTracker.xref" ID="PDFObjectTracker.xref"></a>
+<h4>PDFObjectTracker.xref</h4>
+<b>xref</b>(<i></i>)
+<p>
+        Public method to build the xref table.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+file offset of the xref table
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PDFRender" ID="PDFRender"></a>
+<h2>PDFRender</h2>
+<p>
+    Class to manage line and page rendering.
+</p>
+<p>
+    Apart from startPDF, endPDF everything goes in via add() and nextLine()
+    so that line formatting and pagination can be done properly.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PDFRender.__init__">PDFRender</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PDFRender.add">add</a></td>
+<td>Public method to add a character to the page.</td>
+</tr>
+<tr>
+<td><a href="#PDFRender.endPDF">endPDF</a></td>
+<td>Public method to end the PDF document.</td>
+</tr>
+<tr>
+<td><a href="#PDFRender.endPage">endPage</a></td>
+<td>Public method to end a page.</td>
+</tr>
+<tr>
+<td><a href="#PDFRender.flushSegment">flushSegment</a></td>
+<td>Public method to flush a segment of data.</td>
+</tr>
+<tr>
+<td><a href="#PDFRender.fontToPoints">fontToPoints</a></td>
+<td>Public method to convert the font size to points.</td>
+</tr>
+<tr>
+<td><a href="#PDFRender.nextLine">nextLine</a></td>
+<td>Public method to start a new line.</td>
+</tr>
+<tr>
+<td><a href="#PDFRender.setStyle">setStyle</a></td>
+<td>Public method to set a style.</td>
+</tr>
+<tr>
+<td><a href="#PDFRender.startPDF">startPDF</a></td>
+<td>Public method to start the PDF document.</td>
+</tr>
+<tr>
+<td><a href="#PDFRender.startPage">startPage</a></td>
+<td>Public method to start a new page.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PDFRender.__init__" ID="PDFRender.__init__"></a>
+<h4>PDFRender (Constructor)</h4>
+<b>PDFRender</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="PDFRender.add" ID="PDFRender.add"></a>
+<h4>PDFRender.add</h4>
+<b>add</b>(<i>ch, style_</i>)
+<p>
+        Public method to add a character to the page.
+</p>
+
+<dl>
+
+<dt><i>ch</i> (str)</dt>
+<dd>
+character to add
+</dd>
+<dt><i>style_</i> (int)</dt>
+<dd>
+number of the style of the character
+</dd>
+</dl>
+<a NAME="PDFRender.endPDF" ID="PDFRender.endPDF"></a>
+<h4>PDFRender.endPDF</h4>
+<b>endPDF</b>(<i></i>)
+<p>
+        Public method to end the PDF document.
+</p>
+
+<a NAME="PDFRender.endPage" ID="PDFRender.endPage"></a>
+<h4>PDFRender.endPage</h4>
+<b>endPage</b>(<i></i>)
+<p>
+        Public method to end a page.
+</p>
+
+<a NAME="PDFRender.flushSegment" ID="PDFRender.flushSegment"></a>
+<h4>PDFRender.flushSegment</h4>
+<b>flushSegment</b>(<i></i>)
+<p>
+        Public method to flush a segment of data.
+</p>
+
+<a NAME="PDFRender.fontToPoints" ID="PDFRender.fontToPoints"></a>
+<h4>PDFRender.fontToPoints</h4>
+<b>fontToPoints</b>(<i>thousandths</i>)
+<p>
+        Public method to convert the font size to points.
+</p>
+
+<dl>
+
+<dt><i>thousandths</i> (int)</dt>
+<dd>
+font size
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+point size of the font
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="PDFRender.nextLine" ID="PDFRender.nextLine"></a>
+<h4>PDFRender.nextLine</h4>
+<b>nextLine</b>(<i></i>)
+<p>
+        Public method to start a new line.
+</p>
+
+<a NAME="PDFRender.setStyle" ID="PDFRender.setStyle"></a>
+<h4>PDFRender.setStyle</h4>
+<b>setStyle</b>(<i>style_</i>)
+<p>
+        Public method to set a style.
+</p>
+
+<dl>
+
+<dt><i>style_</i> (int)</dt>
+<dd>
+style to be set
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the PDF string to set the given style
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PDFRender.startPDF" ID="PDFRender.startPDF"></a>
+<h4>PDFRender.startPDF</h4>
+<b>startPDF</b>(<i></i>)
+<p>
+        Public method to start the PDF document.
+</p>
+
+<a NAME="PDFRender.startPage" ID="PDFRender.startPage"></a>
+<h4>PDFRender.startPage</h4>
+<b>startPage</b>(<i></i>)
+<p>
+        Public method to start a new page.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PDFStyle" ID="PDFStyle"></a>
+<h2>PDFStyle</h2>
+<p>
+    Simple class to store the values of a PDF style.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>font</td></tr>
+<tr><td>fore</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createExporter" ID="createExporter"></a>
+<h2>createExporter</h2>
+<b>createExporter</b>(<i>editor, parent=None</i>)
+<p>
+    Function to instantiate an exporter object.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QScintilla.Editor.Editor)</dt>
+<dd>
+reference to the editor object
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+parent object of the exporter (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+exporter object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ExporterPDF
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

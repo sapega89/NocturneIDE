@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Preferences.ConfigurationPages.EditorHighlightingStylesPage</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Preferences.ConfigurationPages.EditorHighlightingStylesPage</h1>
+<p>
+Module implementing the Editor Highlighting Styles configuration page.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EditorHighlightingStylesPage">EditorHighlightingStylesPage</a></td>
+<td>Class implementing the Editor Highlighting Styles configuration page.</td>
+</tr>
+<tr>
+<td><a href="#FontChangeMode">FontChangeMode</a></td>
+<td>Class defining the modes for font changes.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#create">create</a></td>
+<td>Module function to create the configuration page.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EditorHighlightingStylesPage" ID="EditorHighlightingStylesPage"></a>
+<h2>EditorHighlightingStylesPage</h2>
+<p>
+    Class implementing the Editor Highlighting Styles configuration page.
+</p>
+
+<h3>Derived from</h3>
+ConfigurationPageBase, Ui_EditorHighlightingStylesPage
+<h3>Class Attributes</h3>
+<table>
+<tr><td>StyleRole</td></tr>
+<tr><td>SubstyleRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__init__">EditorHighlightingStylesPage</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__allFontsButtonMenuTriggered">__allFontsButtonMenuTriggered</a></td>
+<td>Private slot used to change the font of all styles of a selected lexer.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__applyStyles">__applyStyles</a></td>
+<td>Private method to apply the imported styles to this dialog.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__changeFont">__changeFont</a></td>
+<td>Private slot to change the highlighter font.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__currentStyles">__currentStyles</a></td>
+<td>Private method to get the styles of the current item.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__exportStyles">__exportStyles</a></td>
+<td>Private method to export the styles of selectable lexers.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__fontButtonMenuTriggered">__fontButtonMenuTriggered</a></td>
+<td>Private slot used to select the font of the selected style and lexer.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__importStyles">__importStyles</a></td>
+<td>Private method to import the styles of lexers to be selected.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__populateLanguages">__populateLanguages</a></td>
+<td>Private method to populate the language selection box.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__setToDefault">__setToDefault</a></td>
+<td>Private method to set a specific style to its default values.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__styleAllItems">__styleAllItems</a></td>
+<td>Private method to style all items of the style element list.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__styleOneItem">__styleOneItem</a></td>
+<td>Private method to style one item of the style element list.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__styleSample">__styleSample</a></td>
+<td>Private method to style the sample text.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.__stylesForItem">__stylesForItem</a></td>
+<td>Private method to get the style and sub-style number of the given item.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_addSubstyleButton_clicked">on_addSubstyleButton_clicked</a></td>
+<td>Private slot to add a new sub-style.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_allBackgroundColoursButton_clicked">on_allBackgroundColoursButton_clicked</a></td>
+<td>Private method used to select the background colour of all styles of a selected lexer.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_allDefaultButton_clicked">on_allDefaultButton_clicked</a></td>
+<td>Private method to set all styles to their default values.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_allEolFillButton_clicked">on_allEolFillButton_clicked</a></td>
+<td>Private method used to set the eolfill for all styles of a selected lexer.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_backgroundButton_clicked">on_backgroundButton_clicked</a></td>
+<td>Private method used to select the background colour of the selected style and lexer.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_copySubstyleButton_clicked">on_copySubstyleButton_clicked</a></td>
+<td>Private slot to copy the selected sub-style.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_defaultButton_clicked">on_defaultButton_clicked</a></td>
+<td>Private method to set the current style to its default values.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_defaultSubstylesButton_clicked">on_defaultSubstylesButton_clicked</a></td>
+<td>Private slot to reset all substyles to default values.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_deleteSubstyleButton_clicked">on_deleteSubstyleButton_clicked</a></td>
+<td>Private slot to delete the selected sub-style.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_editSubstyleButton_clicked">on_editSubstyleButton_clicked</a></td>
+<td>Private slot to edit the selected sub-style entry.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_eolfillCheckBox_clicked">on_eolfillCheckBox_clicked</a></td>
+<td>Private method used to set the eolfill for the selected style and lexer.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_exportAllButton_clicked">on_exportAllButton_clicked</a></td>
+<td>Private slot to export the styles of all lexers.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_exportButton_clicked">on_exportButton_clicked</a></td>
+<td>Private slot to export styles to be selected.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_foregroundButton_clicked">on_foregroundButton_clicked</a></td>
+<td>Private method used to select the foreground colour of the selected style and lexer.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_importAllButton_clicked">on_importAllButton_clicked</a></td>
+<td>Private slot to import the styles of all lexers.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_importButton_clicked">on_importButton_clicked</a></td>
+<td>Private slot to import styles to be selected.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_lexerLanguageComboBox_activated">on_lexerLanguageComboBox_activated</a></td>
+<td>Private slot to fill the style combo of the source page.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.on_styleElementList_currentItemChanged">on_styleElementList_currentItemChanged</a></td>
+<td>Private method to handle a change of the current row.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.save">save</a></td>
+<td>Public slot to save the Editor Highlighting Styles configuration.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.saveState">saveState</a></td>
+<td>Public method to save the current state of the widget.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.setFont">setFont</a></td>
+<td>Local function to set the font.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.setMode">setMode</a></td>
+<td>Public method to perform mode dependent setups.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.setSampleFont">setSampleFont</a></td>
+<td>Local function to set the font of the sample text.</td>
+</tr>
+<tr>
+<td><a href="#EditorHighlightingStylesPage.setState">setState</a></td>
+<td>Public method to set the state of the widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EditorHighlightingStylesPage.__init__" ID="EditorHighlightingStylesPage.__init__"></a>
+<h4>EditorHighlightingStylesPage (Constructor)</h4>
+<b>EditorHighlightingStylesPage</b>(<i>lexers</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>lexers</i> (dict)</dt>
+<dd>
+reference to the lexers dictionary
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__allFontsButtonMenuTriggered" ID="EditorHighlightingStylesPage.__allFontsButtonMenuTriggered"></a>
+<h4>EditorHighlightingStylesPage.__allFontsButtonMenuTriggered</h4>
+<b>__allFontsButtonMenuTriggered</b>(<i>act</i>)
+<p>
+        Private slot used to change the font of all styles of a selected lexer.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__applyStyles" ID="EditorHighlightingStylesPage.__applyStyles"></a>
+<h4>EditorHighlightingStylesPage.__applyStyles</h4>
+<b>__applyStyles</b>(<i>stylesList, importAll=False</i>)
+<p>
+        Private method to apply the imported styles to this dialog.
+</p>
+
+<dl>
+
+<dt><i>stylesList</i> (list of dict)</dt>
+<dd>
+list of imported lexer styles
+</dd>
+<dt><i>importAll</i> (bool (optional))</dt>
+<dd>
+flag indicating to import all styles without asking
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__changeFont" ID="EditorHighlightingStylesPage.__changeFont"></a>
+<h4>EditorHighlightingStylesPage.__changeFont</h4>
+<b>__changeFont</b>(<i>doAll, familyOnly, sizeOnly</i>)
+<p>
+        Private slot to change the highlighter font.
+</p>
+
+<dl>
+
+<dt><i>doAll</i> (bool)</dt>
+<dd>
+flag indicating to change the font for all styles
+</dd>
+<dt><i>familyOnly</i> (bool)</dt>
+<dd>
+flag indicating to set the font family only
+</dd>
+<dt><i>sizeOnly</i> (bool)</dt>
+<dd>
+flag indicating to set the font size only
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__currentStyles" ID="EditorHighlightingStylesPage.__currentStyles"></a>
+<h4>EditorHighlightingStylesPage.__currentStyles</h4>
+<b>__currentStyles</b>(<i></i>)
+<p>
+        Private method to get the styles of the current item.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the style and sub-style numbers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__exportStyles" ID="EditorHighlightingStylesPage.__exportStyles"></a>
+<h4>EditorHighlightingStylesPage.__exportStyles</h4>
+<b>__exportStyles</b>(<i>exportAll=False</i>)
+<p>
+        Private method to export the styles of selectable lexers.
+</p>
+
+<dl>
+
+<dt><i>exportAll</i> (bool (optional))</dt>
+<dd>
+flag indicating to export all styles without asking
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__fontButtonMenuTriggered" ID="EditorHighlightingStylesPage.__fontButtonMenuTriggered"></a>
+<h4>EditorHighlightingStylesPage.__fontButtonMenuTriggered</h4>
+<b>__fontButtonMenuTriggered</b>(<i>act</i>)
+<p>
+        Private slot used to select the font of the selected style and lexer.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__importStyles" ID="EditorHighlightingStylesPage.__importStyles"></a>
+<h4>EditorHighlightingStylesPage.__importStyles</h4>
+<b>__importStyles</b>(<i>importAll=False</i>)
+<p>
+        Private method to import the styles of lexers to be selected.
+</p>
+
+<dl>
+
+<dt><i>importAll</i> (bool (optional))</dt>
+<dd>
+flag indicating to import all styles without asking
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__populateLanguages" ID="EditorHighlightingStylesPage.__populateLanguages"></a>
+<h4>EditorHighlightingStylesPage.__populateLanguages</h4>
+<b>__populateLanguages</b>(<i>languages</i>)
+<p>
+        Private method to populate the language selection box.
+</p>
+
+<dl>
+
+<dt><i>languages</i> (list of str)</dt>
+<dd>
+list of languages to include in the language selector
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__setToDefault" ID="EditorHighlightingStylesPage.__setToDefault"></a>
+<h4>EditorHighlightingStylesPage.__setToDefault</h4>
+<b>__setToDefault</b>(<i>style, substyle</i>)
+<p>
+        Private method to set a specific style to its default values.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__styleAllItems" ID="EditorHighlightingStylesPage.__styleAllItems"></a>
+<h4>EditorHighlightingStylesPage.__styleAllItems</h4>
+<b>__styleAllItems</b>(<i></i>)
+<p>
+        Private method to style all items of the style element list.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.__styleOneItem" ID="EditorHighlightingStylesPage.__styleOneItem"></a>
+<h4>EditorHighlightingStylesPage.__styleOneItem</h4>
+<b>__styleOneItem</b>(<i>item, style, substyle</i>)
+<p>
+        Private method to style one item of the style element list.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to be styled
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__styleSample" ID="EditorHighlightingStylesPage.__styleSample"></a>
+<h4>EditorHighlightingStylesPage.__styleSample</h4>
+<b>__styleSample</b>(<i>color, paper, font=None</i>)
+<p>
+        Private method to style the sample text.
+</p>
+
+<dl>
+
+<dt><i>color</i> (QColor)</dt>
+<dd>
+foreground color for the sample
+</dd>
+<dt><i>paper</i> (QColor)</dt>
+<dd>
+background color for the sample
+</dd>
+<dt><i>font</i> (QFont (optional))</dt>
+<dd>
+font for the sample (defaults to None)
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.__stylesForItem" ID="EditorHighlightingStylesPage.__stylesForItem"></a>
+<h4>EditorHighlightingStylesPage.__stylesForItem</h4>
+<b>__stylesForItem</b>(<i>itm</i>)
+<p>
+        Private method to get the style and sub-style number of the given item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to extract the styles from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the style and sub-style numbers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.on_addSubstyleButton_clicked" ID="EditorHighlightingStylesPage.on_addSubstyleButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_addSubstyleButton_clicked</h4>
+<b>on_addSubstyleButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a new sub-style.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_allBackgroundColoursButton_clicked" ID="EditorHighlightingStylesPage.on_allBackgroundColoursButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_allBackgroundColoursButton_clicked</h4>
+<b>on_allBackgroundColoursButton_clicked</b>(<i></i>)
+<p>
+        Private method used to select the background colour of all styles of a
+        selected lexer.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_allDefaultButton_clicked" ID="EditorHighlightingStylesPage.on_allDefaultButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_allDefaultButton_clicked</h4>
+<b>on_allDefaultButton_clicked</b>(<i></i>)
+<p>
+        Private method to set all styles to their default values.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_allEolFillButton_clicked" ID="EditorHighlightingStylesPage.on_allEolFillButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_allEolFillButton_clicked</h4>
+<b>on_allEolFillButton_clicked</b>(<i></i>)
+<p>
+        Private method used to set the eolfill for all styles of a selected
+        lexer.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_backgroundButton_clicked" ID="EditorHighlightingStylesPage.on_backgroundButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_backgroundButton_clicked</h4>
+<b>on_backgroundButton_clicked</b>(<i></i>)
+<p>
+        Private method used to select the background colour of the selected
+        style and lexer.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_copySubstyleButton_clicked" ID="EditorHighlightingStylesPage.on_copySubstyleButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_copySubstyleButton_clicked</h4>
+<b>on_copySubstyleButton_clicked</b>(<i></i>)
+<p>
+        Private slot to copy the selected sub-style.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_defaultButton_clicked" ID="EditorHighlightingStylesPage.on_defaultButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_defaultButton_clicked</h4>
+<b>on_defaultButton_clicked</b>(<i></i>)
+<p>
+        Private method to set the current style to its default values.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_defaultSubstylesButton_clicked" ID="EditorHighlightingStylesPage.on_defaultSubstylesButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_defaultSubstylesButton_clicked</h4>
+<b>on_defaultSubstylesButton_clicked</b>(<i></i>)
+<p>
+        Private slot to reset all substyles to default values.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_deleteSubstyleButton_clicked" ID="EditorHighlightingStylesPage.on_deleteSubstyleButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_deleteSubstyleButton_clicked</h4>
+<b>on_deleteSubstyleButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected sub-style.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_editSubstyleButton_clicked" ID="EditorHighlightingStylesPage.on_editSubstyleButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_editSubstyleButton_clicked</h4>
+<b>on_editSubstyleButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit the selected sub-style entry.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_eolfillCheckBox_clicked" ID="EditorHighlightingStylesPage.on_eolfillCheckBox_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_eolfillCheckBox_clicked</h4>
+<b>on_eolfillCheckBox_clicked</b>(<i>on</i>)
+<p>
+        Private method used to set the eolfill for the selected style and
+        lexer.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating enabled or disabled state
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.on_exportAllButton_clicked" ID="EditorHighlightingStylesPage.on_exportAllButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_exportAllButton_clicked</h4>
+<b>on_exportAllButton_clicked</b>(<i></i>)
+<p>
+        Private slot to export the styles of all lexers.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_exportButton_clicked" ID="EditorHighlightingStylesPage.on_exportButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_exportButton_clicked</h4>
+<b>on_exportButton_clicked</b>(<i></i>)
+<p>
+        Private slot to export styles to be selected.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_foregroundButton_clicked" ID="EditorHighlightingStylesPage.on_foregroundButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_foregroundButton_clicked</h4>
+<b>on_foregroundButton_clicked</b>(<i></i>)
+<p>
+        Private method used to select the foreground colour of the selected
+        style and lexer.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_importAllButton_clicked" ID="EditorHighlightingStylesPage.on_importAllButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_importAllButton_clicked</h4>
+<b>on_importAllButton_clicked</b>(<i></i>)
+<p>
+        Private slot to import the styles of all lexers.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_importButton_clicked" ID="EditorHighlightingStylesPage.on_importButton_clicked"></a>
+<h4>EditorHighlightingStylesPage.on_importButton_clicked</h4>
+<b>on_importButton_clicked</b>(<i></i>)
+<p>
+        Private slot to import styles to be selected.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.on_lexerLanguageComboBox_activated" ID="EditorHighlightingStylesPage.on_lexerLanguageComboBox_activated"></a>
+<h4>EditorHighlightingStylesPage.on_lexerLanguageComboBox_activated</h4>
+<b>on_lexerLanguageComboBox_activated</b>(<i>index</i>)
+<p>
+        Private slot to fill the style combo of the source page.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.on_styleElementList_currentItemChanged" ID="EditorHighlightingStylesPage.on_styleElementList_currentItemChanged"></a>
+<h4>EditorHighlightingStylesPage.on_styleElementList_currentItemChanged</h4>
+<b>on_styleElementList_currentItemChanged</b>(<i>current, _previous</i>)
+<p>
+        Private method to handle a change of the current row.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the current item
+</dd>
+<dt><i>_previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the previous item (unused)
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.save" ID="EditorHighlightingStylesPage.save"></a>
+<h4>EditorHighlightingStylesPage.save</h4>
+<b>save</b>(<i></i>)
+<p>
+        Public slot to save the Editor Highlighting Styles configuration.
+</p>
+
+<a NAME="EditorHighlightingStylesPage.saveState" ID="EditorHighlightingStylesPage.saveState"></a>
+<h4>EditorHighlightingStylesPage.saveState</h4>
+<b>saveState</b>(<i></i>)
+<p>
+        Public method to save the current state of the widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing the index of the selected lexer language
+            and a tuple containing the index of the parent selected lexer
+            entry and the index of the selected entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [int, tuple of (int, int)]
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.setFont" ID="EditorHighlightingStylesPage.setFont"></a>
+<h4>EditorHighlightingStylesPage.setFont</h4>
+<b>setFont</b>(<i>style, substyle, familyOnly, sizeOnly</i>)
+<p>
+            Local function to set the font.
+</p>
+
+<dl>
+
+<dt><i>font</i> (QFont)</dt>
+<dd>
+font to be set
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+<dt><i>familyOnly</i> (bool)</dt>
+<dd>
+flag indicating to set the font family only
+</dd>
+<dt><i>sizeOnly</i> (bool)</dt>
+<dd>
+flag indicating to set the font size only
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.setMode" ID="EditorHighlightingStylesPage.setMode"></a>
+<h4>EditorHighlightingStylesPage.setMode</h4>
+<b>setMode</b>(<i>displayMode</i>)
+<p>
+        Public method to perform mode dependent setups.
+</p>
+
+<dl>
+
+<dt><i>displayMode</i> (ConfigurationMode)</dt>
+<dd>
+mode of the configuration dialog
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.setSampleFont" ID="EditorHighlightingStylesPage.setSampleFont"></a>
+<h4>EditorHighlightingStylesPage.setSampleFont</h4>
+<b>setSampleFont</b>(<i>familyOnly, sizeOnly</i>)
+<p>
+            Local function to set the font of the sample text.
+</p>
+
+<dl>
+
+<dt><i>font</i></dt>
+<dd>
+font to be set (QFont)
+</dd>
+<dt><i>familyOnly</i></dt>
+<dd>
+flag indicating to set the font family only
+                (boolean)
+</dd>
+<dt><i>sizeOnly</i></dt>
+<dd>
+flag indicating to set the font size only (boolean
+</dd>
+</dl>
+<a NAME="EditorHighlightingStylesPage.setState" ID="EditorHighlightingStylesPage.setState"></a>
+<h4>EditorHighlightingStylesPage.setState</h4>
+<b>setState</b>(<i>state</i>)
+<p>
+        Public method to set the state of the widget.
+</p>
+
+<dl>
+
+<dt><i>state</i> (list of [int, tuple of (int, int)])</dt>
+<dd>
+state data generated by saveState
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="FontChangeMode" ID="FontChangeMode"></a>
+<h2>FontChangeMode</h2>
+<p>
+    Class defining the modes for font changes.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>FAMILYANDSIZE</td></tr>
+<tr><td>FAMILYONLY</td></tr>
+<tr><td>FONT</td></tr>
+<tr><td>SIZEONLY</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="create" ID="create"></a>
+<h2>create</h2>
+<b>create</b>(<i>dlg</i>)
+<p>
+    Module function to create the configuration page.
+</p>
+
+<dl>
+
+<dt><i>dlg</i> (ConfigurationDialog)</dt>
+<dd>
+reference to the configuration dialog
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ConfigurationPageBase
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

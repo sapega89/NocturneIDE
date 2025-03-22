@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.GitDiffParser</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.GitDiffParser</h1>
+<p>
+Module implementing a class to store and parse diff output.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitDiffParser">GitDiffParser</a></td>
+<td>Class implementing a class to store and parse diff output.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitDiffParser" ID="GitDiffParser"></a>
+<h2>GitDiffParser</h2>
+<p>
+    Class implementing a class to store and parse diff output.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>HunkHeaderRegexp</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitDiffParser.__init__">GitDiffParser</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitDiffParser.__generateHunkHeader">__generateHunkHeader</a></td>
+<td>Private method to generate a hunk header line.</td>
+</tr>
+<tr>
+<td><a href="#GitDiffParser.__generateRange">__generateRange</a></td>
+<td>Private method to generate a hunk header range.</td>
+</tr>
+<tr>
+<td><a href="#GitDiffParser.__initHunk">__initHunk</a></td>
+<td>Private method to initialize a hunk data structure.</td>
+</tr>
+<tr>
+<td><a href="#GitDiffParser.__parseDiff">__parseDiff</a></td>
+<td>Private method to parse the diff output.</td>
+</tr>
+<tr>
+<td><a href="#GitDiffParser.__parseRange">__parseRange</a></td>
+<td>Private method to parse the hunk header range part.</td>
+</tr>
+<tr>
+<td><a href="#GitDiffParser.createHunkPatch">createHunkPatch</a></td>
+<td>Public method to create a hunk based patch.</td>
+</tr>
+<tr>
+<td><a href="#GitDiffParser.createLinesPatch">createLinesPatch</a></td>
+<td>Public method to create a selected lines based patch.</td>
+</tr>
+<tr>
+<td><a href="#GitDiffParser.headerLength">headerLength</a></td>
+<td>Public method to get the header length.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitDiffParser.__init__" ID="GitDiffParser.__init__"></a>
+<h4>GitDiffParser (Constructor)</h4>
+<b>GitDiffParser</b>(<i>diff</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>diff</i> (list of str)</dt>
+<dd>
+output of the diff command
+</dd>
+</dl>
+<a NAME="GitDiffParser.__generateHunkHeader" ID="GitDiffParser.__generateHunkHeader"></a>
+<h4>GitDiffParser.__generateHunkHeader</h4>
+<b>__generateHunkHeader</b>(<i>oldStart, oldCount, newStart, newCount, heading=os.linesep</i>)
+<p>
+        Private method to generate a hunk header line.
+</p>
+
+<dl>
+
+<dt><i>oldStart</i> (int)</dt>
+<dd>
+start line of the old part
+</dd>
+<dt><i>oldCount</i> (int)</dt>
+<dd>
+line count of the old part
+</dd>
+<dt><i>newStart</i> (int)</dt>
+<dd>
+start line of the new part
+</dd>
+<dt><i>newCount</i> (int)</dt>
+<dd>
+line count of the new part
+</dd>
+<dt><i>heading</i> (str)</dt>
+<dd>
+hunk heading
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+hunk header
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitDiffParser.__generateRange" ID="GitDiffParser.__generateRange"></a>
+<h4>GitDiffParser.__generateRange</h4>
+<b>__generateRange</b>(<i>start, count</i>)
+<p>
+        Private method to generate a hunk header range.
+</p>
+
+<dl>
+
+<dt><i>start</i> (int)</dt>
+<dd>
+start line
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+line count
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+hunk header range
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitDiffParser.__initHunk" ID="GitDiffParser.__initHunk"></a>
+<h4>GitDiffParser.__initHunk</h4>
+<b>__initHunk</b>(<i></i>)
+<p>
+        Private method to initialize a hunk data structure.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+hunk data structure
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="GitDiffParser.__parseDiff" ID="GitDiffParser.__parseDiff"></a>
+<h4>GitDiffParser.__parseDiff</h4>
+<b>__parseDiff</b>(<i></i>)
+<p>
+        Private method to parse the diff output.
+</p>
+
+<dl>
+
+<dt>Raises <b>AssertionError</b>:</dt>
+<dd>
+raised when a malformed hunk header is
+            encountered
+</dd>
+</dl>
+<a NAME="GitDiffParser.__parseRange" ID="GitDiffParser.__parseRange"></a>
+<h4>GitDiffParser.__parseRange</h4>
+<b>__parseRange</b>(<i>headerRange</i>)
+<p>
+        Private method to parse the hunk header range part.
+</p>
+
+<dl>
+
+<dt><i>headerRange</i> (str)</dt>
+<dd>
+hunk header range
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of hunk start and hunk length
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="GitDiffParser.createHunkPatch" ID="GitDiffParser.createHunkPatch"></a>
+<h4>GitDiffParser.createHunkPatch</h4>
+<b>createHunkPatch</b>(<i>lineIndex</i>)
+<p>
+        Public method to create a hunk based patch.
+</p>
+
+<dl>
+
+<dt><i>lineIndex</i> (int)</dt>
+<dd>
+line number of the hunk
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+diff lines of the patch
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitDiffParser.createLinesPatch" ID="GitDiffParser.createLinesPatch"></a>
+<h4>GitDiffParser.createLinesPatch</h4>
+<b>createLinesPatch</b>(<i>startIndex, endIndex, reverse=False</i>)
+<p>
+        Public method to create a selected lines based patch.
+</p>
+
+<dl>
+
+<dt><i>startIndex</i> (int)</dt>
+<dd>
+start line number
+</dd>
+<dt><i>endIndex</i> (int)</dt>
+<dd>
+end line number
+</dd>
+<dt><i>reverse</i> (bool)</dt>
+<dd>
+flag indicating a reverse patch
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+diff lines of the patch
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitDiffParser.headerLength" ID="GitDiffParser.headerLength"></a>
+<h4>GitDiffParser.headerLength</h4>
+<b>headerLength</b>(<i></i>)
+<p>
+        Public method to get the header length.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+length of the header
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.HisteditExtension.HgHisteditPlanEditor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.HisteditExtension.HgHisteditPlanEditor</h1>
+<p>
+Module implementing a dialog to edit the history modification plan.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgHisteditPlanActionComboBox">HgHisteditPlanActionComboBox</a></td>
+<td>Class implementing a combo box to select the action in the plan tree.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor">HgHisteditPlanEditor</a></td>
+<td>Class implementing a dialog to edit the history modification plan.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgHisteditPlanActionComboBox" ID="HgHisteditPlanActionComboBox"></a>
+<h2>HgHisteditPlanActionComboBox</h2>
+<p>
+    Class implementing a combo box to select the action in the plan tree.
+</p>
+
+<h3>Derived from</h3>
+QComboBox
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgHisteditPlanActionComboBox.__init__">HgHisteditPlanActionComboBox</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanActionComboBox.__changeItem">__changeItem</a></td>
+<td>Private slot to handle the selection of a plan action.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanActionComboBox.showPopup">showPopup</a></td>
+<td>Public method to show the list of items of the combo box.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgHisteditPlanActionComboBox.__init__" ID="HgHisteditPlanActionComboBox.__init__"></a>
+<h4>HgHisteditPlanActionComboBox (Constructor)</h4>
+<b>HgHisteditPlanActionComboBox</b>(<i>item, column</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column number inside the tree widget item
+</dd>
+</dl>
+<a NAME="HgHisteditPlanActionComboBox.__changeItem" ID="HgHisteditPlanActionComboBox.__changeItem"></a>
+<h4>HgHisteditPlanActionComboBox.__changeItem</h4>
+<b>__changeItem</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of a plan action.
+</p>
+<p>
+        This method sets the text of the associated item for the specified
+        cell in order to be able to retrieve it with a call of the text()
+        method of the item.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected action
+</dd>
+</dl>
+<a NAME="HgHisteditPlanActionComboBox.showPopup" ID="HgHisteditPlanActionComboBox.showPopup"></a>
+<h4>HgHisteditPlanActionComboBox.showPopup</h4>
+<b>showPopup</b>(<i></i>)
+<p>
+        Public method to show the list of items of the combo box.
+</p>
+<p>
+        This is reimplemented in order to set the associated item as the
+        current item of the tree widget.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HgHisteditPlanEditor" ID="HgHisteditPlanEditor"></a>
+<h2>HgHisteditPlanEditor</h2>
+<p>
+    Class implementing a dialog to edit the history modification plan.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_HgHisteditPlanEditor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgHisteditPlanEditor.__init__">HgHisteditPlanEditor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.__addActionCombo">__addActionCombo</a></td>
+<td>Private method to add an edit action combo to an item.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.__assembleEditPlan">__assembleEditPlan</a></td>
+<td>Private method to assemble the edit plan into text suitable for the histedit file.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.__createPlanItem">__createPlanItem</a></td>
+<td>Private method to create an edit plan tree item.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.__readFile">__readFile</a></td>
+<td>Private method to read the file containing the edit plan and populate the dialog.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.__resizeSections">__resizeSections</a></td>
+<td>Private method to resize the tree widget sections.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.__updateButtons">__updateButtons</a></td>
+<td>Private method to set the enabled state of the up and down buttons.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.on_buttonBox_accepted">on_buttonBox_accepted</a></td>
+<td>Private slot called by the buttonBox accepted signal.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.on_buttonBox_rejected">on_buttonBox_rejected</a></td>
+<td>Private slot called by the buttonBox rejected signal.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.on_downButton_clicked">on_downButton_clicked</a></td>
+<td>Private slot to move the current entry down one line.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.on_planTreeWidget_currentItemChanged">on_planTreeWidget_currentItemChanged</a></td>
+<td>Private slot handling the change of the current edit plan item.</td>
+</tr>
+<tr>
+<td><a href="#HgHisteditPlanEditor.on_upButton_clicked">on_upButton_clicked</a></td>
+<td>Private slot to move the current entry up one line.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgHisteditPlanEditor.__init__" ID="HgHisteditPlanEditor.__init__"></a>
+<h4>HgHisteditPlanEditor (Constructor)</h4>
+<b>HgHisteditPlanEditor</b>(<i>fileName, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file containing the history edit plan
+            to be edited
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="HgHisteditPlanEditor.__addActionCombo" ID="HgHisteditPlanEditor.__addActionCombo"></a>
+<h4>HgHisteditPlanEditor.__addActionCombo</h4>
+<b>__addActionCombo</b>(<i>item</i>)
+<p>
+        Private method to add an edit action combo to an item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the tree widget item
+</dd>
+</dl>
+<a NAME="HgHisteditPlanEditor.__assembleEditPlan" ID="HgHisteditPlanEditor.__assembleEditPlan"></a>
+<h4>HgHisteditPlanEditor.__assembleEditPlan</h4>
+<b>__assembleEditPlan</b>(<i></i>)
+<p>
+        Private method to assemble the edit plan into text suitable for the
+        histedit file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+assembled edit plan text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HgHisteditPlanEditor.__createPlanItem" ID="HgHisteditPlanEditor.__createPlanItem"></a>
+<h4>HgHisteditPlanEditor.__createPlanItem</h4>
+<b>__createPlanItem</b>(<i>text</i>)
+<p>
+        Private method to create an edit plan tree item.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+line of text to be parsed
+</dd>
+</dl>
+<a NAME="HgHisteditPlanEditor.__readFile" ID="HgHisteditPlanEditor.__readFile"></a>
+<h4>HgHisteditPlanEditor.__readFile</h4>
+<b>__readFile</b>(<i></i>)
+<p>
+        Private method to read the file containing the edit plan and
+        populate the dialog.
+</p>
+
+<a NAME="HgHisteditPlanEditor.__resizeSections" ID="HgHisteditPlanEditor.__resizeSections"></a>
+<h4>HgHisteditPlanEditor.__resizeSections</h4>
+<b>__resizeSections</b>(<i></i>)
+<p>
+        Private method to resize the tree widget sections.
+</p>
+
+<a NAME="HgHisteditPlanEditor.__updateButtons" ID="HgHisteditPlanEditor.__updateButtons"></a>
+<h4>HgHisteditPlanEditor.__updateButtons</h4>
+<b>__updateButtons</b>(<i></i>)
+<p>
+        Private method to set the enabled state of the up and down buttons.
+</p>
+
+<a NAME="HgHisteditPlanEditor.on_buttonBox_accepted" ID="HgHisteditPlanEditor.on_buttonBox_accepted"></a>
+<h4>HgHisteditPlanEditor.on_buttonBox_accepted</h4>
+<b>on_buttonBox_accepted</b>(<i></i>)
+<p>
+        Private slot called by the buttonBox accepted signal.
+</p>
+
+<a NAME="HgHisteditPlanEditor.on_buttonBox_rejected" ID="HgHisteditPlanEditor.on_buttonBox_rejected"></a>
+<h4>HgHisteditPlanEditor.on_buttonBox_rejected</h4>
+<b>on_buttonBox_rejected</b>(<i></i>)
+<p>
+        Private slot called by the buttonBox rejected signal.
+</p>
+
+<a NAME="HgHisteditPlanEditor.on_downButton_clicked" ID="HgHisteditPlanEditor.on_downButton_clicked"></a>
+<h4>HgHisteditPlanEditor.on_downButton_clicked</h4>
+<b>on_downButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the current entry down one line.
+</p>
+
+<a NAME="HgHisteditPlanEditor.on_planTreeWidget_currentItemChanged" ID="HgHisteditPlanEditor.on_planTreeWidget_currentItemChanged"></a>
+<h4>HgHisteditPlanEditor.on_planTreeWidget_currentItemChanged</h4>
+<b>on_planTreeWidget_currentItemChanged</b>(<i>_current, _previous</i>)
+<p>
+        Private slot handling the change of the current edit plan item.
+</p>
+
+<dl>
+
+<dt><i>_current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the current edit plan item (unused)
+</dd>
+<dt><i>_previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the previous current edit plan item (unused)
+</dd>
+</dl>
+<a NAME="HgHisteditPlanEditor.on_upButton_clicked" ID="HgHisteditPlanEditor.on_upButton_clicked"></a>
+<h4>HgHisteditPlanEditor.on_upButton_clicked</h4>
+<b>on_upButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the current entry up one line.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

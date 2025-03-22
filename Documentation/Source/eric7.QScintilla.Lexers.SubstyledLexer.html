@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.Lexers.SubstyledLexer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.Lexers.SubstyledLexer</h1>
+<p>
+Module implementing the lexer mixin class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SubstyledLexer">SubstyledLexer</a></td>
+<td>Class to implement the sub-styled lexer mixin class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SubstyledLexer" ID="SubstyledLexer"></a>
+<h2>SubstyledLexer</h2>
+<p>
+    Class to implement the sub-styled lexer mixin class.
+</p>
+
+<h3>Derived from</h3>
+Lexer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SubstyledLexer.__init__">SubstyledLexer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.addSubstyle">addSubstyle</a></td>
+<td>Public method to add an empty sub-style to a given base style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.delSubstyle">delSubstyle</a></td>
+<td>Public method to delete a given sub-style definition.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.getBaseStyles">getBaseStyles</a></td>
+<td>Public method to get the list of supported base styles.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.hasSubstyle">hasSubstyle</a></td>
+<td>Public method to test for a given sub-style definition.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.hasSubstyles">hasSubstyles</a></td>
+<td>Public method to indicate the support of sub-styles.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.isBaseStyle">isBaseStyle</a></td>
+<td>Public method to test, if a given style may have sub-styles.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.loadAllDefaultSubStyles">loadAllDefaultSubStyles</a></td>
+<td>Public method to load the default sub-style definitions.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.loadDefaultSubStyles">loadDefaultSubStyles</a></td>
+<td>Public method to load the default sub-styles for a given base style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.loadSubstyles">loadSubstyles</a></td>
+<td>Public method to load the sub-styles from the settings file.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.readSubstyles">readSubstyles</a></td>
+<td>Public method to load the sub-styles and configure the editor.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.setSubstyleColor">setSubstyleColor</a></td>
+<td>Public method to set the foreground color of a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.setSubstyleDescription">setSubstyleDescription</a></td>
+<td>Public method to set the description for a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.setSubstyleEolFill">setSubstyleEolFill</a></td>
+<td>Public method to set the eolfill flag of a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.setSubstyleFont">setSubstyleFont</a></td>
+<td>Public method to set the font of a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.setSubstylePaper">setSubstylePaper</a></td>
+<td>Public method to set the background color of a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.setSubstyleWords">setSubstyleWords</a></td>
+<td>Public method to set the words for a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleColor">substyleColor</a></td>
+<td>Public method to get the sub-style foreground color.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleDefaultColor">substyleDefaultColor</a></td>
+<td>Public method to get the sub-style default foreground color.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleDefaultDescription">substyleDefaultDescription</a></td>
+<td>Public method to get the default description of a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleDefaultEolFill">substyleDefaultEolFill</a></td>
+<td>Public method to get the default eolfill flag.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleDefaultFont">substyleDefaultFont</a></td>
+<td>Public method to get the default sub-style font.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleDefaultPaper">substyleDefaultPaper</a></td>
+<td>Public method to get the sub-style default background color.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleDefaultWords">substyleDefaultWords</a></td>
+<td>Public method to get the default words of a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleDescription">substyleDescription</a></td>
+<td>Public method to get the description of a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleEolFill">substyleEolFill</a></td>
+<td>Public method to get the eolfill flag.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleFont">substyleFont</a></td>
+<td>Public method to get the sub-style font.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substylePaper">substylePaper</a></td>
+<td>Public method to get the sub-style background color.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substyleWords">substyleWords</a></td>
+<td>Public method to get the words of a sub-style.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.substylesCount">substylesCount</a></td>
+<td>Public method to get the number of defined sub-styles.</td>
+</tr>
+<tr>
+<td><a href="#SubstyledLexer.writeSubstyles">writeSubstyles</a></td>
+<td>Public method to save the sub-styles.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SubstyledLexer.__init__" ID="SubstyledLexer.__init__"></a>
+<h4>SubstyledLexer (Constructor)</h4>
+<b>SubstyledLexer</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="SubstyledLexer.addSubstyle" ID="SubstyledLexer.addSubstyle"></a>
+<h4>SubstyledLexer.addSubstyle</h4>
+<b>addSubstyle</b>(<i>style</i>)
+<p>
+        Public method to add an empty sub-style to a given base style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+allocated sub-style number or -1 to indicate an error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SubstyledLexer.delSubstyle" ID="SubstyledLexer.delSubstyle"></a>
+<h4>SubstyledLexer.delSubstyle</h4>
+<b>delSubstyle</b>(<i>style, substyle</i>)
+<p>
+        Public method to delete a given sub-style definition.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful deletion
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SubstyledLexer.getBaseStyles" ID="SubstyledLexer.getBaseStyles"></a>
+<h4>SubstyledLexer.getBaseStyles</h4>
+<b>getBaseStyles</b>(<i></i>)
+<p>
+        Public method to get the list of supported base styles.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of base styles
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of int
+</dd>
+</dl>
+<a NAME="SubstyledLexer.hasSubstyle" ID="SubstyledLexer.hasSubstyle"></a>
+<h4>SubstyledLexer.hasSubstyle</h4>
+<b>hasSubstyle</b>(<i>style, substyle</i>)
+<p>
+        Public method to test for a given sub-style definition.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of a sub-style definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SubstyledLexer.hasSubstyles" ID="SubstyledLexer.hasSubstyles"></a>
+<h4>SubstyledLexer.hasSubstyles</h4>
+<b>hasSubstyles</b>(<i></i>)
+<p>
+        Public method to indicate the support of sub-styles.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating sub-styling support
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SubstyledLexer.isBaseStyle" ID="SubstyledLexer.isBaseStyle"></a>
+<h4>SubstyledLexer.isBaseStyle</h4>
+<b>isBaseStyle</b>(<i>style</i>)
+<p>
+        Public method to test, if a given style may have sub-styles.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the style may have sub-styles
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SubstyledLexer.loadAllDefaultSubStyles" ID="SubstyledLexer.loadAllDefaultSubStyles"></a>
+<h4>SubstyledLexer.loadAllDefaultSubStyles</h4>
+<b>loadAllDefaultSubStyles</b>(<i></i>)
+<p>
+        Public method to load the default sub-style definitions.
+</p>
+
+<a NAME="SubstyledLexer.loadDefaultSubStyles" ID="SubstyledLexer.loadDefaultSubStyles"></a>
+<h4>SubstyledLexer.loadDefaultSubStyles</h4>
+<b>loadDefaultSubStyles</b>(<i>style</i>)
+<p>
+        Public method to load the default sub-styles for a given base style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+</dl>
+<a NAME="SubstyledLexer.loadSubstyles" ID="SubstyledLexer.loadSubstyles"></a>
+<h4>SubstyledLexer.loadSubstyles</h4>
+<b>loadSubstyles</b>(<i></i>)
+<p>
+        Public method to load the sub-styles from the settings file.
+</p>
+
+<a NAME="SubstyledLexer.readSubstyles" ID="SubstyledLexer.readSubstyles"></a>
+<h4>SubstyledLexer.readSubstyles</h4>
+<b>readSubstyles</b>(<i>editor</i>)
+<p>
+        Public method to load the sub-styles and configure the editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QsciScintilla)</dt>
+<dd>
+reference to the editor object
+</dd>
+</dl>
+<a NAME="SubstyledLexer.setSubstyleColor" ID="SubstyledLexer.setSubstyleColor"></a>
+<h4>SubstyledLexer.setSubstyleColor</h4>
+<b>setSubstyleColor</b>(<i>color, style, substyle</i>)
+<p>
+        Public method to set the foreground color of a sub-style.
+</p>
+
+<dl>
+
+<dt><i>color</i> (QColor)</dt>
+<dd>
+foreground color to be set
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="SubstyledLexer.setSubstyleDescription" ID="SubstyledLexer.setSubstyleDescription"></a>
+<h4>SubstyledLexer.setSubstyleDescription</h4>
+<b>setSubstyleDescription</b>(<i>description, style, substyle</i>)
+<p>
+        Public method to set the description for a sub-style.
+</p>
+
+<dl>
+
+<dt><i>description</i> (str)</dt>
+<dd>
+description to be set
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="SubstyledLexer.setSubstyleEolFill" ID="SubstyledLexer.setSubstyleEolFill"></a>
+<h4>SubstyledLexer.setSubstyleEolFill</h4>
+<b>setSubstyleEolFill</b>(<i>eolFill, style, substyle</i>)
+<p>
+        Public method to set the eolfill flag of a sub-style.
+</p>
+
+<dl>
+
+<dt><i>eolFill</i> (bool)</dt>
+<dd>
+eolfill flag to be set
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="SubstyledLexer.setSubstyleFont" ID="SubstyledLexer.setSubstyleFont"></a>
+<h4>SubstyledLexer.setSubstyleFont</h4>
+<b>setSubstyleFont</b>(<i>font, style, substyle</i>)
+<p>
+        Public method to set the font of a sub-style.
+</p>
+
+<dl>
+
+<dt><i>font</i> (QFont)</dt>
+<dd>
+font to be set
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="SubstyledLexer.setSubstylePaper" ID="SubstyledLexer.setSubstylePaper"></a>
+<h4>SubstyledLexer.setSubstylePaper</h4>
+<b>setSubstylePaper</b>(<i>color, style, substyle</i>)
+<p>
+        Public method to set the background color of a sub-style.
+</p>
+
+<dl>
+
+<dt><i>color</i> (QColor)</dt>
+<dd>
+background color to be set
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="SubstyledLexer.setSubstyleWords" ID="SubstyledLexer.setSubstyleWords"></a>
+<h4>SubstyledLexer.setSubstyleWords</h4>
+<b>setSubstyleWords</b>(<i>words, style, substyle</i>)
+<p>
+        Public method to set the words for a sub-style.
+</p>
+
+<dl>
+
+<dt><i>words</i> (str)</dt>
+<dd>
+words to be set separated by white-space
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleColor" ID="SubstyledLexer.substyleColor"></a>
+<h4>SubstyledLexer.substyleColor</h4>
+<b>substyleColor</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the sub-style foreground color.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+foreground color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleDefaultColor" ID="SubstyledLexer.substyleDefaultColor"></a>
+<h4>SubstyledLexer.substyleDefaultColor</h4>
+<b>substyleDefaultColor</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the sub-style default foreground color.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+default foreground color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleDefaultDescription" ID="SubstyledLexer.substyleDefaultDescription"></a>
+<h4>SubstyledLexer.substyleDefaultDescription</h4>
+<b>substyleDefaultDescription</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the default description of a sub-style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sub-style default description
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleDefaultEolFill" ID="SubstyledLexer.substyleDefaultEolFill"></a>
+<h4>SubstyledLexer.substyleDefaultEolFill</h4>
+<b>substyleDefaultEolFill</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the default eolfill flag.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+default eolfill flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleDefaultFont" ID="SubstyledLexer.substyleDefaultFont"></a>
+<h4>SubstyledLexer.substyleDefaultFont</h4>
+<b>substyleDefaultFont</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the default sub-style font.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+default font
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QFont
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleDefaultPaper" ID="SubstyledLexer.substyleDefaultPaper"></a>
+<h4>SubstyledLexer.substyleDefaultPaper</h4>
+<b>substyleDefaultPaper</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the sub-style default background color.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+default background color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleDefaultWords" ID="SubstyledLexer.substyleDefaultWords"></a>
+<h4>SubstyledLexer.substyleDefaultWords</h4>
+<b>substyleDefaultWords</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the default words of a sub-style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+white-space separated default word list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleDescription" ID="SubstyledLexer.substyleDescription"></a>
+<h4>SubstyledLexer.substyleDescription</h4>
+<b>substyleDescription</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the description of a sub-style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sub-style description
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleEolFill" ID="SubstyledLexer.substyleEolFill"></a>
+<h4>SubstyledLexer.substyleEolFill</h4>
+<b>substyleEolFill</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the eolfill flag.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+eolfill flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleFont" ID="SubstyledLexer.substyleFont"></a>
+<h4>SubstyledLexer.substyleFont</h4>
+<b>substyleFont</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the sub-style font.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+font
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QFont
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substylePaper" ID="SubstyledLexer.substylePaper"></a>
+<h4>SubstyledLexer.substylePaper</h4>
+<b>substylePaper</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the sub-style background color.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+background color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substyleWords" ID="SubstyledLexer.substyleWords"></a>
+<h4>SubstyledLexer.substyleWords</h4>
+<b>substyleWords</b>(<i>style, substyle</i>)
+<p>
+        Public method to get the words of a sub-style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+white-space separated word list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SubstyledLexer.substylesCount" ID="SubstyledLexer.substylesCount"></a>
+<h4>SubstyledLexer.substylesCount</h4>
+<b>substylesCount</b>(<i>style</i>)
+<p>
+        Public method to get the number of defined sub-styles.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of defined sub-styles
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SubstyledLexer.writeSubstyles" ID="SubstyledLexer.writeSubstyles"></a>
+<h4>SubstyledLexer.writeSubstyles</h4>
+<b>writeSubstyles</b>(<i></i>)
+<p>
+        Public method to save the sub-styles.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.SqlBrowser.SqlConnectionWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.SqlBrowser.SqlConnectionWidget</h1>
+<p>
+Module implementing a widget showing the SQL connections.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SqlConnectionWidget">SqlConnectionWidget</a></td>
+<td>Class implementing a widget showing the SQL connections.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SqlConnectionWidget" ID="SqlConnectionWidget"></a>
+<h2>SqlConnectionWidget</h2>
+<p>
+    Class implementing a widget showing the SQL connections.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>cleared()</dt>
+<dd>
+emitted after the connection tree has been cleared
+</dd>
+<dt>schemaRequested(str)</dt>
+<dd>
+emitted when the schema display is requested
+</dd>
+<dt>tableActivated(str)</dt>
+<dd>
+emitted after the entry for a table has been
+        activated
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SqlConnectionWidget.__init__">SqlConnectionWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SqlConnectionWidget.__currentItemChanged">__currentItemChanged</a></td>
+<td>Private slot handling a change of the current item.</td>
+</tr>
+<tr>
+<td><a href="#SqlConnectionWidget.__dbCaption">__dbCaption</a></td>
+<td>Private method to assemble a string for the caption.</td>
+</tr>
+<tr>
+<td><a href="#SqlConnectionWidget.__itemActivated">__itemActivated</a></td>
+<td>Private slot handling the activation of an item.</td>
+</tr>
+<tr>
+<td><a href="#SqlConnectionWidget.__setActive">__setActive</a></td>
+<td>Private slot to set an item to active.</td>
+</tr>
+<tr>
+<td><a href="#SqlConnectionWidget.__setBold">__setBold</a></td>
+<td>Private slot to set the font to bold.</td>
+</tr>
+<tr>
+<td><a href="#SqlConnectionWidget.currentDatabase">currentDatabase</a></td>
+<td>Public method to get the current database.</td>
+</tr>
+<tr>
+<td><a href="#SqlConnectionWidget.refresh">refresh</a></td>
+<td>Public slot to refresh the connection tree.</td>
+</tr>
+<tr>
+<td><a href="#SqlConnectionWidget.showSchema">showSchema</a></td>
+<td>Public slot to show schema data of a database.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SqlConnectionWidget.__init__" ID="SqlConnectionWidget.__init__"></a>
+<h4>SqlConnectionWidget (Constructor)</h4>
+<b>SqlConnectionWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="SqlConnectionWidget.__currentItemChanged" ID="SqlConnectionWidget.__currentItemChanged"></a>
+<h4>SqlConnectionWidget.__currentItemChanged</h4>
+<b>__currentItemChanged</b>(<i>current, _previous</i>)
+<p>
+        Private slot handling a change of the current item.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the new current item
+</dd>
+<dt><i>_previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the previous current item (unused)
+</dd>
+</dl>
+<a NAME="SqlConnectionWidget.__dbCaption" ID="SqlConnectionWidget.__dbCaption"></a>
+<h4>SqlConnectionWidget.__dbCaption</h4>
+<b>__dbCaption</b>(<i>db</i>)
+<p>
+        Private method to assemble a string for the caption.
+</p>
+
+<dl>
+
+<dt><i>db</i> (QSqlDatabase)</dt>
+<dd>
+reference to the database object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+caption string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SqlConnectionWidget.__itemActivated" ID="SqlConnectionWidget.__itemActivated"></a>
+<h4>SqlConnectionWidget.__itemActivated</h4>
+<b>__itemActivated</b>(<i>itm, _column</i>)
+<p>
+        Private slot handling the activation of an item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column that was activated (unused)
+</dd>
+</dl>
+<a NAME="SqlConnectionWidget.__setActive" ID="SqlConnectionWidget.__setActive"></a>
+<h4>SqlConnectionWidget.__setActive</h4>
+<b>__setActive</b>(<i>itm</i>)
+<p>
+        Private slot to set an item to active.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to set as the active item
+</dd>
+</dl>
+<a NAME="SqlConnectionWidget.__setBold" ID="SqlConnectionWidget.__setBold"></a>
+<h4>SqlConnectionWidget.__setBold</h4>
+<b>__setBold</b>(<i>itm, bold</i>)
+<p>
+        Private slot to set the font to bold.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to be changed
+</dd>
+<dt><i>bold</i> (bool)</dt>
+<dd>
+flag indicating bold
+</dd>
+</dl>
+<a NAME="SqlConnectionWidget.currentDatabase" ID="SqlConnectionWidget.currentDatabase"></a>
+<h4>SqlConnectionWidget.currentDatabase</h4>
+<b>currentDatabase</b>(<i></i>)
+<p>
+        Public method to get the current database.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current database
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QSqlDatabase
+</dd>
+</dl>
+<a NAME="SqlConnectionWidget.refresh" ID="SqlConnectionWidget.refresh"></a>
+<h4>SqlConnectionWidget.refresh</h4>
+<b>refresh</b>(<i></i>)
+<p>
+        Public slot to refresh the connection tree.
+</p>
+
+<a NAME="SqlConnectionWidget.showSchema" ID="SqlConnectionWidget.showSchema"></a>
+<h4>SqlConnectionWidget.showSchema</h4>
+<b>showSchema</b>(<i></i>)
+<p>
+        Public slot to show schema data of a database.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

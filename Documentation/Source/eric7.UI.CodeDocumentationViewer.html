@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.CodeDocumentationViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.CodeDocumentationViewer</h1>
+<p>
+Module implementing a widget to show some source code information provided by
+plug-ins.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CodeDocumentationViewer">CodeDocumentationViewer</a></td>
+<td>Class implementing a widget to show some source code information provided by plug-ins.</td>
+</tr>
+<tr>
+<td><a href="#DocumentationViewerWidget">DocumentationViewerWidget</a></td>
+<td>Class implementing a rich text documentation viewer.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CodeDocumentationViewer" ID="CodeDocumentationViewer"></a>
+<h2>CodeDocumentationViewer</h2>
+<p>
+    Class implementing a widget to show some source code information provided
+    by plug-ins.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>providerAdded()</dt>
+<dd>
+emitted to indicate the availability of a new
+        provider
+</dd>
+<dt>providerRemoved()</dt>
+<dd>
+emitted to indicate the removal of a provider
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CodeDocumentationViewer.__init__">CodeDocumentationViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.__selectProvider">__selectProvider</a></td>
+<td>Private method to select a provider programmatically.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.__setupUi">__setupUi</a></td>
+<td>Private method to generate the UI layout.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.__showDisabledMessage">__showDisabledMessage</a></td>
+<td>Private method to show a message giving the reason for being disabled.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.__unregisterTimerTimeout">__unregisterTimerTimeout</a></td>
+<td>Private slot handling the timeout signal of the unregister timer.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.documentationReady">documentationReady</a></td>
+<td>Public method to provide the documentation info to the viewer.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.finalizeSetup">finalizeSetup</a></td>
+<td>Public method to finalize the setup of the documentation viewer.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.getProviders">getProviders</a></td>
+<td>Public method to get a list of providers and their visible strings.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.isEnabled">isEnabled</a></td>
+<td>Public method to check, if the code documentation viewer is enabled.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.isSupportedLanguage">isSupportedLanguage</a></td>
+<td>Public method to check, if the given language is supported by the selected provider.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.on_providerComboBox_currentIndexChanged">on_providerComboBox_currentIndexChanged</a></td>
+<td>Private slot to handle the selection of a provider.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.registerProvider">registerProvider</a></td>
+<td>Public method register a source docu provider.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.showInfo">showInfo</a></td>
+<td>Public method to request code documentation data from a provider.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.shutdown">shutdown</a></td>
+<td>Public method to perform shutdown actions.</td>
+</tr>
+<tr>
+<td><a href="#CodeDocumentationViewer.unregisterProvider">unregisterProvider</a></td>
+<td>Public method register a source docu provider.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CodeDocumentationViewer.__init__" ID="CodeDocumentationViewer.__init__"></a>
+<h4>CodeDocumentationViewer (Constructor)</h4>
+<b>CodeDocumentationViewer</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="CodeDocumentationViewer.__selectProvider" ID="CodeDocumentationViewer.__selectProvider"></a>
+<h4>CodeDocumentationViewer.__selectProvider</h4>
+<b>__selectProvider</b>(<i>provider</i>)
+<p>
+        Private method to select a provider programmatically.
+</p>
+
+<dl>
+
+<dt><i>provider</i> (str)</dt>
+<dd>
+name of the provider to be selected
+</dd>
+</dl>
+<a NAME="CodeDocumentationViewer.__setupUi" ID="CodeDocumentationViewer.__setupUi"></a>
+<h4>CodeDocumentationViewer.__setupUi</h4>
+<b>__setupUi</b>(<i></i>)
+<p>
+        Private method to generate the UI layout.
+</p>
+
+<a NAME="CodeDocumentationViewer.__showDisabledMessage" ID="CodeDocumentationViewer.__showDisabledMessage"></a>
+<h4>CodeDocumentationViewer.__showDisabledMessage</h4>
+<b>__showDisabledMessage</b>(<i></i>)
+<p>
+        Private method to show a message giving the reason for being disabled.
+</p>
+
+<a NAME="CodeDocumentationViewer.__unregisterTimerTimeout" ID="CodeDocumentationViewer.__unregisterTimerTimeout"></a>
+<h4>CodeDocumentationViewer.__unregisterTimerTimeout</h4>
+<b>__unregisterTimerTimeout</b>(<i></i>)
+<p>
+        Private slot handling the timeout signal of the unregister timer.
+</p>
+
+<a NAME="CodeDocumentationViewer.documentationReady" ID="CodeDocumentationViewer.documentationReady"></a>
+<h4>CodeDocumentationViewer.documentationReady</h4>
+<b>documentationReady</b>(<i>documentationInfo, isWarning=False, isDocWarning=False</i>)
+<p>
+        Public method to provide the documentation info to the viewer.
+</p>
+<p>
+        If documentationInfo is a dictionary, it should contain these
+        (optional) keys and data:
+</p>
+<p>
+        name: the name of the inspected object
+        argspec: its arguments specification
+        note: A phrase describing the type of object (function or method) and
+            the module it belongs to.
+        docstring: its documentation string
+        typ: its type information
+</p>
+
+<dl>
+
+<dt><i>documentationInfo</i> (dict or str)</dt>
+<dd>
+dictionary containing the source docu data
+</dd>
+<dt><i>isWarning</i> (bool)</dt>
+<dd>
+flag indicating a warning page
+</dd>
+<dt><i>isDocWarning</i> (bool)</dt>
+<dd>
+flag indicating a documentation warning page
+</dd>
+</dl>
+<a NAME="CodeDocumentationViewer.finalizeSetup" ID="CodeDocumentationViewer.finalizeSetup"></a>
+<h4>CodeDocumentationViewer.finalizeSetup</h4>
+<b>finalizeSetup</b>(<i></i>)
+<p>
+        Public method to finalize the setup of the documentation viewer.
+</p>
+
+<a NAME="CodeDocumentationViewer.getProviders" ID="CodeDocumentationViewer.getProviders"></a>
+<h4>CodeDocumentationViewer.getProviders</h4>
+<b>getProviders</b>(<i></i>)
+<p>
+        Public method to get a list of providers and their visible strings.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing the providers and their visible strings
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (str,str)
+</dd>
+</dl>
+<a NAME="CodeDocumentationViewer.isEnabled" ID="CodeDocumentationViewer.isEnabled"></a>
+<h4>CodeDocumentationViewer.isEnabled</h4>
+<b>isEnabled</b>(<i></i>)
+<p>
+        Public method to check, if the code documentation viewer is enabled.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the enabled state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CodeDocumentationViewer.isSupportedLanguage" ID="CodeDocumentationViewer.isSupportedLanguage"></a>
+<h4>CodeDocumentationViewer.isSupportedLanguage</h4>
+<b>isSupportedLanguage</b>(<i>language</i>)
+<p>
+        Public method to check, if the given language is supported by the
+        selected provider.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+editor programming language to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the support status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CodeDocumentationViewer.on_providerComboBox_currentIndexChanged" ID="CodeDocumentationViewer.on_providerComboBox_currentIndexChanged"></a>
+<h4>CodeDocumentationViewer.on_providerComboBox_currentIndexChanged</h4>
+<b>on_providerComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of a provider.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected provider
+</dd>
+</dl>
+<a NAME="CodeDocumentationViewer.preferencesChanged" ID="CodeDocumentationViewer.preferencesChanged"></a>
+<h4>CodeDocumentationViewer.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<a NAME="CodeDocumentationViewer.registerProvider" ID="CodeDocumentationViewer.registerProvider"></a>
+<h4>CodeDocumentationViewer.registerProvider</h4>
+<b>registerProvider</b>(<i>providerName, providerDisplay, provider, supported</i>)
+<p>
+        Public method register a source docu provider.
+</p>
+
+<dl>
+
+<dt><i>providerName</i> (str)</dt>
+<dd>
+name of the provider (must be unique)
+</dd>
+<dt><i>providerDisplay</i> (str)</dt>
+<dd>
+visible name of the provider
+</dd>
+<dt><i>provider</i> (function(editor))</dt>
+<dd>
+function to be called to determine source docu
+</dd>
+<dt><i>supported</i> (function(language))</dt>
+<dd>
+function to be called to determine, if a language is
+            supported
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>KeyError</b>:</dt>
+<dd>
+raised if a provider with the given name was
+            already registered
+</dd>
+</dl>
+<a NAME="CodeDocumentationViewer.showInfo" ID="CodeDocumentationViewer.showInfo"></a>
+<h4>CodeDocumentationViewer.showInfo</h4>
+<b>showInfo</b>(<i>editor</i>)
+<p>
+        Public method to request code documentation data from a provider.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to request code docu for
+</dd>
+</dl>
+<a NAME="CodeDocumentationViewer.shutdown" ID="CodeDocumentationViewer.shutdown"></a>
+<h4>CodeDocumentationViewer.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to perform shutdown actions.
+</p>
+
+<a NAME="CodeDocumentationViewer.unregisterProvider" ID="CodeDocumentationViewer.unregisterProvider"></a>
+<h4>CodeDocumentationViewer.unregisterProvider</h4>
+<b>unregisterProvider</b>(<i>providerName</i>)
+<p>
+        Public method register a source docu provider.
+</p>
+
+<dl>
+
+<dt><i>providerName</i> (str)</dt>
+<dd>
+name of the provider (must be unique)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DocumentationViewerWidget" ID="DocumentationViewerWidget"></a>
+<h2>DocumentationViewerWidget</h2>
+<p>
+    Class implementing a rich text documentation viewer.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>EmpytDocument_Dark</td></tr>
+<tr><td>EmpytDocument_Light</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DocumentationViewerWidget.__init__">DocumentationViewerWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DocumentationViewerWidget.__showLink">__showLink</a></td>
+<td>Private slot to show the hovered link in a tooltip.</td>
+</tr>
+<tr>
+<td><a href="#DocumentationViewerWidget.clear">clear</a></td>
+<td>Public method to clear the shown contents.</td>
+</tr>
+<tr>
+<td><a href="#DocumentationViewerWidget.setHtml">setHtml</a></td>
+<td>Public method to set the HTML text of the widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DocumentationViewerWidget.__init__" ID="DocumentationViewerWidget.__init__"></a>
+<h4>DocumentationViewerWidget (Constructor)</h4>
+<b>DocumentationViewerWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="DocumentationViewerWidget.__showLink" ID="DocumentationViewerWidget.__showLink"></a>
+<h4>DocumentationViewerWidget.__showLink</h4>
+<b>__showLink</b>(<i>urlStr</i>)
+<p>
+        Private slot to show the hovered link in a tooltip.
+</p>
+
+<dl>
+
+<dt><i>urlStr</i> (str)</dt>
+<dd>
+hovered URL
+</dd>
+</dl>
+<a NAME="DocumentationViewerWidget.clear" ID="DocumentationViewerWidget.clear"></a>
+<h4>DocumentationViewerWidget.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to clear the shown contents.
+</p>
+
+<a NAME="DocumentationViewerWidget.setHtml" ID="DocumentationViewerWidget.setHtml"></a>
+<h4>DocumentationViewerWidget.setHtml</h4>
+<b>setHtml</b>(<i>html</i>)
+<p>
+        Public method to set the HTML text of the widget.
+</p>
+
+<dl>
+
+<dt><i>html</i> (str)</dt>
+<dd>
+HTML text to be shown
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

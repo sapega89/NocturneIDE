@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Preferences.PreferencesLexer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Preferences.PreferencesLexer</h1>
+<p>
+Module implementing a special QScintilla lexer to handle the preferences.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PreferencesLexer">PreferencesLexer</a></td>
+<td>Class implementing a Lexer facade for the highlighting styles configuration.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexerError">PreferencesLexerError</a></td>
+<td>Class defining a special error for the PreferencesLexer class.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexerLanguageError">PreferencesLexerLanguageError</a></td>
+<td>Class defining a special error for the PreferencesLexer class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PreferencesLexer" ID="PreferencesLexer"></a>
+<h2>PreferencesLexer</h2>
+<p>
+    Class implementing a Lexer facade for the highlighting styles
+    configuration.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PreferencesLexer.__init__">PreferencesLexer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.addSubstyle">addSubstyle</a></td>
+<td>Public method to add an empty sub-style to a given style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.color">color</a></td>
+<td>Public method to get the color of a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.defaultColor">defaultColor</a></td>
+<td>Public method to get the default color of a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.defaultDescription">defaultDescription</a></td>
+<td>Public method to get the default descriptive string for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.defaultEolFill">defaultEolFill</a></td>
+<td>Public method to get the default eolFill flag for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.defaultFont">defaultFont</a></td>
+<td>Public method to get the default font for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.defaultPaper">defaultPaper</a></td>
+<td>Public method to get the default background for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.defaultWords">defaultWords</a></td>
+<td>Public method to get the default list of words for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.delSubstyle">delSubstyle</a></td>
+<td>Public method to delete a given sub-style definition.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.description">description</a></td>
+<td>Public method to get a descriptive string for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.eolFill">eolFill</a></td>
+<td>Public method to get the eolFill flag for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.font">font</a></td>
+<td>Public method to get the font for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.getStyles">getStyles</a></td>
+<td>Public method to get a list of all supported styles.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.getSubStyles">getSubStyles</a></td>
+<td>Public method to get a list of all sub-styles of a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.hasStyle">hasStyle</a></td>
+<td>Public method to test for a given style definition.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.isBaseStyle">isBaseStyle</a></td>
+<td>Public method to test, if a given style may have sub-styles.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.language">language</a></td>
+<td>Public method to get the lexers programming language.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.loadDefaultSubStyles">loadDefaultSubStyles</a></td>
+<td>Public method to load the default sub-styles for a given base style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.paper">paper</a></td>
+<td>Public method to get the background for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.setColor">setColor</a></td>
+<td>Public method to set the color for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.setDescription">setDescription</a></td>
+<td>Public method to set a descriptive string for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.setEolFill">setEolFill</a></td>
+<td>Public method to set the eolFill flag for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.setFont">setFont</a></td>
+<td>Public method to set the font for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.setPaper">setPaper</a></td>
+<td>Public method to set the background for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.setWords">setWords</a></td>
+<td>Public method to set the list of words for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.words">words</a></td>
+<td>Public method to get the list of words for a style.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexer.writeSettings">writeSettings</a></td>
+<td>Public method to write the lexer settings.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PreferencesLexer.__init__" ID="PreferencesLexer.__init__"></a>
+<h4>PreferencesLexer (Constructor)</h4>
+<b>PreferencesLexer</b>(<i>language, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language of the lexer
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this lexer
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>PreferencesLexerLanguageError</b>:</dt>
+<dd>
+raised to indicate an invalid
+            lexer language
+</dd>
+</dl>
+<a NAME="PreferencesLexer.addSubstyle" ID="PreferencesLexer.addSubstyle"></a>
+<h4>PreferencesLexer.addSubstyle</h4>
+<b>addSubstyle</b>(<i>style</i>)
+<p>
+        Public method to add an empty sub-style to a given style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+allocated sub-style number or -1 to indicate an error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="PreferencesLexer.color" ID="PreferencesLexer.color"></a>
+<h4>PreferencesLexer.color</h4>
+<b>color</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the color of a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="PreferencesLexer.defaultColor" ID="PreferencesLexer.defaultColor"></a>
+<h4>PreferencesLexer.defaultColor</h4>
+<b>defaultColor</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the default color of a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+default color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="PreferencesLexer.defaultDescription" ID="PreferencesLexer.defaultDescription"></a>
+<h4>PreferencesLexer.defaultDescription</h4>
+<b>defaultDescription</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the default descriptive string for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+default description of the style
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PreferencesLexer.defaultEolFill" ID="PreferencesLexer.defaultEolFill"></a>
+<h4>PreferencesLexer.defaultEolFill</h4>
+<b>defaultEolFill</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the default eolFill flag for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+default eolFill flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PreferencesLexer.defaultFont" ID="PreferencesLexer.defaultFont"></a>
+<h4>PreferencesLexer.defaultFont</h4>
+<b>defaultFont</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the default font for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+default font
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QFont
+</dd>
+</dl>
+<a NAME="PreferencesLexer.defaultPaper" ID="PreferencesLexer.defaultPaper"></a>
+<h4>PreferencesLexer.defaultPaper</h4>
+<b>defaultPaper</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the default background for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+default background color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="PreferencesLexer.defaultWords" ID="PreferencesLexer.defaultWords"></a>
+<h4>PreferencesLexer.defaultWords</h4>
+<b>defaultWords</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the default list of words for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+whitespace separated default list of words
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PreferencesLexer.delSubstyle" ID="PreferencesLexer.delSubstyle"></a>
+<h4>PreferencesLexer.delSubstyle</h4>
+<b>delSubstyle</b>(<i>style, substyle</i>)
+<p>
+        Public method to delete a given sub-style definition.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful deletion
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PreferencesLexer.description" ID="PreferencesLexer.description"></a>
+<h4>PreferencesLexer.description</h4>
+<b>description</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get a descriptive string for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+description of the style
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PreferencesLexer.eolFill" ID="PreferencesLexer.eolFill"></a>
+<h4>PreferencesLexer.eolFill</h4>
+<b>eolFill</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the eolFill flag for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+eolFill flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PreferencesLexer.font" ID="PreferencesLexer.font"></a>
+<h4>PreferencesLexer.font</h4>
+<b>font</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the font for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+font
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QFont
+</dd>
+</dl>
+<a NAME="PreferencesLexer.getStyles" ID="PreferencesLexer.getStyles"></a>
+<h4>PreferencesLexer.getStyles</h4>
+<b>getStyles</b>(<i></i>)
+<p>
+        Public method to get a list of all supported styles.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples each containing the description of the style,
+            style number and sub-style number (or -1 for no sub-style)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, int, int)
+</dd>
+</dl>
+<a NAME="PreferencesLexer.getSubStyles" ID="PreferencesLexer.getSubStyles"></a>
+<h4>PreferencesLexer.getSubStyles</h4>
+<b>getSubStyles</b>(<i>style</i>)
+<p>
+        Public method to get a list of all sub-styles of a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples each containing the description of the style,
+            style number and sub-style number (or -1 for no sub-style)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, int, int)
+</dd>
+</dl>
+<a NAME="PreferencesLexer.hasStyle" ID="PreferencesLexer.hasStyle"></a>
+<h4>PreferencesLexer.hasStyle</h4>
+<b>hasStyle</b>(<i>style, substyle</i>)
+<p>
+        Public method to test for a given style definition.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of a style definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PreferencesLexer.isBaseStyle" ID="PreferencesLexer.isBaseStyle"></a>
+<h4>PreferencesLexer.isBaseStyle</h4>
+<b>isBaseStyle</b>(<i>style</i>)
+<p>
+        Public method to test, if a given style may have sub-styles.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+base style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the style may have sub-styles
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PreferencesLexer.language" ID="PreferencesLexer.language"></a>
+<h4>PreferencesLexer.language</h4>
+<b>language</b>(<i></i>)
+<p>
+        Public method to get the lexers programming language.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+lexer programming language
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PreferencesLexer.loadDefaultSubStyles" ID="PreferencesLexer.loadDefaultSubStyles"></a>
+<h4>PreferencesLexer.loadDefaultSubStyles</h4>
+<b>loadDefaultSubStyles</b>(<i>style</i>)
+<p>
+        Public method to load the default sub-styles for a given base style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+</dl>
+<a NAME="PreferencesLexer.paper" ID="PreferencesLexer.paper"></a>
+<h4>PreferencesLexer.paper</h4>
+<b>paper</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the background for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+the style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+background color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="PreferencesLexer.setColor" ID="PreferencesLexer.setColor"></a>
+<h4>PreferencesLexer.setColor</h4>
+<b>setColor</b>(<i>c, style, substyle=-1</i>)
+<p>
+        Public method to set the color for a style.
+</p>
+
+<dl>
+
+<dt><i>c</i> (QColor)</dt>
+<dd>
+color
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="PreferencesLexer.setDescription" ID="PreferencesLexer.setDescription"></a>
+<h4>PreferencesLexer.setDescription</h4>
+<b>setDescription</b>(<i>description, style, substyle=-1</i>)
+<p>
+        Public method to set a descriptive string for a style.
+</p>
+
+<dl>
+
+<dt><i>description</i> (str)</dt>
+<dd>
+description for the style
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="PreferencesLexer.setEolFill" ID="PreferencesLexer.setEolFill"></a>
+<h4>PreferencesLexer.setEolFill</h4>
+<b>setEolFill</b>(<i>eolfill, style, substyle=-1</i>)
+<p>
+        Public method to set the eolFill flag for a style.
+</p>
+
+<dl>
+
+<dt><i>eolfill</i> (bool)</dt>
+<dd>
+eolFill flag
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="PreferencesLexer.setFont" ID="PreferencesLexer.setFont"></a>
+<h4>PreferencesLexer.setFont</h4>
+<b>setFont</b>(<i>f, style, substyle=-1</i>)
+<p>
+        Public method to set the font for a style.
+</p>
+
+<dl>
+
+<dt><i>f</i> (QFont)</dt>
+<dd>
+font
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="PreferencesLexer.setPaper" ID="PreferencesLexer.setPaper"></a>
+<h4>PreferencesLexer.setPaper</h4>
+<b>setPaper</b>(<i>c, style, substyle=-1</i>)
+<p>
+        Public method to set the background for a style.
+</p>
+
+<dl>
+
+<dt><i>c</i> (QColor)</dt>
+<dd>
+background color
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="PreferencesLexer.setWords" ID="PreferencesLexer.setWords"></a>
+<h4>PreferencesLexer.setWords</h4>
+<b>setWords</b>(<i>words, style, substyle=-1</i>)
+<p>
+        Public method to set the list of words for a style.
+</p>
+
+<dl>
+
+<dt><i>words</i> (str)</dt>
+<dd>
+whitespace separated list of words
+</dd>
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<a NAME="PreferencesLexer.words" ID="PreferencesLexer.words"></a>
+<h4>PreferencesLexer.words</h4>
+<b>words</b>(<i>style, substyle=-1</i>)
+<p>
+        Public method to get the list of words for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+<dt><i>substyle</i> (int)</dt>
+<dd>
+sub-style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+whitespace separated list of words
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PreferencesLexer.writeSettings" ID="PreferencesLexer.writeSettings"></a>
+<h4>PreferencesLexer.writeSettings</h4>
+<b>writeSettings</b>(<i></i>)
+<p>
+        Public method to write the lexer settings.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PreferencesLexerError" ID="PreferencesLexerError"></a>
+<h2>PreferencesLexerError</h2>
+<p>
+    Class defining a special error for the PreferencesLexer class.
+</p>
+
+<h3>Derived from</h3>
+Exception
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PreferencesLexerError.__init__">PreferencesLexerError</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexerError.__repr__">__repr__</a></td>
+<td>Special method returning a representation of the exception.</td>
+</tr>
+<tr>
+<td><a href="#PreferencesLexerError.__str__">__str__</a></td>
+<td>Special method returning a string representation of the exception.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PreferencesLexerError.__init__" ID="PreferencesLexerError.__init__"></a>
+<h4>PreferencesLexerError (Constructor)</h4>
+<b>PreferencesLexerError</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="PreferencesLexerError.__repr__" ID="PreferencesLexerError.__repr__"></a>
+<h4>PreferencesLexerError.__repr__</h4>
+<b>__repr__</b>(<i></i>)
+<p>
+        Special method returning a representation of the exception.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string representing the error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PreferencesLexerError.__str__" ID="PreferencesLexerError.__str__"></a>
+<h4>PreferencesLexerError.__str__</h4>
+<b>__str__</b>(<i></i>)
+<p>
+        Special method returning a string representation of the exception.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string representing the error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PreferencesLexerLanguageError" ID="PreferencesLexerLanguageError"></a>
+<h2>PreferencesLexerLanguageError</h2>
+<p>
+    Class defining a special error for the PreferencesLexer class.
+</p>
+
+<h3>Derived from</h3>
+PreferencesLexerError
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PreferencesLexerLanguageError.__init__">PreferencesLexerLanguageError</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PreferencesLexerLanguageError.__init__" ID="PreferencesLexerLanguageError.__init__"></a>
+<h4>PreferencesLexerLanguageError (Constructor)</h4>
+<b>PreferencesLexerLanguageError</b>(<i>language</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+lexer language
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Bookmarks.BookmarksToolBar</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Bookmarks.BookmarksToolBar</h1>
+<p>
+Module implementing a tool bar showing bookmarks.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BookmarksToolBar">BookmarksToolBar</a></td>
+<td>Class implementing a tool bar showing bookmarks.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BookmarksToolBar" ID="BookmarksToolBar"></a>
+<h2>BookmarksToolBar</h2>
+<p>
+    Class implementing a tool bar showing bookmarks.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>newTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new tab
+</dd>
+<dt>newWindow(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new window
+</dd>
+<dt>openUrl(QUrl, str)</dt>
+<dd>
+emitted to open a URL in the current tab
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricModelToolBar
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BookmarksToolBar.__init__">BookmarksToolBar</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__bookmarkActivated">__bookmarkActivated</a></td>
+<td>Private slot handling the activation of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__contextMenuRequested">__contextMenuRequested</a></td>
+<td>Private slot to handle the context menu request.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__edit">__edit</a></td>
+<td>Private slot to edit a bookmarks properties.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__newBookmark">__newBookmark</a></td>
+<td>Private slot to add a new bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__newFolder">__newFolder</a></td>
+<td>Private slot to add a new bookmarks folder.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__openBookmark">__openBookmark</a></td>
+<td>Private slot to open a bookmark in the current browser tab.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__openBookmarkInNewTab">__openBookmarkInNewTab</a></td>
+<td>Private slot to open a bookmark in a new browser tab.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__openBookmarkInNewWindow">__openBookmarkInNewWindow</a></td>
+<td>Private slot to open a bookmark in a new window.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__openBookmarkInPrivateWindow">__openBookmarkInPrivateWindow</a></td>
+<td>Private slot to open a bookmark in a new private window.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__rebuild">__rebuild</a></td>
+<td>Private slot to rebuild the toolbar.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__removeBookmark">__removeBookmark</a></td>
+<td>Private slot to remove a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar.__updateVisitCount">__updateVisitCount</a></td>
+<td>Private method to update the visit count of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksToolBar._createMenu">_createMenu</a></td>
+<td>Protected method to create the menu for a tool bar action.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BookmarksToolBar.__init__" ID="BookmarksToolBar.__init__"></a>
+<h4>BookmarksToolBar (Constructor)</h4>
+<b>BookmarksToolBar</b>(<i>mainWindow, model, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>mainWindow</i> (WebBrowserWindow)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>model</i> (BookmarksModel)</dt>
+<dd>
+reference to the bookmarks model
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="BookmarksToolBar.__bookmarkActivated" ID="BookmarksToolBar.__bookmarkActivated"></a>
+<h4>BookmarksToolBar.__bookmarkActivated</h4>
+<b>__bookmarkActivated</b>(<i>idx</i>)
+<p>
+        Private slot handling the activation of a bookmark.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+index of the activated bookmark
+</dd>
+</dl>
+<a NAME="BookmarksToolBar.__contextMenuRequested" ID="BookmarksToolBar.__contextMenuRequested"></a>
+<h4>BookmarksToolBar.__contextMenuRequested</h4>
+<b>__contextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to handle the context menu request.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the context menu shall be shown
+</dd>
+</dl>
+<a NAME="BookmarksToolBar.__edit" ID="BookmarksToolBar.__edit"></a>
+<h4>BookmarksToolBar.__edit</h4>
+<b>__edit</b>(<i>act</i>)
+<p>
+        Private slot to edit a bookmarks properties.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksToolBar.__newBookmark" ID="BookmarksToolBar.__newBookmark"></a>
+<h4>BookmarksToolBar.__newBookmark</h4>
+<b>__newBookmark</b>(<i></i>)
+<p>
+        Private slot to add a new bookmark.
+</p>
+
+<a NAME="BookmarksToolBar.__newFolder" ID="BookmarksToolBar.__newFolder"></a>
+<h4>BookmarksToolBar.__newFolder</h4>
+<b>__newFolder</b>(<i></i>)
+<p>
+        Private slot to add a new bookmarks folder.
+</p>
+
+<a NAME="BookmarksToolBar.__openBookmark" ID="BookmarksToolBar.__openBookmark"></a>
+<h4>BookmarksToolBar.__openBookmark</h4>
+<b>__openBookmark</b>(<i>act</i>)
+<p>
+        Private slot to open a bookmark in the current browser tab.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksToolBar.__openBookmarkInNewTab" ID="BookmarksToolBar.__openBookmarkInNewTab"></a>
+<h4>BookmarksToolBar.__openBookmarkInNewTab</h4>
+<b>__openBookmarkInNewTab</b>(<i>act</i>)
+<p>
+        Private slot to open a bookmark in a new browser tab.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksToolBar.__openBookmarkInNewWindow" ID="BookmarksToolBar.__openBookmarkInNewWindow"></a>
+<h4>BookmarksToolBar.__openBookmarkInNewWindow</h4>
+<b>__openBookmarkInNewWindow</b>(<i>act</i>)
+<p>
+        Private slot to open a bookmark in a new window.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksToolBar.__openBookmarkInPrivateWindow" ID="BookmarksToolBar.__openBookmarkInPrivateWindow"></a>
+<h4>BookmarksToolBar.__openBookmarkInPrivateWindow</h4>
+<b>__openBookmarkInPrivateWindow</b>(<i>act</i>)
+<p>
+        Private slot to open a bookmark in a new private window.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksToolBar.__rebuild" ID="BookmarksToolBar.__rebuild"></a>
+<h4>BookmarksToolBar.__rebuild</h4>
+<b>__rebuild</b>(<i></i>)
+<p>
+        Private slot to rebuild the toolbar.
+</p>
+
+<a NAME="BookmarksToolBar.__removeBookmark" ID="BookmarksToolBar.__removeBookmark"></a>
+<h4>BookmarksToolBar.__removeBookmark</h4>
+<b>__removeBookmark</b>(<i>act</i>)
+<p>
+        Private slot to remove a bookmark.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksToolBar.__updateVisitCount" ID="BookmarksToolBar.__updateVisitCount"></a>
+<h4>BookmarksToolBar.__updateVisitCount</h4>
+<b>__updateVisitCount</b>(<i>idx</i>)
+<p>
+        Private method to update the visit count of a bookmark.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+index of the bookmark item
+</dd>
+</dl>
+<a NAME="BookmarksToolBar._createMenu" ID="BookmarksToolBar._createMenu"></a>
+<h4>BookmarksToolBar._createMenu</h4>
+<b>_createMenu</b>(<i></i>)
+<p>
+        Protected method to create the menu for a tool bar action.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+menu for a tool bar action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricModelMenu
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

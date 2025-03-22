@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.WebAuth.Fido2Management</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.WebAuth.Fido2Management</h1>
+<p>
+Module implementing a manager for FIDO2 security keys.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Fido2DeviceError">Fido2DeviceError</a></td>
+<td>Class signaling an issue with the device.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management">Fido2Management</a></td>
+<td>Class implementing a manager for FIDO2 security keys.</td>
+</tr>
+<tr>
+<td><a href="#Fido2PinError">Fido2PinError</a></td>
+<td>Class signaling an issue with the PIN.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Fido2DeviceError" ID="Fido2DeviceError"></a>
+<h2>Fido2DeviceError</h2>
+<p>
+    Class signaling an issue with the device.
+</p>
+
+<h3>Derived from</h3>
+Exception
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Fido2Management" ID="Fido2Management"></a>
+<h2>Fido2Management</h2>
+<p>
+    Class implementing a manager for FIDO2 security keys.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>deviceConnected()</dt>
+<dd>
+emitted to indicate a connect to the security key
+</dd>
+<dt>deviceDisconnected()</dt>
+<dd>
+emitted to indicate a disconnect from the security key
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>FidoExtension2Str</td></tr>
+<tr><td>FidoInfoCategories2Str</td></tr>
+<tr><td>FidoVersion2Str</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Fido2Management.__init__">Fido2Management</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.__initConfig">__initConfig</a></td>
+<td>Private method to initialize a configuration object.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.__initializeCredentialManager">__initializeCredentialManager</a></td>
+<td>Private method to initialize a credential manager object.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.__pinErrorMessage">__pinErrorMessage</a></td>
+<td>Private method to get a message for a PIN error.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.canSetMinimumPinLength">canSetMinimumPinLength</a></td>
+<td>Public method to check, if the 'setMinPINLength' function is available.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.canToggleAlwaysUv">canToggleAlwaysUv</a></td>
+<td>Public method to check, if the 'toggleAlwaysUv' function is available.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.changePasskeyUserInfo">changePasskeyUserInfo</a></td>
+<td>Public method to change the user info of a stored passkey.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.changePin">changePin</a></td>
+<td>Public method to change the PIN of the connected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.connectToDevice">connectToDevice</a></td>
+<td>Public method to connect to a given security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.deletePasskey">deletePasskey</a></td>
+<td>Public method to delete the passkey of the given ID.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.disconnectFromDevice">disconnectFromDevice</a></td>
+<td>Public method to disconnect from the current device.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.forcePinChange">forcePinChange</a></td>
+<td>Public method to force the PIN to be changed to a new value before use.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.forcePinChangeSupported">forcePinChangeSupported</a></td>
+<td>Public method to check, if the 'forcePinChange' function is supported by the selected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.getAlwaysUv">getAlwaysUv</a></td>
+<td>Public method to get the value of the 'alwaysUv' flag of the current security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.getDevices">getDevices</a></td>
+<td>Public method to get a list of connected security keys.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.getMinimumPinLength">getMinimumPinLength</a></td>
+<td>Public method to get the minimum PIN length defined by the security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.getPasskeys">getPasskeys</a></td>
+<td>Public method to get all stored passkeys.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.getPinRetries">getPinRetries</a></td>
+<td>Public method to get the number of PIN retries left and an indication for the need of a power cycle.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.getSecurityKeyInfo">getSecurityKeyInfo</a></td>
+<td>Public method to get information about the connected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.hasPin">hasPin</a></td>
+<td>Public method to check, if the connected security key has a PIN set.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.isDeviceLocked">isDeviceLocked</a></td>
+<td>Public method to check, if the device is in locked state (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.lockDevice">lockDevice</a></td>
+<td>Public method to lock the device (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.pinChangeRequired">pinChangeRequired</a></td>
+<td>Public method to check for a forced PIN change.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.reconnectToDevice">reconnectToDevice</a></td>
+<td>Public method to reconnect the current security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.resetDevice">resetDevice</a></td>
+<td>Public method to reset the connected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.setMinimumPinLength">setMinimumPinLength</a></td>
+<td>Public method to set the minimum PIN length.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.setPin">setPin</a></td>
+<td>Public method to set a PIN for the connected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.toggleAlwaysUv">toggleAlwaysUv</a></td>
+<td>Public method to toggle the 'alwaysUv' flag of the selected security key.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.unlockDevice">unlockDevice</a></td>
+<td>Public method to unlock the device (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Fido2Management.verifyPin">verifyPin</a></td>
+<td>Public method to verify a given PIN.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Fido2Management.__init__" ID="Fido2Management.__init__"></a>
+<h4>Fido2Management (Constructor)</h4>
+<b>Fido2Management</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="Fido2Management.__initConfig" ID="Fido2Management.__initConfig"></a>
+<h4>Fido2Management.__initConfig</h4>
+<b>__initConfig</b>(<i>pin</i>)
+<p>
+        Private method to initialize a configuration object.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to unlock the connected security key
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the configuration object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Config
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>Fido2DeviceError</b>:</dt>
+<dd>
+raised to indicate an issue with the selected
+            security key
+</dd>
+<dt>Raises <b>Fido2PinError</b>:</dt>
+<dd>
+raised to indicate an issue with the PIN
+</dd>
+</dl>
+<a NAME="Fido2Management.__initializeCredentialManager" ID="Fido2Management.__initializeCredentialManager"></a>
+<h4>Fido2Management.__initializeCredentialManager</h4>
+<b>__initializeCredentialManager</b>(<i>pin</i>)
+<p>
+        Private method to initialize a credential manager object.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to unlock the connected security key
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the credential manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+CredentialManagement
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>Fido2DeviceError</b>:</dt>
+<dd>
+raised to indicate an issue with the selected
+            security key
+</dd>
+<dt>Raises <b>Fido2PinError</b>:</dt>
+<dd>
+raised to indicate an issue with the PIN
+</dd>
+</dl>
+<a NAME="Fido2Management.__pinErrorMessage" ID="Fido2Management.__pinErrorMessage"></a>
+<h4>Fido2Management.__pinErrorMessage</h4>
+<b>__pinErrorMessage</b>(<i>err</i>)
+<p>
+        Private method to get a message for a PIN error.
+</p>
+
+<dl>
+
+<dt><i>err</i> (CtapError)</dt>
+<dd>
+reference to the exception object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+message for the given PIN error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Fido2Management.canSetMinimumPinLength" ID="Fido2Management.canSetMinimumPinLength"></a>
+<h4>Fido2Management.canSetMinimumPinLength</h4>
+<b>canSetMinimumPinLength</b>(<i></i>)
+<p>
+        Public method to check, if the 'setMinPINLength' function is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating availability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Fido2Management.canToggleAlwaysUv" ID="Fido2Management.canToggleAlwaysUv"></a>
+<h4>Fido2Management.canToggleAlwaysUv</h4>
+<b>canToggleAlwaysUv</b>(<i></i>)
+<p>
+        Public method to check, if the 'toggleAlwaysUv' function is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating availability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Fido2Management.changePasskeyUserInfo" ID="Fido2Management.changePasskeyUserInfo"></a>
+<h4>Fido2Management.changePasskeyUserInfo</h4>
+<b>changePasskeyUserInfo</b>(<i>pin, credentialId, userId, userName, displayName</i>)
+<p>
+        Public method to change the user info of a stored passkey.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to unlock the connected security key
+</dd>
+<dt><i>credentialId</i> (fido2.webauthn.PublicKeyCredentialDescriptor)</dt>
+<dd>
+ID of the passkey to change
+</dd>
+<dt><i>userId</i> (bytes)</dt>
+<dd>
+ID of the user
+</dd>
+<dt><i>userName</i> (str)</dt>
+<dd>
+user name to set
+</dd>
+<dt><i>displayName</i> (str)</dt>
+<dd>
+display name to set
+</dd>
+</dl>
+<a NAME="Fido2Management.changePin" ID="Fido2Management.changePin"></a>
+<h4>Fido2Management.changePin</h4>
+<b>changePin</b>(<i>oldPin, newPin</i>)
+<p>
+        Public method to change the PIN of the connected security key.
+</p>
+
+<dl>
+
+<dt><i>oldPin</i> (str)</dt>
+<dd>
+current PIN
+</dd>
+<dt><i>newPin</i> (str)</dt>
+<dd>
+new PIN
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success and a message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="Fido2Management.connectToDevice" ID="Fido2Management.connectToDevice"></a>
+<h4>Fido2Management.connectToDevice</h4>
+<b>connectToDevice</b>(<i>device</i>)
+<p>
+        Public method to connect to a given security key.
+</p>
+
+<dl>
+
+<dt><i>device</i> (CtapHidDevice)</dt>
+<dd>
+reference to the security key device class
+</dd>
+</dl>
+<a NAME="Fido2Management.deletePasskey" ID="Fido2Management.deletePasskey"></a>
+<h4>Fido2Management.deletePasskey</h4>
+<b>deletePasskey</b>(<i>pin, credentialId</i>)
+<p>
+        Public method to delete the passkey of the given ID.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to unlock the connected security key
+</dd>
+<dt><i>credentialId</i> (fido2.webauthn.PublicKeyCredentialDescriptor)</dt>
+<dd>
+ID of the passkey to be deleted
+</dd>
+</dl>
+<a NAME="Fido2Management.disconnectFromDevice" ID="Fido2Management.disconnectFromDevice"></a>
+<h4>Fido2Management.disconnectFromDevice</h4>
+<b>disconnectFromDevice</b>(<i></i>)
+<p>
+        Public method to disconnect from the current device.
+</p>
+
+<a NAME="Fido2Management.forcePinChange" ID="Fido2Management.forcePinChange"></a>
+<h4>Fido2Management.forcePinChange</h4>
+<b>forcePinChange</b>(<i>pin</i>)
+<p>
+        Public method to force the PIN to be changed to a new value before use.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to unlock the connected security key
+</dd>
+</dl>
+<a NAME="Fido2Management.forcePinChangeSupported" ID="Fido2Management.forcePinChangeSupported"></a>
+<h4>Fido2Management.forcePinChangeSupported</h4>
+<b>forcePinChangeSupported</b>(<i></i>)
+<p>
+        Public method to check, if the 'forcePinChange' function is supported by the
+        selected security key.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating support
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Fido2Management.getAlwaysUv" ID="Fido2Management.getAlwaysUv"></a>
+<h4>Fido2Management.getAlwaysUv</h4>
+<b>getAlwaysUv</b>(<i></i>)
+<p>
+        Public method to get the value of the 'alwaysUv' flag of the current security
+        key.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+return value of the 'alwaysUv' flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Fido2Management.getDevices" ID="Fido2Management.getDevices"></a>
+<h4>Fido2Management.getDevices</h4>
+<b>getDevices</b>(<i></i>)
+<p>
+        Public method to get a list of connected security keys.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of connected security keys
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of CtapHidDevice
+</dd>
+</dl>
+<a NAME="Fido2Management.getMinimumPinLength" ID="Fido2Management.getMinimumPinLength"></a>
+<h4>Fido2Management.getMinimumPinLength</h4>
+<b>getMinimumPinLength</b>(<i></i>)
+<p>
+        Public method to get the minimum PIN length defined by the security key.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+minimum length for the PIN
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Fido2Management.getPasskeys" ID="Fido2Management.getPasskeys"></a>
+<h4>Fido2Management.getPasskeys</h4>
+<b>getPasskeys</b>(<i>pin</i>)
+<p>
+        Public method to get all stored passkeys.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to unlock the connected security key
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a dictionary containing the stored passkeys grouped
+            by Relying Party ID, the count of used credential slots and the count
+            of available credential slots
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of [dict[str, list[dict[str, Any]]], int, int]
+</dd>
+</dl>
+<a NAME="Fido2Management.getPinRetries" ID="Fido2Management.getPinRetries"></a>
+<h4>Fido2Management.getPinRetries</h4>
+<b>getPinRetries</b>(<i></i>)
+<p>
+        Public method to get the number of PIN retries left and an indication for the
+        need of a power cycle.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the number of retries left and a flag indicating a
+            power cycle is required. A retry value of -1 indicates, that no PIN was
+            set yet.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, bool)
+</dd>
+</dl>
+<a NAME="Fido2Management.getSecurityKeyInfo" ID="Fido2Management.getSecurityKeyInfo"></a>
+<h4>Fido2Management.getSecurityKeyInfo</h4>
+<b>getSecurityKeyInfo</b>(<i></i>)
+<p>
+        Public method to get information about the connected security key.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the info data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict[str, list[tuple[str, str]]]
+</dd>
+</dl>
+<a NAME="Fido2Management.hasPin" ID="Fido2Management.hasPin"></a>
+<h4>Fido2Management.hasPin</h4>
+<b>hasPin</b>(<i></i>)
+<p>
+        Public method to check, if the connected security key has a PIN set.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that a PIN has been set or None in case no device
+            was connected yet or it does not support PIN
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool or None
+</dd>
+</dl>
+<a NAME="Fido2Management.isDeviceLocked" ID="Fido2Management.isDeviceLocked"></a>
+<h4>Fido2Management.isDeviceLocked</h4>
+<b>isDeviceLocked</b>(<i></i>)
+<p>
+        Public method to check, if the device is in locked state (i.e. the stored PIN
+        is None).
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the locked state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Fido2Management.lockDevice" ID="Fido2Management.lockDevice"></a>
+<h4>Fido2Management.lockDevice</h4>
+<b>lockDevice</b>(<i></i>)
+<p>
+        Public method to lock the device (i.e. delete the stored PIN).
+</p>
+
+<a NAME="Fido2Management.pinChangeRequired" ID="Fido2Management.pinChangeRequired"></a>
+<h4>Fido2Management.pinChangeRequired</h4>
+<b>pinChangeRequired</b>(<i></i>)
+<p>
+        Public method to check for a forced PIN change.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a forced PIN change is required
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Fido2Management.reconnectToDevice" ID="Fido2Management.reconnectToDevice"></a>
+<h4>Fido2Management.reconnectToDevice</h4>
+<b>reconnectToDevice</b>(<i></i>)
+<p>
+        Public method to reconnect the current security key.
+</p>
+
+<a NAME="Fido2Management.resetDevice" ID="Fido2Management.resetDevice"></a>
+<h4>Fido2Management.resetDevice</h4>
+<b>resetDevice</b>(<i></i>)
+<p>
+        Public method to reset the connected security key.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success and a message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="Fido2Management.setMinimumPinLength" ID="Fido2Management.setMinimumPinLength"></a>
+<h4>Fido2Management.setMinimumPinLength</h4>
+<b>setMinimumPinLength</b>(<i>pin, minLength</i>)
+<p>
+        Public method to set the minimum PIN length.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to unlock the connected security key
+</dd>
+<dt><i>minLength</i> (int)</dt>
+<dd>
+minimum PIN length
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>Fido2PinError</b>:</dt>
+<dd>
+raised to indicate an issue with the PIN length
+</dd>
+</dl>
+<a NAME="Fido2Management.setPin" ID="Fido2Management.setPin"></a>
+<h4>Fido2Management.setPin</h4>
+<b>setPin</b>(<i>pin</i>)
+<p>
+        Public method to set a PIN for the connected security key.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to be set
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success and a message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="Fido2Management.toggleAlwaysUv" ID="Fido2Management.toggleAlwaysUv"></a>
+<h4>Fido2Management.toggleAlwaysUv</h4>
+<b>toggleAlwaysUv</b>(<i>pin</i>)
+<p>
+        Public method to toggle the 'alwaysUv' flag of the selected security key.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to unlock the connected security key
+</dd>
+</dl>
+<a NAME="Fido2Management.unlockDevice" ID="Fido2Management.unlockDevice"></a>
+<h4>Fido2Management.unlockDevice</h4>
+<b>unlockDevice</b>(<i>pin</i>)
+<p>
+        Public method to unlock the device (i.e. store the PIN for later use).
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to be stored
+</dd>
+</dl>
+<a NAME="Fido2Management.verifyPin" ID="Fido2Management.verifyPin"></a>
+<h4>Fido2Management.verifyPin</h4>
+<b>verifyPin</b>(<i>pin</i>)
+<p>
+        Public method to verify a given PIN.
+</p>
+<p>
+        A successful verification of the PIN will reset the "retries" counter.
+</p>
+
+<dl>
+
+<dt><i>pin</i> (str)</dt>
+<dd>
+PIN to be verified
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful verification and a verification message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Fido2PinError" ID="Fido2PinError"></a>
+<h2>Fido2PinError</h2>
+<p>
+    Class signaling an issue with the PIN.
+</p>
+
+<h3>Derived from</h3>
+Exception
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

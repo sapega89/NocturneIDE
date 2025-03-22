@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.ViewManagerPlugins.Tabview.Tabview</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.ViewManagerPlugins.Tabview.Tabview</h1>
+<p>
+Module implementing a tabbed viewmanager class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TabBar">TabBar</a></td>
+<td>Class implementing a customized tab bar supporting drag & drop.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget">TabWidget</a></td>
+<td>Class implementing a custimized tab widget.</td>
+</tr>
+<tr>
+<td><a href="#Tabview">Tabview</a></td>
+<td>Class implementing a tabbed viewmanager class embedded in a splitter.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TabBar" ID="TabBar"></a>
+<h2>TabBar</h2>
+<p>
+    Class implementing a customized tab bar supporting drag & drop.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>tabCopyRequested(int, int)</dt>
+<dd>
+emitted to signal a clone request giving
+        the old and new index position
+</dd>
+<dt>tabCopyRequested(str, int, int)</dt>
+<dd>
+emitted to signal a clone request
+        giving the string encoded id of the source tab widget, the index in the
+        source tab widget and the new index position
+</dd>
+<dt>tabMoveRequested(int, int)</dt>
+<dd>
+emitted to signal a tab move request
+        giving the old and new index position
+</dd>
+<dt>tabRelocateRequested(str, int, int)</dt>
+<dd>
+emitted to signal a tab
+        relocation request giving the string encoded id of the old tab widget,
+        the index in the old tab widget and the new index position
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricWheelTabBar
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TabBar.__init__">TabBar</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TabBar.dragEnterEvent">dragEnterEvent</a></td>
+<td>Protected method to handle drag enter events.</td>
+</tr>
+<tr>
+<td><a href="#TabBar.dropEvent">dropEvent</a></td>
+<td>Protected method to handle drop events.</td>
+</tr>
+<tr>
+<td><a href="#TabBar.mouseMoveEvent">mouseMoveEvent</a></td>
+<td>Protected method to handle mouse move events.</td>
+</tr>
+<tr>
+<td><a href="#TabBar.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method to handle mouse press events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TabBar.__init__" ID="TabBar.__init__"></a>
+<h4>TabBar (Constructor)</h4>
+<b>TabBar</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="TabBar.dragEnterEvent" ID="TabBar.dragEnterEvent"></a>
+<h4>TabBar.dragEnterEvent</h4>
+<b>dragEnterEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle drag enter events.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDragEnterEvent)</dt>
+<dd>
+reference to the drag enter event
+</dd>
+</dl>
+<a NAME="TabBar.dropEvent" ID="TabBar.dropEvent"></a>
+<h4>TabBar.dropEvent</h4>
+<b>dropEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle drop events.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDropEvent)</dt>
+<dd>
+reference to the drop event
+</dd>
+</dl>
+<a NAME="TabBar.mouseMoveEvent" ID="TabBar.mouseMoveEvent"></a>
+<h4>TabBar.mouseMoveEvent</h4>
+<b>mouseMoveEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle mouse move events.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse move event
+</dd>
+</dl>
+<a NAME="TabBar.mousePressEvent" ID="TabBar.mousePressEvent"></a>
+<h4>TabBar.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle mouse press events.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse press event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TabWidget" ID="TabWidget"></a>
+<h2>TabWidget</h2>
+<p>
+    Class implementing a custimized tab widget.
+</p>
+
+<h3>Derived from</h3>
+EricTabWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TabWidget.__init__">TabWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__captionChange">__captionChange</a></td>
+<td>Private slot to handle Caption change signals from the editor.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__closeButtonClicked">__closeButtonClicked</a></td>
+<td>Private method to handle the press of the close button.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__closeRequested">__closeRequested</a></td>
+<td>Private method to handle the press of the individual tab close button.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuClose">__contextMenuClose</a></td>
+<td>Private method to close the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuCloseAll">__contextMenuCloseAll</a></td>
+<td>Private method to close all tabs.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuCloseLeft">__contextMenuCloseLeft</a></td>
+<td>Private method to close tabs to the left.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuCloseOthers">__contextMenuCloseOthers</a></td>
+<td>Private method to close the other tabs.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuCloseRight">__contextMenuCloseRight</a></td>
+<td>Private method to close tabs to the right.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuCopyPathToClipboard">__contextMenuCopyPathToClipboard</a></td>
+<td>Private method to copy the file name of the selected tab to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuCoverageScript">__contextMenuCoverageScript</a></td>
+<td>Private method to run a coverage test of the editor script.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuDebugScript">__contextMenuDebugScript</a></td>
+<td>Private method to debug the editor script.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuMoveFirst">__contextMenuMoveFirst</a></td>
+<td>Private method to move a tab to the first position.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuMoveLast">__contextMenuMoveLast</a></td>
+<td>Private method to move a tab to the last position.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuMoveLeft">__contextMenuMoveLeft</a></td>
+<td>Private method to move a tab one position to the left.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuMoveRight">__contextMenuMoveRight</a></td>
+<td>Private method to move a tab one position to the right.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuOpenRejections">__contextMenuOpenRejections</a></td>
+<td>Private slot to open a rejections file associated with the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuPrintFile">__contextMenuPrintFile</a></td>
+<td>Private method to print the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuPrintPreviewFile">__contextMenuPrintPreviewFile</a></td>
+<td>Private method to show a print preview of the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuProfileScript">__contextMenuProfileScript</a></td>
+<td>Private method to profile the editor script.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuRunScript">__contextMenuRunScript</a></td>
+<td>Private method to run the editor script.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuSave">__contextMenuSave</a></td>
+<td>Private method to save the selected tab.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuSaveAll">__contextMenuSaveAll</a></td>
+<td>Private method to save all tabs.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__contextMenuSaveAs">__contextMenuSaveAs</a></td>
+<td>Private method to save the selected tab to a new file.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__copyTab">__copyTab</a></td>
+<td>Private method to copy an editor.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__copyTabOther">__copyTabOther</a></td>
+<td>Private method to copy an editor from another TabWidget.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__cursorLineChanged">__cursorLineChanged</a></td>
+<td>Private slot to handle a change of the current editor's cursor line.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__initMenu">__initMenu</a></td>
+<td>Private method to initialize the tab context menu.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__navigationMenuTriggered">__navigationMenuTriggered</a></td>
+<td>Private slot called to handle the navigation button menu selection.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__relocateTab">__relocateTab</a></td>
+<td>Private method to relocate an editor from another TabWidget.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the tab context menu.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.__showNavigationMenu">__showNavigationMenu</a></td>
+<td>Private slot to show the navigation button menu.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.addTab">addTab</a></td>
+<td>Public method to add a new tab.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.currentWidget">currentWidget</a></td>
+<td>Public method to return a reference to the current page.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.hasEditor">hasEditor</a></td>
+<td>Public method to check for an editor.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.hasEditors">hasEditors</a></td>
+<td>Public method to test, if any editor is managed.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.indexOf">indexOf</a></td>
+<td>Public method to get the tab index of the given editor.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.insertWidget">insertWidget</a></td>
+<td>Public method to insert a new tab.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.mouseDoubleClickEvent">mouseDoubleClickEvent</a></td>
+<td>Protected method handling double click events.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.removeWidget">removeWidget</a></td>
+<td>Public method to remove a widget.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.setCurrentWidget">setCurrentWidget</a></td>
+<td>Public method to set the current tab by the given editor assembly.</td>
+</tr>
+<tr>
+<td><a href="#TabWidget.showIndicator">showIndicator</a></td>
+<td>Public slot to set the indicator on or off.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TabWidget.__init__" ID="TabWidget.__init__"></a>
+<h4>TabWidget (Constructor)</h4>
+<b>TabWidget</b>(<i>vm</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vm</i> (Tabview)</dt>
+<dd>
+view manager widget
+</dd>
+</dl>
+<a NAME="TabWidget.__captionChange" ID="TabWidget.__captionChange"></a>
+<h4>TabWidget.__captionChange</h4>
+<b>__captionChange</b>(<i>_cap, editor</i>)
+<p>
+        Private slot to handle Caption change signals from the editor.
+</p>
+<p>
+        Updates the tab text and tooltip text to reflect the new caption
+        information.
+</p>
+
+<dl>
+
+<dt><i>_cap</i> (str)</dt>
+<dd>
+caption for the editor (unused)
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+Editor to update the caption for
+</dd>
+</dl>
+<a NAME="TabWidget.__closeButtonClicked" ID="TabWidget.__closeButtonClicked"></a>
+<h4>TabWidget.__closeButtonClicked</h4>
+<b>__closeButtonClicked</b>(<i></i>)
+<p>
+        Private method to handle the press of the close button.
+</p>
+
+<a NAME="TabWidget.__closeRequested" ID="TabWidget.__closeRequested"></a>
+<h4>TabWidget.__closeRequested</h4>
+<b>__closeRequested</b>(<i>index</i>)
+<p>
+        Private method to handle the press of the individual tab close button.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the tab
+</dd>
+</dl>
+<a NAME="TabWidget.__contextMenuClose" ID="TabWidget.__contextMenuClose"></a>
+<h4>TabWidget.__contextMenuClose</h4>
+<b>__contextMenuClose</b>(<i></i>)
+<p>
+        Private method to close the selected tab.
+</p>
+
+<a NAME="TabWidget.__contextMenuCloseAll" ID="TabWidget.__contextMenuCloseAll"></a>
+<h4>TabWidget.__contextMenuCloseAll</h4>
+<b>__contextMenuCloseAll</b>(<i></i>)
+<p>
+        Private method to close all tabs.
+</p>
+
+<a NAME="TabWidget.__contextMenuCloseLeft" ID="TabWidget.__contextMenuCloseLeft"></a>
+<h4>TabWidget.__contextMenuCloseLeft</h4>
+<b>__contextMenuCloseLeft</b>(<i></i>)
+<p>
+        Private method to close tabs to the left.
+</p>
+
+<a NAME="TabWidget.__contextMenuCloseOthers" ID="TabWidget.__contextMenuCloseOthers"></a>
+<h4>TabWidget.__contextMenuCloseOthers</h4>
+<b>__contextMenuCloseOthers</b>(<i></i>)
+<p>
+        Private method to close the other tabs.
+</p>
+
+<a NAME="TabWidget.__contextMenuCloseRight" ID="TabWidget.__contextMenuCloseRight"></a>
+<h4>TabWidget.__contextMenuCloseRight</h4>
+<b>__contextMenuCloseRight</b>(<i></i>)
+<p>
+        Private method to close tabs to the right.
+</p>
+
+<a NAME="TabWidget.__contextMenuCopyPathToClipboard" ID="TabWidget.__contextMenuCopyPathToClipboard"></a>
+<h4>TabWidget.__contextMenuCopyPathToClipboard</h4>
+<b>__contextMenuCopyPathToClipboard</b>(<i></i>)
+<p>
+        Private method to copy the file name of the selected tab to the
+        clipboard.
+</p>
+
+<a NAME="TabWidget.__contextMenuCoverageScript" ID="TabWidget.__contextMenuCoverageScript"></a>
+<h4>TabWidget.__contextMenuCoverageScript</h4>
+<b>__contextMenuCoverageScript</b>(<i></i>)
+<p>
+        Private method to run a coverage test of the editor script.
+</p>
+
+<a NAME="TabWidget.__contextMenuDebugScript" ID="TabWidget.__contextMenuDebugScript"></a>
+<h4>TabWidget.__contextMenuDebugScript</h4>
+<b>__contextMenuDebugScript</b>(<i></i>)
+<p>
+        Private method to debug the editor script.
+</p>
+
+<a NAME="TabWidget.__contextMenuMoveFirst" ID="TabWidget.__contextMenuMoveFirst"></a>
+<h4>TabWidget.__contextMenuMoveFirst</h4>
+<b>__contextMenuMoveFirst</b>(<i></i>)
+<p>
+        Private method to move a tab to the first position.
+</p>
+
+<a NAME="TabWidget.__contextMenuMoveLast" ID="TabWidget.__contextMenuMoveLast"></a>
+<h4>TabWidget.__contextMenuMoveLast</h4>
+<b>__contextMenuMoveLast</b>(<i></i>)
+<p>
+        Private method to move a tab to the last position.
+</p>
+
+<a NAME="TabWidget.__contextMenuMoveLeft" ID="TabWidget.__contextMenuMoveLeft"></a>
+<h4>TabWidget.__contextMenuMoveLeft</h4>
+<b>__contextMenuMoveLeft</b>(<i></i>)
+<p>
+        Private method to move a tab one position to the left.
+</p>
+
+<a NAME="TabWidget.__contextMenuMoveRight" ID="TabWidget.__contextMenuMoveRight"></a>
+<h4>TabWidget.__contextMenuMoveRight</h4>
+<b>__contextMenuMoveRight</b>(<i></i>)
+<p>
+        Private method to move a tab one position to the right.
+</p>
+
+<a NAME="TabWidget.__contextMenuOpenRejections" ID="TabWidget.__contextMenuOpenRejections"></a>
+<h4>TabWidget.__contextMenuOpenRejections</h4>
+<b>__contextMenuOpenRejections</b>(<i></i>)
+<p>
+        Private slot to open a rejections file associated with the selected
+        tab.
+</p>
+
+<a NAME="TabWidget.__contextMenuPrintFile" ID="TabWidget.__contextMenuPrintFile"></a>
+<h4>TabWidget.__contextMenuPrintFile</h4>
+<b>__contextMenuPrintFile</b>(<i></i>)
+<p>
+        Private method to print the selected tab.
+</p>
+
+<a NAME="TabWidget.__contextMenuPrintPreviewFile" ID="TabWidget.__contextMenuPrintPreviewFile"></a>
+<h4>TabWidget.__contextMenuPrintPreviewFile</h4>
+<b>__contextMenuPrintPreviewFile</b>(<i></i>)
+<p>
+        Private method to show a print preview of the selected tab.
+</p>
+
+<a NAME="TabWidget.__contextMenuProfileScript" ID="TabWidget.__contextMenuProfileScript"></a>
+<h4>TabWidget.__contextMenuProfileScript</h4>
+<b>__contextMenuProfileScript</b>(<i></i>)
+<p>
+        Private method to profile the editor script.
+</p>
+
+<a NAME="TabWidget.__contextMenuRunScript" ID="TabWidget.__contextMenuRunScript"></a>
+<h4>TabWidget.__contextMenuRunScript</h4>
+<b>__contextMenuRunScript</b>(<i></i>)
+<p>
+        Private method to run the editor script.
+</p>
+
+<a NAME="TabWidget.__contextMenuSave" ID="TabWidget.__contextMenuSave"></a>
+<h4>TabWidget.__contextMenuSave</h4>
+<b>__contextMenuSave</b>(<i></i>)
+<p>
+        Private method to save the selected tab.
+</p>
+
+<a NAME="TabWidget.__contextMenuSaveAll" ID="TabWidget.__contextMenuSaveAll"></a>
+<h4>TabWidget.__contextMenuSaveAll</h4>
+<b>__contextMenuSaveAll</b>(<i></i>)
+<p>
+        Private method to save all tabs.
+</p>
+
+<a NAME="TabWidget.__contextMenuSaveAs" ID="TabWidget.__contextMenuSaveAs"></a>
+<h4>TabWidget.__contextMenuSaveAs</h4>
+<b>__contextMenuSaveAs</b>(<i></i>)
+<p>
+        Private method to save the selected tab to a new file.
+</p>
+
+<a NAME="TabWidget.__copyTab" ID="TabWidget.__copyTab"></a>
+<h4>TabWidget.__copyTab</h4>
+<b>__copyTab</b>(<i>sourceIndex, targetIndex</i>)
+<p>
+        Private method to copy an editor.
+</p>
+
+<dl>
+
+<dt><i>sourceIndex</i> (int)</dt>
+<dd>
+index of the tab
+</dd>
+<dt><i>targetIndex</i> (int)</dt>
+<dd>
+index position to place it to
+</dd>
+</dl>
+<a NAME="TabWidget.__copyTabOther" ID="TabWidget.__copyTabOther"></a>
+<h4>TabWidget.__copyTabOther</h4>
+<b>__copyTabOther</b>(<i>sourceId, sourceIndex, targetIndex</i>)
+<p>
+        Private method to copy an editor from another TabWidget.
+</p>
+
+<dl>
+
+<dt><i>sourceId</i> (str)</dt>
+<dd>
+id of the TabWidget to get the editor from
+</dd>
+<dt><i>sourceIndex</i> (int)</dt>
+<dd>
+index of the tab in the old tab widget
+</dd>
+<dt><i>targetIndex</i> (int)</dt>
+<dd>
+index position to place it to
+</dd>
+</dl>
+<a NAME="TabWidget.__cursorLineChanged" ID="TabWidget.__cursorLineChanged"></a>
+<h4>TabWidget.__cursorLineChanged</h4>
+<b>__cursorLineChanged</b>(<i>lineno, editor</i>)
+<p>
+        Private slot to handle a change of the current editor's cursor line.
+</p>
+
+<dl>
+
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the editor's cursor (zero based)
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="TabWidget.__initMenu" ID="TabWidget.__initMenu"></a>
+<h4>TabWidget.__initMenu</h4>
+<b>__initMenu</b>(<i></i>)
+<p>
+        Private method to initialize the tab context menu.
+</p>
+
+<a NAME="TabWidget.__navigationMenuTriggered" ID="TabWidget.__navigationMenuTriggered"></a>
+<h4>TabWidget.__navigationMenuTriggered</h4>
+<b>__navigationMenuTriggered</b>(<i>act</i>)
+<p>
+        Private slot called to handle the navigation button menu selection.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the selected action
+</dd>
+</dl>
+<a NAME="TabWidget.__relocateTab" ID="TabWidget.__relocateTab"></a>
+<h4>TabWidget.__relocateTab</h4>
+<b>__relocateTab</b>(<i>sourceId, sourceIndex, targetIndex</i>)
+<p>
+        Private method to relocate an editor from another TabWidget.
+</p>
+
+<dl>
+
+<dt><i>sourceId</i> (str)</dt>
+<dd>
+id of the TabWidget to get the editor from
+</dd>
+<dt><i>sourceIndex</i> (int)</dt>
+<dd>
+index of the tab in the old tab widget
+</dd>
+<dt><i>targetIndex</i> (int)</dt>
+<dd>
+index position to place it to
+</dd>
+</dl>
+<a NAME="TabWidget.__showContextMenu" ID="TabWidget.__showContextMenu"></a>
+<h4>TabWidget.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord, index</i>)
+<p>
+        Private slot to show the tab context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the tab the menu is requested for
+</dd>
+</dl>
+<a NAME="TabWidget.__showNavigationMenu" ID="TabWidget.__showNavigationMenu"></a>
+<h4>TabWidget.__showNavigationMenu</h4>
+<b>__showNavigationMenu</b>(<i></i>)
+<p>
+        Private slot to show the navigation button menu.
+</p>
+
+<a NAME="TabWidget.addTab" ID="TabWidget.addTab"></a>
+<h4>TabWidget.addTab</h4>
+<b>addTab</b>(<i>assembly, title</i>)
+<p>
+        Public method to add a new tab.
+</p>
+
+<dl>
+
+<dt><i>assembly</i> (QScintilla.EditorAssembly.EditorAssembly)</dt>
+<dd>
+editor assembly object to be added
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title for the new tab
+</dd>
+</dl>
+<a NAME="TabWidget.currentWidget" ID="TabWidget.currentWidget"></a>
+<h4>TabWidget.currentWidget</h4>
+<b>currentWidget</b>(<i></i>)
+<p>
+        Public method to return a reference to the current page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor
+</dd>
+</dl>
+<a NAME="TabWidget.hasEditor" ID="TabWidget.hasEditor"></a>
+<h4>TabWidget.hasEditor</h4>
+<b>hasEditor</b>(<i>editor</i>)
+<p>
+        Public method to check for an editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor object to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, whether the editor to be checked belongs
+            to the list of editors managed by this tab widget.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TabWidget.hasEditors" ID="TabWidget.hasEditors"></a>
+<h4>TabWidget.hasEditors</h4>
+<b>hasEditors</b>(<i></i>)
+<p>
+        Public method to test, if any editor is managed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating editors are managed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TabWidget.indexOf" ID="TabWidget.indexOf"></a>
+<h4>TabWidget.indexOf</h4>
+<b>indexOf</b>(<i>widget</i>)
+<p>
+        Public method to get the tab index of the given editor.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QLabel or Editor)</dt>
+<dd>
+widget to get the index for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tab index of the editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="TabWidget.insertWidget" ID="TabWidget.insertWidget"></a>
+<h4>TabWidget.insertWidget</h4>
+<b>insertWidget</b>(<i>index, assembly, title</i>)
+<p>
+        Public method to insert a new tab.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index position for the new tab
+</dd>
+<dt><i>assembly</i> (QScintilla.EditorAssembly.EditorAssembly)</dt>
+<dd>
+editor assembly object to be added
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title for the new tab
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the inserted tab
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="TabWidget.mouseDoubleClickEvent" ID="TabWidget.mouseDoubleClickEvent"></a>
+<h4>TabWidget.mouseDoubleClickEvent</h4>
+<b>mouseDoubleClickEvent</b>(<i>event</i>)
+<p>
+        Protected method handling double click events.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QMouseEvent)</dt>
+<dd>
+reference to the event object
+</dd>
+</dl>
+<a NAME="TabWidget.removeWidget" ID="TabWidget.removeWidget"></a>
+<h4>TabWidget.removeWidget</h4>
+<b>removeWidget</b>(<i>widget</i>)
+<p>
+        Public method to remove a widget.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+widget to be removed
+</dd>
+</dl>
+<a NAME="TabWidget.setCurrentWidget" ID="TabWidget.setCurrentWidget"></a>
+<h4>TabWidget.setCurrentWidget</h4>
+<b>setCurrentWidget</b>(<i>assembly</i>)
+<p>
+        Public method to set the current tab by the given editor assembly.
+</p>
+
+<dl>
+
+<dt><i>assembly</i> (EditorAssembly.EditorAssembly)</dt>
+<dd>
+editor assembly to determine current tab from
+</dd>
+</dl>
+<a NAME="TabWidget.showIndicator" ID="TabWidget.showIndicator"></a>
+<h4>TabWidget.showIndicator</h4>
+<b>showIndicator</b>(<i>on</i>)
+<p>
+        Public slot to set the indicator on or off.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the state of the indicator
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Tabview" ID="Tabview"></a>
+<h2>Tabview</h2>
+<p>
+    Class implementing a tabbed viewmanager class embedded in a splitter.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>astViewerStateChanged(bool)</dt>
+<dd>
+emitted to signal a change in the
+        AST viewer state
+</dd>
+<dt>bookmarkToggled(Editor)</dt>
+<dd>
+emitted when a bookmark is toggled.
+</dd>
+<dt>breakpointToggled(Editor)</dt>
+<dd>
+emitted when a breakpoint is toggled.
+</dd>
+<dt>changeCaption(str)</dt>
+<dd>
+emitted if a change of the caption is necessary
+</dd>
+<dt>checkActions(Editor)</dt>
+<dd>
+emitted when some actions should be checked
+        for their status
+</dd>
+<dt>cursorChanged(Editor)</dt>
+<dd>
+emitted after the cursor position of the
+        active window has changed
+</dd>
+<dt>editorChanged(str)</dt>
+<dd>
+emitted when the current editor has changed
+</dd>
+<dt>editorChangedEd(Editor)</dt>
+<dd>
+emitted when the current editor has changed
+</dd>
+<dt>editorClosed(str)</dt>
+<dd>
+emitted just before an editor window gets closed
+</dd>
+<dt>editorClosedEd(Editor)</dt>
+<dd>
+emitted just before an editor window gets
+        closed
+</dd>
+<dt>editorLanguageChanged(Editor)</dt>
+<dd>
+emitted to signal a change of an
+        editors language
+</dd>
+<dt>editorLineChanged(str,int)</dt>
+<dd>
+emitted to signal a change of an
+        editor's current line (line is given one based)
+</dd>
+<dt>editorLineChangedEd(Editor,int)</dt>
+<dd>
+emitted to signal a change of an
+        editor's current line (line is given one based)
+</dd>
+<dt>editorOpened(str)</dt>
+<dd>
+emitted after an editor window was opened
+</dd>
+<dt>editorOpenedEd(Editor)</dt>
+<dd>
+emitted after an editor window was opened
+</dd>
+<dt>editorRenamed(str)</dt>
+<dd>
+emitted after an editor was renamed
+</dd>
+<dt>editorRenamedEd(Editor)</dt>
+<dd>
+emitted after an editor was renamed
+</dd>
+<dt>editorSaved(str)</dt>
+<dd>
+emitted after an editor window was saved
+</dd>
+<dt>editorSavedEd(Editor)</dt>
+<dd>
+emitted after an editor window was saved
+</dd>
+<dt>editorTextChanged(Editor)</dt>
+<dd>
+emitted to signal a change of an
+        editor's text
+</dd>
+<dt>lastEditorClosed()</dt>
+<dd>
+emitted after the last editor window was closed
+</dd>
+<dt>previewStateChanged(bool)</dt>
+<dd>
+emitted to signal a change in the
+        preview state
+</dd>
+<dt>syntaxerrorToggled(Editor)</dt>
+<dd>
+emitted when a syntax error is toggled.
+</dd>
+</dl>
+<h3>Derived from</h3>
+ViewManager
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Tabview.__init__">Tabview</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Tabview.__currentChanged">__currentChanged</a></td>
+<td>Private slot to handle the currentChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.__setIcon">__setIcon</a></td>
+<td>Private method to set the icon for the given editor.</td>
+</tr>
+<tr>
+<td><a href="#Tabview._addView">_addView</a></td>
+<td>Protected method to add a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Tabview._initWindowActions">_initWindowActions</a></td>
+<td>Protected method to define the user interface actions for window handling.</td>
+</tr>
+<tr>
+<td><a href="#Tabview._modificationStatusChanged">_modificationStatusChanged</a></td>
+<td>Protected slot to handle the modificationStatusChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#Tabview._removeAllViews">_removeAllViews</a></td>
+<td>Protected method to remove all views (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Tabview._removeView">_removeView</a></td>
+<td>Protected method to remove a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Tabview._showView">_showView</a></td>
+<td>Protected method to show a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Tabview._syntaxErrorToggled">_syntaxErrorToggled</a></td>
+<td>Protected slot to handle the syntaxerrorToggled signal.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.activeWindow">activeWindow</a></td>
+<td>Public method to return the active (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.addSplit">addSplit</a></td>
+<td>Public method used to split the current view.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.canCascade">canCascade</a></td>
+<td>Public method to signal if cascading of managed windows is available.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.canSplit">canSplit</a></td>
+<td>public method to signal if splitting of the view is available.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.canTile">canTile</a></td>
+<td>Public method to signal if tiling of managed windows is available.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.cascade">cascade</a></td>
+<td>Public method to cascade the managed windows.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.eventFilter">eventFilter</a></td>
+<td>Public method called to filter the event queue.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.getOpenEditorsForSession">getOpenEditorsForSession</a></td>
+<td>Public method to get a lists of all open editors.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.getSplitOrientation">getSplitOrientation</a></td>
+<td>Public method to get the orientation of the split view.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.getTabWidgetById">getTabWidgetById</a></td>
+<td>Public method to get a reference to a tab widget knowing its ID.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.insertView">insertView</a></td>
+<td>Public method to add a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.mainWidget">mainWidget</a></td>
+<td>Public method to return a reference to the main Widget of a specific view manager subclass.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.nextSplit">nextSplit</a></td>
+<td>Public slot used to move to the next split.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle the preferencesChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.prevSplit">prevSplit</a></td>
+<td>Public slot used to move to the previous split.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.removeSplit">removeSplit</a></td>
+<td>Public method used to remove the current split view or a split view by index.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.setEditorName">setEditorName</a></td>
+<td>Public method to change the displayed name of the editor.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.setSplitCount">setSplitCount</a></td>
+<td>Public method to set the number of split views.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.setSplitOrientation">setSplitOrientation</a></td>
+<td>Public method used to set the orientation of the split view.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.showWindowMenu">showWindowMenu</a></td>
+<td>Public method to set up the viewmanager part of the Window menu.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.splitCount">splitCount</a></td>
+<td>Public method to get the number of splitted views.</td>
+</tr>
+<tr>
+<td><a href="#Tabview.tile">tile</a></td>
+<td>Public method to tile the managed windows.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Tabview.__init__" ID="Tabview.__init__"></a>
+<h4>Tabview (Constructor)</h4>
+<b>Tabview</b>(<i>parent</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="Tabview.__currentChanged" ID="Tabview.__currentChanged"></a>
+<h4>Tabview.__currentChanged</h4>
+<b>__currentChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the currentChanged signal.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the current tab
+</dd>
+</dl>
+<a NAME="Tabview.__setIcon" ID="Tabview.__setIcon"></a>
+<h4>Tabview.__setIcon</h4>
+<b>__setIcon</b>(<i>editor, modified</i>)
+<p>
+        Private method to set the icon for the given editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to set the icon for
+</dd>
+<dt><i>modified</i> (bool)</dt>
+<dd>
+flag indicating the modification status
+</dd>
+</dl>
+<a NAME="Tabview._addView" ID="Tabview._addView"></a>
+<h4>Tabview._addView</h4>
+<b>_addView</b>(<i>win, fn=None, noName="", addNext=False, indexes=None</i>)
+<p>
+        Protected method to add a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (EditorAssembly)</dt>
+<dd>
+editor assembly to be added
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of this editor
+</dd>
+<dt><i>noName</i> (str)</dt>
+<dd>
+name to be used for an unnamed editor
+</dd>
+<dt><i>addNext</i> (bool)</dt>
+<dd>
+flag indicating to add the view next to the current
+            view
+</dd>
+<dt><i>indexes</i> (tuple of two int)</dt>
+<dd>
+of the editor, first the split view index, second the
+            index within the view
+</dd>
+</dl>
+<a NAME="Tabview._initWindowActions" ID="Tabview._initWindowActions"></a>
+<h4>Tabview._initWindowActions</h4>
+<b>_initWindowActions</b>(<i></i>)
+<p>
+        Protected method to define the user interface actions for window
+        handling.
+</p>
+
+<a NAME="Tabview._modificationStatusChanged" ID="Tabview._modificationStatusChanged"></a>
+<h4>Tabview._modificationStatusChanged</h4>
+<b>_modificationStatusChanged</b>(<i>modified, editor</i>)
+<p>
+        Protected slot to handle the modificationStatusChanged signal.
+</p>
+
+<dl>
+
+<dt><i>modified</i> (bool)</dt>
+<dd>
+flag indicating the modification status
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor that sent the signal
+</dd>
+</dl>
+<a NAME="Tabview._removeAllViews" ID="Tabview._removeAllViews"></a>
+<h4>Tabview._removeAllViews</h4>
+<b>_removeAllViews</b>(<i></i>)
+<p>
+        Protected method to remove all views (i.e. windows).
+</p>
+
+<a NAME="Tabview._removeView" ID="Tabview._removeView"></a>
+<h4>Tabview._removeView</h4>
+<b>_removeView</b>(<i>win</i>)
+<p>
+        Protected method to remove a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (Editor)</dt>
+<dd>
+editor window to be removed
+</dd>
+</dl>
+<a NAME="Tabview._showView" ID="Tabview._showView"></a>
+<h4>Tabview._showView</h4>
+<b>_showView</b>(<i>win, fn=None</i>)
+<p>
+        Protected method to show a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (EditorAssembly)</dt>
+<dd>
+editor assembly to be shown
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of this editor (unused)
+</dd>
+</dl>
+<a NAME="Tabview._syntaxErrorToggled" ID="Tabview._syntaxErrorToggled"></a>
+<h4>Tabview._syntaxErrorToggled</h4>
+<b>_syntaxErrorToggled</b>(<i>editor</i>)
+<p>
+        Protected slot to handle the syntaxerrorToggled signal.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor that sent the signal
+</dd>
+</dl>
+<a NAME="Tabview.activeWindow" ID="Tabview.activeWindow"></a>
+<h4>Tabview.activeWindow</h4>
+<b>activeWindow</b>(<i></i>)
+<p>
+        Public method to return the active (i.e. current) window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the active editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor
+</dd>
+</dl>
+<a NAME="Tabview.addSplit" ID="Tabview.addSplit"></a>
+<h4>Tabview.addSplit</h4>
+<b>addSplit</b>(<i></i>)
+<p>
+        Public method used to split the current view.
+</p>
+
+<a NAME="Tabview.canCascade" ID="Tabview.canCascade"></a>
+<h4>Tabview.canCascade</h4>
+<b>canCascade</b>(<i></i>)
+<p>
+        Public method to signal if cascading of managed windows is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating cascading of windows is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Tabview.canSplit" ID="Tabview.canSplit"></a>
+<h4>Tabview.canSplit</h4>
+<b>canSplit</b>(<i></i>)
+<p>
+        public method to signal if splitting of the view is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating splitting of the view is available.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Tabview.canTile" ID="Tabview.canTile"></a>
+<h4>Tabview.canTile</h4>
+<b>canTile</b>(<i></i>)
+<p>
+        Public method to signal if tiling of managed windows is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating tiling of windows is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Tabview.cascade" ID="Tabview.cascade"></a>
+<h4>Tabview.cascade</h4>
+<b>cascade</b>(<i></i>)
+<p>
+        Public method to cascade the managed windows.
+</p>
+
+<a NAME="Tabview.eventFilter" ID="Tabview.eventFilter"></a>
+<h4>Tabview.eventFilter</h4>
+<b>eventFilter</b>(<i>watched, event</i>)
+<p>
+        Public method called to filter the event queue.
+</p>
+
+<dl>
+
+<dt><i>watched</i> (QObject)</dt>
+<dd>
+the QObject being watched
+</dd>
+<dt><i>event</i> (QEvent)</dt>
+<dd>
+the event that occurred
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+always False
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Tabview.getOpenEditorsForSession" ID="Tabview.getOpenEditorsForSession"></a>
+<h4>Tabview.getOpenEditorsForSession</h4>
+<b>getOpenEditorsForSession</b>(<i></i>)
+<p>
+        Public method to get a lists of all open editors.
+</p>
+<p>
+        The returned list contains one list per split view. If the view manager
+        cannot split the view, only one list of editors is returned.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of list of editor references
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of list of Editor
+</dd>
+</dl>
+<a NAME="Tabview.getSplitOrientation" ID="Tabview.getSplitOrientation"></a>
+<h4>Tabview.getSplitOrientation</h4>
+<b>getSplitOrientation</b>(<i></i>)
+<p>
+        Public method to get the orientation of the split view.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+orientation of the split
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Qt.Orientation.Horizontal or Qt.Orientation.Vertical
+</dd>
+</dl>
+<a NAME="Tabview.getTabWidgetById" ID="Tabview.getTabWidgetById"></a>
+<h4>Tabview.getTabWidgetById</h4>
+<b>getTabWidgetById</b>(<i>id_</i>)
+<p>
+        Public method to get a reference to a tab widget knowing its ID.
+</p>
+
+<dl>
+
+<dt><i>id_</i> (int)</dt>
+<dd>
+id of the tab widget
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the tab widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+TabWidget
+</dd>
+</dl>
+<a NAME="Tabview.insertView" ID="Tabview.insertView"></a>
+<h4>Tabview.insertView</h4>
+<b>insertView</b>(<i>win, tabWidget, index, fn=None, noName=""</i>)
+<p>
+        Public method to add a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (EditorAssembly)</dt>
+<dd>
+editor assembly to be inserted
+</dd>
+<dt><i>tabWidget</i> (TabWidget)</dt>
+<dd>
+reference to the tab widget to insert the editor into
+</dd>
+<dt><i>index</i> (int)</dt>
+<dd>
+index position to insert at
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of this editor
+</dd>
+<dt><i>noName</i> (str)</dt>
+<dd>
+name to be used for an unnamed editor
+</dd>
+</dl>
+<a NAME="Tabview.mainWidget" ID="Tabview.mainWidget"></a>
+<h4>Tabview.mainWidget</h4>
+<b>mainWidget</b>(<i></i>)
+<p>
+        Public method to return a reference to the main Widget of a
+        specific view manager subclass.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the main widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<a NAME="Tabview.nextSplit" ID="Tabview.nextSplit"></a>
+<h4>Tabview.nextSplit</h4>
+<b>nextSplit</b>(<i></i>)
+<p>
+        Public slot used to move to the next split.
+</p>
+
+<a NAME="Tabview.preferencesChanged" ID="Tabview.preferencesChanged"></a>
+<h4>Tabview.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle the preferencesChanged signal.
+</p>
+
+<a NAME="Tabview.prevSplit" ID="Tabview.prevSplit"></a>
+<h4>Tabview.prevSplit</h4>
+<b>prevSplit</b>(<i></i>)
+<p>
+        Public slot used to move to the previous split.
+</p>
+
+<a NAME="Tabview.removeSplit" ID="Tabview.removeSplit"></a>
+<h4>Tabview.removeSplit</h4>
+<b>removeSplit</b>(<i>index=-1</i>)
+<p>
+        Public method used to remove the current split view or a split view
+        by index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the split to be removed (-1 means to
+            delete the current split)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful deletion
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Tabview.setEditorName" ID="Tabview.setEditorName"></a>
+<h4>Tabview.setEditorName</h4>
+<b>setEditorName</b>(<i>editor, newName</i>)
+<p>
+        Public method to change the displayed name of the editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window to be changed
+</dd>
+<dt><i>newName</i> (str)</dt>
+<dd>
+new name to be shown
+</dd>
+</dl>
+<a NAME="Tabview.setSplitCount" ID="Tabview.setSplitCount"></a>
+<h4>Tabview.setSplitCount</h4>
+<b>setSplitCount</b>(<i>count</i>)
+<p>
+        Public method to set the number of split views.
+</p>
+
+<dl>
+
+<dt><i>count</i> (int)</dt>
+<dd>
+number of split views
+</dd>
+</dl>
+<a NAME="Tabview.setSplitOrientation" ID="Tabview.setSplitOrientation"></a>
+<h4>Tabview.setSplitOrientation</h4>
+<b>setSplitOrientation</b>(<i>orientation</i>)
+<p>
+        Public method used to set the orientation of the split view.
+</p>
+
+<dl>
+
+<dt><i>orientation</i> (Qt.Orientation.Horizontal or Qt.Orientation.Vertical)</dt>
+<dd>
+orientation of the split
+</dd>
+</dl>
+<a NAME="Tabview.showWindowMenu" ID="Tabview.showWindowMenu"></a>
+<h4>Tabview.showWindowMenu</h4>
+<b>showWindowMenu</b>(<i>_windowMenu</i>)
+<p>
+        Public method to set up the viewmanager part of the Window menu.
+</p>
+
+<dl>
+
+<dt><i>_windowMenu</i> (QMenu)</dt>
+<dd>
+reference to the window menu (unused)
+</dd>
+</dl>
+<a NAME="Tabview.splitCount" ID="Tabview.splitCount"></a>
+<h4>Tabview.splitCount</h4>
+<b>splitCount</b>(<i></i>)
+<p>
+        Public method to get the number of splitted views.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of splitted views
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Tabview.tile" ID="Tabview.tile"></a>
+<h4>Tabview.tile</h4>
+<b>tile</b>(<i></i>)
+<p>
+        Public method to tile the managed windows.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonFileManagerWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonFileManagerWidget</h1>
+<p>
+Module implementing a file manager for MicroPython devices.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget">MicroPythonFileManagerWidget</a></td>
+<td>Class implementing a file manager for MicroPython devices.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicroPythonFileManagerWidget" ID="MicroPythonFileManagerWidget"></a>
+<h2>MicroPythonFileManagerWidget</h2>
+<p>
+    Class implementing a file manager for MicroPython devices.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_MicroPythonFileManagerWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__init__">MicroPythonFileManagerWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__changeDeviceDirectory">__changeDeviceDirectory</a></td>
+<td>Private slot to change the current directory of the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__changeLocalDirectory">__changeLocalDirectory</a></td>
+<td>Private slot to change the local directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__clearDeviceSelection">__clearDeviceSelection</a></td>
+<td>Private slot to clear the local selection.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__clearLocalSelection">__clearLocalSelection</a></td>
+<td>Private slot to clear the local selection.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__createDeviceDirectory">__createDeviceDirectory</a></td>
+<td>Private slot to create a directory on the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__createLocalDirectory">__createLocalDirectory</a></td>
+<td>Private slot to create a local directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__deleteDeviceDirectory">__deleteDeviceDirectory</a></td>
+<td>Private slot to delete an empty directory on the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__deleteDeviceDirectoryTree">__deleteDeviceDirectoryTree</a></td>
+<td>Private slot to delete a directory and all its subdirectories recursively.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__deleteDeviceFile">__deleteDeviceFile</a></td>
+<td>Private slot to delete a file.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__deleteLocalDirectoryTree">__deleteLocalDirectoryTree</a></td>
+<td>Private slot to delete a local directory tree.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__deleteLocalFile">__deleteLocalFile</a></td>
+<td>Private slot to delete a local file.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__deviceHiddenChanged">__deviceHiddenChanged</a></td>
+<td>Private slot handling a change of the device show hidden menu entry.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__findDirectoryItem">__findDirectoryItem</a></td>
+<td>Private method to find a file tree item for the given path.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__fsInfoResultReceived">__fsInfoResultReceived</a></td>
+<td>Private slot to show the file system information of the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__handleCurrentDir">__handleCurrentDir</a></td>
+<td>Private slot to handle a change of the current directory of the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__handleError">__handleError</a></td>
+<td>Private slot to handle errors.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__handleGetDone">__handleGetDone</a></td>
+<td>Private slot handling a successful copy of a file from the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__handleLongListFiles">__handleLongListFiles</a></td>
+<td>Private slot to receive a long directory listing.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__handleRsyncDone">__handleRsyncDone</a></td>
+<td>Private method to handle the completion of the rsync operation.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__handleRsyncProgressMessage">__handleRsyncProgressMessage</a></td>
+<td>Private slot handling progress messages sent by the file manager.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__isFileInList">__isFileInList</a></td>
+<td>Private method to check, if a file name is contained in a tree widget.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__listLocalFiles">__listLocalFiles</a></td>
+<td>Private method to populate the local files list.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__localHiddenChanged">__localHiddenChanged</a></td>
+<td>Private slot handling a change of the local show hidden menu entry.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__newDeviceFile">__newDeviceFile</a></td>
+<td>Private slot to create a new file on the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__newDeviceList">__newDeviceList</a></td>
+<td>Private slot to initiate a new long list of the device directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__newLocalFile">__newLocalFile</a></td>
+<td>Private slot to create a new local file.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__openDeviceFile">__openDeviceFile</a></td>
+<td>Private slot to open the selected device file in an editor window.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__openLocalFile">__openLocalFile</a></td>
+<td>Private slot to open the selected local file in an editor window.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__progressInfoDialogFinished">__progressInfoDialogFinished</a></td>
+<td>Private slot handling the closing of the progress info dialog.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__renameDeviceFile">__renameDeviceFile</a></td>
+<td>Private slot to rename a file on the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__renameLocalFile">__renameLocalFile</a></td>
+<td>Private slot to rename a file on the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__repopulateLocalFilesList">__repopulateLocalFilesList</a></td>
+<td>Private method to re-populate the local files tree.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__showDeviceContextMenu">__showDeviceContextMenu</a></td>
+<td>Private slot to show the REPL context menu.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__showFileSystemInfo">__showFileSystemInfo</a></td>
+<td>Private slot to show some file system information.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__showLocalContextMenu">__showLocalContextMenu</a></td>
+<td>Private slot to show the REPL context menu.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.__updateSaveButtonStates">__updateSaveButtonStates</a></td>
+<td>Private slot to update the enabled state of the save buttons.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_deviceCwd_textChanged">on_deviceCwd_textChanged</a></td>
+<td>Private slot handling a change of the current device working directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemActivated">on_deviceFileTreeWidget_itemActivated</a></td>
+<td>Private slot to handle the activation of a device item.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemExpanded">on_deviceFileTreeWidget_itemExpanded</a></td>
+<td>Private slot handling the expansion of a local directory item.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemSelectionChanged">on_deviceFileTreeWidget_itemSelectionChanged</a></td>
+<td>Private slot handling a change of selection in the local pane.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_deviceHomeButton_clicked">on_deviceHomeButton_clicked</a></td>
+<td>Private slot to move to the device home directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_deviceReloadButton_clicked">on_deviceReloadButton_clicked</a></td>
+<td>Private slot to reload the device list.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_deviceUpButton_clicked">on_deviceUpButton_clicked</a></td>
+<td>Private slot to go up one directory level on the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_getAsButton_clicked">on_getAsButton_clicked</a></td>
+<td>Private slot to copy the selected file from the connected device with a different name.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_getButton_clicked">on_getButton_clicked</a></td>
+<td>Private slot to copy the selected file from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_localCwd_textChanged">on_localCwd_textChanged</a></td>
+<td>Private slot handling a change of the current local working directory.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_localFileTreeWidget_itemActivated">on_localFileTreeWidget_itemActivated</a></td>
+<td>Private slot to handle the activation of a local item.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_localFileTreeWidget_itemExpanded">on_localFileTreeWidget_itemExpanded</a></td>
+<td>Private slot handling the expansion of a local directory item.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_localFileTreeWidget_itemSelectionChanged">on_localFileTreeWidget_itemSelectionChanged</a></td>
+<td>Private slot handling a change of selection in the local pane.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_localHomeButton_clicked">on_localHomeButton_clicked</a></td>
+<td>Private slot to change directory to the configured workspace.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_localReloadButton_clicked">on_localReloadButton_clicked</a></td>
+<td>Private slot to reload the local list.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_localUpButton_clicked">on_localUpButton_clicked</a></td>
+<td>Private slot to go up one directory level.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_openButton_clicked">on_openButton_clicked</a></td>
+<td>Private slot to open the selected file in a new editor.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_putAsButton_clicked">on_putAsButton_clicked</a></td>
+<td>Private slot to copy the selected file to the connected device with a different name.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_putButton_clicked">on_putButton_clicked</a></td>
+<td>Private slot to copy the selected file to the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_saveAsButton_clicked">on_saveAsButton_clicked</a></td>
+<td>Private slot to save the current editor in a new file on the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_saveButton_clicked">on_saveButton_clicked</a></td>
+<td>Private slot to save the text of the current editor to a file on the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.on_syncButton_clicked">on_syncButton_clicked</a></td>
+<td>Private slot to synchronize the local directory to the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.start">start</a></td>
+<td>Public method to start the widget.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonFileManagerWidget.stop">stop</a></td>
+<td>Public method to stop the widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonFileManagerWidget.__init__" ID="MicroPythonFileManagerWidget.__init__"></a>
+<h4>MicroPythonFileManagerWidget (Constructor)</h4>
+<b>MicroPythonFileManagerWidget</b>(<i>fileManager, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>fileManager</i> (MicroPythonFileManager)</dt>
+<dd>
+reference to the device file manager interface
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__changeDeviceDirectory" ID="MicroPythonFileManagerWidget.__changeDeviceDirectory"></a>
+<h4>MicroPythonFileManagerWidget.__changeDeviceDirectory</h4>
+<b>__changeDeviceDirectory</b>(<i></i>)
+<p>
+        Private slot to change the current directory of the device.
+</p>
+<p>
+        Note: This triggers a re-population of the device list for the new
+        current directory.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__changeLocalDirectory" ID="MicroPythonFileManagerWidget.__changeLocalDirectory"></a>
+<h4>MicroPythonFileManagerWidget.__changeLocalDirectory</h4>
+<b>__changeLocalDirectory</b>(<i>localDevice=False</i>)
+<p>
+        Private slot to change the local directory.
+</p>
+
+<dl>
+
+<dt><i>localDevice</i> (bool)</dt>
+<dd>
+flag indicating device access via local file system
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__clearDeviceSelection" ID="MicroPythonFileManagerWidget.__clearDeviceSelection"></a>
+<h4>MicroPythonFileManagerWidget.__clearDeviceSelection</h4>
+<b>__clearDeviceSelection</b>(<i></i>)
+<p>
+        Private slot to clear the local selection.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__clearLocalSelection" ID="MicroPythonFileManagerWidget.__clearLocalSelection"></a>
+<h4>MicroPythonFileManagerWidget.__clearLocalSelection</h4>
+<b>__clearLocalSelection</b>(<i></i>)
+<p>
+        Private slot to clear the local selection.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__createDeviceDirectory" ID="MicroPythonFileManagerWidget.__createDeviceDirectory"></a>
+<h4>MicroPythonFileManagerWidget.__createDeviceDirectory</h4>
+<b>__createDeviceDirectory</b>(<i></i>)
+<p>
+        Private slot to create a directory on the device.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__createLocalDirectory" ID="MicroPythonFileManagerWidget.__createLocalDirectory"></a>
+<h4>MicroPythonFileManagerWidget.__createLocalDirectory</h4>
+<b>__createLocalDirectory</b>(<i>localDevice=False</i>)
+<p>
+        Private slot to create a local directory.
+</p>
+
+<dl>
+
+<dt><i>localDevice</i> (bool)</dt>
+<dd>
+flag indicating device access via local file system
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__deleteDeviceDirectory" ID="MicroPythonFileManagerWidget.__deleteDeviceDirectory"></a>
+<h4>MicroPythonFileManagerWidget.__deleteDeviceDirectory</h4>
+<b>__deleteDeviceDirectory</b>(<i></i>)
+<p>
+        Private slot to delete an empty directory on the device.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__deleteDeviceDirectoryTree" ID="MicroPythonFileManagerWidget.__deleteDeviceDirectoryTree"></a>
+<h4>MicroPythonFileManagerWidget.__deleteDeviceDirectoryTree</h4>
+<b>__deleteDeviceDirectoryTree</b>(<i></i>)
+<p>
+        Private slot to delete a directory and all its subdirectories
+        recursively.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__deleteDeviceFile" ID="MicroPythonFileManagerWidget.__deleteDeviceFile"></a>
+<h4>MicroPythonFileManagerWidget.__deleteDeviceFile</h4>
+<b>__deleteDeviceFile</b>(<i></i>)
+<p>
+        Private slot to delete a file.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__deleteLocalDirectoryTree" ID="MicroPythonFileManagerWidget.__deleteLocalDirectoryTree"></a>
+<h4>MicroPythonFileManagerWidget.__deleteLocalDirectoryTree</h4>
+<b>__deleteLocalDirectoryTree</b>(<i>localDevice=False</i>)
+<p>
+        Private slot to delete a local directory tree.
+</p>
+
+<dl>
+
+<dt><i>localDevice</i> (bool)</dt>
+<dd>
+flag indicating device access via local file system
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__deleteLocalFile" ID="MicroPythonFileManagerWidget.__deleteLocalFile"></a>
+<h4>MicroPythonFileManagerWidget.__deleteLocalFile</h4>
+<b>__deleteLocalFile</b>(<i>localDevice=False</i>)
+<p>
+        Private slot to delete a local file.
+</p>
+
+<dl>
+
+<dt><i>localDevice</i> (bool)</dt>
+<dd>
+flag indicating device access via local file system
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__deviceHiddenChanged" ID="MicroPythonFileManagerWidget.__deviceHiddenChanged"></a>
+<h4>MicroPythonFileManagerWidget.__deviceHiddenChanged</h4>
+<b>__deviceHiddenChanged</b>(<i>checked</i>)
+<p>
+        Private slot handling a change of the device show hidden menu entry.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+new check state of the action
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__findDirectoryItem" ID="MicroPythonFileManagerWidget.__findDirectoryItem"></a>
+<h4>MicroPythonFileManagerWidget.__findDirectoryItem</h4>
+<b>__findDirectoryItem</b>(<i>dirPath, fileTreeWidget</i>)
+<p>
+        Private method to find a file tree item for the given path.
+</p>
+
+<dl>
+
+<dt><i>dirPath</i> (str)</dt>
+<dd>
+path to be searched for
+</dd>
+<dt><i>fileTreeWidget</i> (QTreeWidget)</dt>
+<dd>
+reference to the file list to be searched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the item for the path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__fsInfoResultReceived" ID="MicroPythonFileManagerWidget.__fsInfoResultReceived"></a>
+<h4>MicroPythonFileManagerWidget.__fsInfoResultReceived</h4>
+<b>__fsInfoResultReceived</b>(<i>fsinfo</i>)
+<p>
+        Private slot to show the file system information of the device.
+</p>
+
+<dl>
+
+<dt><i>fsinfo</i> (tuple of tuples of (str, int, int, int))</dt>
+<dd>
+tuple of tuples containing the file system name, the
+            total size, the used size and the free size
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__handleCurrentDir" ID="MicroPythonFileManagerWidget.__handleCurrentDir"></a>
+<h4>MicroPythonFileManagerWidget.__handleCurrentDir</h4>
+<b>__handleCurrentDir</b>(<i>dirname</i>)
+<p>
+        Private slot to handle a change of the current directory of the device.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the current directory
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__handleError" ID="MicroPythonFileManagerWidget.__handleError"></a>
+<h4>MicroPythonFileManagerWidget.__handleError</h4>
+<b>__handleError</b>(<i>method, error</i>)
+<p>
+        Private slot to handle errors.
+</p>
+
+<dl>
+
+<dt><i>method</i> (str)</dt>
+<dd>
+name of the method the error occured in
+</dd>
+<dt><i>error</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__handleGetDone" ID="MicroPythonFileManagerWidget.__handleGetDone"></a>
+<h4>MicroPythonFileManagerWidget.__handleGetDone</h4>
+<b>__handleGetDone</b>(<i>_deviceFile, localFile</i>)
+<p>
+        Private slot handling a successful copy of a file from the device.
+</p>
+
+<dl>
+
+<dt><i>_deviceFile</i> (str)</dt>
+<dd>
+name of the file on the device (unused)
+</dd>
+<dt><i>localFile</i> (str)</dt>
+<dd>
+name of the local file
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__handleLongListFiles" ID="MicroPythonFileManagerWidget.__handleLongListFiles"></a>
+<h4>MicroPythonFileManagerWidget.__handleLongListFiles</h4>
+<b>__handleLongListFiles</b>(<i>filesList</i>)
+<p>
+        Private slot to receive a long directory listing.
+</p>
+
+<dl>
+
+<dt><i>filesList</i> (tuple of (str, str, str, str))</dt>
+<dd>
+tuple containing tuples with name, mode, size and time
+            for each directory entry
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__handleRsyncDone" ID="MicroPythonFileManagerWidget.__handleRsyncDone"></a>
+<h4>MicroPythonFileManagerWidget.__handleRsyncDone</h4>
+<b>__handleRsyncDone</b>(<i>_localDir, _deviceDir</i>)
+<p>
+        Private method to handle the completion of the rsync operation.
+</p>
+
+<dl>
+
+<dt><i>_localDir</i> (str)</dt>
+<dd>
+name of the local directory (unused)
+</dd>
+<dt><i>_deviceDir</i> (str)</dt>
+<dd>
+name of the device directory (unused)
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__handleRsyncProgressMessage" ID="MicroPythonFileManagerWidget.__handleRsyncProgressMessage"></a>
+<h4>MicroPythonFileManagerWidget.__handleRsyncProgressMessage</h4>
+<b>__handleRsyncProgressMessage</b>(<i>message</i>)
+<p>
+        Private slot handling progress messages sent by the file manager.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be shown
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__isFileInList" ID="MicroPythonFileManagerWidget.__isFileInList"></a>
+<h4>MicroPythonFileManagerWidget.__isFileInList</h4>
+<b>__isFileInList</b>(<i>filename, parent</i>)
+<p>
+        Private method to check, if a file name is contained in a tree widget.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to check
+</dd>
+<dt><i>parent</i> (QTreeWidget or QTreeWidgetItem)</dt>
+<dd>
+reference to the parent to be checked against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the file name is present
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__listLocalFiles" ID="MicroPythonFileManagerWidget.__listLocalFiles"></a>
+<h4>MicroPythonFileManagerWidget.__listLocalFiles</h4>
+<b>__listLocalFiles</b>(<i>dirname="", localDevice=False, parentItem=None</i>)
+<p>
+        Private method to populate the local files list.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str (optional))</dt>
+<dd>
+name of the local directory to be listed (defaults to "")
+</dd>
+<dt><i>localDevice</i> (bool (optional))</dt>
+<dd>
+flag indicating device access via local file system
+            (defaults to False)
+</dd>
+<dt><i>parentItem</i> (QTreeWidgetItem (optional))</dt>
+<dd>
+reference to the parent item (defaults to None)
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__localHiddenChanged" ID="MicroPythonFileManagerWidget.__localHiddenChanged"></a>
+<h4>MicroPythonFileManagerWidget.__localHiddenChanged</h4>
+<b>__localHiddenChanged</b>(<i>checked</i>)
+<p>
+        Private slot handling a change of the local show hidden menu entry.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+new check state of the action
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__newDeviceFile" ID="MicroPythonFileManagerWidget.__newDeviceFile"></a>
+<h4>MicroPythonFileManagerWidget.__newDeviceFile</h4>
+<b>__newDeviceFile</b>(<i></i>)
+<p>
+        Private slot to create a new file on the connected device.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__newDeviceList" ID="MicroPythonFileManagerWidget.__newDeviceList"></a>
+<h4>MicroPythonFileManagerWidget.__newDeviceList</h4>
+<b>__newDeviceList</b>(<i></i>)
+<p>
+        Private slot to initiate a new long list of the device directory.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__newLocalFile" ID="MicroPythonFileManagerWidget.__newLocalFile"></a>
+<h4>MicroPythonFileManagerWidget.__newLocalFile</h4>
+<b>__newLocalFile</b>(<i>localDevice=False</i>)
+<p>
+        Private slot to create a new local file.
+</p>
+
+<dl>
+
+<dt><i>localDevice</i> (bool)</dt>
+<dd>
+flag indicating device access via local file system
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__openDeviceFile" ID="MicroPythonFileManagerWidget.__openDeviceFile"></a>
+<h4>MicroPythonFileManagerWidget.__openDeviceFile</h4>
+<b>__openDeviceFile</b>(<i></i>)
+<p>
+        Private slot to open the selected device file in an editor window.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__openLocalFile" ID="MicroPythonFileManagerWidget.__openLocalFile"></a>
+<h4>MicroPythonFileManagerWidget.__openLocalFile</h4>
+<b>__openLocalFile</b>(<i></i>)
+<p>
+        Private slot to open the selected local file in an editor window.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__progressInfoDialogFinished" ID="MicroPythonFileManagerWidget.__progressInfoDialogFinished"></a>
+<h4>MicroPythonFileManagerWidget.__progressInfoDialogFinished</h4>
+<b>__progressInfoDialogFinished</b>(<i></i>)
+<p>
+        Private slot handling the closing of the progress info dialog.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__renameDeviceFile" ID="MicroPythonFileManagerWidget.__renameDeviceFile"></a>
+<h4>MicroPythonFileManagerWidget.__renameDeviceFile</h4>
+<b>__renameDeviceFile</b>(<i></i>)
+<p>
+        Private slot to rename a file on the device.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__renameLocalFile" ID="MicroPythonFileManagerWidget.__renameLocalFile"></a>
+<h4>MicroPythonFileManagerWidget.__renameLocalFile</h4>
+<b>__renameLocalFile</b>(<i>localDevice=False</i>)
+<p>
+        Private slot to rename a file on the device.
+</p>
+
+<dl>
+
+<dt><i>localDevice</i> (bool (optional))</dt>
+<dd>
+flag indicating device access via local file system
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__repopulateLocalFilesList" ID="MicroPythonFileManagerWidget.__repopulateLocalFilesList"></a>
+<h4>MicroPythonFileManagerWidget.__repopulateLocalFilesList</h4>
+<b>__repopulateLocalFilesList</b>(<i>dirname="", localDevice=False</i>)
+<p>
+        Private method to re-populate the local files tree.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str (optional))</dt>
+<dd>
+name of the local directory to be listed (defaults to "")
+</dd>
+<dt><i>localDevice</i> (bool (optional))</dt>
+<dd>
+flag indicating device access via local file system
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__showDeviceContextMenu" ID="MicroPythonFileManagerWidget.__showDeviceContextMenu"></a>
+<h4>MicroPythonFileManagerWidget.__showDeviceContextMenu</h4>
+<b>__showDeviceContextMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show the REPL context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position to show the menu at
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__showFileSystemInfo" ID="MicroPythonFileManagerWidget.__showFileSystemInfo"></a>
+<h4>MicroPythonFileManagerWidget.__showFileSystemInfo</h4>
+<b>__showFileSystemInfo</b>(<i></i>)
+<p>
+        Private slot to show some file system information.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.__showLocalContextMenu" ID="MicroPythonFileManagerWidget.__showLocalContextMenu"></a>
+<h4>MicroPythonFileManagerWidget.__showLocalContextMenu</h4>
+<b>__showLocalContextMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show the REPL context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position to show the menu at
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.__updateSaveButtonStates" ID="MicroPythonFileManagerWidget.__updateSaveButtonStates"></a>
+<h4>MicroPythonFileManagerWidget.__updateSaveButtonStates</h4>
+<b>__updateSaveButtonStates</b>(<i></i>)
+<p>
+        Private slot to update the enabled state of the save buttons.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_deviceCwd_textChanged" ID="MicroPythonFileManagerWidget.on_deviceCwd_textChanged"></a>
+<h4>MicroPythonFileManagerWidget.on_deviceCwd_textChanged</h4>
+<b>on_deviceCwd_textChanged</b>(<i>cwd</i>)
+<p>
+        Private slot handling a change of the current device working directory.
+</p>
+
+<dl>
+
+<dt><i>cwd</i> (str)</dt>
+<dd>
+current device working directory
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemActivated" ID="MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemActivated"></a>
+<h4>MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemActivated</h4>
+<b>on_deviceFileTreeWidget_itemActivated</b>(<i>item, _column</i>)
+<p>
+        Private slot to handle the activation of a device item.
+</p>
+<p>
+        If the item is a directory, the current working directory is changed
+        and the list will be re-populated for this directory.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column of the activation (unused)
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemExpanded" ID="MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemExpanded"></a>
+<h4>MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemExpanded</h4>
+<b>on_deviceFileTreeWidget_itemExpanded</b>(<i>item</i>)
+<p>
+        Private slot handling the expansion of a local directory item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the directory item
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemSelectionChanged" ID="MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemSelectionChanged"></a>
+<h4>MicroPythonFileManagerWidget.on_deviceFileTreeWidget_itemSelectionChanged</h4>
+<b>on_deviceFileTreeWidget_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot handling a change of selection in the local pane.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_deviceHomeButton_clicked" ID="MicroPythonFileManagerWidget.on_deviceHomeButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_deviceHomeButton_clicked</h4>
+<b>on_deviceHomeButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move to the device home directory.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_deviceReloadButton_clicked" ID="MicroPythonFileManagerWidget.on_deviceReloadButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_deviceReloadButton_clicked</h4>
+<b>on_deviceReloadButton_clicked</b>(<i></i>)
+<p>
+        Private slot to reload the device list.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_deviceUpButton_clicked" ID="MicroPythonFileManagerWidget.on_deviceUpButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_deviceUpButton_clicked</h4>
+<b>on_deviceUpButton_clicked</b>(<i></i>)
+<p>
+        Private slot to go up one directory level on the device.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_getAsButton_clicked" ID="MicroPythonFileManagerWidget.on_getAsButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_getAsButton_clicked</h4>
+<b>on_getAsButton_clicked</b>(<i></i>)
+<p>
+        Private slot to copy the selected file from the connected device
+        with a different name.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_getButton_clicked" ID="MicroPythonFileManagerWidget.on_getButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_getButton_clicked</h4>
+<b>on_getButton_clicked</b>(<i>getAs=False</i>)
+<p>
+        Private slot to copy the selected file from the connected device.
+</p>
+
+<dl>
+
+<dt><i>getAs</i> (bool)</dt>
+<dd>
+flag indicating to give it a new name
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.on_localCwd_textChanged" ID="MicroPythonFileManagerWidget.on_localCwd_textChanged"></a>
+<h4>MicroPythonFileManagerWidget.on_localCwd_textChanged</h4>
+<b>on_localCwd_textChanged</b>(<i>cwd</i>)
+<p>
+        Private slot handling a change of the current local working directory.
+</p>
+
+<dl>
+
+<dt><i>cwd</i> (str)</dt>
+<dd>
+current local working directory
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.on_localFileTreeWidget_itemActivated" ID="MicroPythonFileManagerWidget.on_localFileTreeWidget_itemActivated"></a>
+<h4>MicroPythonFileManagerWidget.on_localFileTreeWidget_itemActivated</h4>
+<b>on_localFileTreeWidget_itemActivated</b>(<i>item, _column</i>)
+<p>
+        Private slot to handle the activation of a local item.
+</p>
+<p>
+        If the item is a directory, the list will be re-populated for this
+        directory.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column of the activation (unused)
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.on_localFileTreeWidget_itemExpanded" ID="MicroPythonFileManagerWidget.on_localFileTreeWidget_itemExpanded"></a>
+<h4>MicroPythonFileManagerWidget.on_localFileTreeWidget_itemExpanded</h4>
+<b>on_localFileTreeWidget_itemExpanded</b>(<i>item</i>)
+<p>
+        Private slot handling the expansion of a local directory item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the directory item
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.on_localFileTreeWidget_itemSelectionChanged" ID="MicroPythonFileManagerWidget.on_localFileTreeWidget_itemSelectionChanged"></a>
+<h4>MicroPythonFileManagerWidget.on_localFileTreeWidget_itemSelectionChanged</h4>
+<b>on_localFileTreeWidget_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot handling a change of selection in the local pane.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_localHomeButton_clicked" ID="MicroPythonFileManagerWidget.on_localHomeButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_localHomeButton_clicked</h4>
+<b>on_localHomeButton_clicked</b>(<i></i>)
+<p>
+        Private slot to change directory to the configured workspace.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_localReloadButton_clicked" ID="MicroPythonFileManagerWidget.on_localReloadButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_localReloadButton_clicked</h4>
+<b>on_localReloadButton_clicked</b>(<i></i>)
+<p>
+        Private slot to reload the local list.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_localUpButton_clicked" ID="MicroPythonFileManagerWidget.on_localUpButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_localUpButton_clicked</h4>
+<b>on_localUpButton_clicked</b>(<i></i>)
+<p>
+        Private slot to go up one directory level.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_openButton_clicked" ID="MicroPythonFileManagerWidget.on_openButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_openButton_clicked</h4>
+<b>on_openButton_clicked</b>(<i></i>)
+<p>
+        Private slot to open the selected file in a new editor.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_putAsButton_clicked" ID="MicroPythonFileManagerWidget.on_putAsButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_putAsButton_clicked</h4>
+<b>on_putAsButton_clicked</b>(<i></i>)
+<p>
+        Private slot to copy the selected file to the connected device
+        with a different name.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_putButton_clicked" ID="MicroPythonFileManagerWidget.on_putButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_putButton_clicked</h4>
+<b>on_putButton_clicked</b>(<i>putAs=False</i>)
+<p>
+        Private slot to copy the selected file to the connected device.
+</p>
+
+<dl>
+
+<dt><i>putAs</i> (bool)</dt>
+<dd>
+flag indicating to give it a new name
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.on_saveAsButton_clicked" ID="MicroPythonFileManagerWidget.on_saveAsButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_saveAsButton_clicked</h4>
+<b>on_saveAsButton_clicked</b>(<i></i>)
+<p>
+        Private slot to save the current editor in a new file on the connected device.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.on_saveButton_clicked" ID="MicroPythonFileManagerWidget.on_saveButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_saveButton_clicked</h4>
+<b>on_saveButton_clicked</b>(<i>saveAs=False</i>)
+<p>
+        Private slot to save the text of the current editor to a file on the device.
+</p>
+
+<dl>
+
+<dt><i>saveAs</i> (bool)</dt>
+<dd>
+flag indicating to save the file with a new name
+</dd>
+</dl>
+<a NAME="MicroPythonFileManagerWidget.on_syncButton_clicked" ID="MicroPythonFileManagerWidget.on_syncButton_clicked"></a>
+<h4>MicroPythonFileManagerWidget.on_syncButton_clicked</h4>
+<b>on_syncButton_clicked</b>(<i></i>)
+<p>
+        Private slot to synchronize the local directory to the device.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.start" ID="MicroPythonFileManagerWidget.start"></a>
+<h4>MicroPythonFileManagerWidget.start</h4>
+<b>start</b>(<i></i>)
+<p>
+        Public method to start the widget.
+</p>
+
+<a NAME="MicroPythonFileManagerWidget.stop" ID="MicroPythonFileManagerWidget.stop"></a>
+<h4>MicroPythonFileManagerWidget.stop</h4>
+<b>stop</b>(<i></i>)
+<p>
+        Public method to stop the widget.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

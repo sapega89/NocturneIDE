@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.RemoteServer.EricServerFileSystemRequestHandler</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.RemoteServer.EricServerFileSystemRequestHandler</h1>
+<p>
+Module implementing the file system request handler of the eric-ide server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler">EricServerFileSystemRequestHandler</a></td>
+<td>Class implementing the file system request handler of the eric-ide server.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricServerFileSystemRequestHandler" ID="EricServerFileSystemRequestHandler"></a>
+<h2>EricServerFileSystemRequestHandler</h2>
+<p>
+    Class implementing the file system request handler of the eric-ide server.
+</p>
+
+<h3>Derived from</h3>
+EricServerBaseRequestHandler
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__init__">EricServerFileSystemRequestHandler</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__access">__access</a></td>
+<td>Private method to test, if the eric-ide server has the given access rights to a file or directory..</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__chdir">__chdir</a></td>
+<td>Private method to change the current working directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__dirEntries">__dirEntries</a></td>
+<td>Private method to get a list of all files and directories of a given directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__exists">__exists</a></td>
+<td>Private method to check if a file or directory of the given name exists.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__expanduser">__expanduser</a></td>
+<td>Private method to replace an initial component of ~ or ~user replaced.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__getPathSeparator">__getPathSeparator</a></td>
+<td>Private method to report the path separator.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__getcwd">__getcwd</a></td>
+<td>Private method to report the current working directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__listdir">__listdir</a></td>
+<td>Private method to report a directory listing.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__makedirs">__makedirs</a></td>
+<td>Private method to create a new directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__mkdir">__mkdir</a></td>
+<td>Private method to create a new directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__readFile">__readFile</a></td>
+<td>Private method to read the contents of a file.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__remove">__remove</a></td>
+<td>Private method to delete a file.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__replace">__replace</a></td>
+<td>Private method to replace (rename) a file or directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__rmdir">__rmdir</a></td>
+<td>Private method to delete a directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__scanDirectory">__scanDirectory</a></td>
+<td>Private method to scan a given directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__shutilCopy">__shutilCopy</a></td>
+<td>Private method to copy a source file to a destination file or directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__shutilRmtree">__shutilRmtree</a></td>
+<td>Private method to delete an entire directory tree.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__stat">__stat</a></td>
+<td>Private method to get the status of a file.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.__writeFile">__writeFile</a></td>
+<td>Private method to write data into a file.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemRequestHandler.sendError">sendError</a></td>
+<td>Public method to send an error report to the IDE.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricServerFileSystemRequestHandler.__init__" ID="EricServerFileSystemRequestHandler.__init__"></a>
+<h4>EricServerFileSystemRequestHandler (Constructor)</h4>
+<b>EricServerFileSystemRequestHandler</b>(<i>server</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>server</i> (EricServer)</dt>
+<dd>
+reference to the eric-ide server object
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__access" ID="EricServerFileSystemRequestHandler.__access"></a>
+<h4>EricServerFileSystemRequestHandler.__access</h4>
+<b>__access</b>(<i>params</i>)
+<p>
+        Private method to test, if the eric-ide server has the given access rights
+        to a file or directory..
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__chdir" ID="EricServerFileSystemRequestHandler.__chdir"></a>
+<h4>EricServerFileSystemRequestHandler.__chdir</h4>
+<b>__chdir</b>(<i>params</i>)
+<p>
+        Private method to change the current working directory.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__dirEntries" ID="EricServerFileSystemRequestHandler.__dirEntries"></a>
+<h4>EricServerFileSystemRequestHandler.__dirEntries</h4>
+<b>__dirEntries</b>(<i>params</i>)
+<p>
+        Private method to get a list of all files and directories of a given directory.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__exists" ID="EricServerFileSystemRequestHandler.__exists"></a>
+<h4>EricServerFileSystemRequestHandler.__exists</h4>
+<b>__exists</b>(<i>params</i>)
+<p>
+        Private method to check if a file or directory of the given name exists.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__expanduser" ID="EricServerFileSystemRequestHandler.__expanduser"></a>
+<h4>EricServerFileSystemRequestHandler.__expanduser</h4>
+<b>__expanduser</b>(<i>params</i>)
+<p>
+        Private method to replace an initial component of ~ or ~user replaced.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__getPathSeparator" ID="EricServerFileSystemRequestHandler.__getPathSeparator"></a>
+<h4>EricServerFileSystemRequestHandler.__getPathSeparator</h4>
+<b>__getPathSeparator</b>(<i>params</i>)
+<p>
+        Private method to report the path separator.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__getcwd" ID="EricServerFileSystemRequestHandler.__getcwd"></a>
+<h4>EricServerFileSystemRequestHandler.__getcwd</h4>
+<b>__getcwd</b>(<i>params</i>)
+<p>
+        Private method to report the current working directory.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__listdir" ID="EricServerFileSystemRequestHandler.__listdir"></a>
+<h4>EricServerFileSystemRequestHandler.__listdir</h4>
+<b>__listdir</b>(<i>params</i>)
+<p>
+        Private method to report a directory listing.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__makedirs" ID="EricServerFileSystemRequestHandler.__makedirs"></a>
+<h4>EricServerFileSystemRequestHandler.__makedirs</h4>
+<b>__makedirs</b>(<i>params</i>)
+<p>
+        Private method to create a new directory.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__mkdir" ID="EricServerFileSystemRequestHandler.__mkdir"></a>
+<h4>EricServerFileSystemRequestHandler.__mkdir</h4>
+<b>__mkdir</b>(<i>params</i>)
+<p>
+        Private method to create a new directory.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__readFile" ID="EricServerFileSystemRequestHandler.__readFile"></a>
+<h4>EricServerFileSystemRequestHandler.__readFile</h4>
+<b>__readFile</b>(<i>params</i>)
+<p>
+        Private method to read the contents of a file.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__remove" ID="EricServerFileSystemRequestHandler.__remove"></a>
+<h4>EricServerFileSystemRequestHandler.__remove</h4>
+<b>__remove</b>(<i>params</i>)
+<p>
+        Private method to delete a file.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__replace" ID="EricServerFileSystemRequestHandler.__replace"></a>
+<h4>EricServerFileSystemRequestHandler.__replace</h4>
+<b>__replace</b>(<i>params</i>)
+<p>
+        Private method to replace (rename) a file or directory.
+</p>
+<p>
+
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__rmdir" ID="EricServerFileSystemRequestHandler.__rmdir"></a>
+<h4>EricServerFileSystemRequestHandler.__rmdir</h4>
+<b>__rmdir</b>(<i>params</i>)
+<p>
+        Private method to delete a directory.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__scanDirectory" ID="EricServerFileSystemRequestHandler.__scanDirectory"></a>
+<h4>EricServerFileSystemRequestHandler.__scanDirectory</h4>
+<b>__scanDirectory</b>(<i>directory, recursive, withHidden=False</i>)
+<p>
+        Private method to scan a given directory.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+path of the directory to be scanned
+</dd>
+<dt><i>recursive</i> (bool)</dt>
+<dd>
+flag indicating a recursive scan
+</dd>
+<dt><i>withHidden</i> (bool (optional))</dt>
+<dd>
+flag indicating to list hidden files and directories
+            as well (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of file and directory entries
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__shutilCopy" ID="EricServerFileSystemRequestHandler.__shutilCopy"></a>
+<h4>EricServerFileSystemRequestHandler.__shutilCopy</h4>
+<b>__shutilCopy</b>(<i>params</i>)
+<p>
+        Private method to copy a source file to a destination file or directory.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__shutilRmtree" ID="EricServerFileSystemRequestHandler.__shutilRmtree"></a>
+<h4>EricServerFileSystemRequestHandler.__shutilRmtree</h4>
+<b>__shutilRmtree</b>(<i>params</i>)
+<p>
+        Private method to delete an entire directory tree.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__stat" ID="EricServerFileSystemRequestHandler.__stat"></a>
+<h4>EricServerFileSystemRequestHandler.__stat</h4>
+<b>__stat</b>(<i>params</i>)
+<p>
+        Private method to get the status of a file.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.__writeFile" ID="EricServerFileSystemRequestHandler.__writeFile"></a>
+<h4>EricServerFileSystemRequestHandler.__writeFile</h4>
+<b>__writeFile</b>(<i>params</i>)
+<p>
+        Private method to write data into a file.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerFileSystemRequestHandler.sendError" ID="EricServerFileSystemRequestHandler.sendError"></a>
+<h4>EricServerFileSystemRequestHandler.sendError</h4>
+<b>sendError</b>(<i>request, reqestUuid=""</i>)
+<p>
+        Public method to send an error report to the IDE.
+</p>
+
+<dl>
+
+<dt><i>request</i> (str)</dt>
+<dd>
+request name
+</dd>
+<dt><i>reqestUuid</i> (str)</dt>
+<dd>
+UUID of the associated request as sent by the eric IDE
+            (defaults to "", i.e. no UUID received)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

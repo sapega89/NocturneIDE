@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Cooperation.Connection</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Cooperation.Connection</h1>
+<p>
+Module implementing a class representing a peer connection.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>MaxBufferSize</td></tr>
+<tr><td>PingInterval</td></tr>
+<tr><td>PongTimeout</td></tr>
+<tr><td>SeparatorToken</td></tr>
+<tr><td>SeparatorToken_b</td></tr>
+<tr><td>TransferTimeout</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Connection">Connection</a></td>
+<td>Class representing a peer connection.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Connection" ID="Connection"></a>
+<h2>Connection</h2>
+<p>
+    Class representing a peer connection.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>editorCommand(hash, fn, message)</dt>
+<dd>
+emitted after an editor command
+        has arrived (string, string, string)
+</dd>
+<dt>getParticipants()</dt>
+<dd>
+emitted after a get participants message has
+        arrived
+</dd>
+<dt>newMessage(user, message)</dt>
+<dd>
+emitted after a new message has
+        arrived (string, string)
+</dd>
+<dt>participants(participants)</dt>
+<dd>
+emitted after the list of participants
+        has arrived (list of strings of "host:port")
+</dd>
+<dt>readyForUse()</dt>
+<dd>
+emitted when the connection is ready for use
+</dd>
+<dt>rejected(message)</dt>
+<dd>
+emitted after a connection has been rejected
+        (string)
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTcpSocket
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Editor</td></tr>
+<tr><td>GetParticipants</td></tr>
+<tr><td>Greeting</td></tr>
+<tr><td>Participants</td></tr>
+<tr><td>Ping</td></tr>
+<tr><td>PlainText</td></tr>
+<tr><td>Pong</td></tr>
+<tr><td>ProtocolEditor</td></tr>
+<tr><td>ProtocolGetParticipants</td></tr>
+<tr><td>ProtocolGreeting</td></tr>
+<tr><td>ProtocolMessage</td></tr>
+<tr><td>ProtocolParticipants</td></tr>
+<tr><td>ProtocolPing</td></tr>
+<tr><td>ProtocolPong</td></tr>
+<tr><td>ReadingGreeting</td></tr>
+<tr><td>ReadyForUse</td></tr>
+<tr><td>Undefined</td></tr>
+<tr><td>WaitingForGreeting</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Connection.__init__">Connection</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Connection.__dataLengthForCurrentDataType">__dataLengthForCurrentDataType</a></td>
+<td>Private method to get the data length for the current data type.</td>
+</tr>
+<tr>
+<td><a href="#Connection.__disconnected">__disconnected</a></td>
+<td>Private slot to handle the connection being dropped.</td>
+</tr>
+<tr>
+<td><a href="#Connection.__hasEnoughData">__hasEnoughData</a></td>
+<td>Private method to check, if enough data is available.</td>
+</tr>
+<tr>
+<td><a href="#Connection.__processData">__processData</a></td>
+<td>Private method to process the received data.</td>
+</tr>
+<tr>
+<td><a href="#Connection.__processReadyRead">__processReadyRead</a></td>
+<td>Private slot to handle the readyRead signal.</td>
+</tr>
+<tr>
+<td><a href="#Connection.__readDataIntoBuffer">__readDataIntoBuffer</a></td>
+<td>Private method to read some data into the buffer.</td>
+</tr>
+<tr>
+<td><a href="#Connection.__readProtocolHeader">__readProtocolHeader</a></td>
+<td>Private method to read the protocol header.</td>
+</tr>
+<tr>
+<td><a href="#Connection.__sendGreetingMessage">__sendGreetingMessage</a></td>
+<td>Private slot to send a greeting message.</td>
+</tr>
+<tr>
+<td><a href="#Connection.__sendPing">__sendPing</a></td>
+<td>Private slot to send a ping message.</td>
+</tr>
+<tr>
+<td><a href="#Connection.name">name</a></td>
+<td>Public method to get the connection name.</td>
+</tr>
+<tr>
+<td><a href="#Connection.sendEditorCommand">sendEditorCommand</a></td>
+<td>Public method to send an editor command.</td>
+</tr>
+<tr>
+<td><a href="#Connection.sendGetParticipants">sendGetParticipants</a></td>
+<td>Public method to request a list of participants.</td>
+</tr>
+<tr>
+<td><a href="#Connection.sendMessage">sendMessage</a></td>
+<td>Public method to send a message.</td>
+</tr>
+<tr>
+<td><a href="#Connection.sendParticipants">sendParticipants</a></td>
+<td>Public method to send the list of participants.</td>
+</tr>
+<tr>
+<td><a href="#Connection.serverPort">serverPort</a></td>
+<td>Public method to get the server port.</td>
+</tr>
+<tr>
+<td><a href="#Connection.setClient">setClient</a></td>
+<td>Public method to set the reference to the cooperation client.</td>
+</tr>
+<tr>
+<td><a href="#Connection.setGreetingMessage">setGreetingMessage</a></td>
+<td>Public method to set the greeting message.</td>
+</tr>
+<tr>
+<td><a href="#Connection.timerEvent">timerEvent</a></td>
+<td>Protected method to handle timer events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Connection.__init__" ID="Connection.__init__"></a>
+<h4>Connection (Constructor)</h4>
+<b>Connection</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+referenec to the parent object
+</dd>
+</dl>
+<a NAME="Connection.__dataLengthForCurrentDataType" ID="Connection.__dataLengthForCurrentDataType"></a>
+<h4>Connection.__dataLengthForCurrentDataType</h4>
+<b>__dataLengthForCurrentDataType</b>(<i></i>)
+<p>
+        Private method to get the data length for the current data type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+data length
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Connection.__disconnected" ID="Connection.__disconnected"></a>
+<h4>Connection.__disconnected</h4>
+<b>__disconnected</b>(<i></i>)
+<p>
+        Private slot to handle the connection being dropped.
+</p>
+
+<a NAME="Connection.__hasEnoughData" ID="Connection.__hasEnoughData"></a>
+<h4>Connection.__hasEnoughData</h4>
+<b>__hasEnoughData</b>(<i></i>)
+<p>
+        Private method to check, if enough data is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating availability of enough data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Connection.__processData" ID="Connection.__processData"></a>
+<h4>Connection.__processData</h4>
+<b>__processData</b>(<i></i>)
+<p>
+        Private method to process the received data.
+</p>
+
+<a NAME="Connection.__processReadyRead" ID="Connection.__processReadyRead"></a>
+<h4>Connection.__processReadyRead</h4>
+<b>__processReadyRead</b>(<i></i>)
+<p>
+        Private slot to handle the readyRead signal.
+</p>
+
+<a NAME="Connection.__readDataIntoBuffer" ID="Connection.__readDataIntoBuffer"></a>
+<h4>Connection.__readDataIntoBuffer</h4>
+<b>__readDataIntoBuffer</b>(<i>maxSize=MaxBufferSize</i>)
+<p>
+        Private method to read some data into the buffer.
+</p>
+
+<dl>
+
+<dt><i>maxSize</i> (int)</dt>
+<dd>
+maximum size of data to read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+size of data read
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Connection.__readProtocolHeader" ID="Connection.__readProtocolHeader"></a>
+<h4>Connection.__readProtocolHeader</h4>
+<b>__readProtocolHeader</b>(<i></i>)
+<p>
+        Private method to read the protocol header.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful read
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Connection.__sendGreetingMessage" ID="Connection.__sendGreetingMessage"></a>
+<h4>Connection.__sendGreetingMessage</h4>
+<b>__sendGreetingMessage</b>(<i></i>)
+<p>
+        Private slot to send a greeting message.
+</p>
+
+<a NAME="Connection.__sendPing" ID="Connection.__sendPing"></a>
+<h4>Connection.__sendPing</h4>
+<b>__sendPing</b>(<i></i>)
+<p>
+        Private slot to send a ping message.
+</p>
+
+<a NAME="Connection.name" ID="Connection.name"></a>
+<h4>Connection.name</h4>
+<b>name</b>(<i></i>)
+<p>
+        Public method to get the connection name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+connection name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Connection.sendEditorCommand" ID="Connection.sendEditorCommand"></a>
+<h4>Connection.sendEditorCommand</h4>
+<b>sendEditorCommand</b>(<i>projectHash, filename, message</i>)
+<p>
+        Public method to send an editor command.
+</p>
+
+<dl>
+
+<dt><i>projectHash</i> (str)</dt>
+<dd>
+hash of the project
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+project relative universal file name of
+            the sending editor
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+editor command to be sent
+</dd>
+</dl>
+<a NAME="Connection.sendGetParticipants" ID="Connection.sendGetParticipants"></a>
+<h4>Connection.sendGetParticipants</h4>
+<b>sendGetParticipants</b>(<i></i>)
+<p>
+        Public method to request a list of participants.
+</p>
+
+<a NAME="Connection.sendMessage" ID="Connection.sendMessage"></a>
+<h4>Connection.sendMessage</h4>
+<b>sendMessage</b>(<i>message</i>)
+<p>
+        Public method to send a message.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be sent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful send
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Connection.sendParticipants" ID="Connection.sendParticipants"></a>
+<h4>Connection.sendParticipants</h4>
+<b>sendParticipants</b>(<i>participants</i>)
+<p>
+        Public method to send the list of participants.
+</p>
+
+<dl>
+
+<dt><i>participants</i> (list of str)</dt>
+<dd>
+list of participants (list of "host:port" strings)
+</dd>
+</dl>
+<a NAME="Connection.serverPort" ID="Connection.serverPort"></a>
+<h4>Connection.serverPort</h4>
+<b>serverPort</b>(<i></i>)
+<p>
+        Public method to get the server port.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+server port
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Connection.setClient" ID="Connection.setClient"></a>
+<h4>Connection.setClient</h4>
+<b>setClient</b>(<i>client</i>)
+<p>
+        Public method to set the reference to the cooperation client.
+</p>
+
+<dl>
+
+<dt><i>client</i> (CooperationClient)</dt>
+<dd>
+reference to the cooperation client
+</dd>
+</dl>
+<a NAME="Connection.setGreetingMessage" ID="Connection.setGreetingMessage"></a>
+<h4>Connection.setGreetingMessage</h4>
+<b>setGreetingMessage</b>(<i>message, serverPort</i>)
+<p>
+        Public method to set the greeting message.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+greeting message
+</dd>
+<dt><i>serverPort</i> (int)</dt>
+<dd>
+port number to include in the message
+</dd>
+</dl>
+<a NAME="Connection.timerEvent" ID="Connection.timerEvent"></a>
+<h4>Connection.timerEvent</h4>
+<b>timerEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle timer events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QTimerEvent)</dt>
+<dd>
+reference to the timer event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

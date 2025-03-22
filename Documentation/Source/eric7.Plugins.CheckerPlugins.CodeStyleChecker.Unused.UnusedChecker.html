@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Unused.UnusedChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Unused.UnusedChecker</h1>
+<p>
+Module implementing a checker for unused arguments, variables, ... .
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>GlobalVariableStoreInfo</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#FunctionFinder">FunctionFinder</a></td>
+<td>Class to find all defined functions and methods.</td>
+</tr>
+<tr>
+<td><a href="#GlobalVariableLoadCounter">GlobalVariableLoadCounter</a></td>
+<td>Class to find all defined global variables and count their usages.</td>
+</tr>
+<tr>
+<td><a href="#NameFinder">NameFinder</a></td>
+<td>Class to find the used argument names.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker">UnusedChecker</a></td>
+<td>Class implementing a checker for unused arguments, variables, ...</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="FunctionFinder" ID="FunctionFinder"></a>
+<h2>FunctionFinder</h2>
+<p>
+    Class to find all defined functions and methods.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>visit_AsyncFunctionDef</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FunctionFinder.__init__">FunctionFinder</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FunctionFinder.__visitFunctionTypes">__visitFunctionTypes</a></td>
+<td>Private method to handle an AST node defining a function or lambda.</td>
+</tr>
+<tr>
+<td><a href="#FunctionFinder.functionNodes">functionNodes</a></td>
+<td>Public method to get the list of detected functions and lambdas.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FunctionFinder.__init__" ID="FunctionFinder.__init__"></a>
+<h4>FunctionFinder (Constructor)</h4>
+<b>FunctionFinder</b>(<i>onlyTopLevel=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>onlyTopLevel</i> (bool (optional))</dt>
+<dd>
+flag indicating to search for top level functions only
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="FunctionFinder.__visitFunctionTypes" ID="FunctionFinder.__visitFunctionTypes"></a>
+<h4>FunctionFinder.__visitFunctionTypes</h4>
+<b>__visitFunctionTypes</b>(<i>functionNode</i>)
+<p>
+        Private method to handle an AST node defining a function or lambda.
+</p>
+
+<dl>
+
+<dt><i>functionNode</i> (ast.AsyncFunctionDef, ast.FunctionDef or ast.Lambda)</dt>
+<dd>
+reference to the node defining a function or lambda
+</dd>
+</dl>
+<a NAME="FunctionFinder.functionNodes" ID="FunctionFinder.functionNodes"></a>
+<h4>FunctionFinder.functionNodes</h4>
+<b>functionNodes</b>(<i></i>)
+<p>
+        Public method to get the list of detected functions and lambdas.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of detected functions and lambdas
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of ast.AsyncFunctionDef, ast.FunctionDef or ast.Lambda
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="GlobalVariableLoadCounter" ID="GlobalVariableLoadCounter"></a>
+<h2>GlobalVariableLoadCounter</h2>
+<p>
+    Class to find all defined global variables and count their usages.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GlobalVariableLoadCounter.__init__">GlobalVariableLoadCounter</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GlobalVariableLoadCounter.getLoads">getLoads</a></td>
+<td>Public method to get an iterator of the detected variable loads.</td>
+</tr>
+<tr>
+<td><a href="#GlobalVariableLoadCounter.getStoreInfo">getStoreInfo</a></td>
+<td>Public method to get the store info data of a given variable ID.</td>
+</tr>
+<tr>
+<td><a href="#GlobalVariableLoadCounter.visit_Name">visit_Name</a></td>
+<td>Public method to record the definition and use of a global variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GlobalVariableLoadCounter.__init__" ID="GlobalVariableLoadCounter.__init__"></a>
+<h4>GlobalVariableLoadCounter (Constructor)</h4>
+<b>GlobalVariableLoadCounter</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="GlobalVariableLoadCounter.getLoads" ID="GlobalVariableLoadCounter.getLoads"></a>
+<h4>GlobalVariableLoadCounter.getLoads</h4>
+<b>getLoads</b>(<i></i>)
+<p>
+        Public method to get an iterator of the detected variable loads.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+DESCRIPTION
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+TYPE
+</dd>
+</dl>
+<a NAME="GlobalVariableLoadCounter.getStoreInfo" ID="GlobalVariableLoadCounter.getStoreInfo"></a>
+<h4>GlobalVariableLoadCounter.getStoreInfo</h4>
+<b>getStoreInfo</b>(<i>variableId</i>)
+<p>
+        Public method to get the store info data of a given variable ID.
+</p>
+
+<dl>
+
+<dt><i>variableId</i> (str)</dt>
+<dd>
+variable ID to retrieve the store info for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+named tuple containing the line number and column offset
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GlobalVariableStoreInfo
+</dd>
+</dl>
+<a NAME="GlobalVariableLoadCounter.visit_Name" ID="GlobalVariableLoadCounter.visit_Name"></a>
+<h4>GlobalVariableLoadCounter.visit_Name</h4>
+<b>visit_Name</b>(<i>nameNode</i>)
+<p>
+        Public method to record the definition and use of a global variable.
+</p>
+
+<dl>
+
+<dt><i>nameNode</i> (ast.Name)</dt>
+<dd>
+reference to the name node to be processed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="NameFinder" ID="NameFinder"></a>
+<h2>NameFinder</h2>
+<p>
+            Class to find the used argument names.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NameFinder.visit_Name">visit_Name</a></td>
+<td>Public method to check a Name node.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NameFinder.visit_Name" ID="NameFinder.visit_Name"></a>
+<h4>NameFinder.visit_Name</h4>
+<b>visit_Name</b>(<i>name</i>)
+<p>
+                Public method to check a Name node.
+</p>
+
+<dl>
+
+<dt><i>name</i> (ast.Name)</dt>
+<dd>
+reference to the name node to be checked
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="UnusedChecker" ID="UnusedChecker"></a>
+<h2>UnusedChecker</h2>
+<p>
+    Class implementing a checker for unused arguments, variables, ... .
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Codes</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#UnusedChecker.__init__">UnusedChecker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__checkUnusedArguments">__checkUnusedArguments</a></td>
+<td>Private method to check function and method definitions for unused arguments.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__checkUnusedGlobals">__checkUnusedGlobals</a></td>
+<td>Private method to check for unused global variables.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__error">__error</a></td>
+<td>Private method to record an issue.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__extractGlobalVariables">__extractGlobalVariables</a></td>
+<td>Private method to get the names of all global variables.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__getArguments">__getArguments</a></td>
+<td>Private method to get all argument names of the given function.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__getDecoratorNames">__getDecoratorNames</a></td>
+<td>Private method to yield the decorator names of the function.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__getUnusedArguments">__getUnusedArguments</a></td>
+<td>Private method to get a list of unused arguments of the given function.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__ignoreCode">__ignoreCode</a></td>
+<td>Private method to check if the message code should be ignored.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__isDunderMethod">__isDunderMethod</a></td>
+<td>Private method to check, if the function node defines a special function.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__isEventHandlerMethod">__isEventHandlerMethod</a></td>
+<td>Private method to check, if the function node defines a Qt event handler.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.__isStubFunction">__isStubFunction</a></td>
+<td>Private method to check, if the given function node defines a stub function.</td>
+</tr>
+<tr>
+<td><a href="#UnusedChecker.run">run</a></td>
+<td>Public method to check the given source against miscellaneous conditions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="UnusedChecker.__init__" ID="UnusedChecker.__init__"></a>
+<h4>UnusedChecker (Constructor)</h4>
+<b>UnusedChecker</b>(<i>source, filename, tree, select, ignore, expected, repeat, args</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str)</dt>
+<dd>
+source code to be checked
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>tree</i> (ast.Module)</dt>
+<dd>
+AST tree of the source code
+</dd>
+<dt><i>select</i> (list of str)</dt>
+<dd>
+list of selected codes
+</dd>
+<dt><i>ignore</i> (list of str)</dt>
+<dd>
+list of codes to be ignored
+</dd>
+<dt><i>expected</i> (list of str)</dt>
+<dd>
+list of expected codes
+</dd>
+<dt><i>repeat</i> (bool)</dt>
+<dd>
+flag indicating to report each occurrence of a code
+</dd>
+<dt><i>args</i> (dict)</dt>
+<dd>
+dictionary of arguments for the various checks
+</dd>
+</dl>
+<a NAME="UnusedChecker.__checkUnusedArguments" ID="UnusedChecker.__checkUnusedArguments"></a>
+<h4>UnusedChecker.__checkUnusedArguments</h4>
+<b>__checkUnusedArguments</b>(<i></i>)
+<p>
+        Private method to check function and method definitions for unused arguments.
+</p>
+
+<a NAME="UnusedChecker.__checkUnusedGlobals" ID="UnusedChecker.__checkUnusedGlobals"></a>
+<h4>UnusedChecker.__checkUnusedGlobals</h4>
+<b>__checkUnusedGlobals</b>(<i></i>)
+<p>
+        Private method to check for unused global variables.
+</p>
+
+<a NAME="UnusedChecker.__error" ID="UnusedChecker.__error"></a>
+<h4>UnusedChecker.__error</h4>
+<b>__error</b>(<i>lineNumber, offset, code, *args</i>)
+<p>
+        Private method to record an issue.
+</p>
+
+<dl>
+
+<dt><i>lineNumber</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+position within line of the issue
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+message code
+</dd>
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments for the message
+</dd>
+</dl>
+<a NAME="UnusedChecker.__extractGlobalVariables" ID="UnusedChecker.__extractGlobalVariables"></a>
+<h4>UnusedChecker.__extractGlobalVariables</h4>
+<b>__extractGlobalVariables</b>(<i></i>)
+<p>
+        Private method to get the names of all global variables.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+set containing the defined global variable names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+set of str
+</dd>
+</dl>
+<a NAME="UnusedChecker.__getArguments" ID="UnusedChecker.__getArguments"></a>
+<h4>UnusedChecker.__getArguments</h4>
+<b>__getArguments</b>(<i>functionNode</i>)
+<p>
+        Private method to get all argument names of the given function.
+</p>
+
+<dl>
+
+<dt><i>functionNode</i> (ast.AsyncFunctionDef, ast.FunctionDef or ast.Lambda)</dt>
+<dd>
+reference to the node defining the function or lambda
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of argument names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of ast.arg
+</dd>
+</dl>
+<a NAME="UnusedChecker.__getDecoratorNames" ID="UnusedChecker.__getDecoratorNames"></a>
+<h4>UnusedChecker.__getDecoratorNames</h4>
+<b>__getDecoratorNames</b>(<i>functionNode</i>)
+<p>
+        Private method to yield the decorator names of the function.
+</p>
+
+<dl>
+
+<dt><i>functionNode</i> (ast.AsyncFunctionDef, ast.FunctionDef or ast.Lambda)</dt>
+<dd>
+reference to the node defining the function or lambda
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+decorator name
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UnusedChecker.__getUnusedArguments" ID="UnusedChecker.__getUnusedArguments"></a>
+<h4>UnusedChecker.__getUnusedArguments</h4>
+<b>__getUnusedArguments</b>(<i>functionNode</i>)
+<p>
+        Private method to get a list of unused arguments of the given function.
+</p>
+
+<dl>
+
+<dt><i>functionNode</i> (ast.AsyncFunctionDef, ast.FunctionDef or ast.Lambda)</dt>
+<dd>
+reference to the node defining the function or lambda
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples of the argument position and the argument
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (int, ast.arg)
+</dd>
+</dl>
+<a NAME="UnusedChecker.__ignoreCode" ID="UnusedChecker.__ignoreCode"></a>
+<h4>UnusedChecker.__ignoreCode</h4>
+<b>__ignoreCode</b>(<i>code</i>)
+<p>
+        Private method to check if the message code should be ignored.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+message code to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore the given code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UnusedChecker.__isDunderMethod" ID="UnusedChecker.__isDunderMethod"></a>
+<h4>UnusedChecker.__isDunderMethod</h4>
+<b>__isDunderMethod</b>(<i>functionNode</i>)
+<p>
+        Private method to check, if the function node defines a special function.
+</p>
+
+<dl>
+
+<dt><i>functionNode</i> (ast.AsyncFunctionDef, ast.FunctionDef or ast.Lambda)</dt>
+<dd>
+reference to the node defining the function or lambda
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a special function
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UnusedChecker.__isEventHandlerMethod" ID="UnusedChecker.__isEventHandlerMethod"></a>
+<h4>UnusedChecker.__isEventHandlerMethod</h4>
+<b>__isEventHandlerMethod</b>(<i>functionNode</i>)
+<p>
+        Private method to check, if the function node defines a Qt event handler.
+</p>
+<p>
+        Qt event handler methods are assumed to end with 'Event' or have the name
+        'event' or 'eventFilter'. Only standard methodes (i.e. ast.FunctionDef)
+        are assumed to be potential event handlers.
+</p>
+
+<dl>
+
+<dt><i>functionNode</i> (ast.AsyncFunctionDef, ast.FunctionDef or ast.Lambda)</dt>
+<dd>
+reference to the node defining the function or lambda
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a Qt event handler method
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UnusedChecker.__isStubFunction" ID="UnusedChecker.__isStubFunction"></a>
+<h4>UnusedChecker.__isStubFunction</h4>
+<b>__isStubFunction</b>(<i>functionNode</i>)
+<p>
+        Private method to check, if the given function node defines a stub function.
+</p>
+
+<dl>
+
+<dt><i>functionNode</i> (ast.AsyncFunctionDef, ast.FunctionDef or ast.Lambda)</dt>
+<dd>
+reference to the node defining the function or lambda
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a stub function
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UnusedChecker.run" ID="UnusedChecker.run"></a>
+<h4>UnusedChecker.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method to check the given source against miscellaneous
+        conditions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

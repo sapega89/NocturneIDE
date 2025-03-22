@@ -1,0 +1,3037 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.CodeStyleFixer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.CodeStyleFixer</h1>
+<p>
+Module implementing a class to fix certain code style issues.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>FixableCodeStyleIssues</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CodeStyleFixer">CodeStyleFixer</a></td>
+<td>Class implementing a fixer for certain code style issues.</td>
+</tr>
+<tr>
+<td><a href="#IndentationWrapper">IndentationWrapper</a></td>
+<td>Class used by fixers dealing with indentation.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener">LineShortener</a></td>
+<td>Class used to shorten lines to a given maximum of characters.</td>
+</tr>
+<tr>
+<td><a href="#Reindenter">Reindenter</a></td>
+<td>Class to reindent badly-indented code to uniformly use four-space indentation.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CodeStyleFixer" ID="CodeStyleFixer"></a>
+<h2>CodeStyleFixer</h2>
+<p>
+    Class implementing a fixer for certain code style issues.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CodeStyleFixer.__init__">CodeStyleFixer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__codeMatch">__codeMatch</a></td>
+<td>Private method to check, if the code should be fixed.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__findLogical">__findLogical</a></td>
+<td>Private method to extract the index of all the starts and ends of lines.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixBlankLinesBefore">__fixBlankLinesBefore</a></td>
+<td>Private method to fix the need for blank lines before class, function and method definitions.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD111">__fixD111</a></td>
+<td>Private method to fix docstring enclosed in wrong quotes.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD112">__fixD112</a></td>
+<td>Private method to fix docstring 'r' in leading quotes.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD121">__fixD121</a></td>
+<td>Private method to fix a single line docstring on multiple lines.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD131">__fixD131</a></td>
+<td>Private method to fix a docstring summary not ending with a period.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD141">__fixD141</a></td>
+<td>Private method to fix a function/method docstring preceded by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD142">__fixD142</a></td>
+<td>Private method to fix a class docstring not preceded by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD143">__fixD143</a></td>
+<td>Private method to fix a class docstring not followed by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD144">__fixD144</a></td>
+<td>Private method to fix a docstring summary not followed by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD145">__fixD145</a></td>
+<td>Private method to fix the last paragraph of a multi-line docstring not followed by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD221">__fixD221</a></td>
+<td>Private method to fix leading and trailing quotes of docstring not on separate lines.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD242">__fixD242</a></td>
+<td>Private method to fix a class or function/method docstring preceded by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD243">__fixD243</a></td>
+<td>Private method to fix a class or function/method docstring followed by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixD247">__fixD247</a></td>
+<td>Private method to fix a last paragraph of a docstring followed by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE101">__fixE101</a></td>
+<td>Private method to fix obsolete tab usage and indentation errors.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE121">__fixE121</a></td>
+<td>Private method to fix the indentation of continuation lines and closing brackets.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE122">__fixE122</a></td>
+<td>Private method to fix a missing indentation of continuation lines.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE123">__fixE123</a></td>
+<td>Private method to fix the indentation of a closing bracket lines.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE125">__fixE125</a></td>
+<td>Private method to fix the indentation of continuation lines not distinguishable from next logical line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE126">__fixE126</a></td>
+<td>Private method to fix over-indented/under-indented hanging indentation.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE127">__fixE127</a></td>
+<td>Private method to fix over/under indented lines.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE201">__fixE201</a></td>
+<td>Private method to fix extraneous whitespace.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE221">__fixE221</a></td>
+<td>Private method to fix extraneous whitespace around operator or keyword.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE225">__fixE225</a></td>
+<td>Private method to fix extraneous whitespaces around operator.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE231">__fixE231</a></td>
+<td>Private method to fix missing whitespace after ',;:'.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE251">__fixE251</a></td>
+<td>Private method to fix extraneous whitespace around keyword and default parameter equals.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE261">__fixE261</a></td>
+<td>Private method to fix whitespace before or after inline comment.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE304">__fixE304</a></td>
+<td>Private method to fix superfluous blank lines after a function decorator.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE401">__fixE401</a></td>
+<td>Private method to fix multiple imports on one line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE501">__fixE501</a></td>
+<td>Private method to fix the long lines by breaking them.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE502">__fixE502</a></td>
+<td>Private method to fix redundant backslash within brackets.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE701">__fixE701</a></td>
+<td>Private method to fix colon-separated compound statements.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE702">__fixE702</a></td>
+<td>Private method to fix semicolon-separated compound statements.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixE711">__fixE711</a></td>
+<td>Private method to fix comparison with None.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixN804">__fixN804</a></td>
+<td>Private method to fix a wrong first argument of normal and class methods.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixN806">__fixN806</a></td>
+<td>Private method to fix a wrong first argument of static methods.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixReindent">__fixReindent</a></td>
+<td>Private method to fix a badly indented line.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixW291">__fixW291</a></td>
+<td>Private method to fix trailing whitespace.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixW292">__fixW292</a></td>
+<td>Private method to fix a missing newline at the end of file.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixW391">__fixW391</a></td>
+<td>Private method to fix trailing blank lines.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixW603">__fixW603</a></td>
+<td>Private method to fix the not equal notation.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__fixWhitespace">__fixWhitespace</a></td>
+<td>Private method to correct whitespace at the given offset.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__getID">__getID</a></td>
+<td>Private method to get the ID for a deferred fix.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__getIndent">__getIndent</a></td>
+<td>Private method to get the indentation string.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__getIndentWord">__getIndentWord</a></td>
+<td>Private method to determine the indentation type.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__getLogical">__getLogical</a></td>
+<td>Private method to get the logical line corresponding to the given position.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.__multilineStringLines">__multilineStringLines</a></td>
+<td>Private method to determine the line numbers that are within multi line strings and these which are part of a documentation string.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.finalize">finalize</a></td>
+<td>Public method to apply all deferred fixes.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.fixIssue">fixIssue</a></td>
+<td>Public method to fix the fixable issues.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.mutualStartswith">mutualStartswith</a></td>
+<td>Local helper method to compare the beginnings of two strings against each other.</td>
+</tr>
+<tr>
+<td><a href="#CodeStyleFixer.saveFile">saveFile</a></td>
+<td>Public method to save the modified file.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CodeStyleFixer.__init__" ID="CodeStyleFixer.__init__"></a>
+<h4>CodeStyleFixer (Constructor)</h4>
+<b>CodeStyleFixer</b>(<i>filename, sourceLines, fixCodes, noFixCodes, maxLineLength, blankLines, inPlace, eol, backup=False, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to be fixed
+</dd>
+<dt><i>sourceLines</i> (list of str)</dt>
+<dd>
+list of source lines including eol marker
+</dd>
+<dt><i>fixCodes</i> (str)</dt>
+<dd>
+list of codes to be fixed as a comma separated
+            string
+</dd>
+<dt><i>noFixCodes</i> (str)</dt>
+<dd>
+list of codes not to be fixed as a comma
+            separated string
+</dd>
+<dt><i>maxLineLength</i> (int)</dt>
+<dd>
+maximum allowed line length
+</dd>
+<dt><i>blankLines</i> (tuple of (int, int))</dt>
+<dd>
+tuple containg the number of blank lines before
+            a top level class or function and before a method or nested class
+            or function
+</dd>
+<dt><i>inPlace</i> (bool)</dt>
+<dd>
+flag indicating to modify the file in place
+</dd>
+<dt><i>eol</i> (str)</dt>
+<dd>
+end of line character(s)
+</dd>
+<dt><i>backup</i> (bool)</dt>
+<dd>
+flag indicating to create a backup before fixing
+            anything
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__codeMatch" ID="CodeStyleFixer.__codeMatch"></a>
+<h4>CodeStyleFixer.__codeMatch</h4>
+<b>__codeMatch</b>(<i>code</i>)
+<p>
+        Private method to check, if the code should be fixed.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating it should be fixed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__findLogical" ID="CodeStyleFixer.__findLogical"></a>
+<h4>CodeStyleFixer.__findLogical</h4>
+<b>__findLogical</b>(<i></i>)
+<p>
+        Private method to extract the index of all the starts and ends of
+        lines.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing two lists of integer with start and end tuples
+            of lines
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of ([int, int], [int, int])
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixBlankLinesBefore" ID="CodeStyleFixer.__fixBlankLinesBefore"></a>
+<h4>CodeStyleFixer.__fixBlankLinesBefore</h4>
+<b>__fixBlankLinesBefore</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix the need for blank lines before class, function
+        and method definitions.
+</p>
+<p>
+        Codes: E301, E302, E303, E305, E306, E307, E308
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD111" ID="CodeStyleFixer.__fixD111"></a>
+<h4>CodeStyleFixer.__fixD111</h4>
+<b>__fixD111</b>(<i>_code, line, _pos</i>)
+<p>
+        Private method to fix docstring enclosed in wrong quotes.
+</p>
+<p>
+        Codes: D111
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD112" ID="CodeStyleFixer.__fixD112"></a>
+<h4>CodeStyleFixer.__fixD112</h4>
+<b>__fixD112</b>(<i>code, line, _pos</i>)
+<p>
+        Private method to fix docstring 'r' in leading quotes.
+</p>
+<p>
+        Codes: D112
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD121" ID="CodeStyleFixer.__fixD121"></a>
+<h4>CodeStyleFixer.__fixD121</h4>
+<b>__fixD121</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a single line docstring on multiple lines.
+</p>
+<p>
+        Codes: D121
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD131" ID="CodeStyleFixer.__fixD131"></a>
+<h4>CodeStyleFixer.__fixD131</h4>
+<b>__fixD131</b>(<i>_code, line, _pos</i>)
+<p>
+        Private method to fix a docstring summary not ending with a
+        period.
+</p>
+<p>
+        Codes: D131
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD141" ID="CodeStyleFixer.__fixD141"></a>
+<h4>CodeStyleFixer.__fixD141</h4>
+<b>__fixD141</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a function/method docstring preceded by a
+        blank line.
+</p>
+<p>
+        Codes: D141
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD142" ID="CodeStyleFixer.__fixD142"></a>
+<h4>CodeStyleFixer.__fixD142</h4>
+<b>__fixD142</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a class docstring not preceded by a
+        blank line.
+</p>
+<p>
+        Codes: D142
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD143" ID="CodeStyleFixer.__fixD143"></a>
+<h4>CodeStyleFixer.__fixD143</h4>
+<b>__fixD143</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a class docstring not followed by a
+        blank line.
+</p>
+<p>
+        Codes: D143
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD144" ID="CodeStyleFixer.__fixD144"></a>
+<h4>CodeStyleFixer.__fixD144</h4>
+<b>__fixD144</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a docstring summary not followed by a
+        blank line.
+</p>
+<p>
+        Codes: D144
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD145" ID="CodeStyleFixer.__fixD145"></a>
+<h4>CodeStyleFixer.__fixD145</h4>
+<b>__fixD145</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix the last paragraph of a multi-line docstring
+        not followed by a blank line.
+</p>
+<p>
+        Codes: D143
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD221" ID="CodeStyleFixer.__fixD221"></a>
+<h4>CodeStyleFixer.__fixD221</h4>
+<b>__fixD221</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix leading and trailing quotes of docstring
+        not on separate lines.
+</p>
+<p>
+        Codes: D221, D222
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD242" ID="CodeStyleFixer.__fixD242"></a>
+<h4>CodeStyleFixer.__fixD242</h4>
+<b>__fixD242</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a class or function/method docstring preceded
+        by a blank line.
+</p>
+<p>
+        Codes: D242, D244
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD243" ID="CodeStyleFixer.__fixD243"></a>
+<h4>CodeStyleFixer.__fixD243</h4>
+<b>__fixD243</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a class or function/method docstring followed
+        by a blank line.
+</p>
+<p>
+        Codes: D243, D245
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixD247" ID="CodeStyleFixer.__fixD247"></a>
+<h4>CodeStyleFixer.__fixD247</h4>
+<b>__fixD247</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a last paragraph of a docstring followed
+        by a blank line.
+</p>
+<p>
+        Codes: D247
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE101" ID="CodeStyleFixer.__fixE101"></a>
+<h4>CodeStyleFixer.__fixE101</h4>
+<b>__fixE101</b>(<i>code, line, _pos</i>)
+<p>
+        Private method to fix obsolete tab usage and indentation errors.
+</p>
+<p>
+        Codes: E101, E111, W191
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE121" ID="CodeStyleFixer.__fixE121"></a>
+<h4>CodeStyleFixer.__fixE121</h4>
+<b>__fixE121</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix the indentation of continuation lines and
+        closing brackets.
+</p>
+<p>
+        Codes: E121, E124
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE122" ID="CodeStyleFixer.__fixE122"></a>
+<h4>CodeStyleFixer.__fixE122</h4>
+<b>__fixE122</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a missing indentation of continuation lines.
+</p>
+<p>
+        Codes: E122
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE123" ID="CodeStyleFixer.__fixE123"></a>
+<h4>CodeStyleFixer.__fixE123</h4>
+<b>__fixE123</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix the indentation of a closing bracket lines.
+</p>
+<p>
+        Codes: E123
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE125" ID="CodeStyleFixer.__fixE125"></a>
+<h4>CodeStyleFixer.__fixE125</h4>
+<b>__fixE125</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix the indentation of continuation lines not
+        distinguishable from next logical line.
+</p>
+<p>
+        Codes: E125
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE126" ID="CodeStyleFixer.__fixE126"></a>
+<h4>CodeStyleFixer.__fixE126</h4>
+<b>__fixE126</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix over-indented/under-indented hanging
+        indentation.
+</p>
+<p>
+        Codes: E126, E133
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE127" ID="CodeStyleFixer.__fixE127"></a>
+<h4>CodeStyleFixer.__fixE127</h4>
+<b>__fixE127</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix over/under indented lines.
+</p>
+<p>
+        Codes: E127, E128
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE201" ID="CodeStyleFixer.__fixE201"></a>
+<h4>CodeStyleFixer.__fixE201</h4>
+<b>__fixE201</b>(<i>_code, line, pos</i>)
+<p>
+        Private method to fix extraneous whitespace.
+</p>
+<p>
+        Codes: E201, E202, E203, E211
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE221" ID="CodeStyleFixer.__fixE221"></a>
+<h4>CodeStyleFixer.__fixE221</h4>
+<b>__fixE221</b>(<i>_code, line, pos</i>)
+<p>
+        Private method to fix extraneous whitespace around operator or
+        keyword.
+</p>
+<p>
+        Codes: E221, E222, E223, E224, E241, E242, E271, E272, E273, E274
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE225" ID="CodeStyleFixer.__fixE225"></a>
+<h4>CodeStyleFixer.__fixE225</h4>
+<b>__fixE225</b>(<i>_code, line, pos</i>)
+<p>
+        Private method to fix extraneous whitespaces around operator.
+</p>
+<p>
+        Codes: E225, E226, E227, E228
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE231" ID="CodeStyleFixer.__fixE231"></a>
+<h4>CodeStyleFixer.__fixE231</h4>
+<b>__fixE231</b>(<i>_code, line, pos</i>)
+<p>
+        Private method to fix missing whitespace after ',;:'.
+</p>
+<p>
+        Codes: E231
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE251" ID="CodeStyleFixer.__fixE251"></a>
+<h4>CodeStyleFixer.__fixE251</h4>
+<b>__fixE251</b>(<i>_code, line, pos</i>)
+<p>
+        Private method to fix extraneous whitespace around keyword and
+        default parameter equals.
+</p>
+<p>
+        Codes: E251
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE261" ID="CodeStyleFixer.__fixE261"></a>
+<h4>CodeStyleFixer.__fixE261</h4>
+<b>__fixE261</b>(<i>_code, line, pos</i>)
+<p>
+        Private method to fix whitespace before or after inline comment.
+</p>
+<p>
+        Codes: E261, E262
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE304" ID="CodeStyleFixer.__fixE304"></a>
+<h4>CodeStyleFixer.__fixE304</h4>
+<b>__fixE304</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix superfluous blank lines after a function
+        decorator.
+</p>
+<p>
+        Codes: E304
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE401" ID="CodeStyleFixer.__fixE401"></a>
+<h4>CodeStyleFixer.__fixE401</h4>
+<b>__fixE401</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix multiple imports on one line.
+</p>
+<p>
+        Codes: E401
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE501" ID="CodeStyleFixer.__fixE501"></a>
+<h4>CodeStyleFixer.__fixE501</h4>
+<b>__fixE501</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix the long lines by breaking them.
+</p>
+<p>
+        Codes: E501
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE502" ID="CodeStyleFixer.__fixE502"></a>
+<h4>CodeStyleFixer.__fixE502</h4>
+<b>__fixE502</b>(<i>_code, line, _pos</i>)
+<p>
+        Private method to fix redundant backslash within brackets.
+</p>
+<p>
+        Codes: E502
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE701" ID="CodeStyleFixer.__fixE701"></a>
+<h4>CodeStyleFixer.__fixE701</h4>
+<b>__fixE701</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix colon-separated compound statements.
+</p>
+<p>
+        Codes: E701
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE702" ID="CodeStyleFixer.__fixE702"></a>
+<h4>CodeStyleFixer.__fixE702</h4>
+<b>__fixE702</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix semicolon-separated compound statements.
+</p>
+<p>
+        Codes: E702, E703
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixE711" ID="CodeStyleFixer.__fixE711"></a>
+<h4>CodeStyleFixer.__fixE711</h4>
+<b>__fixE711</b>(<i>_code, line, pos</i>)
+<p>
+        Private method to fix comparison with None.
+</p>
+<p>
+        Codes: E711, E712
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixN804" ID="CodeStyleFixer.__fixN804"></a>
+<h4>CodeStyleFixer.__fixN804</h4>
+<b>__fixN804</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a wrong first argument of normal and
+        class methods.
+</p>
+<p>
+        Codes: N804, N805
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixN806" ID="CodeStyleFixer.__fixN806"></a>
+<h4>CodeStyleFixer.__fixN806</h4>
+<b>__fixN806</b>(<i>code, line, pos, apply=False</i>)
+<p>
+        Private method to fix a wrong first argument of static methods.
+</p>
+<p>
+        Codes: N806
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>apply</i> (bool)</dt>
+<dd>
+flag indicating, that the fix should be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixReindent" ID="CodeStyleFixer.__fixReindent"></a>
+<h4>CodeStyleFixer.__fixReindent</h4>
+<b>__fixReindent</b>(<i>line, _pos, logical</i>)
+<p>
+        Private method to fix a badly indented line.
+</p>
+<p>
+        This is done by adding or removing from its initial indent only.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+<dt><i>logical</i> (str)</dt>
+<dd>
+logical line structure
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a change was done
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate a bad 'logical' parameter
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixW291" ID="CodeStyleFixer.__fixW291"></a>
+<h4>CodeStyleFixer.__fixW291</h4>
+<b>__fixW291</b>(<i>_code, line, _pos</i>)
+<p>
+        Private method to fix trailing whitespace.
+</p>
+<p>
+        Codes: W291, W293
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixW292" ID="CodeStyleFixer.__fixW292"></a>
+<h4>CodeStyleFixer.__fixW292</h4>
+<b>__fixW292</b>(<i>_code, line, _pos</i>)
+<p>
+        Private method to fix a missing newline at the end of file.
+</p>
+<p>
+        Codes: W292
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixW391" ID="CodeStyleFixer.__fixW391"></a>
+<h4>CodeStyleFixer.__fixW391</h4>
+<b>__fixW391</b>(<i>_code, line, _pos</i>)
+<p>
+        Private method to fix trailing blank lines.
+</p>
+<p>
+        Codes: W391
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixW603" ID="CodeStyleFixer.__fixW603"></a>
+<h4>CodeStyleFixer.__fixW603</h4>
+<b>__fixW603</b>(<i>_code, line, _pos</i>)
+<p>
+        Private method to fix the not equal notation.
+</p>
+<p>
+        Codes: W603
+</p>
+
+<dl>
+
+<dt><i>_code</i> (str)</dt>
+<dd>
+code of the issue (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position inside line (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, a list of arguments for the
+            message and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list or int, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__fixWhitespace" ID="CodeStyleFixer.__fixWhitespace"></a>
+<h4>CodeStyleFixer.__fixWhitespace</h4>
+<b>__fixWhitespace</b>(<i>line, offset, replacement</i>)
+<p>
+        Private method to correct whitespace at the given offset.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to be corrected
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+offset within line
+</dd>
+<dt><i>replacement</i> (str)</dt>
+<dd>
+replacement string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+corrected line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__getID" ID="CodeStyleFixer.__getID"></a>
+<h4>CodeStyleFixer.__getID</h4>
+<b>__getID</b>(<i></i>)
+<p>
+        Private method to get the ID for a deferred fix.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__getIndent" ID="CodeStyleFixer.__getIndent"></a>
+<h4>CodeStyleFixer.__getIndent</h4>
+<b>__getIndent</b>(<i>line</i>)
+<p>
+        Private method to get the indentation string.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to determine the indentation string from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+indentation string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__getIndentWord" ID="CodeStyleFixer.__getIndentWord"></a>
+<h4>CodeStyleFixer.__getIndentWord</h4>
+<b>__getIndentWord</b>(<i></i>)
+<p>
+        Private method to determine the indentation type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string to be used for an indentation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__getLogical" ID="CodeStyleFixer.__getLogical"></a>
+<h4>CodeStyleFixer.__getLogical</h4>
+<b>__getLogical</b>(<i>line, pos</i>)
+<p>
+        Private method to get the logical line corresponding to the given
+        position.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of a tuple of two integers giving the start of the
+            logical line, another tuple of two integers giving the end
+            of the logical line and a list of strings with the original
+            source lines
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of ((int, int), (int, int), [str])
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.__multilineStringLines" ID="CodeStyleFixer.__multilineStringLines"></a>
+<h4>CodeStyleFixer.__multilineStringLines</h4>
+<b>__multilineStringLines</b>(<i></i>)
+<p>
+        Private method to determine the line numbers that are within multi line
+        strings and these which are part of a documentation string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of a set of line numbers belonging to a multi line
+            string and a set of line numbers belonging to a multi line
+            documentation string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (set of int, set of int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.finalize" ID="CodeStyleFixer.finalize"></a>
+<h4>CodeStyleFixer.finalize</h4>
+<b>finalize</b>(<i></i>)
+<p>
+        Public method to apply all deferred fixes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the fix results
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.fixIssue" ID="CodeStyleFixer.fixIssue"></a>
+<h4>CodeStyleFixer.fixIssue</h4>
+<b>fixIssue</b>(<i>line, pos, code</i>)
+<p>
+        Public method to fix the fixable issues.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position inside line
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+code of the issue
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating an applied/deferred fix (-1, 0, 1),
+            a message code for the fix, arguments list for the message
+            and an ID for a deferred fix
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, list, int)
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.mutualStartswith" ID="CodeStyleFixer.mutualStartswith"></a>
+<h4>CodeStyleFixer.mutualStartswith</h4>
+<b>mutualStartswith</b>(<i>b</i>)
+<p>
+            Local helper method to compare the beginnings of two strings
+            against each other.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that one string starts with the other
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CodeStyleFixer.saveFile" ID="CodeStyleFixer.saveFile"></a>
+<h4>CodeStyleFixer.saveFile</h4>
+<b>saveFile</b>(<i>encoding</i>)
+<p>
+        Public method to save the modified file.
+</p>
+
+<dl>
+
+<dt><i>encoding</i> (str)</dt>
+<dd>
+encoding of the source file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+error message on failure
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, [str])
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="IndentationWrapper" ID="IndentationWrapper"></a>
+<h2>IndentationWrapper</h2>
+<p>
+    Class used by fixers dealing with indentation.
+</p>
+<p>
+    Each instance operates on a single logical line.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>SKIP_TOKENS</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IndentationWrapper.__init__">IndentationWrapper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IndentationWrapper.__buildTokensLogical">__buildTokensLogical</a></td>
+<td>Private method to build a logical line from a list of tokens.</td>
+</tr>
+<tr>
+<td><a href="#IndentationWrapper.pep8Expected">pep8Expected</a></td>
+<td>Public method to replicate logic in pycodestyle.py, to know what level to indent things to.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IndentationWrapper.__init__" ID="IndentationWrapper.__init__"></a>
+<h4>IndentationWrapper (Constructor)</h4>
+<b>IndentationWrapper</b>(<i>physical_lines</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>physical_lines</i> (list of str)</dt>
+<dd>
+list of physical lines to operate on
+</dd>
+</dl>
+<a NAME="IndentationWrapper.__buildTokensLogical" ID="IndentationWrapper.__buildTokensLogical"></a>
+<h4>IndentationWrapper.__buildTokensLogical</h4>
+<b>__buildTokensLogical</b>(<i>tokens</i>)
+<p>
+        Private method to build a logical line from a list of tokens.
+</p>
+
+<dl>
+
+<dt><i>tokens</i> (list of Token)</dt>
+<dd>
+list of tokens as generated by tokenize.generate_tokens
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+logical line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="IndentationWrapper.pep8Expected" ID="IndentationWrapper.pep8Expected"></a>
+<h4>IndentationWrapper.pep8Expected</h4>
+<b>pep8Expected</b>(<i></i>)
+<p>
+        Public method to replicate logic in pycodestyle.py, to know what level
+        to indent things to.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of lists, where each list represents valid indent levels
+            for the line in question, relative from the initial indent. However,
+            the first entry is the indent level which was expected.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of list
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="LineShortener" ID="LineShortener"></a>
+<h2>LineShortener</h2>
+<p>
+    Class used to shorten lines to a given maximum of characters.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#LineShortener.__init__">LineShortener</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.__breakMultiline">__breakMultiline</a></td>
+<td>Private method to break multi line strings.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.__checkSyntax">__checkSyntax</a></td>
+<td>Private method to check the syntax of the given code fragment.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.__countUnbalancedBrackets">__countUnbalancedBrackets</a></td>
+<td>Private method to determine the number of unmatched open/close brackets.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.__getIndent">__getIndent</a></td>
+<td>Private method to get the indentation string.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.__isProbablyInsideStringOrComment">__isProbablyInsideStringOrComment</a></td>
+<td>Private method to check, if the given string might be inside a string or comment.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.__lineShorteningRank">__lineShorteningRank</a></td>
+<td>Private method to rank a candidate.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.__normalizeMultiline">__normalizeMultiline</a></td>
+<td>Private method to remove multiline-related code that will cause syntax error.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.__shortenComment">__shortenComment</a></td>
+<td>Private method to shorten a comment line.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.__shortenLine">__shortenLine</a></td>
+<td>Private method to shorten a line of code at an operator.</td>
+</tr>
+<tr>
+<td><a href="#LineShortener.shorten">shorten</a></td>
+<td>Public method to shorten the line wrapped by the class instance.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="LineShortener.__init__" ID="LineShortener.__init__"></a>
+<h4>LineShortener (Constructor)</h4>
+<b>LineShortener</b>(<i>curLine, prevLine, nextLine, maxLength=88, eol="\n", indentWord="    ", isDocString=False, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>curLine</i> (str)</dt>
+<dd>
+text to work on
+</dd>
+<dt><i>prevLine</i> (str)</dt>
+<dd>
+line before the text to work on
+</dd>
+<dt><i>nextLine</i> (str)</dt>
+<dd>
+line after the text to work on
+</dd>
+<dt><i>maxLength</i> (int)</dt>
+<dd>
+maximum allowed line length
+</dd>
+<dt><i>eol</i> (str)</dt>
+<dd>
+eond-of-line marker
+</dd>
+<dt><i>indentWord</i> (str)</dt>
+<dd>
+string used for indentation
+</dd>
+<dt><i>isDocString</i> (bool)</dt>
+<dd>
+flag indicating that the line belongs to
+            a documentation string
+</dd>
+</dl>
+<a NAME="LineShortener.__breakMultiline" ID="LineShortener.__breakMultiline"></a>
+<h4>LineShortener.__breakMultiline</h4>
+<b>__breakMultiline</b>(<i></i>)
+<p>
+        Private method to break multi line strings.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of the shortened line and the changed next line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="LineShortener.__checkSyntax" ID="LineShortener.__checkSyntax"></a>
+<h4>LineShortener.__checkSyntax</h4>
+<b>__checkSyntax</b>(<i>code</i>)
+<p>
+        Private method to check the syntax of the given code fragment.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code fragment to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating syntax is ok
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LineShortener.__countUnbalancedBrackets" ID="LineShortener.__countUnbalancedBrackets"></a>
+<h4>LineShortener.__countUnbalancedBrackets</h4>
+<b>__countUnbalancedBrackets</b>(<i>line</i>)
+<p>
+        Private method to determine the number of unmatched open/close
+        brackets.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to work at
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of unmatched open/close brackets
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="LineShortener.__getIndent" ID="LineShortener.__getIndent"></a>
+<h4>LineShortener.__getIndent</h4>
+<b>__getIndent</b>(<i>line</i>)
+<p>
+        Private method to get the indentation string.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to determine the indentation string from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+indentation string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LineShortener.__isProbablyInsideStringOrComment" ID="LineShortener.__isProbablyInsideStringOrComment"></a>
+<h4>LineShortener.__isProbablyInsideStringOrComment</h4>
+<b>__isProbablyInsideStringOrComment</b>(<i>line, index</i>)
+<p>
+        Private method to check, if the given string might be inside a string
+        or comment.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to check
+</dd>
+<dt><i>index</i> (int)</dt>
+<dd>
+position inside line to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the possibility of being inside a string
+            or comment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LineShortener.__lineShorteningRank" ID="LineShortener.__lineShorteningRank"></a>
+<h4>LineShortener.__lineShorteningRank</h4>
+<b>__lineShorteningRank</b>(<i>candidate</i>)
+<p>
+        Private method to rank a candidate.
+</p>
+
+<dl>
+
+<dt><i>candidate</i> (str)</dt>
+<dd>
+candidate line to rank
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+rank of the candidate
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="LineShortener.__normalizeMultiline" ID="LineShortener.__normalizeMultiline"></a>
+<h4>LineShortener.__normalizeMultiline</h4>
+<b>__normalizeMultiline</b>(<i>text</i>)
+<p>
+        Private method to remove multiline-related code that will cause syntax
+        error.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+code line to work on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+normalized code line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LineShortener.__shortenComment" ID="LineShortener.__shortenComment"></a>
+<h4>LineShortener.__shortenComment</h4>
+<b>__shortenComment</b>(<i>isLast</i>)
+<p>
+        Private method to shorten a comment line.
+</p>
+
+<dl>
+
+<dt><i>isLast</i> (bool)</dt>
+<dd>
+flag indicating, that the line is the last comment line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+shortened comment line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LineShortener.__shortenLine" ID="LineShortener.__shortenLine"></a>
+<h4>LineShortener.__shortenLine</h4>
+<b>__shortenLine</b>(<i>tokens, source, indent</i>)
+<p>
+        Private method to shorten a line of code at an operator.
+</p>
+
+<dl>
+
+<dt><i>tokens</i> (list of Token)</dt>
+<dd>
+tokens of the line as generated by tokenize
+</dd>
+<dt><i>source</i> (str)</dt>
+<dd>
+code string to work at
+</dd>
+<dt><i>indent</i> (str)</dt>
+<dd>
+indentation string of the code line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of candidates
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="LineShortener.shorten" ID="LineShortener.shorten"></a>
+<h4>LineShortener.shorten</h4>
+<b>shorten</b>(<i></i>)
+<p>
+        Public method to shorten the line wrapped by the class instance.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of a flag indicating successful shortening, the
+            shortened line and the changed next line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Reindenter" ID="Reindenter"></a>
+<h2>Reindenter</h2>
+<p>
+    Class to reindent badly-indented code to uniformly use four-space
+    indentation.
+</p>
+<p>
+    Released to the public domain, by Tim Peters, 03 October 2000.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Reindenter.__init__">Reindenter</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Reindenter.__genStats">__genStats</a></td>
+<td>Private method to generate the re-indent statistics.</td>
+</tr>
+<tr>
+<td><a href="#Reindenter.__getlspace">__getlspace</a></td>
+<td>Private method to count number of leading blanks.</td>
+</tr>
+<tr>
+<td><a href="#Reindenter.fixedLine">fixedLine</a></td>
+<td>Public method to get a fixed line.</td>
+</tr>
+<tr>
+<td><a href="#Reindenter.getline">getline</a></td>
+<td>Public method to get a line of text for tokenize.</td>
+</tr>
+<tr>
+<td><a href="#Reindenter.run">run</a></td>
+<td>Public method to run the re-indenter.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Reindenter.__init__" ID="Reindenter.__init__"></a>
+<h4>Reindenter (Constructor)</h4>
+<b>Reindenter</b>(<i>sourceLines</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>sourceLines</i> (list of str)</dt>
+<dd>
+list of source lines including eol marker
+</dd>
+</dl>
+<a NAME="Reindenter.__genStats" ID="Reindenter.__genStats"></a>
+<h4>Reindenter.__genStats</h4>
+<b>__genStats</b>(<i>tokens</i>)
+<p>
+        Private method to generate the re-indent statistics.
+</p>
+
+<dl>
+
+<dt><i>tokens</i> (function)</dt>
+<dd>
+tokens generator (tokenize._tokenize)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated statistics
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="Reindenter.__getlspace" ID="Reindenter.__getlspace"></a>
+<h4>Reindenter.__getlspace</h4>
+<b>__getlspace</b>(<i>line</i>)
+<p>
+        Private method to count number of leading blanks.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of leading blanks
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Reindenter.fixedLine" ID="Reindenter.fixedLine"></a>
+<h4>Reindenter.fixedLine</h4>
+<b>fixedLine</b>(<i>line</i>)
+<p>
+        Public method to get a fixed line.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+number of the line to retrieve
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+fixed line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Reindenter.getline" ID="Reindenter.getline"></a>
+<h4>Reindenter.getline</h4>
+<b>getline</b>(<i></i>)
+<p>
+        Public method to get a line of text for tokenize.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+line of text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Reindenter.run" ID="Reindenter.run"></a>
+<h4>Reindenter.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method to run the re-indenter.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that a change was done
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.CallStackViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.CallStackViewer</h1>
+<p>
+Module implementing the Call Stack viewer widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CallStackViewer">CallStackViewer</a></td>
+<td>Class implementing the Call Stack viewer widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CallStackViewer" ID="CallStackViewer"></a>
+<h2>CallStackViewer</h2>
+<p>
+    Class implementing the Call Stack viewer widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>frameSelected(int)</dt>
+<dd>
+emitted to signal the selection of a frame entry
+</dd>
+<dt>sourceFile(str, int)</dt>
+<dd>
+emitted to show the source of a stack entry
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>FilenameRole</td></tr>
+<tr><td>LinenoRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CallStackViewer.__init__">CallStackViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CallStackViewer.__itemDoubleClicked">__itemDoubleClicked</a></td>
+<td>Private slot to handle a double click of a stack entry.</td>
+</tr>
+<tr>
+<td><a href="#CallStackViewer.__openSource">__openSource</a></td>
+<td>Private slot to show the source for the selected stack entry.</td>
+</tr>
+<tr>
+<td><a href="#CallStackViewer.__saveStackTrace">__saveStackTrace</a></td>
+<td>Private slot to save the stack trace info to a file.</td>
+</tr>
+<tr>
+<td><a href="#CallStackViewer.__showCallStack">__showCallStack</a></td>
+<td>Private slot to show the call stack of the program being debugged.</td>
+</tr>
+<tr>
+<td><a href="#CallStackViewer.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#CallStackViewer.clear">clear</a></td>
+<td>Public method to clear the stack viewer data.</td>
+</tr>
+<tr>
+<td><a href="#CallStackViewer.setDebugger">setDebugger</a></td>
+<td>Public method to set a reference to the Debug UI.</td>
+</tr>
+<tr>
+<td><a href="#CallStackViewer.setProjectMode">setProjectMode</a></td>
+<td>Public slot to set the call trace viewer to project mode.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CallStackViewer.__init__" ID="CallStackViewer.__init__"></a>
+<h4>CallStackViewer (Constructor)</h4>
+<b>CallStackViewer</b>(<i>debugServer, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>debugServer</i> (DebugServer)</dt>
+<dd>
+reference to the debug server object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="CallStackViewer.__itemDoubleClicked" ID="CallStackViewer.__itemDoubleClicked"></a>
+<h4>CallStackViewer.__itemDoubleClicked</h4>
+<b>__itemDoubleClicked</b>(<i>itm</i>)
+<p>
+        Private slot to handle a double click of a stack entry.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the double clicked item
+</dd>
+</dl>
+<a NAME="CallStackViewer.__openSource" ID="CallStackViewer.__openSource"></a>
+<h4>CallStackViewer.__openSource</h4>
+<b>__openSource</b>(<i></i>)
+<p>
+        Private slot to show the source for the selected stack entry.
+</p>
+
+<a NAME="CallStackViewer.__saveStackTrace" ID="CallStackViewer.__saveStackTrace"></a>
+<h4>CallStackViewer.__saveStackTrace</h4>
+<b>__saveStackTrace</b>(<i></i>)
+<p>
+        Private slot to save the stack trace info to a file.
+</p>
+
+<a NAME="CallStackViewer.__showCallStack" ID="CallStackViewer.__showCallStack"></a>
+<h4>CallStackViewer.__showCallStack</h4>
+<b>__showCallStack</b>(<i>stack, debuggerId</i>)
+<p>
+        Private slot to show the call stack of the program being debugged.
+</p>
+
+<dl>
+
+<dt><i>stack</i> (list of tuples of (str, str, str, str))</dt>
+<dd>
+list of tuples with call stack data (file name,
+            line number, function name, formatted argument/values list)
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="CallStackViewer.__showContextMenu" ID="CallStackViewer.__showContextMenu"></a>
+<h4>CallStackViewer.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="CallStackViewer.clear" ID="CallStackViewer.clear"></a>
+<h4>CallStackViewer.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to clear the stack viewer data.
+</p>
+
+<a NAME="CallStackViewer.setDebugger" ID="CallStackViewer.setDebugger"></a>
+<h4>CallStackViewer.setDebugger</h4>
+<b>setDebugger</b>(<i>debugUI</i>)
+<p>
+        Public method to set a reference to the Debug UI.
+</p>
+
+<dl>
+
+<dt><i>debugUI</i> (DebugUI)</dt>
+<dd>
+reference to the DebugUI object
+</dd>
+</dl>
+<a NAME="CallStackViewer.setProjectMode" ID="CallStackViewer.setProjectMode"></a>
+<h4>CallStackViewer.setProjectMode</h4>
+<b>setProjectMode</b>(<i>enabled</i>)
+<p>
+        Public slot to set the call trace viewer to project mode.
+</p>
+<p>
+        In project mode the call trace info is shown with project relative
+        path names.
+</p>
+
+<dl>
+
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating to enable the project mode
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

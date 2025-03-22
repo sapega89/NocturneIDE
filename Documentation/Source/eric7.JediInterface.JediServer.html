@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.JediInterface.JediServer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.JediInterface.JediServer</h1>
+<p>
+Module implementing the autocompletion interface to jedi.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#JediServer">JediServer</a></td>
+<td>Class implementing the interface to the jedi library.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="JediServer" ID="JediServer"></a>
+<h2>JediServer</h2>
+<p>
+    Class implementing the interface to the jedi library.
+</p>
+
+<h3>Derived from</h3>
+EricJsonServer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>IdProject</td></tr>
+<tr><td>PictureIDs</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#JediServer.__init__">JediServer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__applyRefactoring">__applyRefactoring</a></td>
+<td>Private method to apply a given refactoring.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__cancelRefactoring">__cancelRefactoring</a></td>
+<td>Private method to cancel a given refactoring.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__checkRefactoringResult">__checkRefactoringResult</a></td>
+<td>Private method to check the refactoring result for errors.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__ensureActive">__ensureActive</a></td>
+<td>Private method to ensure, that the requested client is active.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__idString">__idString</a></td>
+<td>Private method to determine the ID string for the back-end.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__interpreterForProject">__interpreterForProject</a></td>
+<td>Private method to determine the interpreter for the current project and the environment to run it.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__prepareData">__prepareData</a></td>
+<td>Private method to gather data about current cursor position.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__processCallTipsResult">__processCallTipsResult</a></td>
+<td>Private method to process the calltips sent by the client.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__processClientException">__processClientException</a></td>
+<td>Private method to handle exceptions of the refactoring client.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__processCompletionsResult">__processCompletionsResult</a></td>
+<td>Private method to process the completions sent by the client.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__processDocumentationResult">__processDocumentationResult</a></td>
+<td>Private method to process the documentation sent by the client.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__processGotoDefinitionResult">__processGotoDefinitionResult</a></td>
+<td>Private method callback for the goto definition result.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__processGotoReferencesResult">__processGotoReferencesResult</a></td>
+<td>Private method callback for the goto references result.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__processHoverHelpResult">__processHoverHelpResult</a></td>
+<td>Private method callback for the goto definition result.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__projectClosed">__projectClosed</a></td>
+<td>Private slot to handle the projectClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__projectOpened">__projectOpened</a></td>
+<td>Private slot to handle the projectOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__showRefactoringDiff">__showRefactoringDiff</a></td>
+<td>Private method to show the diff of a refactoring.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__startJediClient">__startJediClient</a></td>
+<td>Private method to start the Jedi client with the given interpreter.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.__updateEditorLanguageMapping">__updateEditorLanguageMapping</a></td>
+<td>Private method to update the editor language to connection mapping.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.activate">activate</a></td>
+<td>Public method to activate the Jedi server.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.deactivate">deactivate</a></td>
+<td>Public method to deactivate the code assist server.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.forgetEditor">forgetEditor</a></td>
+<td>Public method to forget about the given editor.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.getCallTips">getCallTips</a></td>
+<td>Public method to calculate calltips.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.gotoDefinition">gotoDefinition</a></td>
+<td>Public slot to find the definition for the word at the cursor position and go to it.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.handleCall">handleCall</a></td>
+<td>Public method to handle a method call from the client.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.handleNewConnection">handleNewConnection</a></td>
+<td>Public slot for new incoming connections from a client.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.hoverHelp">hoverHelp</a></td>
+<td>Public method to initiate the display of mouse hover help.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.isSupportedLanguage">isSupportedLanguage</a></td>
+<td>Public method to check, if the given language is supported.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.refactoringExtractFunction">refactoringExtractFunction</a></td>
+<td>Public slot to extract an expression to a function.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.refactoringExtractNewVariable">refactoringExtractNewVariable</a></td>
+<td>Public slot to extract a statement to a new variable.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.refactoringInlineVariable">refactoringInlineVariable</a></td>
+<td>Public slot to inline the selected variable.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.refactoringRenameVariable">refactoringRenameVariable</a></td>
+<td>Public slot to rename the selected variable.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.requestCodeDocumentation">requestCodeDocumentation</a></td>
+<td>Public method to request source code documentation for the given editor.</td>
+</tr>
+<tr>
+<td><a href="#JediServer.requestCompletions">requestCompletions</a></td>
+<td>Public method to request a list of possible completions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="JediServer.__init__" ID="JediServer.__init__"></a>
+<h4>JediServer (Constructor)</h4>
+<b>JediServer</b>(<i>viewManager, project, ui</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>viewManager</i> (ViewManager)</dt>
+<dd>
+reference to the viewmanager object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the user interface
+</dd>
+</dl>
+<a NAME="JediServer.__applyRefactoring" ID="JediServer.__applyRefactoring"></a>
+<h4>JediServer.__applyRefactoring</h4>
+<b>__applyRefactoring</b>(<i>uid</i>)
+<p>
+        Private method to apply a given refactoring.
+</p>
+
+<dl>
+
+<dt><i>uid</i> (str)</dt>
+<dd>
+UID of the calculated refactoring
+</dd>
+</dl>
+<a NAME="JediServer.__cancelRefactoring" ID="JediServer.__cancelRefactoring"></a>
+<h4>JediServer.__cancelRefactoring</h4>
+<b>__cancelRefactoring</b>(<i>uid</i>)
+<p>
+        Private method to cancel a given refactoring.
+</p>
+
+<dl>
+
+<dt><i>uid</i> (str)</dt>
+<dd>
+UID of the calculated refactoring
+</dd>
+</dl>
+<a NAME="JediServer.__checkRefactoringResult" ID="JediServer.__checkRefactoringResult"></a>
+<h4>JediServer.__checkRefactoringResult</h4>
+<b>__checkRefactoringResult</b>(<i>result</i>)
+<p>
+        Private method to check the refactoring result for errors.
+</p>
+
+<dl>
+
+<dt><i>result</i> (dict)</dt>
+<dd>
+dictionary containing the result data
+</dd>
+</dl>
+<a NAME="JediServer.__ensureActive" ID="JediServer.__ensureActive"></a>
+<h4>JediServer.__ensureActive</h4>
+<b>__ensureActive</b>(<i>idString</i>)
+<p>
+        Private method to ensure, that the requested client is active.
+</p>
+<p>
+        A non-active client will be started.
+</p>
+
+<dl>
+
+<dt><i>idString</i> (str)</dt>
+<dd>
+id of the client to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an active client
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="JediServer.__idString" ID="JediServer.__idString"></a>
+<h4>JediServer.__idString</h4>
+<b>__idString</b>(<i>editor</i>)
+<p>
+        Private method to determine the ID string for the back-end.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to determine the ID string for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+ID string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="JediServer.__interpreterForProject" ID="JediServer.__interpreterForProject"></a>
+<h4>JediServer.__interpreterForProject</h4>
+<b>__interpreterForProject</b>(<i></i>)
+<p>
+        Private method to determine the interpreter for the current project and
+        the environment to run it.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the interpreter of the current project and the
+            environment variables
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, dict)
+</dd>
+</dl>
+<a NAME="JediServer.__prepareData" ID="JediServer.__prepareData"></a>
+<h4>JediServer.__prepareData</h4>
+<b>__prepareData</b>(<i>editor</i>)
+<p>
+        Private method to gather data about current cursor position.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor object, that called this method
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of filename, line, index, source
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple (str, int, int, str)
+</dd>
+</dl>
+<a NAME="JediServer.__processCallTipsResult" ID="JediServer.__processCallTipsResult"></a>
+<h4>JediServer.__processCallTipsResult</h4>
+<b>__processCallTipsResult</b>(<i>result</i>)
+<p>
+        Private method to process the calltips sent by the client.
+</p>
+
+<dl>
+
+<dt><i>result</i> (dict)</dt>
+<dd>
+dictionary containing the result sent by the client
+</dd>
+</dl>
+<a NAME="JediServer.__processClientException" ID="JediServer.__processClientException"></a>
+<h4>JediServer.__processClientException</h4>
+<b>__processClientException</b>(<i>params</i>)
+<p>
+        Private method to handle exceptions of the refactoring client.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the exception data
+</dd>
+</dl>
+<a NAME="JediServer.__processCompletionsResult" ID="JediServer.__processCompletionsResult"></a>
+<h4>JediServer.__processCompletionsResult</h4>
+<b>__processCompletionsResult</b>(<i>result</i>)
+<p>
+        Private method to process the completions sent by the client.
+</p>
+
+<dl>
+
+<dt><i>result</i> (dict)</dt>
+<dd>
+dictionary containing the result sent by the client
+</dd>
+</dl>
+<a NAME="JediServer.__processDocumentationResult" ID="JediServer.__processDocumentationResult"></a>
+<h4>JediServer.__processDocumentationResult</h4>
+<b>__processDocumentationResult</b>(<i>result</i>)
+<p>
+        Private method to process the documentation sent by the client.
+</p>
+
+<dl>
+
+<dt><i>result</i> (dict with keys 'name', 'module', 'argspec', 'docstring')</dt>
+<dd>
+dictionary containing the result sent by the client
+</dd>
+</dl>
+<a NAME="JediServer.__processGotoDefinitionResult" ID="JediServer.__processGotoDefinitionResult"></a>
+<h4>JediServer.__processGotoDefinitionResult</h4>
+<b>__processGotoDefinitionResult</b>(<i>result</i>)
+<p>
+        Private method callback for the goto definition result.
+</p>
+
+<dl>
+
+<dt><i>result</i> (dict)</dt>
+<dd>
+dictionary containing the result data
+</dd>
+</dl>
+<a NAME="JediServer.__processGotoReferencesResult" ID="JediServer.__processGotoReferencesResult"></a>
+<h4>JediServer.__processGotoReferencesResult</h4>
+<b>__processGotoReferencesResult</b>(<i>result</i>)
+<p>
+        Private method callback for the goto references result.
+</p>
+
+<dl>
+
+<dt><i>result</i> (dict)</dt>
+<dd>
+dictionary containing the result data
+</dd>
+</dl>
+<a NAME="JediServer.__processHoverHelpResult" ID="JediServer.__processHoverHelpResult"></a>
+<h4>JediServer.__processHoverHelpResult</h4>
+<b>__processHoverHelpResult</b>(<i>result</i>)
+<p>
+        Private method callback for the goto definition result.
+</p>
+
+<dl>
+
+<dt><i>result</i> (dict)</dt>
+<dd>
+dictionary containing the result data
+</dd>
+</dl>
+<a NAME="JediServer.__projectClosed" ID="JediServer.__projectClosed"></a>
+<h4>JediServer.__projectClosed</h4>
+<b>__projectClosed</b>(<i></i>)
+<p>
+        Private slot to handle the projectClosed signal.
+</p>
+
+<a NAME="JediServer.__projectOpened" ID="JediServer.__projectOpened"></a>
+<h4>JediServer.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to handle the projectOpened signal.
+</p>
+
+<a NAME="JediServer.__showRefactoringDiff" ID="JediServer.__showRefactoringDiff"></a>
+<h4>JediServer.__showRefactoringDiff</h4>
+<b>__showRefactoringDiff</b>(<i>result</i>)
+<p>
+        Private method to show the diff of a refactoring.
+</p>
+
+<dl>
+
+<dt><i>result</i> (dict)</dt>
+<dd>
+dictionary containing the result data
+</dd>
+</dl>
+<a NAME="JediServer.__startJediClient" ID="JediServer.__startJediClient"></a>
+<h4>JediServer.__startJediClient</h4>
+<b>__startJediClient</b>(<i>interpreter, idString, clientEnv</i>)
+<p>
+        Private method to start the Jedi client with the given interpreter.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for the Jedi client
+</dd>
+<dt><i>idString</i> (str)</dt>
+<dd>
+id of the client to be started
+</dd>
+<dt><i>clientEnv</i> (dict)</dt>
+<dd>
+dictionary with environment variables to run the
+            interpreter with
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful start of the client
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="JediServer.__updateEditorLanguageMapping" ID="JediServer.__updateEditorLanguageMapping"></a>
+<h4>JediServer.__updateEditorLanguageMapping</h4>
+<b>__updateEditorLanguageMapping</b>(<i></i>)
+<p>
+        Private method to update the editor language to connection mapping.
+</p>
+
+<a NAME="JediServer.activate" ID="JediServer.activate"></a>
+<h4>JediServer.activate</h4>
+<b>activate</b>(<i></i>)
+<p>
+        Public method to activate the Jedi server.
+</p>
+
+<a NAME="JediServer.deactivate" ID="JediServer.deactivate"></a>
+<h4>JediServer.deactivate</h4>
+<b>deactivate</b>(<i></i>)
+<p>
+        Public method to deactivate the code assist server.
+</p>
+
+<a NAME="JediServer.forgetEditor" ID="JediServer.forgetEditor"></a>
+<h4>JediServer.forgetEditor</h4>
+<b>forgetEditor</b>(<i>editor</i>)
+<p>
+        Public method to forget about the given editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to forget about
+</dd>
+</dl>
+<a NAME="JediServer.getCallTips" ID="JediServer.getCallTips"></a>
+<h4>JediServer.getCallTips</h4>
+<b>getCallTips</b>(<i>editor, _pos, _commas</i>)
+<p>
+        Public method to calculate calltips.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor object, that called this method
+</dd>
+<dt><i>_pos</i> (int)</dt>
+<dd>
+position in the text for the calltip (unused)
+</dd>
+<dt><i>_commas</i> (int)</dt>
+<dd>
+minimum number of commas contained in the calltip (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of possible calltips
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="JediServer.gotoDefinition" ID="JediServer.gotoDefinition"></a>
+<h4>JediServer.gotoDefinition</h4>
+<b>gotoDefinition</b>(<i>editor</i>)
+<p>
+        Public slot to find the definition for the word at the cursor position
+        and go to it.
+</p>
+<p>
+        Note: This is executed upon a mouse click sequence.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the calling editor
+</dd>
+</dl>
+<a NAME="JediServer.handleCall" ID="JediServer.handleCall"></a>
+<h4>JediServer.handleCall</h4>
+<b>handleCall</b>(<i>method, params</i>)
+<p>
+        Public method to handle a method call from the client.
+</p>
+
+<dl>
+
+<dt><i>method</i> (str)</dt>
+<dd>
+requested method name
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary with method specific parameters
+</dd>
+</dl>
+<a NAME="JediServer.handleNewConnection" ID="JediServer.handleNewConnection"></a>
+<h4>JediServer.handleNewConnection</h4>
+<b>handleNewConnection</b>(<i></i>)
+<p>
+        Public slot for new incoming connections from a client.
+</p>
+
+<a NAME="JediServer.hoverHelp" ID="JediServer.hoverHelp"></a>
+<h4>JediServer.hoverHelp</h4>
+<b>hoverHelp</b>(<i>editor, line, index</i>)
+<p>
+        Public method to initiate the display of mouse hover help.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the calling editor
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number (zero based)
+</dd>
+<dt><i>index</i> (int)</dt>
+<dd>
+index within the line (zero based)
+</dd>
+</dl>
+<a NAME="JediServer.isSupportedLanguage" ID="JediServer.isSupportedLanguage"></a>
+<h4>JediServer.isSupportedLanguage</h4>
+<b>isSupportedLanguage</b>(<i>language</i>)
+<p>
+        Public method to check, if the given language is supported.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+editor programming language to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the support status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="JediServer.refactoringExtractFunction" ID="JediServer.refactoringExtractFunction"></a>
+<h4>JediServer.refactoringExtractFunction</h4>
+<b>refactoringExtractFunction</b>(<i></i>)
+<p>
+        Public slot to extract an expression to a function.
+</p>
+
+<a NAME="JediServer.refactoringExtractNewVariable" ID="JediServer.refactoringExtractNewVariable"></a>
+<h4>JediServer.refactoringExtractNewVariable</h4>
+<b>refactoringExtractNewVariable</b>(<i></i>)
+<p>
+        Public slot to extract a statement to a new variable.
+</p>
+
+<a NAME="JediServer.refactoringInlineVariable" ID="JediServer.refactoringInlineVariable"></a>
+<h4>JediServer.refactoringInlineVariable</h4>
+<b>refactoringInlineVariable</b>(<i></i>)
+<p>
+        Public slot to inline the selected variable.
+</p>
+<p>
+        Note: This is the opposite to Extract New Variable.
+</p>
+
+<a NAME="JediServer.refactoringRenameVariable" ID="JediServer.refactoringRenameVariable"></a>
+<h4>JediServer.refactoringRenameVariable</h4>
+<b>refactoringRenameVariable</b>(<i></i>)
+<p>
+        Public slot to rename the selected variable.
+</p>
+
+<a NAME="JediServer.requestCodeDocumentation" ID="JediServer.requestCodeDocumentation"></a>
+<h4>JediServer.requestCodeDocumentation</h4>
+<b>requestCodeDocumentation</b>(<i>editor</i>)
+<p>
+        Public method to request source code documentation for the given
+        editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to get source code documentation
+            for
+</dd>
+</dl>
+<a NAME="JediServer.requestCompletions" ID="JediServer.requestCompletions"></a>
+<h4>JediServer.requestCompletions</h4>
+<b>requestCompletions</b>(<i>editor, _context, acText</i>)
+<p>
+        Public method to request a list of possible completions.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor object, that called this method
+</dd>
+<dt><i>_context</i> (bool)</dt>
+<dd>
+flag indicating to autocomplete a context (unused)
+</dd>
+<dt><i>acText</i> (str)</dt>
+<dd>
+text to be completed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

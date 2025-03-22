@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DataViews.PyProfileDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DataViews.PyProfileDialog</h1>
+<p>
+Module implementing a dialog to display profile data.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ProfileTreeWidgetItem">ProfileTreeWidgetItem</a></td>
+<td>Class implementing a custom QTreeWidgetItem to allow sorting on numeric values.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog">PyProfileDialog</a></td>
+<td>Class implementing a dialog to display the results of a profiling run.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ProfileTreeWidgetItem" ID="ProfileTreeWidgetItem"></a>
+<h2>ProfileTreeWidgetItem</h2>
+<p>
+    Class implementing a custom QTreeWidgetItem to allow sorting on numeric
+    values.
+</p>
+
+<h3>Derived from</h3>
+QTreeWidgetItem
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ProfileTreeWidgetItem.__getNC">__getNC</a></td>
+<td>Private method to get the value to compare on for the first column.</td>
+</tr>
+<tr>
+<td><a href="#ProfileTreeWidgetItem.__lt__">__lt__</a></td>
+<td>Special method to check, if the item is less than the other one.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ProfileTreeWidgetItem.__getNC" ID="ProfileTreeWidgetItem.__getNC"></a>
+<h4>ProfileTreeWidgetItem.__getNC</h4>
+<b>__getNC</b>(<i>itm</i>)
+<p>
+        Private method to get the value to compare on for the first column.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (ProfileTreeWidgetItem)</dt>
+<dd>
+item to operate on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+comparison value for the first column
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="ProfileTreeWidgetItem.__lt__" ID="ProfileTreeWidgetItem.__lt__"></a>
+<h4>ProfileTreeWidgetItem.__lt__</h4>
+<b>__lt__</b>(<i>other</i>)
+<p>
+        Special method to check, if the item is less than the other one.
+</p>
+
+<dl>
+
+<dt><i>other</i> (ProfileTreeWidgetItem)</dt>
+<dd>
+reference to item to compare against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+true, if this item is less than other
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PyProfileDialog" ID="PyProfileDialog"></a>
+<h2>PyProfileDialog</h2>
+<p>
+    Class implementing a dialog to display the results of a profiling run.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_PyProfileDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PyProfileDialog.__init__">PyProfileDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__createResultItem">__createResultItem</a></td>
+<td>Private method to create an entry in the result list.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__createSummaryItem">__createSummaryItem</a></td>
+<td>Private method to create an entry in the summary list.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__eraseAll">__eraseAll</a></td>
+<td>Private slot to handle the Erase All context menu action.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__eraseProfile">__eraseProfile</a></td>
+<td>Private slot to handle the Erase Profile context menu action.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__eraseTiming">__eraseTiming</a></td>
+<td>Private slot to handle the Erase Timing context menu action.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__filter">__filter</a></td>
+<td>Private slot to handle the Exclude/Include Python Library context menu action.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__finish">__finish</a></td>
+<td>Private slot called when the action finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__populateLists">__populateLists</a></td>
+<td>Private method used to populate the listviews.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__resortResultList">__resortResultList</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu of the listview.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.__unfinish">__unfinish</a></td>
+<td>Private slot called to revert the effects of the __finish slot.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.closeEvent">closeEvent</a></td>
+<td>Protected method to handle the close event.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#PyProfileDialog.start">start</a></td>
+<td>Public slot to start the calculation of the profile data.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PyProfileDialog.__init__" ID="PyProfileDialog.__init__"></a>
+<h4>PyProfileDialog (Constructor)</h4>
+<b>PyProfileDialog</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="PyProfileDialog.__createResultItem" ID="PyProfileDialog.__createResultItem"></a>
+<h4>PyProfileDialog.__createResultItem</h4>
+<b>__createResultItem</b>(<i>calls, totalTime, totalTimePerCall, cumulativeTime, cumulativeTimePerCall, file, line, functionName, </i>)
+<p>
+        Private method to create an entry in the result list.
+</p>
+
+<dl>
+
+<dt><i>calls</i> (int)</dt>
+<dd>
+number of calls
+</dd>
+<dt><i>totalTime</i> (float)</dt>
+<dd>
+total time
+</dd>
+<dt><i>totalTimePerCall</i> (float)</dt>
+<dd>
+total time per call
+</dd>
+<dt><i>cumulativeTime</i> (float)</dt>
+<dd>
+cumulative time
+</dd>
+<dt><i>cumulativeTimePerCall</i> (float)</dt>
+<dd>
+cumulative time per call
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+filename of file
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+linenumber
+</dd>
+<dt><i>functionName</i> (str)</dt>
+<dd>
+function name
+</dd>
+</dl>
+<a NAME="PyProfileDialog.__createSummaryItem" ID="PyProfileDialog.__createSummaryItem"></a>
+<h4>PyProfileDialog.__createSummaryItem</h4>
+<b>__createSummaryItem</b>(<i>label, contents</i>)
+<p>
+        Private method to create an entry in the summary list.
+</p>
+
+<dl>
+
+<dt><i>label</i> (str)</dt>
+<dd>
+text of the first column
+</dd>
+<dt><i>contents</i> (str)</dt>
+<dd>
+text of the second column
+</dd>
+</dl>
+<a NAME="PyProfileDialog.__eraseAll" ID="PyProfileDialog.__eraseAll"></a>
+<h4>PyProfileDialog.__eraseAll</h4>
+<b>__eraseAll</b>(<i></i>)
+<p>
+        Private slot to handle the Erase All context menu action.
+</p>
+
+<a NAME="PyProfileDialog.__eraseProfile" ID="PyProfileDialog.__eraseProfile"></a>
+<h4>PyProfileDialog.__eraseProfile</h4>
+<b>__eraseProfile</b>(<i></i>)
+<p>
+        Private slot to handle the Erase Profile context menu action.
+</p>
+
+<a NAME="PyProfileDialog.__eraseTiming" ID="PyProfileDialog.__eraseTiming"></a>
+<h4>PyProfileDialog.__eraseTiming</h4>
+<b>__eraseTiming</b>(<i></i>)
+<p>
+        Private slot to handle the Erase Timing context menu action.
+</p>
+
+<a NAME="PyProfileDialog.__filter" ID="PyProfileDialog.__filter"></a>
+<h4>PyProfileDialog.__filter</h4>
+<b>__filter</b>(<i></i>)
+<p>
+        Private slot to handle the Exclude/Include Python Library context menu
+        action.
+</p>
+
+<a NAME="PyProfileDialog.__finish" ID="PyProfileDialog.__finish"></a>
+<h4>PyProfileDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the action finished or the user pressed the
+        button.
+</p>
+
+<a NAME="PyProfileDialog.__populateLists" ID="PyProfileDialog.__populateLists"></a>
+<h4>PyProfileDialog.__populateLists</h4>
+<b>__populateLists</b>(<i>exclude=False</i>)
+<p>
+        Private method used to populate the listviews.
+</p>
+
+<dl>
+
+<dt><i>exclude</i> (bool)</dt>
+<dd>
+flag indicating whether files residing in the
+                Python library should be excluded
+</dd>
+</dl>
+<a NAME="PyProfileDialog.__resortResultList" ID="PyProfileDialog.__resortResultList"></a>
+<h4>PyProfileDialog.__resortResultList</h4>
+<b>__resortResultList</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="PyProfileDialog.__showContextMenu" ID="PyProfileDialog.__showContextMenu"></a>
+<h4>PyProfileDialog.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu of the listview.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="PyProfileDialog.__unfinish" ID="PyProfileDialog.__unfinish"></a>
+<h4>PyProfileDialog.__unfinish</h4>
+<b>__unfinish</b>(<i></i>)
+<p>
+        Private slot called to revert the effects of the __finish slot.
+</p>
+
+<a NAME="PyProfileDialog.closeEvent" ID="PyProfileDialog.closeEvent"></a>
+<h4>PyProfileDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>_evt</i>)
+<p>
+        Protected method to handle the close event.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the close event (unused)
+</dd>
+</dl>
+<a NAME="PyProfileDialog.on_buttonBox_clicked" ID="PyProfileDialog.on_buttonBox_clicked"></a>
+<h4>PyProfileDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="PyProfileDialog.start" ID="PyProfileDialog.start"></a>
+<h4>PyProfileDialog.start</h4>
+<b>start</b>(<i>pfn, fn=None</i>)
+<p>
+        Public slot to start the calculation of the profile data.
+</p>
+
+<dl>
+
+<dt><i>pfn</i> (str)</dt>
+<dd>
+basename of the profiling file
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+file to display the profiling data for
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricGraphics.EricGraphicsView</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricGraphics.EricGraphicsView</h1>
+<p>
+Module implementing a canvas view class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricGraphicsView">EricGraphicsView</a></td>
+<td>Class implementing a graphics view.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricGraphicsView" ID="EricGraphicsView"></a>
+<h2>EricGraphicsView</h2>
+<p>
+    Class implementing a graphics view.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>zoomValueChanged(int)</dt>
+<dd>
+emitted to signal a change of the zoom value
+</dd>
+</dl>
+<h3>Derived from</h3>
+QGraphicsView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ZoomLevelDefault</td></tr>
+<tr><td>ZoomLevels</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricGraphicsView.__init__">EricGraphicsView</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.__getDiagram">__getDiagram</a></td>
+<td>Private method to retrieve the diagram from the scene fitting it in the minimum rectangle.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.__levelForZoom">__levelForZoom</a></td>
+<td>Private method determining the zoom level index given a zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView._getDiagramRect">_getDiagramRect</a></td>
+<td>Protected method to calculate the minimum rectangle fitting the diagram.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView._getDiagramSize">_getDiagramSize</a></td>
+<td>Protected method to calculate the minimum size fitting the diagram.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.autoAdjustSceneSize">autoAdjustSceneSize</a></td>
+<td>Public method to adjust the scene size to the diagram size.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.filteredItems">filteredItems</a></td>
+<td>Public method to filter a list of items.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.getBackgroundColor">getBackgroundColor</a></td>
+<td>Public method to get the configured background color.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.getDrawingColors">getDrawingColors</a></td>
+<td>Public method to get the configured drawing colors.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.getForegroundColor">getForegroundColor</a></td>
+<td>Public method to get the configured foreground color.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.printDiagram">printDiagram</a></td>
+<td>Public method to print the diagram.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.resizeScene">resizeScene</a></td>
+<td>Public method to resize the scene.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.saveImage">saveImage</a></td>
+<td>Public method to save the scene to a file.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.setSceneSize">setSceneSize</a></td>
+<td>Public method to set the scene size.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.setZoom">setZoom</a></td>
+<td>Public method to set the zoom value in percent.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.zoom">zoom</a></td>
+<td>Public method to get the current zoom factor in percent.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.zoomIn">zoomIn</a></td>
+<td>Public method to zoom in.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.zoomOut">zoomOut</a></td>
+<td>Public method to zoom out.</td>
+</tr>
+<tr>
+<td><a href="#EricGraphicsView.zoomReset">zoomReset</a></td>
+<td>Public method to handle the reset the zoom value.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricGraphicsView.__init__" ID="EricGraphicsView.__init__"></a>
+<h4>EricGraphicsView (Constructor)</h4>
+<b>EricGraphicsView</b>(<i>scene, drawingMode="automatic", parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>scene</i> (QGraphicsScene)</dt>
+<dd>
+reference to the scene object
+</dd>
+<dt><i>drawingMode</i> (str (optional))</dt>
+<dd>
+name of the drawing mode (one of "automatic",
+            "black_white" or "white_black") (defaults to "automatic")
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="EricGraphicsView.__getDiagram" ID="EricGraphicsView.__getDiagram"></a>
+<h4>EricGraphicsView.__getDiagram</h4>
+<b>__getDiagram</b>(<i>rect, imageFormat="PNG", filename=None</i>)
+<p>
+        Private method to retrieve the diagram from the scene fitting it
+        in the minimum rectangle.
+</p>
+
+<dl>
+
+<dt><i>rect</i> (QRectF)</dt>
+<dd>
+minimum rectangle fitting the diagram
+</dd>
+<dt><i>imageFormat</i> (str)</dt>
+<dd>
+format for the image file
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file for non pixmaps
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+paint device containing the diagram
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPixmap or QSvgGenerator
+</dd>
+</dl>
+<a NAME="EricGraphicsView.__levelForZoom" ID="EricGraphicsView.__levelForZoom"></a>
+<h4>EricGraphicsView.__levelForZoom</h4>
+<b>__levelForZoom</b>(<i>zoom</i>)
+<p>
+        Private method determining the zoom level index given a zoom factor.
+</p>
+
+<dl>
+
+<dt><i>zoom</i> (int)</dt>
+<dd>
+zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricGraphicsView._getDiagramRect" ID="EricGraphicsView._getDiagramRect"></a>
+<h4>EricGraphicsView._getDiagramRect</h4>
+<b>_getDiagramRect</b>(<i>border=0</i>)
+<p>
+        Protected method to calculate the minimum rectangle fitting the
+        diagram.
+</p>
+
+<dl>
+
+<dt><i>border</i> (int)</dt>
+<dd>
+border width to include in the calculation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the minimum rectangle
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QRectF
+</dd>
+</dl>
+<a NAME="EricGraphicsView._getDiagramSize" ID="EricGraphicsView._getDiagramSize"></a>
+<h4>EricGraphicsView._getDiagramSize</h4>
+<b>_getDiagramSize</b>(<i>border=0</i>)
+<p>
+        Protected method to calculate the minimum size fitting the diagram.
+</p>
+
+<dl>
+
+<dt><i>border</i> (int)</dt>
+<dd>
+border width to include in the calculation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the minimum size
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QSizeF
+</dd>
+</dl>
+<a NAME="EricGraphicsView.autoAdjustSceneSize" ID="EricGraphicsView.autoAdjustSceneSize"></a>
+<h4>EricGraphicsView.autoAdjustSceneSize</h4>
+<b>autoAdjustSceneSize</b>(<i>limit=False</i>)
+<p>
+        Public method to adjust the scene size to the diagram size.
+</p>
+
+<dl>
+
+<dt><i>limit</i> (bool)</dt>
+<dd>
+flag indicating to limit the scene to the
+            initial size
+</dd>
+</dl>
+<a NAME="EricGraphicsView.filteredItems" ID="EricGraphicsView.filteredItems"></a>
+<h4>EricGraphicsView.filteredItems</h4>
+<b>filteredItems</b>(<i>items</i>)
+<p>
+        Public method to filter a list of items.
+</p>
+
+<dl>
+
+<dt><i>items</i> (QGraphicsItem)</dt>
+<dd>
+list of items as returned by the scene object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of interesting collision items
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QGraphicsItem
+</dd>
+</dl>
+<a NAME="EricGraphicsView.getBackgroundColor" ID="EricGraphicsView.getBackgroundColor"></a>
+<h4>EricGraphicsView.getBackgroundColor</h4>
+<b>getBackgroundColor</b>(<i>drawingMode="automatic"</i>)
+<p>
+        Public method to get the configured background color.
+</p>
+
+<dl>
+
+<dt><i>drawingMode</i> (str (optional))</dt>
+<dd>
+name of the drawing mode (one of "automatic",
+            "black_white" or "white_black") (defaults to "automatic")
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+background color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="EricGraphicsView.getDrawingColors" ID="EricGraphicsView.getDrawingColors"></a>
+<h4>EricGraphicsView.getDrawingColors</h4>
+<b>getDrawingColors</b>(<i>drawingMode="automatic"</i>)
+<p>
+        Public method to get the configured drawing colors.
+</p>
+
+<dl>
+
+<dt><i>drawingMode</i> (str (optional))</dt>
+<dd>
+name of the drawing mode (one of "automatic",
+            "black_white" or "white_black") (defaults to "automatic")
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the foreground and background colors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (QColor, QColor)
+</dd>
+</dl>
+<a NAME="EricGraphicsView.getForegroundColor" ID="EricGraphicsView.getForegroundColor"></a>
+<h4>EricGraphicsView.getForegroundColor</h4>
+<b>getForegroundColor</b>(<i>drawingMode="automatic"</i>)
+<p>
+        Public method to get the configured foreground color.
+</p>
+
+<dl>
+
+<dt><i>drawingMode</i> (str (optional))</dt>
+<dd>
+name of the drawing mode (one of "automatic",
+            "black_white" or "white_black") (defaults to "automatic")
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+foreground color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="EricGraphicsView.printDiagram" ID="EricGraphicsView.printDiagram"></a>
+<h4>EricGraphicsView.printDiagram</h4>
+<b>printDiagram</b>(<i>printer, margins=None, diagramName=""</i>)
+<p>
+        Public method to print the diagram.
+</p>
+
+<dl>
+
+<dt><i>printer</i> (QPrinter)</dt>
+<dd>
+reference to a ready configured printer object
+</dd>
+<dt><i>margins</i> (QMarginsF or None (optional))</dt>
+<dd>
+diagram margins (defaults to None)
+</dd>
+<dt><i>diagramName</i> (str)</dt>
+<dd>
+name of the diagram
+</dd>
+</dl>
+<a NAME="EricGraphicsView.resizeScene" ID="EricGraphicsView.resizeScene"></a>
+<h4>EricGraphicsView.resizeScene</h4>
+<b>resizeScene</b>(<i>amount, isWidth=True</i>)
+<p>
+        Public method to resize the scene.
+</p>
+
+<dl>
+
+<dt><i>amount</i> (int)</dt>
+<dd>
+size increment
+</dd>
+<dt><i>isWidth</i> (bool)</dt>
+<dd>
+flag indicating width is to be resized
+</dd>
+</dl>
+<a NAME="EricGraphicsView.saveImage" ID="EricGraphicsView.saveImage"></a>
+<h4>EricGraphicsView.saveImage</h4>
+<b>saveImage</b>(<i>filename, imageFormat="PNG"</i>)
+<p>
+        Public method to save the scene to a file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (float)</dt>
+<dd>
+name of the file to write the image to
+</dd>
+<dt><i>imageFormat</i> (float)</dt>
+<dd>
+format for the image file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricGraphicsView.setSceneSize" ID="EricGraphicsView.setSceneSize"></a>
+<h4>EricGraphicsView.setSceneSize</h4>
+<b>setSceneSize</b>(<i>width, height</i>)
+<p>
+        Public method to set the scene size.
+</p>
+
+<dl>
+
+<dt><i>width</i> (float)</dt>
+<dd>
+width for the scene
+</dd>
+<dt><i>height</i> (float)</dt>
+<dd>
+height for the scene
+</dd>
+</dl>
+<a NAME="EricGraphicsView.setZoom" ID="EricGraphicsView.setZoom"></a>
+<h4>EricGraphicsView.setZoom</h4>
+<b>setZoom</b>(<i>value</i>)
+<p>
+        Public method to set the zoom value in percent.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+zoom value in percent
+</dd>
+</dl>
+<a NAME="EricGraphicsView.zoom" ID="EricGraphicsView.zoom"></a>
+<h4>EricGraphicsView.zoom</h4>
+<b>zoom</b>(<i></i>)
+<p>
+        Public method to get the current zoom factor in percent.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current zoom factor in percent
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricGraphicsView.zoomIn" ID="EricGraphicsView.zoomIn"></a>
+<h4>EricGraphicsView.zoomIn</h4>
+<b>zoomIn</b>(<i></i>)
+<p>
+        Public method to zoom in.
+</p>
+
+<a NAME="EricGraphicsView.zoomOut" ID="EricGraphicsView.zoomOut"></a>
+<h4>EricGraphicsView.zoomOut</h4>
+<b>zoomOut</b>(<i></i>)
+<p>
+        Public method to zoom out.
+</p>
+
+<a NAME="EricGraphicsView.zoomReset" ID="EricGraphicsView.zoomReset"></a>
+<h4>EricGraphicsView.zoomReset</h4>
+<b>zoomReset</b>(<i></i>)
+<p>
+        Public method to handle the reset the zoom value.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

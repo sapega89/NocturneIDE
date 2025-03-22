@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Network.NetworkUrlInterceptor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Network.NetworkUrlInterceptor</h1>
+<p>
+Module implementing a class to handle URL requests before they get processed
+by QtWebEngine.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#NetworkUrlInterceptor">NetworkUrlInterceptor</a></td>
+<td>Class implementing an URL request handler.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="NetworkUrlInterceptor" ID="NetworkUrlInterceptor"></a>
+<h2>NetworkUrlInterceptor</h2>
+<p>
+    Class implementing an URL request handler.
+</p>
+
+<h3>Derived from</h3>
+QWebEngineUrlRequestInterceptor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NetworkUrlInterceptor.__init__">NetworkUrlInterceptor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.__loadSettings">__loadSettings</a></td>
+<td>Private method to load the Network Manager settings.</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.__potentiallyTrustworthy">__potentiallyTrustworthy</a></td>
+<td>Private method to check, if the given URL is potentially trustworthy.</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.__refererOrigin">__refererOrigin</a></td>
+<td>Private method to generate an origin referer header URL.</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.__sameOrigin">__sameOrigin</a></td>
+<td>Private method to test the "same origin" policy.</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.__setRefererHeader">__setRefererHeader</a></td>
+<td>Private method to set the 'Referer' header depending on the configured rule set.</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.__trimmedReferer">__trimmedReferer</a></td>
+<td>Private method to generate the trimmed referer header URL.</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.installUrlInterceptor">installUrlInterceptor</a></td>
+<td>Public method to install an URL interceptor.</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.interceptRequest">interceptRequest</a></td>
+<td>Public method handling an URL request.</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#NetworkUrlInterceptor.removeUrlInterceptor">removeUrlInterceptor</a></td>
+<td>Public method to remove an URL interceptor.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NetworkUrlInterceptor.__init__" ID="NetworkUrlInterceptor.__init__"></a>
+<h4>NetworkUrlInterceptor (Constructor)</h4>
+<b>NetworkUrlInterceptor</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="NetworkUrlInterceptor.__loadSettings" ID="NetworkUrlInterceptor.__loadSettings"></a>
+<h4>NetworkUrlInterceptor.__loadSettings</h4>
+<b>__loadSettings</b>(<i></i>)
+<p>
+        Private method to load the Network Manager settings.
+</p>
+
+<a NAME="NetworkUrlInterceptor.__potentiallyTrustworthy" ID="NetworkUrlInterceptor.__potentiallyTrustworthy"></a>
+<h4>NetworkUrlInterceptor.__potentiallyTrustworthy</h4>
+<b>__potentiallyTrustworthy</b>(<i>url</i>)
+<p>
+        Private method to check, if the given URL is potentially trustworthy.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a potentially trustworthy URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="NetworkUrlInterceptor.__refererOrigin" ID="NetworkUrlInterceptor.__refererOrigin"></a>
+<h4>NetworkUrlInterceptor.__refererOrigin</h4>
+<b>__refererOrigin</b>(<i>url</i>)
+<p>
+        Private method to generate an origin referer header URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to generate the header from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+origin referer header URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QByteArray or bytes
+</dd>
+</dl>
+<a NAME="NetworkUrlInterceptor.__sameOrigin" ID="NetworkUrlInterceptor.__sameOrigin"></a>
+<h4>NetworkUrlInterceptor.__sameOrigin</h4>
+<b>__sameOrigin</b>(<i>url1, url2</i>)
+<p>
+        Private method to test the "same origin" policy.
+</p>
+
+<dl>
+
+<dt><i>url1</i> (QUrl)</dt>
+<dd>
+first URL for the test
+</dd>
+<dt><i>url2</i> (QUrl)</dt>
+<dd>
+second URL for the test
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that both URLs have the same origin
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="NetworkUrlInterceptor.__setRefererHeader" ID="NetworkUrlInterceptor.__setRefererHeader"></a>
+<h4>NetworkUrlInterceptor.__setRefererHeader</h4>
+<b>__setRefererHeader</b>(<i>info</i>)
+<p>
+        Private method to set the 'Referer' header depending on the configured
+        rule set.
+</p>
+
+<dl>
+
+<dt><i>info</i> (QWebEngineUrlRequestInfo)</dt>
+<dd>
+URL request information
+</dd>
+</dl>
+<dl>
+<dt><b>See Also:</b></dt>
+
+<dd>
+<a href="https://wiki.mozilla.org/Security/Referrer">            Mozilla Referrer</a>
+</dd>
+
+<dd>
+<a href="https://www.w3.org/TR/referrer-policy/">            W3C Referrer Policy</a>
+</dd>
+</dl>
+<a NAME="NetworkUrlInterceptor.__trimmedReferer" ID="NetworkUrlInterceptor.__trimmedReferer"></a>
+<h4>NetworkUrlInterceptor.__trimmedReferer</h4>
+<b>__trimmedReferer</b>(<i>url</i>)
+<p>
+        Private method to generate the trimmed referer header URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be trimmed as a referer header
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+trimmed referer header URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QByteArray or bytes
+</dd>
+</dl>
+<a NAME="NetworkUrlInterceptor.installUrlInterceptor" ID="NetworkUrlInterceptor.installUrlInterceptor"></a>
+<h4>NetworkUrlInterceptor.installUrlInterceptor</h4>
+<b>installUrlInterceptor</b>(<i>interceptor</i>)
+<p>
+        Public method to install an URL interceptor.
+</p>
+
+<dl>
+
+<dt><i>interceptor</i> (UrlInterceptor)</dt>
+<dd>
+URL interceptor to be installed
+</dd>
+</dl>
+<a NAME="NetworkUrlInterceptor.interceptRequest" ID="NetworkUrlInterceptor.interceptRequest"></a>
+<h4>NetworkUrlInterceptor.interceptRequest</h4>
+<b>interceptRequest</b>(<i>info</i>)
+<p>
+        Public method handling an URL request.
+</p>
+
+<dl>
+
+<dt><i>info</i> (QWebEngineUrlRequestInfo)</dt>
+<dd>
+URL request information
+</dd>
+</dl>
+<a NAME="NetworkUrlInterceptor.preferencesChanged" ID="NetworkUrlInterceptor.preferencesChanged"></a>
+<h4>NetworkUrlInterceptor.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<a NAME="NetworkUrlInterceptor.removeUrlInterceptor" ID="NetworkUrlInterceptor.removeUrlInterceptor"></a>
+<h4>NetworkUrlInterceptor.removeUrlInterceptor</h4>
+<b>removeUrlInterceptor</b>(<i>interceptor</i>)
+<p>
+        Public method to remove an URL interceptor.
+</p>
+
+<dl>
+
+<dt><i>interceptor</i> (UrlInterceptor)</dt>
+<dd>
+URL interceptor to be removed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

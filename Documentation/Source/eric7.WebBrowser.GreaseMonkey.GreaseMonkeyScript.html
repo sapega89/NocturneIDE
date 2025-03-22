@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.GreaseMonkey.GreaseMonkeyScript</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.GreaseMonkey.GreaseMonkeyScript</h1>
+<p>
+Module implementing the GreaseMonkey script.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GreaseMonkeyScript">GreaseMonkeyScript</a></td>
+<td>Class implementing the GreaseMonkey script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScriptStartPoint">GreaseMonkeyScriptStartPoint</a></td>
+<td>Class defining the script start points.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GreaseMonkeyScript" ID="GreaseMonkeyScript"></a>
+<h2>GreaseMonkeyScript</h2>
+<p>
+    Class implementing the GreaseMonkey script.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>scriptChanged()</dt>
+<dd>
+emitted to indicate a script change
+</dd>
+<dt>updatingChanged(bool)</dt>
+<dd>
+emitted to indicate a change of the
+        updating state
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GreaseMonkeyScript.__init__">GreaseMonkeyScript</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__downloadIcon">__downloadIcon</a></td>
+<td>Private slot to download the script icon.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__downloadRequires">__downloadRequires</a></td>
+<td>Private method to download the required scripts.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__downloaderError">__downloaderError</a></td>
+<td>Private slot to handle a downloader error.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__downloaderFinished">__downloaderFinished</a></td>
+<td>Private slot to handle a finished download.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__iconDownloaded">__iconDownloaded</a></td>
+<td>Private slot to handle a finished download of a script icon.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__parseScript">__parseScript</a></td>
+<td>Private method to parse the given script and populate the data structure.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__reloadScript">__reloadScript</a></td>
+<td>Private method to reload the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__requireDownloadError">__requireDownloadError</a></td>
+<td>Private slot to handle a downloader error.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__requireDownloaded">__requireDownloaded</a></td>
+<td>Private slot to handle a finished download of a required script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.__watchedFileChanged">__watchedFileChanged</a></td>
+<td>Private slot handling changes of the script file.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.description">description</a></td>
+<td>Public method to get the description of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.downloadUrl">downloadUrl</a></td>
+<td>Public method to get the download URL of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.exclude">exclude</a></td>
+<td>Public method to get the list of excluded URLs.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.fileName">fileName</a></td>
+<td>Public method to get the path of the Javascript file.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.fullName">fullName</a></td>
+<td>Public method to get the full name of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.icon">icon</a></td>
+<td>Public method to get the icon of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.iconUrl">iconUrl</a></td>
+<td>Public method to get the icon URL of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.include">include</a></td>
+<td>Public method to get the list of included URLs.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.isEnabled">isEnabled</a></td>
+<td>Public method to check, if the script is enabled.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.isUpdating">isUpdating</a></td>
+<td>Public method to get the updating flag.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.isValid">isValid</a></td>
+<td>Public method to check the validity of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.name">name</a></td>
+<td>Public method to get the name of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.nameSpace">nameSpace</a></td>
+<td>Public method to get the name space of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.noFrames">noFrames</a></td>
+<td>Public method to get the noFrames flag.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.require">require</a></td>
+<td>Public method to get the list of required scripts.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.setEnabled">setEnabled</a></td>
+<td>Public method to enable a script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.startAt">startAt</a></td>
+<td>Public method to get the start point of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.updateScript">updateScript</a></td>
+<td>Public method to updated the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.updateUrl">updateUrl</a></td>
+<td>Public method to get the update URL of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.version">version</a></td>
+<td>Public method to get the version of the script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyScript.webScript">webScript</a></td>
+<td>Public method to create a script object.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GreaseMonkeyScript.__init__" ID="GreaseMonkeyScript.__init__"></a>
+<h4>GreaseMonkeyScript (Constructor)</h4>
+<b>GreaseMonkeyScript</b>(<i>manager, path</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>manager</i> (GreaseMonkeyManager)</dt>
+<dd>
+reference to the manager object
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the Javascript file
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.__downloadIcon" ID="GreaseMonkeyScript.__downloadIcon"></a>
+<h4>GreaseMonkeyScript.__downloadIcon</h4>
+<b>__downloadIcon</b>(<i></i>)
+<p>
+        Private slot to download the script icon.
+</p>
+
+<a NAME="GreaseMonkeyScript.__downloadRequires" ID="GreaseMonkeyScript.__downloadRequires"></a>
+<h4>GreaseMonkeyScript.__downloadRequires</h4>
+<b>__downloadRequires</b>(<i></i>)
+<p>
+        Private method to download the required scripts.
+</p>
+
+<a NAME="GreaseMonkeyScript.__downloaderError" ID="GreaseMonkeyScript.__downloaderError"></a>
+<h4>GreaseMonkeyScript.__downloaderError</h4>
+<b>__downloaderError</b>(<i>downloader</i>)
+<p>
+        Private slot to handle a downloader error.
+</p>
+
+<dl>
+
+<dt><i>downloader</i> (GreaseMonkeyDownloader)</dt>
+<dd>
+reference to the downloader object
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.__downloaderFinished" ID="GreaseMonkeyScript.__downloaderFinished"></a>
+<h4>GreaseMonkeyScript.__downloaderFinished</h4>
+<b>__downloaderFinished</b>(<i>downloader</i>)
+<p>
+        Private slot to handle a finished download.
+</p>
+
+<dl>
+
+<dt><i>downloader</i> (GreaseMonkeyDownloader)</dt>
+<dd>
+reference to the downloader object
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.__iconDownloaded" ID="GreaseMonkeyScript.__iconDownloaded"></a>
+<h4>GreaseMonkeyScript.__iconDownloaded</h4>
+<b>__iconDownloaded</b>(<i>reply</i>)
+<p>
+        Private slot to handle a finished download of a script icon.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.__parseScript" ID="GreaseMonkeyScript.__parseScript"></a>
+<h4>GreaseMonkeyScript.__parseScript</h4>
+<b>__parseScript</b>(<i></i>)
+<p>
+        Private method to parse the given script and populate the data
+        structure.
+</p>
+
+<a NAME="GreaseMonkeyScript.__reloadScript" ID="GreaseMonkeyScript.__reloadScript"></a>
+<h4>GreaseMonkeyScript.__reloadScript</h4>
+<b>__reloadScript</b>(<i></i>)
+<p>
+        Private method to reload the script.
+</p>
+
+<a NAME="GreaseMonkeyScript.__requireDownloadError" ID="GreaseMonkeyScript.__requireDownloadError"></a>
+<h4>GreaseMonkeyScript.__requireDownloadError</h4>
+<b>__requireDownloadError</b>(<i>downloader</i>)
+<p>
+        Private slot to handle a downloader error.
+</p>
+
+<dl>
+
+<dt><i>downloader</i> (GreaseMonkeyDownloader)</dt>
+<dd>
+reference to the downloader object
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.__requireDownloaded" ID="GreaseMonkeyScript.__requireDownloaded"></a>
+<h4>GreaseMonkeyScript.__requireDownloaded</h4>
+<b>__requireDownloaded</b>(<i>downloader</i>)
+<p>
+        Private slot to handle a finished download of a required script.
+</p>
+
+<dl>
+
+<dt><i>downloader</i> (GreaseMonkeyDownloader)</dt>
+<dd>
+reference to the downloader object
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.__watchedFileChanged" ID="GreaseMonkeyScript.__watchedFileChanged"></a>
+<h4>GreaseMonkeyScript.__watchedFileChanged</h4>
+<b>__watchedFileChanged</b>(<i>fileName</i>)
+<p>
+        Private slot handling changes of the script file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+path of the script file
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.description" ID="GreaseMonkeyScript.description"></a>
+<h4>GreaseMonkeyScript.description</h4>
+<b>description</b>(<i></i>)
+<p>
+        Public method to get the description of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+description of the script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.downloadUrl" ID="GreaseMonkeyScript.downloadUrl"></a>
+<h4>GreaseMonkeyScript.downloadUrl</h4>
+<b>downloadUrl</b>(<i></i>)
+<p>
+        Public method to get the download URL of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+download URL of the script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.exclude" ID="GreaseMonkeyScript.exclude"></a>
+<h4>GreaseMonkeyScript.exclude</h4>
+<b>exclude</b>(<i></i>)
+<p>
+        Public method to get the list of excluded URLs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of excluded URLs
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.fileName" ID="GreaseMonkeyScript.fileName"></a>
+<h4>GreaseMonkeyScript.fileName</h4>
+<b>fileName</b>(<i></i>)
+<p>
+        Public method to get the path of the Javascript file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the Javascript file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.fullName" ID="GreaseMonkeyScript.fullName"></a>
+<h4>GreaseMonkeyScript.fullName</h4>
+<b>fullName</b>(<i></i>)
+<p>
+        Public method to get the full name of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+full name of the script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.icon" ID="GreaseMonkeyScript.icon"></a>
+<h4>GreaseMonkeyScript.icon</h4>
+<b>icon</b>(<i></i>)
+<p>
+        Public method to get the icon of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+script icon
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.iconUrl" ID="GreaseMonkeyScript.iconUrl"></a>
+<h4>GreaseMonkeyScript.iconUrl</h4>
+<b>iconUrl</b>(<i></i>)
+<p>
+        Public method to get the icon URL of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+icon URL of the script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.include" ID="GreaseMonkeyScript.include"></a>
+<h4>GreaseMonkeyScript.include</h4>
+<b>include</b>(<i></i>)
+<p>
+        Public method to get the list of included URLs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of included URLs
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.isEnabled" ID="GreaseMonkeyScript.isEnabled"></a>
+<h4>GreaseMonkeyScript.isEnabled</h4>
+<b>isEnabled</b>(<i></i>)
+<p>
+        Public method to check, if the script is enabled.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an enabled state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.isUpdating" ID="GreaseMonkeyScript.isUpdating"></a>
+<h4>GreaseMonkeyScript.isUpdating</h4>
+<b>isUpdating</b>(<i></i>)
+<p>
+        Public method to get the updating flag.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+updating flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.isValid" ID="GreaseMonkeyScript.isValid"></a>
+<h4>GreaseMonkeyScript.isValid</h4>
+<b>isValid</b>(<i></i>)
+<p>
+        Public method to check the validity of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a valid script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.name" ID="GreaseMonkeyScript.name"></a>
+<h4>GreaseMonkeyScript.name</h4>
+<b>name</b>(<i></i>)
+<p>
+        Public method to get the name of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.nameSpace" ID="GreaseMonkeyScript.nameSpace"></a>
+<h4>GreaseMonkeyScript.nameSpace</h4>
+<b>nameSpace</b>(<i></i>)
+<p>
+        Public method to get the name space of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name space of the script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.noFrames" ID="GreaseMonkeyScript.noFrames"></a>
+<h4>GreaseMonkeyScript.noFrames</h4>
+<b>noFrames</b>(<i></i>)
+<p>
+        Public method to get the noFrames flag.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to not run on sub frames
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.require" ID="GreaseMonkeyScript.require"></a>
+<h4>GreaseMonkeyScript.require</h4>
+<b>require</b>(<i></i>)
+<p>
+        Public method to get the list of required scripts.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of required scripts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.setEnabled" ID="GreaseMonkeyScript.setEnabled"></a>
+<h4>GreaseMonkeyScript.setEnabled</h4>
+<b>setEnabled</b>(<i>enable</i>)
+<p>
+        Public method to enable a script.
+</p>
+
+<dl>
+
+<dt><i>enable</i> (bool)</dt>
+<dd>
+flag indicating the new enabled state
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.startAt" ID="GreaseMonkeyScript.startAt"></a>
+<h4>GreaseMonkeyScript.startAt</h4>
+<b>startAt</b>(<i></i>)
+<p>
+        Public method to get the start point of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+start point of the script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GreaseMonkeyScriptStartPoint
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.updateScript" ID="GreaseMonkeyScript.updateScript"></a>
+<h4>GreaseMonkeyScript.updateScript</h4>
+<b>updateScript</b>(<i></i>)
+<p>
+        Public method to updated the script.
+</p>
+
+<a NAME="GreaseMonkeyScript.updateUrl" ID="GreaseMonkeyScript.updateUrl"></a>
+<h4>GreaseMonkeyScript.updateUrl</h4>
+<b>updateUrl</b>(<i></i>)
+<p>
+        Public method to get the update URL of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+update URL of the script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.version" ID="GreaseMonkeyScript.version"></a>
+<h4>GreaseMonkeyScript.version</h4>
+<b>version</b>(<i></i>)
+<p>
+        Public method to get the version of the script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+version of the script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyScript.webScript" ID="GreaseMonkeyScript.webScript"></a>
+<h4>GreaseMonkeyScript.webScript</h4>
+<b>webScript</b>(<i></i>)
+<p>
+        Public method to create a script object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+prepared script object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWebEngineScript
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="GreaseMonkeyScriptStartPoint" ID="GreaseMonkeyScriptStartPoint"></a>
+<h2>GreaseMonkeyScriptStartPoint</h2>
+<p>
+    Class defining the script start points.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DocumentEnd</td></tr>
+<tr><td>DocumentIdle</td></tr>
+<tr><td>DocumentStart</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

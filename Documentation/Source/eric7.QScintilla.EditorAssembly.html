@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.EditorAssembly</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.EditorAssembly</h1>
+<p>
+Module implementing the editor assembly widget containing the navigation
+combos and the editor widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EditorAssembly">EditorAssembly</a></td>
+<td>Class implementing the editor assembly widget containing the navigation combos and the editor widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EditorAssembly" ID="EditorAssembly"></a>
+<h2>EditorAssembly</h2>
+<p>
+    Class implementing the editor assembly widget containing the navigation
+    combos and the editor widget.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EditorAssembly.__init__">EditorAssembly</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.__activateCombos">__activateCombos</a></td>
+<td>Private slot to activate the navigation combo boxes.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.__activateOutline">__activateOutline</a></td>
+<td>Private slot to activate the source outline view.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.__editorChanged">__editorChanged</a></td>
+<td>Private slot handling changes of the editor language or file name.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.__editorCursorLineChanged">__editorCursorLineChanged</a></td>
+<td>Private slot handling a line change of the cursor of the editor.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.__globalsActivated">__globalsActivated</a></td>
+<td>Private method to jump to the line of the selected global entry and to populate the members combo box.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.__membersActivated">__membersActivated</a></td>
+<td>Private method to jump to the line of the selected members entry.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.__parseEditor">__parseEditor</a></td>
+<td>Private method to parse the editor source and repopulate the globals combo.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.__preferencesChanged">__preferencesChanged</a></td>
+<td>Private slot handling a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.__resetParseTimer">__resetParseTimer</a></td>
+<td>Private slot to reset the parse timer.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.aboutToBeClosed">aboutToBeClosed</a></td>
+<td>Public method to stop and disconnect the timer and disconnect some signals.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.finishSetup">finishSetup</a></td>
+<td>Public method to finish the setup of the assembly.</td>
+</tr>
+<tr>
+<td><a href="#EditorAssembly.getEditor">getEditor</a></td>
+<td>Public method to get the reference to the editor widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EditorAssembly.__init__" ID="EditorAssembly.__init__"></a>
+<h4>EditorAssembly (Constructor)</h4>
+<b>EditorAssembly</b>(<i>dbs, fn="", vm=None, filetype="", editor=None, tv=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>dbs</i> (DebugServer)</dt>
+<dd>
+reference to the debug server object
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+name of the file to be opened. If it is None,
+            a new (empty) editor is opened.
+</dd>
+<dt><i>vm</i> (ViewManager.ViewManager)</dt>
+<dd>
+reference to the view manager object
+</dd>
+<dt><i>filetype</i> (str)</dt>
+<dd>
+type of the source file
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to an Editor object, if this is a cloned view
+</dd>
+<dt><i>tv</i> (TaskViewer)</dt>
+<dd>
+reference to the task viewer object
+</dd>
+</dl>
+<a NAME="EditorAssembly.__activateCombos" ID="EditorAssembly.__activateCombos"></a>
+<h4>EditorAssembly.__activateCombos</h4>
+<b>__activateCombos</b>(<i>activate</i>)
+<p>
+        Private slot to activate the navigation combo boxes.
+</p>
+
+<dl>
+
+<dt><i>activate</i> (bool)</dt>
+<dd>
+flag indicating to activate the combo boxes
+</dd>
+</dl>
+<a NAME="EditorAssembly.__activateOutline" ID="EditorAssembly.__activateOutline"></a>
+<h4>EditorAssembly.__activateOutline</h4>
+<b>__activateOutline</b>(<i>activate</i>)
+<p>
+        Private slot to activate the source outline view.
+</p>
+
+<dl>
+
+<dt><i>activate</i> (bool)</dt>
+<dd>
+flag indicating to activate the source outline view
+</dd>
+</dl>
+<a NAME="EditorAssembly.__editorChanged" ID="EditorAssembly.__editorChanged"></a>
+<h4>EditorAssembly.__editorChanged</h4>
+<b>__editorChanged</b>(<i></i>)
+<p>
+        Private slot handling changes of the editor language or file name.
+</p>
+
+<a NAME="EditorAssembly.__editorCursorLineChanged" ID="EditorAssembly.__editorCursorLineChanged"></a>
+<h4>EditorAssembly.__editorCursorLineChanged</h4>
+<b>__editorCursorLineChanged</b>(<i>lineno</i>)
+<p>
+        Private slot handling a line change of the cursor of the editor.
+</p>
+
+<dl>
+
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the cursor
+</dd>
+</dl>
+<a NAME="EditorAssembly.__globalsActivated" ID="EditorAssembly.__globalsActivated"></a>
+<h4>EditorAssembly.__globalsActivated</h4>
+<b>__globalsActivated</b>(<i>index, moveCursor=True</i>)
+<p>
+        Private method to jump to the line of the selected global entry and to
+        populate the members combo box.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+<dt><i>moveCursor</i> (bool)</dt>
+<dd>
+flag indicating to move the editor cursor
+</dd>
+</dl>
+<a NAME="EditorAssembly.__membersActivated" ID="EditorAssembly.__membersActivated"></a>
+<h4>EditorAssembly.__membersActivated</h4>
+<b>__membersActivated</b>(<i>index, moveCursor=True</i>)
+<p>
+        Private method to jump to the line of the selected members entry.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+<dt><i>moveCursor</i> (bool)</dt>
+<dd>
+flag indicating to move the editor cursor
+</dd>
+</dl>
+<a NAME="EditorAssembly.__parseEditor" ID="EditorAssembly.__parseEditor"></a>
+<h4>EditorAssembly.__parseEditor</h4>
+<b>__parseEditor</b>(<i></i>)
+<p>
+        Private method to parse the editor source and repopulate the globals
+        combo.
+</p>
+
+<a NAME="EditorAssembly.__preferencesChanged" ID="EditorAssembly.__preferencesChanged"></a>
+<h4>EditorAssembly.__preferencesChanged</h4>
+<b>__preferencesChanged</b>(<i></i>)
+<p>
+        Private slot handling a change of preferences.
+</p>
+
+<a NAME="EditorAssembly.__resetParseTimer" ID="EditorAssembly.__resetParseTimer"></a>
+<h4>EditorAssembly.__resetParseTimer</h4>
+<b>__resetParseTimer</b>(<i></i>)
+<p>
+        Private slot to reset the parse timer.
+</p>
+
+<a NAME="EditorAssembly.aboutToBeClosed" ID="EditorAssembly.aboutToBeClosed"></a>
+<h4>EditorAssembly.aboutToBeClosed</h4>
+<b>aboutToBeClosed</b>(<i></i>)
+<p>
+        Public method to stop and disconnect the timer and disconnect some signals.
+</p>
+
+<a NAME="EditorAssembly.finishSetup" ID="EditorAssembly.finishSetup"></a>
+<h4>EditorAssembly.finishSetup</h4>
+<b>finishSetup</b>(<i></i>)
+<p>
+        Public method to finish the setup of the assembly.
+</p>
+
+<a NAME="EditorAssembly.getEditor" ID="EditorAssembly.getEditor"></a>
+<h4>EditorAssembly.getEditor</h4>
+<b>getEditor</b>(<i></i>)
+<p>
+        Public method to get the reference to the editor widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the editor widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

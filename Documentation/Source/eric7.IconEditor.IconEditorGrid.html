@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.IconEditor.IconEditorGrid</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.IconEditor.IconEditorGrid</h1>
+<p>
+Module implementing the icon editor grid.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#IconEditCommand">IconEditCommand</a></td>
+<td>Class implementing an undo command for the icon editor.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid">IconEditorGrid</a></td>
+<td>Class implementing the icon editor grid.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorTool">IconEditorTool</a></td>
+<td>Class defining the edit tools.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="IconEditCommand" ID="IconEditCommand"></a>
+<h2>IconEditCommand</h2>
+<p>
+    Class implementing an undo command for the icon editor.
+</p>
+
+<h3>Derived from</h3>
+QUndoCommand
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IconEditCommand.__init__">IconEditCommand</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IconEditCommand.redo">redo</a></td>
+<td>Public method to perform the redo.</td>
+</tr>
+<tr>
+<td><a href="#IconEditCommand.setAfterImage">setAfterImage</a></td>
+<td>Public method to set the image after the changes were applied.</td>
+</tr>
+<tr>
+<td><a href="#IconEditCommand.undo">undo</a></td>
+<td>Public method to perform the undo.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IconEditCommand.__init__" ID="IconEditCommand.__init__"></a>
+<h4>IconEditCommand (Constructor)</h4>
+<b>IconEditCommand</b>(<i>grid, text, oldImage, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>grid</i> (IconEditorGrid)</dt>
+<dd>
+reference to the icon editor grid
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text for the undo command
+</dd>
+<dt><i>oldImage</i> (QImage)</dt>
+<dd>
+copy of the icon before the changes were applied
+</dd>
+<dt><i>parent</i> (QUndoCommand)</dt>
+<dd>
+reference to the parent command
+</dd>
+</dl>
+<a NAME="IconEditCommand.redo" ID="IconEditCommand.redo"></a>
+<h4>IconEditCommand.redo</h4>
+<b>redo</b>(<i></i>)
+<p>
+        Public method to perform the redo.
+</p>
+
+<a NAME="IconEditCommand.setAfterImage" ID="IconEditCommand.setAfterImage"></a>
+<h4>IconEditCommand.setAfterImage</h4>
+<b>setAfterImage</b>(<i>image</i>)
+<p>
+        Public method to set the image after the changes were applied.
+</p>
+
+<dl>
+
+<dt><i>image</i> (QImage)</dt>
+<dd>
+copy of the icon after the changes were applied
+</dd>
+</dl>
+<a NAME="IconEditCommand.undo" ID="IconEditCommand.undo"></a>
+<h4>IconEditCommand.undo</h4>
+<b>undo</b>(<i></i>)
+<p>
+        Public method to perform the undo.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="IconEditorGrid" ID="IconEditorGrid"></a>
+<h2>IconEditorGrid</h2>
+<p>
+    Class implementing the icon editor grid.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>canRedoChanged(bool)</dt>
+<dd>
+emitted after the redo status has changed
+</dd>
+<dt>canUndoChanged(bool)</dt>
+<dd>
+emitted after the undo status has changed
+</dd>
+<dt>clipboardImageAvailable(bool)</dt>
+<dd>
+emitted to signal the availability
+        of an image to be pasted
+</dd>
+<dt>colorChanged(QColor)</dt>
+<dd>
+emitted after the drawing color was changed
+</dd>
+<dt>imageChanged(bool)</dt>
+<dd>
+emitted after the image was modified
+</dd>
+<dt>positionChanged(int, int)</dt>
+<dd>
+emitted after the cursor poition was
+        changed
+</dd>
+<dt>previewChanged(QPixmap)</dt>
+<dd>
+emitted to signal a new preview pixmap
+</dd>
+<dt>selectionAvailable(bool)</dt>
+<dd>
+emitted to signal a change of the
+        selection
+</dd>
+<dt>sizeChanged(int, int)</dt>
+<dd>
+emitted after the size has been changed
+</dd>
+<dt>zoomChanged(int)</dt>
+<dd>
+emitted to signal a change of the zoom value
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>MarkColor</td></tr>
+<tr><td>NoMarkColor</td></tr>
+<tr><td>ZoomDefault</td></tr>
+<tr><td>ZoomMaximum</td></tr>
+<tr><td>ZoomMinimum</td></tr>
+<tr><td>ZoomPercent</td></tr>
+<tr><td>ZoomStep</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IconEditorGrid.__init__">IconEditorGrid</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__checkClipboard">__checkClipboard</a></td>
+<td>Private slot to check, if the clipboard contains a valid image, and signal the result.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__cleanChanged">__cleanChanged</a></td>
+<td>Private slot to handle the undo stack clean state change.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__clipboardImage">__clipboardImage</a></td>
+<td>Private method to get an image from the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__drawFlood">__drawFlood</a></td>
+<td>Private method to perform a flood fill operation.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__drawPasteRect">__drawPasteRect</a></td>
+<td>Private slot to draw a rectangle for signaling a paste operation.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__drawTool">__drawTool</a></td>
+<td>Private method to perform a draw operation depending of the current tool.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__getSelectionImage">__getSelectionImage</a></td>
+<td>Private method to get an image from the selection.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__imageCoordinates">__imageCoordinates</a></td>
+<td>Private method to convert from widget to image coordinates.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__initCursors">__initCursors</a></td>
+<td>Private method to initialize the various cursors.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__initUndoTexts">__initUndoTexts</a></td>
+<td>Private method to initialize texts to be associated with undo commands for the various drawing tools.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__isMarked">__isMarked</a></td>
+<td>Private method to check, if a pixel is marked.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__pixelRect">__pixelRect</a></td>
+<td>Private method to determine the rectangle for a given pixel coordinate.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__setImagePixel">__setImagePixel</a></td>
+<td>Private slot to set or erase a pixel.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__unMark">__unMark</a></td>
+<td>Private slot to remove the mark indicator.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__updateImageRect">__updateImageRect</a></td>
+<td>Private slot to update parts of the widget.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__updatePreviewPixmap">__updatePreviewPixmap</a></td>
+<td>Private slot to generate and signal an updated preview pixmap.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.__updateRect">__updateRect</a></td>
+<td>Private slot to update parts of the widget.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.canPaste">canPaste</a></td>
+<td>Public slot to check the availability of the paste operation.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.canRedo">canRedo</a></td>
+<td>Public method to return the redo status.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.canUndo">canUndo</a></td>
+<td>Public method to return the undo status.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.compositingMode">compositingMode</a></td>
+<td>Public method to get the compositing mode.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editClear">editClear</a></td>
+<td>Public slot to clear the image.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editCopy">editCopy</a></td>
+<td>Public slot to copy the selection.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editCut">editCut</a></td>
+<td>Public slot to cut the selection.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editNew">editNew</a></td>
+<td>Public slot to generate a new, empty image.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editPaste">editPaste</a></td>
+<td>Public slot to paste an image from the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editPasteAsNew">editPasteAsNew</a></td>
+<td>Public slot to paste the clipboard as a new image.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editRedo">editRedo</a></td>
+<td>Public slot to perform a redo operation.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editResize">editResize</a></td>
+<td>Public slot to resize the image.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editSelectAll">editSelectAll</a></td>
+<td>Public slot to select the complete image.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.editUndo">editUndo</a></td>
+<td>Public slot to perform an undo operation.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.grayScale">grayScale</a></td>
+<td>Public slot to convert the image to gray preserving transparency.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.iconImage">iconImage</a></td>
+<td>Public method to get a copy of the icon image.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.iconSize">iconSize</a></td>
+<td>Public method to get the size of the icon.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.isDirty">isDirty</a></td>
+<td>Public method to check the dirty status.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.isGridEnabled">isGridEnabled</a></td>
+<td>Public method to get the grid lines status.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.isSelectionAvailable">isSelectionAvailable</a></td>
+<td>Public method to check the availability of a selection.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.mouseMoveEvent">mouseMoveEvent</a></td>
+<td>Protected method to handle mouse move events.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method to handle mouse button press events.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.mouseReleaseEvent">mouseReleaseEvent</a></td>
+<td>Protected method to handle mouse button release events.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.paintEvent">paintEvent</a></td>
+<td>Protected method called to repaint some of the widget.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.penColor">penColor</a></td>
+<td>Public method to get the current drawing color.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.previewPixmap">previewPixmap</a></td>
+<td>Public method to generate a preview pixmap.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.setCompositingMode">setCompositingMode</a></td>
+<td>Public method to set the compositing mode.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.setDirty">setDirty</a></td>
+<td>Public slot to set the dirty flag.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.setGridEnabled">setGridEnabled</a></td>
+<td>Public method to enable the display of grid lines.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.setIconImage">setIconImage</a></td>
+<td>Public method to set a new icon image.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.setPenColor">setPenColor</a></td>
+<td>Public method to set the drawing color.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.setTool">setTool</a></td>
+<td>Public method to set the current drawing tool.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.setZoomFactor">setZoomFactor</a></td>
+<td>Public method to set the zoom factor in percent.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.shutdown">shutdown</a></td>
+<td>Public slot to perform some shutdown actions.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.sizeHint">sizeHint</a></td>
+<td>Public method to report the size hint.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.tool">tool</a></td>
+<td>Public method to get the current drawing tool.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorGrid.zoomFactor">zoomFactor</a></td>
+<td>Public method to get the current zoom factor in percent.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IconEditorGrid.__init__" ID="IconEditorGrid.__init__"></a>
+<h4>IconEditorGrid (Constructor)</h4>
+<b>IconEditorGrid</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__checkClipboard" ID="IconEditorGrid.__checkClipboard"></a>
+<h4>IconEditorGrid.__checkClipboard</h4>
+<b>__checkClipboard</b>(<i></i>)
+<p>
+        Private slot to check, if the clipboard contains a valid image, and
+        signal the result.
+</p>
+
+<a NAME="IconEditorGrid.__cleanChanged" ID="IconEditorGrid.__cleanChanged"></a>
+<h4>IconEditorGrid.__cleanChanged</h4>
+<b>__cleanChanged</b>(<i>clean</i>)
+<p>
+        Private slot to handle the undo stack clean state change.
+</p>
+
+<dl>
+
+<dt><i>clean</i> (bool)</dt>
+<dd>
+flag indicating the clean state
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__clipboardImage" ID="IconEditorGrid.__clipboardImage"></a>
+<h4>IconEditorGrid.__clipboardImage</h4>
+<b>__clipboardImage</b>(<i></i>)
+<p>
+        Private method to get an image from the clipboard.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with the image (QImage) and a flag indicating a
+            valid image
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__drawFlood" ID="IconEditorGrid.__drawFlood"></a>
+<h4>IconEditorGrid.__drawFlood</h4>
+<b>__drawFlood</b>(<i>i, j, oldColor, doUpdate=True</i>)
+<p>
+        Private method to perform a flood fill operation.
+</p>
+
+<dl>
+
+<dt><i>i</i> (int)</dt>
+<dd>
+x-value in image coordinates
+</dd>
+<dt><i>j</i> (int)</dt>
+<dd>
+y-value in image coordinates
+</dd>
+<dt><i>oldColor</i> (QColor)</dt>
+<dd>
+reference to the color at position i, j
+</dd>
+<dt><i>doUpdate</i> (bool)</dt>
+<dd>
+flag indicating an update is requested
+            (used for speed optimizations)
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__drawPasteRect" ID="IconEditorGrid.__drawPasteRect"></a>
+<h4>IconEditorGrid.__drawPasteRect</h4>
+<b>__drawPasteRect</b>(<i>pos</i>)
+<p>
+        Private slot to draw a rectangle for signaling a paste operation.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+widget position of the paste rectangle
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__drawTool" ID="IconEditorGrid.__drawTool"></a>
+<h4>IconEditorGrid.__drawTool</h4>
+<b>__drawTool</b>(<i>pos, mark</i>)
+<p>
+        Private method to perform a draw operation depending of the current
+        tool.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+widget coordinate to perform the draw operation at
+</dd>
+<dt><i>mark</i> (bool)</dt>
+<dd>
+flag indicating a mark operation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful draw
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__getSelectionImage" ID="IconEditorGrid.__getSelectionImage"></a>
+<h4>IconEditorGrid.__getSelectionImage</h4>
+<b>__getSelectionImage</b>(<i>cut</i>)
+<p>
+        Private method to get an image from the selection.
+</p>
+
+<dl>
+
+<dt><i>cut</i> (bool)</dt>
+<dd>
+flag indicating to cut the selection
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+image of the selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QImage
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__imageCoordinates" ID="IconEditorGrid.__imageCoordinates"></a>
+<h4>IconEditorGrid.__imageCoordinates</h4>
+<b>__imageCoordinates</b>(<i>pos</i>)
+<p>
+        Private method to convert from widget to image coordinates.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+widget coordinate
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with the image coordinates
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__initCursors" ID="IconEditorGrid.__initCursors"></a>
+<h4>IconEditorGrid.__initCursors</h4>
+<b>__initCursors</b>(<i></i>)
+<p>
+        Private method to initialize the various cursors.
+</p>
+
+<a NAME="IconEditorGrid.__initUndoTexts" ID="IconEditorGrid.__initUndoTexts"></a>
+<h4>IconEditorGrid.__initUndoTexts</h4>
+<b>__initUndoTexts</b>(<i></i>)
+<p>
+        Private method to initialize texts to be associated with undo commands
+        for the various drawing tools.
+</p>
+
+<a NAME="IconEditorGrid.__isMarked" ID="IconEditorGrid.__isMarked"></a>
+<h4>IconEditorGrid.__isMarked</h4>
+<b>__isMarked</b>(<i>i, j</i>)
+<p>
+        Private method to check, if a pixel is marked.
+</p>
+
+<dl>
+
+<dt><i>i</i> (int)</dt>
+<dd>
+x-value in image coordinates
+</dd>
+<dt><i>j</i> (int)</dt>
+<dd>
+y-value in image coordinates
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a marked pixel
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__pixelRect" ID="IconEditorGrid.__pixelRect"></a>
+<h4>IconEditorGrid.__pixelRect</h4>
+<b>__pixelRect</b>(<i>i, j</i>)
+<p>
+        Private method to determine the rectangle for a given pixel coordinate.
+</p>
+
+<dl>
+
+<dt><i>i</i> (int)</dt>
+<dd>
+x-coordinate of the pixel in the image
+</dd>
+<dt><i>j</i> (int)</dt>
+<dd>
+y-coordinate of the pixel in the image
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+rectangle for the given pixel coordinates
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QRect
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__setImagePixel" ID="IconEditorGrid.__setImagePixel"></a>
+<h4>IconEditorGrid.__setImagePixel</h4>
+<b>__setImagePixel</b>(<i>pos, opaque</i>)
+<p>
+        Private slot to set or erase a pixel.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position of the pixel in the widget
+</dd>
+<dt><i>opaque</i> (bool)</dt>
+<dd>
+flag indicating a set operation
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__unMark" ID="IconEditorGrid.__unMark"></a>
+<h4>IconEditorGrid.__unMark</h4>
+<b>__unMark</b>(<i></i>)
+<p>
+        Private slot to remove the mark indicator.
+</p>
+
+<a NAME="IconEditorGrid.__updateImageRect" ID="IconEditorGrid.__updateImageRect"></a>
+<h4>IconEditorGrid.__updateImageRect</h4>
+<b>__updateImageRect</b>(<i>ipos1, ipos2</i>)
+<p>
+        Private slot to update parts of the widget.
+</p>
+
+<dl>
+
+<dt><i>ipos1</i> (QPoint)</dt>
+<dd>
+top, left position for the update in image coordinates
+</dd>
+<dt><i>ipos2</i> (QPoint)</dt>
+<dd>
+bottom, right position for the update in image
+            coordinates
+</dd>
+</dl>
+<a NAME="IconEditorGrid.__updatePreviewPixmap" ID="IconEditorGrid.__updatePreviewPixmap"></a>
+<h4>IconEditorGrid.__updatePreviewPixmap</h4>
+<b>__updatePreviewPixmap</b>(<i></i>)
+<p>
+        Private slot to generate and signal an updated preview pixmap.
+</p>
+
+<a NAME="IconEditorGrid.__updateRect" ID="IconEditorGrid.__updateRect"></a>
+<h4>IconEditorGrid.__updateRect</h4>
+<b>__updateRect</b>(<i>pos1, pos2</i>)
+<p>
+        Private slot to update parts of the widget.
+</p>
+
+<dl>
+
+<dt><i>pos1</i> (QPoint)</dt>
+<dd>
+top, left position for the update in widget coordinates
+</dd>
+<dt><i>pos2</i> (QPoint)</dt>
+<dd>
+bottom, right position for the update in widget
+            coordinates
+</dd>
+</dl>
+<a NAME="IconEditorGrid.canPaste" ID="IconEditorGrid.canPaste"></a>
+<h4>IconEditorGrid.canPaste</h4>
+<b>canPaste</b>(<i></i>)
+<p>
+        Public slot to check the availability of the paste operation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating availability of paste
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.canRedo" ID="IconEditorGrid.canRedo"></a>
+<h4>IconEditorGrid.canRedo</h4>
+<b>canRedo</b>(<i></i>)
+<p>
+        Public method to return the redo status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of redo
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.canUndo" ID="IconEditorGrid.canUndo"></a>
+<h4>IconEditorGrid.canUndo</h4>
+<b>canUndo</b>(<i></i>)
+<p>
+        Public method to return the undo status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of undo
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.compositingMode" ID="IconEditorGrid.compositingMode"></a>
+<h4>IconEditorGrid.compositingMode</h4>
+<b>compositingMode</b>(<i></i>)
+<p>
+        Public method to get the compositing mode.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+compositing mode
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPainter.CompositionMode
+</dd>
+</dl>
+<a NAME="IconEditorGrid.editClear" ID="IconEditorGrid.editClear"></a>
+<h4>IconEditorGrid.editClear</h4>
+<b>editClear</b>(<i></i>)
+<p>
+        Public slot to clear the image.
+</p>
+
+<a NAME="IconEditorGrid.editCopy" ID="IconEditorGrid.editCopy"></a>
+<h4>IconEditorGrid.editCopy</h4>
+<b>editCopy</b>(<i></i>)
+<p>
+        Public slot to copy the selection.
+</p>
+
+<a NAME="IconEditorGrid.editCut" ID="IconEditorGrid.editCut"></a>
+<h4>IconEditorGrid.editCut</h4>
+<b>editCut</b>(<i></i>)
+<p>
+        Public slot to cut the selection.
+</p>
+
+<a NAME="IconEditorGrid.editNew" ID="IconEditorGrid.editNew"></a>
+<h4>IconEditorGrid.editNew</h4>
+<b>editNew</b>(<i></i>)
+<p>
+        Public slot to generate a new, empty image.
+</p>
+
+<a NAME="IconEditorGrid.editPaste" ID="IconEditorGrid.editPaste"></a>
+<h4>IconEditorGrid.editPaste</h4>
+<b>editPaste</b>(<i>pasting=False</i>)
+<p>
+        Public slot to paste an image from the clipboard.
+</p>
+
+<dl>
+
+<dt><i>pasting</i> (bool)</dt>
+<dd>
+flag indicating part two of the paste operation
+</dd>
+</dl>
+<a NAME="IconEditorGrid.editPasteAsNew" ID="IconEditorGrid.editPasteAsNew"></a>
+<h4>IconEditorGrid.editPasteAsNew</h4>
+<b>editPasteAsNew</b>(<i></i>)
+<p>
+        Public slot to paste the clipboard as a new image.
+</p>
+
+<a NAME="IconEditorGrid.editRedo" ID="IconEditorGrid.editRedo"></a>
+<h4>IconEditorGrid.editRedo</h4>
+<b>editRedo</b>(<i></i>)
+<p>
+        Public slot to perform a redo operation.
+</p>
+
+<a NAME="IconEditorGrid.editResize" ID="IconEditorGrid.editResize"></a>
+<h4>IconEditorGrid.editResize</h4>
+<b>editResize</b>(<i></i>)
+<p>
+        Public slot to resize the image.
+</p>
+
+<a NAME="IconEditorGrid.editSelectAll" ID="IconEditorGrid.editSelectAll"></a>
+<h4>IconEditorGrid.editSelectAll</h4>
+<b>editSelectAll</b>(<i></i>)
+<p>
+        Public slot to select the complete image.
+</p>
+
+<a NAME="IconEditorGrid.editUndo" ID="IconEditorGrid.editUndo"></a>
+<h4>IconEditorGrid.editUndo</h4>
+<b>editUndo</b>(<i></i>)
+<p>
+        Public slot to perform an undo operation.
+</p>
+
+<a NAME="IconEditorGrid.grayScale" ID="IconEditorGrid.grayScale"></a>
+<h4>IconEditorGrid.grayScale</h4>
+<b>grayScale</b>(<i></i>)
+<p>
+        Public slot to convert the image to gray preserving transparency.
+</p>
+
+<a NAME="IconEditorGrid.iconImage" ID="IconEditorGrid.iconImage"></a>
+<h4>IconEditorGrid.iconImage</h4>
+<b>iconImage</b>(<i></i>)
+<p>
+        Public method to get a copy of the icon image.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+copy of the icon image
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QImage
+</dd>
+</dl>
+<a NAME="IconEditorGrid.iconSize" ID="IconEditorGrid.iconSize"></a>
+<h4>IconEditorGrid.iconSize</h4>
+<b>iconSize</b>(<i></i>)
+<p>
+        Public method to get the size of the icon.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+width and height of the image as a tuple
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="IconEditorGrid.isDirty" ID="IconEditorGrid.isDirty"></a>
+<h4>IconEditorGrid.isDirty</h4>
+<b>isDirty</b>(<i></i>)
+<p>
+        Public method to check the dirty status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a modified status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.isGridEnabled" ID="IconEditorGrid.isGridEnabled"></a>
+<h4>IconEditorGrid.isGridEnabled</h4>
+<b>isGridEnabled</b>(<i></i>)
+<p>
+        Public method to get the grid lines status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+enabled status of the grid lines
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.isSelectionAvailable" ID="IconEditorGrid.isSelectionAvailable"></a>
+<h4>IconEditorGrid.isSelectionAvailable</h4>
+<b>isSelectionAvailable</b>(<i></i>)
+<p>
+        Public method to check the availability of a selection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of a selection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.mouseMoveEvent" ID="IconEditorGrid.mouseMoveEvent"></a>
+<h4>IconEditorGrid.mouseMoveEvent</h4>
+<b>mouseMoveEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse move events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event object
+</dd>
+</dl>
+<a NAME="IconEditorGrid.mousePressEvent" ID="IconEditorGrid.mousePressEvent"></a>
+<h4>IconEditorGrid.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse button press events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event object
+</dd>
+</dl>
+<a NAME="IconEditorGrid.mouseReleaseEvent" ID="IconEditorGrid.mouseReleaseEvent"></a>
+<h4>IconEditorGrid.mouseReleaseEvent</h4>
+<b>mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse button release events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event object
+</dd>
+</dl>
+<a NAME="IconEditorGrid.paintEvent" ID="IconEditorGrid.paintEvent"></a>
+<h4>IconEditorGrid.paintEvent</h4>
+<b>paintEvent</b>(<i>evt</i>)
+<p>
+        Protected method called to repaint some of the widget.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QPaintEvent)</dt>
+<dd>
+reference to the paint event object
+</dd>
+</dl>
+<a NAME="IconEditorGrid.penColor" ID="IconEditorGrid.penColor"></a>
+<h4>IconEditorGrid.penColor</h4>
+<b>penColor</b>(<i></i>)
+<p>
+        Public method to get the current drawing color.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current drawing color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="IconEditorGrid.previewPixmap" ID="IconEditorGrid.previewPixmap"></a>
+<h4>IconEditorGrid.previewPixmap</h4>
+<b>previewPixmap</b>(<i></i>)
+<p>
+        Public method to generate a preview pixmap.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+preview pixmap
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPixmap
+</dd>
+</dl>
+<a NAME="IconEditorGrid.setCompositingMode" ID="IconEditorGrid.setCompositingMode"></a>
+<h4>IconEditorGrid.setCompositingMode</h4>
+<b>setCompositingMode</b>(<i>mode</i>)
+<p>
+        Public method to set the compositing mode.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (QPainter.CompositionMode)</dt>
+<dd>
+compositing mode to set
+</dd>
+</dl>
+<a NAME="IconEditorGrid.setDirty" ID="IconEditorGrid.setDirty"></a>
+<h4>IconEditorGrid.setDirty</h4>
+<b>setDirty</b>(<i>dirty, setCleanState=False</i>)
+<p>
+        Public slot to set the dirty flag.
+</p>
+
+<dl>
+
+<dt><i>dirty</i> (bool)</dt>
+<dd>
+flag indicating the new modification status
+</dd>
+<dt><i>setCleanState</i> (bool)</dt>
+<dd>
+flag indicating to set the undo stack to clean
+</dd>
+</dl>
+<a NAME="IconEditorGrid.setGridEnabled" ID="IconEditorGrid.setGridEnabled"></a>
+<h4>IconEditorGrid.setGridEnabled</h4>
+<b>setGridEnabled</b>(<i>enable</i>)
+<p>
+        Public method to enable the display of grid lines.
+</p>
+
+<dl>
+
+<dt><i>enable</i> (bool)</dt>
+<dd>
+enabled status of the grid lines
+</dd>
+</dl>
+<a NAME="IconEditorGrid.setIconImage" ID="IconEditorGrid.setIconImage"></a>
+<h4>IconEditorGrid.setIconImage</h4>
+<b>setIconImage</b>(<i>newImage, undoRedo=False, clearUndo=False</i>)
+<p>
+        Public method to set a new icon image.
+</p>
+
+<dl>
+
+<dt><i>newImage</i> (QImage)</dt>
+<dd>
+reference to the new image
+</dd>
+<dt><i>undoRedo</i> (bool)</dt>
+<dd>
+flag indicating an undo or redo operation
+</dd>
+<dt><i>clearUndo</i> (bool)</dt>
+<dd>
+flag indicating to clear the undo stack
+</dd>
+</dl>
+<a NAME="IconEditorGrid.setPenColor" ID="IconEditorGrid.setPenColor"></a>
+<h4>IconEditorGrid.setPenColor</h4>
+<b>setPenColor</b>(<i>newColor</i>)
+<p>
+        Public method to set the drawing color.
+</p>
+
+<dl>
+
+<dt><i>newColor</i> (QColor)</dt>
+<dd>
+reference to the new color
+</dd>
+</dl>
+<a NAME="IconEditorGrid.setTool" ID="IconEditorGrid.setTool"></a>
+<h4>IconEditorGrid.setTool</h4>
+<b>setTool</b>(<i>tool</i>)
+<p>
+        Public method to set the current drawing tool.
+</p>
+
+<dl>
+
+<dt><i>tool</i> (IconEditorTool)</dt>
+<dd>
+drawing tool to be used
+</dd>
+</dl>
+<a NAME="IconEditorGrid.setZoomFactor" ID="IconEditorGrid.setZoomFactor"></a>
+<h4>IconEditorGrid.setZoomFactor</h4>
+<b>setZoomFactor</b>(<i>newZoom</i>)
+<p>
+        Public method to set the zoom factor in percent.
+</p>
+
+<dl>
+
+<dt><i>newZoom</i> (int)</dt>
+<dd>
+zoom factor (>= 100)
+</dd>
+</dl>
+<a NAME="IconEditorGrid.shutdown" ID="IconEditorGrid.shutdown"></a>
+<h4>IconEditorGrid.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public slot to perform some shutdown actions.
+</p>
+
+<a NAME="IconEditorGrid.sizeHint" ID="IconEditorGrid.sizeHint"></a>
+<h4>IconEditorGrid.sizeHint</h4>
+<b>sizeHint</b>(<i></i>)
+<p>
+        Public method to report the size hint.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+size hint
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QSize
+</dd>
+</dl>
+<a NAME="IconEditorGrid.tool" ID="IconEditorGrid.tool"></a>
+<h4>IconEditorGrid.tool</h4>
+<b>tool</b>(<i></i>)
+<p>
+        Public method to get the current drawing tool.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current drawing tool
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+IconEditorTool
+</dd>
+</dl>
+<a NAME="IconEditorGrid.zoomFactor" ID="IconEditorGrid.zoomFactor"></a>
+<h4>IconEditorGrid.zoomFactor</h4>
+<b>zoomFactor</b>(<i></i>)
+<p>
+        Public method to get the current zoom factor in percent.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="IconEditorTool" ID="IconEditorTool"></a>
+<h2>IconEditorTool</h2>
+<p>
+    Class defining the edit tools.
+</p>
+
+<h3>Derived from</h3>
+enum.IntEnum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>CIRCLE</td></tr>
+<tr><td>COLOR_PICKER</td></tr>
+<tr><td>ELLIPSE</td></tr>
+<tr><td>FILL</td></tr>
+<tr><td>FILLED_CIRCLE</td></tr>
+<tr><td>FILLED_ELLIPSE</td></tr>
+<tr><td>FILLED_RECTANGLE</td></tr>
+<tr><td>LINE</td></tr>
+<tr><td>PENCIL</td></tr>
+<tr><td>RECTANGLE</td></tr>
+<tr><td>RUBBER</td></tr>
+<tr><td>SELECT_CIRCLE</td></tr>
+<tr><td>SELECT_RECTANGLE</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

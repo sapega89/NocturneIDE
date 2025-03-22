@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricDirFileDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricDirFileDialog</h1>
+<p>
+Module implementing a dialog to select files and directories simultaneously.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricDirFileDialog">EricDirFileDialog</a></td>
+<td>Derived QFileDialog to select files and directories simultaneously.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricDirFileDialog" ID="EricDirFileDialog"></a>
+<h2>EricDirFileDialog</h2>
+<p>
+    Derived QFileDialog to select files and directories simultaneously.
+</p>
+<p>
+    For this purpose the none native file dialog is used.
+</p>
+
+<h3>Derived from</h3>
+QFileDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricDirFileDialog.__init__">EricDirFileDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricDirFileDialog.accept">accept</a></td>
+<td>Public slot to update the list with the selected files and folders.</td>
+</tr>
+<tr>
+<td><a href="#EricDirFileDialog.exec">exec</a></td>
+<td>Public slot to finalize initialization and start the event loop.</td>
+</tr>
+<tr>
+<td><a href="#EricDirFileDialog.on_directoryEntered">on_directoryEntered</a></td>
+<td>Private slot to reset selections if another directory was entered.</td>
+</tr>
+<tr>
+<td><a href="#EricDirFileDialog.on_selectionChanged">on_selectionChanged</a></td>
+<td>Private method to determine the selected files and folders and update the line edit.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr>
+<td><a href="#EricDirFileDialog.getOpenFileAndDirNames">getOpenFileAndDirNames</a></td>
+<td>Static method to get the names of files and directories for opening it.</td>
+</tr>
+<tr>
+<td><a href="#EricDirFileDialog.getOpenFileAndDirPaths">getOpenFileAndDirPaths</a></td>
+<td>Static method to get the paths of files and directories for opening it.</td>
+</tr>
+</table>
+
+
+<a NAME="EricDirFileDialog.__init__" ID="EricDirFileDialog.__init__"></a>
+<h4>EricDirFileDialog (Constructor)</h4>
+<b>EricDirFileDialog</b>(<i>parent=None, caption="", directory="", filterStr=""</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of the dialog
+</dd>
+<dt><i>caption</i> (str)</dt>
+<dd>
+window title of the dialog
+</dd>
+<dt><i>directory</i> (str)</dt>
+<dd>
+working directory of the dialog
+</dd>
+<dt><i>filterStr</i> (str)</dt>
+<dd>
+filter string for the dialog
+</dd>
+</dl>
+<a NAME="EricDirFileDialog.accept" ID="EricDirFileDialog.accept"></a>
+<h4>EricDirFileDialog.accept</h4>
+<b>accept</b>(<i></i>)
+<p>
+        Public slot to update the list with the selected files and folders.
+</p>
+
+<a NAME="EricDirFileDialog.exec" ID="EricDirFileDialog.exec"></a>
+<h4>EricDirFileDialog.exec</h4>
+<b>exec</b>(<i></i>)
+<p>
+        Public slot to finalize initialization and start the event loop.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+accepted or rejected
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QDialog.DialogCode
+</dd>
+</dl>
+<a NAME="EricDirFileDialog.on_directoryEntered" ID="EricDirFileDialog.on_directoryEntered"></a>
+<h4>EricDirFileDialog.on_directoryEntered</h4>
+<b>on_directoryEntered</b>(<i>directory</i>)
+<p>
+        Private slot to reset selections if another directory was entered.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+name of the directory entered
+</dd>
+</dl>
+<a NAME="EricDirFileDialog.on_selectionChanged" ID="EricDirFileDialog.on_selectionChanged"></a>
+<h4>EricDirFileDialog.on_selectionChanged</h4>
+<b>on_selectionChanged</b>(<i>_selected, _deselected</i>)
+<p>
+        Private method to determine the selected files and folders and update
+        the line edit.
+</p>
+
+<dl>
+
+<dt><i>_selected</i> (QItemSelection)</dt>
+<dd>
+newly selected entries (unused)
+</dd>
+<dt><i>_deselected</i> (QItemSelection)</dt>
+<dd>
+deselected entries (unused)
+</dd>
+</dl>
+<a NAME="EricDirFileDialog.getOpenFileAndDirNames" ID="EricDirFileDialog.getOpenFileAndDirNames"></a>
+<h4>EricDirFileDialog.getOpenFileAndDirNames (static)</h4>
+<b>getOpenFileAndDirNames</b>(<i>caption="", directory="", filterStr="", options=None</i>)
+<p>
+        Static method to get the names of files and directories for opening it.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of the dialog
+</dd>
+<dt><i>caption</i> (str)</dt>
+<dd>
+window title of the dialog
+</dd>
+<dt><i>directory</i> (str)</dt>
+<dd>
+working directory of the dialog
+</dd>
+<dt><i>filterStr</i> (str)</dt>
+<dd>
+filter string for the dialog
+</dd>
+<dt><i>options</i> (QFileDialog.Options)</dt>
+<dd>
+various options for the dialog
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+names of the selected files and folders
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricDirFileDialog.getOpenFileAndDirPaths" ID="EricDirFileDialog.getOpenFileAndDirPaths"></a>
+<h4>EricDirFileDialog.getOpenFileAndDirPaths (static)</h4>
+<b>getOpenFileAndDirPaths</b>(<i>caption="", directory="", filterStr="", options=None</i>)
+<p>
+        Static method to get the paths of files and directories for opening it.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of the dialog
+</dd>
+<dt><i>caption</i> (str)</dt>
+<dd>
+window title of the dialog
+</dd>
+<dt><i>directory</i> (str or pathlib.Path)</dt>
+<dd>
+working directory of the dialog
+</dd>
+<dt><i>filterStr</i> (str)</dt>
+<dd>
+filter string for the dialog
+</dd>
+<dt><i>options</i> (QFileDialog.Options)</dt>
+<dd>
+various options for the dialog
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+paths of the selected files and folders
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of pathlib.Path
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

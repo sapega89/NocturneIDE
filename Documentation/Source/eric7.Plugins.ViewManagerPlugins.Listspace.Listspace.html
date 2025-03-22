@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.ViewManagerPlugins.Listspace.Listspace</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.ViewManagerPlugins.Listspace.Listspace</h1>
+<p>
+Module implementing the listspace viewmanager class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Listspace">Listspace</a></td>
+<td>Class implementing the listspace viewmanager class.</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget">StackedWidget</a></td>
+<td>Class implementing a custimized StackedWidget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Listspace" ID="Listspace"></a>
+<h2>Listspace</h2>
+<p>
+    Class implementing the listspace viewmanager class.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>astViewerStateChanged(bool)</dt>
+<dd>
+emitted to signal a change in the
+        AST viewer state
+</dd>
+<dt>bookmarkToggled(Editor)</dt>
+<dd>
+emitted when a bookmark is toggled.
+</dd>
+<dt>breakpointToggled(Editor)</dt>
+<dd>
+emitted when a breakpoint is toggled.
+</dd>
+<dt>changeCaption(str)</dt>
+<dd>
+emitted if a change of the caption is necessary
+</dd>
+<dt>checkActions(Editor)</dt>
+<dd>
+emitted when some actions should be checked
+        for their status
+</dd>
+<dt>cursorChanged(Editor)</dt>
+<dd>
+emitted after the cursor position of the
+        active window has changed
+</dd>
+<dt>editorChanged(str)</dt>
+<dd>
+emitted when the current editor has changed
+</dd>
+<dt>editorChangedEd(Editor)</dt>
+<dd>
+emitted when the current editor has changed
+</dd>
+<dt>editorClosed(str)</dt>
+<dd>
+emitted just before an editor window gets closed
+</dd>
+<dt>editorClosedEd(Editor)</dt>
+<dd>
+emitted just before an editor window gets
+        closed
+</dd>
+<dt>editorLanguageChanged(Editor)</dt>
+<dd>
+emitted to signal a change of an
+        editors language
+</dd>
+<dt>editorLineChanged(str,int)</dt>
+<dd>
+emitted to signal a change of an
+        editor's current line (line is given one based)
+</dd>
+<dt>editorLineChangedEd(Editor,int)</dt>
+<dd>
+emitted to signal a change of an
+        editor's current line (line is given one based)
+</dd>
+<dt>editorOpened(str)</dt>
+<dd>
+emitted after an editor window was opened
+</dd>
+<dt>editorOpenedEd(Editor)</dt>
+<dd>
+emitted after an editor window was opened
+</dd>
+<dt>editorRenamed(str)</dt>
+<dd>
+emitted after an editor was renamed
+</dd>
+<dt>editorRenamedEd(Editor)</dt>
+<dd>
+emitted after an editor was renamed
+</dd>
+<dt>editorSaved(str)</dt>
+<dd>
+emitted after an editor window was saved
+</dd>
+<dt>editorSavedEd(Editor)</dt>
+<dd>
+emitted after an editor window was saved
+</dd>
+<dt>editorTextChanged(Editor)</dt>
+<dd>
+emitted to signal a change of an
+        editor's text
+</dd>
+<dt>lastEditorClosed()</dt>
+<dd>
+emitted after the last editor window was closed
+</dd>
+<dt>previewStateChanged(bool)</dt>
+<dd>
+emitted to signal a change in the
+        preview state
+</dd>
+<dt>syntaxerrorToggled(Editor)</dt>
+<dd>
+emitted when a syntax error is toggled.
+</dd>
+</dl>
+<h3>Derived from</h3>
+ViewManager
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Listspace.__init__">Listspace</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__captionChange">__captionChange</a></td>
+<td>Private method to handle caption change signals from the editor.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuClose">__contextMenuClose</a></td>
+<td>Private method to close the selected editor.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuCloseAbove">__contextMenuCloseAbove</a></td>
+<td>Private method to close editors above.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuCloseAll">__contextMenuCloseAll</a></td>
+<td>Private method to close all editors.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuCloseBelow">__contextMenuCloseBelow</a></td>
+<td>Private method to close editors below.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuCloseOthers">__contextMenuCloseOthers</a></td>
+<td>Private method to close the other editors.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuCopyPathToClipboard">__contextMenuCopyPathToClipboard</a></td>
+<td>Private method to copy the file name of the selected editor to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuCoverageScript">__contextMenuCoverageScript</a></td>
+<td>Private method to run a coverage test of the editor script.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuDebugScript">__contextMenuDebugScript</a></td>
+<td>Private method to debug the editor script.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuOpenRejections">__contextMenuOpenRejections</a></td>
+<td>Private slot to open a rejections file associated with the selected editor.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuPrintFile">__contextMenuPrintFile</a></td>
+<td>Private method to print the selected editor.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuPrintPreviewFile">__contextMenuPrintPreviewFile</a></td>
+<td>Private method to show a print preview of the selected editor.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuProfileScript">__contextMenuProfileScript</a></td>
+<td>Private method to profile the editor script.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuRunScript">__contextMenuRunScript</a></td>
+<td>Private method to run the editor script.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuSave">__contextMenuSave</a></td>
+<td>Private method to save the selected editor.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuSaveAll">__contextMenuSaveAll</a></td>
+<td>Private method to save all editors.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__contextMenuSaveAs">__contextMenuSaveAs</a></td>
+<td>Private method to save the selected editor to a new file.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__currentChanged">__currentChanged</a></td>
+<td>Private slot to handle the currentChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__cursorLineChanged">__cursorLineChanged</a></td>
+<td>Private slot to handle a change of the current editor's cursor line.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__initMenu">__initMenu</a></td>
+<td>Private method to initialize the viewlist context menu.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__setIcon">__setIcon</a></td>
+<td>Private method to set the icon for the given editor.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__showMenu">__showMenu</a></td>
+<td>Private slot to handle the customContextMenuRequested signal of the viewlist.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.__showSelectedView">__showSelectedView</a></td>
+<td>Private slot called to show a view selected in the list.</td>
+</tr>
+<tr>
+<td><a href="#Listspace._addView">_addView</a></td>
+<td>Protected method to add a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Listspace._initWindowActions">_initWindowActions</a></td>
+<td>Protected method to define the user interface actions for window handling.</td>
+</tr>
+<tr>
+<td><a href="#Listspace._modificationStatusChanged">_modificationStatusChanged</a></td>
+<td>Protected slot to handle the modificationStatusChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#Listspace._removeAllViews">_removeAllViews</a></td>
+<td>Protected method to remove all views (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Listspace._removeView">_removeView</a></td>
+<td>Protected method to remove a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Listspace._showView">_showView</a></td>
+<td>Protected method to show a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Listspace._syntaxErrorToggled">_syntaxErrorToggled</a></td>
+<td>Protected slot to handle the syntaxerrorToggled signal.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.activeWindow">activeWindow</a></td>
+<td>Public method to return the active (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.addSplit">addSplit</a></td>
+<td>Public method used to split the current view.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.canCascade">canCascade</a></td>
+<td>Public method to signal if cascading of managed windows is available.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.canSplit">canSplit</a></td>
+<td>public method to signal if splitting of the view is available.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.canTile">canTile</a></td>
+<td>Public method to signal if tiling of managed windows is available.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.cascade">cascade</a></td>
+<td>Public method to cascade the managed windows.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.eventFilter">eventFilter</a></td>
+<td>Public method called to filter the event queue.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.getOpenEditorsForSession">getOpenEditorsForSession</a></td>
+<td>Public method to get a lists of all open editors.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.getSplitOrientation">getSplitOrientation</a></td>
+<td>Public method to get the orientation of the split view.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.mainWidget">mainWidget</a></td>
+<td>Public method to return a reference to the main Widget of a specific view manager subclass.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.nextSplit">nextSplit</a></td>
+<td>Public slot used to move to the next split.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.prevSplit">prevSplit</a></td>
+<td>Public slot used to move to the previous split.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.removeSplit">removeSplit</a></td>
+<td>Public method used to remove the current split view or a split view by index.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.setEditorName">setEditorName</a></td>
+<td>Public method to change the displayed name of the editor.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.setSplitCount">setSplitCount</a></td>
+<td>Public method to set the number of split views.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.setSplitOrientation">setSplitOrientation</a></td>
+<td>Public method used to set the orientation of the split view.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.showWindowMenu">showWindowMenu</a></td>
+<td>Public method to set up the viewmanager part of the Window menu.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.splitCount">splitCount</a></td>
+<td>Public method to get the number of splitted views.</td>
+</tr>
+<tr>
+<td><a href="#Listspace.tile">tile</a></td>
+<td>Public method to tile the managed windows.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Listspace.__init__" ID="Listspace.__init__"></a>
+<h4>Listspace (Constructor)</h4>
+<b>Listspace</b>(<i>parent</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="Listspace.__captionChange" ID="Listspace.__captionChange"></a>
+<h4>Listspace.__captionChange</h4>
+<b>__captionChange</b>(<i>_cap, editor</i>)
+<p>
+        Private method to handle caption change signals from the editor.
+</p>
+<p>
+        Updates the listwidget text to reflect the new caption information.
+</p>
+
+<dl>
+
+<dt><i>_cap</i> (str)</dt>
+<dd>
+caption for the editor (unused)
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+Editor to update the caption for
+</dd>
+</dl>
+<a NAME="Listspace.__contextMenuClose" ID="Listspace.__contextMenuClose"></a>
+<h4>Listspace.__contextMenuClose</h4>
+<b>__contextMenuClose</b>(<i></i>)
+<p>
+        Private method to close the selected editor.
+</p>
+
+<a NAME="Listspace.__contextMenuCloseAbove" ID="Listspace.__contextMenuCloseAbove"></a>
+<h4>Listspace.__contextMenuCloseAbove</h4>
+<b>__contextMenuCloseAbove</b>(<i></i>)
+<p>
+        Private method to close editors above.
+</p>
+
+<a NAME="Listspace.__contextMenuCloseAll" ID="Listspace.__contextMenuCloseAll"></a>
+<h4>Listspace.__contextMenuCloseAll</h4>
+<b>__contextMenuCloseAll</b>(<i></i>)
+<p>
+        Private method to close all editors.
+</p>
+
+<a NAME="Listspace.__contextMenuCloseBelow" ID="Listspace.__contextMenuCloseBelow"></a>
+<h4>Listspace.__contextMenuCloseBelow</h4>
+<b>__contextMenuCloseBelow</b>(<i></i>)
+<p>
+        Private method to close editors below.
+</p>
+
+<a NAME="Listspace.__contextMenuCloseOthers" ID="Listspace.__contextMenuCloseOthers"></a>
+<h4>Listspace.__contextMenuCloseOthers</h4>
+<b>__contextMenuCloseOthers</b>(<i></i>)
+<p>
+        Private method to close the other editors.
+</p>
+
+<a NAME="Listspace.__contextMenuCopyPathToClipboard" ID="Listspace.__contextMenuCopyPathToClipboard"></a>
+<h4>Listspace.__contextMenuCopyPathToClipboard</h4>
+<b>__contextMenuCopyPathToClipboard</b>(<i></i>)
+<p>
+        Private method to copy the file name of the selected editor to the
+        clipboard.
+</p>
+
+<a NAME="Listspace.__contextMenuCoverageScript" ID="Listspace.__contextMenuCoverageScript"></a>
+<h4>Listspace.__contextMenuCoverageScript</h4>
+<b>__contextMenuCoverageScript</b>(<i></i>)
+<p>
+        Private method to run a coverage test of the editor script.
+</p>
+
+<a NAME="Listspace.__contextMenuDebugScript" ID="Listspace.__contextMenuDebugScript"></a>
+<h4>Listspace.__contextMenuDebugScript</h4>
+<b>__contextMenuDebugScript</b>(<i></i>)
+<p>
+        Private method to debug the editor script.
+</p>
+
+<a NAME="Listspace.__contextMenuOpenRejections" ID="Listspace.__contextMenuOpenRejections"></a>
+<h4>Listspace.__contextMenuOpenRejections</h4>
+<b>__contextMenuOpenRejections</b>(<i></i>)
+<p>
+        Private slot to open a rejections file associated with the selected
+        editor.
+</p>
+
+<a NAME="Listspace.__contextMenuPrintFile" ID="Listspace.__contextMenuPrintFile"></a>
+<h4>Listspace.__contextMenuPrintFile</h4>
+<b>__contextMenuPrintFile</b>(<i></i>)
+<p>
+        Private method to print the selected editor.
+</p>
+
+<a NAME="Listspace.__contextMenuPrintPreviewFile" ID="Listspace.__contextMenuPrintPreviewFile"></a>
+<h4>Listspace.__contextMenuPrintPreviewFile</h4>
+<b>__contextMenuPrintPreviewFile</b>(<i></i>)
+<p>
+        Private method to show a print preview of the selected editor.
+</p>
+
+<a NAME="Listspace.__contextMenuProfileScript" ID="Listspace.__contextMenuProfileScript"></a>
+<h4>Listspace.__contextMenuProfileScript</h4>
+<b>__contextMenuProfileScript</b>(<i></i>)
+<p>
+        Private method to profile the editor script.
+</p>
+
+<a NAME="Listspace.__contextMenuRunScript" ID="Listspace.__contextMenuRunScript"></a>
+<h4>Listspace.__contextMenuRunScript</h4>
+<b>__contextMenuRunScript</b>(<i></i>)
+<p>
+        Private method to run the editor script.
+</p>
+
+<a NAME="Listspace.__contextMenuSave" ID="Listspace.__contextMenuSave"></a>
+<h4>Listspace.__contextMenuSave</h4>
+<b>__contextMenuSave</b>(<i></i>)
+<p>
+        Private method to save the selected editor.
+</p>
+
+<a NAME="Listspace.__contextMenuSaveAll" ID="Listspace.__contextMenuSaveAll"></a>
+<h4>Listspace.__contextMenuSaveAll</h4>
+<b>__contextMenuSaveAll</b>(<i></i>)
+<p>
+        Private method to save all editors.
+</p>
+
+<a NAME="Listspace.__contextMenuSaveAs" ID="Listspace.__contextMenuSaveAs"></a>
+<h4>Listspace.__contextMenuSaveAs</h4>
+<b>__contextMenuSaveAs</b>(<i></i>)
+<p>
+        Private method to save the selected editor to a new file.
+</p>
+
+<a NAME="Listspace.__currentChanged" ID="Listspace.__currentChanged"></a>
+<h4>Listspace.__currentChanged</h4>
+<b>__currentChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the currentChanged signal.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the current editor
+</dd>
+</dl>
+<a NAME="Listspace.__cursorLineChanged" ID="Listspace.__cursorLineChanged"></a>
+<h4>Listspace.__cursorLineChanged</h4>
+<b>__cursorLineChanged</b>(<i>lineno, editor</i>)
+<p>
+        Private slot to handle a change of the current editor's cursor line.
+</p>
+
+<dl>
+
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number of the editor's cursor (zero based)
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="Listspace.__initMenu" ID="Listspace.__initMenu"></a>
+<h4>Listspace.__initMenu</h4>
+<b>__initMenu</b>(<i></i>)
+<p>
+        Private method to initialize the viewlist context menu.
+</p>
+
+<a NAME="Listspace.__setIcon" ID="Listspace.__setIcon"></a>
+<h4>Listspace.__setIcon</h4>
+<b>__setIcon</b>(<i>editor, modified</i>)
+<p>
+        Private method to set the icon for the given editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to set the icon for
+</dd>
+<dt><i>modified</i> (bool)</dt>
+<dd>
+flag indicating the modification status
+</dd>
+</dl>
+<a NAME="Listspace.__showMenu" ID="Listspace.__showMenu"></a>
+<h4>Listspace.__showMenu</h4>
+<b>__showMenu</b>(<i>point</i>)
+<p>
+        Private slot to handle the customContextMenuRequested signal of
+        the viewlist.
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+position to open the menu at
+</dd>
+</dl>
+<a NAME="Listspace.__showSelectedView" ID="Listspace.__showSelectedView"></a>
+<h4>Listspace.__showSelectedView</h4>
+<b>__showSelectedView</b>(<i>row</i>)
+<p>
+        Private slot called to show a view selected in the list.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row number of the item clicked on
+</dd>
+</dl>
+<a NAME="Listspace._addView" ID="Listspace._addView"></a>
+<h4>Listspace._addView</h4>
+<b>_addView</b>(<i>win, fn=None, noName="", addNext=False, indexes=None</i>)
+<p>
+        Protected method to add a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (EditorAssembly)</dt>
+<dd>
+editor assembly to be added
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of this editor
+</dd>
+<dt><i>noName</i> (str)</dt>
+<dd>
+name to be used for an unnamed editor
+</dd>
+<dt><i>addNext</i> (bool)</dt>
+<dd>
+flag indicating to add the view next to the current
+            view (unused)
+</dd>
+<dt><i>indexes</i> (tuple of two int)</dt>
+<dd>
+of the editor, first the split view index, second the
+            index within the view
+</dd>
+</dl>
+<a NAME="Listspace._initWindowActions" ID="Listspace._initWindowActions"></a>
+<h4>Listspace._initWindowActions</h4>
+<b>_initWindowActions</b>(<i></i>)
+<p>
+        Protected method to define the user interface actions for window
+        handling.
+</p>
+
+<a NAME="Listspace._modificationStatusChanged" ID="Listspace._modificationStatusChanged"></a>
+<h4>Listspace._modificationStatusChanged</h4>
+<b>_modificationStatusChanged</b>(<i>modified, editor</i>)
+<p>
+        Protected slot to handle the modificationStatusChanged signal.
+</p>
+
+<dl>
+
+<dt><i>modified</i> (bool)</dt>
+<dd>
+flag indicating the modification status
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor that sent the signal
+</dd>
+</dl>
+<a NAME="Listspace._removeAllViews" ID="Listspace._removeAllViews"></a>
+<h4>Listspace._removeAllViews</h4>
+<b>_removeAllViews</b>(<i></i>)
+<p>
+        Protected method to remove all views (i.e. windows).
+</p>
+
+<a NAME="Listspace._removeView" ID="Listspace._removeView"></a>
+<h4>Listspace._removeView</h4>
+<b>_removeView</b>(<i>win</i>)
+<p>
+        Protected method to remove a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (Editor)</dt>
+<dd>
+editor window to be removed
+</dd>
+</dl>
+<a NAME="Listspace._showView" ID="Listspace._showView"></a>
+<h4>Listspace._showView</h4>
+<b>_showView</b>(<i>win, fn=None</i>)
+<p>
+        Protected method to show a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (EditorAssembly)</dt>
+<dd>
+editor assembly to be shown
+</dd>
+<dt><i>fn</i> (string)</dt>
+<dd>
+filename of this editor
+</dd>
+</dl>
+<a NAME="Listspace._syntaxErrorToggled" ID="Listspace._syntaxErrorToggled"></a>
+<h4>Listspace._syntaxErrorToggled</h4>
+<b>_syntaxErrorToggled</b>(<i>editor</i>)
+<p>
+        Protected slot to handle the syntaxerrorToggled signal.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor that sent the signal
+</dd>
+</dl>
+<a NAME="Listspace.activeWindow" ID="Listspace.activeWindow"></a>
+<h4>Listspace.activeWindow</h4>
+<b>activeWindow</b>(<i></i>)
+<p>
+        Public method to return the active (i.e. current) window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the active editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EditorAssembly
+</dd>
+</dl>
+<a NAME="Listspace.addSplit" ID="Listspace.addSplit"></a>
+<h4>Listspace.addSplit</h4>
+<b>addSplit</b>(<i></i>)
+<p>
+        Public method used to split the current view.
+</p>
+
+<a NAME="Listspace.canCascade" ID="Listspace.canCascade"></a>
+<h4>Listspace.canCascade</h4>
+<b>canCascade</b>(<i></i>)
+<p>
+        Public method to signal if cascading of managed windows is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating cascading of windows is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Listspace.canSplit" ID="Listspace.canSplit"></a>
+<h4>Listspace.canSplit</h4>
+<b>canSplit</b>(<i></i>)
+<p>
+        public method to signal if splitting of the view is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating splitting of the view is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Listspace.canTile" ID="Listspace.canTile"></a>
+<h4>Listspace.canTile</h4>
+<b>canTile</b>(<i></i>)
+<p>
+        Public method to signal if tiling of managed windows is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating tiling of windows is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Listspace.cascade" ID="Listspace.cascade"></a>
+<h4>Listspace.cascade</h4>
+<b>cascade</b>(<i></i>)
+<p>
+        Public method to cascade the managed windows.
+</p>
+
+<a NAME="Listspace.eventFilter" ID="Listspace.eventFilter"></a>
+<h4>Listspace.eventFilter</h4>
+<b>eventFilter</b>(<i>watched, event</i>)
+<p>
+        Public method called to filter the event queue.
+</p>
+
+<dl>
+
+<dt><i>watched</i> (QObject)</dt>
+<dd>
+the QObject being watched
+</dd>
+<dt><i>event</i> (QEvent)</dt>
+<dd>
+the event that occurred
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if we handled the event
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Listspace.getOpenEditorsForSession" ID="Listspace.getOpenEditorsForSession"></a>
+<h4>Listspace.getOpenEditorsForSession</h4>
+<b>getOpenEditorsForSession</b>(<i></i>)
+<p>
+        Public method to get a lists of all open editors.
+</p>
+<p>
+        The returned list contains one list per split view. If the view manager
+        cannot split the view, only one list of editors is returned.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of list of editor references
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of list of Editor
+</dd>
+</dl>
+<a NAME="Listspace.getSplitOrientation" ID="Listspace.getSplitOrientation"></a>
+<h4>Listspace.getSplitOrientation</h4>
+<b>getSplitOrientation</b>(<i></i>)
+<p>
+        Public method to get the orientation of the split view.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+orientation of the split
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Qt.Orientation.Horizontal or Qt.Orientation.Vertical
+</dd>
+</dl>
+<a NAME="Listspace.mainWidget" ID="Listspace.mainWidget"></a>
+<h4>Listspace.mainWidget</h4>
+<b>mainWidget</b>(<i></i>)
+<p>
+        Public method to return a reference to the main Widget of a
+        specific view manager subclass.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the main widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<a NAME="Listspace.nextSplit" ID="Listspace.nextSplit"></a>
+<h4>Listspace.nextSplit</h4>
+<b>nextSplit</b>(<i></i>)
+<p>
+        Public slot used to move to the next split.
+</p>
+
+<a NAME="Listspace.prevSplit" ID="Listspace.prevSplit"></a>
+<h4>Listspace.prevSplit</h4>
+<b>prevSplit</b>(<i></i>)
+<p>
+        Public slot used to move to the previous split.
+</p>
+
+<a NAME="Listspace.removeSplit" ID="Listspace.removeSplit"></a>
+<h4>Listspace.removeSplit</h4>
+<b>removeSplit</b>(<i>index=-1</i>)
+<p>
+        Public method used to remove the current split view or a split view
+        by index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the split to be removed (-1 means to
+            delete the current split)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful deletion
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Listspace.setEditorName" ID="Listspace.setEditorName"></a>
+<h4>Listspace.setEditorName</h4>
+<b>setEditorName</b>(<i>editor, newName</i>)
+<p>
+        Public method to change the displayed name of the editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window to be changed
+</dd>
+<dt><i>newName</i> (str)</dt>
+<dd>
+new name to be shown
+</dd>
+</dl>
+<a NAME="Listspace.setSplitCount" ID="Listspace.setSplitCount"></a>
+<h4>Listspace.setSplitCount</h4>
+<b>setSplitCount</b>(<i>count</i>)
+<p>
+        Public method to set the number of split views.
+</p>
+
+<dl>
+
+<dt><i>count</i> (int)</dt>
+<dd>
+number of split views
+</dd>
+</dl>
+<a NAME="Listspace.setSplitOrientation" ID="Listspace.setSplitOrientation"></a>
+<h4>Listspace.setSplitOrientation</h4>
+<b>setSplitOrientation</b>(<i>orientation</i>)
+<p>
+        Public method used to set the orientation of the split view.
+</p>
+
+<dl>
+
+<dt><i>orientation</i> (Qt.Orientation.Horizontal or Qt.Orientation.Vertical)</dt>
+<dd>
+orientation of the split
+</dd>
+</dl>
+<a NAME="Listspace.showWindowMenu" ID="Listspace.showWindowMenu"></a>
+<h4>Listspace.showWindowMenu</h4>
+<b>showWindowMenu</b>(<i>_windowMenu</i>)
+<p>
+        Public method to set up the viewmanager part of the Window menu.
+</p>
+
+<dl>
+
+<dt><i>_windowMenu</i> (QMenu)</dt>
+<dd>
+reference to the window menu (unused)
+</dd>
+</dl>
+<a NAME="Listspace.splitCount" ID="Listspace.splitCount"></a>
+<h4>Listspace.splitCount</h4>
+<b>splitCount</b>(<i></i>)
+<p>
+        Public method to get the number of splitted views.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of splitted views
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Listspace.tile" ID="Listspace.tile"></a>
+<h4>Listspace.tile</h4>
+<b>tile</b>(<i></i>)
+<p>
+        Public method to tile the managed windows.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="StackedWidget" ID="StackedWidget"></a>
+<h2>StackedWidget</h2>
+<p>
+    Class implementing a custimized StackedWidget.
+</p>
+
+<h3>Derived from</h3>
+QStackedWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#StackedWidget.__init__">StackedWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget.addWidget">addWidget</a></td>
+<td>Public method to add a new widget.</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget.currentWidget">currentWidget</a></td>
+<td>Public method to get a reference to the current editor.</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget.firstEditor">firstEditor</a></td>
+<td>Public method to retrieve the first editor in the list of managed editors.</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget.hasEditor">hasEditor</a></td>
+<td>Public method to check for an editor.</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget.nextTab">nextTab</a></td>
+<td>Public slot used to show the next tab.</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget.prevTab">prevTab</a></td>
+<td>Public slot used to show the previous tab.</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget.removeWidget">removeWidget</a></td>
+<td>Public method to remove a widget.</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget.setCurrentIndex">setCurrentIndex</a></td>
+<td>Public method to set the current widget by its index.</td>
+</tr>
+<tr>
+<td><a href="#StackedWidget.setCurrentWidget">setCurrentWidget</a></td>
+<td>Public method to set the current widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="StackedWidget.__init__" ID="StackedWidget.__init__"></a>
+<h4>StackedWidget (Constructor)</h4>
+<b>StackedWidget</b>(<i>parent</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="StackedWidget.addWidget" ID="StackedWidget.addWidget"></a>
+<h4>StackedWidget.addWidget</h4>
+<b>addWidget</b>(<i>assembly</i>)
+<p>
+        Public method to add a new widget.
+</p>
+
+<dl>
+
+<dt><i>assembly</i> (QScintilla.EditorAssembly.EditorAssembly)</dt>
+<dd>
+editor assembly object to be added
+</dd>
+</dl>
+<a NAME="StackedWidget.currentWidget" ID="StackedWidget.currentWidget"></a>
+<h4>StackedWidget.currentWidget</h4>
+<b>currentWidget</b>(<i></i>)
+<p>
+        Public method to get a reference to the current editor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor
+</dd>
+</dl>
+<a NAME="StackedWidget.firstEditor" ID="StackedWidget.firstEditor"></a>
+<h4>StackedWidget.firstEditor</h4>
+<b>firstEditor</b>(<i></i>)
+<p>
+        Public method to retrieve the first editor in the list of managed
+            editors.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+first editor in list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QScintilla.Editor.Editor
+</dd>
+</dl>
+<a NAME="StackedWidget.hasEditor" ID="StackedWidget.hasEditor"></a>
+<h4>StackedWidget.hasEditor</h4>
+<b>hasEditor</b>(<i>editor</i>)
+<p>
+        Public method to check for an editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor object to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, whether the editor to be checked belongs
+            to the list of editors managed by this stacked widget.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="StackedWidget.nextTab" ID="StackedWidget.nextTab"></a>
+<h4>StackedWidget.nextTab</h4>
+<b>nextTab</b>(<i></i>)
+<p>
+        Public slot used to show the next tab.
+</p>
+
+<a NAME="StackedWidget.prevTab" ID="StackedWidget.prevTab"></a>
+<h4>StackedWidget.prevTab</h4>
+<b>prevTab</b>(<i></i>)
+<p>
+        Public slot used to show the previous tab.
+</p>
+
+<a NAME="StackedWidget.removeWidget" ID="StackedWidget.removeWidget"></a>
+<h4>StackedWidget.removeWidget</h4>
+<b>removeWidget</b>(<i>widget</i>)
+<p>
+        Public method to remove a widget.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+widget to be removed
+</dd>
+</dl>
+<a NAME="StackedWidget.setCurrentIndex" ID="StackedWidget.setCurrentIndex"></a>
+<h4>StackedWidget.setCurrentIndex</h4>
+<b>setCurrentIndex</b>(<i>index</i>)
+<p>
+        Public method to set the current widget by its index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of widget to be made current
+</dd>
+</dl>
+<a NAME="StackedWidget.setCurrentWidget" ID="StackedWidget.setCurrentWidget"></a>
+<h4>StackedWidget.setCurrentWidget</h4>
+<b>setCurrentWidget</b>(<i>widget</i>)
+<p>
+        Public method to set the current widget.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+widget to be made current
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

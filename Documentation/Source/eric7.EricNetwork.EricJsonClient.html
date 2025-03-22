@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricNetwork.EricJsonClient</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricNetwork.EricJsonClient</h1>
+<p>
+Module implementing the JSON based client base class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricJsonClient">EricJsonClient</a></td>
+<td>Class implementing a JSON based client base class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricJsonClient" ID="EricJsonClient"></a>
+<h2>EricJsonClient</h2>
+<p>
+    Class implementing a JSON based client base class.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricJsonClient.__init__">EricJsonClient</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricJsonClient.__receiveBytes">__receiveBytes</a></td>
+<td>Private method to receive the given length of bytes.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonClient.__receiveJson">__receiveJson</a></td>
+<td>Private method to receive a JSON encoded command and data from the server.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonClient.handleCall">handleCall</a></td>
+<td>Public method to handle a method call from the server.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonClient.poll">poll</a></td>
+<td>Public method to check and receive one message (if available).</td>
+</tr>
+<tr>
+<td><a href="#EricJsonClient.run">run</a></td>
+<td>Public method implementing the main loop of the client.</td>
+</tr>
+<tr>
+<td><a href="#EricJsonClient.sendJson">sendJson</a></td>
+<td>Public method to send a single refactoring command to the server.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricJsonClient.__init__" ID="EricJsonClient.__init__"></a>
+<h4>EricJsonClient (Constructor)</h4>
+<b>EricJsonClient</b>(<i>host, port, idString=""</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+IP address the background service is listening
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+port of the background service
+</dd>
+<dt><i>idString</i> (str)</dt>
+<dd>
+assigned client id to be sent back to the server in
+            order to identify the connection
+</dd>
+</dl>
+<a NAME="EricJsonClient.__receiveBytes" ID="EricJsonClient.__receiveBytes"></a>
+<h4>EricJsonClient.__receiveBytes</h4>
+<b>__receiveBytes</b>(<i>length</i>)
+<p>
+        Private method to receive the given length of bytes.
+</p>
+
+<dl>
+
+<dt><i>length</i> (int)</dt>
+<dd>
+bytes to receive
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+received bytes or None if connection closed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="EricJsonClient.__receiveJson" ID="EricJsonClient.__receiveJson"></a>
+<h4>EricJsonClient.__receiveJson</h4>
+<b>__receiveJson</b>(<i></i>)
+<p>
+        Private method to receive a JSON encoded command and data from the
+        server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the received command and a dictionary
+            containing the associated data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, dict)
+</dd>
+</dl>
+<a NAME="EricJsonClient.handleCall" ID="EricJsonClient.handleCall"></a>
+<h4>EricJsonClient.handleCall</h4>
+<b>handleCall</b>(<i>method, params</i>)
+<p>
+        Public method to handle a method call from the server.
+</p>
+<p>
+        Note: This is an empty implementation that must be overridden in
+        derived classes.
+</p>
+
+<dl>
+
+<dt><i>method</i> (str)</dt>
+<dd>
+requested method name
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary with method specific parameters
+</dd>
+</dl>
+<a NAME="EricJsonClient.poll" ID="EricJsonClient.poll"></a>
+<h4>EricJsonClient.poll</h4>
+<b>poll</b>(<i>waitMethod=""</i>)
+<p>
+        Public method to check and receive one message (if available).
+</p>
+
+<dl>
+
+<dt><i>waitMethod</i> (str)</dt>
+<dd>
+name of a method to wait for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the data of the waited for method
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricJsonClient.run" ID="EricJsonClient.run"></a>
+<h4>EricJsonClient.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method implementing the main loop of the client.
+</p>
+
+<a NAME="EricJsonClient.sendJson" ID="EricJsonClient.sendJson"></a>
+<h4>EricJsonClient.sendJson</h4>
+<b>sendJson</b>(<i>command, params</i>)
+<p>
+        Public method to send a single refactoring command to the server.
+</p>
+
+<dl>
+
+<dt><i>command</i> (str)</dt>
+<dd>
+command name to be sent
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary of named parameters for the command
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

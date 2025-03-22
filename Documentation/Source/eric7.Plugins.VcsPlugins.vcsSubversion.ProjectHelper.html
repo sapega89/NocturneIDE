@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsSubversion.ProjectHelper</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsSubversion.ProjectHelper</h1>
+<p>
+Module implementing the VCS project helper for Subversion.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SvnProjectHelper">SvnProjectHelper</a></td>
+<td>Class implementing the VCS project helper for Subversion.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SvnProjectHelper" ID="SvnProjectHelper"></a>
+<h2>SvnProjectHelper</h2>
+<p>
+    Class implementing the VCS project helper for Subversion.
+</p>
+
+<h3>Derived from</h3>
+VcsProjectHelper
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SvnProjectHelper.__init__">SvnProjectHelper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnBranchList">__svnBranchList</a></td>
+<td>Private slot used to list the branches of the project.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnChangeLists">__svnChangeLists</a></td>
+<td>Private slot used to show a list of change lists.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnConfigure">__svnConfigure</a></td>
+<td>Private slot to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnExtendedDiff">__svnExtendedDiff</a></td>
+<td>Private slot used to perform a svn diff with the selection of revisions.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnPropDel">__svnPropDel</a></td>
+<td>Private slot used to delete a property for the project files.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnPropList">__svnPropList</a></td>
+<td>Private slot used to list the properties of the project files.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnPropSet">__svnPropSet</a></td>
+<td>Private slot used to set a property for the project files.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnRelocate">__svnRelocate</a></td>
+<td>Private slot used to relocate the working copy to a new repository URL.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnRepoBrowser">__svnRepoBrowser</a></td>
+<td>Private slot to open the repository browser.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnResolve">__svnResolve</a></td>
+<td>Private slot used to resolve conflicts of the local project.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnTagList">__svnTagList</a></td>
+<td>Private slot used to list the tags of the project.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnUpgrade">__svnUpgrade</a></td>
+<td>Private slot used to upgrade the working copy format.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.__svnUrlDiff">__svnUrlDiff</a></td>
+<td>Private slot used to perform a svn diff with the selection of repository URLs.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.getActions">getActions</a></td>
+<td>Public method to get a list of all actions.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.initActions">initActions</a></td>
+<td>Public method to generate the action objects.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.initMenu">initMenu</a></td>
+<td>Public method to generate the VCS menu.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.initToolbar">initToolbar</a></td>
+<td>Public slot to initialize the VCS toolbar.</td>
+</tr>
+<tr>
+<td><a href="#SvnProjectHelper.removeToolbar">removeToolbar</a></td>
+<td>Public method to remove a toolbar created by initToolbar().</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SvnProjectHelper.__init__" ID="SvnProjectHelper.__init__"></a>
+<h4>SvnProjectHelper (Constructor)</h4>
+<b>SvnProjectHelper</b>(<i>vcsObject, projectObject, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcsObject</i> (Subversion)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>projectObject</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="SvnProjectHelper.__svnBranchList" ID="SvnProjectHelper.__svnBranchList"></a>
+<h4>SvnProjectHelper.__svnBranchList</h4>
+<b>__svnBranchList</b>(<i></i>)
+<p>
+        Private slot used to list the branches of the project.
+</p>
+
+<a NAME="SvnProjectHelper.__svnChangeLists" ID="SvnProjectHelper.__svnChangeLists"></a>
+<h4>SvnProjectHelper.__svnChangeLists</h4>
+<b>__svnChangeLists</b>(<i></i>)
+<p>
+        Private slot used to show a list of change lists.
+</p>
+
+<a NAME="SvnProjectHelper.__svnConfigure" ID="SvnProjectHelper.__svnConfigure"></a>
+<h4>SvnProjectHelper.__svnConfigure</h4>
+<b>__svnConfigure</b>(<i></i>)
+<p>
+        Private slot to open the configuration dialog.
+</p>
+
+<a NAME="SvnProjectHelper.__svnExtendedDiff" ID="SvnProjectHelper.__svnExtendedDiff"></a>
+<h4>SvnProjectHelper.__svnExtendedDiff</h4>
+<b>__svnExtendedDiff</b>(<i></i>)
+<p>
+        Private slot used to perform a svn diff with the selection of
+        revisions.
+</p>
+
+<a NAME="SvnProjectHelper.__svnPropDel" ID="SvnProjectHelper.__svnPropDel"></a>
+<h4>SvnProjectHelper.__svnPropDel</h4>
+<b>__svnPropDel</b>(<i></i>)
+<p>
+        Private slot used to delete a property for the project files.
+</p>
+
+<a NAME="SvnProjectHelper.__svnPropList" ID="SvnProjectHelper.__svnPropList"></a>
+<h4>SvnProjectHelper.__svnPropList</h4>
+<b>__svnPropList</b>(<i></i>)
+<p>
+        Private slot used to list the properties of the project files.
+</p>
+
+<a NAME="SvnProjectHelper.__svnPropSet" ID="SvnProjectHelper.__svnPropSet"></a>
+<h4>SvnProjectHelper.__svnPropSet</h4>
+<b>__svnPropSet</b>(<i></i>)
+<p>
+        Private slot used to set a property for the project files.
+</p>
+
+<a NAME="SvnProjectHelper.__svnRelocate" ID="SvnProjectHelper.__svnRelocate"></a>
+<h4>SvnProjectHelper.__svnRelocate</h4>
+<b>__svnRelocate</b>(<i></i>)
+<p>
+        Private slot used to relocate the working copy to a new repository URL.
+</p>
+
+<a NAME="SvnProjectHelper.__svnRepoBrowser" ID="SvnProjectHelper.__svnRepoBrowser"></a>
+<h4>SvnProjectHelper.__svnRepoBrowser</h4>
+<b>__svnRepoBrowser</b>(<i></i>)
+<p>
+        Private slot to open the repository browser.
+</p>
+
+<a NAME="SvnProjectHelper.__svnResolve" ID="SvnProjectHelper.__svnResolve"></a>
+<h4>SvnProjectHelper.__svnResolve</h4>
+<b>__svnResolve</b>(<i></i>)
+<p>
+        Private slot used to resolve conflicts of the local project.
+</p>
+
+<a NAME="SvnProjectHelper.__svnTagList" ID="SvnProjectHelper.__svnTagList"></a>
+<h4>SvnProjectHelper.__svnTagList</h4>
+<b>__svnTagList</b>(<i></i>)
+<p>
+        Private slot used to list the tags of the project.
+</p>
+
+<a NAME="SvnProjectHelper.__svnUpgrade" ID="SvnProjectHelper.__svnUpgrade"></a>
+<h4>SvnProjectHelper.__svnUpgrade</h4>
+<b>__svnUpgrade</b>(<i></i>)
+<p>
+        Private slot used to upgrade the working copy format.
+</p>
+
+<a NAME="SvnProjectHelper.__svnUrlDiff" ID="SvnProjectHelper.__svnUrlDiff"></a>
+<h4>SvnProjectHelper.__svnUrlDiff</h4>
+<b>__svnUrlDiff</b>(<i></i>)
+<p>
+        Private slot used to perform a svn diff with the selection of
+        repository URLs.
+</p>
+
+<a NAME="SvnProjectHelper.getActions" ID="SvnProjectHelper.getActions"></a>
+<h4>SvnProjectHelper.getActions</h4>
+<b>getActions</b>(<i></i>)
+<p>
+        Public method to get a list of all actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of EricAction
+</dd>
+</dl>
+<a NAME="SvnProjectHelper.initActions" ID="SvnProjectHelper.initActions"></a>
+<h4>SvnProjectHelper.initActions</h4>
+<b>initActions</b>(<i></i>)
+<p>
+        Public method to generate the action objects.
+</p>
+
+<a NAME="SvnProjectHelper.initMenu" ID="SvnProjectHelper.initMenu"></a>
+<h4>SvnProjectHelper.initMenu</h4>
+<b>initMenu</b>(<i>menu</i>)
+<p>
+        Public method to generate the VCS menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+</dl>
+<a NAME="SvnProjectHelper.initToolbar" ID="SvnProjectHelper.initToolbar"></a>
+<h4>SvnProjectHelper.initToolbar</h4>
+<b>initToolbar</b>(<i>ui, toolbarManager</i>)
+<p>
+        Public slot to initialize the VCS toolbar.
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<a NAME="SvnProjectHelper.removeToolbar" ID="SvnProjectHelper.removeToolbar"></a>
+<h4>SvnProjectHelper.removeToolbar</h4>
+<b>removeToolbar</b>(<i>ui, toolbarManager</i>)
+<p>
+        Public method to remove a toolbar created by initToolbar().
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

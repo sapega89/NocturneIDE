@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.TabManager.TabManagerWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.TabManager.TabManagerWidget</h1>
+<p>
+Module implementing a window for managing the web browser tabs.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>TabGroupByDefaultType</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TabGroupByType">TabGroupByType</a></td>
+<td>Class defining the supported "Group By" types.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget">TabManagerWidget</a></td>
+<td>Class implementing a window for managing the web browser tabs.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TabGroupByType" ID="TabGroupByType"></a>
+<h2>TabGroupByType</h2>
+<p>
+    Class defining the supported "Group By" types.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Domain</td></tr>
+<tr><td>Host</td></tr>
+<tr><td>Window</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TabManagerWidget" ID="TabManagerWidget"></a>
+<h2>TabManagerWidget</h2>
+<p>
+    Class implementing a window for managing the web browser tabs.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>groupTypeChanged(TabGroupByType)</dt>
+<dd>
+emitted when the 'Group By' value
+        was changed
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>WebBrowserRole</td></tr>
+<tr><td>WebWindowRole</td></tr>
+<tr><td>_tldExtractor</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TabManagerWidget.__init__">TabManagerWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__createEmptyItem">__createEmptyItem</a></td>
+<td>Private method to create an empty tree item.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__customContextMenuRequested">__customContextMenuRequested</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__groupByDomainName">__groupByDomainName</a></td>
+<td>Private method to group the tree items by domain name.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__groupByWindow">__groupByWindow</a></td>
+<td>Private method to group the tree items by window.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__isBrowserSelected">__isBrowserSelected</a></td>
+<td>Private slot to check, if any browser entry is selected.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__itemDoubleClicked">__itemDoubleClicked</a></td>
+<td>Private slot to handle double clicking a tree item.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__makeWebBrowserViewConnections">__makeWebBrowserViewConnections</a></td>
+<td>Private method to create the signal connections to the web view.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__processActions">__processActions</a></td>
+<td>Private slot to process the actions.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__refreshTree">__refreshTree</a></td>
+<td>Private slot to referesh the tree.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.__setGroupType">__setGroupType</a></td>
+<td>Private method to set the 'Group By' type.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.bookmarkSelectedBrowsers">bookmarkSelectedBrowsers</a></td>
+<td>Public method to bookmark the selected browsers.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.changeGroupType">changeGroupType</a></td>
+<td>Public slot to change the 'Group By' type.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.closeSelectedBrowsers">closeSelectedBrowsers</a></td>
+<td>Public method to close the selected browsers.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.createStatusBarIcon">createStatusBarIcon</a></td>
+<td>Public method to create a status bar icon.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.delayedRefreshTree">delayedRefreshTree</a></td>
+<td>Public slot to do a delyed refresh of the tree.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.domainFromUrl">domainFromUrl</a></td>
+<td>Public method to extract the domain from an URL.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.mainWindowCreated">mainWindowCreated</a></td>
+<td>Public method to act on the creation of a new web browser window.</td>
+</tr>
+<tr>
+<td><a href="#TabManagerWidget.raiseTabManager">raiseTabManager</a></td>
+<td>Public slot to show the tab manager.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TabManagerWidget.__init__" ID="TabManagerWidget.__init__"></a>
+<h4>TabManagerWidget (Constructor)</h4>
+<b>TabManagerWidget</b>(<i>mainWindow, parent=None, defaultWidget=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>mainWindow</i> (WebBrowserWindow)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+<dt><i>defaultWidget</i> (bool)</dt>
+<dd>
+flag indicating the default widget
+</dd>
+</dl>
+<a NAME="TabManagerWidget.__createEmptyItem" ID="TabManagerWidget.__createEmptyItem"></a>
+<h4>TabManagerWidget.__createEmptyItem</h4>
+<b>__createEmptyItem</b>(<i>parent=None, addToTree=True</i>)
+<p>
+        Private method to create an empty tree item.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QTreeWidgetItem or QTreeWidget)</dt>
+<dd>
+reference to the parent item
+</dd>
+<dt><i>addToTree</i> (bool)</dt>
+<dd>
+flag indicating to add the item to the tree
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+created item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="TabManagerWidget.__customContextMenuRequested" ID="TabManagerWidget.__customContextMenuRequested"></a>
+<h4>TabManagerWidget.__customContextMenuRequested</h4>
+<b>__customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the menu should be shown at
+</dd>
+</dl>
+<a NAME="TabManagerWidget.__groupByDomainName" ID="TabManagerWidget.__groupByDomainName"></a>
+<h4>TabManagerWidget.__groupByDomainName</h4>
+<b>__groupByDomainName</b>(<i>useHostName=False</i>)
+<p>
+        Private method to group the tree items by domain name.
+</p>
+
+<dl>
+
+<dt><i>useHostName</i> (bool)</dt>
+<dd>
+flag indicating to use the host name
+</dd>
+</dl>
+<a NAME="TabManagerWidget.__groupByWindow" ID="TabManagerWidget.__groupByWindow"></a>
+<h4>TabManagerWidget.__groupByWindow</h4>
+<b>__groupByWindow</b>(<i></i>)
+<p>
+        Private method to group the tree items by window.
+</p>
+
+<a NAME="TabManagerWidget.__isBrowserSelected" ID="TabManagerWidget.__isBrowserSelected"></a>
+<h4>TabManagerWidget.__isBrowserSelected</h4>
+<b>__isBrowserSelected</b>(<i></i>)
+<p>
+        Private slot to check, if any browser entry is selected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of a selected entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TabManagerWidget.__itemDoubleClicked" ID="TabManagerWidget.__itemDoubleClicked"></a>
+<h4>TabManagerWidget.__itemDoubleClicked</h4>
+<b>__itemDoubleClicked</b>(<i>itm, _column</i>)
+<p>
+        Private slot to handle double clicking a tree item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item having been double clicked
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column of the double click (unused)
+</dd>
+</dl>
+<a NAME="TabManagerWidget.__makeWebBrowserViewConnections" ID="TabManagerWidget.__makeWebBrowserViewConnections"></a>
+<h4>TabManagerWidget.__makeWebBrowserViewConnections</h4>
+<b>__makeWebBrowserViewConnections</b>(<i>view</i>)
+<p>
+        Private method to create the signal connections to the web view.
+</p>
+
+<dl>
+
+<dt><i>view</i> (WebBrowserView)</dt>
+<dd>
+reference to the web view
+</dd>
+</dl>
+<a NAME="TabManagerWidget.__processActions" ID="TabManagerWidget.__processActions"></a>
+<h4>TabManagerWidget.__processActions</h4>
+<b>__processActions</b>(<i>act</i>)
+<p>
+        Private slot to process the actions.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="TabManagerWidget.__refreshTree" ID="TabManagerWidget.__refreshTree"></a>
+<h4>TabManagerWidget.__refreshTree</h4>
+<b>__refreshTree</b>(<i></i>)
+<p>
+        Private slot to referesh the tree.
+</p>
+
+<a NAME="TabManagerWidget.__setGroupType" ID="TabManagerWidget.__setGroupType"></a>
+<h4>TabManagerWidget.__setGroupType</h4>
+<b>__setGroupType</b>(<i>groupType</i>)
+<p>
+        Private method to set the 'Group By' type.
+</p>
+
+<dl>
+
+<dt><i>groupType</i> (int (0 - 2))</dt>
+<dd>
+'Group By' type to be set
+</dd>
+</dl>
+<a NAME="TabManagerWidget.bookmarkSelectedBrowsers" ID="TabManagerWidget.bookmarkSelectedBrowsers"></a>
+<h4>TabManagerWidget.bookmarkSelectedBrowsers</h4>
+<b>bookmarkSelectedBrowsers</b>(<i>browsersDict</i>)
+<p>
+        Public method to bookmark the selected browsers.
+</p>
+
+<dl>
+
+<dt><i>browsersDict</i> (dict with WebBrowserWindow as key and list of WebBrowserView)</dt>
+<dd>
+dictionary containing the browsers per window
+            as value
+</dd>
+</dl>
+<a NAME="TabManagerWidget.changeGroupType" ID="TabManagerWidget.changeGroupType"></a>
+<h4>TabManagerWidget.changeGroupType</h4>
+<b>changeGroupType</b>(<i>act</i>)
+<p>
+        Public slot to change the 'Group By' type.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that was triggered
+</dd>
+</dl>
+<a NAME="TabManagerWidget.closeSelectedBrowsers" ID="TabManagerWidget.closeSelectedBrowsers"></a>
+<h4>TabManagerWidget.closeSelectedBrowsers</h4>
+<b>closeSelectedBrowsers</b>(<i>browsersDict</i>)
+<p>
+        Public method to close the selected browsers.
+</p>
+
+<dl>
+
+<dt><i>browsersDict</i> (dict with WebBrowserWindow as key and list of WebBrowserView)</dt>
+<dd>
+dictionary containing the browsers per window
+            as value
+</dd>
+</dl>
+<a NAME="TabManagerWidget.createStatusBarIcon" ID="TabManagerWidget.createStatusBarIcon"></a>
+<h4>TabManagerWidget.createStatusBarIcon</h4>
+<b>createStatusBarIcon</b>(<i></i>)
+<p>
+        Public method to create a status bar icon.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+generated icon
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricClickableLabel
+</dd>
+</dl>
+<a NAME="TabManagerWidget.delayedRefreshTree" ID="TabManagerWidget.delayedRefreshTree"></a>
+<h4>TabManagerWidget.delayedRefreshTree</h4>
+<b>delayedRefreshTree</b>(<i>page=None</i>)
+<p>
+        Public slot to do a delyed refresh of the tree.
+</p>
+
+<dl>
+
+<dt><i>page</i> (WebBrowserPage)</dt>
+<dd>
+reference to the web page
+</dd>
+</dl>
+<a NAME="TabManagerWidget.domainFromUrl" ID="TabManagerWidget.domainFromUrl"></a>
+<h4>TabManagerWidget.domainFromUrl</h4>
+<b>domainFromUrl</b>(<i>url, useHostName=False</i>)
+<p>
+        Public method to extract the domain from an URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to extract the domain from
+</dd>
+<dt><i>useHostName</i> (bool)</dt>
+<dd>
+flag indicating to use the host name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+domain name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TabManagerWidget.mainWindowCreated" ID="TabManagerWidget.mainWindowCreated"></a>
+<h4>TabManagerWidget.mainWindowCreated</h4>
+<b>mainWindowCreated</b>(<i>mainWin</i>)
+<p>
+        Public method to act on the creation of a new web browser window.
+</p>
+
+<dl>
+
+<dt><i>mainWin</i> (WebBrowserWindow)</dt>
+<dd>
+reference to the web browser window
+</dd>
+</dl>
+<a NAME="TabManagerWidget.raiseTabManager" ID="TabManagerWidget.raiseTabManager"></a>
+<h4>TabManagerWidget.raiseTabManager</h4>
+<b>raiseTabManager</b>(<i>icon</i>)
+<p>
+        Public slot to show the tab manager.
+</p>
+
+<dl>
+
+<dt><i>icon</i> (EricClickableLabel or QAction)</dt>
+<dd>
+reference to the clicked icon
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

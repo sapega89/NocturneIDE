@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.TypingCompleters.CompleterPython</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.TypingCompleters.CompleterPython</h1>
+<p>
+Module implementing a typing completer for Python.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CompleterPython">CompleterPython</a></td>
+<td>Class implementing typing completer for Python.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createCompleter">createCompleter</a></td>
+<td>Function to instantiate a typing completer object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CompleterPython" ID="CompleterPython"></a>
+<h2>CompleterPython</h2>
+<p>
+    Class implementing typing completer for Python.
+</p>
+
+<h3>Derived from</h3>
+CompleterBase
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CompleterPython.__init__">CompleterPython</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__dedentDefStatement">__dedentDefStatement</a></td>
+<td>Private method to dedent the line of the def statement to a previous def statement or class statement.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__dedentElseToIfWhileForTry">__dedentElseToIfWhileForTry</a></td>
+<td>Private method to dedent the line of the else statement to the last if, while, for or try statement with less (or equal) indentation.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__dedentExceptToTry">__dedentExceptToTry</a></td>
+<td>Private method to dedent the line of the except statement to the last try statement with less (or equal) indentation.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__dedentFinallyToTry">__dedentFinallyToTry</a></td>
+<td>Private method to dedent the line of the except statement to the last try statement with less (or equal) indentation.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__dedentToIf">__dedentToIf</a></td>
+<td>Private method to dedent the last line to the last if statement with less (or equal) indentation.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__inComment">__inComment</a></td>
+<td>Private method to check, if the cursor is inside a comment.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__inDoubleQuotedString">__inDoubleQuotedString</a></td>
+<td>Private method to check, if the cursor is within a double quoted string.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__inSingleQuotedString">__inSingleQuotedString</a></td>
+<td>Private method to check, if the cursor is within a single quoted string.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__inTripleDoubleQuotedString">__inTripleDoubleQuotedString</a></td>
+<td>Private method to check, if the cursor is within a triple double quoted string.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__inTripleSingleQuotedString">__inTripleSingleQuotedString</a></td>
+<td>Private method to check, if the cursor is within a triple single quoted string.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__isClassMethod">__isClassMethod</a></td>
+<td>Private method to check, if the user is defining a class method.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__isClassMethodDef">__isClassMethodDef</a></td>
+<td>Private method to check, if the user is defing a class method (@classmethod).</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.__isStaticMethodDef">__isStaticMethodDef</a></td>
+<td>Private method to check, if the user is defing a static method (@staticmethod) method.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.charAdded">charAdded</a></td>
+<td>Public slot called to handle the user entering a character.</td>
+</tr>
+<tr>
+<td><a href="#CompleterPython.readSettings">readSettings</a></td>
+<td>Public slot called to reread the configuration parameters.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CompleterPython.__init__" ID="CompleterPython.__init__"></a>
+<h4>CompleterPython (Constructor)</h4>
+<b>CompleterPython</b>(<i>editor, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QScintilla.Editor)</dt>
+<dd>
+reference to the editor object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="CompleterPython.__dedentDefStatement" ID="CompleterPython.__dedentDefStatement"></a>
+<h4>CompleterPython.__dedentDefStatement</h4>
+<b>__dedentDefStatement</b>(<i></i>)
+<p>
+        Private method to dedent the line of the def statement to a previous
+        def statement or class statement.
+</p>
+
+<a NAME="CompleterPython.__dedentElseToIfWhileForTry" ID="CompleterPython.__dedentElseToIfWhileForTry"></a>
+<h4>CompleterPython.__dedentElseToIfWhileForTry</h4>
+<b>__dedentElseToIfWhileForTry</b>(<i></i>)
+<p>
+        Private method to dedent the line of the else statement to the last
+        if, while, for or try statement with less (or equal) indentation.
+</p>
+
+<a NAME="CompleterPython.__dedentExceptToTry" ID="CompleterPython.__dedentExceptToTry"></a>
+<h4>CompleterPython.__dedentExceptToTry</h4>
+<b>__dedentExceptToTry</b>(<i></i>)
+<p>
+        Private method to dedent the line of the except statement to the last
+        try statement with less (or equal) indentation.
+</p>
+
+<a NAME="CompleterPython.__dedentFinallyToTry" ID="CompleterPython.__dedentFinallyToTry"></a>
+<h4>CompleterPython.__dedentFinallyToTry</h4>
+<b>__dedentFinallyToTry</b>(<i></i>)
+<p>
+        Private method to dedent the line of the except statement to the last
+        try statement with less (or equal) indentation.
+</p>
+
+<a NAME="CompleterPython.__dedentToIf" ID="CompleterPython.__dedentToIf"></a>
+<h4>CompleterPython.__dedentToIf</h4>
+<b>__dedentToIf</b>(<i></i>)
+<p>
+        Private method to dedent the last line to the last if statement with
+        less (or equal) indentation.
+</p>
+
+<a NAME="CompleterPython.__inComment" ID="CompleterPython.__inComment"></a>
+<h4>CompleterPython.__inComment</h4>
+<b>__inComment</b>(<i>line, col</i>)
+<p>
+        Private method to check, if the cursor is inside a comment.
+</p>
+
+<dl>
+
+<dt><i>line</i> (int)</dt>
+<dd>
+current line
+</dd>
+<dt><i>col</i> (int)</dt>
+<dd>
+current position within line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside a comment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterPython.__inDoubleQuotedString" ID="CompleterPython.__inDoubleQuotedString"></a>
+<h4>CompleterPython.__inDoubleQuotedString</h4>
+<b>__inDoubleQuotedString</b>(<i></i>)
+<p>
+        Private method to check, if the cursor is within a double quoted
+        string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside a double
+            quoted string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterPython.__inSingleQuotedString" ID="CompleterPython.__inSingleQuotedString"></a>
+<h4>CompleterPython.__inSingleQuotedString</h4>
+<b>__inSingleQuotedString</b>(<i></i>)
+<p>
+        Private method to check, if the cursor is within a single quoted
+        string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside a single
+            quoted string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterPython.__inTripleDoubleQuotedString" ID="CompleterPython.__inTripleDoubleQuotedString"></a>
+<h4>CompleterPython.__inTripleDoubleQuotedString</h4>
+<b>__inTripleDoubleQuotedString</b>(<i></i>)
+<p>
+        Private method to check, if the cursor is within a triple double
+        quoted string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside a triple double
+            quoted string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterPython.__inTripleSingleQuotedString" ID="CompleterPython.__inTripleSingleQuotedString"></a>
+<h4>CompleterPython.__inTripleSingleQuotedString</h4>
+<b>__inTripleSingleQuotedString</b>(<i></i>)
+<p>
+        Private method to check, if the cursor is within a triple single
+        quoted string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the cursor is inside a triple single
+            quoted string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterPython.__isClassMethod" ID="CompleterPython.__isClassMethod"></a>
+<h4>CompleterPython.__isClassMethod</h4>
+<b>__isClassMethod</b>(<i></i>)
+<p>
+        Private method to check, if the user is defining a class method.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the definition of a class method
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterPython.__isClassMethodDef" ID="CompleterPython.__isClassMethodDef"></a>
+<h4>CompleterPython.__isClassMethodDef</h4>
+<b>__isClassMethodDef</b>(<i></i>)
+<p>
+        Private method to check, if the user is defing a class method
+        (@classmethod).
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the definition of a class method
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterPython.__isStaticMethodDef" ID="CompleterPython.__isStaticMethodDef"></a>
+<h4>CompleterPython.__isStaticMethodDef</h4>
+<b>__isStaticMethodDef</b>(<i></i>)
+<p>
+        Private method to check, if the user is defing a static method
+        (@staticmethod) method.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the definition of a static method
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CompleterPython.charAdded" ID="CompleterPython.charAdded"></a>
+<h4>CompleterPython.charAdded</h4>
+<b>charAdded</b>(<i>charNumber</i>)
+<p>
+        Public slot called to handle the user entering a character.
+</p>
+
+<dl>
+
+<dt><i>charNumber</i> (int)</dt>
+<dd>
+value of the character entered
+</dd>
+</dl>
+<a NAME="CompleterPython.readSettings" ID="CompleterPython.readSettings"></a>
+<h4>CompleterPython.readSettings</h4>
+<b>readSettings</b>(<i></i>)
+<p>
+        Public slot called to reread the configuration parameters.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createCompleter" ID="createCompleter"></a>
+<h2>createCompleter</h2>
+<b>createCompleter</b>(<i>editor, parent=None</i>)
+<p>
+    Function to instantiate a typing completer object.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (QScintilla.Editor)</dt>
+<dd>
+reference to the editor object
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated typing completer object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+CompleterPython
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

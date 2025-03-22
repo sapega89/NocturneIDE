@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Cooperation.CooperationClient</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Cooperation.CooperationClient</h1>
+<p>
+Module implementing the client of the cooperation package.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CooperationClient">CooperationClient</a></td>
+<td>Class implementing the client of the cooperation package.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CooperationClient" ID="CooperationClient"></a>
+<h2>CooperationClient</h2>
+<p>
+    Class implementing the client of the cooperation package.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>cannotConnect()</dt>
+<dd>
+emitted, if the initial connection fails
+</dd>
+<dt>connectionError(message)</dt>
+<dd>
+emitted when a connection error occurs
+        (string)
+</dd>
+<dt>editorCommand(hash, filename, message)</dt>
+<dd>
+emitted when an editor
+        command has been received (string, string, string)
+</dd>
+<dt>newMessage(user, message)</dt>
+<dd>
+emitted after a new message has
+        arrived (string, string)
+</dd>
+<dt>newParticipant(nickname)</dt>
+<dd>
+emitted after a new participant joined
+        (string)
+</dd>
+<dt>participantLeft(nickname)</dt>
+<dd>
+emitted after a participant left (string)
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CooperationClient.__init__">CooperationClient</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.__connectionError">__connectionError</a></td>
+<td>Private slot to handle a connection error.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.__connectionRejected">__connectionRejected</a></td>
+<td>Private slot to handle the rejection of a connection.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.__disconnected">__disconnected</a></td>
+<td>Private slot to handle the disconnection of a chat client.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.__findConnections">__findConnections</a></td>
+<td>Private method to get a list of connection given a nick name.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.__getParticipants">__getParticipants</a></td>
+<td>Private slot to handle the request for a list of participants.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.__newConnection">__newConnection</a></td>
+<td>Private slot to handle a new connection.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.__processParticipants">__processParticipants</a></td>
+<td>Private slot to handle the receipt of a list of participants.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.__readyForUse">__readyForUse</a></td>
+<td>Private slot to handle a connection getting ready for use.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.banKickUser">banKickUser</a></td>
+<td>Public method to ban and kick a user by its nick name.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.banUser">banUser</a></td>
+<td>Public method to ban a user by its nick name.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.chatWidget">chatWidget</a></td>
+<td>Public method to get a reference to the chat widget.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.close">close</a></td>
+<td>Public method to close all connections and stop listening.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.connectToHost">connectToHost</a></td>
+<td>Public method to connect to a host.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.disconnectConnections">disconnectConnections</a></td>
+<td>Public slot to disconnect from the chat network.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.errorString">errorString</a></td>
+<td>Public method to get a human readable error message about the last server error.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.hasConnection">hasConnection</a></td>
+<td>Public method to check for an existing connection.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.hasConnections">hasConnections</a></td>
+<td>Public method to check, if there are any connections established.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.isListening">isListening</a></td>
+<td>Public method to check, if the client is listening for connections.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.kickUser">kickUser</a></td>
+<td>Public method to kick a user by its nick name.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.nickName">nickName</a></td>
+<td>Public method to get the nick name.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.removeConnection">removeConnection</a></td>
+<td>Public method to remove a connection.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.sendEditorCommand">sendEditorCommand</a></td>
+<td>Public method to send an editor command.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.sendMessage">sendMessage</a></td>
+<td>Public method to send a message.</td>
+</tr>
+<tr>
+<td><a href="#CooperationClient.startListening">startListening</a></td>
+<td>Public method to start listening for new connections.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CooperationClient.__init__" ID="CooperationClient.__init__"></a>
+<h4>CooperationClient (Constructor)</h4>
+<b>CooperationClient</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="CooperationClient.__connectionError" ID="CooperationClient.__connectionError"></a>
+<h4>CooperationClient.__connectionError</h4>
+<b>__connectionError</b>(<i>socketError, connection</i>)
+<p>
+        Private slot to handle a connection error.
+</p>
+
+<dl>
+
+<dt><i>socketError</i> (QAbstractSocket.SocketError)</dt>
+<dd>
+reference to the error object
+</dd>
+<dt><i>connection</i> (Connection)</dt>
+<dd>
+connection that caused the error
+</dd>
+</dl>
+<a NAME="CooperationClient.__connectionRejected" ID="CooperationClient.__connectionRejected"></a>
+<h4>CooperationClient.__connectionRejected</h4>
+<b>__connectionRejected</b>(<i>msg</i>)
+<p>
+        Private slot to handle the rejection of a connection.
+</p>
+
+<dl>
+
+<dt><i>msg</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="CooperationClient.__disconnected" ID="CooperationClient.__disconnected"></a>
+<h4>CooperationClient.__disconnected</h4>
+<b>__disconnected</b>(<i>connection</i>)
+<p>
+        Private slot to handle the disconnection of a chat client.
+</p>
+
+<dl>
+
+<dt><i>connection</i> (Connection)</dt>
+<dd>
+connection that was disconnected
+</dd>
+</dl>
+<a NAME="CooperationClient.__findConnections" ID="CooperationClient.__findConnections"></a>
+<h4>CooperationClient.__findConnections</h4>
+<b>__findConnections</b>(<i>nick</i>)
+<p>
+        Private method to get a list of connection given a nick name.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (str)</dt>
+<dd>
+nick name in the format of self.nickName()
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of references to the connection objects
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of Connection
+</dd>
+</dl>
+<a NAME="CooperationClient.__getParticipants" ID="CooperationClient.__getParticipants"></a>
+<h4>CooperationClient.__getParticipants</h4>
+<b>__getParticipants</b>(<i>reqConnection</i>)
+<p>
+        Private slot to handle the request for a list of participants.
+</p>
+
+<dl>
+
+<dt><i>reqConnection</i> (Connection)</dt>
+<dd>
+reference to the connection to get
+            participants for
+</dd>
+</dl>
+<a NAME="CooperationClient.__newConnection" ID="CooperationClient.__newConnection"></a>
+<h4>CooperationClient.__newConnection</h4>
+<b>__newConnection</b>(<i>connection</i>)
+<p>
+        Private slot to handle a new connection.
+</p>
+
+<dl>
+
+<dt><i>connection</i> (Connection)</dt>
+<dd>
+reference to the new connection
+</dd>
+</dl>
+<a NAME="CooperationClient.__processParticipants" ID="CooperationClient.__processParticipants"></a>
+<h4>CooperationClient.__processParticipants</h4>
+<b>__processParticipants</b>(<i>participants</i>)
+<p>
+        Private slot to handle the receipt of a list of participants.
+</p>
+
+<dl>
+
+<dt><i>participants</i> (list of str)</dt>
+<dd>
+list of participants (list of "host:port" strings)
+</dd>
+</dl>
+<a NAME="CooperationClient.__readyForUse" ID="CooperationClient.__readyForUse"></a>
+<h4>CooperationClient.__readyForUse</h4>
+<b>__readyForUse</b>(<i>connection</i>)
+<p>
+        Private slot to handle a connection getting ready for use.
+</p>
+
+<dl>
+
+<dt><i>connection</i> (Connection)</dt>
+<dd>
+connection that got ready for use
+</dd>
+</dl>
+<a NAME="CooperationClient.banKickUser" ID="CooperationClient.banKickUser"></a>
+<h4>CooperationClient.banKickUser</h4>
+<b>banKickUser</b>(<i>nick</i>)
+<p>
+        Public method to ban and kick a user by its nick name.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (str)</dt>
+<dd>
+nick name in the format of self.nickName()
+</dd>
+</dl>
+<a NAME="CooperationClient.banUser" ID="CooperationClient.banUser"></a>
+<h4>CooperationClient.banUser</h4>
+<b>banUser</b>(<i>nick</i>)
+<p>
+        Public method to ban a user by its nick name.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (str)</dt>
+<dd>
+nick name in the format of self.nickName()
+</dd>
+</dl>
+<a NAME="CooperationClient.chatWidget" ID="CooperationClient.chatWidget"></a>
+<h4>CooperationClient.chatWidget</h4>
+<b>chatWidget</b>(<i></i>)
+<p>
+        Public method to get a reference to the chat widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the chat widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ChatWidget
+</dd>
+</dl>
+<a NAME="CooperationClient.close" ID="CooperationClient.close"></a>
+<h4>CooperationClient.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public method to close all connections and stop listening.
+</p>
+
+<a NAME="CooperationClient.connectToHost" ID="CooperationClient.connectToHost"></a>
+<h4>CooperationClient.connectToHost</h4>
+<b>connectToHost</b>(<i>host, port</i>)
+<p>
+        Public method to connect to a host.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host to connect to
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+port to connect to
+</dd>
+</dl>
+<a NAME="CooperationClient.disconnectConnections" ID="CooperationClient.disconnectConnections"></a>
+<h4>CooperationClient.disconnectConnections</h4>
+<b>disconnectConnections</b>(<i></i>)
+<p>
+        Public slot to disconnect from the chat network.
+</p>
+
+<a NAME="CooperationClient.errorString" ID="CooperationClient.errorString"></a>
+<h4>CooperationClient.errorString</h4>
+<b>errorString</b>(<i></i>)
+<p>
+        Public method to get a human readable error message about the last
+        server error.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+human readable error message about the last server error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CooperationClient.hasConnection" ID="CooperationClient.hasConnection"></a>
+<h4>CooperationClient.hasConnection</h4>
+<b>hasConnection</b>(<i>senderIp, senderPort=-1</i>)
+<p>
+        Public method to check for an existing connection.
+</p>
+
+<dl>
+
+<dt><i>senderIp</i> (QHostAddress)</dt>
+<dd>
+address of the sender
+</dd>
+<dt><i>senderPort</i> (int)</dt>
+<dd>
+port of the sender
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an existing connection
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CooperationClient.hasConnections" ID="CooperationClient.hasConnections"></a>
+<h4>CooperationClient.hasConnections</h4>
+<b>hasConnections</b>(<i></i>)
+<p>
+        Public method to check, if there are any connections established.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of connections
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CooperationClient.isListening" ID="CooperationClient.isListening"></a>
+<h4>CooperationClient.isListening</h4>
+<b>isListening</b>(<i></i>)
+<p>
+        Public method to check, if the client is listening for connections.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the listening state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="CooperationClient.kickUser" ID="CooperationClient.kickUser"></a>
+<h4>CooperationClient.kickUser</h4>
+<b>kickUser</b>(<i>nick</i>)
+<p>
+        Public method to kick a user by its nick name.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (str)</dt>
+<dd>
+nick name in the format of self.nickName()
+</dd>
+</dl>
+<a NAME="CooperationClient.nickName" ID="CooperationClient.nickName"></a>
+<h4>CooperationClient.nickName</h4>
+<b>nickName</b>(<i></i>)
+<p>
+        Public method to get the nick name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+nick name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CooperationClient.removeConnection" ID="CooperationClient.removeConnection"></a>
+<h4>CooperationClient.removeConnection</h4>
+<b>removeConnection</b>(<i>connection</i>)
+<p>
+        Public method to remove a connection.
+</p>
+
+<dl>
+
+<dt><i>connection</i> (Connection)</dt>
+<dd>
+reference to the connection to be removed
+</dd>
+</dl>
+<a NAME="CooperationClient.sendEditorCommand" ID="CooperationClient.sendEditorCommand"></a>
+<h4>CooperationClient.sendEditorCommand</h4>
+<b>sendEditorCommand</b>(<i>projectHash, filename, message</i>)
+<p>
+        Public method to send an editor command.
+</p>
+
+<dl>
+
+<dt><i>projectHash</i> (str)</dt>
+<dd>
+hash of the project
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+project relative universal file name of
+            the sending editor
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+editor command to be sent
+</dd>
+</dl>
+<a NAME="CooperationClient.sendMessage" ID="CooperationClient.sendMessage"></a>
+<h4>CooperationClient.sendMessage</h4>
+<b>sendMessage</b>(<i>message</i>)
+<p>
+        Public method to send a message.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be sent
+</dd>
+</dl>
+<a NAME="CooperationClient.startListening" ID="CooperationClient.startListening"></a>
+<h4>CooperationClient.startListening</h4>
+<b>startListening</b>(<i>port=-1</i>)
+<p>
+        Public method to start listening for new connections.
+</p>
+
+<dl>
+
+<dt><i>port</i> (int)</dt>
+<dd>
+port to listen on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple giving a flag indicating success and the port the
+            server listens on
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, int)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

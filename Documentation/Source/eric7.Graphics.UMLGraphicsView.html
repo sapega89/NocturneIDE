@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Graphics.UMLGraphicsView</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Graphics.UMLGraphicsView</h1>
+<p>
+Module implementing a subclass of EricGraphicsView for our diagrams.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#UMLGraphicsView">UMLGraphicsView</a></td>
+<td>Class implementing a specialized EricGraphicsView for our diagrams.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="UMLGraphicsView" ID="UMLGraphicsView"></a>
+<h2>UMLGraphicsView</h2>
+<p>
+    Class implementing a specialized EricGraphicsView for our diagrams.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>relayout()</dt>
+<dd>
+emitted to indicate a relayout of the diagram
+        is requested
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricGraphicsView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#UMLGraphicsView.__init__">UMLGraphicsView</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__alignShapes">__alignShapes</a></td>
+<td>Private slot to align the selected shapes.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__checkSizeActions">__checkSizeActions</a></td>
+<td>Private slot to set the enabled state of the size actions.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__decHeight">__decHeight</a></td>
+<td>Private method to handle the decrease height context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__decWidth">__decWidth</a></td>
+<td>Private method to handle the decrease width context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__deleteShape">__deleteShape</a></td>
+<td>Private method to delete the selected shapes from the display.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__incHeight">__incHeight</a></td>
+<td>Private method to handle the increase height context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__incWidth">__incWidth</a></td>
+<td>Private method to handle the increase width context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__initActions">__initActions</a></td>
+<td>Private method to initialize the view actions.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__itemsBoundingRect">__itemsBoundingRect</a></td>
+<td>Private method to calculate the bounding rectangle of the given items.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__printPreviewPrint">__printPreviewPrint</a></td>
+<td>Private slot to generate a print preview.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__relayout">__relayout</a></td>
+<td>Private slot to handle the re-layout context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__rescan">__rescan</a></td>
+<td>Private slot to handle the re-scan context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__sceneChanged">__sceneChanged</a></td>
+<td>Private slot called when the scene changes.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.__setSize">__setSize</a></td>
+<td>Private method to handle the set size context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.autoAdjustSceneSize">autoAdjustSceneSize</a></td>
+<td>Public method to adjust the scene size to the diagram size.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.event">event</a></td>
+<td>Public method handling events.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.filteredItems">filteredItems</a></td>
+<td>Public method to filter a list of items.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.findItem">findItem</a></td>
+<td>Public method to find an UML item based on the ID.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.findItemByName">findItemByName</a></td>
+<td>Public method to find an UML item based on its name.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.fromDict">fromDict</a></td>
+<td>Public method to populate the class with data persisted by 'toDict()'.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.gestureEvent">gestureEvent</a></td>
+<td>Protected method handling gesture events.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.getItemId">getItemId</a></td>
+<td>Public method to get the ID to be assigned to an item.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.initToolBar">initToolBar</a></td>
+<td>Public method to populate a toolbar with our actions.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method handling key press events.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.parsePersistenceData">parsePersistenceData</a></td>
+<td>Public method to parse persisted data.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.printDiagram">printDiagram</a></td>
+<td>Public slot called to print the diagram.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.printPreviewDiagram">printPreviewDiagram</a></td>
+<td>Public slot called to show a print preview of the diagram.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.saveImage">saveImage</a></td>
+<td>Public method to handle the save context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.selectItem">selectItem</a></td>
+<td>Public method to select an item.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.selectItems">selectItems</a></td>
+<td>Public method to select the given items.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.setDiagramName">setDiagramName</a></td>
+<td>Public slot to set the diagram name.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.setLayoutActionsEnabled">setLayoutActionsEnabled</a></td>
+<td>Public method to enable or disable the layout related actions.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.toDict">toDict</a></td>
+<td>Public method to collect data to be persisted.</td>
+</tr>
+<tr>
+<td><a href="#UMLGraphicsView.wheelEvent">wheelEvent</a></td>
+<td>Protected method to handle wheel events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="UMLGraphicsView.__init__" ID="UMLGraphicsView.__init__"></a>
+<h4>UMLGraphicsView (Constructor)</h4>
+<b>UMLGraphicsView</b>(<i>scene, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>scene</i> (QGraphicsScene)</dt>
+<dd>
+reference to the scene object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of the view
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.__alignShapes" ID="UMLGraphicsView.__alignShapes"></a>
+<h4>UMLGraphicsView.__alignShapes</h4>
+<b>__alignShapes</b>(<i>alignment</i>)
+<p>
+        Private slot to align the selected shapes.
+</p>
+
+<dl>
+
+<dt><i>alignment</i> (Qt.AlignmentFlag)</dt>
+<dd>
+alignment type
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.__checkSizeActions" ID="UMLGraphicsView.__checkSizeActions"></a>
+<h4>UMLGraphicsView.__checkSizeActions</h4>
+<b>__checkSizeActions</b>(<i></i>)
+<p>
+        Private slot to set the enabled state of the size actions.
+</p>
+
+<a NAME="UMLGraphicsView.__decHeight" ID="UMLGraphicsView.__decHeight"></a>
+<h4>UMLGraphicsView.__decHeight</h4>
+<b>__decHeight</b>(<i></i>)
+<p>
+        Private method to handle the decrease height context menu entry.
+</p>
+
+<a NAME="UMLGraphicsView.__decWidth" ID="UMLGraphicsView.__decWidth"></a>
+<h4>UMLGraphicsView.__decWidth</h4>
+<b>__decWidth</b>(<i></i>)
+<p>
+        Private method to handle the decrease width context menu entry.
+</p>
+
+<a NAME="UMLGraphicsView.__deleteShape" ID="UMLGraphicsView.__deleteShape"></a>
+<h4>UMLGraphicsView.__deleteShape</h4>
+<b>__deleteShape</b>(<i></i>)
+<p>
+        Private method to delete the selected shapes from the display.
+</p>
+
+<a NAME="UMLGraphicsView.__incHeight" ID="UMLGraphicsView.__incHeight"></a>
+<h4>UMLGraphicsView.__incHeight</h4>
+<b>__incHeight</b>(<i></i>)
+<p>
+        Private method to handle the increase height context menu entry.
+</p>
+
+<a NAME="UMLGraphicsView.__incWidth" ID="UMLGraphicsView.__incWidth"></a>
+<h4>UMLGraphicsView.__incWidth</h4>
+<b>__incWidth</b>(<i></i>)
+<p>
+        Private method to handle the increase width context menu entry.
+</p>
+
+<a NAME="UMLGraphicsView.__initActions" ID="UMLGraphicsView.__initActions"></a>
+<h4>UMLGraphicsView.__initActions</h4>
+<b>__initActions</b>(<i></i>)
+<p>
+        Private method to initialize the view actions.
+</p>
+
+<a NAME="UMLGraphicsView.__itemsBoundingRect" ID="UMLGraphicsView.__itemsBoundingRect"></a>
+<h4>UMLGraphicsView.__itemsBoundingRect</h4>
+<b>__itemsBoundingRect</b>(<i>items</i>)
+<p>
+        Private method to calculate the bounding rectangle of the given items.
+</p>
+
+<dl>
+
+<dt><i>items</i> (list of UMLItem)</dt>
+<dd>
+list of items to operate on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+bounding rectangle
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QRectF
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.__printPreviewPrint" ID="UMLGraphicsView.__printPreviewPrint"></a>
+<h4>UMLGraphicsView.__printPreviewPrint</h4>
+<b>__printPreviewPrint</b>(<i>printer</i>)
+<p>
+        Private slot to generate a print preview.
+</p>
+
+<dl>
+
+<dt><i>printer</i> (QPrinter)</dt>
+<dd>
+reference to the printer object
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.__relayout" ID="UMLGraphicsView.__relayout"></a>
+<h4>UMLGraphicsView.__relayout</h4>
+<b>__relayout</b>(<i></i>)
+<p>
+        Private slot to handle the re-layout context menu entry.
+</p>
+
+<a NAME="UMLGraphicsView.__rescan" ID="UMLGraphicsView.__rescan"></a>
+<h4>UMLGraphicsView.__rescan</h4>
+<b>__rescan</b>(<i></i>)
+<p>
+        Private slot to handle the re-scan context menu entry.
+</p>
+
+<a NAME="UMLGraphicsView.__sceneChanged" ID="UMLGraphicsView.__sceneChanged"></a>
+<h4>UMLGraphicsView.__sceneChanged</h4>
+<b>__sceneChanged</b>(<i>_areas</i>)
+<p>
+        Private slot called when the scene changes.
+</p>
+
+<dl>
+
+<dt><i>_areas</i> (list of QRectF)</dt>
+<dd>
+list of rectangles that contain changes (unused)
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.__setSize" ID="UMLGraphicsView.__setSize"></a>
+<h4>UMLGraphicsView.__setSize</h4>
+<b>__setSize</b>(<i></i>)
+<p>
+        Private method to handle the set size context menu entry.
+</p>
+
+<a NAME="UMLGraphicsView.autoAdjustSceneSize" ID="UMLGraphicsView.autoAdjustSceneSize"></a>
+<h4>UMLGraphicsView.autoAdjustSceneSize</h4>
+<b>autoAdjustSceneSize</b>(<i>limit=False</i>)
+<p>
+        Public method to adjust the scene size to the diagram size.
+</p>
+
+<dl>
+
+<dt><i>limit</i> (bool)</dt>
+<dd>
+flag indicating to limit the scene to the
+            initial size
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.event" ID="UMLGraphicsView.event"></a>
+<h4>UMLGraphicsView.event</h4>
+<b>event</b>(<i>evt</i>)
+<p>
+        Public method handling events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.filteredItems" ID="UMLGraphicsView.filteredItems"></a>
+<h4>UMLGraphicsView.filteredItems</h4>
+<b>filteredItems</b>(<i>items, itemType=UMLItem</i>)
+<p>
+        Public method to filter a list of items.
+</p>
+
+<dl>
+
+<dt><i>items</i> (QGraphicsItem)</dt>
+<dd>
+list of items as returned by the scene object
+</dd>
+<dt><i>itemType</i> (class)</dt>
+<dd>
+type to be filtered
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of interesting collision items
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QGraphicsItem
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.findItem" ID="UMLGraphicsView.findItem"></a>
+<h4>UMLGraphicsView.findItem</h4>
+<b>findItem</b>(<i>itemId</i>)
+<p>
+        Public method to find an UML item based on the ID.
+</p>
+
+<dl>
+
+<dt><i>itemId</i> (int)</dt>
+<dd>
+of the item to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+item found or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+UMLItem
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.findItemByName" ID="UMLGraphicsView.findItemByName"></a>
+<h4>UMLGraphicsView.findItemByName</h4>
+<b>findItemByName</b>(<i>name</i>)
+<p>
+        Public method to find an UML item based on its name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name to look for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+item found or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+UMLItem
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.fromDict" ID="UMLGraphicsView.fromDict"></a>
+<h4>UMLGraphicsView.fromDict</h4>
+<b>fromDict</b>(<i>_version, data</i>)
+<p>
+        Public method to populate the class with data persisted by 'toDict()'.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>data</i> (dict)</dt>
+<dd>
+dictionary containing the persisted data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.gestureEvent" ID="UMLGraphicsView.gestureEvent"></a>
+<h4>UMLGraphicsView.gestureEvent</h4>
+<b>gestureEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling gesture events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QGestureEvent)</dt>
+<dd>
+reference to the gesture event
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.getItemId" ID="UMLGraphicsView.getItemId"></a>
+<h4>UMLGraphicsView.getItemId</h4>
+<b>getItemId</b>(<i></i>)
+<p>
+        Public method to get the ID to be assigned to an item.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+item ID
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.initToolBar" ID="UMLGraphicsView.initToolBar"></a>
+<h4>UMLGraphicsView.initToolBar</h4>
+<b>initToolBar</b>(<i></i>)
+<p>
+        Public method to populate a toolbar with our actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the populated toolBar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.keyPressEvent" ID="UMLGraphicsView.keyPressEvent"></a>
+<h4>UMLGraphicsView.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling key press events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key event
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.parsePersistenceData" ID="UMLGraphicsView.parsePersistenceData"></a>
+<h4>UMLGraphicsView.parsePersistenceData</h4>
+<b>parsePersistenceData</b>(<i>version, data</i>)
+<p>
+        Public method to parse persisted data.
+</p>
+
+<dl>
+
+<dt><i>version</i> (str)</dt>
+<dd>
+version of the data
+</dd>
+<dt><i>data</i> (list of str)</dt>
+<dd>
+persisted data to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of flag indicating success (boolean) and faulty line
+            number
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.printDiagram" ID="UMLGraphicsView.printDiagram"></a>
+<h4>UMLGraphicsView.printDiagram</h4>
+<b>printDiagram</b>(<i></i>)
+<p>
+        Public slot called to print the diagram.
+</p>
+
+<a NAME="UMLGraphicsView.printPreviewDiagram" ID="UMLGraphicsView.printPreviewDiagram"></a>
+<h4>UMLGraphicsView.printPreviewDiagram</h4>
+<b>printPreviewDiagram</b>(<i></i>)
+<p>
+        Public slot called to show a print preview of the diagram.
+</p>
+
+<a NAME="UMLGraphicsView.saveImage" ID="UMLGraphicsView.saveImage"></a>
+<h4>UMLGraphicsView.saveImage</h4>
+<b>saveImage</b>(<i></i>)
+<p>
+        Public method to handle the save context menu entry.
+</p>
+
+<a NAME="UMLGraphicsView.selectItem" ID="UMLGraphicsView.selectItem"></a>
+<h4>UMLGraphicsView.selectItem</h4>
+<b>selectItem</b>(<i>item</i>)
+<p>
+        Public method to select an item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QGraphicsItemItem)</dt>
+<dd>
+item to be selected
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.selectItems" ID="UMLGraphicsView.selectItems"></a>
+<h4>UMLGraphicsView.selectItems</h4>
+<b>selectItems</b>(<i>items</i>)
+<p>
+        Public method to select the given items.
+</p>
+
+<dl>
+
+<dt><i>items</i> (list of QGraphicsItemItem)</dt>
+<dd>
+list of items to be selected
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.setDiagramName" ID="UMLGraphicsView.setDiagramName"></a>
+<h4>UMLGraphicsView.setDiagramName</h4>
+<b>setDiagramName</b>(<i>name</i>)
+<p>
+        Public slot to set the diagram name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+diagram name
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.setLayoutActionsEnabled" ID="UMLGraphicsView.setLayoutActionsEnabled"></a>
+<h4>UMLGraphicsView.setLayoutActionsEnabled</h4>
+<b>setLayoutActionsEnabled</b>(<i>enable</i>)
+<p>
+        Public method to enable or disable the layout related actions.
+</p>
+
+<dl>
+
+<dt><i>enable</i> (bool)</dt>
+<dd>
+flag indicating the desired enable state
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.toDict" ID="UMLGraphicsView.toDict"></a>
+<h4>UMLGraphicsView.toDict</h4>
+<b>toDict</b>(<i></i>)
+<p>
+        Public method to collect data to be persisted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing data to be persisted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="UMLGraphicsView.wheelEvent" ID="UMLGraphicsView.wheelEvent"></a>
+<h4>UMLGraphicsView.wheelEvent</h4>
+<b>wheelEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle wheel events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QWheelEvent)</dt>
+<dd>
+reference to the wheel event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

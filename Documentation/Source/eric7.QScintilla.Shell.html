@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.Shell</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.Shell</h1>
+<p>
+Module implementing a graphical Python shell.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Shell">Shell</a></td>
+<td>Class implementing a graphical Python shell.</td>
+</tr>
+<tr>
+<td><a href="#ShellAssembly">ShellAssembly</a></td>
+<td>Class implementing the containing widget for the shell.</td>
+</tr>
+<tr>
+<td><a href="#ShellHistoryStyle">ShellHistoryStyle</a></td>
+<td>Class defining the shell history styles.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Shell" ID="Shell"></a>
+<h2>Shell</h2>
+<p>
+    Class implementing a graphical Python shell.
+</p>
+<p>
+    A user can enter commands that are executed in the remote
+    Python interpreter.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>historyStyleChanged(ShellHistoryStyle)</dt>
+<dd>
+emitted to indicate a
+        change of the history style
+</dd>
+<dt>queueText(str)</dt>
+<dd>
+emitted to queue some text for processing
+</dd>
+<dt>searchStringFound(bool)</dt>
+<dd>
+emitted to indicate the search
+        result
+</dd>
+<dt>virtualEnvironmentChanged(str)</dt>
+<dd>
+emitted to signal the new virtual
+        environment of the shell
+</dd>
+</dl>
+<h3>Derived from</h3>
+QsciScintillaCompat
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Shell.__init__">Shell</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaAutoCompletionCommand">__QScintillaAutoCompletionCommand</a></td>
+<td>Private method to handle a command for autocompletion only.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaCancel">__QScintillaCancel</a></td>
+<td>Private method to handle the ESC command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaCharLeft">__QScintillaCharLeft</a></td>
+<td>Private method to handle the Cursor Left command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaCharLeftExtend">__QScintillaCharLeftExtend</a></td>
+<td>Private method to handle the Extend Selection Left command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaCharRight">__QScintillaCharRight</a></td>
+<td>Private method to handle the Cursor Right command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaCommand">__QScintillaCommand</a></td>
+<td>Private method to send the command to QScintilla.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaCursorCommand">__QScintillaCursorCommand</a></td>
+<td>Private method to handle the cursor commands.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaDelete">__QScintillaDelete</a></td>
+<td>Private method to handle the delete command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaDeleteBack">__QScintillaDeleteBack</a></td>
+<td>Private method to handle the Backspace key.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaDeleteLineLeft">__QScintillaDeleteLineLeft</a></td>
+<td>Private method to handle the Delete Line Left command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaDeleteLineRight">__QScintillaDeleteLineRight</a></td>
+<td>Private method to handle the Delete Line Right command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaDeleteWordLeft">__QScintillaDeleteWordLeft</a></td>
+<td>Private method to handle the Delete Word Left command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaDeleteWordRight">__QScintillaDeleteWordRight</a></td>
+<td>Private method to handle the Delete Word Right command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaHistoryDown">__QScintillaHistoryDown</a></td>
+<td>Private method to handle the history down command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaHistoryUp">__QScintillaHistoryUp</a></td>
+<td>Private method to handle the history up command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaLeftCommand">__QScintillaLeftCommand</a></td>
+<td>Private method to handle a QScintilla command working to the left.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaLeftDeleteCommand">__QScintillaLeftDeleteCommand</a></td>
+<td>Private method to handle a QScintilla delete command working to the left.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaLineDown">__QScintillaLineDown</a></td>
+<td>Private method to handle the cursor down command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaLineEnd">__QScintillaLineEnd</a></td>
+<td>Private method to handle the End key.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaLineUp">__QScintillaLineUp</a></td>
+<td>Private method to handle the cursor up command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaNewline">__QScintillaNewline</a></td>
+<td>Private method to handle the Return key.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaRightCommand">__QScintillaRightCommand</a></td>
+<td>Private method to handle a QScintilla command working to the right.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaTab">__QScintillaTab</a></td>
+<td>Private method to handle the Tab key.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaVCHome">__QScintillaVCHome</a></td>
+<td>Private method to handle the Home key.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaVCHomeExtend">__QScintillaVCHomeExtend</a></td>
+<td>Private method to handle the Extend Selection to start of line command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaWordLeft">__QScintillaWordLeft</a></td>
+<td>Private method to handle the Cursor Word Left command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaWordLeftExtend">__QScintillaWordLeftExtend</a></td>
+<td>Private method to handle the Extend Selection Left one word command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__QScintillaWordRight">__QScintillaWordRight</a></td>
+<td>Private method to handle the Cursor Word Right command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__bindLexer">__bindLexer</a></td>
+<td>Private slot to set the lexer.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__clearCurrentLine">__clearCurrentLine</a></td>
+<td>Private method to clear the line containing the cursor.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__clientCapabilities">__clientCapabilities</a></td>
+<td>Private slot to handle the reporting of the clients capabilities.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__clientError">__clientError</a></td>
+<td>Private method to handle an error in the client.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__clientException">__clientException</a></td>
+<td>Private method to handle an exception of the client.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__clientSignal">__clientSignal</a></td>
+<td>Private method to handle a signal generated on the client side.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__clientStatement">__clientStatement</a></td>
+<td>Private method to handle the response from the debugger client.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__clientSyntaxError">__clientSyntaxError</a></td>
+<td>Private method to handle a syntax error in the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__completionListSelected">__completionListSelected</a></td>
+<td>Private slot to handle the selection from the completion list.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__concatenateText">__concatenateText</a></td>
+<td>Private slot to queue text and process it in one step.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__configure">__configure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__executeCommand">__executeCommand</a></td>
+<td>Private slot to execute a command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__find">__find</a></td>
+<td>Private slot to show the find widget.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__flushQueuedText">__flushQueuedText</a></td>
+<td>Private slot to flush the accumulated text output.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__getBanner">__getBanner</a></td>
+<td>Private method to get the banner for the remote interpreter.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__getEndPos">__getEndPos</a></td>
+<td>Private method to return the line and column of the last character.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__indentLength">__indentLength</a></td>
+<td>Private method to determine the indentation length of the given line.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__initialise">__initialise</a></td>
+<td>Private method to get ready for a new remote interpreter.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__insertHistory">__insertHistory</a></td>
+<td>Private method to insert a command selected from the history.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__insertText">__insertText</a></td>
+<td>Private method to insert some text at the current cursor position.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__insertTextAtEnd">__insertTextAtEnd</a></td>
+<td>Private method to insert some text at the end of the command line.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__insertTextNoEcho">__insertTextNoEcho</a></td>
+<td>Private method to insert some text at the end of the buffer without echoing it.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__isCursorOnLastLine">__isCursorOnLastLine</a></td>
+<td>Private method to check, if the cursor is on the last line.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__isHistoryIndexValid">__isHistoryIndexValid</a></td>
+<td>Private method to test, if the history index is valid.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__projectClosed">__projectClosed</a></td>
+<td>Private slot to restart the default shell when the project is closed.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__projectOpened">__projectOpened</a></td>
+<td>Private slot to start the shell for the opened project.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__raw_input">__raw_input</a></td>
+<td>Private method to handle raw input.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__resetIncrementalHistorySearch">__resetIncrementalHistorySearch</a></td>
+<td>Private method to reset the incremental history search.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__resizeLinenoMargin">__resizeLinenoMargin</a></td>
+<td>Private slot to resize the line numbers margin.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__rsearchHistory">__rsearchHistory</a></td>
+<td>Private method used to reverse search the history.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__searchHistory">__searchHistory</a></td>
+<td>Private method used to search the history.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__searchNext">__searchNext</a></td>
+<td>Private method to search for the next occurrence.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__searchPrev">__searchPrev</a></td>
+<td>Private method to search for the next occurrence.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__setAutoCompletion">__setAutoCompletion</a></td>
+<td>Private method to configure the autocompletion function.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__setCallTips">__setCallTips</a></td>
+<td>Private method to configure the calltips function.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__setHistoryIndex">__setHistoryIndex</a></td>
+<td>Private method to set the initial history index.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__setMargin0">__setMargin0</a></td>
+<td>Private method to configure margin 0.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__setMonospaced">__setMonospaced</a></td>
+<td>Private method to set/reset a monospaced font.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__setTextDisplay">__setTextDisplay</a></td>
+<td>Private method to configure the text display.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__showCompletions">__showCompletions</a></td>
+<td>Private method to display the possible completions.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show a context menu.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__showHelp">__showHelp</a></td>
+<td>Private slot to show the list of supported special commands (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__showSource">__showSource</a></td>
+<td>Private method to open an editor for an exception line.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__showStartMenu">__showStartMenu</a></td>
+<td>Private slot to prepare the start submenu.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__showVenvName">__showVenvName</a></td>
+<td>Private method to show the name of the active virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__startDebugClient">__startDebugClient</a></td>
+<td>Private slot to start a debug client according to the action triggered.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__useHistory">__useHistory</a></td>
+<td>Private method to display a command from the history.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__write">__write</a></td>
+<td>Private method to display some text without queuing.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__writeBanner">__writeBanner</a></td>
+<td>Private method to write a banner with info from the debug client.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__writePrompt">__writePrompt</a></td>
+<td>Private method to write the prompt using a write queue.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__writeQueued">__writeQueued</a></td>
+<td>Private method to display some text using a write queue.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__writeStdErr">__writeStdErr</a></td>
+<td>Private method to display some text with StdErr label.</td>
+</tr>
+<tr>
+<td><a href="#Shell.__writeStdOut">__writeStdOut</a></td>
+<td>Private method to display some text with StdOut label.</td>
+</tr>
+<tr>
+<td><a href="#Shell.clear">clear</a></td>
+<td>Public slot to clear the display.</td>
+</tr>
+<tr>
+<td><a href="#Shell.clearAllHistories">clearAllHistories</a></td>
+<td>Public method to clear all available histories and sync them.</td>
+</tr>
+<tr>
+<td><a href="#Shell.clearHistory">clearHistory</a></td>
+<td>Public slot to clear the current history.</td>
+</tr>
+<tr>
+<td><a href="#Shell.closeShell">closeShell</a></td>
+<td>Public method to shutdown the shell.</td>
+</tr>
+<tr>
+<td><a href="#Shell.doClearRestart">doClearRestart</a></td>
+<td>Public slot to handle the 'restart and clear' context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Shell.doRestart">doRestart</a></td>
+<td>Public slot to handle the 'restart' context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Shell.dragEnterEvent">dragEnterEvent</a></td>
+<td>Protected method to handle the drag enter event.</td>
+</tr>
+<tr>
+<td><a href="#Shell.dragLeaveEvent">dragLeaveEvent</a></td>
+<td>Protected method to handle the drag leave event.</td>
+</tr>
+<tr>
+<td><a href="#Shell.dragMoveEvent">dragMoveEvent</a></td>
+<td>Protected method to handle the drag move event.</td>
+</tr>
+<tr>
+<td><a href="#Shell.dropEvent">dropEvent</a></td>
+<td>Protected method to handle the drop event.</td>
+</tr>
+<tr>
+<td><a href="#Shell.editorCommand">editorCommand</a></td>
+<td>Public method to perform an editor command.</td>
+</tr>
+<tr>
+<td><a href="#Shell.event">event</a></td>
+<td>Public method handling events.</td>
+</tr>
+<tr>
+<td><a href="#Shell.executeLines">executeLines</a></td>
+<td>Public method to execute a set of lines as multiple commands.</td>
+</tr>
+<tr>
+<td><a href="#Shell.focusInEvent">focusInEvent</a></td>
+<td>Protected method called when the shell receives focus.</td>
+</tr>
+<tr>
+<td><a href="#Shell.focusNextPrevChild">focusNextPrevChild</a></td>
+<td>Public method to stop Tab moving to the next window.</td>
+</tr>
+<tr>
+<td><a href="#Shell.focusOutEvent">focusOutEvent</a></td>
+<td>Protected method called when the shell loses focus.</td>
+</tr>
+<tr>
+<td><a href="#Shell.gestureEvent">gestureEvent</a></td>
+<td>Protected method handling gesture events.</td>
+</tr>
+<tr>
+<td><a href="#Shell.getClientType">getClientType</a></td>
+<td>Public slot to get the clients type.</td>
+</tr>
+<tr>
+<td><a href="#Shell.getHistory">getHistory</a></td>
+<td>Public method to get the history for the given client type.</td>
+</tr>
+<tr>
+<td><a href="#Shell.getHistoryIndex">getHistoryIndex</a></td>
+<td>Public method to get the current value of the history index.</td>
+</tr>
+<tr>
+<td><a href="#Shell.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot to handle the preferencesChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#Shell.historyStyle">historyStyle</a></td>
+<td>Public method to get the shell history style.</td>
+</tr>
+<tr>
+<td><a href="#Shell.insert">insert</a></td>
+<td>Public slot to insert text at the current cursor position.</td>
+</tr>
+<tr>
+<td><a href="#Shell.isHistoryEnabled">isHistoryEnabled</a></td>
+<td>Public method to check, if the history is enabled.</td>
+</tr>
+<tr>
+<td><a href="#Shell.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method to handle the user input a key at a time.</td>
+</tr>
+<tr>
+<td><a href="#Shell.loadHistory">loadHistory</a></td>
+<td>Public method to load the history for the given client type.</td>
+</tr>
+<tr>
+<td><a href="#Shell.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method to handle the mouse press event.</td>
+</tr>
+<tr>
+<td><a href="#Shell.paste">paste</a></td>
+<td>Public slot to handle the paste action.</td>
+</tr>
+<tr>
+<td><a href="#Shell.registerDebuggerIdMethod">registerDebuggerIdMethod</a></td>
+<td>Public method to register a method to get the debugger ID to send data to.</td>
+</tr>
+<tr>
+<td><a href="#Shell.reloadHistory">reloadHistory</a></td>
+<td>Public method to reload the history of the currently selected client type.</td>
+</tr>
+<tr>
+<td><a href="#Shell.remoteConnectionChanged">remoteConnectionChanged</a></td>
+<td>Public slot handling a change of the connection state to an eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#Shell.saveContents">saveContents</a></td>
+<td>Public method to save the current contents to a file.</td>
+</tr>
+<tr>
+<td><a href="#Shell.saveHistory">saveHistory</a></td>
+<td>Public method to save the history for the given client type.</td>
+</tr>
+<tr>
+<td><a href="#Shell.searchNext">searchNext</a></td>
+<td>Public method to search the next occurrence of the given text.</td>
+</tr>
+<tr>
+<td><a href="#Shell.searchPrev">searchPrev</a></td>
+<td>Public method to search the previous occurrence of the given text.</td>
+</tr>
+<tr>
+<td><a href="#Shell.selectHistory">selectHistory</a></td>
+<td>Public slot to select a history entry to execute.</td>
+</tr>
+<tr>
+<td><a href="#Shell.setDebuggerUI">setDebuggerUI</a></td>
+<td>Public method to set the debugger UI.</td>
+</tr>
+<tr>
+<td><a href="#Shell.showHistory">showHistory</a></td>
+<td>Public slot to show the shell history dialog.</td>
+</tr>
+<tr>
+<td><a href="#Shell.wheelEvent">wheelEvent</a></td>
+<td>Protected method to handle wheel events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Shell.__init__" ID="Shell.__init__"></a>
+<h4>Shell (Constructor)</h4>
+<b>Shell</b>(<i>dbs, vm, project, windowedVariant, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>dbs</i> (DebugServer)</dt>
+<dd>
+reference to the debug server object
+</dd>
+<dt><i>vm</i> (ViewManager)</dt>
+<dd>
+reference to the viewmanager object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>windowedVariant</i> (bool)</dt>
+<dd>
+flag indicating the shell window variant
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaAutoCompletionCommand" ID="Shell.__QScintillaAutoCompletionCommand"></a>
+<h4>Shell.__QScintillaAutoCompletionCommand</h4>
+<b>__QScintillaAutoCompletionCommand</b>(<i>cmd</i>)
+<p>
+        Private method to handle a command for autocompletion only.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+QScintilla command
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaCancel" ID="Shell.__QScintillaCancel"></a>
+<h4>Shell.__QScintillaCancel</h4>
+<b>__QScintillaCancel</b>(<i></i>)
+<p>
+        Private method to handle the ESC command.
+</p>
+
+<a NAME="Shell.__QScintillaCharLeft" ID="Shell.__QScintillaCharLeft"></a>
+<h4>Shell.__QScintillaCharLeft</h4>
+<b>__QScintillaCharLeft</b>(<i></i>)
+<p>
+        Private method to handle the Cursor Left command.
+</p>
+
+<a NAME="Shell.__QScintillaCharLeftExtend" ID="Shell.__QScintillaCharLeftExtend"></a>
+<h4>Shell.__QScintillaCharLeftExtend</h4>
+<b>__QScintillaCharLeftExtend</b>(<i></i>)
+<p>
+        Private method to handle the Extend Selection Left command.
+</p>
+
+<a NAME="Shell.__QScintillaCharRight" ID="Shell.__QScintillaCharRight"></a>
+<h4>Shell.__QScintillaCharRight</h4>
+<b>__QScintillaCharRight</b>(<i></i>)
+<p>
+        Private method to handle the Cursor Right command.
+</p>
+
+<a NAME="Shell.__QScintillaCommand" ID="Shell.__QScintillaCommand"></a>
+<h4>Shell.__QScintillaCommand</h4>
+<b>__QScintillaCommand</b>(<i>cmd</i>)
+<p>
+        Private method to send the command to QScintilla.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+QScintilla command
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaCursorCommand" ID="Shell.__QScintillaCursorCommand"></a>
+<h4>Shell.__QScintillaCursorCommand</h4>
+<b>__QScintillaCursorCommand</b>(<i>cmd</i>)
+<p>
+        Private method to handle the cursor commands.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+QScintilla command
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaDelete" ID="Shell.__QScintillaDelete"></a>
+<h4>Shell.__QScintillaDelete</h4>
+<b>__QScintillaDelete</b>(<i></i>)
+<p>
+        Private method to handle the delete command.
+</p>
+
+<a NAME="Shell.__QScintillaDeleteBack" ID="Shell.__QScintillaDeleteBack"></a>
+<h4>Shell.__QScintillaDeleteBack</h4>
+<b>__QScintillaDeleteBack</b>(<i></i>)
+<p>
+        Private method to handle the Backspace key.
+</p>
+
+<a NAME="Shell.__QScintillaDeleteLineLeft" ID="Shell.__QScintillaDeleteLineLeft"></a>
+<h4>Shell.__QScintillaDeleteLineLeft</h4>
+<b>__QScintillaDeleteLineLeft</b>(<i></i>)
+<p>
+        Private method to handle the Delete Line Left command.
+</p>
+
+<a NAME="Shell.__QScintillaDeleteLineRight" ID="Shell.__QScintillaDeleteLineRight"></a>
+<h4>Shell.__QScintillaDeleteLineRight</h4>
+<b>__QScintillaDeleteLineRight</b>(<i></i>)
+<p>
+        Private method to handle the Delete Line Right command.
+</p>
+
+<a NAME="Shell.__QScintillaDeleteWordLeft" ID="Shell.__QScintillaDeleteWordLeft"></a>
+<h4>Shell.__QScintillaDeleteWordLeft</h4>
+<b>__QScintillaDeleteWordLeft</b>(<i></i>)
+<p>
+        Private method to handle the Delete Word Left command.
+</p>
+
+<a NAME="Shell.__QScintillaDeleteWordRight" ID="Shell.__QScintillaDeleteWordRight"></a>
+<h4>Shell.__QScintillaDeleteWordRight</h4>
+<b>__QScintillaDeleteWordRight</b>(<i></i>)
+<p>
+        Private method to handle the Delete Word Right command.
+</p>
+
+<a NAME="Shell.__QScintillaHistoryDown" ID="Shell.__QScintillaHistoryDown"></a>
+<h4>Shell.__QScintillaHistoryDown</h4>
+<b>__QScintillaHistoryDown</b>(<i>_cmd</i>)
+<p>
+        Private method to handle the history down command.
+</p>
+
+<dl>
+
+<dt><i>_cmd</i> (int)</dt>
+<dd>
+QScintilla command (unused)
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaHistoryUp" ID="Shell.__QScintillaHistoryUp"></a>
+<h4>Shell.__QScintillaHistoryUp</h4>
+<b>__QScintillaHistoryUp</b>(<i>_cmd</i>)
+<p>
+        Private method to handle the history up command.
+</p>
+
+<dl>
+
+<dt><i>_cmd</i> (int)</dt>
+<dd>
+QScintilla command (unused)
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaLeftCommand" ID="Shell.__QScintillaLeftCommand"></a>
+<h4>Shell.__QScintillaLeftCommand</h4>
+<b>__QScintillaLeftCommand</b>(<i>method</i>)
+<p>
+        Private method to handle a QScintilla command working to the left.
+</p>
+
+<dl>
+
+<dt><i>method</i> (int)</dt>
+<dd>
+shell method to execute
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaLeftDeleteCommand" ID="Shell.__QScintillaLeftDeleteCommand"></a>
+<h4>Shell.__QScintillaLeftDeleteCommand</h4>
+<b>__QScintillaLeftDeleteCommand</b>(<i>method</i>)
+<p>
+        Private method to handle a QScintilla delete command working to
+        the left.
+</p>
+
+<dl>
+
+<dt><i>method</i> (int)</dt>
+<dd>
+shell method to execute
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaLineDown" ID="Shell.__QScintillaLineDown"></a>
+<h4>Shell.__QScintillaLineDown</h4>
+<b>__QScintillaLineDown</b>(<i>_cmd</i>)
+<p>
+        Private method to handle the cursor down command.
+</p>
+
+<dl>
+
+<dt><i>_cmd</i> (int)</dt>
+<dd>
+QScintilla command (unused)
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaLineEnd" ID="Shell.__QScintillaLineEnd"></a>
+<h4>Shell.__QScintillaLineEnd</h4>
+<b>__QScintillaLineEnd</b>(<i>cmd</i>)
+<p>
+        Private method to handle the End key.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+QScintilla command
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaLineUp" ID="Shell.__QScintillaLineUp"></a>
+<h4>Shell.__QScintillaLineUp</h4>
+<b>__QScintillaLineUp</b>(<i>_cmd</i>)
+<p>
+        Private method to handle the cursor up command.
+</p>
+
+<dl>
+
+<dt><i>_cmd</i> (int)</dt>
+<dd>
+QScintilla command (unused)
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaNewline" ID="Shell.__QScintillaNewline"></a>
+<h4>Shell.__QScintillaNewline</h4>
+<b>__QScintillaNewline</b>(<i>cmd</i>)
+<p>
+        Private method to handle the Return key.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+QScintilla command
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaRightCommand" ID="Shell.__QScintillaRightCommand"></a>
+<h4>Shell.__QScintillaRightCommand</h4>
+<b>__QScintillaRightCommand</b>(<i>method</i>)
+<p>
+        Private method to handle a QScintilla command working to the right.
+</p>
+
+<dl>
+
+<dt><i>method</i> (function)</dt>
+<dd>
+shell method to execute
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaTab" ID="Shell.__QScintillaTab"></a>
+<h4>Shell.__QScintillaTab</h4>
+<b>__QScintillaTab</b>(<i>cmd</i>)
+<p>
+        Private method to handle the Tab key.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+QScintilla command
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaVCHome" ID="Shell.__QScintillaVCHome"></a>
+<h4>Shell.__QScintillaVCHome</h4>
+<b>__QScintillaVCHome</b>(<i>cmd</i>)
+<p>
+        Private method to handle the Home key.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+QScintilla command
+</dd>
+</dl>
+<a NAME="Shell.__QScintillaVCHomeExtend" ID="Shell.__QScintillaVCHomeExtend"></a>
+<h4>Shell.__QScintillaVCHomeExtend</h4>
+<b>__QScintillaVCHomeExtend</b>(<i></i>)
+<p>
+        Private method to handle the Extend Selection to start of line command.
+</p>
+
+<a NAME="Shell.__QScintillaWordLeft" ID="Shell.__QScintillaWordLeft"></a>
+<h4>Shell.__QScintillaWordLeft</h4>
+<b>__QScintillaWordLeft</b>(<i></i>)
+<p>
+        Private method to handle the Cursor Word Left command.
+</p>
+
+<a NAME="Shell.__QScintillaWordLeftExtend" ID="Shell.__QScintillaWordLeftExtend"></a>
+<h4>Shell.__QScintillaWordLeftExtend</h4>
+<b>__QScintillaWordLeftExtend</b>(<i></i>)
+<p>
+        Private method to handle the Extend Selection Left one word command.
+</p>
+
+<a NAME="Shell.__QScintillaWordRight" ID="Shell.__QScintillaWordRight"></a>
+<h4>Shell.__QScintillaWordRight</h4>
+<b>__QScintillaWordRight</b>(<i></i>)
+<p>
+        Private method to handle the Cursor Word Right command.
+</p>
+
+<a NAME="Shell.__bindLexer" ID="Shell.__bindLexer"></a>
+<h4>Shell.__bindLexer</h4>
+<b>__bindLexer</b>(<i>language="Python3"</i>)
+<p>
+        Private slot to set the lexer.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+lexer language to set
+</dd>
+</dl>
+<a NAME="Shell.__clearCurrentLine" ID="Shell.__clearCurrentLine"></a>
+<h4>Shell.__clearCurrentLine</h4>
+<b>__clearCurrentLine</b>(<i></i>)
+<p>
+        Private method to clear the line containing the cursor.
+</p>
+
+<a NAME="Shell.__clientCapabilities" ID="Shell.__clientCapabilities"></a>
+<h4>Shell.__clientCapabilities</h4>
+<b>__clientCapabilities</b>(<i>cap, clType, venvName</i>)
+<p>
+        Private slot to handle the reporting of the clients capabilities.
+</p>
+
+<dl>
+
+<dt><i>cap</i> (int)</dt>
+<dd>
+client capabilities
+</dd>
+<dt><i>clType</i> (str)</dt>
+<dd>
+type of the debug client
+</dd>
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment
+</dd>
+</dl>
+<a NAME="Shell.__clientError" ID="Shell.__clientError"></a>
+<h4>Shell.__clientError</h4>
+<b>__clientError</b>(<i></i>)
+<p>
+        Private method to handle an error in the client.
+</p>
+
+<a NAME="Shell.__clientException" ID="Shell.__clientException"></a>
+<h4>Shell.__clientException</h4>
+<b>__clientException</b>(<i>exceptionType, exceptionMessage, stackTrace</i>)
+<p>
+        Private method to handle an exception of the client.
+</p>
+
+<dl>
+
+<dt><i>exceptionType</i> (str)</dt>
+<dd>
+type of exception raised
+</dd>
+<dt><i>exceptionMessage</i> (str)</dt>
+<dd>
+message given by the exception
+</dd>
+<dt><i>stackTrace</i> (list of str)</dt>
+<dd>
+list of stack entries
+</dd>
+</dl>
+<a NAME="Shell.__clientSignal" ID="Shell.__clientSignal"></a>
+<h4>Shell.__clientSignal</h4>
+<b>__clientSignal</b>(<i>message, filename, lineNo, funcName, funcArgs</i>)
+<p>
+        Private method to handle a signal generated on the client side.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message of the syntax error
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+translated filename of the syntax error position
+</dd>
+<dt><i>lineNo</i> (int)</dt>
+<dd>
+line number of the syntax error position
+</dd>
+<dt><i>funcName</i> (str)</dt>
+<dd>
+name of the function causing the signal
+</dd>
+<dt><i>funcArgs</i> (str)</dt>
+<dd>
+function arguments
+</dd>
+</dl>
+<a NAME="Shell.__clientStatement" ID="Shell.__clientStatement"></a>
+<h4>Shell.__clientStatement</h4>
+<b>__clientStatement</b>(<i>more</i>)
+<p>
+        Private method to handle the response from the debugger client.
+</p>
+
+<dl>
+
+<dt><i>more</i> (bool)</dt>
+<dd>
+flag indicating that more user input is required
+</dd>
+</dl>
+<a NAME="Shell.__clientSyntaxError" ID="Shell.__clientSyntaxError"></a>
+<h4>Shell.__clientSyntaxError</h4>
+<b>__clientSyntaxError</b>(<i>message, filename, lineNo, characterNo</i>)
+<p>
+        Private method to handle a syntax error in the debugged program.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message of the syntax error
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+translated filename of the syntax error position
+</dd>
+<dt><i>lineNo</i> (int)</dt>
+<dd>
+line number of the syntax error position
+</dd>
+<dt><i>characterNo</i> (int)</dt>
+<dd>
+character number of the syntax error position
+</dd>
+</dl>
+<a NAME="Shell.__completionListSelected" ID="Shell.__completionListSelected"></a>
+<h4>Shell.__completionListSelected</h4>
+<b>__completionListSelected</b>(<i>listId, txt</i>)
+<p>
+        Private slot to handle the selection from the completion list.
+</p>
+
+<dl>
+
+<dt><i>listId</i> (int)</dt>
+<dd>
+the ID of the user list (should be 1)
+</dd>
+<dt><i>txt</i> (str)</dt>
+<dd>
+the selected text
+</dd>
+</dl>
+<a NAME="Shell.__concatenateText" ID="Shell.__concatenateText"></a>
+<h4>Shell.__concatenateText</h4>
+<b>__concatenateText</b>(<i>text</i>)
+<p>
+        Private slot to queue text and process it in one step.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be appended
+</dd>
+</dl>
+<a NAME="Shell.__configure" ID="Shell.__configure"></a>
+<h4>Shell.__configure</h4>
+<b>__configure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="Shell.__executeCommand" ID="Shell.__executeCommand"></a>
+<h4>Shell.__executeCommand</h4>
+<b>__executeCommand</b>(<i>cmd, historyIndex=None</i>)
+<p>
+        Private slot to execute a command.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (str)</dt>
+<dd>
+command to be executed by debug client
+</dd>
+<dt><i>historyIndex</i> (int)</dt>
+<dd>
+history index to be set
+</dd>
+</dl>
+<a NAME="Shell.__find" ID="Shell.__find"></a>
+<h4>Shell.__find</h4>
+<b>__find</b>(<i></i>)
+<p>
+        Private slot to show the find widget.
+</p>
+
+<a NAME="Shell.__flushQueuedText" ID="Shell.__flushQueuedText"></a>
+<h4>Shell.__flushQueuedText</h4>
+<b>__flushQueuedText</b>(<i></i>)
+<p>
+        Private slot to flush the accumulated text output.
+</p>
+
+<a NAME="Shell.__getBanner" ID="Shell.__getBanner"></a>
+<h4>Shell.__getBanner</h4>
+<b>__getBanner</b>(<i></i>)
+<p>
+        Private method to get the banner for the remote interpreter.
+</p>
+<p>
+        It requests the interpreter version and platform running on the
+        debug client side.
+</p>
+
+<a NAME="Shell.__getEndPos" ID="Shell.__getEndPos"></a>
+<h4>Shell.__getEndPos</h4>
+<b>__getEndPos</b>(<i></i>)
+<p>
+        Private method to return the line and column of the last character.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of two values giving the line and column
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="Shell.__indentLength" ID="Shell.__indentLength"></a>
+<h4>Shell.__indentLength</h4>
+<b>__indentLength</b>(<i>line</i>)
+<p>
+        Private method to determine the indentation length of the given line.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to determine the indentation length for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+indentation length
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Shell.__initialise" ID="Shell.__initialise"></a>
+<h4>Shell.__initialise</h4>
+<b>__initialise</b>(<i></i>)
+<p>
+        Private method to get ready for a new remote interpreter.
+</p>
+
+<a NAME="Shell.__insertHistory" ID="Shell.__insertHistory"></a>
+<h4>Shell.__insertHistory</h4>
+<b>__insertHistory</b>(<i>cmd</i>)
+<p>
+        Private method to insert a command selected from the history.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (str)</dt>
+<dd>
+history entry to be inserted
+</dd>
+</dl>
+<a NAME="Shell.__insertText" ID="Shell.__insertText"></a>
+<h4>Shell.__insertText</h4>
+<b>__insertText</b>(<i>s</i>)
+<p>
+        Private method to insert some text at the current cursor position.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+text to be inserted
+</dd>
+</dl>
+<a NAME="Shell.__insertTextAtEnd" ID="Shell.__insertTextAtEnd"></a>
+<h4>Shell.__insertTextAtEnd</h4>
+<b>__insertTextAtEnd</b>(<i>s</i>)
+<p>
+        Private method to insert some text at the end of the command line.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+text to be inserted
+</dd>
+</dl>
+<a NAME="Shell.__insertTextNoEcho" ID="Shell.__insertTextNoEcho"></a>
+<h4>Shell.__insertTextNoEcho</h4>
+<b>__insertTextNoEcho</b>(<i>s</i>)
+<p>
+        Private method to insert some text at the end of the buffer without
+        echoing it.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+text to be inserted
+</dd>
+</dl>
+<a NAME="Shell.__isCursorOnLastLine" ID="Shell.__isCursorOnLastLine"></a>
+<h4>Shell.__isCursorOnLastLine</h4>
+<b>__isCursorOnLastLine</b>(<i></i>)
+<p>
+        Private method to check, if the cursor is on the last line.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the cursor is on the last line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Shell.__isHistoryIndexValid" ID="Shell.__isHistoryIndexValid"></a>
+<h4>Shell.__isHistoryIndexValid</h4>
+<b>__isHistoryIndexValid</b>(<i></i>)
+<p>
+        Private method to test, if the history index is valid.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating validity
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Shell.__projectClosed" ID="Shell.__projectClosed"></a>
+<h4>Shell.__projectClosed</h4>
+<b>__projectClosed</b>(<i></i>)
+<p>
+        Private slot to restart the default shell when the project is closed.
+</p>
+
+<a NAME="Shell.__projectOpened" ID="Shell.__projectOpened"></a>
+<h4>Shell.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to start the shell for the opened project.
+</p>
+
+<a NAME="Shell.__raw_input" ID="Shell.__raw_input"></a>
+<h4>Shell.__raw_input</h4>
+<b>__raw_input</b>(<i>prompt, echo, debuggerId</i>)
+<p>
+        Private method to handle raw input.
+</p>
+
+<dl>
+
+<dt><i>prompt</i> (str)</dt>
+<dd>
+the input prompt
+</dd>
+<dt><i>echo</i> (bool)</dt>
+<dd>
+flag indicating an echoing of the input
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="Shell.__resetIncrementalHistorySearch" ID="Shell.__resetIncrementalHistorySearch"></a>
+<h4>Shell.__resetIncrementalHistorySearch</h4>
+<b>__resetIncrementalHistorySearch</b>(<i></i>)
+<p>
+        Private method to reset the incremental history search.
+</p>
+
+<a NAME="Shell.__resizeLinenoMargin" ID="Shell.__resizeLinenoMargin"></a>
+<h4>Shell.__resizeLinenoMargin</h4>
+<b>__resizeLinenoMargin</b>(<i></i>)
+<p>
+        Private slot to resize the line numbers margin.
+</p>
+
+<a NAME="Shell.__rsearchHistory" ID="Shell.__rsearchHistory"></a>
+<h4>Shell.__rsearchHistory</h4>
+<b>__rsearchHistory</b>(<i>txt, startIdx=-1</i>)
+<p>
+        Private method used to reverse search the history.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to match at the beginning
+</dd>
+<dt><i>startIdx</i> (int)</dt>
+<dd>
+index to start search from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the index of found entry and a flag indicating
+            that something was found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, bool)
+</dd>
+</dl>
+<a NAME="Shell.__searchHistory" ID="Shell.__searchHistory"></a>
+<h4>Shell.__searchHistory</h4>
+<b>__searchHistory</b>(<i>txt, startIdx=-1</i>)
+<p>
+        Private method used to search the history.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to match at the beginning
+</dd>
+<dt><i>startIdx</i> (int)</dt>
+<dd>
+index to start search from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the index of found entry and a flag indicating
+            that something was found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, bool)
+</dd>
+</dl>
+<a NAME="Shell.__searchNext" ID="Shell.__searchNext"></a>
+<h4>Shell.__searchNext</h4>
+<b>__searchNext</b>(<i></i>)
+<p>
+        Private method to search for the next occurrence.
+</p>
+
+<a NAME="Shell.__searchPrev" ID="Shell.__searchPrev"></a>
+<h4>Shell.__searchPrev</h4>
+<b>__searchPrev</b>(<i></i>)
+<p>
+        Private method to search for the next occurrence.
+</p>
+
+<a NAME="Shell.__setAutoCompletion" ID="Shell.__setAutoCompletion"></a>
+<h4>Shell.__setAutoCompletion</h4>
+<b>__setAutoCompletion</b>(<i></i>)
+<p>
+        Private method to configure the autocompletion function.
+</p>
+
+<a NAME="Shell.__setCallTips" ID="Shell.__setCallTips"></a>
+<h4>Shell.__setCallTips</h4>
+<b>__setCallTips</b>(<i></i>)
+<p>
+        Private method to configure the calltips function.
+</p>
+
+<a NAME="Shell.__setHistoryIndex" ID="Shell.__setHistoryIndex"></a>
+<h4>Shell.__setHistoryIndex</h4>
+<b>__setHistoryIndex</b>(<i>index=None</i>)
+<p>
+        Private method to set the initial history index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int or None)</dt>
+<dd>
+index value to be set
+</dd>
+</dl>
+<a NAME="Shell.__setMargin0" ID="Shell.__setMargin0"></a>
+<h4>Shell.__setMargin0</h4>
+<b>__setMargin0</b>(<i></i>)
+<p>
+        Private method to configure margin 0.
+</p>
+
+<a NAME="Shell.__setMonospaced" ID="Shell.__setMonospaced"></a>
+<h4>Shell.__setMonospaced</h4>
+<b>__setMonospaced</b>(<i>on</i>)
+<p>
+        Private method to set/reset a monospaced font.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag to indicate usage of a monospace font
+</dd>
+</dl>
+<a NAME="Shell.__setTextDisplay" ID="Shell.__setTextDisplay"></a>
+<h4>Shell.__setTextDisplay</h4>
+<b>__setTextDisplay</b>(<i></i>)
+<p>
+        Private method to configure the text display.
+</p>
+
+<a NAME="Shell.__showCompletions" ID="Shell.__showCompletions"></a>
+<h4>Shell.__showCompletions</h4>
+<b>__showCompletions</b>(<i>completions, text</i>)
+<p>
+        Private method to display the possible completions.
+</p>
+
+<dl>
+
+<dt><i>completions</i> (list of str)</dt>
+<dd>
+list of possible completions
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text that is about to be completed
+</dd>
+</dl>
+<a NAME="Shell.__showContextMenu" ID="Shell.__showContextMenu"></a>
+<h4>Shell.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show a context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position for the context menu
+</dd>
+</dl>
+<a NAME="Shell.__showHelp" ID="Shell.__showHelp"></a>
+<h4>Shell.__showHelp</h4>
+<b>__showHelp</b>(<i></i>)
+<p>
+        Private slot to show the list of supported special commands (i.e. those
+        starting with a '%' character.
+</p>
+
+<a NAME="Shell.__showSource" ID="Shell.__showSource"></a>
+<h4>Shell.__showSource</h4>
+<b>__showSource</b>(<i></i>)
+<p>
+        Private method to open an editor for an exception line.
+</p>
+<p>
+        Note: The exception line looks like 'File: /path/of/file.py, Line: 111'.
+</p>
+
+<a NAME="Shell.__showStartMenu" ID="Shell.__showStartMenu"></a>
+<h4>Shell.__showStartMenu</h4>
+<b>__showStartMenu</b>(<i></i>)
+<p>
+        Private slot to prepare the start submenu.
+</p>
+
+<a NAME="Shell.__showVenvName" ID="Shell.__showVenvName"></a>
+<h4>Shell.__showVenvName</h4>
+<b>__showVenvName</b>(<i></i>)
+<p>
+        Private method to show the name of the active virtual environment.
+</p>
+
+<a NAME="Shell.__startDebugClient" ID="Shell.__startDebugClient"></a>
+<h4>Shell.__startDebugClient</h4>
+<b>__startDebugClient</b>(<i>action</i>)
+<p>
+        Private slot to start a debug client according to the action
+        triggered.
+</p>
+
+<dl>
+
+<dt><i>action</i> (QAction)</dt>
+<dd>
+context menu action that was triggered
+</dd>
+</dl>
+<a NAME="Shell.__useHistory" ID="Shell.__useHistory"></a>
+<h4>Shell.__useHistory</h4>
+<b>__useHistory</b>(<i></i>)
+<p>
+        Private method to display a command from the history.
+</p>
+
+<a NAME="Shell.__write" ID="Shell.__write"></a>
+<h4>Shell.__write</h4>
+<b>__write</b>(<i>s</i>)
+<p>
+        Private method to display some text without queuing.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+text to be displayed
+</dd>
+</dl>
+<a NAME="Shell.__writeBanner" ID="Shell.__writeBanner"></a>
+<h4>Shell.__writeBanner</h4>
+<b>__writeBanner</b>(<i>versionStr, platformStr, venvName</i>)
+<p>
+        Private method to write a banner with info from the debug client.
+</p>
+
+<dl>
+
+<dt><i>versionStr</i> (str)</dt>
+<dd>
+interpreter version string
+</dd>
+<dt><i>platformStr</i> (str)</dt>
+<dd>
+platform of the remote interpreter
+</dd>
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment
+</dd>
+</dl>
+<a NAME="Shell.__writePrompt" ID="Shell.__writePrompt"></a>
+<h4>Shell.__writePrompt</h4>
+<b>__writePrompt</b>(<i></i>)
+<p>
+        Private method to write the prompt using a write queue.
+</p>
+
+<a NAME="Shell.__writeQueued" ID="Shell.__writeQueued"></a>
+<h4>Shell.__writeQueued</h4>
+<b>__writeQueued</b>(<i>s</i>)
+<p>
+        Private method to display some text using a write queue.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+text to be displayed
+</dd>
+</dl>
+<a NAME="Shell.__writeStdErr" ID="Shell.__writeStdErr"></a>
+<h4>Shell.__writeStdErr</h4>
+<b>__writeStdErr</b>(<i>s</i>)
+<p>
+        Private method to display some text with StdErr label.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+text to be displayed
+</dd>
+</dl>
+<a NAME="Shell.__writeStdOut" ID="Shell.__writeStdOut"></a>
+<h4>Shell.__writeStdOut</h4>
+<b>__writeStdOut</b>(<i>s</i>)
+<p>
+        Private method to display some text with StdOut label.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+text to be displayed
+</dd>
+</dl>
+<a NAME="Shell.clear" ID="Shell.clear"></a>
+<h4>Shell.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public slot to clear the display.
+</p>
+
+<a NAME="Shell.clearAllHistories" ID="Shell.clearAllHistories"></a>
+<h4>Shell.clearAllHistories</h4>
+<b>clearAllHistories</b>(<i></i>)
+<p>
+        Public method to clear all available histories and sync them.
+</p>
+
+<a NAME="Shell.clearHistory" ID="Shell.clearHistory"></a>
+<h4>Shell.clearHistory</h4>
+<b>clearHistory</b>(<i>ask=True</i>)
+<p>
+        Public slot to clear the current history.
+</p>
+
+<dl>
+
+<dt><i>ask</i> (bool (optional))</dt>
+<dd>
+flag indicating to ask for confirmation (defaults to True)
+</dd>
+</dl>
+<a NAME="Shell.closeShell" ID="Shell.closeShell"></a>
+<h4>Shell.closeShell</h4>
+<b>closeShell</b>(<i></i>)
+<p>
+        Public method to shutdown the shell.
+</p>
+
+<a NAME="Shell.doClearRestart" ID="Shell.doClearRestart"></a>
+<h4>Shell.doClearRestart</h4>
+<b>doClearRestart</b>(<i></i>)
+<p>
+        Public slot to handle the 'restart and clear' context menu entry.
+</p>
+
+<a NAME="Shell.doRestart" ID="Shell.doRestart"></a>
+<h4>Shell.doRestart</h4>
+<b>doRestart</b>(<i></i>)
+<p>
+        Public slot to handle the 'restart' context menu entry.
+</p>
+
+<a NAME="Shell.dragEnterEvent" ID="Shell.dragEnterEvent"></a>
+<h4>Shell.dragEnterEvent</h4>
+<b>dragEnterEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the drag enter event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDragEnterEvent)</dt>
+<dd>
+the drag enter event
+</dd>
+</dl>
+<a NAME="Shell.dragLeaveEvent" ID="Shell.dragLeaveEvent"></a>
+<h4>Shell.dragLeaveEvent</h4>
+<b>dragLeaveEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the drag leave event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDragLeaveEvent)</dt>
+<dd>
+the drag leave event
+</dd>
+</dl>
+<a NAME="Shell.dragMoveEvent" ID="Shell.dragMoveEvent"></a>
+<h4>Shell.dragMoveEvent</h4>
+<b>dragMoveEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the drag move event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDragMoveEvent)</dt>
+<dd>
+the drag move event
+</dd>
+</dl>
+<a NAME="Shell.dropEvent" ID="Shell.dropEvent"></a>
+<h4>Shell.dropEvent</h4>
+<b>dropEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the drop event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDropEvent)</dt>
+<dd>
+the drop event
+</dd>
+</dl>
+<a NAME="Shell.editorCommand" ID="Shell.editorCommand"></a>
+<h4>Shell.editorCommand</h4>
+<b>editorCommand</b>(<i>cmd</i>)
+<p>
+        Public method to perform an editor command.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+the scintilla command to be performed
+</dd>
+</dl>
+<a NAME="Shell.event" ID="Shell.event"></a>
+<h4>Shell.event</h4>
+<b>event</b>(<i>evt</i>)
+<p>
+        Public method handling events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Shell.executeLines" ID="Shell.executeLines"></a>
+<h4>Shell.executeLines</h4>
+<b>executeLines</b>(<i>lines, historyIndex=None</i>)
+<p>
+        Public method to execute a set of lines as multiple commands.
+</p>
+
+<dl>
+
+<dt><i>lines</i> (str)</dt>
+<dd>
+multiple lines of text to be executed as
+            single commands
+</dd>
+<dt><i>historyIndex</i> (int)</dt>
+<dd>
+history index to be set
+</dd>
+</dl>
+<a NAME="Shell.focusInEvent" ID="Shell.focusInEvent"></a>
+<h4>Shell.focusInEvent</h4>
+<b>focusInEvent</b>(<i>event</i>)
+<p>
+        Protected method called when the shell receives focus.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QFocusEvent)</dt>
+<dd>
+the event object
+</dd>
+</dl>
+<a NAME="Shell.focusNextPrevChild" ID="Shell.focusNextPrevChild"></a>
+<h4>Shell.focusNextPrevChild</h4>
+<b>focusNextPrevChild</b>(<i>nextChild</i>)
+<p>
+        Public method to stop Tab moving to the next window.
+</p>
+<p>
+        While the user is entering a multi-line command, the movement to
+        the next window by the Tab key being pressed is suppressed.
+</p>
+
+<dl>
+
+<dt><i>nextChild</i> (QWidget)</dt>
+<dd>
+next window
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the movement
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Shell.focusOutEvent" ID="Shell.focusOutEvent"></a>
+<h4>Shell.focusOutEvent</h4>
+<b>focusOutEvent</b>(<i>event</i>)
+<p>
+        Protected method called when the shell loses focus.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QFocusEvent)</dt>
+<dd>
+the event object
+</dd>
+</dl>
+<a NAME="Shell.gestureEvent" ID="Shell.gestureEvent"></a>
+<h4>Shell.gestureEvent</h4>
+<b>gestureEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling gesture events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (int)</dt>
+<dd>
+reference to the gesture event (QGestureEvent
+</dd>
+</dl>
+<a NAME="Shell.getClientType" ID="Shell.getClientType"></a>
+<h4>Shell.getClientType</h4>
+<b>getClientType</b>(<i></i>)
+<p>
+        Public slot to get the clients type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+client type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Shell.getHistory" ID="Shell.getHistory"></a>
+<h4>Shell.getHistory</h4>
+<b>getHistory</b>(<i>clientType</i>)
+<p>
+        Public method to get the history for the given client type.
+</p>
+
+<dl>
+
+<dt><i>clientType</i> (str)</dt>
+<dd>
+type of the debug client. If it is None, the current
+            history is returned.
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the history list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Shell.getHistoryIndex" ID="Shell.getHistoryIndex"></a>
+<h4>Shell.getHistoryIndex</h4>
+<b>getHistoryIndex</b>(<i></i>)
+<p>
+        Public method to get the current value of the history index.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+history index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Shell.handlePreferencesChanged" ID="Shell.handlePreferencesChanged"></a>
+<h4>Shell.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle the preferencesChanged signal.
+</p>
+
+<a NAME="Shell.historyStyle" ID="Shell.historyStyle"></a>
+<h4>Shell.historyStyle</h4>
+<b>historyStyle</b>(<i></i>)
+<p>
+        Public method to get the shell history style.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+shell history style
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ShellHistoryStyle
+</dd>
+</dl>
+<a NAME="Shell.insert" ID="Shell.insert"></a>
+<h4>Shell.insert</h4>
+<b>insert</b>(<i>txt</i>)
+<p>
+        Public slot to insert text at the current cursor position.
+</p>
+<p>
+        The cursor is advanced to the end of the inserted text.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be inserted
+</dd>
+</dl>
+<a NAME="Shell.isHistoryEnabled" ID="Shell.isHistoryEnabled"></a>
+<h4>Shell.isHistoryEnabled</h4>
+<b>isHistoryEnabled</b>(<i></i>)
+<p>
+        Public method to check, if the history is enabled.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if history is enabled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Shell.keyPressEvent" ID="Shell.keyPressEvent"></a>
+<h4>Shell.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>ev</i>)
+<p>
+        Protected method to handle the user input a key at a time.
+</p>
+
+<dl>
+
+<dt><i>ev</i> (int)</dt>
+<dd>
+key event (QKeyEvent)
+</dd>
+</dl>
+<a NAME="Shell.loadHistory" ID="Shell.loadHistory"></a>
+<h4>Shell.loadHistory</h4>
+<b>loadHistory</b>(<i>clientType</i>)
+<p>
+        Public method to load the history for the given client type.
+</p>
+
+<dl>
+
+<dt><i>clientType</i> (str)</dt>
+<dd>
+type of the debug client
+</dd>
+</dl>
+<a NAME="Shell.mousePressEvent" ID="Shell.mousePressEvent"></a>
+<h4>Shell.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the mouse press event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QMouseEvent)</dt>
+<dd>
+the mouse press event
+</dd>
+</dl>
+<a NAME="Shell.paste" ID="Shell.paste"></a>
+<h4>Shell.paste</h4>
+<b>paste</b>(<i>lines=None</i>)
+<p>
+        Public slot to handle the paste action.
+</p>
+
+<dl>
+
+<dt><i>lines</i> (list of str)</dt>
+<dd>
+list of lines to be inserted
+</dd>
+</dl>
+<a NAME="Shell.registerDebuggerIdMethod" ID="Shell.registerDebuggerIdMethod"></a>
+<h4>Shell.registerDebuggerIdMethod</h4>
+<b>registerDebuggerIdMethod</b>(<i>method</i>)
+<p>
+        Public method to register a method to get the debugger ID to send data
+        to.
+</p>
+
+<dl>
+
+<dt><i>method</i> (function)</dt>
+<dd>
+reference to the method
+</dd>
+</dl>
+<a NAME="Shell.reloadHistory" ID="Shell.reloadHistory"></a>
+<h4>Shell.reloadHistory</h4>
+<b>reloadHistory</b>(<i></i>)
+<p>
+        Public method to reload the history of the currently selected client
+        type.
+</p>
+
+<a NAME="Shell.remoteConnectionChanged" ID="Shell.remoteConnectionChanged"></a>
+<h4>Shell.remoteConnectionChanged</h4>
+<b>remoteConnectionChanged</b>(<i>connected</i>)
+<p>
+        Public slot handling a change of the connection state to an eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+flag indicating the connection state
+</dd>
+</dl>
+<a NAME="Shell.saveContents" ID="Shell.saveContents"></a>
+<h4>Shell.saveContents</h4>
+<b>saveContents</b>(<i></i>)
+<p>
+        Public method to save the current contents to a file.
+</p>
+
+<a NAME="Shell.saveHistory" ID="Shell.saveHistory"></a>
+<h4>Shell.saveHistory</h4>
+<b>saveHistory</b>(<i>clientType</i>)
+<p>
+        Public method to save the history for the given client type.
+</p>
+
+<dl>
+
+<dt><i>clientType</i> (str)</dt>
+<dd>
+type of the debug client
+</dd>
+</dl>
+<a NAME="Shell.searchNext" ID="Shell.searchNext"></a>
+<h4>Shell.searchNext</h4>
+<b>searchNext</b>(<i>txt, caseSensitive, wholeWord, regexp</i>)
+<p>
+        Public method to search the next occurrence of the given text.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to search for
+</dd>
+<dt><i>caseSensitive</i> (bool)</dt>
+<dd>
+flag indicating to perform a case sensitive
+            search
+</dd>
+<dt><i>wholeWord</i> (bool)</dt>
+<dd>
+flag indicating to search for whole words
+            only
+</dd>
+<dt><i>regexp</i> (bool)</dt>
+<dd>
+flag indicating a regular expression search
+</dd>
+</dl>
+<a NAME="Shell.searchPrev" ID="Shell.searchPrev"></a>
+<h4>Shell.searchPrev</h4>
+<b>searchPrev</b>(<i>txt, caseSensitive, wholeWord, regexp</i>)
+<p>
+        Public method to search the previous occurrence of the given text.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to search for
+</dd>
+<dt><i>caseSensitive</i> (bool)</dt>
+<dd>
+flag indicating to perform a case sensitive
+            search
+</dd>
+<dt><i>wholeWord</i> (bool)</dt>
+<dd>
+flag indicating to search for whole words
+            only
+</dd>
+<dt><i>regexp</i> (bool)</dt>
+<dd>
+flag indicating a regular expression search
+</dd>
+</dl>
+<a NAME="Shell.selectHistory" ID="Shell.selectHistory"></a>
+<h4>Shell.selectHistory</h4>
+<b>selectHistory</b>(<i></i>)
+<p>
+        Public slot to select a history entry to execute.
+</p>
+
+<a NAME="Shell.setDebuggerUI" ID="Shell.setDebuggerUI"></a>
+<h4>Shell.setDebuggerUI</h4>
+<b>setDebuggerUI</b>(<i>ui</i>)
+<p>
+        Public method to set the debugger UI.
+</p>
+
+<dl>
+
+<dt><i>ui</i> (DebugUI)</dt>
+<dd>
+reference to the debugger UI object
+</dd>
+</dl>
+<a NAME="Shell.showHistory" ID="Shell.showHistory"></a>
+<h4>Shell.showHistory</h4>
+<b>showHistory</b>(<i>histSize=None</i>)
+<p>
+        Public slot to show the shell history dialog.
+</p>
+
+<dl>
+
+<dt><i>histSize</i> (int (optional))</dt>
+<dd>
+number of history entries to be shown (None = show all
+            entrys) (defaults to None)
+</dd>
+</dl>
+<a NAME="Shell.wheelEvent" ID="Shell.wheelEvent"></a>
+<h4>Shell.wheelEvent</h4>
+<b>wheelEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle wheel events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QWheelEvent)</dt>
+<dd>
+reference to the wheel event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ShellAssembly" ID="ShellAssembly"></a>
+<h2>ShellAssembly</h2>
+<p>
+    Class implementing the containing widget for the shell.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ShellAssembly.__init__">ShellAssembly</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ShellAssembly.shell">shell</a></td>
+<td>Public method to get a reference to the shell widget.</td>
+</tr>
+<tr>
+<td><a href="#ShellAssembly.showFind">showFind</a></td>
+<td>Public method to display the search widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ShellAssembly.__init__" ID="ShellAssembly.__init__"></a>
+<h4>ShellAssembly (Constructor)</h4>
+<b>ShellAssembly</b>(<i>dbs, vm, project, horizontal=True, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>dbs</i> (DebugServer)</dt>
+<dd>
+reference to the debug server object
+</dd>
+<dt><i>vm</i> (ViewManager)</dt>
+<dd>
+reference to the viewmanager object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>horizontal</i> (bool)</dt>
+<dd>
+flag indicating a horizontal layout
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="ShellAssembly.shell" ID="ShellAssembly.shell"></a>
+<h4>ShellAssembly.shell</h4>
+<b>shell</b>(<i></i>)
+<p>
+        Public method to get a reference to the shell widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the shell widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Shell
+</dd>
+</dl>
+<a NAME="ShellAssembly.showFind" ID="ShellAssembly.showFind"></a>
+<h4>ShellAssembly.showFind</h4>
+<b>showFind</b>(<i>txt=""</i>)
+<p>
+        Public method to display the search widget.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be shown in the combo
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ShellHistoryStyle" ID="ShellHistoryStyle"></a>
+<h2>ShellHistoryStyle</h2>
+<p>
+    Class defining the shell history styles.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DISABLED</td></tr>
+<tr><td>LINUXSTYLE</td></tr>
+<tr><td>WINDOWSSTYLE</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

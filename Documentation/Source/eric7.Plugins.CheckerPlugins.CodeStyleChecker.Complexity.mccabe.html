@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Complexity.mccabe</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Complexity.mccabe</h1>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>__version__</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ASTVisitor">ASTVisitor</a></td>
+<td>Performs a depth-first walk of the AST.</td>
+</tr>
+<tr>
+<td><a href="#PathGraph">PathGraph</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor">PathGraphingAstVisitor</a></td>
+<td>A visitor for a parsed Abstract Syntax Tree which finds executable statements.</td>
+</tr>
+<tr>
+<td><a href="#PathNode">PathNode</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ASTVisitor" ID="ASTVisitor"></a>
+<h2>ASTVisitor</h2>
+<p>
+Performs a depth-first walk of the AST.
+</p>
+
+<h3>Derived from</h3>
+object
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ASTVisitor.__init__">ASTVisitor</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#ASTVisitor.default">default</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#ASTVisitor.dispatch">dispatch</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#ASTVisitor.preorder">preorder</a></td>
+<td>Do preorder walk of tree using visitor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ASTVisitor.__init__" ID="ASTVisitor.__init__"></a>
+<h4>ASTVisitor (Constructor)</h4>
+<b>ASTVisitor</b>(<i></i>)
+
+<a NAME="ASTVisitor.default" ID="ASTVisitor.default"></a>
+<h4>ASTVisitor.default</h4>
+<b>default</b>(<i>node, *args</i>)
+
+<a NAME="ASTVisitor.dispatch" ID="ASTVisitor.dispatch"></a>
+<h4>ASTVisitor.dispatch</h4>
+<b>dispatch</b>(<i>node, *args</i>)
+
+<a NAME="ASTVisitor.preorder" ID="ASTVisitor.preorder"></a>
+<h4>ASTVisitor.preorder</h4>
+<b>preorder</b>(<i>tree, visitor, *args</i>)
+<p>
+Do preorder walk of tree using visitor
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PathGraph" ID="PathGraph"></a>
+<h2>PathGraph</h2>
+
+<h3>Derived from</h3>
+object
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PathGraph.__init__">PathGraph</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraph.complexity">complexity</a></td>
+<td>Return the McCabe complexity for the graph.</td>
+</tr>
+<tr>
+<td><a href="#PathGraph.connect">connect</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraph.to_dot">to_dot</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PathGraph.__init__" ID="PathGraph.__init__"></a>
+<h4>PathGraph (Constructor)</h4>
+<b>PathGraph</b>(<i>name, entity, lineno, column=0</i>)
+
+<a NAME="PathGraph.complexity" ID="PathGraph.complexity"></a>
+<h4>PathGraph.complexity</h4>
+<b>complexity</b>(<i></i>)
+<p>
+ Return the McCabe complexity for the graph.
+            V-E+2
+</p>
+
+<a NAME="PathGraph.connect" ID="PathGraph.connect"></a>
+<h4>PathGraph.connect</h4>
+<b>connect</b>(<i>n1, n2</i>)
+
+<a NAME="PathGraph.to_dot" ID="PathGraph.to_dot"></a>
+<h4>PathGraph.to_dot</h4>
+<b>to_dot</b>(<i></i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PathGraphingAstVisitor" ID="PathGraphingAstVisitor"></a>
+<h2>PathGraphingAstVisitor</h2>
+<p>
+ A visitor for a parsed Abstract Syntax Tree which finds executable
+        statements.
+</p>
+
+<h3>Derived from</h3>
+ASTVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>visitAsyncFor</td></tr>
+<tr><td>visitAsyncFunctionDef</td></tr>
+<tr><td>visitAsyncWith</td></tr>
+<tr><td>visitTry</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PathGraphingAstVisitor.__init__">PathGraphingAstVisitor</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor._subgraph">_subgraph</a></td>
+<td>create the subgraphs representing any `if` and `for` statements</td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor._subgraph_parse">_subgraph_parse</a></td>
+<td>parse the body and any `else` block of `if` and `for` statements</td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.appendPathNode">appendPathNode</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.default">default</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.dispatch_list">dispatch_list</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.reset">reset</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.visitClassDef">visitClassDef</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.visitFunctionDef">visitFunctionDef</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.visitIf">visitIf</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.visitLoop">visitLoop</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.visitSimpleStatement">visitSimpleStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.visitTryExcept">visitTryExcept</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathGraphingAstVisitor.visitWith">visitWith</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PathGraphingAstVisitor.__init__" ID="PathGraphingAstVisitor.__init__"></a>
+<h4>PathGraphingAstVisitor (Constructor)</h4>
+<b>PathGraphingAstVisitor</b>(<i></i>)
+
+<a NAME="PathGraphingAstVisitor._subgraph" ID="PathGraphingAstVisitor._subgraph"></a>
+<h4>PathGraphingAstVisitor._subgraph</h4>
+<b>_subgraph</b>(<i>node, name, extra_blocks=()</i>)
+<p>
+create the subgraphs representing any `if` and `for` statements
+</p>
+
+<a NAME="PathGraphingAstVisitor._subgraph_parse" ID="PathGraphingAstVisitor._subgraph_parse"></a>
+<h4>PathGraphingAstVisitor._subgraph_parse</h4>
+<b>_subgraph_parse</b>(<i>node, pathnode, extra_blocks</i>)
+<p>
+parse the body and any `else` block of `if` and `for` statements
+</p>
+
+<a NAME="PathGraphingAstVisitor.appendPathNode" ID="PathGraphingAstVisitor.appendPathNode"></a>
+<h4>PathGraphingAstVisitor.appendPathNode</h4>
+<b>appendPathNode</b>(<i>name</i>)
+
+<a NAME="PathGraphingAstVisitor.default" ID="PathGraphingAstVisitor.default"></a>
+<h4>PathGraphingAstVisitor.default</h4>
+<b>default</b>(<i>node, *args</i>)
+
+<a NAME="PathGraphingAstVisitor.dispatch_list" ID="PathGraphingAstVisitor.dispatch_list"></a>
+<h4>PathGraphingAstVisitor.dispatch_list</h4>
+<b>dispatch_list</b>(<i>node_list</i>)
+
+<a NAME="PathGraphingAstVisitor.reset" ID="PathGraphingAstVisitor.reset"></a>
+<h4>PathGraphingAstVisitor.reset</h4>
+<b>reset</b>(<i></i>)
+
+<a NAME="PathGraphingAstVisitor.visitClassDef" ID="PathGraphingAstVisitor.visitClassDef"></a>
+<h4>PathGraphingAstVisitor.visitClassDef</h4>
+<b>visitClassDef</b>(<i>node</i>)
+
+<a NAME="PathGraphingAstVisitor.visitFunctionDef" ID="PathGraphingAstVisitor.visitFunctionDef"></a>
+<h4>PathGraphingAstVisitor.visitFunctionDef</h4>
+<b>visitFunctionDef</b>(<i>node</i>)
+
+<a NAME="PathGraphingAstVisitor.visitIf" ID="PathGraphingAstVisitor.visitIf"></a>
+<h4>PathGraphingAstVisitor.visitIf</h4>
+<b>visitIf</b>(<i>node</i>)
+
+<a NAME="PathGraphingAstVisitor.visitLoop" ID="PathGraphingAstVisitor.visitLoop"></a>
+<h4>PathGraphingAstVisitor.visitLoop</h4>
+<b>visitLoop</b>(<i>node</i>)
+
+<a NAME="PathGraphingAstVisitor.visitSimpleStatement" ID="PathGraphingAstVisitor.visitSimpleStatement"></a>
+<h4>PathGraphingAstVisitor.visitSimpleStatement</h4>
+<b>visitSimpleStatement</b>(<i>node</i>)
+
+<a NAME="PathGraphingAstVisitor.visitTryExcept" ID="PathGraphingAstVisitor.visitTryExcept"></a>
+<h4>PathGraphingAstVisitor.visitTryExcept</h4>
+<b>visitTryExcept</b>(<i>node</i>)
+
+<a NAME="PathGraphingAstVisitor.visitWith" ID="PathGraphingAstVisitor.visitWith"></a>
+<h4>PathGraphingAstVisitor.visitWith</h4>
+<b>visitWith</b>(<i>node</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PathNode" ID="PathNode"></a>
+<h2>PathNode</h2>
+
+<h3>Derived from</h3>
+object
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PathNode.__init__">PathNode</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathNode.dot_id">dot_id</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#PathNode.to_dot">to_dot</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PathNode.__init__" ID="PathNode.__init__"></a>
+<h4>PathNode (Constructor)</h4>
+<b>PathNode</b>(<i>name, look="circle"</i>)
+
+<a NAME="PathNode.dot_id" ID="PathNode.dot_id"></a>
+<h4>PathNode.dot_id</h4>
+<b>dot_id</b>(<i></i>)
+
+<a NAME="PathNode.to_dot" ID="PathNode.to_dot"></a>
+<h4>PathNode.to_dot</h4>
+<b>to_dot</b>(<i></i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

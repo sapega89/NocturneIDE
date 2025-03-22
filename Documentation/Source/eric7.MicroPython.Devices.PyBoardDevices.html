@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.Devices.PyBoardDevices</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.Devices.PyBoardDevices</h1>
+<p>
+Module implementing the device interface class for PyBoard boards.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PyBoardDevice">PyBoardDevice</a></td>
+<td>Class implementing the device for PyBoard boards.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createDevice">createDevice</a></td>
+<td>Function to instantiate a MicroPython device object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PyBoardDevice" ID="PyBoardDevice"></a>
+<h2>PyBoardDevice</h2>
+<p>
+    Class implementing the device for PyBoard boards.
+</p>
+
+<h3>Derived from</h3>
+BaseDevice
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DeviceVolumeName</td></tr>
+<tr><td>FlashInstructionsURL</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PyBoardDevice.__init__">PyBoardDevice</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__activateBootloader">__activateBootloader</a></td>
+<td>Private slot to activate the bootloader and disconnect.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__createPyboardMenu">__createPyboardMenu</a></td>
+<td>Private method to create the pyboard submenu.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__deviceVolumeMounted">__deviceVolumeMounted</a></td>
+<td>Private method to check, if the device volume is mounted.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__dfuUtilAvailable">__dfuUtilAvailable</a></td>
+<td>Private method to check the availability of dfu-util.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__findWorkspace">__findWorkspace</a></td>
+<td>Private method to find the workspace directory.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__firmwareVersionResponse">__firmwareVersionResponse</a></td>
+<td>Private slot handling the response of the latest version request.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__flashMicroPython">__flashMicroPython</a></td>
+<td>Private slot to flash a MicroPython firmware.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__listDfuCapableDevices">__listDfuCapableDevices</a></td>
+<td>Private slot to list all DFU-capable devices.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__resetDevice">__resetDevice</a></td>
+<td>Private slot to reset the connected device.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__showDfuDisableInstructions">__showDfuDisableInstructions</a></td>
+<td>Private method to show some instructions to disable the DFU mode.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__showDfuEnableInstructions">__showDfuEnableInstructions</a></td>
+<td>Private method to show some instructions to enable the DFU mode.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__showFirmwareVersions">__showFirmwareVersions</a></td>
+<td>Private slot to show the firmware version of the connected device and the available firmware version.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.__showFlashInstructions">__showFlashInstructions</a></td>
+<td>Private slot to open the URL containing instructions for installing MicroPython on the pyboard.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice._getSetTimeCode">_getSetTimeCode</a></td>
+<td>Protected method to get the device code to set the time.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.addDeviceMenuEntries">addDeviceMenuEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.canRunScript">canRunScript</a></td>
+<td>Public method to determine, if a script can be executed.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.canStartFileManager">canStartFileManager</a></td>
+<td>Public method to determine, if a File Manager can be started.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.canStartPlotter">canStartPlotter</a></td>
+<td>Public method to determine, if a Plotter can be started.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.canStartRepl">canStartRepl</a></td>
+<td>Public method to determine, if a REPL can be started.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.deviceName">deviceName</a></td>
+<td>Public method to get the name of the device.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.forceInterrupt">forceInterrupt</a></td>
+<td>Public method to determine the need for an interrupt when opening the serial connection.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.getDocumentationUrl">getDocumentationUrl</a></td>
+<td>Public method to get the device documentation URL.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.getFirmwareUrl">getFirmwareUrl</a></td>
+<td>Public method to get the device firmware download URL.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.getWorkspace">getWorkspace</a></td>
+<td>Public method to get the workspace directory.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.hasFlashMenuEntry">hasFlashMenuEntry</a></td>
+<td>Public method to check, if the device has its own flash menu entry.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.runScript">runScript</a></td>
+<td>Public method to run the given Python script.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.setButtons">setButtons</a></td>
+<td>Public method to enable the supported action buttons.</td>
+</tr>
+<tr>
+<td><a href="#PyBoardDevice.supportsLocalFileAccess">supportsLocalFileAccess</a></td>
+<td>Public method to indicate file access via a local directory.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PyBoardDevice.__init__" ID="PyBoardDevice.__init__"></a>
+<h4>PyBoardDevice (Constructor)</h4>
+<b>PyBoardDevice</b>(<i>microPythonWidget, deviceType, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="PyBoardDevice.__activateBootloader" ID="PyBoardDevice.__activateBootloader"></a>
+<h4>PyBoardDevice.__activateBootloader</h4>
+<b>__activateBootloader</b>(<i></i>)
+<p>
+        Private slot to activate the bootloader and disconnect.
+</p>
+
+<a NAME="PyBoardDevice.__createPyboardMenu" ID="PyBoardDevice.__createPyboardMenu"></a>
+<h4>PyBoardDevice.__createPyboardMenu</h4>
+<b>__createPyboardMenu</b>(<i></i>)
+<p>
+        Private method to create the pyboard submenu.
+</p>
+
+<a NAME="PyBoardDevice.__deviceVolumeMounted" ID="PyBoardDevice.__deviceVolumeMounted"></a>
+<h4>PyBoardDevice.__deviceVolumeMounted</h4>
+<b>__deviceVolumeMounted</b>(<i></i>)
+<p>
+        Private method to check, if the device volume is mounted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicated a mounted device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PyBoardDevice.__dfuUtilAvailable" ID="PyBoardDevice.__dfuUtilAvailable"></a>
+<h4>PyBoardDevice.__dfuUtilAvailable</h4>
+<b>__dfuUtilAvailable</b>(<i></i>)
+<p>
+        Private method to check the availability of dfu-util.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of dfu-util
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PyBoardDevice.__findWorkspace" ID="PyBoardDevice.__findWorkspace"></a>
+<h4>PyBoardDevice.__findWorkspace</h4>
+<b>__findWorkspace</b>(<i>silent=False</i>)
+<p>
+        Private method to find the workspace directory.
+</p>
+
+<dl>
+
+<dt><i>silent</i> (bool)</dt>
+<dd>
+flag indicating silent operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+workspace directory used for saving files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyBoardDevice.__firmwareVersionResponse" ID="PyBoardDevice.__firmwareVersionResponse"></a>
+<h4>PyBoardDevice.__firmwareVersionResponse</h4>
+<b>__firmwareVersionResponse</b>(<i>reply</i>)
+<p>
+        Private slot handling the response of the latest version request.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+</dl>
+<a NAME="PyBoardDevice.__flashMicroPython" ID="PyBoardDevice.__flashMicroPython"></a>
+<h4>PyBoardDevice.__flashMicroPython</h4>
+<b>__flashMicroPython</b>(<i></i>)
+<p>
+        Private slot to flash a MicroPython firmware.
+</p>
+
+<a NAME="PyBoardDevice.__listDfuCapableDevices" ID="PyBoardDevice.__listDfuCapableDevices"></a>
+<h4>PyBoardDevice.__listDfuCapableDevices</h4>
+<b>__listDfuCapableDevices</b>(<i></i>)
+<p>
+        Private slot to list all DFU-capable devices.
+</p>
+
+<a NAME="PyBoardDevice.__resetDevice" ID="PyBoardDevice.__resetDevice"></a>
+<h4>PyBoardDevice.__resetDevice</h4>
+<b>__resetDevice</b>(<i></i>)
+<p>
+        Private slot to reset the connected device.
+</p>
+
+<a NAME="PyBoardDevice.__showDfuDisableInstructions" ID="PyBoardDevice.__showDfuDisableInstructions"></a>
+<h4>PyBoardDevice.__showDfuDisableInstructions</h4>
+<b>__showDfuDisableInstructions</b>(<i></i>)
+<p>
+        Private method to show some instructions to disable the DFU mode.
+</p>
+
+<a NAME="PyBoardDevice.__showDfuEnableInstructions" ID="PyBoardDevice.__showDfuEnableInstructions"></a>
+<h4>PyBoardDevice.__showDfuEnableInstructions</h4>
+<b>__showDfuEnableInstructions</b>(<i>flash=True</i>)
+<p>
+        Private method to show some instructions to enable the DFU mode.
+</p>
+
+<dl>
+
+<dt><i>flash</i> (bool)</dt>
+<dd>
+flag indicating to show a warning message for flashing
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating OK to continue or abort
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PyBoardDevice.__showFirmwareVersions" ID="PyBoardDevice.__showFirmwareVersions"></a>
+<h4>PyBoardDevice.__showFirmwareVersions</h4>
+<b>__showFirmwareVersions</b>(<i></i>)
+<p>
+        Private slot to show the firmware version of the connected device and the
+        available firmware version.
+</p>
+
+<a NAME="PyBoardDevice.__showFlashInstructions" ID="PyBoardDevice.__showFlashInstructions"></a>
+<h4>PyBoardDevice.__showFlashInstructions</h4>
+<b>__showFlashInstructions</b>(<i></i>)
+<p>
+        Private slot to open the URL containing instructions for installing
+        MicroPython on the pyboard.
+</p>
+
+<a NAME="PyBoardDevice._getSetTimeCode" ID="PyBoardDevice._getSetTimeCode"></a>
+<h4>PyBoardDevice._getSetTimeCode</h4>
+<b>_getSetTimeCode</b>(<i></i>)
+<p>
+        Protected method to get the device code to set the time.
+</p>
+<p>
+        Note: This method must be implemented in the various device specific
+        subclasses.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+code to be executed on the connected device to set the time
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyBoardDevice.addDeviceMenuEntries" ID="PyBoardDevice.addDeviceMenuEntries"></a>
+<h4>PyBoardDevice.addDeviceMenuEntries</h4>
+<b>addDeviceMenuEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="PyBoardDevice.canRunScript" ID="PyBoardDevice.canRunScript"></a>
+<h4>PyBoardDevice.canRunScript</h4>
+<b>canRunScript</b>(<i></i>)
+<p>
+        Public method to determine, if a script can be executed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="PyBoardDevice.canStartFileManager" ID="PyBoardDevice.canStartFileManager"></a>
+<h4>PyBoardDevice.canStartFileManager</h4>
+<b>canStartFileManager</b>(<i></i>)
+<p>
+        Public method to determine, if a File Manager can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            File Manager and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="PyBoardDevice.canStartPlotter" ID="PyBoardDevice.canStartPlotter"></a>
+<h4>PyBoardDevice.canStartPlotter</h4>
+<b>canStartPlotter</b>(<i></i>)
+<p>
+        Public method to determine, if a Plotter can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="PyBoardDevice.canStartRepl" ID="PyBoardDevice.canStartRepl"></a>
+<h4>PyBoardDevice.canStartRepl</h4>
+<b>canStartRepl</b>(<i></i>)
+<p>
+        Public method to determine, if a REPL can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a REPL
+            and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="PyBoardDevice.deviceName" ID="PyBoardDevice.deviceName"></a>
+<h4>PyBoardDevice.deviceName</h4>
+<b>deviceName</b>(<i></i>)
+<p>
+        Public method to get the name of the device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyBoardDevice.forceInterrupt" ID="PyBoardDevice.forceInterrupt"></a>
+<h4>PyBoardDevice.forceInterrupt</h4>
+<b>forceInterrupt</b>(<i></i>)
+<p>
+        Public method to determine the need for an interrupt when opening the
+        serial connection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an interrupt is needed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PyBoardDevice.getDocumentationUrl" ID="PyBoardDevice.getDocumentationUrl"></a>
+<h4>PyBoardDevice.getDocumentationUrl</h4>
+<b>getDocumentationUrl</b>(<i></i>)
+<p>
+        Public method to get the device documentation URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+documentation URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyBoardDevice.getFirmwareUrl" ID="PyBoardDevice.getFirmwareUrl"></a>
+<h4>PyBoardDevice.getFirmwareUrl</h4>
+<b>getFirmwareUrl</b>(<i></i>)
+<p>
+        Public method to get the device firmware download URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+firmware download URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyBoardDevice.getWorkspace" ID="PyBoardDevice.getWorkspace"></a>
+<h4>PyBoardDevice.getWorkspace</h4>
+<b>getWorkspace</b>(<i>silent=False</i>)
+<p>
+        Public method to get the workspace directory.
+</p>
+
+<dl>
+
+<dt><i>silent</i> (bool)</dt>
+<dd>
+flag indicating silent operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+workspace directory used for saving files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PyBoardDevice.hasFlashMenuEntry" ID="PyBoardDevice.hasFlashMenuEntry"></a>
+<h4>PyBoardDevice.hasFlashMenuEntry</h4>
+<b>hasFlashMenuEntry</b>(<i></i>)
+<p>
+        Public method to check, if the device has its own flash menu entry.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a specific flash menu entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PyBoardDevice.runScript" ID="PyBoardDevice.runScript"></a>
+<h4>PyBoardDevice.runScript</h4>
+<b>runScript</b>(<i>script</i>)
+<p>
+        Public method to run the given Python script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (str)</dt>
+<dd>
+script to be executed
+</dd>
+</dl>
+<a NAME="PyBoardDevice.setButtons" ID="PyBoardDevice.setButtons"></a>
+<h4>PyBoardDevice.setButtons</h4>
+<b>setButtons</b>(<i></i>)
+<p>
+        Public method to enable the supported action buttons.
+</p>
+
+<a NAME="PyBoardDevice.supportsLocalFileAccess" ID="PyBoardDevice.supportsLocalFileAccess"></a>
+<h4>PyBoardDevice.supportsLocalFileAccess</h4>
+<b>supportsLocalFileAccess</b>(<i></i>)
+<p>
+        Public method to indicate file access via a local directory.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating file access via local directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createDevice" ID="createDevice"></a>
+<h2>createDevice</h2>
+<b>createDevice</b>(<i>microPythonWidget, deviceType, _vid, _pid, _boardName, _serialNumber</i>)
+<p>
+    Function to instantiate a MicroPython device object.
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>_vid</i> (int)</dt>
+<dd>
+vendor ID (unused)
+</dd>
+<dt><i>_pid</i> (int)</dt>
+<dd>
+product ID (unused)
+</dd>
+<dt><i>_boardName</i> (str)</dt>
+<dd>
+name of the board (unused)
+</dd>
+<dt><i>_serialNumber</i> (str)</dt>
+<dd>
+serial number of the board (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated device object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+PyBoardDevice
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

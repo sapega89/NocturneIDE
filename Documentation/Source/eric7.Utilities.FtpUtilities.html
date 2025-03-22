@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Utilities.FtpUtilities</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Utilities.FtpUtilities</h1>
+<p>
+Module implementing some FTP related utilities.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#FtpDirLineParser">FtpDirLineParser</a></td>
+<td>Class to parse lines returned by a FTP LIST command.</td>
+</tr>
+<tr>
+<td><a href="#FtpDirLineParserError">FtpDirLineParserError</a></td>
+<td>Exception class raised, if a parser issue was detected.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="FtpDirLineParser" ID="FtpDirLineParser"></a>
+<h2>FtpDirLineParser</h2>
+<p>
+    Class to parse lines returned by a FTP LIST command.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>MonthnamesNumbers</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FtpDirLineParser.__init__">FtpDirLineParser</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FtpDirLineParser.__ignoreLine">__ignoreLine</a></td>
+<td>Private method to check, if the line should be ignored.</td>
+</tr>
+<tr>
+<td><a href="#FtpDirLineParser.__parseUnixLine">__parseUnixLine</a></td>
+<td>Private method to parse a Unix style directory listing line.</td>
+</tr>
+<tr>
+<td><a href="#FtpDirLineParser.__parseUnixMode">__parseUnixMode</a></td>
+<td>Private method to parse a Unix mode string modifying the given URL info object.</td>
+</tr>
+<tr>
+<td><a href="#FtpDirLineParser.__parseUnixTime">__parseUnixTime</a></td>
+<td>Private method to parse a Unix date and time indication modifying the given URL info object.</td>
+</tr>
+<tr>
+<td><a href="#FtpDirLineParser.__parseWindowsLine">__parseWindowsLine</a></td>
+<td>Private method to parse a Windows style directory listing line.</td>
+</tr>
+<tr>
+<td><a href="#FtpDirLineParser.__parseWindowsTime">__parseWindowsTime</a></td>
+<td>Private method to parse a Windows date and time indication modifying the given URL info object.</td>
+</tr>
+<tr>
+<td><a href="#FtpDirLineParser.__splitUnixLine">__splitUnixLine</a></td>
+<td>Private method to split a line of a Unix like directory listing.</td>
+</tr>
+<tr>
+<td><a href="#FtpDirLineParser.parseLine">parseLine</a></td>
+<td>Public method to parse a directory listing line.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FtpDirLineParser.__init__" ID="FtpDirLineParser.__init__"></a>
+<h4>FtpDirLineParser (Constructor)</h4>
+<b>FtpDirLineParser</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="FtpDirLineParser.__ignoreLine" ID="FtpDirLineParser.__ignoreLine"></a>
+<h4>FtpDirLineParser.__ignoreLine</h4>
+<b>__ignoreLine</b>(<i>line</i>)
+<p>
+        Private method to check, if the line should be ignored.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore the line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="FtpDirLineParser.__parseUnixLine" ID="FtpDirLineParser.__parseUnixLine"></a>
+<h4>FtpDirLineParser.__parseUnixLine</h4>
+<b>__parseUnixLine</b>(<i>line</i>)
+<p>
+        Private method to parse a Unix style directory listing line.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+directory line to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+URL info object containing the valid data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricUrlInfo
+</dd>
+</dl>
+<a NAME="FtpDirLineParser.__parseUnixMode" ID="FtpDirLineParser.__parseUnixMode"></a>
+<h4>FtpDirLineParser.__parseUnixMode</h4>
+<b>__parseUnixMode</b>(<i>modeString, urlInfo</i>)
+<p>
+        Private method to parse a Unix mode string modifying the
+        given URL info object.
+</p>
+
+<dl>
+
+<dt><i>modeString</i> (str)</dt>
+<dd>
+mode string to be parsed
+</dd>
+<dt><i>urlInfo</i> (EricUrlInfo)</dt>
+<dd>
+reference to the URL info object
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>FtpDirLineParserError</b>:</dt>
+<dd>
+Raised if the mode cannot be parsed.
+</dd>
+</dl>
+<a NAME="FtpDirLineParser.__parseUnixTime" ID="FtpDirLineParser.__parseUnixTime"></a>
+<h4>FtpDirLineParser.__parseUnixTime</h4>
+<b>__parseUnixTime</b>(<i>monthAbbreviation, day, yearOrTime, urlInfo</i>)
+<p>
+        Private method to parse a Unix date and time indication modifying
+        the given URL info object.
+</p>
+<p>
+
+</p>
+<p>
+        Date time strings in Unix-style directory listings typically
+        have one of these formats:
+        <ul>
+          <li>"Nov 23 02:33" (month name, day of month, time)</li>
+          <li>"May 26  2005" (month name, day of month, year)</li>
+        </ul>
+</p>
+
+<dl>
+
+<dt><i>monthAbbreviation</i> (str)</dt>
+<dd>
+abbreviation of the month name
+</dd>
+<dt><i>day</i> (str)</dt>
+<dd>
+day of the month
+</dd>
+<dt><i>yearOrTime</i> (str)</dt>
+<dd>
+string giving the year or a time
+</dd>
+<dt><i>urlInfo</i> (EricUrlInfo)</dt>
+<dd>
+reference to the URL info object
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>FtpDirLineParserError</b>:</dt>
+<dd>
+Raised if the month abbreviation is
+            not recognized.
+</dd>
+</dl>
+<a NAME="FtpDirLineParser.__parseWindowsLine" ID="FtpDirLineParser.__parseWindowsLine"></a>
+<h4>FtpDirLineParser.__parseWindowsLine</h4>
+<b>__parseWindowsLine</b>(<i>line</i>)
+<p>
+        Private method to parse a Windows style directory listing line.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+directory line to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+URL info object containing the valid data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricUrlInfo
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>FtpDirLineParserError</b>:</dt>
+<dd>
+Raised if the line is not of a
+            recognized Windows format.
+</dd>
+</dl>
+<a NAME="FtpDirLineParser.__parseWindowsTime" ID="FtpDirLineParser.__parseWindowsTime"></a>
+<h4>FtpDirLineParser.__parseWindowsTime</h4>
+<b>__parseWindowsTime</b>(<i>date, time, urlInfo</i>)
+<p>
+        Private method to parse a Windows date and time indication modifying
+        the given URL info object.
+</p>
+<p>
+        Date time strings in Windows-style directory listings typically
+        have the format "10-23-12 03:25PM" (month-day_of_month-two_digit_year,
+        hour:minute, am/pm).
+</p>
+
+<dl>
+
+<dt><i>date</i> (str)</dt>
+<dd>
+date string
+</dd>
+<dt><i>time</i> (str)</dt>
+<dd>
+time string
+</dd>
+<dt><i>urlInfo</i> (EricUrlInfo)</dt>
+<dd>
+reference to the URL info object
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>FtpDirLineParserError</b>:</dt>
+<dd>
+Raised if either of the strings is not
+            recognized.
+</dd>
+</dl>
+<a NAME="FtpDirLineParser.__splitUnixLine" ID="FtpDirLineParser.__splitUnixLine"></a>
+<h4>FtpDirLineParser.__splitUnixLine</h4>
+<b>__splitUnixLine</b>(<i>line</i>)
+<p>
+        Private method to split a line of a Unix like directory listing.
+</p>
+<p>
+        It splits the line into meta data, number of links, user, group, size,
+        month, day, year or time and name.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+directory line to split
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of nine strings giving the meta data,
+            number of links, user, group, size, month, day, year or time
+            and name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>FtpDirLineParserError</b>:</dt>
+<dd>
+Raised if the line is not of a
+            recognized Unix format.
+</dd>
+</dl>
+<a NAME="FtpDirLineParser.parseLine" ID="FtpDirLineParser.parseLine"></a>
+<h4>FtpDirLineParser.parseLine</h4>
+<b>parseLine</b>(<i>line</i>)
+<p>
+        Public method to parse a directory listing line.
+</p>
+<p>
+        This implementation support Unix and Windows style directory
+        listings. It tries Unix style first and if that fails switches
+        to Windows style. If that fails as well, an exception is raised.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+directory line to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+URL info object containing the valid data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricUrlInfo
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="FtpDirLineParserError" ID="FtpDirLineParserError"></a>
+<h2>FtpDirLineParserError</h2>
+<p>
+    Exception class raised, if a parser issue was detected.
+</p>
+
+<h3>Derived from</h3>
+Exception
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

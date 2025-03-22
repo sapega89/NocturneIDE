@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Graphics.ImportsDiagramBuilder</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Graphics.ImportsDiagramBuilder</h1>
+<p>
+Module implementing a dialog showing an imports diagram of a package.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ImportsDiagramBuilder">ImportsDiagramBuilder</a></td>
+<td>Class implementing a builder for imports diagrams of a package.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ImportsDiagramBuilder" ID="ImportsDiagramBuilder"></a>
+<h2>ImportsDiagramBuilder</h2>
+<p>
+    Class implementing a builder for imports diagrams of a package.
+</p>
+<p>
+    Note: Only package internal imports are shown in order to maintain
+    some readability.
+</p>
+
+<h3>Derived from</h3>
+UMLDiagramBuilder
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ImportsDiagramBuilder.__init__">ImportsDiagramBuilder</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ImportsDiagramBuilder.__addModule">__addModule</a></td>
+<td>Private method to add a module to the diagram.</td>
+</tr>
+<tr>
+<td><a href="#ImportsDiagramBuilder.__arrangeNodes">__arrangeNodes</a></td>
+<td>Private method to arrange the shapes on the canvas.</td>
+</tr>
+<tr>
+<td><a href="#ImportsDiagramBuilder.__buildModulesDict">__buildModulesDict</a></td>
+<td>Private method to build a dictionary of modules contained in the package.</td>
+</tr>
+<tr>
+<td><a href="#ImportsDiagramBuilder.__createAssociations">__createAssociations</a></td>
+<td>Private method to generate the associations between the module shapes.</td>
+</tr>
+<tr>
+<td><a href="#ImportsDiagramBuilder.buildDiagram">buildDiagram</a></td>
+<td>Public method to build the modules shapes of the diagram.</td>
+</tr>
+<tr>
+<td><a href="#ImportsDiagramBuilder.fromDict">fromDict</a></td>
+<td>Public method to populate the class with data persisted by 'toDict()'.</td>
+</tr>
+<tr>
+<td><a href="#ImportsDiagramBuilder.initialize">initialize</a></td>
+<td>Public method to initialize the object.</td>
+</tr>
+<tr>
+<td><a href="#ImportsDiagramBuilder.parsePersistenceData">parsePersistenceData</a></td>
+<td>Public method to parse persisted data.</td>
+</tr>
+<tr>
+<td><a href="#ImportsDiagramBuilder.toDict">toDict</a></td>
+<td>Public method to collect data to be persisted.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ImportsDiagramBuilder.__init__" ID="ImportsDiagramBuilder.__init__"></a>
+<h4>ImportsDiagramBuilder (Constructor)</h4>
+<b>ImportsDiagramBuilder</b>(<i>dialog, view, project, package, showExternalImports=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>dialog</i> (UMLDialog)</dt>
+<dd>
+reference to the UML dialog
+</dd>
+<dt><i>view</i> (UMLGraphicsView)</dt>
+<dd>
+reference to the view object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>package</i> (str)</dt>
+<dd>
+name of a python package to show the import
+            relationships
+</dd>
+<dt><i>showExternalImports</i> (bool)</dt>
+<dd>
+flag indicating to show exports from
+            outside the package
+</dd>
+</dl>
+<a NAME="ImportsDiagramBuilder.__addModule" ID="ImportsDiagramBuilder.__addModule"></a>
+<h4>ImportsDiagramBuilder.__addModule</h4>
+<b>__addModule</b>(<i>name, classes, x, y</i>)
+<p>
+        Private method to add a module to the diagram.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+module name to be shown
+</dd>
+<dt><i>classes</i> (list of str)</dt>
+<dd>
+list of class names contained in the module
+</dd>
+<dt><i>x</i> (float)</dt>
+<dd>
+x-coordinate
+</dd>
+<dt><i>y</i> (float)</dt>
+<dd>
+y-coordinate
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the imports item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ModuleItem
+</dd>
+</dl>
+<a NAME="ImportsDiagramBuilder.__arrangeNodes" ID="ImportsDiagramBuilder.__arrangeNodes"></a>
+<h4>ImportsDiagramBuilder.__arrangeNodes</h4>
+<b>__arrangeNodes</b>(<i>nodes, routes, whiteSpaceFactor=1.2</i>)
+<p>
+        Private method to arrange the shapes on the canvas.
+</p>
+<p>
+        The algorithm is borrowed from Boa Constructor.
+</p>
+
+<dl>
+
+<dt><i>nodes</i> (list of str)</dt>
+<dd>
+list of nodes to arrange
+</dd>
+<dt><i>routes</i> (list of tuple of (str, str))</dt>
+<dd>
+list of routes
+</dd>
+<dt><i>whiteSpaceFactor</i> (float)</dt>
+<dd>
+factor to increase whitespace between
+            items
+</dd>
+</dl>
+<a NAME="ImportsDiagramBuilder.__buildModulesDict" ID="ImportsDiagramBuilder.__buildModulesDict"></a>
+<h4>ImportsDiagramBuilder.__buildModulesDict</h4>
+<b>__buildModulesDict</b>(<i></i>)
+<p>
+        Private method to build a dictionary of modules contained in the
+        package.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary of modules contained in the package
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="ImportsDiagramBuilder.__createAssociations" ID="ImportsDiagramBuilder.__createAssociations"></a>
+<h4>ImportsDiagramBuilder.__createAssociations</h4>
+<b>__createAssociations</b>(<i>routes</i>)
+<p>
+        Private method to generate the associations between the module shapes.
+</p>
+
+<dl>
+
+<dt><i>routes</i> (list of tuple of (str, str))</dt>
+<dd>
+list of associations
+</dd>
+</dl>
+<a NAME="ImportsDiagramBuilder.buildDiagram" ID="ImportsDiagramBuilder.buildDiagram"></a>
+<h4>ImportsDiagramBuilder.buildDiagram</h4>
+<b>buildDiagram</b>(<i></i>)
+<p>
+        Public method to build the modules shapes of the diagram.
+</p>
+
+<a NAME="ImportsDiagramBuilder.fromDict" ID="ImportsDiagramBuilder.fromDict"></a>
+<h4>ImportsDiagramBuilder.fromDict</h4>
+<b>fromDict</b>(<i>_version, data</i>)
+<p>
+        Public method to populate the class with data persisted by 'toDict()'.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>data</i> (dict)</dt>
+<dd>
+dictionary containing the persisted data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an info
+            message in case the diagram belongs to a different project
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="ImportsDiagramBuilder.initialize" ID="ImportsDiagramBuilder.initialize"></a>
+<h4>ImportsDiagramBuilder.initialize</h4>
+<b>initialize</b>(<i></i>)
+<p>
+        Public method to initialize the object.
+</p>
+
+<a NAME="ImportsDiagramBuilder.parsePersistenceData" ID="ImportsDiagramBuilder.parsePersistenceData"></a>
+<h4>ImportsDiagramBuilder.parsePersistenceData</h4>
+<b>parsePersistenceData</b>(<i>_version, data</i>)
+<p>
+        Public method to parse persisted data.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>data</i> (str)</dt>
+<dd>
+persisted data to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ImportsDiagramBuilder.toDict" ID="ImportsDiagramBuilder.toDict"></a>
+<h4>ImportsDiagramBuilder.toDict</h4>
+<b>toDict</b>(<i></i>)
+<p>
+        Public method to collect data to be persisted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing data to be persisted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

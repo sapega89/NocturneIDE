@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.PdfViewer.PdfSearchWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.PdfViewer.PdfSearchWidget</h1>
+<p>
+Module implementing a Search widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PdfSearchResultsWidget">PdfSearchResultsWidget</a></td>
+<td>Class implementing a widget to show the search results.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchWidget">PdfSearchWidget</a></td>
+<td>Class implementing a Search widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PdfSearchResultsWidget" ID="PdfSearchResultsWidget"></a>
+<h2>PdfSearchResultsWidget</h2>
+<p>
+    Class implementing a widget to show the search results.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>rowCountChanged()</dt>
+<dd>
+emitted to indicate a change of the number
+        of items
+</dd>
+<dt>searchCleared()</dt>
+<dd>
+emitted to indicate that the search results have been
+        cleared
+</dd>
+<dt>searchNextAvailable(bool)</dt>
+<dd>
+emitted to indicate the availability of
+        search results after the current one
+</dd>
+<dt>searchPrevAvailable(bool)</dt>
+<dd>
+emitted to indicate the availability of
+        search results before the current one
+</dd>
+<dt>searchResult(QPdfLink)</dt>
+<dd>
+emitted to send the link of a search result
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTreeWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PdfSearchResultsWidget.__init__">PdfSearchResultsWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.__clear">__clear</a></td>
+<td>Private slot to clear the list of search results.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.__handleCurrentItemChanged">__handleCurrentItemChanged</a></td>
+<td>Private slot to handle a change of the current item.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.__rowsInserted">__rowsInserted</a></td>
+<td>Private slot to handle the insertion of rows of the search model.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.currentRow">currentRow</a></td>
+<td>Public method to get the current row.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.document">document</a></td>
+<td>Public method to get the reference to the PDF document object.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.getPdfLink">getPdfLink</a></td>
+<td>Public method to get the PDF link associated with a search result item.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.rowCount">rowCount</a></td>
+<td>Public method to get the number of rows.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.searchResultData">searchResultData</a></td>
+<td>Public method to get data of a search result item.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.searchString">searchString</a></td>
+<td>Public method to get the current search string.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.setCurrentRow">setCurrentRow</a></td>
+<td>Public method to set the current row.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.setDocument">setDocument</a></td>
+<td>Public method to set the PDF document object to be searched.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchResultsWidget.setSearchString">setSearchString</a></td>
+<td>Public method to set the search string.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PdfSearchResultsWidget.__init__" ID="PdfSearchResultsWidget.__init__"></a>
+<h4>PdfSearchResultsWidget (Constructor)</h4>
+<b>PdfSearchResultsWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.__clear" ID="PdfSearchResultsWidget.__clear"></a>
+<h4>PdfSearchResultsWidget.__clear</h4>
+<b>__clear</b>(<i></i>)
+<p>
+        Private slot to clear the list of search results.
+</p>
+
+<a NAME="PdfSearchResultsWidget.__handleCurrentItemChanged" ID="PdfSearchResultsWidget.__handleCurrentItemChanged"></a>
+<h4>PdfSearchResultsWidget.__handleCurrentItemChanged</h4>
+<b>__handleCurrentItemChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of the current item.
+</p>
+
+<a NAME="PdfSearchResultsWidget.__rowsInserted" ID="PdfSearchResultsWidget.__rowsInserted"></a>
+<h4>PdfSearchResultsWidget.__rowsInserted</h4>
+<b>__rowsInserted</b>(<i>parent, first, last</i>)
+<p>
+        Private slot to handle the insertion of rows of the search model.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+reference to the parent index
+</dd>
+<dt><i>first</i> (int)</dt>
+<dd>
+first row inserted
+</dd>
+<dt><i>last</i> (int)</dt>
+<dd>
+last row inserted
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.currentRow" ID="PdfSearchResultsWidget.currentRow"></a>
+<h4>PdfSearchResultsWidget.currentRow</h4>
+<b>currentRow</b>(<i></i>)
+<p>
+        Public method to get the current row.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current row
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.document" ID="PdfSearchResultsWidget.document"></a>
+<h4>PdfSearchResultsWidget.document</h4>
+<b>document</b>(<i></i>)
+<p>
+        Public method to get the reference to the PDF document object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the PDF document object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPdfDocument
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.getPdfLink" ID="PdfSearchResultsWidget.getPdfLink"></a>
+<h4>PdfSearchResultsWidget.getPdfLink</h4>
+<b>getPdfLink</b>(<i>item</i>)
+<p>
+        Public method to get the PDF link associated with a search result item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the search result item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+associated PDF link
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPdfLink
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.rowCount" ID="PdfSearchResultsWidget.rowCount"></a>
+<h4>PdfSearchResultsWidget.rowCount</h4>
+<b>rowCount</b>(<i></i>)
+<p>
+        Public method to get the number of rows.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of rows
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.searchResultData" ID="PdfSearchResultsWidget.searchResultData"></a>
+<h4>PdfSearchResultsWidget.searchResultData</h4>
+<b>searchResultData</b>(<i>item, role</i>)
+<p>
+        Public method to get data of a search result item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the search result item
+</dd>
+<dt><i>role</i> (QPdfSearchModel.Role or Qt.ItemDataRole)</dt>
+<dd>
+item data role
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.searchString" ID="PdfSearchResultsWidget.searchString"></a>
+<h4>PdfSearchResultsWidget.searchString</h4>
+<b>searchString</b>(<i></i>)
+<p>
+        Public method to get the current search string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+search string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.setCurrentRow" ID="PdfSearchResultsWidget.setCurrentRow"></a>
+<h4>PdfSearchResultsWidget.setCurrentRow</h4>
+<b>setCurrentRow</b>(<i>row</i>)
+<p>
+        Public method to set the current row.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row number to make the current row
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.setDocument" ID="PdfSearchResultsWidget.setDocument"></a>
+<h4>PdfSearchResultsWidget.setDocument</h4>
+<b>setDocument</b>(<i>document</i>)
+<p>
+        Public method to set the PDF document object to be searched.
+</p>
+
+<dl>
+
+<dt><i>document</i> (QPdfDocument)</dt>
+<dd>
+reference to the PDF document object
+</dd>
+</dl>
+<a NAME="PdfSearchResultsWidget.setSearchString" ID="PdfSearchResultsWidget.setSearchString"></a>
+<h4>PdfSearchResultsWidget.setSearchString</h4>
+<b>setSearchString</b>(<i>searchString</i>)
+<p>
+        Public method to set the search string.
+</p>
+
+<dl>
+
+<dt><i>searchString</i> (str)</dt>
+<dd>
+search string
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PdfSearchWidget" ID="PdfSearchWidget"></a>
+<h2>PdfSearchWidget</h2>
+<p>
+    Class implementing a Search widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>searchCleared()</dt>
+<dd>
+emitted to indicate that the search results have been
+        cleared
+</dd>
+<dt>searchNextAvailable(bool)</dt>
+<dd>
+emitted to indicate the availability of
+        search results after the current one
+</dd>
+<dt>searchPrevAvailable(bool)</dt>
+<dd>
+emitted to indicate the availability of
+        search results before the current one
+</dd>
+<dt>searchResult(QPdfLink)</dt>
+<dd>
+emitted to send the link of a search result
+</dd>
+<dt>searchResultActivated(QPdfLink)</dt>
+<dd>
+emitted to send the activated search
+        result link
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PdfSearchWidget.__init__">PdfSearchWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchWidget.__entrySelected">__entrySelected</a></td>
+<td>Private slot to handle the selection of a search result entry.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchWidget.__handleDocumentStatus">__handleDocumentStatus</a></td>
+<td>Private slot to handle a change of the document status.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchWidget.__search">__search</a></td>
+<td>Private slot to initiate a new search.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchWidget.__searchTextChanged">__searchTextChanged</a></td>
+<td>Private slot to handle a change of the search string.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchWidget.__updateInfoLabel">__updateInfoLabel</a></td>
+<td>Private slot to update the data of the info label.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchWidget.activateSearch">activateSearch</a></td>
+<td>Public slot to 'activate' a search.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchWidget.nextResult">nextResult</a></td>
+<td>Public slot to activate the next result.</td>
+</tr>
+<tr>
+<td><a href="#PdfSearchWidget.previousResult">previousResult</a></td>
+<td>Public slot to activate the previous result.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PdfSearchWidget.__init__" ID="PdfSearchWidget.__init__"></a>
+<h4>PdfSearchWidget (Constructor)</h4>
+<b>PdfSearchWidget</b>(<i>document, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>document</i> (QPdfDocument)</dt>
+<dd>
+reference to the PDF document object
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="PdfSearchWidget.__entrySelected" ID="PdfSearchWidget.__entrySelected"></a>
+<h4>PdfSearchWidget.__entrySelected</h4>
+<b>__entrySelected</b>(<i>item</i>)
+<p>
+        Private slot to handle the selection of a search result entry.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the selected item
+</dd>
+</dl>
+<a NAME="PdfSearchWidget.__handleDocumentStatus" ID="PdfSearchWidget.__handleDocumentStatus"></a>
+<h4>PdfSearchWidget.__handleDocumentStatus</h4>
+<b>__handleDocumentStatus</b>(<i>status</i>)
+<p>
+        Private slot to handle a change of the document status.
+</p>
+
+<dl>
+
+<dt><i>status</i> (QPdfDocument.Status)</dt>
+<dd>
+document status
+</dd>
+</dl>
+<a NAME="PdfSearchWidget.__search" ID="PdfSearchWidget.__search"></a>
+<h4>PdfSearchWidget.__search</h4>
+<b>__search</b>(<i></i>)
+<p>
+        Private slot to initiate a new search.
+</p>
+
+<a NAME="PdfSearchWidget.__searchTextChanged" ID="PdfSearchWidget.__searchTextChanged"></a>
+<h4>PdfSearchWidget.__searchTextChanged</h4>
+<b>__searchTextChanged</b>(<i>text</i>)
+<p>
+        Private slot to handle a change of the search string.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+search string
+</dd>
+</dl>
+<a NAME="PdfSearchWidget.__updateInfoLabel" ID="PdfSearchWidget.__updateInfoLabel"></a>
+<h4>PdfSearchWidget.__updateInfoLabel</h4>
+<b>__updateInfoLabel</b>(<i></i>)
+<p>
+        Private slot to update the data of the info label.
+</p>
+
+<a NAME="PdfSearchWidget.activateSearch" ID="PdfSearchWidget.activateSearch"></a>
+<h4>PdfSearchWidget.activateSearch</h4>
+<b>activateSearch</b>(<i></i>)
+<p>
+        Public slot to 'activate' a search.
+</p>
+
+<a NAME="PdfSearchWidget.nextResult" ID="PdfSearchWidget.nextResult"></a>
+<h4>PdfSearchWidget.nextResult</h4>
+<b>nextResult</b>(<i></i>)
+<p>
+        Public slot to activate the next result.
+</p>
+
+<a NAME="PdfSearchWidget.previousResult" ID="PdfSearchWidget.previousResult"></a>
+<h4>PdfSearchWidget.previousResult</h4>
+<b>previousResult</b>(<i></i>)
+<p>
+        Public slot to activate the previous result.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.WebBrowserWebSearchWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.WebBrowserWebSearchWidget</h1>
+<p>
+Module implementing a web search widget for the web browser.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget">WebBrowserWebSearchWidget</a></td>
+<td>Class implementing a web search widget for the web browser.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="WebBrowserWebSearchWidget" ID="WebBrowserWebSearchWidget"></a>
+<h2>WebBrowserWebSearchWidget</h2>
+<p>
+    Class implementing a web search widget for the web browser.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>search(QUrl)</dt>
+<dd>
+emitted when the search should be done
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricClearableLineEdit
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__init__">WebBrowserWebSearchWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__completerActivated">__completerActivated</a></td>
+<td>Private slot handling the selection of an entry from the completer.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__completerHighlighted">__completerHighlighted</a></td>
+<td>Private slot handling the highlighting of an entry of the completer.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__currentEngineChanged">__currentEngineChanged</a></td>
+<td>Private slot to track a change of the current search engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__engineImageChanged">__engineImageChanged</a></td>
+<td>Private slot to handle a change of the current search engine icon.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__getSuggestions">__getSuggestions</a></td>
+<td>Private slot to get search suggestions from the configured search engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__handleEnginesMenuActionTriggered">__handleEnginesMenuActionTriggered</a></td>
+<td>Private slot to handle an action of the menu being triggered.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__loadSearches">__loadSearches</a></td>
+<td>Private method to load the recently performed web searches.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__newSuggestions">__newSuggestions</a></td>
+<td>Private slot to receive a new list of suggestions.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__searchButtonClicked">__searchButtonClicked</a></td>
+<td>Private slot to show the search menu via the search button.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__searchNow">__searchNow</a></td>
+<td>Private slot to perform the web search.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__setupCompleterMenu">__setupCompleterMenu</a></td>
+<td>Private method to create the completer menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__showEnginesMenu">__showEnginesMenu</a></td>
+<td>Private slot to handle the display of the engines menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__showEnginesMenuCallback">__showEnginesMenuCallback</a></td>
+<td>Private method handling the open search links callback.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.__textEdited">__textEdited</a></td>
+<td>Private slot to handle changes of the search text.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.clear">clear</a></td>
+<td>Public method to clear all private data.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method called by a mouse press event.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.openSearchManager">openSearchManager</a></td>
+<td>Public method to get a reference to the opensearch manager object.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.preferencesChanged">preferencesChanged</a></td>
+<td>Public method to handle the change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserWebSearchWidget.saveSearches">saveSearches</a></td>
+<td>Public method to save the recently performed web searches.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WebBrowserWebSearchWidget.__init__" ID="WebBrowserWebSearchWidget.__init__"></a>
+<h4>WebBrowserWebSearchWidget (Constructor)</h4>
+<b>WebBrowserWebSearchWidget</b>(<i>mainWindow, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>mainWindow</i> (WebBrowserWindow)</dt>
+<dd>
+reference to the browser main window
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="WebBrowserWebSearchWidget.__completerActivated" ID="WebBrowserWebSearchWidget.__completerActivated"></a>
+<h4>WebBrowserWebSearchWidget.__completerActivated</h4>
+<b>__completerActivated</b>(<i>index</i>)
+<p>
+        Private slot handling the selection of an entry from the completer.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the item
+</dd>
+</dl>
+<a NAME="WebBrowserWebSearchWidget.__completerHighlighted" ID="WebBrowserWebSearchWidget.__completerHighlighted"></a>
+<h4>WebBrowserWebSearchWidget.__completerHighlighted</h4>
+<b>__completerHighlighted</b>(<i>index</i>)
+<p>
+        Private slot handling the highlighting of an entry of the completer.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flah indicating a successful highlighting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserWebSearchWidget.__currentEngineChanged" ID="WebBrowserWebSearchWidget.__currentEngineChanged"></a>
+<h4>WebBrowserWebSearchWidget.__currentEngineChanged</h4>
+<b>__currentEngineChanged</b>(<i></i>)
+<p>
+        Private slot to track a change of the current search engine.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.__engineImageChanged" ID="WebBrowserWebSearchWidget.__engineImageChanged"></a>
+<h4>WebBrowserWebSearchWidget.__engineImageChanged</h4>
+<b>__engineImageChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of the current search engine icon.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.__getSuggestions" ID="WebBrowserWebSearchWidget.__getSuggestions"></a>
+<h4>WebBrowserWebSearchWidget.__getSuggestions</h4>
+<b>__getSuggestions</b>(<i></i>)
+<p>
+        Private slot to get search suggestions from the configured search
+        engine.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.__handleEnginesMenuActionTriggered" ID="WebBrowserWebSearchWidget.__handleEnginesMenuActionTriggered"></a>
+<h4>WebBrowserWebSearchWidget.__handleEnginesMenuActionTriggered</h4>
+<b>__handleEnginesMenuActionTriggered</b>(<i>action</i>)
+<p>
+        Private slot to handle an action of the menu being triggered.
+</p>
+
+<dl>
+
+<dt><i>action</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserWebSearchWidget.__loadSearches" ID="WebBrowserWebSearchWidget.__loadSearches"></a>
+<h4>WebBrowserWebSearchWidget.__loadSearches</h4>
+<b>__loadSearches</b>(<i></i>)
+<p>
+        Private method to load the recently performed web searches.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.__newSuggestions" ID="WebBrowserWebSearchWidget.__newSuggestions"></a>
+<h4>WebBrowserWebSearchWidget.__newSuggestions</h4>
+<b>__newSuggestions</b>(<i>suggestions</i>)
+<p>
+        Private slot to receive a new list of suggestions.
+</p>
+
+<dl>
+
+<dt><i>suggestions</i> (list of str)</dt>
+<dd>
+list of suggestions
+</dd>
+</dl>
+<a NAME="WebBrowserWebSearchWidget.__searchButtonClicked" ID="WebBrowserWebSearchWidget.__searchButtonClicked"></a>
+<h4>WebBrowserWebSearchWidget.__searchButtonClicked</h4>
+<b>__searchButtonClicked</b>(<i></i>)
+<p>
+        Private slot to show the search menu via the search button.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.__searchNow" ID="WebBrowserWebSearchWidget.__searchNow"></a>
+<h4>WebBrowserWebSearchWidget.__searchNow</h4>
+<b>__searchNow</b>(<i></i>)
+<p>
+        Private slot to perform the web search.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.__setupCompleterMenu" ID="WebBrowserWebSearchWidget.__setupCompleterMenu"></a>
+<h4>WebBrowserWebSearchWidget.__setupCompleterMenu</h4>
+<b>__setupCompleterMenu</b>(<i></i>)
+<p>
+        Private method to create the completer menu.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.__showEnginesMenu" ID="WebBrowserWebSearchWidget.__showEnginesMenu"></a>
+<h4>WebBrowserWebSearchWidget.__showEnginesMenu</h4>
+<b>__showEnginesMenu</b>(<i></i>)
+<p>
+        Private slot to handle the display of the engines menu.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.__showEnginesMenuCallback" ID="WebBrowserWebSearchWidget.__showEnginesMenuCallback"></a>
+<h4>WebBrowserWebSearchWidget.__showEnginesMenuCallback</h4>
+<b>__showEnginesMenuCallback</b>(<i>res</i>)
+<p>
+        Private method handling the open search links callback.
+</p>
+
+<dl>
+
+<dt><i>res</i> (list of dict)</dt>
+<dd>
+result of the JavaScript
+</dd>
+</dl>
+<a NAME="WebBrowserWebSearchWidget.__textEdited" ID="WebBrowserWebSearchWidget.__textEdited"></a>
+<h4>WebBrowserWebSearchWidget.__textEdited</h4>
+<b>__textEdited</b>(<i>txt</i>)
+<p>
+        Private slot to handle changes of the search text.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+search text
+</dd>
+</dl>
+<a NAME="WebBrowserWebSearchWidget.clear" ID="WebBrowserWebSearchWidget.clear"></a>
+<h4>WebBrowserWebSearchWidget.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to clear all private data.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.mousePressEvent" ID="WebBrowserWebSearchWidget.mousePressEvent"></a>
+<h4>WebBrowserWebSearchWidget.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a mouse press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="WebBrowserWebSearchWidget.openSearchManager" ID="WebBrowserWebSearchWidget.openSearchManager"></a>
+<h4>WebBrowserWebSearchWidget.openSearchManager</h4>
+<b>openSearchManager</b>(<i></i>)
+<p>
+        Public method to get a reference to the opensearch manager object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the opensearch manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+OpenSearchManager
+</dd>
+</dl>
+<a NAME="WebBrowserWebSearchWidget.preferencesChanged" ID="WebBrowserWebSearchWidget.preferencesChanged"></a>
+<h4>WebBrowserWebSearchWidget.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public method to handle the change of preferences.
+</p>
+
+<a NAME="WebBrowserWebSearchWidget.saveSearches" ID="WebBrowserWebSearchWidget.saveSearches"></a>
+<h4>WebBrowserWebSearchWidget.saveSearches</h4>
+<b>saveSearches</b>(<i></i>)
+<p>
+        Public method to save the recently performed web searches.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.SyntaxChecker.SyntaxCheckerDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.SyntaxChecker.SyntaxCheckerDialog</h1>
+<p>
+Module implementing a simple Python syntax checker.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SyntaxCheckerDialog">SyntaxCheckerDialog</a></td>
+<td>Class implementing a dialog to display the results of a syntax check run.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SyntaxCheckerDialog" ID="SyntaxCheckerDialog"></a>
+<h2>SyntaxCheckerDialog</h2>
+<p>
+    Class implementing a dialog to display the results of a syntax check run.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_SyntaxCheckerDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>errorRole</td></tr>
+<tr><td>filenameRole</td></tr>
+<tr><td>indexRole</td></tr>
+<tr><td>lineRole</td></tr>
+<tr><td>warningRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__init__">SyntaxCheckerDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__batchFinished">__batchFinished</a></td>
+<td>Private slot handling the completion of a batch job.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__cancel">__cancel</a></td>
+<td>Private method to cancel the current check run.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__clearErrors">__clearErrors</a></td>
+<td>Private method to clear all error and warning markers of open editors to be checked.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__createErrorItem">__createErrorItem</a></td>
+<td>Private slot to create a new error item in the result list.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__createFileStatistics">__createFileStatistics</a></td>
+<td>Private method to return the file statistics entry.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__createHeaderItem">__createHeaderItem</a></td>
+<td>Private method to create a header item in the result list.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__createResultItem">__createResultItem</a></td>
+<td>Private method to create an entry in the result list.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__defaultStatistics">__defaultStatistics</a></td>
+<td>Private method to return the default statistics entry.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__finish">__finish</a></td>
+<td>Private slot called when the syntax check finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__processError">__processError</a></td>
+<td>Private slot to process an error indication from the service.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__processResult">__processResult</a></td>
+<td>Private slot to display the reported messages.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__resetStatistics">__resetStatistics</a></td>
+<td>Private method to reset the statistics data.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__updateStatistics">__updateStatistics</a></td>
+<td>Private method to update the statistics.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.__updateStatisticsArea">__updateStatisticsArea</a></td>
+<td>Private method to update the statistics area of the dialog.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.check">check</a></td>
+<td>Public method to start a check for one file.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.checkBatch">checkBatch</a></td>
+<td>Public method to start a style check batch job.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.closeEvent">closeEvent</a></td>
+<td>Protected method to handle a close event.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.on_resultList_itemActivated">on_resultList_itemActivated</a></td>
+<td>Private slot to handle the activation of an item.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.on_showButton_clicked">on_showButton_clicked</a></td>
+<td>Private slot to handle the "Show" button press.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.on_startButton_clicked">on_startButton_clicked</a></td>
+<td>Private slot to start a syntax check run.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.prepare">prepare</a></td>
+<td>Public method to prepare the dialog with a list of filenames.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.setArguments">setArguments</a></td>
+<td>Public method to set additional arguments to be used by the syntax check.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.start">start</a></td>
+<td>Public slot to start the syntax check.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckerDialog.startForBrowser">startForBrowser</a></td>
+<td>Public slot to start the syntax check for the project sources browser.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SyntaxCheckerDialog.__init__" ID="SyntaxCheckerDialog.__init__"></a>
+<h4>SyntaxCheckerDialog (Constructor)</h4>
+<b>SyntaxCheckerDialog</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__batchFinished" ID="SyntaxCheckerDialog.__batchFinished"></a>
+<h4>SyntaxCheckerDialog.__batchFinished</h4>
+<b>__batchFinished</b>(<i></i>)
+<p>
+        Private slot handling the completion of a batch job.
+</p>
+
+<a NAME="SyntaxCheckerDialog.__cancel" ID="SyntaxCheckerDialog.__cancel"></a>
+<h4>SyntaxCheckerDialog.__cancel</h4>
+<b>__cancel</b>(<i></i>)
+<p>
+        Private method to cancel the current check run.
+</p>
+
+<a NAME="SyntaxCheckerDialog.__clearErrors" ID="SyntaxCheckerDialog.__clearErrors"></a>
+<h4>SyntaxCheckerDialog.__clearErrors</h4>
+<b>__clearErrors</b>(<i>files</i>)
+<p>
+        Private method to clear all error and warning markers of
+        open editors to be checked.
+</p>
+
+<dl>
+
+<dt><i>files</i> (list of str)</dt>
+<dd>
+list of files to be checked
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__createErrorItem" ID="SyntaxCheckerDialog.__createErrorItem"></a>
+<h4>SyntaxCheckerDialog.__createErrorItem</h4>
+<b>__createErrorItem</b>(<i>filename, message</i>)
+<p>
+        Private slot to create a new error item in the result list.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__createFileStatistics" ID="SyntaxCheckerDialog.__createFileStatistics"></a>
+<h4>SyntaxCheckerDialog.__createFileStatistics</h4>
+<b>__createFileStatistics</b>(<i>problems</i>)
+<p>
+        Private method to return the file statistics entry.
+</p>
+
+<dl>
+
+<dt><i>problems</i> (dict)</dt>
+<dd>
+dictionary with the keys 'error', 'py_warnings' and
+            'warnings' which hold a list of issues each
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with the file statistics
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__createHeaderItem" ID="SyntaxCheckerDialog.__createHeaderItem"></a>
+<h4>SyntaxCheckerDialog.__createHeaderItem</h4>
+<b>__createHeaderItem</b>(<i>filename, fileStatistics=None</i>)
+<p>
+        Private method to create a header item in the result list.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name of file
+</dd>
+<dt><i>fileStatistics</i> (dict (optional))</dt>
+<dd>
+dictionary containing statistical data of the check
+            result (defaults to None)
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__createResultItem" ID="SyntaxCheckerDialog.__createResultItem"></a>
+<h4>SyntaxCheckerDialog.__createResultItem</h4>
+<b>__createResultItem</b>(<i>filename, line, index, error, sourcecode, isWarning=False</i>)
+<p>
+        Private method to create an entry in the result list.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name of file
+</dd>
+<dt><i>line</i> (int or str)</dt>
+<dd>
+line number of faulty source
+</dd>
+<dt><i>index</i> (int)</dt>
+<dd>
+index number of fault
+</dd>
+<dt><i>error</i> (str)</dt>
+<dd>
+error text
+</dd>
+<dt><i>sourcecode</i> (str)</dt>
+<dd>
+faulty line of code
+</dd>
+<dt><i>isWarning</i> (bool)</dt>
+<dd>
+flag indicating a warning message
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__defaultStatistics" ID="SyntaxCheckerDialog.__defaultStatistics"></a>
+<h4>SyntaxCheckerDialog.__defaultStatistics</h4>
+<b>__defaultStatistics</b>(<i></i>)
+<p>
+        Private method to return the default statistics entry.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with default statistics entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__finish" ID="SyntaxCheckerDialog.__finish"></a>
+<h4>SyntaxCheckerDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the syntax check finished or the user
+        pressed the button.
+</p>
+
+<a NAME="SyntaxCheckerDialog.__processError" ID="SyntaxCheckerDialog.__processError"></a>
+<h4>SyntaxCheckerDialog.__processError</h4>
+<b>__processError</b>(<i>fn, msg</i>)
+<p>
+        Private slot to process an error indication from the service.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the file
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__processResult" ID="SyntaxCheckerDialog.__processResult"></a>
+<h4>SyntaxCheckerDialog.__processResult</h4>
+<b>__processResult</b>(<i>fn, problems</i>)
+<p>
+        Private slot to display the reported messages.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the checked file
+</dd>
+<dt><i>problems</i> (list of dict)</dt>
+<dd>
+list of dictionaries with the keys 'error', 'py_warnings' and
+            'warnings' which contain a tuple with details about the syntax error or a
+            list of tuples with details about Python warnings and PyFlakes warnings.
+            Each tuple contains the file name, line number, column, code string (only
+            for syntax errors), the message and an optional list with arguments for
+            the message.
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__resetStatistics" ID="SyntaxCheckerDialog.__resetStatistics"></a>
+<h4>SyntaxCheckerDialog.__resetStatistics</h4>
+<b>__resetStatistics</b>(<i>skipped</i>)
+<p>
+        Private method to reset the statistics data.
+</p>
+
+<dl>
+
+<dt><i>skipped</i> (int)</dt>
+<dd>
+number of files not being checked
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__resort" ID="SyntaxCheckerDialog.__resort"></a>
+<h4>SyntaxCheckerDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="SyntaxCheckerDialog.__updateStatistics" ID="SyntaxCheckerDialog.__updateStatistics"></a>
+<h4>SyntaxCheckerDialog.__updateStatistics</h4>
+<b>__updateStatistics</b>(<i>fileStatistics</i>)
+<p>
+        Private method to update the statistics.
+</p>
+
+<dl>
+
+<dt><i>fileStatistics</i> (dict)</dt>
+<dd>
+dictionary containing the file statistics
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.__updateStatisticsArea" ID="SyntaxCheckerDialog.__updateStatisticsArea"></a>
+<h4>SyntaxCheckerDialog.__updateStatisticsArea</h4>
+<b>__updateStatisticsArea</b>(<i></i>)
+<p>
+        Private method to update the statistics area of the dialog.
+</p>
+
+<a NAME="SyntaxCheckerDialog.check" ID="SyntaxCheckerDialog.check"></a>
+<h4>SyntaxCheckerDialog.check</h4>
+<b>check</b>(<i>codestring=""</i>)
+<p>
+        Public method to start a check for one file.
+</p>
+<p>
+        The results are reported to the __processResult slot.
+</p>
+
+<dl>
+
+<dt><i>codestring</i> (str)</dt>
+<dd>
+optional sourcestring
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.checkBatch" ID="SyntaxCheckerDialog.checkBatch"></a>
+<h4>SyntaxCheckerDialog.checkBatch</h4>
+<b>checkBatch</b>(<i></i>)
+<p>
+        Public method to start a style check batch job.
+</p>
+<p>
+        The results are reported to the __processResult slot.
+</p>
+
+<a NAME="SyntaxCheckerDialog.closeEvent" ID="SyntaxCheckerDialog.closeEvent"></a>
+<h4>SyntaxCheckerDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>_evt</i>)
+<p>
+        Protected method to handle a close event.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the close event (unused)
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.on_buttonBox_clicked" ID="SyntaxCheckerDialog.on_buttonBox_clicked"></a>
+<h4>SyntaxCheckerDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.on_resultList_itemActivated" ID="SyntaxCheckerDialog.on_resultList_itemActivated"></a>
+<h4>SyntaxCheckerDialog.on_resultList_itemActivated</h4>
+<b>on_resultList_itemActivated</b>(<i>itm, col</i>)
+<p>
+        Private slot to handle the activation of an item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+<dt><i>col</i> (int)</dt>
+<dd>
+column the item was activated in
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.on_showButton_clicked" ID="SyntaxCheckerDialog.on_showButton_clicked"></a>
+<h4>SyntaxCheckerDialog.on_showButton_clicked</h4>
+<b>on_showButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the "Show" button press.
+</p>
+
+<a NAME="SyntaxCheckerDialog.on_startButton_clicked" ID="SyntaxCheckerDialog.on_startButton_clicked"></a>
+<h4>SyntaxCheckerDialog.on_startButton_clicked</h4>
+<b>on_startButton_clicked</b>(<i></i>)
+<p>
+        Private slot to start a syntax check run.
+</p>
+
+<a NAME="SyntaxCheckerDialog.prepare" ID="SyntaxCheckerDialog.prepare"></a>
+<h4>SyntaxCheckerDialog.prepare</h4>
+<b>prepare</b>(<i>fileList, project</i>)
+<p>
+        Public method to prepare the dialog with a list of filenames.
+</p>
+
+<dl>
+
+<dt><i>fileList</i> (list of str)</dt>
+<dd>
+list of filenames
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.setArguments" ID="SyntaxCheckerDialog.setArguments"></a>
+<h4>SyntaxCheckerDialog.setArguments</h4>
+<b>setArguments</b>(<i>args</i>)
+<p>
+        Public method to set additional arguments to be used by the syntax check.
+</p>
+
+<dl>
+
+<dt><i>args</i> (tuple of Any)</dt>
+<dd>
+tuple containing the additional arguments
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.start" ID="SyntaxCheckerDialog.start"></a>
+<h4>SyntaxCheckerDialog.start</h4>
+<b>start</b>(<i>fn, codestring="", skipped=0</i>)
+<p>
+        Public slot to start the syntax check.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str or list of str)</dt>
+<dd>
+file or list of files or directory to be checked
+</dd>
+<dt><i>codestring</i> (str)</dt>
+<dd>
+string containing the code to be checked. If this is given,
+            fn must be a single file name.
+</dd>
+<dt><i>skipped</i> (int)</dt>
+<dd>
+number of files not being checked
+</dd>
+</dl>
+<a NAME="SyntaxCheckerDialog.startForBrowser" ID="SyntaxCheckerDialog.startForBrowser"></a>
+<h4>SyntaxCheckerDialog.startForBrowser</h4>
+<b>startForBrowser</b>(<i>fn</i>)
+<p>
+        Public slot to start the syntax check for the project sources browser.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str or list of str)</dt>
+<dd>
+file or list of files or directory to be checked
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

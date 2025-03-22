@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Project.ProjectFormsBrowser</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Project.ProjectFormsBrowser</h1>
+<p>
+Module implementing a class used to display the forms part of the project.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ProjectFormsBrowser">ProjectFormsBrowser</a></td>
+<td>A class used to display the forms part of the project.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ProjectFormsBrowser" ID="ProjectFormsBrowser"></a>
+<h2>ProjectFormsBrowser</h2>
+<p>
+    A class used to display the forms part of the project.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>appendStderr(str)</dt>
+<dd>
+emitted after something was received from
+        a QProcess on stderr
+</dd>
+<dt>menusAboutToBeCreated()</dt>
+<dd>
+emitted when the context menus are about to
+        be created. This is the right moment to add or remove hook methods.
+</dd>
+<dt>showMenu(str, QMenu)</dt>
+<dd>
+emitted when a menu is about to be shown. The
+        name of the menu and a reference to the menu are given.
+</dd>
+<dt>uipreview(str)</dt>
+<dd>
+emitted to preview a forms file
+</dd>
+</dl>
+<h3>Derived from</h3>
+ProjectBaseBrowser
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Pyuic5IndentDefault</td></tr>
+<tr><td>Pyuic6IndentDefault</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ProjectFormsBrowser.__init__">ProjectFormsBrowser</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__TRPreview">__TRPreview</a></td>
+<td>Private slot to handle the Preview translations action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__UIPreview">__UIPreview</a></td>
+<td>Private slot to handle the Preview menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__addFormFiles">__addFormFiles</a></td>
+<td>Private method to add form files to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__addFormsDirectory">__addFormsDirectory</a></td>
+<td>Private method to add form files of a directory to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__compileAllForms">__compileAllForms</a></td>
+<td>Private method to compile all forms to source files.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__compileChangedForms">__compileChangedForms</a></td>
+<td>Private method to compile all changed forms to source files.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__compileForm">__compileForm</a></td>
+<td>Private method to compile a form to a source file.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__compileSelectedForms">__compileSelectedForms</a></td>
+<td>Private method to compile selected forms to source files.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__compileUI">__compileUI</a></td>
+<td>Private method to compile a .ui file to a .py/.rb file.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__compileUIDone">__compileUIDone</a></td>
+<td>Private slot to handle the finished signal of the pyuic/rbuic process.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__configureUicCompiler">__configureUicCompiler</a></td>
+<td>Private slot to configure some non-common uic compiler options.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__deleteFile">__deleteFile</a></td>
+<td>Private method to delete a form file from the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__determineUiCompiler">__determineUiCompiler</a></td>
+<td>Private method to determine the UI compiler for the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__generateDialogCode">__generateDialogCode</a></td>
+<td>Private method to generate dialog code for the form (Qt only).</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__newForm">__newForm</a></td>
+<td>Private slot to handle the New Form menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__newUiForm">__newUiForm</a></td>
+<td>Private slot to handle the New Form menu action for Qt-related projects.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__openFile">__openFile</a></td>
+<td>Private slot to handle the Open menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__openFileInEditor">__openFileInEditor</a></td>
+<td>Private slot to handle the Open in Editor menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__readStderr">__readStderr</a></td>
+<td>Private slot to handle the readyReadStandardError signal of the pyuic5/pyuic6/pyside2-uic/pyside6-uic process.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__readStdout">__readStdout</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal of the pyuic5/pyuic6/pyside2-uic/pyside6-uic process.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__resetUiCompiler">__resetUiCompiler</a></td>
+<td>Private slot to reset the determined UI compiler executable.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot called by the menu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__showContextMenuBack">__showContextMenuBack</a></td>
+<td>Private slot called by the backMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__showContextMenuDir">__showContextMenuDir</a></td>
+<td>Private slot called by the dirMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__showContextMenuDirMulti">__showContextMenuDirMulti</a></td>
+<td>Private slot called by the dirMultiMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.__showContextMenuMulti">__showContextMenuMulti</a></td>
+<td>Private slot called by the multiMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser._contextMenuRequested">_contextMenuRequested</a></td>
+<td>Protected slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser._createPopupMenus">_createPopupMenus</a></td>
+<td>Protected overloaded method to generate the popup menu.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser._initHookMethods">_initHookMethods</a></td>
+<td>Protected method to initialize the hooks dictionary.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser._openItem">_openItem</a></td>
+<td>Protected slot to handle the open popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.getIcon">getIcon</a></td>
+<td>Public method to get an icon for the project browser.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.getUiCompiler">getUiCompiler</a></td>
+<td>Public method to get the UI compiler executable of the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectFormsBrowser.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot used to handle the preferencesChanged signal.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ProjectFormsBrowser.__init__" ID="ProjectFormsBrowser.__init__"></a>
+<h4>ProjectFormsBrowser (Constructor)</h4>
+<b>ProjectFormsBrowser</b>(<i>project, projectBrowser, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>projectBrowser</i> (ProjectBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this browser
+</dd>
+</dl>
+<a NAME="ProjectFormsBrowser.__TRPreview" ID="ProjectFormsBrowser.__TRPreview"></a>
+<h4>ProjectFormsBrowser.__TRPreview</h4>
+<b>__TRPreview</b>(<i></i>)
+<p>
+        Private slot to handle the Preview translations action.
+</p>
+
+<a NAME="ProjectFormsBrowser.__UIPreview" ID="ProjectFormsBrowser.__UIPreview"></a>
+<h4>ProjectFormsBrowser.__UIPreview</h4>
+<b>__UIPreview</b>(<i></i>)
+<p>
+        Private slot to handle the Preview menu action.
+</p>
+
+<a NAME="ProjectFormsBrowser.__addFormFiles" ID="ProjectFormsBrowser.__addFormFiles"></a>
+<h4>ProjectFormsBrowser.__addFormFiles</h4>
+<b>__addFormFiles</b>(<i></i>)
+<p>
+        Private method to add form files to the project.
+</p>
+
+<a NAME="ProjectFormsBrowser.__addFormsDirectory" ID="ProjectFormsBrowser.__addFormsDirectory"></a>
+<h4>ProjectFormsBrowser.__addFormsDirectory</h4>
+<b>__addFormsDirectory</b>(<i></i>)
+<p>
+        Private method to add form files of a directory to the project.
+</p>
+
+<a NAME="ProjectFormsBrowser.__compileAllForms" ID="ProjectFormsBrowser.__compileAllForms"></a>
+<h4>ProjectFormsBrowser.__compileAllForms</h4>
+<b>__compileAllForms</b>(<i></i>)
+<p>
+        Private method to compile all forms to source files.
+</p>
+
+<a NAME="ProjectFormsBrowser.__compileChangedForms" ID="ProjectFormsBrowser.__compileChangedForms"></a>
+<h4>ProjectFormsBrowser.__compileChangedForms</h4>
+<b>__compileChangedForms</b>(<i></i>)
+<p>
+        Private method to compile all changed forms to source files.
+</p>
+
+<a NAME="ProjectFormsBrowser.__compileForm" ID="ProjectFormsBrowser.__compileForm"></a>
+<h4>ProjectFormsBrowser.__compileForm</h4>
+<b>__compileForm</b>(<i></i>)
+<p>
+        Private method to compile a form to a source file.
+</p>
+
+<a NAME="ProjectFormsBrowser.__compileSelectedForms" ID="ProjectFormsBrowser.__compileSelectedForms"></a>
+<h4>ProjectFormsBrowser.__compileSelectedForms</h4>
+<b>__compileSelectedForms</b>(<i></i>)
+<p>
+        Private method to compile selected forms to source files.
+</p>
+
+<a NAME="ProjectFormsBrowser.__compileUI" ID="ProjectFormsBrowser.__compileUI"></a>
+<h4>ProjectFormsBrowser.__compileUI</h4>
+<b>__compileUI</b>(<i>fn, noDialog=False, progress=None</i>)
+<p>
+        Private method to compile a .ui file to a .py/.rb file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the .ui file to be compiled
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating silent operations
+</dd>
+<dt><i>progress</i> (QProgressDialog)</dt>
+<dd>
+reference to the progress dialog
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the compile process
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QProcess
+</dd>
+</dl>
+<a NAME="ProjectFormsBrowser.__compileUIDone" ID="ProjectFormsBrowser.__compileUIDone"></a>
+<h4>ProjectFormsBrowser.__compileUIDone</h4>
+<b>__compileUIDone</b>(<i>exitCode, exitStatus</i>)
+<p>
+        Private slot to handle the finished signal of the pyuic/rbuic process.
+</p>
+
+<dl>
+
+<dt><i>exitCode</i> (int)</dt>
+<dd>
+exit code of the process
+</dd>
+<dt><i>exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process
+</dd>
+</dl>
+<a NAME="ProjectFormsBrowser.__configureUicCompiler" ID="ProjectFormsBrowser.__configureUicCompiler"></a>
+<h4>ProjectFormsBrowser.__configureUicCompiler</h4>
+<b>__configureUicCompiler</b>(<i></i>)
+<p>
+        Private slot to configure some non-common uic compiler options.
+</p>
+
+<a NAME="ProjectFormsBrowser.__deleteFile" ID="ProjectFormsBrowser.__deleteFile"></a>
+<h4>ProjectFormsBrowser.__deleteFile</h4>
+<b>__deleteFile</b>(<i></i>)
+<p>
+        Private method to delete a form file from the project.
+</p>
+
+<a NAME="ProjectFormsBrowser.__determineUiCompiler" ID="ProjectFormsBrowser.__determineUiCompiler"></a>
+<h4>ProjectFormsBrowser.__determineUiCompiler</h4>
+<b>__determineUiCompiler</b>(<i></i>)
+<p>
+        Private method to determine the UI compiler for the project.
+</p>
+
+<a NAME="ProjectFormsBrowser.__generateDialogCode" ID="ProjectFormsBrowser.__generateDialogCode"></a>
+<h4>ProjectFormsBrowser.__generateDialogCode</h4>
+<b>__generateDialogCode</b>(<i></i>)
+<p>
+        Private method to generate dialog code for the form (Qt only).
+</p>
+
+<a NAME="ProjectFormsBrowser.__newForm" ID="ProjectFormsBrowser.__newForm"></a>
+<h4>ProjectFormsBrowser.__newForm</h4>
+<b>__newForm</b>(<i></i>)
+<p>
+        Private slot to handle the New Form menu action.
+</p>
+
+<a NAME="ProjectFormsBrowser.__newUiForm" ID="ProjectFormsBrowser.__newUiForm"></a>
+<h4>ProjectFormsBrowser.__newUiForm</h4>
+<b>__newUiForm</b>(<i>path</i>)
+<p>
+        Private slot to handle the New Form menu action for Qt-related
+        projects.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+full directory path for the new form file
+</dd>
+</dl>
+<a NAME="ProjectFormsBrowser.__openFile" ID="ProjectFormsBrowser.__openFile"></a>
+<h4>ProjectFormsBrowser.__openFile</h4>
+<b>__openFile</b>(<i></i>)
+<p>
+        Private slot to handle the Open menu action.
+</p>
+
+<a NAME="ProjectFormsBrowser.__openFileInEditor" ID="ProjectFormsBrowser.__openFileInEditor"></a>
+<h4>ProjectFormsBrowser.__openFileInEditor</h4>
+<b>__openFileInEditor</b>(<i></i>)
+<p>
+        Private slot to handle the Open in Editor menu action.
+</p>
+
+<a NAME="ProjectFormsBrowser.__readStderr" ID="ProjectFormsBrowser.__readStderr"></a>
+<h4>ProjectFormsBrowser.__readStderr</h4>
+<b>__readStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardError signal of the
+        pyuic5/pyuic6/pyside2-uic/pyside6-uic process.
+</p>
+
+<a NAME="ProjectFormsBrowser.__readStdout" ID="ProjectFormsBrowser.__readStdout"></a>
+<h4>ProjectFormsBrowser.__readStdout</h4>
+<b>__readStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal of the
+        pyuic5/pyuic6/pyside2-uic/pyside6-uic process.
+</p>
+
+<a NAME="ProjectFormsBrowser.__resetUiCompiler" ID="ProjectFormsBrowser.__resetUiCompiler"></a>
+<h4>ProjectFormsBrowser.__resetUiCompiler</h4>
+<b>__resetUiCompiler</b>(<i></i>)
+<p>
+        Private slot to reset the determined UI compiler executable.
+</p>
+
+<a NAME="ProjectFormsBrowser.__showContextMenu" ID="ProjectFormsBrowser.__showContextMenu"></a>
+<h4>ProjectFormsBrowser.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i></i>)
+<p>
+        Private slot called by the menu aboutToShow signal.
+</p>
+
+<a NAME="ProjectFormsBrowser.__showContextMenuBack" ID="ProjectFormsBrowser.__showContextMenuBack"></a>
+<h4>ProjectFormsBrowser.__showContextMenuBack</h4>
+<b>__showContextMenuBack</b>(<i></i>)
+<p>
+        Private slot called by the backMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectFormsBrowser.__showContextMenuDir" ID="ProjectFormsBrowser.__showContextMenuDir"></a>
+<h4>ProjectFormsBrowser.__showContextMenuDir</h4>
+<b>__showContextMenuDir</b>(<i></i>)
+<p>
+        Private slot called by the dirMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectFormsBrowser.__showContextMenuDirMulti" ID="ProjectFormsBrowser.__showContextMenuDirMulti"></a>
+<h4>ProjectFormsBrowser.__showContextMenuDirMulti</h4>
+<b>__showContextMenuDirMulti</b>(<i></i>)
+<p>
+        Private slot called by the dirMultiMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectFormsBrowser.__showContextMenuMulti" ID="ProjectFormsBrowser.__showContextMenuMulti"></a>
+<h4>ProjectFormsBrowser.__showContextMenuMulti</h4>
+<b>__showContextMenuMulti</b>(<i></i>)
+<p>
+        Private slot called by the multiMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectFormsBrowser._contextMenuRequested" ID="ProjectFormsBrowser._contextMenuRequested"></a>
+<h4>ProjectFormsBrowser._contextMenuRequested</h4>
+<b>_contextMenuRequested</b>(<i>coord</i>)
+<p>
+        Protected slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="ProjectFormsBrowser._createPopupMenus" ID="ProjectFormsBrowser._createPopupMenus"></a>
+<h4>ProjectFormsBrowser._createPopupMenus</h4>
+<b>_createPopupMenus</b>(<i></i>)
+<p>
+        Protected overloaded method to generate the popup menu.
+</p>
+
+<a NAME="ProjectFormsBrowser._initHookMethods" ID="ProjectFormsBrowser._initHookMethods"></a>
+<h4>ProjectFormsBrowser._initHookMethods</h4>
+<b>_initHookMethods</b>(<i></i>)
+<p>
+        Protected method to initialize the hooks dictionary.
+</p>
+<p>
+        Supported hook methods are:
+        <ul>
+        <li>compileForm: takes filename as parameter</li>
+        <li>compileAllForms: takes list of filenames as parameter</li>
+        <li>compileSelectedForms: takes list of filenames as parameter</li>
+        <li>compileChangedForms: takes list of filenames as parameter</li>
+        <li>generateDialogCode: takes filename as parameter</li>
+        <li>newForm: takes full directory path of new file as parameter</li>
+        <li>open: takes a filename as parameter</li>
+        </ul>
+</p>
+<p>
+        <b>Note</b>: Filenames are relative to the project directory, if not
+        specified differently.
+</p>
+
+<a NAME="ProjectFormsBrowser._openItem" ID="ProjectFormsBrowser._openItem"></a>
+<h4>ProjectFormsBrowser._openItem</h4>
+<b>_openItem</b>(<i></i>)
+<p>
+        Protected slot to handle the open popup menu entry.
+</p>
+
+<a NAME="ProjectFormsBrowser.getIcon" ID="ProjectFormsBrowser.getIcon"></a>
+<h4>ProjectFormsBrowser.getIcon</h4>
+<b>getIcon</b>(<i></i>)
+<p>
+        Public method to get an icon for the project browser.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+icon for the browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<a NAME="ProjectFormsBrowser.getUiCompiler" ID="ProjectFormsBrowser.getUiCompiler"></a>
+<h4>ProjectFormsBrowser.getUiCompiler</h4>
+<b>getUiCompiler</b>(<i></i>)
+<p>
+        Public method to get the UI compiler executable of the project.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+UI compiler executable
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ProjectFormsBrowser.handlePreferencesChanged" ID="ProjectFormsBrowser.handlePreferencesChanged"></a>
+<h4>ProjectFormsBrowser.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot used to handle the preferencesChanged signal.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

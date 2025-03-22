@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.SecurityNodeVisitor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.SecurityNodeVisitor</h1>
+<p>
+Module implementing an AST node visitor for security checks.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SecurityNodeVisitor">SecurityNodeVisitor</a></td>
+<td>Class implementing an AST node visitor for security checks.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SecurityNodeVisitor" ID="SecurityNodeVisitor"></a>
+<h2>SecurityNodeVisitor</h2>
+<p>
+    Class implementing an AST node visitor for security checks.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SecurityNodeVisitor.__init__">SecurityNodeVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.__postVisit">__postVisit</a></td>
+<td>Private method to clean up after a node was visited.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.__preVisit">__preVisit</a></td>
+<td>Private method to set up a context for the visit method.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.__runChecks">__runChecks</a></td>
+<td>Private method to run all enabled checks for a given check type.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.__visitFunctionDefinition">__visitFunctionDefinition</a></td>
+<td>Private method defining a visitor for AST FunctionDef and AsyncFunctionDef nodes.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.checkFile">checkFile</a></td>
+<td>Public method to run File type checks, that don't operate on the AST.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.generic_visit">generic_visit</a></td>
+<td>Public method to drive the node visitor.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.visit">visit</a></td>
+<td>Public method to inspected an AST node.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.visit_AsyncFunctionDef">visit_AsyncFunctionDef</a></td>
+<td>Public method defining a visitor for AST AsyncFunctionDef nodes.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.visit_Call">visit_Call</a></td>
+<td>Public method defining a visitor for AST Call nodes.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.visit_ClassDef">visit_ClassDef</a></td>
+<td>Public method defining a visitor for AST ClassDef nodes.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.visit_Constant">visit_Constant</a></td>
+<td>Public method defining a visitor for Constant nodes.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.visit_FunctionDef">visit_FunctionDef</a></td>
+<td>Public method defining a visitor for AST FunctionDef nodes.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.visit_Import">visit_Import</a></td>
+<td>Public method defining a visitor for AST Import nodes.</td>
+</tr>
+<tr>
+<td><a href="#SecurityNodeVisitor.visit_ImportFrom">visit_ImportFrom</a></td>
+<td>Public method defining a visitor for AST Import nodes.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SecurityNodeVisitor.__init__" ID="SecurityNodeVisitor.__init__"></a>
+<h4>SecurityNodeVisitor (Constructor)</h4>
+<b>SecurityNodeVisitor</b>(<i>checker, secCheckers, filename, fileData</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>checker</i> (SecurityChecker)</dt>
+<dd>
+reference to the main security checker object
+</dd>
+<dt><i>secCheckers</i> (dict)</dt>
+<dd>
+dictionary containing the available checker routines
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the checked file
+</dd>
+<dt><i>fileData</i> (str)</dt>
+<dd>
+contents of the checked file
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.__postVisit" ID="SecurityNodeVisitor.__postVisit"></a>
+<h4>SecurityNodeVisitor.__postVisit</h4>
+<b>__postVisit</b>(<i>node</i>)
+<p>
+        Private method to clean up after a node was visited.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+AST node that was visited
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.__preVisit" ID="SecurityNodeVisitor.__preVisit"></a>
+<h4>SecurityNodeVisitor.__preVisit</h4>
+<b>__preVisit</b>(<i>node</i>)
+<p>
+        Private method to set up a context for the visit method.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+node to base the context on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to visit the node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.__runChecks" ID="SecurityNodeVisitor.__runChecks"></a>
+<h4>SecurityNodeVisitor.__runChecks</h4>
+<b>__runChecks</b>(<i>checkType</i>)
+<p>
+        Private method to run all enabled checks for a given check type.
+</p>
+
+<dl>
+
+<dt><i>checkType</i> (str)</dt>
+<dd>
+type of checks to be run
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.__visitFunctionDefinition" ID="SecurityNodeVisitor.__visitFunctionDefinition"></a>
+<h4>SecurityNodeVisitor.__visitFunctionDefinition</h4>
+<b>__visitFunctionDefinition</b>(<i>node</i>)
+<p>
+        Private method defining a visitor for AST FunctionDef and
+        AsyncFunctionDef nodes.
+</p>
+<p>
+        Add relevant information about the node to the context for use in tests
+        which inspect function definitions. Add the function name to the
+        current namespace for all descendants.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef, ast.AsyncFunctionDef)</dt>
+<dd>
+reference to the node being inspected
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.checkFile" ID="SecurityNodeVisitor.checkFile"></a>
+<h4>SecurityNodeVisitor.checkFile</h4>
+<b>checkFile</b>(<i></i>)
+<p>
+        Public method to run File type checks, that don't operate on the AST.
+</p>
+
+<a NAME="SecurityNodeVisitor.generic_visit" ID="SecurityNodeVisitor.generic_visit"></a>
+<h4>SecurityNodeVisitor.generic_visit</h4>
+<b>generic_visit</b>(<i>node</i>)
+<p>
+        Public method to drive the node visitor.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+node to be inspected
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.visit" ID="SecurityNodeVisitor.visit"></a>
+<h4>SecurityNodeVisitor.visit</h4>
+<b>visit</b>(<i>node</i>)
+<p>
+        Public method to inspected an AST node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+AST node to be inspected
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.visit_AsyncFunctionDef" ID="SecurityNodeVisitor.visit_AsyncFunctionDef"></a>
+<h4>SecurityNodeVisitor.visit_AsyncFunctionDef</h4>
+<b>visit_AsyncFunctionDef</b>(<i>node</i>)
+<p>
+        Public method defining a visitor for AST AsyncFunctionDef nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef)</dt>
+<dd>
+reference to the node being inspected
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.visit_Call" ID="SecurityNodeVisitor.visit_Call"></a>
+<h4>SecurityNodeVisitor.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+<p>
+        Public method defining a visitor for AST Call nodes.
+</p>
+<p>
+        Add relevant information about the node to the context for use in tests
+        which inspect function calls.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the node being inspected
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.visit_ClassDef" ID="SecurityNodeVisitor.visit_ClassDef"></a>
+<h4>SecurityNodeVisitor.visit_ClassDef</h4>
+<b>visit_ClassDef</b>(<i>node</i>)
+<p>
+        Public method defining a visitor for AST ClassDef nodes.
+</p>
+<p>
+        Add class name to current namespace for all descendants.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ClassDef)</dt>
+<dd>
+reference to the node being inspected
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.visit_Constant" ID="SecurityNodeVisitor.visit_Constant"></a>
+<h4>SecurityNodeVisitor.visit_Constant</h4>
+<b>visit_Constant</b>(<i>node</i>)
+<p>
+        Public method defining a visitor for Constant nodes.
+</p>
+<p>
+        This calls the appropriate method for the node type.
+        It maintains compatibility with <3.6 and 3.8+
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Constant)</dt>
+<dd>
+reference to the node being inspected
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.visit_FunctionDef" ID="SecurityNodeVisitor.visit_FunctionDef"></a>
+<h4>SecurityNodeVisitor.visit_FunctionDef</h4>
+<b>visit_FunctionDef</b>(<i>node</i>)
+<p>
+        Public method defining a visitor for AST FunctionDef nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef)</dt>
+<dd>
+reference to the node being inspected
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.visit_Import" ID="SecurityNodeVisitor.visit_Import"></a>
+<h4>SecurityNodeVisitor.visit_Import</h4>
+<b>visit_Import</b>(<i>node</i>)
+<p>
+        Public method defining a visitor for AST Import nodes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Import)</dt>
+<dd>
+reference to the node being inspected
+</dd>
+</dl>
+<a NAME="SecurityNodeVisitor.visit_ImportFrom" ID="SecurityNodeVisitor.visit_ImportFrom"></a>
+<h4>SecurityNodeVisitor.visit_ImportFrom</h4>
+<b>visit_ImportFrom</b>(<i>node</i>)
+<p>
+        Public method defining a visitor for AST Import nodes.
+</p>
+<p>
+        This adds relevant information about the node to
+        the context for use in tests which inspect imports.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ImportFrom)</dt>
+<dd>
+reference to the node being inspected
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

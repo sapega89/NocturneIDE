@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HelpViewer.HelpViewerImplQWE</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HelpViewer.HelpViewerImplQWE</h1>
+<p>
+Module implementing the help viewer base class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HelpViewerImplQWE">HelpViewerImplQWE</a></td>
+<td>Class implementing the QTextBrowser based help viewer class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HelpViewerImplQWE" ID="HelpViewerImplQWE"></a>
+<h2>HelpViewerImplQWE</h2>
+<p>
+    Class implementing the QTextBrowser based help viewer class.
+</p>
+
+<h3>Derived from</h3>
+HelpViewerImpl, QWebEngineView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ZoomLevelDefault</td></tr>
+<tr><td>ZoomLevels</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HelpViewerImplQWE.__init__">HelpViewerImplQWE</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__bookmarkPage">__bookmarkPage</a></td>
+<td>Private method called by the context menu to bookmark the page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__closeOtherPages">__closeOtherPages</a></td>
+<td>Private method called by the context menu to close all other pages.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__closePage">__closePage</a></td>
+<td>Private method called by the context menu to close the current page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__copyLink">__copyLink</a></td>
+<td>Private method called by the context menu to copy a link to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__copyText">__copyText</a></td>
+<td>Private method called by the context menu to copy selected text to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__createContextMenu">__createContextMenu</a></td>
+<td>Private method to populate the context menu.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__createLinkContextMenu">__createLinkContextMenu</a></td>
+<td>Private method to populate the context menu for URLs.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__createNewPage">__createNewPage</a></td>
+<td>Private method to create a new page object.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__levelForScale">__levelForScale</a></td>
+<td>Private method determining the zoom level index given a zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__newWindowRequested">__newWindowRequested</a></td>
+<td>Private slot handling new window requests of the web page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__openLinkInBackgroundPage">__openLinkInBackgroundPage</a></td>
+<td>Private method called by the context menu to open a link in a background page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__openLinkInNewPage">__openLinkInNewPage</a></td>
+<td>Private method called by the context menu to open a link in a new page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__selectAll">__selectAll</a></td>
+<td>Private method called by the context menu to select all text.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__setRwhvqt">__setRwhvqt</a></td>
+<td>Private slot to set widget that receives input events.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show a context menu.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.__titleChanged">__titleChanged</a></td>
+<td>Private method to handle a change of the web page title.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE._gestureEvent">_gestureEvent</a></td>
+<td>Protected method handling gesture events.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE._keyPressEvent">_keyPressEvent</a></td>
+<td>Protected method called by a key press.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE._mouseReleaseEvent">_mouseReleaseEvent</a></td>
+<td>Protected method called by a mouse release event.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE._wheelEvent">_wheelEvent</a></td>
+<td>Protected method to handle wheel events.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.backward">backward</a></td>
+<td>Public slot to move backwards in history.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.backwardHistoryCount">backwardHistoryCount</a></td>
+<td>Public method to get the number of available back history items.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.clearHistory">clearHistory</a></td>
+<td>Public method to clear the history.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.event">event</a></td>
+<td>Public method handling events.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.eventFilter">eventFilter</a></td>
+<td>Public method to process event for other objects.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.forward">forward</a></td>
+<td>Public slot to move forward in history.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.forwardHistoryCount">forwardHistoryCount</a></td>
+<td>Public method to get the number of available forward history items.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.gotoHistory">gotoHistory</a></td>
+<td>Public method to go to a history item.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.historyTitle">historyTitle</a></td>
+<td>Public method to get the title of a history item.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.isBackwardAvailable">isBackwardAvailable</a></td>
+<td>Public method to check, if stepping backward through the history is available.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.isEmptyPage">isEmptyPage</a></td>
+<td>Public method to check, if the current page is the empty page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.isForwardAvailable">isForwardAvailable</a></td>
+<td>Public method to check, if stepping forward through the history is available.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.isScaleDownAvailable">isScaleDownAvailable</a></td>
+<td>Public method to check, if the min.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.isScaleUpAvailable">isScaleUpAvailable</a></td>
+<td>Public method to check, if the max.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.link">link</a></td>
+<td>Public method to get the URL of the shown document.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.pageTitle">pageTitle</a></td>
+<td>Public method get the page title.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.reload">reload</a></td>
+<td>Public slot to reload the current page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.resetScale">resetScale</a></td>
+<td>Public method to reset the zoom level.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.scale">scale</a></td>
+<td>Public method to get the zoom level.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.scaleDown">scaleDown</a></td>
+<td>Public method to zoom out.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.scaleUp">scaleUp</a></td>
+<td>Public method to zoom in.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.setLink">setLink</a></td>
+<td>Public method to set the URL of the document to be shown.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerImplQWE.setScale">setScale</a></td>
+<td>Public method to set the zoom level.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HelpViewerImplQWE.__init__" ID="HelpViewerImplQWE.__init__"></a>
+<h4>HelpViewerImplQWE (Constructor)</h4>
+<b>HelpViewerImplQWE</b>(<i>engine, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>engine</i> (QHelpEngine)</dt>
+<dd>
+reference to the help engine
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__bookmarkPage" ID="HelpViewerImplQWE.__bookmarkPage"></a>
+<h4>HelpViewerImplQWE.__bookmarkPage</h4>
+<b>__bookmarkPage</b>(<i>act</i>)
+<p>
+        Private method called by the context menu to bookmark the page.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__closeOtherPages" ID="HelpViewerImplQWE.__closeOtherPages"></a>
+<h4>HelpViewerImplQWE.__closeOtherPages</h4>
+<b>__closeOtherPages</b>(<i></i>)
+<p>
+        Private method called by the context menu to close all other pages.
+</p>
+
+<a NAME="HelpViewerImplQWE.__closePage" ID="HelpViewerImplQWE.__closePage"></a>
+<h4>HelpViewerImplQWE.__closePage</h4>
+<b>__closePage</b>(<i></i>)
+<p>
+        Private method called by the context menu to close the current page.
+</p>
+
+<a NAME="HelpViewerImplQWE.__copyLink" ID="HelpViewerImplQWE.__copyLink"></a>
+<h4>HelpViewerImplQWE.__copyLink</h4>
+<b>__copyLink</b>(<i>act</i>)
+<p>
+        Private method called by the context menu to copy a link to the
+        clipboard.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__copyText" ID="HelpViewerImplQWE.__copyText"></a>
+<h4>HelpViewerImplQWE.__copyText</h4>
+<b>__copyText</b>(<i></i>)
+<p>
+        Private method called by the context menu to copy selected text to the
+        clipboard.
+</p>
+
+<a NAME="HelpViewerImplQWE.__createContextMenu" ID="HelpViewerImplQWE.__createContextMenu"></a>
+<h4>HelpViewerImplQWE.__createContextMenu</h4>
+<b>__createContextMenu</b>(<i>menu</i>)
+<p>
+        Private method to populate the context menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__createLinkContextMenu" ID="HelpViewerImplQWE.__createLinkContextMenu"></a>
+<h4>HelpViewerImplQWE.__createLinkContextMenu</h4>
+<b>__createLinkContextMenu</b>(<i>menu, contextMenuData</i>)
+<p>
+        Private method to populate the context menu for URLs.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+<dt><i>contextMenuData</i> (QWebEngineContextMenuRequest)</dt>
+<dd>
+data of the last context menu request
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__createNewPage" ID="HelpViewerImplQWE.__createNewPage"></a>
+<h4>HelpViewerImplQWE.__createNewPage</h4>
+<b>__createNewPage</b>(<i></i>)
+<p>
+        Private method to create a new page object.
+</p>
+
+<a NAME="HelpViewerImplQWE.__levelForScale" ID="HelpViewerImplQWE.__levelForScale"></a>
+<h4>HelpViewerImplQWE.__levelForScale</h4>
+<b>__levelForScale</b>(<i>scale</i>)
+<p>
+        Private method determining the zoom level index given a zoom factor.
+</p>
+
+<dl>
+
+<dt><i>scale</i> (int)</dt>
+<dd>
+zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__newWindowRequested" ID="HelpViewerImplQWE.__newWindowRequested"></a>
+<h4>HelpViewerImplQWE.__newWindowRequested</h4>
+<b>__newWindowRequested</b>(<i>request</i>)
+<p>
+        Private slot handling new window requests of the web page.
+</p>
+
+<dl>
+
+<dt><i>request</i> (QWebEngineNewWindowRequest)</dt>
+<dd>
+reference to the new window request
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__openLinkInBackgroundPage" ID="HelpViewerImplQWE.__openLinkInBackgroundPage"></a>
+<h4>HelpViewerImplQWE.__openLinkInBackgroundPage</h4>
+<b>__openLinkInBackgroundPage</b>(<i>act</i>)
+<p>
+        Private method called by the context menu to open a link in a
+        background page.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__openLinkInNewPage" ID="HelpViewerImplQWE.__openLinkInNewPage"></a>
+<h4>HelpViewerImplQWE.__openLinkInNewPage</h4>
+<b>__openLinkInNewPage</b>(<i>act</i>)
+<p>
+        Private method called by the context menu to open a link in a new page.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__selectAll" ID="HelpViewerImplQWE.__selectAll"></a>
+<h4>HelpViewerImplQWE.__selectAll</h4>
+<b>__selectAll</b>(<i></i>)
+<p>
+        Private method called by the context menu to select all text.
+</p>
+
+<a NAME="HelpViewerImplQWE.__setRwhvqt" ID="HelpViewerImplQWE.__setRwhvqt"></a>
+<h4>HelpViewerImplQWE.__setRwhvqt</h4>
+<b>__setRwhvqt</b>(<i></i>)
+<p>
+        Private slot to set widget that receives input events.
+</p>
+
+<a NAME="HelpViewerImplQWE.__showContextMenu" ID="HelpViewerImplQWE.__showContextMenu"></a>
+<h4>HelpViewerImplQWE.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show a context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position for the context menu
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.__titleChanged" ID="HelpViewerImplQWE.__titleChanged"></a>
+<h4>HelpViewerImplQWE.__titleChanged</h4>
+<b>__titleChanged</b>(<i></i>)
+<p>
+        Private method to handle a change of the web page title.
+</p>
+
+<a NAME="HelpViewerImplQWE._gestureEvent" ID="HelpViewerImplQWE._gestureEvent"></a>
+<h4>HelpViewerImplQWE._gestureEvent</h4>
+<b>_gestureEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling gesture events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QGestureEvent)</dt>
+<dd>
+reference to the gesture event
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE._keyPressEvent" ID="HelpViewerImplQWE._keyPressEvent"></a>
+<h4>HelpViewerImplQWE._keyPressEvent</h4>
+<b>_keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a key press.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key event
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE._mouseReleaseEvent" ID="HelpViewerImplQWE._mouseReleaseEvent"></a>
+<h4>HelpViewerImplQWE._mouseReleaseEvent</h4>
+<b>_mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a mouse release event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE._wheelEvent" ID="HelpViewerImplQWE._wheelEvent"></a>
+<h4>HelpViewerImplQWE._wheelEvent</h4>
+<b>_wheelEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle wheel events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QWheelEvent)</dt>
+<dd>
+reference to the wheel event
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.backward" ID="HelpViewerImplQWE.backward"></a>
+<h4>HelpViewerImplQWE.backward</h4>
+<b>backward</b>(<i></i>)
+<p>
+        Public slot to move backwards in history.
+</p>
+
+<a NAME="HelpViewerImplQWE.backwardHistoryCount" ID="HelpViewerImplQWE.backwardHistoryCount"></a>
+<h4>HelpViewerImplQWE.backwardHistoryCount</h4>
+<b>backwardHistoryCount</b>(<i></i>)
+<p>
+        Public method to get the number of available back history items.
+</p>
+<p>
+        Note: For performance reasons this is limited to the maximum number of
+        history items the help viewer is interested in.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+count of available back history items
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.clearHistory" ID="HelpViewerImplQWE.clearHistory"></a>
+<h4>HelpViewerImplQWE.clearHistory</h4>
+<b>clearHistory</b>(<i></i>)
+<p>
+        Public method to clear the history.
+</p>
+
+<a NAME="HelpViewerImplQWE.event" ID="HelpViewerImplQWE.event"></a>
+<h4>HelpViewerImplQWE.event</h4>
+<b>event</b>(<i>evt</i>)
+<p>
+        Public method handling events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.eventFilter" ID="HelpViewerImplQWE.eventFilter"></a>
+<h4>HelpViewerImplQWE.eventFilter</h4>
+<b>eventFilter</b>(<i>obj, evt</i>)
+<p>
+        Public method to process event for other objects.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (QObject)</dt>
+<dd>
+reference to object to process events for
+</dd>
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to event to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the event should be filtered out
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.forward" ID="HelpViewerImplQWE.forward"></a>
+<h4>HelpViewerImplQWE.forward</h4>
+<b>forward</b>(<i></i>)
+<p>
+        Public slot to move forward in history.
+</p>
+
+<a NAME="HelpViewerImplQWE.forwardHistoryCount" ID="HelpViewerImplQWE.forwardHistoryCount"></a>
+<h4>HelpViewerImplQWE.forwardHistoryCount</h4>
+<b>forwardHistoryCount</b>(<i></i>)
+<p>
+        Public method to get the number of available forward history items.
+</p>
+<p>
+        Note: For performance reasons this is limited to the maximum number of
+        history items the help viewer is interested in.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+count of available forward history items
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.gotoHistory" ID="HelpViewerImplQWE.gotoHistory"></a>
+<h4>HelpViewerImplQWE.gotoHistory</h4>
+<b>gotoHistory</b>(<i>offset</i>)
+<p>
+        Public method to go to a history item.
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+offset of the item with respect to the current page
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.historyTitle" ID="HelpViewerImplQWE.historyTitle"></a>
+<h4>HelpViewerImplQWE.historyTitle</h4>
+<b>historyTitle</b>(<i>offset</i>)
+<p>
+        Public method to get the title of a history item.
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+offset of the item with respect to the current page
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+title of the requeted item in history
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.isBackwardAvailable" ID="HelpViewerImplQWE.isBackwardAvailable"></a>
+<h4>HelpViewerImplQWE.isBackwardAvailable</h4>
+<b>isBackwardAvailable</b>(<i></i>)
+<p>
+        Public method to check, if stepping backward through the history is
+        available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating backward stepping is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.isEmptyPage" ID="HelpViewerImplQWE.isEmptyPage"></a>
+<h4>HelpViewerImplQWE.isEmptyPage</h4>
+<b>isEmptyPage</b>(<i></i>)
+<p>
+        Public method to check, if the current page is the empty page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an empty page is loaded
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.isForwardAvailable" ID="HelpViewerImplQWE.isForwardAvailable"></a>
+<h4>HelpViewerImplQWE.isForwardAvailable</h4>
+<b>isForwardAvailable</b>(<i></i>)
+<p>
+        Public method to check, if stepping forward through the history is
+        available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating forward stepping is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.isScaleDownAvailable" ID="HelpViewerImplQWE.isScaleDownAvailable"></a>
+<h4>HelpViewerImplQWE.isScaleDownAvailable</h4>
+<b>isScaleDownAvailable</b>(<i></i>)
+<p>
+        Public method to check, if the min. zoom level is reached.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating scale down is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.isScaleUpAvailable" ID="HelpViewerImplQWE.isScaleUpAvailable"></a>
+<h4>HelpViewerImplQWE.isScaleUpAvailable</h4>
+<b>isScaleUpAvailable</b>(<i></i>)
+<p>
+        Public method to check, if the max. zoom level is reached.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating scale up is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.link" ID="HelpViewerImplQWE.link"></a>
+<h4>HelpViewerImplQWE.link</h4>
+<b>link</b>(<i></i>)
+<p>
+        Public method to get the URL of the shown document.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+url URL of the document
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.pageTitle" ID="HelpViewerImplQWE.pageTitle"></a>
+<h4>HelpViewerImplQWE.pageTitle</h4>
+<b>pageTitle</b>(<i></i>)
+<p>
+        Public method get the page title.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+page title
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.reload" ID="HelpViewerImplQWE.reload"></a>
+<h4>HelpViewerImplQWE.reload</h4>
+<b>reload</b>(<i></i>)
+<p>
+        Public slot to reload the current page.
+</p>
+
+<a NAME="HelpViewerImplQWE.resetScale" ID="HelpViewerImplQWE.resetScale"></a>
+<h4>HelpViewerImplQWE.resetScale</h4>
+<b>resetScale</b>(<i></i>)
+<p>
+        Public method to reset the zoom level.
+</p>
+
+<a NAME="HelpViewerImplQWE.scale" ID="HelpViewerImplQWE.scale"></a>
+<h4>HelpViewerImplQWE.scale</h4>
+<b>scale</b>(<i></i>)
+<p>
+        Public method to get the zoom level.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current zoom level
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.scaleDown" ID="HelpViewerImplQWE.scaleDown"></a>
+<h4>HelpViewerImplQWE.scaleDown</h4>
+<b>scaleDown</b>(<i></i>)
+<p>
+        Public method to zoom out.
+</p>
+
+<a NAME="HelpViewerImplQWE.scaleUp" ID="HelpViewerImplQWE.scaleUp"></a>
+<h4>HelpViewerImplQWE.scaleUp</h4>
+<b>scaleUp</b>(<i></i>)
+<p>
+        Public method to zoom in.
+</p>
+
+<a NAME="HelpViewerImplQWE.setLink" ID="HelpViewerImplQWE.setLink"></a>
+<h4>HelpViewerImplQWE.setLink</h4>
+<b>setLink</b>(<i>url</i>)
+<p>
+        Public method to set the URL of the document to be shown.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of the document
+</dd>
+</dl>
+<a NAME="HelpViewerImplQWE.setScale" ID="HelpViewerImplQWE.setScale"></a>
+<h4>HelpViewerImplQWE.setScale</h4>
+<b>setScale</b>(<i>scale</i>)
+<p>
+        Public method to set the zoom level.
+</p>
+
+<dl>
+
+<dt><i>scale</i> (int)</dt>
+<dd>
+zoom level to set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

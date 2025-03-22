@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.VCS.StatusMonitorThread</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.VCS.StatusMonitorThread</h1>
+<p>
+Module implementing the VCS status monitor thread base class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#VcsStatusMonitorThread">VcsStatusMonitorThread</a></td>
+<td>Class implementing the VCS status monitor thread base class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="VcsStatusMonitorThread" ID="VcsStatusMonitorThread"></a>
+<h2>VcsStatusMonitorThread</h2>
+<p>
+    Class implementing the VCS status monitor thread base class.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>vcsStatusMonitorAllData(dict)</dt>
+<dd>
+emitted to signal all VCS status
+        (key is project relative file name, value is status)
+</dd>
+<dt>vcsStatusMonitorData(list of str)</dt>
+<dd>
+emitted to update the VCS status
+</dd>
+<dt>vcsStatusMonitorInfo(str)</dt>
+<dd>
+emitted to signal some info of the
+        monitoring thread
+</dd>
+<dt>vcsStatusMonitorStatus(str, str)</dt>
+<dd>
+emitted to signal the status of
+        the monitoring thread (ok, nok, op) and a status message
+</dd>
+</dl>
+<h3>Derived from</h3>
+QThread
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VcsStatusMonitorThread.__init__">VcsStatusMonitorThread</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread._getInfo">_getInfo</a></td>
+<td>Protected method implementing the real info action.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread._performMonitor">_performMonitor</a></td>
+<td>Protected method implementing the real monitoring action.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread._shutdown">_shutdown</a></td>
+<td>Protected method performing shutdown actions.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread.checkStatus">checkStatus</a></td>
+<td>Public method to wake up the status monitor thread.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread.clearCachedState">clearCachedState</a></td>
+<td>Public method to clear the cached VCS state of a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread.getAutoUpdate">getAutoUpdate</a></td>
+<td>Public method to retrieve the status of the auto update function.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread.getInterval">getInterval</a></td>
+<td>Public method to get the monitor interval.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread.run">run</a></td>
+<td>Public method implementing the tasks action.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread.setAutoUpdate">setAutoUpdate</a></td>
+<td>Public method to enable the auto update function.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread.setInterval">setInterval</a></td>
+<td>Public method to change the monitor interval.</td>
+</tr>
+<tr>
+<td><a href="#VcsStatusMonitorThread.stop">stop</a></td>
+<td>Public method to stop the monitor thread.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VcsStatusMonitorThread.__init__" ID="VcsStatusMonitorThread.__init__"></a>
+<h4>VcsStatusMonitorThread (Constructor)</h4>
+<b>VcsStatusMonitorThread</b>(<i>interval, project, vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>interval</i> (int)</dt>
+<dd>
+new interval in seconds
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>vcs</i> (VersionControl)</dt>
+<dd>
+reference to the version control object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="VcsStatusMonitorThread._getInfo" ID="VcsStatusMonitorThread._getInfo"></a>
+<h4>VcsStatusMonitorThread._getInfo</h4>
+<b>_getInfo</b>(<i></i>)
+<p>
+        Protected method implementing the real info action.
+</p>
+<p>
+        This method should be overridden and create a short info message to be
+        shown in the main window status bar right next to the status indicator.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+short info message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="VcsStatusMonitorThread._performMonitor" ID="VcsStatusMonitorThread._performMonitor"></a>
+<h4>VcsStatusMonitorThread._performMonitor</h4>
+<b>_performMonitor</b>(<i></i>)
+<p>
+        Protected method implementing the real monitoring action.
+</p>
+<p>
+        This method must be overridden and populate the statusList member
+        variable with a list of strings giving the status in the first column
+        and the path relative to the project directory starting with the
+        third column. The allowed status flags are:
+        <ul>
+            <li>"A" path was added but not yet committed</li>
+            <li>"M" path has local changes</li>
+            <li>"O" path was removed</li>
+            <li>"R" path was deleted and then re-added</li>
+            <li>"U" path needs an update</li>
+            <li>"Z" path contains a conflict</li>
+            <li>"?" path is not tracked</li>
+            <li>"!" path is missing</li>
+            <li>" " path is back at normal</li>
+        </ul>
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of flag indicating successful operation and
+            a status message in case of non successful operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VcsStatusMonitorThread._shutdown" ID="VcsStatusMonitorThread._shutdown"></a>
+<h4>VcsStatusMonitorThread._shutdown</h4>
+<b>_shutdown</b>(<i></i>)
+<p>
+        Protected method performing shutdown actions.
+</p>
+<p>
+        The default implementation does nothing.
+</p>
+
+<a NAME="VcsStatusMonitorThread.checkStatus" ID="VcsStatusMonitorThread.checkStatus"></a>
+<h4>VcsStatusMonitorThread.checkStatus</h4>
+<b>checkStatus</b>(<i></i>)
+<p>
+        Public method to wake up the status monitor thread.
+</p>
+
+<a NAME="VcsStatusMonitorThread.clearCachedState" ID="VcsStatusMonitorThread.clearCachedState"></a>
+<h4>VcsStatusMonitorThread.clearCachedState</h4>
+<b>clearCachedState</b>(<i>name</i>)
+<p>
+        Public method to clear the cached VCS state of a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the entry to be cleared
+</dd>
+</dl>
+<a NAME="VcsStatusMonitorThread.getAutoUpdate" ID="VcsStatusMonitorThread.getAutoUpdate"></a>
+<h4>VcsStatusMonitorThread.getAutoUpdate</h4>
+<b>getAutoUpdate</b>(<i></i>)
+<p>
+        Public method to retrieve the status of the auto update function.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+status of the auto update function
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VcsStatusMonitorThread.getInterval" ID="VcsStatusMonitorThread.getInterval"></a>
+<h4>VcsStatusMonitorThread.getInterval</h4>
+<b>getInterval</b>(<i></i>)
+<p>
+        Public method to get the monitor interval.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+interval in seconds
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="VcsStatusMonitorThread.run" ID="VcsStatusMonitorThread.run"></a>
+<h4>VcsStatusMonitorThread.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method implementing the tasks action.
+</p>
+
+<a NAME="VcsStatusMonitorThread.setAutoUpdate" ID="VcsStatusMonitorThread.setAutoUpdate"></a>
+<h4>VcsStatusMonitorThread.setAutoUpdate</h4>
+<b>setAutoUpdate</b>(<i>auto</i>)
+<p>
+        Public method to enable the auto update function.
+</p>
+
+<dl>
+
+<dt><i>auto</i> (bool)</dt>
+<dd>
+status of the auto update function
+</dd>
+</dl>
+<a NAME="VcsStatusMonitorThread.setInterval" ID="VcsStatusMonitorThread.setInterval"></a>
+<h4>VcsStatusMonitorThread.setInterval</h4>
+<b>setInterval</b>(<i>interval</i>)
+<p>
+        Public method to change the monitor interval.
+</p>
+
+<dl>
+
+<dt><i>interval</i> (int)</dt>
+<dd>
+new interval in seconds
+</dd>
+</dl>
+<a NAME="VcsStatusMonitorThread.stop" ID="VcsStatusMonitorThread.stop"></a>
+<h4>VcsStatusMonitorThread.stop</h4>
+<b>stop</b>(<i></i>)
+<p>
+        Public method to stop the monitor thread.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

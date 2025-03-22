@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricToolBarManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricToolBarManager</h1>
+<p>
+Module implementing a toolbar manager class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricToolBarManager">EricToolBarManager</a></td>
+<td>Class implementing a toolbar manager.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricToolBarManager" ID="EricToolBarManager"></a>
+<h2>EricToolBarManager</h2>
+<p>
+    Class implementing a toolbar manager.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>CustomToolBarMarker</td></tr>
+<tr><td>IconSizes</td></tr>
+<tr><td>ToolBarMarker</td></tr>
+<tr><td>VersionMarker</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricToolBarManager.__init__">EricToolBarManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.__findAction">__findAction</a></td>
+<td>Private method to find an action by name.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.__findDefaultToolBar">__findDefaultToolBar</a></td>
+<td>Private method to find a default toolbar by name.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.__toolBarByName">__toolBarByName</a></td>
+<td>Private slot to get a toolbar by its object name.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.actionById">actionById</a></td>
+<td>Public method to get an action given its id.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.addAction">addAction</a></td>
+<td>Public method to add an action to be managed.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.addActions">addActions</a></td>
+<td>Public method to add actions to be managed.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.addToolBar">addToolBar</a></td>
+<td>Public method to add a toolbar to be managed.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.categories">categories</a></td>
+<td>Public method to get the list of categories.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.categoryActions">categoryActions</a></td>
+<td>Public method to get the actions belonging to a category.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.createToolBar">createToolBar</a></td>
+<td>Public method to create a custom toolbar.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.defaultToolBarActions">defaultToolBarActions</a></td>
+<td>Public method to get a default toolbar's actions given its id.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.defaultToolBars">defaultToolBars</a></td>
+<td>Public method to get all toolbars added with addToolBar().</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.deleteToolBar">deleteToolBar</a></td>
+<td>Public method to remove a custom toolbar created with createToolBar().</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.isDefaultToolBar">isDefaultToolBar</a></td>
+<td>Public method to check, if a toolbar was added with addToolBar().</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.isWidgetAction">isWidgetAction</a></td>
+<td>Public method to check, if action is a widget action.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.mainWindow">mainWindow</a></td>
+<td>Public method to get the reference to the main window.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.removeAction">removeAction</a></td>
+<td>Public method to remove an action from the manager.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.removeCategoryActions">removeCategoryActions</a></td>
+<td>Public method to remove the actions belonging to a category.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.removeToolBar">removeToolBar</a></td>
+<td>Public method to remove a toolbar added with addToolBar().</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.removeWidgetActions">removeWidgetActions</a></td>
+<td>Public method to remove widget actions.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.renameToolBar">renameToolBar</a></td>
+<td>Public method to give a toolbar a new title.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.resetAllToolBars">resetAllToolBars</a></td>
+<td>Public method to reset all toolbars to their default state.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.resetToolBar">resetToolBar</a></td>
+<td>Public method to reset a toolbar to its default state.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.restoreState">restoreState</a></td>
+<td>Public method to restore the state of the toolbar manager.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.saveState">saveState</a></td>
+<td>Public method to save the state of the toolbar manager.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.setIconSize">setIconSize</a></td>
+<td>Public method to set the icon size.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.setMainWindow">setMainWindow</a></td>
+<td>Public method to set the reference to the main window.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.setToolBar">setToolBar</a></td>
+<td>Public method to set the actions of a toolbar.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.setToolBars">setToolBars</a></td>
+<td>Public method to set the actions of several toolbars.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.toolBarActions">toolBarActions</a></td>
+<td>Public method to get a toolbar's actions given its id.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.toolBarById">toolBarById</a></td>
+<td>Public method to get a toolbar given its id.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.toolBarWidgetAction">toolBarWidgetAction</a></td>
+<td>Public method to get the toolbar for a widget action.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.toolBars">toolBars</a></td>
+<td>Public method to get all toolbars.</td>
+</tr>
+<tr>
+<td><a href="#EricToolBarManager.toolBarsActions">toolBarsActions</a></td>
+<td>Public method to get all toolbars and their actions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricToolBarManager.__init__" ID="EricToolBarManager.__init__"></a>
+<h4>EricToolBarManager (Constructor)</h4>
+<b>EricToolBarManager</b>(<i>ui=None, iconSize="", parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UI.UserInterface (optional))</dt>
+<dd>
+reference to the user interface object (defaults to None)
+</dd>
+<dt><i>iconSize</i> (str (optional))</dt>
+<dd>
+string giving the icon size (one of the sizes defined by the
+            IconSizes dictionary) (defaults to "")
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="EricToolBarManager.__findAction" ID="EricToolBarManager.__findAction"></a>
+<h4>EricToolBarManager.__findAction</h4>
+<b>__findAction</b>(<i>name</i>)
+<p>
+        Private method to find an action by name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the action to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAction
+</dd>
+</dl>
+<a NAME="EricToolBarManager.__findDefaultToolBar" ID="EricToolBarManager.__findDefaultToolBar"></a>
+<h4>EricToolBarManager.__findDefaultToolBar</h4>
+<b>__findDefaultToolBar</b>(<i>name</i>)
+<p>
+        Private method to find a default toolbar by name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the default toolbar to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the default toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.__toolBarByName" ID="EricToolBarManager.__toolBarByName"></a>
+<h4>EricToolBarManager.__toolBarByName</h4>
+<b>__toolBarByName</b>(<i>name</i>)
+<p>
+        Private slot to get a toolbar by its object name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+object name of the toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.actionById" ID="EricToolBarManager.actionById"></a>
+<h4>EricToolBarManager.actionById</h4>
+<b>actionById</b>(<i>aID</i>)
+<p>
+        Public method to get an action given its id.
+</p>
+
+<dl>
+
+<dt><i>aID</i> (int)</dt>
+<dd>
+id of the action object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAction
+</dd>
+</dl>
+<a NAME="EricToolBarManager.addAction" ID="EricToolBarManager.addAction"></a>
+<h4>EricToolBarManager.addAction</h4>
+<b>addAction</b>(<i>action, category</i>)
+<p>
+        Public method to add an action to be managed.
+</p>
+
+<dl>
+
+<dt><i>action</i> (QAction)</dt>
+<dd>
+reference to the action to be managed
+</dd>
+<dt><i>category</i> (str)</dt>
+<dd>
+category for the toolbar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.addActions" ID="EricToolBarManager.addActions"></a>
+<h4>EricToolBarManager.addActions</h4>
+<b>addActions</b>(<i>actions, category</i>)
+<p>
+        Public method to add actions to be managed.
+</p>
+
+<dl>
+
+<dt><i>actions</i> (list of QAction)</dt>
+<dd>
+list of actions to be managed
+</dd>
+<dt><i>category</i> (str)</dt>
+<dd>
+category for the toolbar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.addToolBar" ID="EricToolBarManager.addToolBar"></a>
+<h4>EricToolBarManager.addToolBar</h4>
+<b>addToolBar</b>(<i>toolBar, category</i>)
+<p>
+        Public method to add a toolbar to be managed.
+</p>
+
+<dl>
+
+<dt><i>toolBar</i> (QToolBar)</dt>
+<dd>
+reference to the toolbar to be managed
+</dd>
+<dt><i>category</i> (str)</dt>
+<dd>
+category for the toolbar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.categories" ID="EricToolBarManager.categories"></a>
+<h4>EricToolBarManager.categories</h4>
+<b>categories</b>(<i></i>)
+<p>
+        Public method to get the list of categories.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of categories
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricToolBarManager.categoryActions" ID="EricToolBarManager.categoryActions"></a>
+<h4>EricToolBarManager.categoryActions</h4>
+<b>categoryActions</b>(<i>category</i>)
+<p>
+        Public method to get the actions belonging to a category.
+</p>
+
+<dl>
+
+<dt><i>category</i> (str)</dt>
+<dd>
+category for the actions
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QAction
+</dd>
+</dl>
+<a NAME="EricToolBarManager.createToolBar" ID="EricToolBarManager.createToolBar"></a>
+<h4>EricToolBarManager.createToolBar</h4>
+<b>createToolBar</b>(<i>title, name=""</i>)
+<p>
+        Public method to create a custom toolbar.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title to be used for the toolbar
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+optional name for the new toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the created toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.defaultToolBarActions" ID="EricToolBarManager.defaultToolBarActions"></a>
+<h4>EricToolBarManager.defaultToolBarActions</h4>
+<b>defaultToolBarActions</b>(<i>tbID</i>)
+<p>
+        Public method to get a default toolbar's actions given its id.
+</p>
+
+<dl>
+
+<dt><i>tbID</i> (int)</dt>
+<dd>
+id of the default toolbar object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QAction
+</dd>
+</dl>
+<a NAME="EricToolBarManager.defaultToolBars" ID="EricToolBarManager.defaultToolBars"></a>
+<h4>EricToolBarManager.defaultToolBars</h4>
+<b>defaultToolBars</b>(<i></i>)
+<p>
+        Public method to get all toolbars added with addToolBar().
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all default toolbars
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QToolBar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.deleteToolBar" ID="EricToolBarManager.deleteToolBar"></a>
+<h4>EricToolBarManager.deleteToolBar</h4>
+<b>deleteToolBar</b>(<i>toolBar</i>)
+<p>
+        Public method to remove a custom toolbar created with createToolBar().
+</p>
+
+<dl>
+
+<dt><i>toolBar</i> (QToolBar)</dt>
+<dd>
+reference to the toolbar to be managed
+</dd>
+</dl>
+<a NAME="EricToolBarManager.isDefaultToolBar" ID="EricToolBarManager.isDefaultToolBar"></a>
+<h4>EricToolBarManager.isDefaultToolBar</h4>
+<b>isDefaultToolBar</b>(<i>toolBar</i>)
+<p>
+        Public method to check, if a toolbar was added with addToolBar().
+</p>
+
+<dl>
+
+<dt><i>toolBar</i> (QToolBar)</dt>
+<dd>
+reference to the toolbar to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an added toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricToolBarManager.isWidgetAction" ID="EricToolBarManager.isWidgetAction"></a>
+<h4>EricToolBarManager.isWidgetAction</h4>
+<b>isWidgetAction</b>(<i>action</i>)
+<p>
+        Public method to check, if action is a widget action.
+</p>
+
+<dl>
+
+<dt><i>action</i> (QAction)</dt>
+<dd>
+reference to the action to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a widget action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricToolBarManager.mainWindow" ID="EricToolBarManager.mainWindow"></a>
+<h4>EricToolBarManager.mainWindow</h4>
+<b>mainWindow</b>(<i></i>)
+<p>
+        Public method to get the reference to the main window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the main window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMainWindow
+</dd>
+</dl>
+<a NAME="EricToolBarManager.removeAction" ID="EricToolBarManager.removeAction"></a>
+<h4>EricToolBarManager.removeAction</h4>
+<b>removeAction</b>(<i>action</i>)
+<p>
+        Public method to remove an action from the manager.
+</p>
+
+<dl>
+
+<dt><i>action</i> (QAction)</dt>
+<dd>
+reference to the action to be removed
+</dd>
+</dl>
+<a NAME="EricToolBarManager.removeCategoryActions" ID="EricToolBarManager.removeCategoryActions"></a>
+<h4>EricToolBarManager.removeCategoryActions</h4>
+<b>removeCategoryActions</b>(<i>category</i>)
+<p>
+        Public method to remove the actions belonging to a category.
+</p>
+
+<dl>
+
+<dt><i>category</i> (str)</dt>
+<dd>
+category for the actions
+</dd>
+</dl>
+<a NAME="EricToolBarManager.removeToolBar" ID="EricToolBarManager.removeToolBar"></a>
+<h4>EricToolBarManager.removeToolBar</h4>
+<b>removeToolBar</b>(<i>toolBar</i>)
+<p>
+        Public method to remove a toolbar added with addToolBar().
+</p>
+
+<dl>
+
+<dt><i>toolBar</i> (QToolBar)</dt>
+<dd>
+reference to the toolbar to be removed
+</dd>
+</dl>
+<a NAME="EricToolBarManager.removeWidgetActions" ID="EricToolBarManager.removeWidgetActions"></a>
+<h4>EricToolBarManager.removeWidgetActions</h4>
+<b>removeWidgetActions</b>(<i>actions</i>)
+<p>
+        Public method to remove widget actions.
+</p>
+
+<dl>
+
+<dt><i>actions</i> (dict)</dt>
+<dd>
+dictionary with toolbar id as key and
+            a list of widget actions as value
+</dd>
+</dl>
+<a NAME="EricToolBarManager.renameToolBar" ID="EricToolBarManager.renameToolBar"></a>
+<h4>EricToolBarManager.renameToolBar</h4>
+<b>renameToolBar</b>(<i>toolBar, title</i>)
+<p>
+        Public method to give a toolbar a new title.
+</p>
+
+<dl>
+
+<dt><i>toolBar</i> (QToolBar)</dt>
+<dd>
+reference to the toolbar to be managed
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title to be used for the toolbar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.resetAllToolBars" ID="EricToolBarManager.resetAllToolBars"></a>
+<h4>EricToolBarManager.resetAllToolBars</h4>
+<b>resetAllToolBars</b>(<i></i>)
+<p>
+        Public method to reset all toolbars to their default state.
+</p>
+
+<a NAME="EricToolBarManager.resetToolBar" ID="EricToolBarManager.resetToolBar"></a>
+<h4>EricToolBarManager.resetToolBar</h4>
+<b>resetToolBar</b>(<i>toolBar</i>)
+<p>
+        Public method to reset a toolbar to its default state.
+</p>
+
+<dl>
+
+<dt><i>toolBar</i> (QToolBar)</dt>
+<dd>
+reference to the toolbar to configure
+</dd>
+</dl>
+<a NAME="EricToolBarManager.restoreState" ID="EricToolBarManager.restoreState"></a>
+<h4>EricToolBarManager.restoreState</h4>
+<b>restoreState</b>(<i>state, version=0</i>)
+<p>
+        Public method to restore the state of the toolbar manager.
+</p>
+
+<dl>
+
+<dt><i>state</i> (QByteArray)</dt>
+<dd>
+byte array containing the saved state
+</dd>
+<dt><i>version</i> (int)</dt>
+<dd>
+version number stored with the data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricToolBarManager.saveState" ID="EricToolBarManager.saveState"></a>
+<h4>EricToolBarManager.saveState</h4>
+<b>saveState</b>(<i>version=0</i>)
+<p>
+        Public method to save the state of the toolbar manager.
+</p>
+
+<dl>
+
+<dt><i>version</i> (int)</dt>
+<dd>
+version number stored with the data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+saved state as a byte array
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QByteArray
+</dd>
+</dl>
+<a NAME="EricToolBarManager.setIconSize" ID="EricToolBarManager.setIconSize"></a>
+<h4>EricToolBarManager.setIconSize</h4>
+<b>setIconSize</b>(<i>iconSize</i>)
+<p>
+        Public method to set the icon size.
+</p>
+
+<dl>
+
+<dt><i>iconSize</i> (str)</dt>
+<dd>
+string giving the icon size (one of the sizes defined by the
+            IconSizes dictionary)
+</dd>
+</dl>
+<a NAME="EricToolBarManager.setMainWindow" ID="EricToolBarManager.setMainWindow"></a>
+<h4>EricToolBarManager.setMainWindow</h4>
+<b>setMainWindow</b>(<i>mainWindow</i>)
+<p>
+        Public method to set the reference to the main window.
+</p>
+
+<dl>
+
+<dt><i>mainWindow</i> (QMainWindow)</dt>
+<dd>
+reference to the main window
+</dd>
+</dl>
+<a NAME="EricToolBarManager.setToolBar" ID="EricToolBarManager.setToolBar"></a>
+<h4>EricToolBarManager.setToolBar</h4>
+<b>setToolBar</b>(<i>toolBar, actions</i>)
+<p>
+        Public method to set the actions of a toolbar.
+</p>
+
+<dl>
+
+<dt><i>toolBar</i> (QToolBar)</dt>
+<dd>
+reference to the toolbar to configure
+</dd>
+<dt><i>actions</i> (list of QAction)</dt>
+<dd>
+list of actions to be set
+</dd>
+</dl>
+<a NAME="EricToolBarManager.setToolBars" ID="EricToolBarManager.setToolBars"></a>
+<h4>EricToolBarManager.setToolBars</h4>
+<b>setToolBars</b>(<i>toolBars</i>)
+<p>
+        Public method to set the actions of several toolbars.
+</p>
+
+<dl>
+
+<dt><i>toolBars</i> (dict)</dt>
+<dd>
+dictionary with toolbar id as key and
+            a list of actions as value
+</dd>
+</dl>
+<a NAME="EricToolBarManager.toolBarActions" ID="EricToolBarManager.toolBarActions"></a>
+<h4>EricToolBarManager.toolBarActions</h4>
+<b>toolBarActions</b>(<i>tbID</i>)
+<p>
+        Public method to get a toolbar's actions given its id.
+</p>
+
+<dl>
+
+<dt><i>tbID</i> (int)</dt>
+<dd>
+id of the toolbar object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QAction
+</dd>
+</dl>
+<a NAME="EricToolBarManager.toolBarById" ID="EricToolBarManager.toolBarById"></a>
+<h4>EricToolBarManager.toolBarById</h4>
+<b>toolBarById</b>(<i>tbID</i>)
+<p>
+        Public method to get a toolbar given its id.
+</p>
+
+<dl>
+
+<dt><i>tbID</i> (int)</dt>
+<dd>
+id of the toolbar object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.toolBarWidgetAction" ID="EricToolBarManager.toolBarWidgetAction"></a>
+<h4>EricToolBarManager.toolBarWidgetAction</h4>
+<b>toolBarWidgetAction</b>(<i>action</i>)
+<p>
+        Public method to get the toolbar for a widget action.
+</p>
+
+<dl>
+
+<dt><i>action</i> (QAction)</dt>
+<dd>
+widget action to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the toolbar containing action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.toolBars" ID="EricToolBarManager.toolBars"></a>
+<h4>EricToolBarManager.toolBars</h4>
+<b>toolBars</b>(<i></i>)
+<p>
+        Public method to get all toolbars.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all toolbars
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QToolBar
+</dd>
+</dl>
+<a NAME="EricToolBarManager.toolBarsActions" ID="EricToolBarManager.toolBarsActions"></a>
+<h4>EricToolBarManager.toolBarsActions</h4>
+<b>toolBarsActions</b>(<i></i>)
+<p>
+        Public method to get all toolbars and their actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to dictionary of toolbar IDs as key and list
+            of actions as values
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

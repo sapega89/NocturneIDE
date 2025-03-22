@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Simplify.SimplifyNodeVisitor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Simplify.SimplifyNodeVisitor</h1>
+<p>
+Module implementing a node visitor checking for code that could be simplified.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SimplifyNodeVisitor">SimplifyNodeVisitor</a></td>
+<td>Class to traverse the AST node tree and check for code that can be simplified.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SimplifyNodeVisitor" ID="SimplifyNodeVisitor"></a>
+<h2>SimplifyNodeVisitor</h2>
+<p>
+    Class to traverse the AST node tree and check for code that can be
+    simplified.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__init__">SimplifyNodeVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__bodyContainsContinue">__bodyContainsContinue</a></td>
+<td>Private method to check, if a list of statements contain a 'continue' statement.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check101">__check101</a></td>
+<td>Private method to check for duplicate isinstance() calls.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check102">__check102</a></td>
+<td>Private method to check for nested if statements without else blocks.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check103">__check103</a></td>
+<td>Private method to check for calls that wrap a condition to return a bool.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check104">__check104</a></td>
+<td>Private method to check for "iterate and yield" patterns.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check105">__check105</a></td>
+<td>Private method to check for "try-except-pass" patterns.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check106">__check106</a></td>
+<td>Private method to check for calls where an exception is raised in else.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check107">__check107</a></td>
+<td>Private method to check for calls where try/except and finally have 'return'.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check108">__check108</a></td>
+<td>Private method to check for if-elses which could be a ternary operator assignment.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check109">__check109</a></td>
+<td>Private method to check for multiple equalities with the same value are combined via "or".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check110_111">__check110_111</a></td>
+<td>Private method to check if any / all could be used.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check112">__check112</a></td>
+<td>Private method to check for non-capitalized calls to environment variables.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check113">__check113</a></td>
+<td>Private method to check for loops in which "enumerate" should be used.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check114">__check114</a></td>
+<td>Private method to check for alternative if clauses with identical bodies.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check115">__check115</a></td>
+<td>Private method to to check for places where open() is called without a context handler.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check116">__check116</a></td>
+<td>Private method to check for places with 3 or more consecutive if-statements with direct returns.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check117">__check117</a></td>
+<td>Private method to check for multiple with-statements with same scope.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check118">__check118</a></td>
+<td>Private method to check for usages of "key in dict.keys()".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check119">__check119</a></td>
+<td>Private method to check for classes that should be "dataclasses".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check120_121">__check120_121</a></td>
+<td>Private method to check for classes that inherit from object.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check122">__check122</a></td>
+<td>Private method to check for all if-blocks which only check if a key is in a dictionary.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check123">__check123</a></td>
+<td>Private method to check for complicated dictionary access with default value.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check181">__check181</a></td>
+<td>Private method to check for assignments that could be converted into an augmented assignment.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check182">__check182</a></td>
+<td>Private method to check for calls of type 'super()' that could be shortened to 'super()'.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check201">__check201</a></td>
+<td>Private method to check for calls where an unary 'not' is used for an unequality.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check202">__check202</a></td>
+<td>Private method to check for calls where an unary 'not' is used for an equality.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check203">__check203</a></td>
+<td>Private method to check for calls where an unary 'not' is used for an in-check.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check204">__check204</a></td>
+<td>Private method to check for calls of the type "not (a < b)".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check205">__check205</a></td>
+<td>Private method to check for calls of the type "not (a <= b)".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check206">__check206</a></td>
+<td>Private method to check for calls of the type "not (a > b)".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check207">__check207</a></td>
+<td>Private method to check for calls of the type "not (a >= b)".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check208">__check208</a></td>
+<td>Private method to check for calls of the type "not (not a)".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check211">__check211</a></td>
+<td>Private method to check for calls of the type "True if a else False".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check212">__check212</a></td>
+<td>Private method to check for calls of the type "False if a else True".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check213">__check213</a></td>
+<td>Private method to check for calls of the type "b if not a else a".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check221">__check221</a></td>
+<td>Private method to check for calls of the type "a and not a".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check222">__check222</a></td>
+<td>Private method to check for calls of the type "a or not a".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check223">__check223</a></td>
+<td>Private method to check for calls of the type "...</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check224">__check224</a></td>
+<td>Private method to check for calls of the type "...</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check301">__check301</a></td>
+<td>Private method to check for Yoda conditions.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check401">__check401</a></td>
+<td>Private method to check for bare boolean function arguments.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check402">__check402</a></td>
+<td>Private method to check for bare numeric function arguments.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check901">__check901</a></td>
+<td>Private method to check for unnecessary bool conversion.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check904">__check904</a></td>
+<td>Private method to check for dictionary initialization.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check905">__check905</a></td>
+<td>Private method to check for list initialization by splitting a string.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check906">__check906</a></td>
+<td>Private method to check for unnecessary nesting of os.path.join().</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check907">__check907</a></td>
+<td>Private method to check for Union type annotation with None.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check909">__check909</a></td>
+<td>Private method to check for reflexive assignments.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check910">__check910</a></td>
+<td>Private method to check for uses of 'dict.get(key, None)'.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__check911">__check911</a></td>
+<td>Private method to check for the expression "zip(_.keys(), _.values())".</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__expressionUsesVariable">__expressionUsesVariable</a></td>
+<td>Private method to check, if a variable is used by an expression.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__getDuplicatedIsinstanceCall">__getDuplicatedIsinstanceCall</a></td>
+<td>Private method to get a list of isinstance arguments which could be combined.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__getIfBodyPairs">__getIfBodyPairs</a></td>
+<td>Private method to extract a list of pairs of test and body for an If node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__isConstantIncrease">__isConstantIncrease</a></td>
+<td>Private method to check an expression for being a constant increase.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__isExceptionCheck">__isExceptionCheck</a></td>
+<td>Private method to check, if the node is checking an exception.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__isSameBody">__isSameBody</a></td>
+<td>Private method check, if the given bodies are equivalent.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__isSameExpression">__isSameExpression</a></td>
+<td>Private method to check, if two expressions are equal.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__isStatementEqual">__isStatementEqual</a></td>
+<td>Private method to check, if two statements are equal.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.__negateTest">__negateTest</a></td>
+<td>Private method negate the given Compare node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.getOsPathJoinArgs">getOsPathJoinArgs</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_Assign">visit_Assign</a></td>
+<td>Public method to process an Assign node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_BoolOp">visit_BoolOp</a></td>
+<td>Public method to process a BoolOp node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_Call">visit_Call</a></td>
+<td>Public method to process a Call node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_ClassDef">visit_ClassDef</a></td>
+<td>Public method to process a ClassDef node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_Compare">visit_Compare</a></td>
+<td>Public method to process a Compare node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_Expr">visit_Expr</a></td>
+<td>Public method to process an Expr node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_For">visit_For</a></td>
+<td>Public method to process a For node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_If">visit_If</a></td>
+<td>Public method to process an If node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_IfExp">visit_IfExp</a></td>
+<td>Public method to process an IfExp node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_Subscript">visit_Subscript</a></td>
+<td>Public method to process a Subscript node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_Try">visit_Try</a></td>
+<td>Public method to process a Try node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_UnaryOp">visit_UnaryOp</a></td>
+<td>Public method to process a UnaryOp node.</td>
+</tr>
+<tr>
+<td><a href="#SimplifyNodeVisitor.visit_With">visit_With</a></td>
+<td>Public method to process a With node.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SimplifyNodeVisitor.__init__" ID="SimplifyNodeVisitor.__init__"></a>
+<h4>SimplifyNodeVisitor (Constructor)</h4>
+<b>SimplifyNodeVisitor</b>(<i>errorCallback</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>errorCallback</i> (func)</dt>
+<dd>
+callback function to register an error
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__bodyContainsContinue" ID="SimplifyNodeVisitor.__bodyContainsContinue"></a>
+<h4>SimplifyNodeVisitor.__bodyContainsContinue</h4>
+<b>__bodyContainsContinue</b>(<i>stmts</i>)
+<p>
+        Private method to check, if a list of statements contain a 'continue' statement.
+</p>
+
+<dl>
+
+<dt><i>stmts</i> (list of ast.stmt)</dt>
+<dd>
+list of statements
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a continue statement
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check101" ID="SimplifyNodeVisitor.__check101"></a>
+<h4>SimplifyNodeVisitor.__check101</h4>
+<b>__check101</b>(<i>node</i>)
+<p>
+        Private method to check for duplicate isinstance() calls.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BoolOp)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check102" ID="SimplifyNodeVisitor.__check102"></a>
+<h4>SimplifyNodeVisitor.__check102</h4>
+<b>__check102</b>(<i>node</i>)
+<p>
+        Private method to check for nested if statements without else blocks.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check103" ID="SimplifyNodeVisitor.__check103"></a>
+<h4>SimplifyNodeVisitor.__check103</h4>
+<b>__check103</b>(<i>node</i>)
+<p>
+        Private method to check for calls that wrap a condition to return
+        a bool.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check104" ID="SimplifyNodeVisitor.__check104"></a>
+<h4>SimplifyNodeVisitor.__check104</h4>
+<b>__check104</b>(<i>node</i>)
+<p>
+        Private method to check for "iterate and yield" patterns.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check105" ID="SimplifyNodeVisitor.__check105"></a>
+<h4>SimplifyNodeVisitor.__check105</h4>
+<b>__check105</b>(<i>node</i>)
+<p>
+        Private method to check for "try-except-pass" patterns.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Try)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check106" ID="SimplifyNodeVisitor.__check106"></a>
+<h4>SimplifyNodeVisitor.__check106</h4>
+<b>__check106</b>(<i>node</i>)
+<p>
+        Private method to check for calls where an exception is raised in else.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check107" ID="SimplifyNodeVisitor.__check107"></a>
+<h4>SimplifyNodeVisitor.__check107</h4>
+<b>__check107</b>(<i>node</i>)
+<p>
+        Private method to check for calls where try/except and finally have
+        'return'.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Try)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check108" ID="SimplifyNodeVisitor.__check108"></a>
+<h4>SimplifyNodeVisitor.__check108</h4>
+<b>__check108</b>(<i>node</i>)
+<p>
+        Private method to check for if-elses which could be a ternary
+        operator assignment.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check109" ID="SimplifyNodeVisitor.__check109"></a>
+<h4>SimplifyNodeVisitor.__check109</h4>
+<b>__check109</b>(<i>node</i>)
+<p>
+        Private method to check for multiple equalities with the same value
+        are combined via "or".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BoolOp)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check110_111" ID="SimplifyNodeVisitor.__check110_111"></a>
+<h4>SimplifyNodeVisitor.__check110_111</h4>
+<b>__check110_111</b>(<i>node</i>)
+<p>
+        Private method to check if any / all could be used.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check112" ID="SimplifyNodeVisitor.__check112"></a>
+<h4>SimplifyNodeVisitor.__check112</h4>
+<b>__check112</b>(<i>node</i>)
+<p>
+        Private method to check for non-capitalized calls to environment
+        variables.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Expr)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check113" ID="SimplifyNodeVisitor.__check113"></a>
+<h4>SimplifyNodeVisitor.__check113</h4>
+<b>__check113</b>(<i>node</i>)
+<p>
+        Private method to check for loops in which "enumerate" should be
+        used.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check114" ID="SimplifyNodeVisitor.__check114"></a>
+<h4>SimplifyNodeVisitor.__check114</h4>
+<b>__check114</b>(<i>node</i>)
+<p>
+        Private method to check for alternative if clauses with identical
+        bodies.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check115" ID="SimplifyNodeVisitor.__check115"></a>
+<h4>SimplifyNodeVisitor.__check115</h4>
+<b>__check115</b>(<i>node</i>)
+<p>
+        Private method to to check for places where open() is called without
+        a context handler.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check116" ID="SimplifyNodeVisitor.__check116"></a>
+<h4>SimplifyNodeVisitor.__check116</h4>
+<b>__check116</b>(<i>node</i>)
+<p>
+        Private method to check for places with 3 or more consecutive
+        if-statements with direct returns.
+</p>
+<p>
+        * Each if-statement must be a check for equality with the
+          same variable
+        * Each if-statement must just have a "return"
+        * Else must also just have a return
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check117" ID="SimplifyNodeVisitor.__check117"></a>
+<h4>SimplifyNodeVisitor.__check117</h4>
+<b>__check117</b>(<i>node</i>)
+<p>
+        Private method to check for multiple with-statements with same scope.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.With)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check118" ID="SimplifyNodeVisitor.__check118"></a>
+<h4>SimplifyNodeVisitor.__check118</h4>
+<b>__check118</b>(<i>node</i>)
+<p>
+        Private method to check for usages of "key in dict.keys()".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Compare or ast.For)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check119" ID="SimplifyNodeVisitor.__check119"></a>
+<h4>SimplifyNodeVisitor.__check119</h4>
+<b>__check119</b>(<i>node</i>)
+<p>
+        Private method to check for classes that should be "dataclasses".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ClassDef)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check120_121" ID="SimplifyNodeVisitor.__check120_121"></a>
+<h4>SimplifyNodeVisitor.__check120_121</h4>
+<b>__check120_121</b>(<i>node</i>)
+<p>
+        Private method to check for classes that inherit from object.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ClassDef)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check122" ID="SimplifyNodeVisitor.__check122"></a>
+<h4>SimplifyNodeVisitor.__check122</h4>
+<b>__check122</b>(<i>node</i>)
+<p>
+        Private method to check for all if-blocks which only check if a key
+        is in a dictionary.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check123" ID="SimplifyNodeVisitor.__check123"></a>
+<h4>SimplifyNodeVisitor.__check123</h4>
+<b>__check123</b>(<i>node</i>)
+<p>
+        Private method to check for complicated dictionary access with default value.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check181" ID="SimplifyNodeVisitor.__check181"></a>
+<h4>SimplifyNodeVisitor.__check181</h4>
+<b>__check181</b>(<i>node</i>)
+<p>
+        Private method to check for assignments that could be converted into
+        an augmented assignment.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Assign)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check182" ID="SimplifyNodeVisitor.__check182"></a>
+<h4>SimplifyNodeVisitor.__check182</h4>
+<b>__check182</b>(<i>node</i>)
+<p>
+        Private method to check for calls of type 'super()' that could
+        be shortened to 'super()'.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check201" ID="SimplifyNodeVisitor.__check201"></a>
+<h4>SimplifyNodeVisitor.__check201</h4>
+<b>__check201</b>(<i>node</i>)
+<p>
+        Private method to check for calls where an unary 'not' is used for
+        an unequality.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UnaryOp)</dt>
+<dd>
+reference to the UnaryOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check202" ID="SimplifyNodeVisitor.__check202"></a>
+<h4>SimplifyNodeVisitor.__check202</h4>
+<b>__check202</b>(<i>node</i>)
+<p>
+        Private method to check for calls where an unary 'not' is used for
+        an equality.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UnaryOp)</dt>
+<dd>
+reference to the UnaryOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check203" ID="SimplifyNodeVisitor.__check203"></a>
+<h4>SimplifyNodeVisitor.__check203</h4>
+<b>__check203</b>(<i>node</i>)
+<p>
+        Private method to check for calls where an unary 'not' is used for
+        an in-check.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UnaryOp)</dt>
+<dd>
+reference to the UnaryOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check204" ID="SimplifyNodeVisitor.__check204"></a>
+<h4>SimplifyNodeVisitor.__check204</h4>
+<b>__check204</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "not (a < b)".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UnaryOp)</dt>
+<dd>
+reference to the UnaryOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check205" ID="SimplifyNodeVisitor.__check205"></a>
+<h4>SimplifyNodeVisitor.__check205</h4>
+<b>__check205</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "not (a <= b)".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UnaryOp)</dt>
+<dd>
+reference to the UnaryOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check206" ID="SimplifyNodeVisitor.__check206"></a>
+<h4>SimplifyNodeVisitor.__check206</h4>
+<b>__check206</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "not (a > b)".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UnaryOp)</dt>
+<dd>
+reference to the UnaryOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check207" ID="SimplifyNodeVisitor.__check207"></a>
+<h4>SimplifyNodeVisitor.__check207</h4>
+<b>__check207</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "not (a >= b)".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UnaryOp)</dt>
+<dd>
+reference to the UnaryOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check208" ID="SimplifyNodeVisitor.__check208"></a>
+<h4>SimplifyNodeVisitor.__check208</h4>
+<b>__check208</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "not (not a)".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UnaryOp)</dt>
+<dd>
+reference to the UnaryOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check211" ID="SimplifyNodeVisitor.__check211"></a>
+<h4>SimplifyNodeVisitor.__check211</h4>
+<b>__check211</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "True if a else False".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.IfExp)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check212" ID="SimplifyNodeVisitor.__check212"></a>
+<h4>SimplifyNodeVisitor.__check212</h4>
+<b>__check212</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "False if a else True".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.IfExp)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check213" ID="SimplifyNodeVisitor.__check213"></a>
+<h4>SimplifyNodeVisitor.__check213</h4>
+<b>__check213</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "b if not a else a".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.IfExp)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check221" ID="SimplifyNodeVisitor.__check221"></a>
+<h4>SimplifyNodeVisitor.__check221</h4>
+<b>__check221</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "a and not a".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BoolOp)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check222" ID="SimplifyNodeVisitor.__check222"></a>
+<h4>SimplifyNodeVisitor.__check222</h4>
+<b>__check222</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "a or not a".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BoolOp)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check223" ID="SimplifyNodeVisitor.__check223"></a>
+<h4>SimplifyNodeVisitor.__check223</h4>
+<b>__check223</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "... or True".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BoolOp)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check224" ID="SimplifyNodeVisitor.__check224"></a>
+<h4>SimplifyNodeVisitor.__check224</h4>
+<b>__check224</b>(<i>node</i>)
+<p>
+        Private method to check for calls of the type "... and False".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BoolOp)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check301" ID="SimplifyNodeVisitor.__check301"></a>
+<h4>SimplifyNodeVisitor.__check301</h4>
+<b>__check301</b>(<i>node</i>)
+<p>
+        Private method to check for Yoda conditions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Compare)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check401" ID="SimplifyNodeVisitor.__check401"></a>
+<h4>SimplifyNodeVisitor.__check401</h4>
+<b>__check401</b>(<i>node</i>)
+<p>
+        Private method to check for bare boolean function arguments.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check402" ID="SimplifyNodeVisitor.__check402"></a>
+<h4>SimplifyNodeVisitor.__check402</h4>
+<b>__check402</b>(<i>node</i>)
+<p>
+        Private method to check for bare numeric function arguments.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check901" ID="SimplifyNodeVisitor.__check901"></a>
+<h4>SimplifyNodeVisitor.__check901</h4>
+<b>__check901</b>(<i>node</i>)
+<p>
+        Private method to check for unnecessary bool conversion.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check904" ID="SimplifyNodeVisitor.__check904"></a>
+<h4>SimplifyNodeVisitor.__check904</h4>
+<b>__check904</b>(<i>node</i>)
+<p>
+        Private method to check for dictionary initialization.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Assign)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check905" ID="SimplifyNodeVisitor.__check905"></a>
+<h4>SimplifyNodeVisitor.__check905</h4>
+<b>__check905</b>(<i>node</i>)
+<p>
+        Private method to check for list initialization by splitting a string.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check906" ID="SimplifyNodeVisitor.__check906"></a>
+<h4>SimplifyNodeVisitor.__check906</h4>
+<b>__check906</b>(<i>node</i>)
+<p>
+        Private method to check for unnecessary nesting of os.path.join().
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check907" ID="SimplifyNodeVisitor.__check907"></a>
+<h4>SimplifyNodeVisitor.__check907</h4>
+<b>__check907</b>(<i>node</i>)
+<p>
+        Private method to check for Union type annotation with None.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Subscript)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check909" ID="SimplifyNodeVisitor.__check909"></a>
+<h4>SimplifyNodeVisitor.__check909</h4>
+<b>__check909</b>(<i>node</i>)
+<p>
+        Private method to check for reflexive assignments.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Assign)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check910" ID="SimplifyNodeVisitor.__check910"></a>
+<h4>SimplifyNodeVisitor.__check910</h4>
+<b>__check910</b>(<i>node</i>)
+<p>
+        Private method to check for uses of 'dict.get(key, None)'.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__check911" ID="SimplifyNodeVisitor.__check911"></a>
+<h4>SimplifyNodeVisitor.__check911</h4>
+<b>__check911</b>(<i>node</i>)
+<p>
+        Private method to check for the expression "zip(_.keys(), _.values())".
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the AST node to be checked
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__expressionUsesVariable" ID="SimplifyNodeVisitor.__expressionUsesVariable"></a>
+<h4>SimplifyNodeVisitor.__expressionUsesVariable</h4>
+<b>__expressionUsesVariable</b>(<i>expr, var</i>)
+<p>
+        Private method to check, if a variable is used by an expression.
+</p>
+
+<dl>
+
+<dt><i>expr</i> (ast.expr)</dt>
+<dd>
+expression node to be checked
+</dd>
+<dt><i>var</i> (str)</dt>
+<dd>
+variable name to be checked for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the expression uses the variable
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__getDuplicatedIsinstanceCall" ID="SimplifyNodeVisitor.__getDuplicatedIsinstanceCall"></a>
+<h4>SimplifyNodeVisitor.__getDuplicatedIsinstanceCall</h4>
+<b>__getDuplicatedIsinstanceCall</b>(<i>node</i>)
+<p>
+        Private method to get a list of isinstance arguments which could
+        be combined.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BoolOp)</dt>
+<dd>
+reference to the AST node to be inspected
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of variable names of duplicated isinstance calls
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__getIfBodyPairs" ID="SimplifyNodeVisitor.__getIfBodyPairs"></a>
+<h4>SimplifyNodeVisitor.__getIfBodyPairs</h4>
+<b>__getIfBodyPairs</b>(<i>node</i>)
+<p>
+        Private method to extract a list of pairs of test and body for an
+        If node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the If node to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of pairs of test and body
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (ast.expr, [ast.stmt])
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__isConstantIncrease" ID="SimplifyNodeVisitor.__isConstantIncrease"></a>
+<h4>SimplifyNodeVisitor.__isConstantIncrease</h4>
+<b>__isConstantIncrease</b>(<i>expr</i>)
+<p>
+        Private method to check an expression for being a constant increase.
+</p>
+
+<dl>
+
+<dt><i>expr</i> (ast.AugAssign)</dt>
+<dd>
+reference to the node to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a constant increase
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__isExceptionCheck" ID="SimplifyNodeVisitor.__isExceptionCheck"></a>
+<h4>SimplifyNodeVisitor.__isExceptionCheck</h4>
+<b>__isExceptionCheck</b>(<i>node</i>)
+<p>
+        Private method to check, if the node is checking an exception.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the node to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an exception check
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__isSameBody" ID="SimplifyNodeVisitor.__isSameBody"></a>
+<h4>SimplifyNodeVisitor.__isSameBody</h4>
+<b>__isSameBody</b>(<i>body1, body2</i>)
+<p>
+        Private method check, if the given bodies are equivalent.
+</p>
+
+<dl>
+
+<dt><i>body1</i> (list of ast.stmt)</dt>
+<dd>
+list of statements of the first body
+</dd>
+<dt><i>body2</i> (list of ast.stmt)</dt>
+<dd>
+list of statements of the second body
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating identical bodies
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__isSameExpression" ID="SimplifyNodeVisitor.__isSameExpression"></a>
+<h4>SimplifyNodeVisitor.__isSameExpression</h4>
+<b>__isSameExpression</b>(<i>a, b</i>)
+<p>
+        Private method to check, if two expressions are equal.
+</p>
+
+<dl>
+
+<dt><i>a</i> (ast.expr)</dt>
+<dd>
+first expression to be checked
+</dd>
+<dt><i>b</i> (ast.expr)</dt>
+<dd>
+second expression to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating equal expressions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__isStatementEqual" ID="SimplifyNodeVisitor.__isStatementEqual"></a>
+<h4>SimplifyNodeVisitor.__isStatementEqual</h4>
+<b>__isStatementEqual</b>(<i>a, b</i>)
+<p>
+        Private method to check, if two statements are equal.
+</p>
+
+<dl>
+
+<dt><i>a</i> (ast.stmt)</dt>
+<dd>
+reference to the first statement
+</dd>
+<dt><i>b</i> (ast.stmt)</dt>
+<dd>
+reference to the second statement
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if the two statements are equal
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.__negateTest" ID="SimplifyNodeVisitor.__negateTest"></a>
+<h4>SimplifyNodeVisitor.__negateTest</h4>
+<b>__negateTest</b>(<i>node</i>)
+<p>
+        Private method negate the given Compare node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Compare)</dt>
+<dd>
+reference to the node to be negated
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+node with negated logic
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.Compare
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.getOsPathJoinArgs" ID="SimplifyNodeVisitor.getOsPathJoinArgs"></a>
+<h4>SimplifyNodeVisitor.getOsPathJoinArgs</h4>
+<b>getOsPathJoinArgs</b>(<i></i>)
+
+<a NAME="SimplifyNodeVisitor.visit_Assign" ID="SimplifyNodeVisitor.visit_Assign"></a>
+<h4>SimplifyNodeVisitor.visit_Assign</h4>
+<b>visit_Assign</b>(<i>node</i>)
+<p>
+        Public method to process an Assign node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Assign)</dt>
+<dd>
+reference to the Assign node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_BoolOp" ID="SimplifyNodeVisitor.visit_BoolOp"></a>
+<h4>SimplifyNodeVisitor.visit_BoolOp</h4>
+<b>visit_BoolOp</b>(<i>node</i>)
+<p>
+        Public method to process a BoolOp node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BoolOp)</dt>
+<dd>
+reference to the BoolOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_Call" ID="SimplifyNodeVisitor.visit_Call"></a>
+<h4>SimplifyNodeVisitor.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+<p>
+        Public method to process a Call node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the Call node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_ClassDef" ID="SimplifyNodeVisitor.visit_ClassDef"></a>
+<h4>SimplifyNodeVisitor.visit_ClassDef</h4>
+<b>visit_ClassDef</b>(<i>node</i>)
+<p>
+        Public method to process a ClassDef node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ClassDef)</dt>
+<dd>
+reference to the ClassDef node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_Compare" ID="SimplifyNodeVisitor.visit_Compare"></a>
+<h4>SimplifyNodeVisitor.visit_Compare</h4>
+<b>visit_Compare</b>(<i>node</i>)
+<p>
+        Public method to process a Compare node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Compare)</dt>
+<dd>
+reference to the Compare node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_Expr" ID="SimplifyNodeVisitor.visit_Expr"></a>
+<h4>SimplifyNodeVisitor.visit_Expr</h4>
+<b>visit_Expr</b>(<i>node</i>)
+<p>
+        Public method to process an Expr node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Expr)</dt>
+<dd>
+reference to the Expr node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_For" ID="SimplifyNodeVisitor.visit_For"></a>
+<h4>SimplifyNodeVisitor.visit_For</h4>
+<b>visit_For</b>(<i>node</i>)
+<p>
+        Public method to process a For node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.For)</dt>
+<dd>
+reference to the For node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_If" ID="SimplifyNodeVisitor.visit_If"></a>
+<h4>SimplifyNodeVisitor.visit_If</h4>
+<b>visit_If</b>(<i>node</i>)
+<p>
+        Public method to process an If node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.If)</dt>
+<dd>
+reference to the If node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_IfExp" ID="SimplifyNodeVisitor.visit_IfExp"></a>
+<h4>SimplifyNodeVisitor.visit_IfExp</h4>
+<b>visit_IfExp</b>(<i>node</i>)
+<p>
+        Public method to process an IfExp node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.IfExp)</dt>
+<dd>
+reference to the IfExp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_Subscript" ID="SimplifyNodeVisitor.visit_Subscript"></a>
+<h4>SimplifyNodeVisitor.visit_Subscript</h4>
+<b>visit_Subscript</b>(<i>node</i>)
+<p>
+        Public method to process a Subscript node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Subscript)</dt>
+<dd>
+reference to the Subscript node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_Try" ID="SimplifyNodeVisitor.visit_Try"></a>
+<h4>SimplifyNodeVisitor.visit_Try</h4>
+<b>visit_Try</b>(<i>node</i>)
+<p>
+        Public method to process a Try node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Try)</dt>
+<dd>
+reference to the Try node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_UnaryOp" ID="SimplifyNodeVisitor.visit_UnaryOp"></a>
+<h4>SimplifyNodeVisitor.visit_UnaryOp</h4>
+<b>visit_UnaryOp</b>(<i>node</i>)
+<p>
+        Public method to process a UnaryOp node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.UnaryOp)</dt>
+<dd>
+reference to the UnaryOp node
+</dd>
+</dl>
+<a NAME="SimplifyNodeVisitor.visit_With" ID="SimplifyNodeVisitor.visit_With"></a>
+<h4>SimplifyNodeVisitor.visit_With</h4>
+<b>visit_With</b>(<i>node</i>)
+<p>
+        Public method to process a With node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.With)</dt>
+<dd>
+reference to the With node
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

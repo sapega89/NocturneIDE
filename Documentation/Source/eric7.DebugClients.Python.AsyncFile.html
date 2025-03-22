@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.AsyncFile</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.AsyncFile</h1>
+<p>
+Module implementing an asynchronous file like socket interface for the
+debugger.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AsyncFile">AsyncFile</a></td>
+<td>Class wrapping a socket object with a file interface.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#AsyncPendingWrite">AsyncPendingWrite</a></td>
+<td>Module function to check for data to be written.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AsyncFile" ID="AsyncFile"></a>
+<h2>AsyncFile</h2>
+<p>
+    Class wrapping a socket object with a file interface.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>BUFSIZE</td></tr>
+<tr><td>CMD_BUFSIZE</td></tr>
+<tr><td>MAX_TRIES</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AsyncFile.__init__">AsyncFile</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.__checkMode">__checkMode</a></td>
+<td>Private method to check the mode.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.close">close</a></td>
+<td>Public method to close the file.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.fileno">fileno</a></td>
+<td>Public method returning the file number.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.flush">flush</a></td>
+<td>Public method to write all pending entries.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.isatty">isatty</a></td>
+<td>Public method to indicate whether a tty interface is supported.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.pendingWrite">pendingWrite</a></td>
+<td>Public method that returns the number of strings waiting to be written.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.read">read</a></td>
+<td>Public method to read bytes from this file.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.readCommand">readCommand</a></td>
+<td>Public method to read a command string prefixed by a command header.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.read_p">read_p</a></td>
+<td>Public method to read bytes from this file.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.readable">readable</a></td>
+<td>Public method to check, if the stream is readable.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.readline">readline</a></td>
+<td>Public method to read one line from this file.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.readline_p">readline_p</a></td>
+<td>Public method to read a line from this file.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.readlines">readlines</a></td>
+<td>Public method to read all lines from this file.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.seek">seek</a></td>
+<td>Public method to move the filepointer.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.seekable">seekable</a></td>
+<td>Public method to check, if the stream is seekable.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.tell">tell</a></td>
+<td>Public method to get the filepointer position.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.truncate">truncate</a></td>
+<td>Public method to truncate the file.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.writable">writable</a></td>
+<td>Public method to check, if a stream is writable.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.write">write</a></td>
+<td>Public method to write a string to the file.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.write_p">write_p</a></td>
+<td>Public method to write a json-rpc 2.0 coded string to the file.</td>
+</tr>
+<tr>
+<td><a href="#AsyncFile.writelines">writelines</a></td>
+<td>Public method to write a list of strings to the file.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AsyncFile.__init__" ID="AsyncFile.__init__"></a>
+<h4>AsyncFile (Constructor)</h4>
+<b>AsyncFile</b>(<i>sock, mode, name</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>sock</i> (socket)</dt>
+<dd>
+the socket object being wrapped
+</dd>
+<dt><i>mode</i> (str)</dt>
+<dd>
+mode of this file
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this file
+</dd>
+</dl>
+<a NAME="AsyncFile.__checkMode" ID="AsyncFile.__checkMode"></a>
+<h4>AsyncFile.__checkMode</h4>
+<b>__checkMode</b>(<i>mode</i>)
+<p>
+        Private method to check the mode.
+</p>
+<p>
+        This method checks, if an operation is permitted according to
+        the mode of the file. If it is not, an OSError is raised.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (string)</dt>
+<dd>
+the mode to be checked
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate a bad file descriptor
+</dd>
+</dl>
+<a NAME="AsyncFile.close" ID="AsyncFile.close"></a>
+<h4>AsyncFile.close</h4>
+<b>close</b>(<i>closeit=False</i>)
+<p>
+        Public method to close the file.
+</p>
+
+<dl>
+
+<dt><i>closeit</i> (bool)</dt>
+<dd>
+flag to indicate a close ordered by the debugger code
+</dd>
+</dl>
+<a NAME="AsyncFile.fileno" ID="AsyncFile.fileno"></a>
+<h4>AsyncFile.fileno</h4>
+<b>fileno</b>(<i></i>)
+<p>
+        Public method returning the file number.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+file number
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="AsyncFile.flush" ID="AsyncFile.flush"></a>
+<h4>AsyncFile.flush</h4>
+<b>flush</b>(<i></i>)
+<p>
+        Public method to write all pending entries.
+</p>
+
+<a NAME="AsyncFile.isatty" ID="AsyncFile.isatty"></a>
+<h4>AsyncFile.isatty</h4>
+<b>isatty</b>(<i></i>)
+<p>
+        Public method to indicate whether a tty interface is supported.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+always false
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AsyncFile.pendingWrite" ID="AsyncFile.pendingWrite"></a>
+<h4>AsyncFile.pendingWrite</h4>
+<b>pendingWrite</b>(<i></i>)
+<p>
+        Public method that returns the number of strings waiting to be written.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the number of strings to be written
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="AsyncFile.read" ID="AsyncFile.read"></a>
+<h4>AsyncFile.read</h4>
+<b>read</b>(<i>size=-1</i>)
+<p>
+        Public method to read bytes from this file.
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+maximum number of bytes to be read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the bytes read
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AsyncFile.readCommand" ID="AsyncFile.readCommand"></a>
+<h4>AsyncFile.readCommand</h4>
+<b>readCommand</b>(<i></i>)
+<p>
+        Public method to read a command string prefixed by a command header.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+command string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AsyncFile.read_p" ID="AsyncFile.read_p"></a>
+<h4>AsyncFile.read_p</h4>
+<b>read_p</b>(<i>size=-1</i>)
+<p>
+        Public method to read bytes from this file.
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+maximum number of bytes to be read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the bytes read
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AsyncFile.readable" ID="AsyncFile.readable"></a>
+<h4>AsyncFile.readable</h4>
+<b>readable</b>(<i></i>)
+<p>
+        Public method to check, if the stream is readable.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a readable stream
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AsyncFile.readline" ID="AsyncFile.readline"></a>
+<h4>AsyncFile.readline</h4>
+<b>readline</b>(<i>sizehint=-1</i>)
+<p>
+        Public method to read one line from this file.
+</p>
+
+<dl>
+
+<dt><i>sizehint</i> (int)</dt>
+<dd>
+hint of the numbers of bytes to be read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+one line read
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AsyncFile.readline_p" ID="AsyncFile.readline_p"></a>
+<h4>AsyncFile.readline_p</h4>
+<b>readline_p</b>(<i>size=-1</i>)
+<p>
+        Public method to read a line from this file.
+</p>
+<p>
+        <b>Note</b>: This method will not block and may return
+        only a part of a line if that is all that is available.
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+maximum number of bytes to be read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+one line of text up to size bytes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AsyncFile.readlines" ID="AsyncFile.readlines"></a>
+<h4>AsyncFile.readlines</h4>
+<b>readlines</b>(<i>sizehint=-1</i>)
+<p>
+        Public method to read all lines from this file.
+</p>
+
+<dl>
+
+<dt><i>sizehint</i> (int)</dt>
+<dd>
+hint of the numbers of bytes to be read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of lines read
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="AsyncFile.seek" ID="AsyncFile.seek"></a>
+<h4>AsyncFile.seek</h4>
+<b>seek</b>(<i>offset, whence=0</i>)
+<p>
+        Public method to move the filepointer.
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+offset to move the file pointer to (unused)
+</dd>
+<dt><i>whence</i> (int)</dt>
+<dd>
+position the offset relates to (unused)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+This method is not supported and always raises an
+        OSError.
+</dd>
+</dl>
+<a NAME="AsyncFile.seekable" ID="AsyncFile.seekable"></a>
+<h4>AsyncFile.seekable</h4>
+<b>seekable</b>(<i></i>)
+<p>
+        Public method to check, if the stream is seekable.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a seekable stream
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AsyncFile.tell" ID="AsyncFile.tell"></a>
+<h4>AsyncFile.tell</h4>
+<b>tell</b>(<i></i>)
+<p>
+        Public method to get the filepointer position.
+</p>
+
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+This method is not supported and always raises an
+        OSError.
+</dd>
+</dl>
+<a NAME="AsyncFile.truncate" ID="AsyncFile.truncate"></a>
+<h4>AsyncFile.truncate</h4>
+<b>truncate</b>(<i>size=-1</i>)
+<p>
+        Public method to truncate the file.
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+size to truncate to (unused)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+This method is not supported and always raises an
+        OSError.
+</dd>
+</dl>
+<a NAME="AsyncFile.writable" ID="AsyncFile.writable"></a>
+<h4>AsyncFile.writable</h4>
+<b>writable</b>(<i></i>)
+<p>
+        Public method to check, if a stream is writable.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a writable stream
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AsyncFile.write" ID="AsyncFile.write"></a>
+<h4>AsyncFile.write</h4>
+<b>write</b>(<i>s</i>)
+<p>
+        Public method to write a string to the file.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str, bytes or bytearray)</dt>
+<dd>
+text to be written
+</dd>
+</dl>
+<a NAME="AsyncFile.write_p" ID="AsyncFile.write_p"></a>
+<h4>AsyncFile.write_p</h4>
+<b>write_p</b>(<i>s</i>)
+<p>
+        Public method to write a json-rpc 2.0 coded string to the file.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+text to be written
+</dd>
+</dl>
+<a NAME="AsyncFile.writelines" ID="AsyncFile.writelines"></a>
+<h4>AsyncFile.writelines</h4>
+<b>writelines</b>(<i>lines</i>)
+<p>
+        Public method to write a list of strings to the file.
+</p>
+
+<dl>
+
+<dt><i>lines</i> (list of str)</dt>
+<dd>
+list of texts to be written
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="AsyncPendingWrite" ID="AsyncPendingWrite"></a>
+<h2>AsyncPendingWrite</h2>
+<b>AsyncPendingWrite</b>(<i>file</i>)
+<p>
+    Module function to check for data to be written.
+</p>
+
+<dl>
+
+<dt><i>file</i> (file)</dt>
+<dd>
+The file object to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+Flag indicating if there is data waiting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

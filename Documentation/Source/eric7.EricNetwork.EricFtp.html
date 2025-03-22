@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricNetwork.EricFtp</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricNetwork.EricFtp</h1>
+<p>
+Module implementing an extension to the Python FTP class to support FTP
+proxies.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricFtp">EricFtp</a></td>
+<td>Class implementing an extension to the Python FTP class to support FTP proxies.</td>
+</tr>
+<tr>
+<td><a href="#EricFtpProxyError">EricFtpProxyError</a></td>
+<td>Class to signal an error related to proxy configuration.</td>
+</tr>
+<tr>
+<td><a href="#EricFtpProxyType">EricFtpProxyType</a></td>
+<td>Class defining the supported FTP proxy types.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricFtp" ID="EricFtp"></a>
+<h2>EricFtp</h2>
+<p>
+    Class implementing an extension to the Python FTP class to support FTP
+    proxies.
+</p>
+
+<h3>Derived from</h3>
+ftplib.FTP
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricFtp.__init__">EricFtp</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricFtp.connect">connect</a></td>
+<td>Public method to connect to the given FTP server.</td>
+</tr>
+<tr>
+<td><a href="#EricFtp.login">login</a></td>
+<td>Public method to login to the FTP server.</td>
+</tr>
+<tr>
+<td><a href="#EricFtp.setProxy">setProxy</a></td>
+<td>Public method to set the proxy configuration.</td>
+</tr>
+<tr>
+<td><a href="#EricFtp.setProxyAuthentication">setProxyAuthentication</a></td>
+<td>Public method to set the proxy authentication info.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricFtp.__init__" ID="EricFtp.__init__"></a>
+<h4>EricFtp (Constructor)</h4>
+<b>EricFtp</b>(<i>host="", user="", password="", acct="", proxyType=EricFtpProxyType.NO_PROXY, proxyHost="", proxyPort=ftplib.FTP_PORT, proxyUser="", proxyPassword="", proxyAccount="", timeout=_GLOBAL_DEFAULT_TIMEOUT, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+name of the FTP host
+</dd>
+<dt><i>user</i> (str)</dt>
+<dd>
+user name for login to FTP host
+</dd>
+<dt><i>password</i> (str)</dt>
+<dd>
+password for login to FTP host
+</dd>
+<dt><i>acct</i> (str)</dt>
+<dd>
+account for login to FTP host
+</dd>
+<dt><i>proxyType</i> (EricFtpProxyType)</dt>
+<dd>
+type of the FTP proxy
+</dd>
+<dt><i>proxyHost</i> (str)</dt>
+<dd>
+name of the FTP proxy
+</dd>
+<dt><i>proxyPort</i> (int)</dt>
+<dd>
+port of the FTP proxy
+</dd>
+<dt><i>proxyUser</i> (str)</dt>
+<dd>
+user name for login to the proxy
+</dd>
+<dt><i>proxyPassword</i> (str)</dt>
+<dd>
+password for login to the proxy
+</dd>
+<dt><i>proxyAccount</i> (str)</dt>
+<dd>
+accounting info for the proxy
+</dd>
+<dt><i>timeout</i> (int)</dt>
+<dd>
+timeout in seconds for blocking operations
+</dd>
+</dl>
+<a NAME="EricFtp.connect" ID="EricFtp.connect"></a>
+<h4>EricFtp.connect</h4>
+<b>connect</b>(<i>host="", port=0, timeout=-999</i>)
+<p>
+        Public method to connect to the given FTP server.
+</p>
+<p>
+        This extended method connects to the proxy instead of the given host,
+        if a proxy is to be used. It throws an exception, if the proxy data
+        is incomplete.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+name of the FTP host
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+port of the FTP host
+</dd>
+<dt><i>timeout</i> (int)</dt>
+<dd>
+timeout in seconds for blocking operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+welcome message of the server
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>EricFtpProxyError</b>:</dt>
+<dd>
+raised to indicate a proxy related issue
+</dd>
+</dl>
+<a NAME="EricFtp.login" ID="EricFtp.login"></a>
+<h4>EricFtp.login</h4>
+<b>login</b>(<i>user="", password="", acct=""</i>)
+<p>
+        Public method to login to the FTP server.
+</p>
+<p>
+        This extended method respects the FTP proxy configuration. There are
+        many different FTP proxy products available. But unfortunately there
+        is no standard for how o traverse a FTP proxy. The lis below shows
+        the sequence of commands used.
+</p>
+<p>
+        <table>
+          <tr><td>user</td><td>Username for remote host</td></tr>
+          <tr><td>pass</td><td>Password for remote host</td></tr>
+          <tr><td>pruser</td><td>Username for FTP proxy</td></tr>
+          <tr><td>prpass</td><td>Password for FTP proxy</td></tr>
+          <tr><td>remote.host</td><td>Hostname of the remote FTP server</td>
+          </tr>
+        </table>
+</p>
+<p>
+        <dl>
+          <dt>EricFtpProxyType.NO_PROXY:</dt>
+          <dd>
+            USER user<br/>
+            PASS pass
+          </dd>
+          <dt>EricFtpProxyType.NON_AUTHORIZING:</dt>
+          <dd>
+            USER user@remote.host<br/>
+            PASS pass
+          </dd>
+          <dt>EricFtpProxyType.USER_SERVER:</dt>
+          <dd>
+            USER pruser<br/>
+            PASS prpass<br/>
+            USER user@remote.host<br/>
+            PASS pass
+          </dd>
+          <dt>EricFtpProxyType.SITE:</dt>
+          <dd>
+            USER pruser<br/>
+            PASS prpass<br/>
+            SITE remote.site<br/>
+            USER user<br/>
+            PASS pass
+          </dd>
+          <dt>EricFtpProxyType.OPEN:</dt>
+          <dd>
+            USER pruser<br/>
+            PASS prpass<br/>
+            OPEN remote.site<br/>
+            USER user<br/>
+            PASS pass
+          </dd>
+          <dt>EricFtpProxyType.USER_PROXYUSER_SERVER:</dt>
+          <dd>
+            USER user@pruser@remote.host<br/>
+            PASS pass@prpass
+          </dd>
+          <dt>EricFtpProxyType.PROXYUSER_SERVER:</dt>
+          <dd>
+            USER pruser@remote.host<br/>
+            PASS prpass<br/>
+            USER user<br/>
+            PASS pass
+          </dd>
+          <dt>EricFtpProxyType.AUTH_RESP:</dt>
+          <dd>
+            USER user@remote.host<br/>
+            PASS pass<br/>
+            AUTH pruser<br/>
+            RESP prpass
+          </dd>
+          <dt>EricFtpProxyType.BLUECOAT:</dt>
+          <dd>
+            USER user@remote.host pruser<br/>
+            PASS pass<br/>
+            ACCT prpass
+          </dd>
+        </dl>
+</p>
+
+<dl>
+
+<dt><i>user</i> (str)</dt>
+<dd>
+username for the remote host
+</dd>
+<dt><i>password</i> (str)</dt>
+<dd>
+password for the remote host
+</dd>
+<dt><i>acct</i> (str)</dt>
+<dd>
+accounting information for the remote host
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+response sent by the remote host
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>EricFtpProxyError</b>:</dt>
+<dd>
+raised to indicate a proxy related issue
+</dd>
+<dt>Raises <b>ftplib.error_reply</b>:</dt>
+<dd>
+raised to indicate an FTP error reply
+</dd>
+</dl>
+<a NAME="EricFtp.setProxy" ID="EricFtp.setProxy"></a>
+<h4>EricFtp.setProxy</h4>
+<b>setProxy</b>(<i>proxyType=EricFtpProxyType.NO_PROXY, proxyHost="", proxyPort=ftplib.FTP_PORT, proxyUser="", proxyPassword="", proxyAccount="", </i>)
+<p>
+        Public method to set the proxy configuration.
+</p>
+
+<dl>
+
+<dt><i>proxyType</i> (EricFtpProxyType)</dt>
+<dd>
+type of the FTP proxy
+</dd>
+<dt><i>proxyHost</i> (str)</dt>
+<dd>
+name of the FTP proxy
+</dd>
+<dt><i>proxyPort</i> (int)</dt>
+<dd>
+port of the FTP proxy
+</dd>
+<dt><i>proxyUser</i> (str)</dt>
+<dd>
+user name for login to the proxy
+</dd>
+<dt><i>proxyPassword</i> (str)</dt>
+<dd>
+password  for login to the proxy
+</dd>
+<dt><i>proxyAccount</i> (str)</dt>
+<dd>
+accounting info for the proxy
+</dd>
+</dl>
+<a NAME="EricFtp.setProxyAuthentication" ID="EricFtp.setProxyAuthentication"></a>
+<h4>EricFtp.setProxyAuthentication</h4>
+<b>setProxyAuthentication</b>(<i>proxyUser="", proxyPassword="", proxyAccount=""</i>)
+<p>
+        Public method to set the proxy authentication info.
+</p>
+
+<dl>
+
+<dt><i>proxyUser</i> (str)</dt>
+<dd>
+user name for login to the proxy
+</dd>
+<dt><i>proxyPassword</i> (str)</dt>
+<dd>
+password  for login to the proxy
+</dd>
+<dt><i>proxyAccount</i> (str)</dt>
+<dd>
+accounting info for the proxy
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricFtpProxyError" ID="EricFtpProxyError"></a>
+<h2>EricFtpProxyError</h2>
+<p>
+    Class to signal an error related to proxy configuration.
+</p>
+<p>
+    The error message starts with a three digit error code followed by a
+    space and the error string. Supported error codes are:
+    <ul>
+      <li>910: proxy error; the second number gives the category of the proxy
+          error. The original response from the proxy is appended in the next
+          line.</li>
+      <li>930: proxy error; the second number gives the category of the proxy
+          error. The original response from the proxy is appended in the next
+          line.</li>
+      <li>940: proxy error; the second number gives the category of the proxy
+          error. The original response from the proxy is appended in the next
+          line.</li>
+      <li>950: proxy error; the second number gives the category of the proxy
+          error. The original response from the proxy is appended in the next
+          line.</li>
+      <li>990: proxy usage is enabled but no proxy host given</li>
+      <li>991: proxy usage is enabled but no proxy user given</li>
+      <li>992: proxy usage is enabled but no proxy password given</li>
+    </ul>
+</p>
+
+<h3>Derived from</h3>
+ftplib.Error
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricFtpProxyType" ID="EricFtpProxyType"></a>
+<h2>EricFtpProxyType</h2>
+<p>
+    Class defining the supported FTP proxy types.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AUTH_RESP</td></tr>
+<tr><td>BLUECOAT</td></tr>
+<tr><td>NON_AUTHORIZING</td></tr>
+<tr><td>NO_PROXY</td></tr>
+<tr><td>OPEN</td></tr>
+<tr><td>PROXYUSER_SERVER</td></tr>
+<tr><td>SITE</td></tr>
+<tr><td>USER_PROXYUSER_SERVER</td></tr>
+<tr><td>USER_SERVER</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

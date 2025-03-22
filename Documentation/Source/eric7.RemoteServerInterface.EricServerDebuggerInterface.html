@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.RemoteServerInterface.EricServerDebuggerInterface</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.RemoteServerInterface.EricServerDebuggerInterface</h1>
+<p>
+Module implementing the file system interface to the eric-ide server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricServerDebuggerInterface">EricServerDebuggerInterface</a></td>
+<td>Class implementing the file system interface to the eric-ide server.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricServerDebuggerInterface" ID="EricServerDebuggerInterface"></a>
+<h2>EricServerDebuggerInterface</h2>
+<p>
+    Class implementing the file system interface to the eric-ide server.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>debugClientDisconnected(debuggerId:str)</dt>
+<dd>
+emitted when a remote debug
+        client did disconnect from the eric-ide server
+</dd>
+<dt>debugClientResponse(response:str)</dt>
+<dd>
+emitted to relay a response of
+        the remote debug client
+</dd>
+<dt>lastClientExited()</dt>
+<dd>
+emitted to indicate that the last debug client of
+        the eric-ide server exited
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricServerDebuggerInterface.__init__">EricServerDebuggerInterface</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.__handleDbgClientDisconnected">__handleDbgClientDisconnected</a></td>
+<td>Private method to handle a debug client disconnect report of the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.__handleDbgClientResponse">__handleDbgClientResponse</a></td>
+<td>Private method to handle a response from a debug client connected to the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.__handleDbgRequestError">__handleDbgRequestError</a></td>
+<td>Private method to handle an error reported by the debugger interface of the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.__handleDebuggerReply">__handleDebuggerReply</a></td>
+<td>Private slot to handle a debugger reply from the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.__handleLastDbgClientExited">__handleLastDbgClientExited</a></td>
+<td>Private method to handle a report of the eric-ide server, that the last debug client has disconnected.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.__handleMainClientExited">__handleMainClientExited</a></td>
+<td>Private method to handle the main client exiting.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.__handleStartClientError">__handleStartClientError</a></td>
+<td>Private method to handle an error starting the remote debug client.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.callback">callback</a></td>
+<td>Function to handle the server reply</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.sendClientCommand">sendClientCommand</a></td>
+<td>Public method to rely a debug client command via the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.startClient">startClient</a></td>
+<td>Public method to send a command to start a debug client.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerInterface.stopClient">stopClient</a></td>
+<td>Public method to stop the debug client synchronously.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricServerDebuggerInterface.__init__" ID="EricServerDebuggerInterface.__init__"></a>
+<h4>EricServerDebuggerInterface (Constructor)</h4>
+<b>EricServerDebuggerInterface</b>(<i>serverInterface</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>serverInterface</i> (EricServerInterface)</dt>
+<dd>
+reference to the eric-ide server interface
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.__handleDbgClientDisconnected" ID="EricServerDebuggerInterface.__handleDbgClientDisconnected"></a>
+<h4>EricServerDebuggerInterface.__handleDbgClientDisconnected</h4>
+<b>__handleDbgClientDisconnected</b>(<i>params</i>)
+<p>
+        Private method to handle a debug client disconnect report of the
+        eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.__handleDbgClientResponse" ID="EricServerDebuggerInterface.__handleDbgClientResponse"></a>
+<h4>EricServerDebuggerInterface.__handleDbgClientResponse</h4>
+<b>__handleDbgClientResponse</b>(<i>params</i>)
+<p>
+        Private method to handle a response from a debug client connected to the
+        eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.__handleDbgRequestError" ID="EricServerDebuggerInterface.__handleDbgRequestError"></a>
+<h4>EricServerDebuggerInterface.__handleDbgRequestError</h4>
+<b>__handleDbgRequestError</b>(<i>params</i>)
+<p>
+        Private method to handle an error reported by the debugger interface of
+        the eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.__handleDebuggerReply" ID="EricServerDebuggerInterface.__handleDebuggerReply"></a>
+<h4>EricServerDebuggerInterface.__handleDebuggerReply</h4>
+<b>__handleDebuggerReply</b>(<i>reply, params</i>)
+<p>
+        Private slot to handle a debugger reply from the eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (str)</dt>
+<dd>
+name of the server reply
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.__handleLastDbgClientExited" ID="EricServerDebuggerInterface.__handleLastDbgClientExited"></a>
+<h4>EricServerDebuggerInterface.__handleLastDbgClientExited</h4>
+<b>__handleLastDbgClientExited</b>(<i>params</i>)
+<p>
+        Private method to handle a report of the eric-ide server, that the last
+        debug client has disconnected.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.__handleMainClientExited" ID="EricServerDebuggerInterface.__handleMainClientExited"></a>
+<h4>EricServerDebuggerInterface.__handleMainClientExited</h4>
+<b>__handleMainClientExited</b>(<i>params</i>)
+<p>
+        Private method to handle the main client exiting.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.__handleStartClientError" ID="EricServerDebuggerInterface.__handleStartClientError"></a>
+<h4>EricServerDebuggerInterface.__handleStartClientError</h4>
+<b>__handleStartClientError</b>(<i>params</i>)
+<p>
+        Private method to handle an error starting the remote debug client.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.callback" ID="EricServerDebuggerInterface.callback"></a>
+<h4>EricServerDebuggerInterface.callback</h4>
+<b>callback</b>(<i>params</i>)
+<p>
+                Function to handle the server reply
+</p>
+
+<dl>
+
+<dt><i>reply</i> (str)</dt>
+<dd>
+name of the server reply
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.sendClientCommand" ID="EricServerDebuggerInterface.sendClientCommand"></a>
+<h4>EricServerDebuggerInterface.sendClientCommand</h4>
+<b>sendClientCommand</b>(<i>debuggerId, jsonCommand</i>)
+<p>
+        Public method to rely a debug client command via the eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+id of the debug client to send the command to
+</dd>
+<dt><i>jsonCommand</i> (str)</dt>
+<dd>
+JSON encoded command dictionary to be relayed
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.startClient" ID="EricServerDebuggerInterface.startClient"></a>
+<h4>EricServerDebuggerInterface.startClient</h4>
+<b>startClient</b>(<i>interpreter, originalPathString, args, workingDir=""</i>)
+<p>
+        Public method to send a command to start a debug client.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+path of the remote interpreter to be used
+</dd>
+<dt><i>originalPathString</i> (str)</dt>
+<dd>
+original PATH environment variable
+</dd>
+<dt><i>args</i> (list of str)</dt>
+<dd>
+list of command line parameters for the debug client
+</dd>
+<dt><i>workingDir</i> (str (optional))</dt>
+<dd>
+directory to start the debugger client in (defaults to "")
+</dd>
+</dl>
+<a NAME="EricServerDebuggerInterface.stopClient" ID="EricServerDebuggerInterface.stopClient"></a>
+<h4>EricServerDebuggerInterface.stopClient</h4>
+<b>stopClient</b>(<i></i>)
+<p>
+        Public method to stop the debug client synchronously.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

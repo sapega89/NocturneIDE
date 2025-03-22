@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Project.ProjectTranslationsBrowser</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Project.ProjectTranslationsBrowser</h1>
+<p>
+Module implementing a class used to display the translations part of the
+project.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ProjectTranslationsBrowser">ProjectTranslationsBrowser</a></td>
+<td>A class used to display the translations part of the project.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ProjectTranslationsBrowser" ID="ProjectTranslationsBrowser"></a>
+<h2>ProjectTranslationsBrowser</h2>
+<p>
+    A class used to display the translations part of the project.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>appendStderr(str)</dt>
+<dd>
+emitted after something was received from
+        a QProcess on stderr
+</dd>
+<dt>appendStdout(str)</dt>
+<dd>
+emitted after something was received from
+        a QProcess on stdout
+</dd>
+<dt>showMenu(str, QMenu)</dt>
+<dd>
+emitted when a menu is about to be shown.
+        The name of the menu and a reference to the menu are given.
+</dd>
+</dl>
+<h3>Derived from</h3>
+ProjectBaseBrowser
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__init__">ProjectTranslationsBrowser</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__TRPreview">__TRPreview</a></td>
+<td>Private slot to handle the Preview translations action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__TRPreviewAll">__TRPreviewAll</a></td>
+<td>Private slot to handle the Preview all translations action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__addTranslationFiles">__addTranslationFiles</a></td>
+<td>Private method to add translation files to the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__deleteLanguageFile">__deleteLanguageFile</a></td>
+<td>Private method to delete a translation file from the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__extractMessages">__extractMessages</a></td>
+<td>Private slot to extract the messages to form a messages template file.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__generateAll">__generateAll</a></td>
+<td>Private method to generate all translation files (.ts) for Qt Linguist.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__generateObsoleteAll">__generateObsoleteAll</a></td>
+<td>Private method to generate all translation files (.ts) for Qt Linguist.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__generateObsoleteSelected">__generateObsoleteSelected</a></td>
+<td>Private method to generate selected translation files (.ts) for Qt Linguist.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__generateSelected">__generateSelected</a></td>
+<td>Private method to generate selected translation files (.ts) for Qt Linguist.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__generateTSFile">__generateTSFile</a></td>
+<td>Private method used to run pylupdate5 / pylupdate6 / pyside2-lupdate / pyside6-lupdate to generate the .ts files.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__generateTSFileDone">__generateTSFileDone</a></td>
+<td>Private slot to handle the finished signal of the pylupdate process.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__openFileInEditor">__openFileInEditor</a></td>
+<td>Private slot to handle the Open in Editor menu action.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__readStderr">__readStderr</a></td>
+<td>Private method to read from a process' stderr channel.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__readStderrLrelease">__readStderrLrelease</a></td>
+<td>Private slot to handle the readyReadStandardError signal of the lrelease process.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__readStderrLupdate">__readStderrLupdate</a></td>
+<td>Private slot to handle the readyReadStandardError signal of the pylupdate5 / pylupdate6 / pyside2-lupdate / pyside6-lupdate process.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__readStdout">__readStdout</a></td>
+<td>Private method to read from a process' stdout channel.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__readStdoutLrelease">__readStdoutLrelease</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal of the lrelease process.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__readStdoutLupdate">__readStdoutLupdate</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal of the pylupdate process.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__releaseAll">__releaseAll</a></td>
+<td>Private method to release the translation files (.qm).</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__releaseSelected">__releaseSelected</a></td>
+<td>Private method to release the translation files (.qm).</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__releaseTSFile">__releaseTSFile</a></td>
+<td>Private method to run lrelease to release the translation files (.qm).</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__releaseTSFileDone">__releaseTSFileDone</a></td>
+<td>Private slot to handle the finished signal of the lrelease process.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__removeLanguageFile">__removeLanguageFile</a></td>
+<td>Private method to remove a translation from the project.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot called by the menu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__showContextMenuBack">__showContextMenuBack</a></td>
+<td>Private slot called by the backMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__showContextMenuDir">__showContextMenuDir</a></td>
+<td>Private slot called by the dirMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__showContextMenuMulti">__showContextMenuMulti</a></td>
+<td>Private slot called by the multiMenu aboutToShow signal.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.__writeTempProjectFile">__writeTempProjectFile</a></td>
+<td>Private method to write a temporary project file suitable for pylupdate and lrelease.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser._contextMenuRequested">_contextMenuRequested</a></td>
+<td>Protected slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser._createPopupMenus">_createPopupMenus</a></td>
+<td>Protected overloaded method to generate the popup menu.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser._initHookMethods">_initHookMethods</a></td>
+<td>Protected method to initialize the hooks dictionary.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser._openItem">_openItem</a></td>
+<td>Protected slot to handle the open popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTranslationsBrowser.getIcon">getIcon</a></td>
+<td>Public method to get an icon for the project browser.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ProjectTranslationsBrowser.__init__" ID="ProjectTranslationsBrowser.__init__"></a>
+<h4>ProjectTranslationsBrowser (Constructor)</h4>
+<b>ProjectTranslationsBrowser</b>(<i>project, projectBrowser, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>projectBrowser</i> (ProjectBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this browser
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__TRPreview" ID="ProjectTranslationsBrowser.__TRPreview"></a>
+<h4>ProjectTranslationsBrowser.__TRPreview</h4>
+<b>__TRPreview</b>(<i>previewAll=False</i>)
+<p>
+        Private slot to handle the Preview translations action.
+</p>
+
+<dl>
+
+<dt><i>previewAll</i> (bool)</dt>
+<dd>
+flag indicating, that all translations
+            should be previewed
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__TRPreviewAll" ID="ProjectTranslationsBrowser.__TRPreviewAll"></a>
+<h4>ProjectTranslationsBrowser.__TRPreviewAll</h4>
+<b>__TRPreviewAll</b>(<i></i>)
+<p>
+        Private slot to handle the Preview all translations action.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__addTranslationFiles" ID="ProjectTranslationsBrowser.__addTranslationFiles"></a>
+<h4>ProjectTranslationsBrowser.__addTranslationFiles</h4>
+<b>__addTranslationFiles</b>(<i></i>)
+<p>
+        Private method to add translation files to the project.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__deleteLanguageFile" ID="ProjectTranslationsBrowser.__deleteLanguageFile"></a>
+<h4>ProjectTranslationsBrowser.__deleteLanguageFile</h4>
+<b>__deleteLanguageFile</b>(<i></i>)
+<p>
+        Private method to delete a translation file from the project.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__extractMessages" ID="ProjectTranslationsBrowser.__extractMessages"></a>
+<h4>ProjectTranslationsBrowser.__extractMessages</h4>
+<b>__extractMessages</b>(<i></i>)
+<p>
+        Private slot to extract the messages to form a messages template file.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__generateAll" ID="ProjectTranslationsBrowser.__generateAll"></a>
+<h4>ProjectTranslationsBrowser.__generateAll</h4>
+<b>__generateAll</b>(<i></i>)
+<p>
+        Private method to generate all translation files (.ts) for Qt Linguist.
+</p>
+<p>
+        All obsolete strings are removed from the .ts file.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__generateObsoleteAll" ID="ProjectTranslationsBrowser.__generateObsoleteAll"></a>
+<h4>ProjectTranslationsBrowser.__generateObsoleteAll</h4>
+<b>__generateObsoleteAll</b>(<i></i>)
+<p>
+        Private method to generate all translation files (.ts) for Qt Linguist.
+</p>
+<p>
+        Obsolete strings are kept.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__generateObsoleteSelected" ID="ProjectTranslationsBrowser.__generateObsoleteSelected"></a>
+<h4>ProjectTranslationsBrowser.__generateObsoleteSelected</h4>
+<b>__generateObsoleteSelected</b>(<i></i>)
+<p>
+        Private method to generate selected translation files (.ts) for
+        Qt Linguist.
+</p>
+<p>
+        Obsolete strings are kept.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__generateSelected" ID="ProjectTranslationsBrowser.__generateSelected"></a>
+<h4>ProjectTranslationsBrowser.__generateSelected</h4>
+<b>__generateSelected</b>(<i></i>)
+<p>
+        Private method to generate selected translation files (.ts) for
+        Qt Linguist.
+</p>
+<p>
+        All obsolete strings are removed from the .ts file.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__generateTSFile" ID="ProjectTranslationsBrowser.__generateTSFile"></a>
+<h4>ProjectTranslationsBrowser.__generateTSFile</h4>
+<b>__generateTSFile</b>(<i>noobsolete=False, generateAll=True</i>)
+<p>
+        Private method used to run pylupdate5 / pylupdate6 / pyside2-lupdate /
+        pyside6-lupdate to generate the .ts files.
+</p>
+
+<dl>
+
+<dt><i>noobsolete</i> (bool)</dt>
+<dd>
+flag indicating whether obsolete entries should be
+            kept
+</dd>
+<dt><i>generateAll</i> (bool)</dt>
+<dd>
+flag indicating whether all translations should be
+            generated
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__generateTSFileDone" ID="ProjectTranslationsBrowser.__generateTSFileDone"></a>
+<h4>ProjectTranslationsBrowser.__generateTSFileDone</h4>
+<b>__generateTSFileDone</b>(<i>proc, exitCode, exitStatus</i>)
+<p>
+        Private slot to handle the finished signal of the pylupdate process.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+reference to the process
+</dd>
+<dt><i>exitCode</i> (int)</dt>
+<dd>
+exit code of the process
+</dd>
+<dt><i>exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__openFileInEditor" ID="ProjectTranslationsBrowser.__openFileInEditor"></a>
+<h4>ProjectTranslationsBrowser.__openFileInEditor</h4>
+<b>__openFileInEditor</b>(<i></i>)
+<p>
+        Private slot to handle the Open in Editor menu action.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__readStderr" ID="ProjectTranslationsBrowser.__readStderr"></a>
+<h4>ProjectTranslationsBrowser.__readStderr</h4>
+<b>__readStderr</b>(<i>proc, ps</i>)
+<p>
+        Private method to read from a process' stderr channel.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+process to read from
+</dd>
+<dt><i>ps</i> (str)</dt>
+<dd>
+propmt string
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__readStderrLrelease" ID="ProjectTranslationsBrowser.__readStderrLrelease"></a>
+<h4>ProjectTranslationsBrowser.__readStderrLrelease</h4>
+<b>__readStderrLrelease</b>(<i>proc</i>)
+<p>
+        Private slot to handle the readyReadStandardError signal of the
+        lrelease process.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+reference to the process
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__readStderrLupdate" ID="ProjectTranslationsBrowser.__readStderrLupdate"></a>
+<h4>ProjectTranslationsBrowser.__readStderrLupdate</h4>
+<b>__readStderrLupdate</b>(<i>proc</i>)
+<p>
+        Private slot to handle the readyReadStandardError signal of the
+        pylupdate5 / pylupdate6 / pyside2-lupdate / pyside6-lupdate process.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+reference to the process
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__readStdout" ID="ProjectTranslationsBrowser.__readStdout"></a>
+<h4>ProjectTranslationsBrowser.__readStdout</h4>
+<b>__readStdout</b>(<i>proc, ps</i>)
+<p>
+        Private method to read from a process' stdout channel.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+process to read from
+</dd>
+<dt><i>ps</i> (str)</dt>
+<dd>
+prompt string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string read from the process
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__readStdoutLrelease" ID="ProjectTranslationsBrowser.__readStdoutLrelease"></a>
+<h4>ProjectTranslationsBrowser.__readStdoutLrelease</h4>
+<b>__readStdoutLrelease</b>(<i>proc</i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal of the
+        lrelease process.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+reference to the process
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__readStdoutLupdate" ID="ProjectTranslationsBrowser.__readStdoutLupdate"></a>
+<h4>ProjectTranslationsBrowser.__readStdoutLupdate</h4>
+<b>__readStdoutLupdate</b>(<i>proc</i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal of the
+        pylupdate process.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+reference to the process
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__releaseAll" ID="ProjectTranslationsBrowser.__releaseAll"></a>
+<h4>ProjectTranslationsBrowser.__releaseAll</h4>
+<b>__releaseAll</b>(<i></i>)
+<p>
+        Private method to release the translation files (.qm).
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__releaseSelected" ID="ProjectTranslationsBrowser.__releaseSelected"></a>
+<h4>ProjectTranslationsBrowser.__releaseSelected</h4>
+<b>__releaseSelected</b>(<i></i>)
+<p>
+        Private method to release the translation files (.qm).
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__releaseTSFile" ID="ProjectTranslationsBrowser.__releaseTSFile"></a>
+<h4>ProjectTranslationsBrowser.__releaseTSFile</h4>
+<b>__releaseTSFile</b>(<i>generateAll=False</i>)
+<p>
+        Private method to run lrelease to release the translation files (.qm).
+</p>
+
+<dl>
+
+<dt><i>generateAll</i> (bool)</dt>
+<dd>
+flag indicating whether all translations should be
+            released
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__releaseTSFileDone" ID="ProjectTranslationsBrowser.__releaseTSFileDone"></a>
+<h4>ProjectTranslationsBrowser.__releaseTSFileDone</h4>
+<b>__releaseTSFileDone</b>(<i>proc, exitCode, exitStatus</i>)
+<p>
+        Private slot to handle the finished signal of the lrelease process.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+reference to the process
+</dd>
+<dt><i>exitCode</i> (int)</dt>
+<dd>
+exit code of the process
+</dd>
+<dt><i>exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser.__removeLanguageFile" ID="ProjectTranslationsBrowser.__removeLanguageFile"></a>
+<h4>ProjectTranslationsBrowser.__removeLanguageFile</h4>
+<b>__removeLanguageFile</b>(<i></i>)
+<p>
+        Private method to remove a translation from the project.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__showContextMenu" ID="ProjectTranslationsBrowser.__showContextMenu"></a>
+<h4>ProjectTranslationsBrowser.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i></i>)
+<p>
+        Private slot called by the menu aboutToShow signal.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__showContextMenuBack" ID="ProjectTranslationsBrowser.__showContextMenuBack"></a>
+<h4>ProjectTranslationsBrowser.__showContextMenuBack</h4>
+<b>__showContextMenuBack</b>(<i></i>)
+<p>
+        Private slot called by the backMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__showContextMenuDir" ID="ProjectTranslationsBrowser.__showContextMenuDir"></a>
+<h4>ProjectTranslationsBrowser.__showContextMenuDir</h4>
+<b>__showContextMenuDir</b>(<i></i>)
+<p>
+        Private slot called by the dirMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__showContextMenuMulti" ID="ProjectTranslationsBrowser.__showContextMenuMulti"></a>
+<h4>ProjectTranslationsBrowser.__showContextMenuMulti</h4>
+<b>__showContextMenuMulti</b>(<i></i>)
+<p>
+        Private slot called by the multiMenu aboutToShow signal.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.__writeTempProjectFile" ID="ProjectTranslationsBrowser.__writeTempProjectFile"></a>
+<h4>ProjectTranslationsBrowser.__writeTempProjectFile</h4>
+<b>__writeTempProjectFile</b>(<i>langs, filterList</i>)
+<p>
+        Private method to write a temporary project file suitable for
+        pylupdate and lrelease.
+</p>
+
+<dl>
+
+<dt><i>langs</i> (list of ProjectBrowserFileItem)</dt>
+<dd>
+list of languages to include in the process. An empty
+            list (default) means that all translations should be included.
+</dd>
+<dt><i>filterList</i> (list of str)</dt>
+<dd>
+list of source file extension that should be
+            considered
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser._contextMenuRequested" ID="ProjectTranslationsBrowser._contextMenuRequested"></a>
+<h4>ProjectTranslationsBrowser._contextMenuRequested</h4>
+<b>_contextMenuRequested</b>(<i>coord</i>)
+<p>
+        Protected slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="ProjectTranslationsBrowser._createPopupMenus" ID="ProjectTranslationsBrowser._createPopupMenus"></a>
+<h4>ProjectTranslationsBrowser._createPopupMenus</h4>
+<b>_createPopupMenus</b>(<i></i>)
+<p>
+        Protected overloaded method to generate the popup menu.
+</p>
+
+<a NAME="ProjectTranslationsBrowser._initHookMethods" ID="ProjectTranslationsBrowser._initHookMethods"></a>
+<h4>ProjectTranslationsBrowser._initHookMethods</h4>
+<b>_initHookMethods</b>(<i></i>)
+<p>
+        Protected method to initialize the hooks dictionary.
+</p>
+<p>
+        Supported hook methods are:
+        <ul>
+        <li>extractMessages: takes no parameters</li>
+        <li>generateAll: takes list of filenames as parameter</li>
+        <li>generateAllWithObsolete: takes list of filenames as parameter</li>
+        <li>generateSelected: takes list of filenames as parameter</li>
+        <li>generateSelectedWithObsolete: takes list of filenames as
+            parameter</li>
+        <li>releaseAll: takes list of filenames as parameter</li>
+        <li>releaseSelected: takes list of filenames as parameter</li>
+        <li>open: takes a filename as parameter</li>
+        </ul>
+</p>
+<p>
+        <b>Note</b>: Filenames are relative to the project directory.
+</p>
+
+<a NAME="ProjectTranslationsBrowser._openItem" ID="ProjectTranslationsBrowser._openItem"></a>
+<h4>ProjectTranslationsBrowser._openItem</h4>
+<b>_openItem</b>(<i></i>)
+<p>
+        Protected slot to handle the open popup menu entry.
+</p>
+
+<a NAME="ProjectTranslationsBrowser.getIcon" ID="ProjectTranslationsBrowser.getIcon"></a>
+<h4>ProjectTranslationsBrowser.getIcon</h4>
+<b>getIcon</b>(<i></i>)
+<p>
+        Public method to get an icon for the project browser.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+icon for the browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

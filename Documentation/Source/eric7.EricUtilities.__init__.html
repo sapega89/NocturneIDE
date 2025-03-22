@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricUtilities.__init__</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricUtilities.__init__</h1>
+<p>
+Package containing utility modules and functions.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_configDir</td></tr>
+<tr><td>_escape</td></tr>
+<tr><td>_escape_map</td></tr>
+<tr><td>_uescape</td></tr>
+<tr><td>_uunescape</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#dataString">dataString</a></td>
+<td>Function to generate a formatted size string.</td>
+</tr>
+<tr>
+<td><a href="#decodeBytes">decodeBytes</a></td>
+<td>Function to decode some byte text into a string.</td>
+</tr>
+<tr>
+<td><a href="#decodeString">decodeString</a></td>
+<td>Function to decode a string containing Unicode encoded characters.</td>
+</tr>
+<tr>
+<td><a href="#escape_entities">escape_entities</a></td>
+<td>Function to encode html entities.</td>
+</tr>
+<tr>
+<td><a href="#escape_uentities">escape_uentities</a></td>
+<td>Function to encode html entities.</td>
+</tr>
+<tr>
+<td><a href="#getConfigDir">getConfigDir</a></td>
+<td>Module function to get the name of the directory storing the config data.</td>
+</tr>
+<tr>
+<td><a href="#html_encode">html_encode</a></td>
+<td>Function to correctly encode a text for html.</td>
+</tr>
+<tr>
+<td><a href="#html_udecode">html_udecode</a></td>
+<td>Function to correctly decode a html text to a unicode text.</td>
+</tr>
+<tr>
+<td><a href="#html_uencode">html_uencode</a></td>
+<td>Function to correctly encode a unicode text for html.</td>
+</tr>
+<tr>
+<td><a href="#readStringFromStream">readStringFromStream</a></td>
+<td>Module function to read a string from the given stream.</td>
+</tr>
+<tr>
+<td><a href="#setConfigDir">setConfigDir</a></td>
+<td>Module function to set the name of the directory storing the config data.</td>
+</tr>
+<tr>
+<td><a href="#strGroup">strGroup</a></td>
+<td>Function to group a string into sub-strings separated by a separator.</td>
+</tr>
+<tr>
+<td><a href="#strToQByteArray">strToQByteArray</a></td>
+<td>Function to convert a Python string into a QByteArray.</td>
+</tr>
+<tr>
+<td><a href="#toBool">toBool</a></td>
+<td>Function to convert a value to bool.</td>
+</tr>
+<tr>
+<td><a href="#toByteArray">toByteArray</a></td>
+<td>Function to convert a value to a byte array.</td>
+</tr>
+<tr>
+<td><a href="#toDict">toDict</a></td>
+<td>Function to convert a value to a dictionary.</td>
+</tr>
+<tr>
+<td><a href="#toList">toList</a></td>
+<td>Function to convert a value to a list.</td>
+</tr>
+<tr>
+<td><a href="#unescape_uentities">unescape_uentities</a></td>
+<td>Function to decode html entities.</td>
+</tr>
+<tr>
+<td><a href="#versionIsValid">versionIsValid</a></td>
+<td>Function to check, if the given version string is valid.</td>
+</tr>
+<tr>
+<td><a href="#versionToTuple">versionToTuple</a></td>
+<td>Function to convert a version string into a tuple.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="dataString" ID="dataString"></a>
+<h2>dataString</h2>
+<b>dataString</b>(<i>size, loc=None</i>)
+<p>
+    Function to generate a formatted size string.
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+size to be formatted
+</dd>
+<dt><i>loc</i> (QLocale (optional))</dt>
+<dd>
+locale to be used for localized size strings (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted data string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="decodeBytes" ID="decodeBytes"></a>
+<h2>decodeBytes</h2>
+<b>decodeBytes</b>(<i>buffer</i>)
+<p>
+    Function to decode some byte text into a string.
+</p>
+
+<dl>
+
+<dt><i>buffer</i> (bytes)</dt>
+<dd>
+byte buffer to decode
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+decoded text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="decodeString" ID="decodeString"></a>
+<h2>decodeString</h2>
+<b>decodeString</b>(<i>text</i>)
+<p>
+    Function to decode a string containing Unicode encoded characters.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text containing encoded chars
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+decoded text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="escape_entities" ID="escape_entities"></a>
+<h2>escape_entities</h2>
+<b>escape_entities</b>(<i>m, escmap=_escape_map</i>)
+<p>
+    Function to encode html entities.
+</p>
+
+<dl>
+
+<dt><i>m</i> (re.Match)</dt>
+<dd>
+the match object
+</dd>
+<dt><i>escmap</i> (dict)</dt>
+<dd>
+the map of entities to encode
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the converted text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="escape_uentities" ID="escape_uentities"></a>
+<h2>escape_uentities</h2>
+<b>escape_uentities</b>(<i>m</i>)
+<p>
+    Function to encode html entities.
+</p>
+
+<dl>
+
+<dt><i>m</i> (re.Match)</dt>
+<dd>
+the match object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the converted text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getConfigDir" ID="getConfigDir"></a>
+<h2>getConfigDir</h2>
+<b>getConfigDir</b>(<i></i>)
+<p>
+    Module function to get the name of the directory storing the config data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+directory name of the config dir
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="html_encode" ID="html_encode"></a>
+<h2>html_encode</h2>
+<b>html_encode</b>(<i>text, pattern=_escape</i>)
+<p>
+    Function to correctly encode a text for html.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be encoded
+</dd>
+<dt><i>pattern</i> (str)</dt>
+<dd>
+search pattern for text to be encoded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the encoded text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="html_udecode" ID="html_udecode"></a>
+<h2>html_udecode</h2>
+<b>html_udecode</b>(<i>text, pattern=_uunescape</i>)
+<p>
+    Function to correctly decode a html text to a unicode text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be decoded
+</dd>
+<dt><i>pattern</i> (str)</dt>
+<dd>
+search pattern for text to be decoded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the decoded text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="html_uencode" ID="html_uencode"></a>
+<h2>html_uencode</h2>
+<b>html_uencode</b>(<i>text, pattern=_uescape</i>)
+<p>
+    Function to correctly encode a unicode text for html.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be encoded
+</dd>
+<dt><i>pattern</i> (str)</dt>
+<dd>
+search pattern for text to be encoded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the encoded text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="readStringFromStream" ID="readStringFromStream"></a>
+<h2>readStringFromStream</h2>
+<b>readStringFromStream</b>(<i>stream</i>)
+<p>
+    Module function to read a string from the given stream.
+</p>
+
+<dl>
+
+<dt><i>stream</i> (QDataStream)</dt>
+<dd>
+data stream opened for reading
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string read from the stream
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setConfigDir" ID="setConfigDir"></a>
+<h2>setConfigDir</h2>
+<b>setConfigDir</b>(<i>d</i>)
+<p>
+    Module function to set the name of the directory storing the config data.
+</p>
+
+<dl>
+
+<dt><i>d</i> (str)</dt>
+<dd>
+name of an existing directory
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="strGroup" ID="strGroup"></a>
+<h2>strGroup</h2>
+<b>strGroup</b>(<i>txt, sep, groupLen=4</i>)
+<p>
+    Function to group a string into sub-strings separated by a
+    separator.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be grouped
+</dd>
+<dt><i>sep</i> (str)</dt>
+<dd>
+separator string
+</dd>
+<dt><i>groupLen</i> (int)</dt>
+<dd>
+length of each group
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+result string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="strToQByteArray" ID="strToQByteArray"></a>
+<h2>strToQByteArray</h2>
+<b>strToQByteArray</b>(<i>txt</i>)
+<p>
+    Function to convert a Python string into a QByteArray.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str, bytes, bytearray)</dt>
+<dd>
+Python string to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted QByteArray
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QByteArray
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="toBool" ID="toBool"></a>
+<h2>toBool</h2>
+<b>toBool</b>(<i>value</i>)
+<p>
+    Function to convert a value to bool.
+</p>
+
+<dl>
+
+<dt><i>value</i> (str)</dt>
+<dd>
+value to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="toByteArray" ID="toByteArray"></a>
+<h2>toByteArray</h2>
+<b>toByteArray</b>(<i>value</i>)
+<p>
+    Function to convert a value to a byte array.
+</p>
+
+<dl>
+
+<dt><i>value</i> (QByteArray or None)</dt>
+<dd>
+value to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QByteArray
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="toDict" ID="toDict"></a>
+<h2>toDict</h2>
+<b>toDict</b>(<i>value</i>)
+<p>
+    Function to convert a value to a dictionary.
+</p>
+
+<dl>
+
+<dt><i>value</i> (dict or None)</dt>
+<dd>
+value to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="toList" ID="toList"></a>
+<h2>toList</h2>
+<b>toList</b>(<i>value</i>)
+<p>
+    Function to convert a value to a list.
+</p>
+
+<dl>
+
+<dt><i>value</i> (None, list or Any)</dt>
+<dd>
+value to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="unescape_uentities" ID="unescape_uentities"></a>
+<h2>unescape_uentities</h2>
+<b>unescape_uentities</b>(<i>m</i>)
+<p>
+    Function to decode html entities.
+</p>
+
+<dl>
+
+<dt><i>m</i> (re.Match)</dt>
+<dd>
+the match object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the converted text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="versionIsValid" ID="versionIsValid"></a>
+<h2>versionIsValid</h2>
+<b>versionIsValid</b>(<i>version</i>)
+<p>
+    Function to check, if the given version string is valid.
+</p>
+
+<dl>
+
+<dt><i>version</i> (str)</dt>
+<dd>
+version string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating validity
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="versionToTuple" ID="versionToTuple"></a>
+<h2>versionToTuple</h2>
+<b>versionToTuple</b>(<i>version</i>)
+<p>
+    Function to convert a version string into a tuple.
+</p>
+<p>
+    Note: A version string consists of non-negative decimals separated by "."
+    optionally followed by a suffix. Suffix is everything after the last
+    decimal.
+</p>
+
+<dl>
+
+<dt><i>version</i> (str)</dt>
+<dd>
+version string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+version named tuple containing the version parts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+semver.VersionInfo
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

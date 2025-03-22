@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Sync.SyncManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Sync.SyncManager</h1>
+<p>
+Module implementing the synchronization manager class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SyncManager">SyncManager</a></td>
+<td>Class implementing the synchronization manager.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SyncManager" ID="SyncManager"></a>
+<h2>SyncManager</h2>
+<p>
+    Class implementing the synchronization manager.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>syncError(message)</dt>
+<dd>
+emitted for a general error with the error message
+</dd>
+<dt>syncFinished(type_, done, download)</dt>
+<dd>
+emitted after a synchronization
+        has finished
+</dd>
+<dt>syncMessage(message)</dt>
+<dd>
+emitted to give status info about the sync process
+</dd>
+<dt>syncStatus(type_, message)</dt>
+<dd>
+emitted to indicate the synchronization status
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SyncManager.__init__">SyncManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.__syncBookmarks">__syncBookmarks</a></td>
+<td>Private slot to synchronize the bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.__syncError">__syncError</a></td>
+<td>Private slot to handle general synchronization issues.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.__syncFinished">__syncFinished</a></td>
+<td>Private slot to handle a finished synchronization event.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.__syncHistory">__syncHistory</a></td>
+<td>Private slot to synchronize the history.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.__syncPasswords">__syncPasswords</a></td>
+<td>Private slot to synchronize the passwords.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.__syncSpeedDial">__syncSpeedDial</a></td>
+<td>Private slot to synchronize the speed dial settings.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.__syncStatus">__syncStatus</a></td>
+<td>Private slot to handle a status update of a synchronization event.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.__syncUserAgents">__syncUserAgents</a></td>
+<td>Private slot to synchronize the user agent settings.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.close">close</a></td>
+<td>Public slot to shut down the synchronization manager.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.handler">handler</a></td>
+<td>Public method to get a reference to the sync handler object.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.loadSettings">loadSettings</a></td>
+<td>Public method to load the settings.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.showSyncDialog">showSyncDialog</a></td>
+<td>Public method to show the synchronization dialog.</td>
+</tr>
+<tr>
+<td><a href="#SyncManager.syncEnabled">syncEnabled</a></td>
+<td>Public method to check, if synchronization is enabled.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SyncManager.__init__" ID="SyncManager.__init__"></a>
+<h4>SyncManager (Constructor)</h4>
+<b>SyncManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="SyncManager.__syncBookmarks" ID="SyncManager.__syncBookmarks"></a>
+<h4>SyncManager.__syncBookmarks</h4>
+<b>__syncBookmarks</b>(<i></i>)
+<p>
+        Private slot to synchronize the bookmarks.
+</p>
+
+<a NAME="SyncManager.__syncError" ID="SyncManager.__syncError"></a>
+<h4>SyncManager.__syncError</h4>
+<b>__syncError</b>(<i>message</i>)
+<p>
+        Private slot to handle general synchronization issues.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="SyncManager.__syncFinished" ID="SyncManager.__syncFinished"></a>
+<h4>SyncManager.__syncFinished</h4>
+<b>__syncFinished</b>(<i>type_, status, download</i>)
+<p>
+        Private slot to handle a finished synchronization event.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of "bookmarks",
+            "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>status</i> (bool)</dt>
+<dd>
+flag indicating success
+</dd>
+<dt><i>download</i> (bool)</dt>
+<dd>
+flag indicating a download of a file
+</dd>
+</dl>
+<a NAME="SyncManager.__syncHistory" ID="SyncManager.__syncHistory"></a>
+<h4>SyncManager.__syncHistory</h4>
+<b>__syncHistory</b>(<i></i>)
+<p>
+        Private slot to synchronize the history.
+</p>
+
+<a NAME="SyncManager.__syncPasswords" ID="SyncManager.__syncPasswords"></a>
+<h4>SyncManager.__syncPasswords</h4>
+<b>__syncPasswords</b>(<i></i>)
+<p>
+        Private slot to synchronize the passwords.
+</p>
+
+<a NAME="SyncManager.__syncSpeedDial" ID="SyncManager.__syncSpeedDial"></a>
+<h4>SyncManager.__syncSpeedDial</h4>
+<b>__syncSpeedDial</b>(<i></i>)
+<p>
+        Private slot to synchronize the speed dial settings.
+</p>
+
+<a NAME="SyncManager.__syncStatus" ID="SyncManager.__syncStatus"></a>
+<h4>SyncManager.__syncStatus</h4>
+<b>__syncStatus</b>(<i>type_, message</i>)
+<p>
+        Private slot to handle a status update of a synchronization event.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of "bookmarks",
+            "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+status message for the event
+</dd>
+</dl>
+<a NAME="SyncManager.__syncUserAgents" ID="SyncManager.__syncUserAgents"></a>
+<h4>SyncManager.__syncUserAgents</h4>
+<b>__syncUserAgents</b>(<i></i>)
+<p>
+        Private slot to synchronize the user agent settings.
+</p>
+
+<a NAME="SyncManager.close" ID="SyncManager.close"></a>
+<h4>SyncManager.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public slot to shut down the synchronization manager.
+</p>
+
+<a NAME="SyncManager.handler" ID="SyncManager.handler"></a>
+<h4>SyncManager.handler</h4>
+<b>handler</b>(<i></i>)
+<p>
+        Public method to get a reference to the sync handler object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the sync handler object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SyncHandler
+</dd>
+</dl>
+<a NAME="SyncManager.loadSettings" ID="SyncManager.loadSettings"></a>
+<h4>SyncManager.loadSettings</h4>
+<b>loadSettings</b>(<i>forceUpload=False</i>)
+<p>
+        Public method to load the settings.
+</p>
+
+<dl>
+
+<dt><i>forceUpload</i> (bool)</dt>
+<dd>
+flag indicating a forced upload of the files
+</dd>
+</dl>
+<a NAME="SyncManager.showSyncDialog" ID="SyncManager.showSyncDialog"></a>
+<h4>SyncManager.showSyncDialog</h4>
+<b>showSyncDialog</b>(<i></i>)
+<p>
+        Public method to show the synchronization dialog.
+</p>
+
+<a NAME="SyncManager.syncEnabled" ID="SyncManager.syncEnabled"></a>
+<h4>SyncManager.syncEnabled</h4>
+<b>syncEnabled</b>(<i></i>)
+<p>
+        Public method to check, if synchronization is enabled.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating enabled synchronization
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

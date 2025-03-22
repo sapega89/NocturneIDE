@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.AdBlock.AdBlockManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.AdBlock.AdBlockManager</h1>
+<p>
+Module implementing the AdBlock manager.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AdBlockManager">AdBlockManager</a></td>
+<td>Class implementing the AdBlock manager.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AdBlockManager" ID="AdBlockManager"></a>
+<h2>AdBlockManager</h2>
+<p>
+    Class implementing the AdBlock manager.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>enabledChanged(enabled)</dt>
+<dd>
+emitted to indicate a change of the
+        enabled state
+</dd>
+<dt>requiredSubscriptionLoaded(subscription)</dt>
+<dd>
+emitted to indicate
+        loading of a required subscription is finished (AdBlockSubscription)
+</dd>
+<dt>rulesChanged()</dt>
+<dd>
+emitted after some rule has changed
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AdBlockManager.__init__">AdBlockManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.__canBeBlocked">__canBeBlocked</a></td>
+<td>Private method to check, if the given URL could be blocked (i.e.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.__customSubscriptionLocation">__customSubscriptionLocation</a></td>
+<td>Private method to generate the path for custom subscriptions.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.__customSubscriptionUrl">__customSubscriptionUrl</a></td>
+<td>Private method to generate the URL for custom subscriptions.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.__loadSubscriptions">__loadSubscriptions</a></td>
+<td>Private method to load the set of subscriptions.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.__rulesChanged">__rulesChanged</a></td>
+<td>Private slot handling a change of the AdBlock rules.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.__updateMatcher">__updateMatcher</a></td>
+<td>Private slot to update the adblock matcher.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.addException">addException</a></td>
+<td>Public method to add an exception.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.addSubscription">addSubscription</a></td>
+<td>Public method to add an AdBlock subscription.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.addSubscriptionFromUrl">addSubscriptionFromUrl</a></td>
+<td>Public method to ad an AdBlock subscription given the abp URL.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.block">block</a></td>
+<td>Public method to check, if a request should be blocked.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.canRunOnScheme">canRunOnScheme</a></td>
+<td>Public method to check, if AdBlock can be performed on the scheme.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.close">close</a></td>
+<td>Public method to close the open search engines manager.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.customRules">customRules</a></td>
+<td>Public method to get a subscription for custom rules.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.elementHidingRules">elementHidingRules</a></td>
+<td>Public method to get the element hiding rules.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.elementHidingRulesForDomain">elementHidingRulesForDomain</a></td>
+<td>Public method to get the element hiding rules for a domain.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.exceptions">exceptions</a></td>
+<td>Public method to get a list of excepted hosts.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.getDefaultSubscriptionUrl">getDefaultSubscriptionUrl</a></td>
+<td>Public method to get the default subscription URL.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.getRequiresSubscriptions">getRequiresSubscriptions</a></td>
+<td>Public method to get a list of subscriptions, that require the given one.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.isEnabled">isEnabled</a></td>
+<td>Public method to check, if blocking ads is enabled.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.isHostExcepted">isHostExcepted</a></td>
+<td>Public slot to check, if a host is excepted.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.load">load</a></td>
+<td>Public method to load the AdBlock subscriptions.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.loadRequiredSubscription">loadRequiredSubscription</a></td>
+<td>Public method to load a subscription required by another one.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.page">page</a></td>
+<td>Public method to get a reference to the page block object.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.removeException">removeException</a></td>
+<td>Public method to remove an exception.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.removeSubscription">removeSubscription</a></td>
+<td>Public method to remove an AdBlock subscription.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.save">save</a></td>
+<td>Public method to save the AdBlock subscriptions.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.setEnabled">setEnabled</a></td>
+<td>Public slot to set the enabled state.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.setExceptions">setExceptions</a></td>
+<td>Public method to set the list of excepted hosts.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.setUseLimitedEasyList">setUseLimitedEasyList</a></td>
+<td>Public method to set the limited EasyList flag.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.showDialog">showDialog</a></td>
+<td>Public slot to show the AdBlock subscription management dialog.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.showExceptionsDialog">showExceptionsDialog</a></td>
+<td>Public method to show the AdBlock Exceptions dialog.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.subscription">subscription</a></td>
+<td>Public method to get a subscription based on its location.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.subscriptions">subscriptions</a></td>
+<td>Public method to get all subscriptions.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.updateAllSubscriptions">updateAllSubscriptions</a></td>
+<td>Public method to update all subscriptions.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockManager.useLimitedEasyList">useLimitedEasyList</a></td>
+<td>Public method to test, if limited EasyList rules shall be used.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AdBlockManager.__init__" ID="AdBlockManager.__init__"></a>
+<h4>AdBlockManager (Constructor)</h4>
+<b>AdBlockManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="AdBlockManager.__canBeBlocked" ID="AdBlockManager.__canBeBlocked"></a>
+<h4>AdBlockManager.__canBeBlocked</h4>
+<b>__canBeBlocked</b>(<i>url</i>)
+<p>
+        Private method to check, if the given URL could be blocked (i.e. is
+        not whitelisted).
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the given URL can be blocked
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockManager.__customSubscriptionLocation" ID="AdBlockManager.__customSubscriptionLocation"></a>
+<h4>AdBlockManager.__customSubscriptionLocation</h4>
+<b>__customSubscriptionLocation</b>(<i></i>)
+<p>
+        Private method to generate the path for custom subscriptions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+URL for custom subscriptions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="AdBlockManager.__customSubscriptionUrl" ID="AdBlockManager.__customSubscriptionUrl"></a>
+<h4>AdBlockManager.__customSubscriptionUrl</h4>
+<b>__customSubscriptionUrl</b>(<i></i>)
+<p>
+        Private method to generate the URL for custom subscriptions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+URL for custom subscriptions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="AdBlockManager.__loadSubscriptions" ID="AdBlockManager.__loadSubscriptions"></a>
+<h4>AdBlockManager.__loadSubscriptions</h4>
+<b>__loadSubscriptions</b>(<i></i>)
+<p>
+        Private method to load the set of subscriptions.
+</p>
+
+<a NAME="AdBlockManager.__rulesChanged" ID="AdBlockManager.__rulesChanged"></a>
+<h4>AdBlockManager.__rulesChanged</h4>
+<b>__rulesChanged</b>(<i></i>)
+<p>
+        Private slot handling a change of the AdBlock rules.
+</p>
+
+<a NAME="AdBlockManager.__updateMatcher" ID="AdBlockManager.__updateMatcher"></a>
+<h4>AdBlockManager.__updateMatcher</h4>
+<b>__updateMatcher</b>(<i></i>)
+<p>
+        Private slot to update the adblock matcher.
+</p>
+
+<a NAME="AdBlockManager.addException" ID="AdBlockManager.addException"></a>
+<h4>AdBlockManager.addException</h4>
+<b>addException</b>(<i>host</i>)
+<p>
+        Public method to add an exception.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+to be excepted
+</dd>
+</dl>
+<a NAME="AdBlockManager.addSubscription" ID="AdBlockManager.addSubscription"></a>
+<h4>AdBlockManager.addSubscription</h4>
+<b>addSubscription</b>(<i>subscription</i>)
+<p>
+        Public method to add an AdBlock subscription.
+</p>
+
+<dl>
+
+<dt><i>subscription</i> (AdBlockSubscription)</dt>
+<dd>
+AdBlock subscription to be added
+</dd>
+</dl>
+<a NAME="AdBlockManager.addSubscriptionFromUrl" ID="AdBlockManager.addSubscriptionFromUrl"></a>
+<h4>AdBlockManager.addSubscriptionFromUrl</h4>
+<b>addSubscriptionFromUrl</b>(<i>url</i>)
+<p>
+        Public method to ad an AdBlock subscription given the abp URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to subscribe an AdBlock subscription
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockManager.block" ID="AdBlockManager.block"></a>
+<h4>AdBlockManager.block</h4>
+<b>block</b>(<i>info</i>)
+<p>
+        Public method to check, if a request should be blocked.
+</p>
+
+<dl>
+
+<dt><i>info</i> (QWebEngineUrlRequestInfo)</dt>
+<dd>
+request info object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to block the request
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockManager.canRunOnScheme" ID="AdBlockManager.canRunOnScheme"></a>
+<h4>AdBlockManager.canRunOnScheme</h4>
+<b>canRunOnScheme</b>(<i>scheme</i>)
+<p>
+        Public method to check, if AdBlock can be performed on the scheme.
+</p>
+
+<dl>
+
+<dt><i>scheme</i> (str)</dt>
+<dd>
+scheme to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that AdBlock can be performed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockManager.close" ID="AdBlockManager.close"></a>
+<h4>AdBlockManager.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public method to close the open search engines manager.
+</p>
+
+<a NAME="AdBlockManager.customRules" ID="AdBlockManager.customRules"></a>
+<h4>AdBlockManager.customRules</h4>
+<b>customRules</b>(<i></i>)
+<p>
+        Public method to get a subscription for custom rules.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+subscription object for custom rules
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockSubscription
+</dd>
+</dl>
+<a NAME="AdBlockManager.elementHidingRules" ID="AdBlockManager.elementHidingRules"></a>
+<h4>AdBlockManager.elementHidingRules</h4>
+<b>elementHidingRules</b>(<i>url</i>)
+<p>
+        Public method to get the element hiding rules.
+</p>
+<p>
+
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to get hiding rules for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+element hiding rules
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AdBlockManager.elementHidingRulesForDomain" ID="AdBlockManager.elementHidingRulesForDomain"></a>
+<h4>AdBlockManager.elementHidingRulesForDomain</h4>
+<b>elementHidingRulesForDomain</b>(<i>url</i>)
+<p>
+        Public method to get the element hiding rules for a domain.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to get hiding rules for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+element hiding rules
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AdBlockManager.exceptions" ID="AdBlockManager.exceptions"></a>
+<h4>AdBlockManager.exceptions</h4>
+<b>exceptions</b>(<i></i>)
+<p>
+        Public method to get a list of excepted hosts.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of excepted hosts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="AdBlockManager.getDefaultSubscriptionUrl" ID="AdBlockManager.getDefaultSubscriptionUrl"></a>
+<h4>AdBlockManager.getDefaultSubscriptionUrl</h4>
+<b>getDefaultSubscriptionUrl</b>(<i></i>)
+<p>
+        Public method to get the default subscription URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+default subscription URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="AdBlockManager.getRequiresSubscriptions" ID="AdBlockManager.getRequiresSubscriptions"></a>
+<h4>AdBlockManager.getRequiresSubscriptions</h4>
+<b>getRequiresSubscriptions</b>(<i>subscription</i>)
+<p>
+        Public method to get a list of subscriptions, that require the given
+        one.
+</p>
+
+<dl>
+
+<dt><i>subscription</i> (AdBlockSubscription)</dt>
+<dd>
+subscription to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of subscription requiring the given one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of AdBlockSubscription
+</dd>
+</dl>
+<a NAME="AdBlockManager.isEnabled" ID="AdBlockManager.isEnabled"></a>
+<h4>AdBlockManager.isEnabled</h4>
+<b>isEnabled</b>(<i></i>)
+<p>
+        Public method to check, if blocking ads is enabled.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the enabled state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockManager.isHostExcepted" ID="AdBlockManager.isHostExcepted"></a>
+<h4>AdBlockManager.isHostExcepted</h4>
+<b>isHostExcepted</b>(<i>host</i>)
+<p>
+        Public slot to check, if a host is excepted.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an exception
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockManager.load" ID="AdBlockManager.load"></a>
+<h4>AdBlockManager.load</h4>
+<b>load</b>(<i></i>)
+<p>
+        Public method to load the AdBlock subscriptions.
+</p>
+
+<a NAME="AdBlockManager.loadRequiredSubscription" ID="AdBlockManager.loadRequiredSubscription"></a>
+<h4>AdBlockManager.loadRequiredSubscription</h4>
+<b>loadRequiredSubscription</b>(<i>location, title</i>)
+<p>
+        Public method to load a subscription required by another one.
+</p>
+
+<dl>
+
+<dt><i>location</i> (str)</dt>
+<dd>
+location of the required subscription
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the required subscription
+</dd>
+</dl>
+<a NAME="AdBlockManager.page" ID="AdBlockManager.page"></a>
+<h4>AdBlockManager.page</h4>
+<b>page</b>(<i></i>)
+<p>
+        Public method to get a reference to the page block object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the page block object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockPage
+</dd>
+</dl>
+<a NAME="AdBlockManager.removeException" ID="AdBlockManager.removeException"></a>
+<h4>AdBlockManager.removeException</h4>
+<b>removeException</b>(<i>host</i>)
+<p>
+        Public method to remove an exception.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+to be removed from the list of exceptions
+</dd>
+</dl>
+<a NAME="AdBlockManager.removeSubscription" ID="AdBlockManager.removeSubscription"></a>
+<h4>AdBlockManager.removeSubscription</h4>
+<b>removeSubscription</b>(<i>subscription, emitSignal=True</i>)
+<p>
+        Public method to remove an AdBlock subscription.
+</p>
+
+<dl>
+
+<dt><i>subscription</i> (AdBlockSubscription)</dt>
+<dd>
+AdBlock subscription to be removed
+</dd>
+<dt><i>emitSignal</i> (bool)</dt>
+<dd>
+flag indicating to send a signal
+</dd>
+</dl>
+<a NAME="AdBlockManager.save" ID="AdBlockManager.save"></a>
+<h4>AdBlockManager.save</h4>
+<b>save</b>(<i></i>)
+<p>
+        Public method to save the AdBlock subscriptions.
+</p>
+
+<a NAME="AdBlockManager.setEnabled" ID="AdBlockManager.setEnabled"></a>
+<h4>AdBlockManager.setEnabled</h4>
+<b>setEnabled</b>(<i>enabled</i>)
+<p>
+        Public slot to set the enabled state.
+</p>
+
+<dl>
+
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating the enabled state
+</dd>
+</dl>
+<a NAME="AdBlockManager.setExceptions" ID="AdBlockManager.setExceptions"></a>
+<h4>AdBlockManager.setExceptions</h4>
+<b>setExceptions</b>(<i>hosts</i>)
+<p>
+        Public method to set the list of excepted hosts.
+</p>
+
+<dl>
+
+<dt><i>hosts</i> (list of str)</dt>
+<dd>
+list of excepted hosts
+</dd>
+</dl>
+<a NAME="AdBlockManager.setUseLimitedEasyList" ID="AdBlockManager.setUseLimitedEasyList"></a>
+<h4>AdBlockManager.setUseLimitedEasyList</h4>
+<b>setUseLimitedEasyList</b>(<i>limited</i>)
+<p>
+        Public method to set the limited EasyList flag.
+</p>
+
+<dl>
+
+<dt><i>limited</i> (bool)</dt>
+<dd>
+flag indicating to use limited EasyList
+</dd>
+</dl>
+<a NAME="AdBlockManager.showDialog" ID="AdBlockManager.showDialog"></a>
+<h4>AdBlockManager.showDialog</h4>
+<b>showDialog</b>(<i>parent=None</i>)
+<p>
+        Public slot to show the AdBlock subscription management dialog.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the dialog
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockDialog
+</dd>
+</dl>
+<a NAME="AdBlockManager.showExceptionsDialog" ID="AdBlockManager.showExceptionsDialog"></a>
+<h4>AdBlockManager.showExceptionsDialog</h4>
+<b>showExceptionsDialog</b>(<i></i>)
+<p>
+        Public method to show the AdBlock Exceptions dialog.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the exceptions dialog
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockExceptionsDialog
+</dd>
+</dl>
+<a NAME="AdBlockManager.subscription" ID="AdBlockManager.subscription"></a>
+<h4>AdBlockManager.subscription</h4>
+<b>subscription</b>(<i>location</i>)
+<p>
+        Public method to get a subscription based on its location.
+</p>
+
+<dl>
+
+<dt><i>location</i> (str)</dt>
+<dd>
+location of the subscription to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+subscription or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockSubscription
+</dd>
+</dl>
+<a NAME="AdBlockManager.subscriptions" ID="AdBlockManager.subscriptions"></a>
+<h4>AdBlockManager.subscriptions</h4>
+<b>subscriptions</b>(<i></i>)
+<p>
+        Public method to get all subscriptions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of subscriptions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of AdBlockSubscription
+</dd>
+</dl>
+<a NAME="AdBlockManager.updateAllSubscriptions" ID="AdBlockManager.updateAllSubscriptions"></a>
+<h4>AdBlockManager.updateAllSubscriptions</h4>
+<b>updateAllSubscriptions</b>(<i></i>)
+<p>
+        Public method to update all subscriptions.
+</p>
+
+<a NAME="AdBlockManager.useLimitedEasyList" ID="AdBlockManager.useLimitedEasyList"></a>
+<h4>AdBlockManager.useLimitedEasyList</h4>
+<b>useLimitedEasyList</b>(<i></i>)
+<p>
+        Public method to test, if limited EasyList rules shall be used.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating limited EasyList rules
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

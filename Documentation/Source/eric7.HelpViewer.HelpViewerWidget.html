@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HelpViewer.HelpViewerWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HelpViewer.HelpViewerWidget</h1>
+<p>
+Module implementing an embedded viewer for QtHelp and local HTML files.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>WEBENGINE_AVAILABLE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HelpViewerWidget">HelpViewerWidget</a></td>
+<td>Class implementing an embedded viewer for QtHelp and local HTML files.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HelpViewerWidget" ID="HelpViewerWidget"></a>
+<h2>HelpViewerWidget</h2>
+<p>
+    Class implementing an embedded viewer for QtHelp and local HTML files.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>EmpytDocument_Dark</td></tr>
+<tr><td>EmpytDocument_Light</td></tr>
+<tr><td>MaxHistoryItems</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#HelpViewerWidget.emptyDocument">emptyDocument</a></td>
+<td>Class method to get the HTML code for an empty page.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HelpViewerWidget.__init__">HelpViewerWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__activateCurrentPage">__activateCurrentPage</a></td>
+<td>Private slot to activate the current page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__addNavigationButton">__addNavigationButton</a></td>
+<td>Private method to create and add a navigation button.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__addNewPage">__addNewPage</a></td>
+<td>Private slot to add a new empty page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__backward">__backward</a></td>
+<td>Private slot to move one page backward.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__checkActionButtons">__checkActionButtons</a></td>
+<td>Private slot to set the enabled state of the action buttons.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__clearHistory">__clearHistory</a></td>
+<td>Private slot to clear the history of the current viewer.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__configureHelpDocumentation">__configureHelpDocumentation</a></td>
+<td>Private slot to open the Help Documentation configuration page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__currentFilterChanged">__currentFilterChanged</a></td>
+<td>Private slot handling a change of the active QtHelp filter.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__currentPageChanged">__currentPageChanged</a></td>
+<td>Private slot handling the selection of another page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__docsInstalled">__docsInstalled</a></td>
+<td>Private slot handling the end of documentation installation.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__filterQtHelpDocumentation">__filterQtHelpDocumentation</a></td>
+<td>Private slot to filter the QtHelp documentation.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__forward">__forward</a></td>
+<td>Private slot to move one page foreward.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__getQtHelpCollectionFileName">__getQtHelpCollectionFileName</a></td>
+<td>Private method to determine the name of the QtHelp collection file.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__helpTopicSelected">__helpTopicSelected</a></td>
+<td>Private slot handling the selection of a new help topic.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__indexingFinished">__indexingFinished</a></td>
+<td>Private slot handling the end of the indexing process.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__indexingStarted">__indexingStarted</a></td>
+<td>Private slot handling the start of the indexing process.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__initActionsMenu">__initActionsMenu</a></td>
+<td>Private method to initialize the actions menu.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__initFilterWidget">__initFilterWidget</a></td>
+<td>Private method to initialize the filter selection widget.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__initHelpEngine">__initHelpEngine</a></td>
+<td>Private method to initialize the QtHelp related stuff.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__initIndexingProgress">__initIndexingProgress</a></td>
+<td>Private method to initialize the help documents indexing progress widget.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__initQWebEngine">__initQWebEngine</a></td>
+<td>Private method to initialize global QWebEngine related objects.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__initQWebEngineSettings">__initQWebEngineSettings</a></td>
+<td>Private method to set the global web settings.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__lookForNewDocumentation">__lookForNewDocumentation</a></td>
+<td>Private slot to look for new documentation to be loaded into the help database.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__manageQtHelpDocuments">__manageQtHelpDocuments</a></td>
+<td>Private slot to manage the QtHelp documentation database.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__navigationMenuActionTriggered">__navigationMenuActionTriggered</a></td>
+<td>Private slot to go to the selected page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__newViewer">__newViewer</a></td>
+<td>Private method to create a new help viewer.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__openFile">__openFile</a></td>
+<td>Private slot to open a local help file (*.html).</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__populateHelpSelector">__populateHelpSelector</a></td>
+<td>Private method to populate the help selection combo box.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__populateNavigationStack">__populateNavigationStack</a></td>
+<td>Private method to populate the stack of navigation widgets.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__reload">__reload</a></td>
+<td>Private slot to reload the current page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__removeOldDocumentation">__removeOldDocumentation</a></td>
+<td>Private slot to remove non-existing documentation from the help engine.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__searchWidgetClosed">__searchWidgetClosed</a></td>
+<td>Private slot to handle the closing of the search widget.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__selectNavigationWidget">__selectNavigationWidget</a></td>
+<td>Private slot to select the navigation widget.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__setupFilterCombo">__setupFilterCombo</a></td>
+<td>Private slot to setup the filter combo box.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__showBackMenu">__showBackMenu</a></td>
+<td>Private slot showing the backward navigation menu.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__showForwardMenu">__showForwardMenu</a></td>
+<td>Private slot showing the forward navigation menu.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__showInstallationError">__showInstallationError</a></td>
+<td>Private slot to show installation errors.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__warning">__warning</a></td>
+<td>Private slot handling warnings of the help engine.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__zoomIn">__zoomIn</a></td>
+<td>Private slot to zoom in.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__zoomOut">__zoomOut</a></td>
+<td>Private slot to zoom out.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.__zoomReset">__zoomReset</a></td>
+<td>Private slot to reset the zoom level.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.activate">activate</a></td>
+<td>Public method to activate the widget and search for a given word.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.addPage">addPage</a></td>
+<td>Public method to add a new help page with the given URL.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.bookmarkPage">bookmarkPage</a></td>
+<td>Public method to bookmark a page with the given data.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.closeAllPages">closeAllPages</a></td>
+<td>Public slot to close all pages.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.closeCurrentPage">closeCurrentPage</a></td>
+<td>Public slot to close the current page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.closeOtherPages">closeOtherPages</a></td>
+<td>Public slot to close all other pages.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.currentViewer">currentViewer</a></td>
+<td>Public method to get the active viewer.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.openPagesCount">openPagesCount</a></td>
+<td>Public method to get the count of open pages.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.openUrl">openUrl</a></td>
+<td>Public slot to load a URL in the current page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.openUrlNewBackgroundPage">openUrlNewBackgroundPage</a></td>
+<td>Public slot to load a URL in a new background page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.openUrlNewPage">openUrlNewPage</a></td>
+<td>Public slot to load a URL in a new page.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.searchNext">searchNext</a></td>
+<td>Public slot to find the next occurrence of the current search term.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.searchPrev">searchPrev</a></td>
+<td>Public slot to find the previous occurrence of the current search term.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.searchQtHelp">searchQtHelp</a></td>
+<td>Public slot to search for a given search expression.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.showHideSearch">showHideSearch</a></td>
+<td>Public slot to show or hide the search widget.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.shutdown">shutdown</a></td>
+<td>Public method to perform shut down actions.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.webProfile">webProfile</a></td>
+<td>Public method to get a reference to the global web profile object.</td>
+</tr>
+<tr>
+<td><a href="#HelpViewerWidget.webSettings">webSettings</a></td>
+<td>Public method to get the web settings of the current profile.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HelpViewerWidget.emptyDocument" ID="HelpViewerWidget.emptyDocument"></a>
+<h4>HelpViewerWidget.emptyDocument (class method)</h4>
+<b>emptyDocument</b>(<i></i>)
+<p>
+        Class method to get the HTML code for an empty page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+HTML code for an empty page.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__init__" ID="HelpViewerWidget.__init__"></a>
+<h4>HelpViewerWidget (Constructor)</h4>
+<b>HelpViewerWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__activateCurrentPage" ID="HelpViewerWidget.__activateCurrentPage"></a>
+<h4>HelpViewerWidget.__activateCurrentPage</h4>
+<b>__activateCurrentPage</b>(<i></i>)
+<p>
+        Private slot to activate the current page.
+</p>
+
+<a NAME="HelpViewerWidget.__addNavigationButton" ID="HelpViewerWidget.__addNavigationButton"></a>
+<h4>HelpViewerWidget.__addNavigationButton</h4>
+<b>__addNavigationButton</b>(<i>iconName, toolTip</i>)
+<p>
+        Private method to create and add a navigation button.
+</p>
+
+<dl>
+
+<dt><i>iconName</i> (str)</dt>
+<dd>
+name of the icon
+</dd>
+<dt><i>toolTip</i> (str)</dt>
+<dd>
+tooltip to be shown
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the created button
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolButton
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__addNewPage" ID="HelpViewerWidget.__addNewPage"></a>
+<h4>HelpViewerWidget.__addNewPage</h4>
+<b>__addNewPage</b>(<i></i>)
+<p>
+        Private slot to add a new empty page.
+</p>
+
+<a NAME="HelpViewerWidget.__backward" ID="HelpViewerWidget.__backward"></a>
+<h4>HelpViewerWidget.__backward</h4>
+<b>__backward</b>(<i></i>)
+<p>
+        Private slot to move one page backward.
+</p>
+
+<a NAME="HelpViewerWidget.__checkActionButtons" ID="HelpViewerWidget.__checkActionButtons"></a>
+<h4>HelpViewerWidget.__checkActionButtons</h4>
+<b>__checkActionButtons</b>(<i></i>)
+<p>
+        Private slot to set the enabled state of the action buttons.
+</p>
+
+<a NAME="HelpViewerWidget.__clearHistory" ID="HelpViewerWidget.__clearHistory"></a>
+<h4>HelpViewerWidget.__clearHistory</h4>
+<b>__clearHistory</b>(<i></i>)
+<p>
+        Private slot to clear the history of the current viewer.
+</p>
+
+<a NAME="HelpViewerWidget.__configureHelpDocumentation" ID="HelpViewerWidget.__configureHelpDocumentation"></a>
+<h4>HelpViewerWidget.__configureHelpDocumentation</h4>
+<b>__configureHelpDocumentation</b>(<i></i>)
+<p>
+        Private slot to open the Help Documentation configuration page.
+</p>
+
+<a NAME="HelpViewerWidget.__currentFilterChanged" ID="HelpViewerWidget.__currentFilterChanged"></a>
+<h4>HelpViewerWidget.__currentFilterChanged</h4>
+<b>__currentFilterChanged</b>(<i>filter_</i>)
+<p>
+        Private slot handling a change of the active QtHelp filter.
+</p>
+
+<dl>
+
+<dt><i>filter_</i> (str)</dt>
+<dd>
+filter name
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__currentPageChanged" ID="HelpViewerWidget.__currentPageChanged"></a>
+<h4>HelpViewerWidget.__currentPageChanged</h4>
+<b>__currentPageChanged</b>(<i></i>)
+<p>
+        Private slot handling the selection of another page.
+</p>
+
+<a NAME="HelpViewerWidget.__docsInstalled" ID="HelpViewerWidget.__docsInstalled"></a>
+<h4>HelpViewerWidget.__docsInstalled</h4>
+<b>__docsInstalled</b>(<i>_installed</i>)
+<p>
+        Private slot handling the end of documentation installation.
+</p>
+
+<dl>
+
+<dt><i>_installed</i> (bool)</dt>
+<dd>
+flag indicating that documents were installed (unused)
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__filterQtHelpDocumentation" ID="HelpViewerWidget.__filterQtHelpDocumentation"></a>
+<h4>HelpViewerWidget.__filterQtHelpDocumentation</h4>
+<b>__filterQtHelpDocumentation</b>(<i>index</i>)
+<p>
+        Private slot to filter the QtHelp documentation.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected QtHelp documentation filter
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__forward" ID="HelpViewerWidget.__forward"></a>
+<h4>HelpViewerWidget.__forward</h4>
+<b>__forward</b>(<i></i>)
+<p>
+        Private slot to move one page foreward.
+</p>
+
+<a NAME="HelpViewerWidget.__getQtHelpCollectionFileName" ID="HelpViewerWidget.__getQtHelpCollectionFileName"></a>
+<h4>HelpViewerWidget.__getQtHelpCollectionFileName</h4>
+<b>__getQtHelpCollectionFileName</b>(<i></i>)
+<p>
+        Private method to determine the name of the QtHelp collection file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the QtHelp collection file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__helpTopicSelected" ID="HelpViewerWidget.__helpTopicSelected"></a>
+<h4>HelpViewerWidget.__helpTopicSelected</h4>
+<b>__helpTopicSelected</b>(<i></i>)
+<p>
+        Private slot handling the selection of a new help topic.
+</p>
+
+<a NAME="HelpViewerWidget.__indexingFinished" ID="HelpViewerWidget.__indexingFinished"></a>
+<h4>HelpViewerWidget.__indexingFinished</h4>
+<b>__indexingFinished</b>(<i></i>)
+<p>
+        Private slot handling the end of the indexing process.
+</p>
+
+<a NAME="HelpViewerWidget.__indexingStarted" ID="HelpViewerWidget.__indexingStarted"></a>
+<h4>HelpViewerWidget.__indexingStarted</h4>
+<b>__indexingStarted</b>(<i></i>)
+<p>
+        Private slot handling the start of the indexing process.
+</p>
+
+<a NAME="HelpViewerWidget.__initActionsMenu" ID="HelpViewerWidget.__initActionsMenu"></a>
+<h4>HelpViewerWidget.__initActionsMenu</h4>
+<b>__initActionsMenu</b>(<i></i>)
+<p>
+        Private method to initialize the actions menu.
+</p>
+
+<a NAME="HelpViewerWidget.__initFilterWidget" ID="HelpViewerWidget.__initFilterWidget"></a>
+<h4>HelpViewerWidget.__initFilterWidget</h4>
+<b>__initFilterWidget</b>(<i></i>)
+<p>
+        Private method to initialize the filter selection widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__initHelpEngine" ID="HelpViewerWidget.__initHelpEngine"></a>
+<h4>HelpViewerWidget.__initHelpEngine</h4>
+<b>__initHelpEngine</b>(<i></i>)
+<p>
+        Private method to initialize the QtHelp related stuff.
+</p>
+
+<a NAME="HelpViewerWidget.__initIndexingProgress" ID="HelpViewerWidget.__initIndexingProgress"></a>
+<h4>HelpViewerWidget.__initIndexingProgress</h4>
+<b>__initIndexingProgress</b>(<i></i>)
+<p>
+        Private method to initialize the help documents indexing progress
+        widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__initQWebEngine" ID="HelpViewerWidget.__initQWebEngine"></a>
+<h4>HelpViewerWidget.__initQWebEngine</h4>
+<b>__initQWebEngine</b>(<i></i>)
+<p>
+        Private method to initialize global QWebEngine related objects.
+</p>
+
+<a NAME="HelpViewerWidget.__initQWebEngineSettings" ID="HelpViewerWidget.__initQWebEngineSettings"></a>
+<h4>HelpViewerWidget.__initQWebEngineSettings</h4>
+<b>__initQWebEngineSettings</b>(<i></i>)
+<p>
+        Private method to set the global web settings.
+</p>
+
+<a NAME="HelpViewerWidget.__lookForNewDocumentation" ID="HelpViewerWidget.__lookForNewDocumentation"></a>
+<h4>HelpViewerWidget.__lookForNewDocumentation</h4>
+<b>__lookForNewDocumentation</b>(<i></i>)
+<p>
+        Private slot to look for new documentation to be loaded into the
+        help database.
+</p>
+
+<a NAME="HelpViewerWidget.__manageQtHelpDocuments" ID="HelpViewerWidget.__manageQtHelpDocuments"></a>
+<h4>HelpViewerWidget.__manageQtHelpDocuments</h4>
+<b>__manageQtHelpDocuments</b>(<i></i>)
+<p>
+        Private slot to manage the QtHelp documentation database.
+</p>
+
+<a NAME="HelpViewerWidget.__navigationMenuActionTriggered" ID="HelpViewerWidget.__navigationMenuActionTriggered"></a>
+<h4>HelpViewerWidget.__navigationMenuActionTriggered</h4>
+<b>__navigationMenuActionTriggered</b>(<i>act</i>)
+<p>
+        Private slot to go to the selected page.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action selected in the navigation menu
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__newViewer" ID="HelpViewerWidget.__newViewer"></a>
+<h4>HelpViewerWidget.__newViewer</h4>
+<b>__newViewer</b>(<i></i>)
+<p>
+        Private method to create a new help viewer.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the reference to the created help viewer
+            object and its type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (HelpViewerImpl, EricTextEditType)
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__openFile" ID="HelpViewerWidget.__openFile"></a>
+<h4>HelpViewerWidget.__openFile</h4>
+<b>__openFile</b>(<i></i>)
+<p>
+        Private slot to open a local help file (*.html).
+</p>
+
+<a NAME="HelpViewerWidget.__populateHelpSelector" ID="HelpViewerWidget.__populateHelpSelector"></a>
+<h4>HelpViewerWidget.__populateHelpSelector</h4>
+<b>__populateHelpSelector</b>(<i></i>)
+<p>
+        Private method to populate the help selection combo box.
+</p>
+
+<a NAME="HelpViewerWidget.__populateNavigationStack" ID="HelpViewerWidget.__populateNavigationStack"></a>
+<h4>HelpViewerWidget.__populateNavigationStack</h4>
+<b>__populateNavigationStack</b>(<i></i>)
+<p>
+        Private method to populate the stack of navigation widgets.
+</p>
+
+<a NAME="HelpViewerWidget.__reload" ID="HelpViewerWidget.__reload"></a>
+<h4>HelpViewerWidget.__reload</h4>
+<b>__reload</b>(<i></i>)
+<p>
+        Private slot to reload the current page.
+</p>
+
+<a NAME="HelpViewerWidget.__removeOldDocumentation" ID="HelpViewerWidget.__removeOldDocumentation"></a>
+<h4>HelpViewerWidget.__removeOldDocumentation</h4>
+<b>__removeOldDocumentation</b>(<i></i>)
+<p>
+        Private slot to remove non-existing documentation from the help engine.
+</p>
+
+<a NAME="HelpViewerWidget.__searchWidgetClosed" ID="HelpViewerWidget.__searchWidgetClosed"></a>
+<h4>HelpViewerWidget.__searchWidgetClosed</h4>
+<b>__searchWidgetClosed</b>(<i></i>)
+<p>
+        Private slot to handle the closing of the search widget.
+</p>
+
+<a NAME="HelpViewerWidget.__selectNavigationWidget" ID="HelpViewerWidget.__selectNavigationWidget"></a>
+<h4>HelpViewerWidget.__selectNavigationWidget</h4>
+<b>__selectNavigationWidget</b>(<i>button</i>)
+<p>
+        Private slot to select the navigation widget.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+reference to the clicked button
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__setupFilterCombo" ID="HelpViewerWidget.__setupFilterCombo"></a>
+<h4>HelpViewerWidget.__setupFilterCombo</h4>
+<b>__setupFilterCombo</b>(<i></i>)
+<p>
+        Private slot to setup the filter combo box.
+</p>
+
+<a NAME="HelpViewerWidget.__showBackMenu" ID="HelpViewerWidget.__showBackMenu"></a>
+<h4>HelpViewerWidget.__showBackMenu</h4>
+<b>__showBackMenu</b>(<i></i>)
+<p>
+        Private slot showing the backward navigation menu.
+</p>
+
+<a NAME="HelpViewerWidget.__showForwardMenu" ID="HelpViewerWidget.__showForwardMenu"></a>
+<h4>HelpViewerWidget.__showForwardMenu</h4>
+<b>__showForwardMenu</b>(<i></i>)
+<p>
+        Private slot showing the forward navigation menu.
+</p>
+
+<a NAME="HelpViewerWidget.__showInstallationError" ID="HelpViewerWidget.__showInstallationError"></a>
+<h4>HelpViewerWidget.__showInstallationError</h4>
+<b>__showInstallationError</b>(<i>message</i>)
+<p>
+        Private slot to show installation errors.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be shown
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__warning" ID="HelpViewerWidget.__warning"></a>
+<h4>HelpViewerWidget.__warning</h4>
+<b>__warning</b>(<i>msg</i>)
+<p>
+        Private slot handling warnings of the help engine.
+</p>
+
+<dl>
+
+<dt><i>msg</i> (str)</dt>
+<dd>
+message sent by the help  engine
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.__zoomIn" ID="HelpViewerWidget.__zoomIn"></a>
+<h4>HelpViewerWidget.__zoomIn</h4>
+<b>__zoomIn</b>(<i></i>)
+<p>
+        Private slot to zoom in.
+</p>
+
+<a NAME="HelpViewerWidget.__zoomOut" ID="HelpViewerWidget.__zoomOut"></a>
+<h4>HelpViewerWidget.__zoomOut</h4>
+<b>__zoomOut</b>(<i></i>)
+<p>
+        Private slot to zoom out.
+</p>
+
+<a NAME="HelpViewerWidget.__zoomReset" ID="HelpViewerWidget.__zoomReset"></a>
+<h4>HelpViewerWidget.__zoomReset</h4>
+<b>__zoomReset</b>(<i></i>)
+<p>
+        Private slot to reset the zoom level.
+</p>
+
+<a NAME="HelpViewerWidget.activate" ID="HelpViewerWidget.activate"></a>
+<h4>HelpViewerWidget.activate</h4>
+<b>activate</b>(<i>searchWord=None, url=None</i>)
+<p>
+        Public method to activate the widget and search for a given word.
+</p>
+
+<dl>
+
+<dt><i>searchWord</i> (str (optional))</dt>
+<dd>
+word to search for (defaults to None)
+</dd>
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to show in a new page
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.addPage" ID="HelpViewerWidget.addPage"></a>
+<h4>HelpViewerWidget.addPage</h4>
+<b>addPage</b>(<i>url=None, background=False</i>)
+<p>
+        Public method to add a new help page with the given URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl (optional))</dt>
+<dd>
+requested URL (defaults to QUrl("about:blank"))
+</dd>
+<dt><i>background</i> (bool (optional))</dt>
+<dd>
+flag indicating to open the page in the background
+            (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the created page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HelpViewerImpl
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.bookmarkPage" ID="HelpViewerWidget.bookmarkPage"></a>
+<h4>HelpViewerWidget.bookmarkPage</h4>
+<b>bookmarkPage</b>(<i>title, url</i>)
+<p>
+        Public method to bookmark a page with the given data.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the page
+</dd>
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of the page
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.closeAllPages" ID="HelpViewerWidget.closeAllPages"></a>
+<h4>HelpViewerWidget.closeAllPages</h4>
+<b>closeAllPages</b>(<i></i>)
+<p>
+        Public slot to close all pages.
+</p>
+
+<a NAME="HelpViewerWidget.closeCurrentPage" ID="HelpViewerWidget.closeCurrentPage"></a>
+<h4>HelpViewerWidget.closeCurrentPage</h4>
+<b>closeCurrentPage</b>(<i></i>)
+<p>
+        Public slot to close the current page.
+</p>
+
+<a NAME="HelpViewerWidget.closeOtherPages" ID="HelpViewerWidget.closeOtherPages"></a>
+<h4>HelpViewerWidget.closeOtherPages</h4>
+<b>closeOtherPages</b>(<i></i>)
+<p>
+        Public slot to close all other pages.
+</p>
+
+<a NAME="HelpViewerWidget.currentViewer" ID="HelpViewerWidget.currentViewer"></a>
+<h4>HelpViewerWidget.currentViewer</h4>
+<b>currentViewer</b>(<i></i>)
+<p>
+        Public method to get the active viewer.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the active help viewer
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HelpViewerImpl
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.openPagesCount" ID="HelpViewerWidget.openPagesCount"></a>
+<h4>HelpViewerWidget.openPagesCount</h4>
+<b>openPagesCount</b>(<i></i>)
+<p>
+        Public method to get the count of open pages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+count of open pages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.openUrl" ID="HelpViewerWidget.openUrl"></a>
+<h4>HelpViewerWidget.openUrl</h4>
+<b>openUrl</b>(<i>url</i>)
+<p>
+        Public slot to load a URL in the current page.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.openUrlNewBackgroundPage" ID="HelpViewerWidget.openUrlNewBackgroundPage"></a>
+<h4>HelpViewerWidget.openUrlNewBackgroundPage</h4>
+<b>openUrlNewBackgroundPage</b>(<i>url</i>)
+<p>
+        Public slot to load a URL in a new background page.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.openUrlNewPage" ID="HelpViewerWidget.openUrlNewPage"></a>
+<h4>HelpViewerWidget.openUrlNewPage</h4>
+<b>openUrlNewPage</b>(<i>url</i>)
+<p>
+        Public slot to load a URL in a new page.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.searchNext" ID="HelpViewerWidget.searchNext"></a>
+<h4>HelpViewerWidget.searchNext</h4>
+<b>searchNext</b>(<i></i>)
+<p>
+        Public slot to find the next occurrence of the current search term.
+</p>
+
+<a NAME="HelpViewerWidget.searchPrev" ID="HelpViewerWidget.searchPrev"></a>
+<h4>HelpViewerWidget.searchPrev</h4>
+<b>searchPrev</b>(<i></i>)
+<p>
+        Public slot to find the previous occurrence of the current search term.
+</p>
+
+<a NAME="HelpViewerWidget.searchQtHelp" ID="HelpViewerWidget.searchQtHelp"></a>
+<h4>HelpViewerWidget.searchQtHelp</h4>
+<b>searchQtHelp</b>(<i>searchExpression</i>)
+<p>
+        Public slot to search for a given search expression.
+</p>
+
+<dl>
+
+<dt><i>searchExpression</i> (str)</dt>
+<dd>
+expression to search for
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.showHideSearch" ID="HelpViewerWidget.showHideSearch"></a>
+<h4>HelpViewerWidget.showHideSearch</h4>
+<b>showHideSearch</b>(<i>visible</i>)
+<p>
+        Public slot to show or hide the search widget.
+</p>
+
+<dl>
+
+<dt><i>visible</i> (bool)</dt>
+<dd>
+flag indicating to show or hide the search widget
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.shutdown" ID="HelpViewerWidget.shutdown"></a>
+<h4>HelpViewerWidget.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to perform shut down actions.
+</p>
+
+<a NAME="HelpViewerWidget.webProfile" ID="HelpViewerWidget.webProfile"></a>
+<h4>HelpViewerWidget.webProfile</h4>
+<b>webProfile</b>(<i></i>)
+<p>
+        Public method to get a reference to the global web profile object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the global web profile object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWebEngineProfile
+</dd>
+</dl>
+<a NAME="HelpViewerWidget.webSettings" ID="HelpViewerWidget.webSettings"></a>
+<h4>HelpViewerWidget.webSettings</h4>
+<b>webSettings</b>(<i></i>)
+<p>
+        Public method to get the web settings of the current profile.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+web settings of the current profile
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWebEngineSettings
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

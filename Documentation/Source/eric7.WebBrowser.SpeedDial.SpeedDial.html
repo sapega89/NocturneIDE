@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.SpeedDial.SpeedDial</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.SpeedDial.SpeedDial</h1>
+<p>
+Module implementing the speed dial.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SpeedDial">SpeedDial</a></td>
+<td>Class implementing the speed dial.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SpeedDial" ID="SpeedDial"></a>
+<h2>SpeedDial</h2>
+<p>
+    Class implementing the speed dial.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>pageTitleLoaded(url, title)</dt>
+<dd>
+emitted after a title was loaded
+</dd>
+<dt>pagesChanged()</dt>
+<dd>
+emitted after the list of pages changed
+</dd>
+<dt>speedDialSaved()</dt>
+<dd>
+emitted after the speed dial data was saved
+</dd>
+<dt>thumbnailLoaded(url, src)</dt>
+<dd>
+emitted after a thumbnail was loaded
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SpeedDial.__init__">SpeedDial</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.__escapeTitle">__escapeTitle</a></td>
+<td>Private method to escape a title string.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.__escapeUrl">__escapeUrl</a></td>
+<td>Private method to escape an URL string.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.__imageFileName">__imageFileName</a></td>
+<td>Private method to generate the image file name for a URL.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.__initialize">__initialize</a></td>
+<td>Private method to initialize the speed dial.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.__load">__load</a></td>
+<td>Private method to load the speed dial configuration.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.__thumbnailCreated">__thumbnailCreated</a></td>
+<td>Private slot to handle the creation of a thumbnail image.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.addPage">addPage</a></td>
+<td>Public method to add a page for the given data.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.changed">changed</a></td>
+<td>Public slot to react on changed pages.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.close">close</a></td>
+<td>Public method to close the user agents manager.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.getFileName">getFileName</a></td>
+<td>Public method to get the file name of the user agents file.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.initialScript">initialScript</a></td>
+<td>Public method to get the 'initial' JavaScript script.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.loadThumbnail">loadThumbnail</a></td>
+<td>Public slot to load a thumbnail of the given URL.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.pageForUrl">pageForUrl</a></td>
+<td>Public method to get the page for the given URL.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.pagesInRow">pagesInRow</a></td>
+<td>Public method to get the number of dials per row.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.reload">reload</a></td>
+<td>Public method to reload the speed dial data.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.removeImageForUrl">removeImageForUrl</a></td>
+<td>Public slot to remove the image for a URL.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.removePage">removePage</a></td>
+<td>Public method to remove a page.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.resetDials">resetDials</a></td>
+<td>Public method to reset the speed dials to the default values.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.save">save</a></td>
+<td>Public method to save the speed dial configuration.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.sdSize">sdSize</a></td>
+<td>Public method to get the speed dial size.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.setPagesInRow">setPagesInRow</a></td>
+<td>Public slot to set the number of pages per row.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.setSdSize">setSdSize</a></td>
+<td>Public slot to set the size of the speed dial.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.urlForShortcut">urlForShortcut</a></td>
+<td>Public method to get the URL for the given shortcut key.</td>
+</tr>
+<tr>
+<td><a href="#SpeedDial.urlFromUserInput">urlFromUserInput</a></td>
+<td>Public slot to get the URL from user input.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SpeedDial.__init__" ID="SpeedDial.__init__"></a>
+<h4>SpeedDial (Constructor)</h4>
+<b>SpeedDial</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="SpeedDial.__escapeTitle" ID="SpeedDial.__escapeTitle"></a>
+<h4>SpeedDial.__escapeTitle</h4>
+<b>__escapeTitle</b>(<i>title</i>)
+<p>
+        Private method to escape a title string.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title string to be escaped
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+escaped title string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SpeedDial.__escapeUrl" ID="SpeedDial.__escapeUrl"></a>
+<h4>SpeedDial.__escapeUrl</h4>
+<b>__escapeUrl</b>(<i>url</i>)
+<p>
+        Private method to escape an URL string.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to be escaped
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+escaped URL string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SpeedDial.__imageFileName" ID="SpeedDial.__imageFileName"></a>
+<h4>SpeedDial.__imageFileName</h4>
+<b>__imageFileName</b>(<i>url</i>)
+<p>
+        Private method to generate the image file name for a URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to generate the file name from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the image file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SpeedDial.__initialize" ID="SpeedDial.__initialize"></a>
+<h4>SpeedDial.__initialize</h4>
+<b>__initialize</b>(<i></i>)
+<p>
+        Private method to initialize the speed dial.
+</p>
+
+<a NAME="SpeedDial.__load" ID="SpeedDial.__load"></a>
+<h4>SpeedDial.__load</h4>
+<b>__load</b>(<i></i>)
+<p>
+        Private method to load the speed dial configuration.
+</p>
+
+<a NAME="SpeedDial.__thumbnailCreated" ID="SpeedDial.__thumbnailCreated"></a>
+<h4>SpeedDial.__thumbnailCreated</h4>
+<b>__thumbnailCreated</b>(<i>image, thumbnailer</i>)
+<p>
+        Private slot to handle the creation of a thumbnail image.
+</p>
+
+<dl>
+
+<dt><i>image</i> (QPixmap)</dt>
+<dd>
+thumbnail image
+</dd>
+<dt><i>thumbnailer</i> (PageThumbnailer)</dt>
+<dd>
+reference to the page thumbnailer
+</dd>
+</dl>
+<a NAME="SpeedDial.addPage" ID="SpeedDial.addPage"></a>
+<h4>SpeedDial.addPage</h4>
+<b>addPage</b>(<i>url, title</i>)
+<p>
+        Public method to add a page for the given data.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of the page
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the page
+</dd>
+</dl>
+<a NAME="SpeedDial.changed" ID="SpeedDial.changed"></a>
+<h4>SpeedDial.changed</h4>
+<b>changed</b>(<i>allPages</i>)
+<p>
+        Public slot to react on changed pages.
+</p>
+
+<dl>
+
+<dt><i>allPages</i> (str)</dt>
+<dd>
+string giving all pages
+</dd>
+</dl>
+<a NAME="SpeedDial.close" ID="SpeedDial.close"></a>
+<h4>SpeedDial.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public method to close the user agents manager.
+</p>
+
+<a NAME="SpeedDial.getFileName" ID="SpeedDial.getFileName"></a>
+<h4>SpeedDial.getFileName</h4>
+<b>getFileName</b>(<i></i>)
+<p>
+        Public method to get the file name of the user agents file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the user agents file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SpeedDial.initialScript" ID="SpeedDial.initialScript"></a>
+<h4>SpeedDial.initialScript</h4>
+<b>initialScript</b>(<i></i>)
+<p>
+        Public method to get the 'initial' JavaScript script.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+initial JavaScript script
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SpeedDial.loadThumbnail" ID="SpeedDial.loadThumbnail"></a>
+<h4>SpeedDial.loadThumbnail</h4>
+<b>loadThumbnail</b>(<i>urlStr, loadTitle</i>)
+<p>
+        Public slot to load a thumbnail of the given URL.
+</p>
+
+<dl>
+
+<dt><i>urlStr</i> (str)</dt>
+<dd>
+URL of the thumbnail
+</dd>
+<dt><i>loadTitle</i> (bool)</dt>
+<dd>
+flag indicating to get the title for the thumbnail
+            from the site
+</dd>
+</dl>
+<a NAME="SpeedDial.pageForUrl" ID="SpeedDial.pageForUrl"></a>
+<h4>SpeedDial.pageForUrl</h4>
+<b>pageForUrl</b>(<i>url</i>)
+<p>
+        Public method to get the page for the given URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be searched for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+page for the URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Page
+</dd>
+</dl>
+<a NAME="SpeedDial.pagesInRow" ID="SpeedDial.pagesInRow"></a>
+<h4>SpeedDial.pagesInRow</h4>
+<b>pagesInRow</b>(<i></i>)
+<p>
+        Public method to get the number of dials per row.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of dials per row
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SpeedDial.reload" ID="SpeedDial.reload"></a>
+<h4>SpeedDial.reload</h4>
+<b>reload</b>(<i></i>)
+<p>
+        Public method to reload the speed dial data.
+</p>
+
+<a NAME="SpeedDial.removeImageForUrl" ID="SpeedDial.removeImageForUrl"></a>
+<h4>SpeedDial.removeImageForUrl</h4>
+<b>removeImageForUrl</b>(<i>url</i>)
+<p>
+        Public slot to remove the image for a URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to remove the image for
+</dd>
+</dl>
+<a NAME="SpeedDial.removePage" ID="SpeedDial.removePage"></a>
+<h4>SpeedDial.removePage</h4>
+<b>removePage</b>(<i>url</i>)
+<p>
+        Public method to remove a page.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of the page
+</dd>
+</dl>
+<a NAME="SpeedDial.resetDials" ID="SpeedDial.resetDials"></a>
+<h4>SpeedDial.resetDials</h4>
+<b>resetDials</b>(<i></i>)
+<p>
+        Public method to reset the speed dials to the default values.
+</p>
+
+<a NAME="SpeedDial.save" ID="SpeedDial.save"></a>
+<h4>SpeedDial.save</h4>
+<b>save</b>(<i></i>)
+<p>
+        Public method to save the speed dial configuration.
+</p>
+
+<a NAME="SpeedDial.sdSize" ID="SpeedDial.sdSize"></a>
+<h4>SpeedDial.sdSize</h4>
+<b>sdSize</b>(<i></i>)
+<p>
+        Public method to get the speed dial size.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+speed dial size
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SpeedDial.setPagesInRow" ID="SpeedDial.setPagesInRow"></a>
+<h4>SpeedDial.setPagesInRow</h4>
+<b>setPagesInRow</b>(<i>count</i>)
+<p>
+        Public slot to set the number of pages per row.
+</p>
+
+<dl>
+
+<dt><i>count</i> (int)</dt>
+<dd>
+number of pages per row
+</dd>
+</dl>
+<a NAME="SpeedDial.setSdSize" ID="SpeedDial.setSdSize"></a>
+<h4>SpeedDial.setSdSize</h4>
+<b>setSdSize</b>(<i>size</i>)
+<p>
+        Public slot to set the size of the speed dial.
+</p>
+
+<dl>
+
+<dt><i>size</i> (int)</dt>
+<dd>
+size of the speed dial
+</dd>
+</dl>
+<a NAME="SpeedDial.urlForShortcut" ID="SpeedDial.urlForShortcut"></a>
+<h4>SpeedDial.urlForShortcut</h4>
+<b>urlForShortcut</b>(<i>key</i>)
+<p>
+        Public method to get the URL for the given shortcut key.
+</p>
+
+<dl>
+
+<dt><i>key</i> (int)</dt>
+<dd>
+shortcut key
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+URL for the key
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="SpeedDial.urlFromUserInput" ID="SpeedDial.urlFromUserInput"></a>
+<h4>SpeedDial.urlFromUserInput</h4>
+<b>urlFromUserInput</b>(<i>url</i>)
+<p>
+        Public slot to get the URL from user input.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL entered by the user
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sanitized URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

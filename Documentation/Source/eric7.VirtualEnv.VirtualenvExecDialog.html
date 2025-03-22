@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.VirtualEnv.VirtualenvExecDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.VirtualEnv.VirtualenvExecDialog</h1>
+<p>
+Module implementing the virtualenv execution dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#VirtualenvExecDialog">VirtualenvExecDialog</a></td>
+<td>Class implementing the virtualenv execution dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="VirtualenvExecDialog" ID="VirtualenvExecDialog"></a>
+<h2>VirtualenvExecDialog</h2>
+<p>
+    Class implementing the virtualenv execution dialog.
+</p>
+<p>
+    This class starts a QProcess and displays a dialog that
+    shows the output of the virtualenv or pyvenv process.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_VirtualenvExecDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VirtualenvExecDialog.__init__">VirtualenvExecDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.__logError">__logError</a></td>
+<td>Private method to log an error.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.__logOutput">__logOutput</a></td>
+<td>Private method to log some output.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.__nextAttempt">__nextAttempt</a></td>
+<td>Private method to start another attempt.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.__readStderr">__readStderr</a></td>
+<td>Private slot to handle the readyReadStandardError signal.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.__readStdout">__readStdout</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.__writeLogFile">__writeLogFile</a></td>
+<td>Private method to write a log file to the virtualenv directory.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.__writeScriptFile">__writeScriptFile</a></td>
+<td>Private method to write a script file to the virtualenv directory.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#VirtualenvExecDialog.start">start</a></td>
+<td>Public slot to start the virtualenv command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VirtualenvExecDialog.__init__" ID="VirtualenvExecDialog.__init__"></a>
+<h4>VirtualenvExecDialog (Constructor)</h4>
+<b>VirtualenvExecDialog</b>(<i>configuration, venvManager, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>configuration</i> (dict)</dt>
+<dd>
+dictionary containing the configuration parameters
+            as returned by the command configuration dialog
+</dd>
+<dt><i>venvManager</i> (VirtualenvManager)</dt>
+<dd>
+reference to the virtual environment manager
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="VirtualenvExecDialog.__finish" ID="VirtualenvExecDialog.__finish"></a>
+<h4>VirtualenvExecDialog.__finish</h4>
+<b>__finish</b>(<i>exitCode, _exitStatus, giveUp=False</i>)
+<p>
+        Private slot called when the process finished.
+</p>
+<p>
+        It is called when the process finished or the user pressed the button.
+</p>
+
+<dl>
+
+<dt><i>exitCode</i> (int)</dt>
+<dd>
+exit code of the process
+</dd>
+<dt><i>_exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process (unused)
+</dd>
+<dt><i>giveUp</i> (bool)</dt>
+<dd>
+flag indicating to not start another attempt
+</dd>
+</dl>
+<a NAME="VirtualenvExecDialog.__logError" ID="VirtualenvExecDialog.__logError"></a>
+<h4>VirtualenvExecDialog.__logError</h4>
+<b>__logError</b>(<i>s</i>)
+<p>
+        Private method to log an error.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+error string to log
+</dd>
+</dl>
+<a NAME="VirtualenvExecDialog.__logOutput" ID="VirtualenvExecDialog.__logOutput"></a>
+<h4>VirtualenvExecDialog.__logOutput</h4>
+<b>__logOutput</b>(<i>s</i>)
+<p>
+        Private method to log some output.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+output string to log
+</dd>
+</dl>
+<a NAME="VirtualenvExecDialog.__nextAttempt" ID="VirtualenvExecDialog.__nextAttempt"></a>
+<h4>VirtualenvExecDialog.__nextAttempt</h4>
+<b>__nextAttempt</b>(<i></i>)
+<p>
+        Private method to start another attempt.
+</p>
+
+<a NAME="VirtualenvExecDialog.__readStderr" ID="VirtualenvExecDialog.__readStderr"></a>
+<h4>VirtualenvExecDialog.__readStderr</h4>
+<b>__readStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardError signal.
+</p>
+<p>
+        It reads the error output of the process and inserts it into the
+        error pane.
+</p>
+
+<a NAME="VirtualenvExecDialog.__readStdout" ID="VirtualenvExecDialog.__readStdout"></a>
+<h4>VirtualenvExecDialog.__readStdout</h4>
+<b>__readStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal.
+</p>
+<p>
+        It reads the output of the process, formats it and inserts it into
+        the contents pane.
+</p>
+
+<a NAME="VirtualenvExecDialog.__writeLogFile" ID="VirtualenvExecDialog.__writeLogFile"></a>
+<h4>VirtualenvExecDialog.__writeLogFile</h4>
+<b>__writeLogFile</b>(<i></i>)
+<p>
+        Private method to write a log file to the virtualenv directory.
+</p>
+
+<a NAME="VirtualenvExecDialog.__writeScriptFile" ID="VirtualenvExecDialog.__writeScriptFile"></a>
+<h4>VirtualenvExecDialog.__writeScriptFile</h4>
+<b>__writeScriptFile</b>(<i></i>)
+<p>
+        Private method to write a script file to the virtualenv directory.
+</p>
+
+<a NAME="VirtualenvExecDialog.on_buttonBox_clicked" ID="VirtualenvExecDialog.on_buttonBox_clicked"></a>
+<h4>VirtualenvExecDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="VirtualenvExecDialog.start" ID="VirtualenvExecDialog.start"></a>
+<h4>VirtualenvExecDialog.start</h4>
+<b>start</b>(<i>arguments</i>)
+<p>
+        Public slot to start the virtualenv command.
+</p>
+
+<dl>
+
+<dt><i>arguments</i> (list of str)</dt>
+<dd>
+commandline arguments for virtualenv/pyvenv program
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

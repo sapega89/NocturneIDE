@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricTextEditSearchWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricTextEditSearchWidget</h1>
+<p>
+Module implementing a horizontal search widget for QTextEdit.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricTextEditSearchWidget">EricTextEditSearchWidget</a></td>
+<td>Class implementing a horizontal search widget for QTextEdit.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditType">EricTextEditType</a></td>
+<td>Class defining the supported text edit types.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricTextEditSearchWidget" ID="EricTextEditSearchWidget"></a>
+<h2>EricTextEditSearchWidget</h2>
+<p>
+    Class implementing a horizontal search widget for QTextEdit.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>closePressed()</dt>
+<dd>
+emitted to indicate the closing of the widget via
+        the close button
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__init__">EricTextEditSearchWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__addWidthForHeightLayout">__addWidthForHeightLayout</a></td>
+<td>Private method to set the middle part of the layout.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__closeButtonClicked">__closeButtonClicked</a></td>
+<td>Private slot to close the widget.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__find">__find</a></td>
+<td>Private method to search the associated text edit.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__findByReturnPressed">__findByReturnPressed</a></td>
+<td>Private slot to handle the returnPressed signal of the findtext combobox.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__findPrevNextQTextEdit">__findPrevNextQTextEdit</a></td>
+<td>Private method to to search the associated edit widget of type QTextEdit.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__findPrevNextQWebEngineView">__findPrevNextQWebEngineView</a></td>
+<td>Private method to to search the associated edit widget of type QWebEngineView.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__findTextFinished">__findTextFinished</a></td>
+<td>Private method handling the find result of the web page search.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__setFindtextComboBackground">__setFindtextComboBackground</a></td>
+<td>Private slot to change the findtext combo background to indicate errors.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__setSearchButtons">__setSearchButtons</a></td>
+<td>Private slot to set the state of the search buttons.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.__setupUi">__setupUi</a></td>
+<td>Private method to generate the UI.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.activate">activate</a></td>
+<td>Public slot to activate the widget.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.attachTextEdit">attachTextEdit</a></td>
+<td>Public method to attach a QTextEdit or QWebEngineView widget.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.deactivate">deactivate</a></td>
+<td>Public slot to deactivate the widget.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.detachTextEdit">detachTextEdit</a></td>
+<td>Public method to detach the current text edit.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.findNext">findNext</a></td>
+<td>Public slot to find the next occurrence of the current search term.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.findPrev">findPrev</a></td>
+<td>Public slot to find the previous occurrence of the current search term.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.keyPressEvent">keyPressEvent</a></td>
+<td>Protected slot to handle key press events.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.on_findNextButton_clicked">on_findNextButton_clicked</a></td>
+<td>Private slot to find the next occurrence.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.on_findPrevButton_clicked">on_findPrevButton_clicked</a></td>
+<td>Private slot to find the previous occurrence.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.on_findtextCombo_editTextChanged">on_findtextCombo_editTextChanged</a></td>
+<td>Private slot to enable/disable the find buttons.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.setWidthForHeight">setWidthForHeight</a></td>
+<td>Public method to set the 'width for height'.</td>
+</tr>
+<tr>
+<td><a href="#EricTextEditSearchWidget.showInfo">showInfo</a></td>
+<td>Public method to show some information in the info label.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricTextEditSearchWidget.__init__" ID="EricTextEditSearchWidget.__init__"></a>
+<h4>EricTextEditSearchWidget (Constructor)</h4>
+<b>EricTextEditSearchWidget</b>(<i>parent=None, widthForHeight=True, enableClose=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+<dt><i>widthForHeight</i> (bool)</dt>
+<dd>
+flag indicating to prefer width for height.
+            If this parameter is False, some widgets are shown in a third
+            line.
+</dd>
+<dt><i>enableClose</i> (bool)</dt>
+<dd>
+flag indicating to show a close button
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.__addWidthForHeightLayout" ID="EricTextEditSearchWidget.__addWidthForHeightLayout"></a>
+<h4>EricTextEditSearchWidget.__addWidthForHeightLayout</h4>
+<b>__addWidthForHeightLayout</b>(<i>widthForHeight</i>)
+<p>
+        Private method to set the middle part of the layout.
+</p>
+
+<dl>
+
+<dt><i>widthForHeight</i> (bool)</dt>
+<dd>
+flag indicating to prefer width
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.__closeButtonClicked" ID="EricTextEditSearchWidget.__closeButtonClicked"></a>
+<h4>EricTextEditSearchWidget.__closeButtonClicked</h4>
+<b>__closeButtonClicked</b>(<i></i>)
+<p>
+        Private slot to close the widget.
+</p>
+<p>
+        Note: The widget is just hidden.
+</p>
+
+<a NAME="EricTextEditSearchWidget.__find" ID="EricTextEditSearchWidget.__find"></a>
+<h4>EricTextEditSearchWidget.__find</h4>
+<b>__find</b>(<i>backwards</i>)
+<p>
+        Private method to search the associated text edit.
+</p>
+
+<dl>
+
+<dt><i>backwards</i> (bool)</dt>
+<dd>
+flag indicating a backwards search
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.__findByReturnPressed" ID="EricTextEditSearchWidget.__findByReturnPressed"></a>
+<h4>EricTextEditSearchWidget.__findByReturnPressed</h4>
+<b>__findByReturnPressed</b>(<i></i>)
+<p>
+        Private slot to handle the returnPressed signal of the findtext
+        combobox.
+</p>
+
+<a NAME="EricTextEditSearchWidget.__findPrevNextQTextEdit" ID="EricTextEditSearchWidget.__findPrevNextQTextEdit"></a>
+<h4>EricTextEditSearchWidget.__findPrevNextQTextEdit</h4>
+<b>__findPrevNextQTextEdit</b>(<i>backwards</i>)
+<p>
+        Private method to to search the associated edit widget of
+        type QTextEdit.
+</p>
+
+<dl>
+
+<dt><i>backwards</i> (bool)</dt>
+<dd>
+flag indicating a backwards search
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.__findPrevNextQWebEngineView" ID="EricTextEditSearchWidget.__findPrevNextQWebEngineView"></a>
+<h4>EricTextEditSearchWidget.__findPrevNextQWebEngineView</h4>
+<b>__findPrevNextQWebEngineView</b>(<i>backwards</i>)
+<p>
+        Private method to to search the associated edit widget of
+        type QWebEngineView.
+</p>
+
+<dl>
+
+<dt><i>backwards</i> (bool)</dt>
+<dd>
+flag indicating a backwards search
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.__findTextFinished" ID="EricTextEditSearchWidget.__findTextFinished"></a>
+<h4>EricTextEditSearchWidget.__findTextFinished</h4>
+<b>__findTextFinished</b>(<i>result</i>)
+<p>
+        Private method handling the find result of the web page search.
+</p>
+<p>
+        Note: This method is used as the callback of the 'findText()' method call.
+</p>
+
+<dl>
+
+<dt><i>result</i> (QWebEngineFindTextResult)</dt>
+<dd>
+reference to the QWebEngineFindTextResult object of the
+            last search
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.__setFindtextComboBackground" ID="EricTextEditSearchWidget.__setFindtextComboBackground"></a>
+<h4>EricTextEditSearchWidget.__setFindtextComboBackground</h4>
+<b>__setFindtextComboBackground</b>(<i>error</i>)
+<p>
+        Private slot to change the findtext combo background to indicate
+        errors.
+</p>
+
+<dl>
+
+<dt><i>error</i> (bool)</dt>
+<dd>
+flag indicating an error condition
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.__setSearchButtons" ID="EricTextEditSearchWidget.__setSearchButtons"></a>
+<h4>EricTextEditSearchWidget.__setSearchButtons</h4>
+<b>__setSearchButtons</b>(<i>enabled</i>)
+<p>
+        Private slot to set the state of the search buttons.
+</p>
+
+<dl>
+
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating the state
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.__setupUi" ID="EricTextEditSearchWidget.__setupUi"></a>
+<h4>EricTextEditSearchWidget.__setupUi</h4>
+<b>__setupUi</b>(<i>widthForHeight, enableClose</i>)
+<p>
+        Private method to generate the UI.
+</p>
+
+<dl>
+
+<dt><i>widthForHeight</i> (bool)</dt>
+<dd>
+flag indicating to prefer width for height
+</dd>
+<dt><i>enableClose</i> (bool)</dt>
+<dd>
+flag indicating to show a close button
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.activate" ID="EricTextEditSearchWidget.activate"></a>
+<h4>EricTextEditSearchWidget.activate</h4>
+<b>activate</b>(<i></i>)
+<p>
+        Public slot to activate the widget.
+</p>
+
+<a NAME="EricTextEditSearchWidget.attachTextEdit" ID="EricTextEditSearchWidget.attachTextEdit"></a>
+<h4>EricTextEditSearchWidget.attachTextEdit</h4>
+<b>attachTextEdit</b>(<i>textedit, editType=EricTextEditType.QTEXTEDIT</i>)
+<p>
+        Public method to attach a QTextEdit or QWebEngineView widget.
+</p>
+
+<dl>
+
+<dt><i>textedit</i> (QTextEdit, QTextBrowser or QWebEngineView)</dt>
+<dd>
+reference to the edit widget to be attached
+</dd>
+<dt><i>editType</i> (EricTextEditType)</dt>
+<dd>
+type of the attached edit widget
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.deactivate" ID="EricTextEditSearchWidget.deactivate"></a>
+<h4>EricTextEditSearchWidget.deactivate</h4>
+<b>deactivate</b>(<i></i>)
+<p>
+        Public slot to deactivate the widget.
+</p>
+
+<a NAME="EricTextEditSearchWidget.detachTextEdit" ID="EricTextEditSearchWidget.detachTextEdit"></a>
+<h4>EricTextEditSearchWidget.detachTextEdit</h4>
+<b>detachTextEdit</b>(<i></i>)
+<p>
+        Public method to detach the current text edit.
+</p>
+
+<a NAME="EricTextEditSearchWidget.findNext" ID="EricTextEditSearchWidget.findNext"></a>
+<h4>EricTextEditSearchWidget.findNext</h4>
+<b>findNext</b>(<i></i>)
+<p>
+        Public slot to find the next occurrence of the current search term.
+</p>
+
+<a NAME="EricTextEditSearchWidget.findPrev" ID="EricTextEditSearchWidget.findPrev"></a>
+<h4>EricTextEditSearchWidget.findPrev</h4>
+<b>findPrev</b>(<i></i>)
+<p>
+        Public slot to find the previous occurrence of the current search term.
+</p>
+
+<a NAME="EricTextEditSearchWidget.keyPressEvent" ID="EricTextEditSearchWidget.keyPressEvent"></a>
+<h4>EricTextEditSearchWidget.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>event</i>)
+<p>
+        Protected slot to handle key press events.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QKeyEvent)</dt>
+<dd>
+reference to the key press event
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.on_findNextButton_clicked" ID="EricTextEditSearchWidget.on_findNextButton_clicked"></a>
+<h4>EricTextEditSearchWidget.on_findNextButton_clicked</h4>
+<b>on_findNextButton_clicked</b>(<i></i>)
+<p>
+        Private slot to find the next occurrence.
+</p>
+
+<a NAME="EricTextEditSearchWidget.on_findPrevButton_clicked" ID="EricTextEditSearchWidget.on_findPrevButton_clicked"></a>
+<h4>EricTextEditSearchWidget.on_findPrevButton_clicked</h4>
+<b>on_findPrevButton_clicked</b>(<i></i>)
+<p>
+        Private slot to find the previous occurrence.
+</p>
+
+<a NAME="EricTextEditSearchWidget.on_findtextCombo_editTextChanged" ID="EricTextEditSearchWidget.on_findtextCombo_editTextChanged"></a>
+<h4>EricTextEditSearchWidget.on_findtextCombo_editTextChanged</h4>
+<b>on_findtextCombo_editTextChanged</b>(<i>txt</i>)
+<p>
+        Private slot to enable/disable the find buttons.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text of the combobox
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.setWidthForHeight" ID="EricTextEditSearchWidget.setWidthForHeight"></a>
+<h4>EricTextEditSearchWidget.setWidthForHeight</h4>
+<b>setWidthForHeight</b>(<i>widthForHeight</i>)
+<p>
+        Public method to set the 'width for height'.
+</p>
+
+<dl>
+
+<dt><i>widthForHeight</i> (bool)</dt>
+<dd>
+flag indicating to prefer width
+</dd>
+</dl>
+<a NAME="EricTextEditSearchWidget.showInfo" ID="EricTextEditSearchWidget.showInfo"></a>
+<h4>EricTextEditSearchWidget.showInfo</h4>
+<b>showInfo</b>(<i>info</i>)
+<p>
+        Public method to show some information in the info label.
+</p>
+
+<dl>
+
+<dt><i>info</i> (str)</dt>
+<dd>
+informational text to be shown
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricTextEditType" ID="EricTextEditType"></a>
+<h2>EricTextEditType</h2>
+<p>
+    Class defining the supported text edit types.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>QTEXTBROWSER</td></tr>
+<tr><td>QTEXTEDIT</td></tr>
+<tr><td>QWEBENGINEVIEW</td></tr>
+<tr><td>UNKNOWN</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

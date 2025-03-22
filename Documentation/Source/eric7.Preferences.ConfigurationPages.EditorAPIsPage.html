@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Preferences.ConfigurationPages.EditorAPIsPage</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Preferences.ConfigurationPages.EditorAPIsPage</h1>
+<p>
+Module implementing the Editor APIs configuration page.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EditorAPIsPage">EditorAPIsPage</a></td>
+<td>Class implementing the Editor APIs configuration page.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#create">create</a></td>
+<td>Module function to create the configuration page.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EditorAPIsPage" ID="EditorAPIsPage"></a>
+<h2>EditorAPIsPage</h2>
+<p>
+    Class implementing the Editor APIs configuration page.
+</p>
+
+<h3>Derived from</h3>
+ConfigurationPageBase, Ui_EditorAPIsPage
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EditorAPIsPage.__init__">EditorAPIsPage</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.__apiKey">__apiKey</a></td>
+<td>Private method to generate a key for the apis dictionary.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.__apiPreparationCancelled">__apiPreparationCancelled</a></td>
+<td>Private slot called after the API preparation has been cancelled.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.__apiPreparationFinished">__apiPreparationFinished</a></td>
+<td>Private method called after the API preparation has finished.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.__apiPreparationStarted">__apiPreparationStarted</a></td>
+<td>Private method called after the API preparation has started.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.__editorGetApisFromApiList">__editorGetApisFromApiList</a></td>
+<td>Private slot to retrieve the api filenames from the list.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.__fillApisList">__fillApisList</a></td>
+<td>Private slot to fill the list of API files.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.__fillProjectTypeComboBox">__fillProjectTypeComboBox</a></td>
+<td>Private slot to fill the selection of available project types for the given language.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.on_addApiFileButton_clicked">on_addApiFileButton_clicked</a></td>
+<td>Private slot to add the api file displayed to the listbox.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.on_addInstalledApiFileButton_clicked">on_addInstalledApiFileButton_clicked</a></td>
+<td>Private slot to add an API file from the list of installed API files for the selected lexer language.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.on_addPluginApiFileButton_clicked">on_addPluginApiFileButton_clicked</a></td>
+<td>Private slot to add an API file from the list of API files installed by plugins for the selected lexer language.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.on_apiFilePicker_textChanged">on_apiFilePicker_textChanged</a></td>
+<td>Private slot to handle the entering of an API file name.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.on_apiLanguageComboBox_activated">on_apiLanguageComboBox_activated</a></td>
+<td>Private slot to fill the api listbox of the api page.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.on_apiList_itemSelectionChanged">on_apiList_itemSelectionChanged</a></td>
+<td>Private slot to react on changes of API selections.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.on_deleteApiFileButton_clicked">on_deleteApiFileButton_clicked</a></td>
+<td>Private slot to delete the currently selected file of the listbox.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.on_prepareApiButton_clicked">on_prepareApiButton_clicked</a></td>
+<td>Private slot to prepare the API file for the currently selected language.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.on_projectTypeComboBox_activated">on_projectTypeComboBox_activated</a></td>
+<td>Private slot to handle the selection of a project type.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.save">save</a></td>
+<td>Public slot to save the Editor APIs configuration.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.saveState">saveState</a></td>
+<td>Public method to save the current state of the widget.</td>
+</tr>
+<tr>
+<td><a href="#EditorAPIsPage.setState">setState</a></td>
+<td>Public method to set the state of the widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EditorAPIsPage.__init__" ID="EditorAPIsPage.__init__"></a>
+<h4>EditorAPIsPage (Constructor)</h4>
+<b>EditorAPIsPage</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="EditorAPIsPage.__apiKey" ID="EditorAPIsPage.__apiKey"></a>
+<h4>EditorAPIsPage.__apiKey</h4>
+<b>__apiKey</b>(<i>language, projectType</i>)
+<p>
+        Private method to generate a key for the apis dictionary.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+programming language of the API
+</dd>
+<dt><i>projectType</i> (str)</dt>
+<dd>
+project type of the API
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+key to be used
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EditorAPIsPage.__apiPreparationCancelled" ID="EditorAPIsPage.__apiPreparationCancelled"></a>
+<h4>EditorAPIsPage.__apiPreparationCancelled</h4>
+<b>__apiPreparationCancelled</b>(<i></i>)
+<p>
+        Private slot called after the API preparation has been cancelled.
+</p>
+
+<a NAME="EditorAPIsPage.__apiPreparationFinished" ID="EditorAPIsPage.__apiPreparationFinished"></a>
+<h4>EditorAPIsPage.__apiPreparationFinished</h4>
+<b>__apiPreparationFinished</b>(<i></i>)
+<p>
+        Private method called after the API preparation has finished.
+</p>
+
+<a NAME="EditorAPIsPage.__apiPreparationStarted" ID="EditorAPIsPage.__apiPreparationStarted"></a>
+<h4>EditorAPIsPage.__apiPreparationStarted</h4>
+<b>__apiPreparationStarted</b>(<i></i>)
+<p>
+        Private method called after the API preparation has started.
+</p>
+
+<a NAME="EditorAPIsPage.__editorGetApisFromApiList" ID="EditorAPIsPage.__editorGetApisFromApiList"></a>
+<h4>EditorAPIsPage.__editorGetApisFromApiList</h4>
+<b>__editorGetApisFromApiList</b>(<i></i>)
+<p>
+        Private slot to retrieve the api filenames from the list.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of api filenames
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EditorAPIsPage.__fillApisList" ID="EditorAPIsPage.__fillApisList"></a>
+<h4>EditorAPIsPage.__fillApisList</h4>
+<b>__fillApisList</b>(<i></i>)
+<p>
+        Private slot to fill the list of API files.
+</p>
+
+<a NAME="EditorAPIsPage.__fillProjectTypeComboBox" ID="EditorAPIsPage.__fillProjectTypeComboBox"></a>
+<h4>EditorAPIsPage.__fillProjectTypeComboBox</h4>
+<b>__fillProjectTypeComboBox</b>(<i>language</i>)
+<p>
+        Private slot to fill the selection of available project types for the
+        given language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+selected API language
+</dd>
+</dl>
+<a NAME="EditorAPIsPage.on_addApiFileButton_clicked" ID="EditorAPIsPage.on_addApiFileButton_clicked"></a>
+<h4>EditorAPIsPage.on_addApiFileButton_clicked</h4>
+<b>on_addApiFileButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add the api file displayed to the listbox.
+</p>
+
+<a NAME="EditorAPIsPage.on_addInstalledApiFileButton_clicked" ID="EditorAPIsPage.on_addInstalledApiFileButton_clicked"></a>
+<h4>EditorAPIsPage.on_addInstalledApiFileButton_clicked</h4>
+<b>on_addInstalledApiFileButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add an API file from the list of installed API files
+        for the selected lexer language.
+</p>
+
+<a NAME="EditorAPIsPage.on_addPluginApiFileButton_clicked" ID="EditorAPIsPage.on_addPluginApiFileButton_clicked"></a>
+<h4>EditorAPIsPage.on_addPluginApiFileButton_clicked</h4>
+<b>on_addPluginApiFileButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add an API file from the list of API files installed
+        by plugins for the selected lexer language.
+</p>
+
+<a NAME="EditorAPIsPage.on_apiFilePicker_textChanged" ID="EditorAPIsPage.on_apiFilePicker_textChanged"></a>
+<h4>EditorAPIsPage.on_apiFilePicker_textChanged</h4>
+<b>on_apiFilePicker_textChanged</b>(<i>txt</i>)
+<p>
+        Private slot to handle the entering of an API file name.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text of the line edit
+</dd>
+</dl>
+<a NAME="EditorAPIsPage.on_apiLanguageComboBox_activated" ID="EditorAPIsPage.on_apiLanguageComboBox_activated"></a>
+<h4>EditorAPIsPage.on_apiLanguageComboBox_activated</h4>
+<b>on_apiLanguageComboBox_activated</b>(<i>index</i>)
+<p>
+        Private slot to fill the api listbox of the api page.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="EditorAPIsPage.on_apiList_itemSelectionChanged" ID="EditorAPIsPage.on_apiList_itemSelectionChanged"></a>
+<h4>EditorAPIsPage.on_apiList_itemSelectionChanged</h4>
+<b>on_apiList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to react on changes of API selections.
+</p>
+
+<a NAME="EditorAPIsPage.on_deleteApiFileButton_clicked" ID="EditorAPIsPage.on_deleteApiFileButton_clicked"></a>
+<h4>EditorAPIsPage.on_deleteApiFileButton_clicked</h4>
+<b>on_deleteApiFileButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the currently selected file of the listbox.
+</p>
+
+<a NAME="EditorAPIsPage.on_prepareApiButton_clicked" ID="EditorAPIsPage.on_prepareApiButton_clicked"></a>
+<h4>EditorAPIsPage.on_prepareApiButton_clicked</h4>
+<b>on_prepareApiButton_clicked</b>(<i></i>)
+<p>
+        Private slot to prepare the API file for the currently selected
+            language.
+</p>
+
+<a NAME="EditorAPIsPage.on_projectTypeComboBox_activated" ID="EditorAPIsPage.on_projectTypeComboBox_activated"></a>
+<h4>EditorAPIsPage.on_projectTypeComboBox_activated</h4>
+<b>on_projectTypeComboBox_activated</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of a project type.
+</p>
+
+<dl>
+
+<dt><i>index</i> (str)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="EditorAPIsPage.save" ID="EditorAPIsPage.save"></a>
+<h4>EditorAPIsPage.save</h4>
+<b>save</b>(<i></i>)
+<p>
+        Public slot to save the Editor APIs configuration.
+</p>
+
+<a NAME="EditorAPIsPage.saveState" ID="EditorAPIsPage.saveState"></a>
+<h4>EditorAPIsPage.saveState</h4>
+<b>saveState</b>(<i></i>)
+<p>
+        Public method to save the current state of the widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the index of the selected lexer language
+            and the index of the selected project type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="EditorAPIsPage.setState" ID="EditorAPIsPage.setState"></a>
+<h4>EditorAPIsPage.setState</h4>
+<b>setState</b>(<i>state</i>)
+<p>
+        Public method to set the state of the widget.
+</p>
+
+<dl>
+
+<dt><i>state</i> (tuple of (int, int))</dt>
+<dd>
+state data generated by saveState
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="create" ID="create"></a>
+<h2>create</h2>
+<b>create</b>(<i>_dlg</i>)
+<p>
+    Module function to create the configuration page.
+</p>
+
+<dl>
+
+<dt><i>_dlg</i> (ConfigurationDialog)</dt>
+<dd>
+reference to the configuration dialog (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ConfigurationPageBase
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

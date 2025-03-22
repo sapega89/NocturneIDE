@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.WizardPlugins.SetupWizard.SetupWizardDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.WizardPlugins.SetupWizard.SetupWizardDialog</h1>
+<p>
+Module implementing the setup.py wizard dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SetupWizardDialog">SetupWizardDialog</a></td>
+<td>Class implementing the setup.py wizard dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SetupWizardDialog" ID="SetupWizardDialog"></a>
+<h2>SetupWizardDialog</h2>
+<p>
+    Class implementing the setup.py wizard dialog.
+</p>
+<p>
+    It displays a dialog for entering the parameters for the setup.py code
+    generator.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_SetupWizardDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SetupWizardDialog.__init__">SetupWizardDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.__addClassifierEntry">__addClassifierEntry</a></td>
+<td>Private method to add a new entry to the list of trove classifiers.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.__enableOkButton">__enableOkButton</a></td>
+<td>Private slot to set the state of the OK button.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.__getLicenseText">__getLicenseText</a></td>
+<td>Private method to get the license text.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.__getPyprojectCode">__getPyprojectCode</a></td>
+<td>Private method to get the source code for a 'pyproject.toml' file.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.__getSetupCfgCode">__getSetupCfgCode</a></td>
+<td>Private method to get the source code for a 'setup.cfg' file.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.__getSetupPyCode">__getSetupPyCode</a></td>
+<td>Private method to get the source code for a 'setup.py' file.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.__getStartDir">__getStartDir</a></td>
+<td>Private method to get the start directory for selection dialogs.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.__populateClassifiers">__populateClassifiers</a></td>
+<td>Private method to populate the classifiers.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.accept">accept</a></td>
+<td>Public slot to handle pressing the OK button.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_addEntryPointButton_clicked">on_addEntryPointButton_clicked</a></td>
+<td>Private slot to add an entry point to the list.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_addExludePatternButton_clicked">on_addExludePatternButton_clicked</a></td>
+<td>Private slot to add an exclude pattern to the list.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_addModuleButton_clicked">on_addModuleButton_clicked</a></td>
+<td>Private slot to add Python modules to the list.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_deleteEntryPointButton_clicked">on_deleteEntryPointButton_clicked</a></td>
+<td>Private slot to delete the selected entry point items.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_deleteExcludePatternButton_clicked">on_deleteExcludePatternButton_clicked</a></td>
+<td>Private slot to delete the selected exclude pattern items.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_deleteModuleButton_clicked">on_deleteModuleButton_clicked</a></td>
+<td>Private slot to delete the selected module items.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_editEntryPointButton_clicked">on_editEntryPointButton_clicked</a></td>
+<td>Private slot to edit the selected entry point.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_entryPointsList_itemSelectionChanged">on_entryPointsList_itemSelectionChanged</a></td>
+<td>Private slot to handle a change of selected items of the entry points list.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_excludePatternEdit_returnPressed">on_excludePatternEdit_returnPressed</a></td>
+<td>Private slot handling a press of the return button of the exclude pattern edit.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_excludePatternEdit_textChanged">on_excludePatternEdit_textChanged</a></td>
+<td>Private slot to handle a change of the exclude pattern text.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_excludePatternList_itemSelectionChanged">on_excludePatternList_itemSelectionChanged</a></td>
+<td>Private slot to handle a change of selected items of the exclude pattern list.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_modulesList_itemSelectionChanged">on_modulesList_itemSelectionChanged</a></td>
+<td>Private slot to handle a change of selected items of the modules list.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_projectButton_clicked">on_projectButton_clicked</a></td>
+<td>Private slot to populate some fields with data retrieved from the current project.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_projectUrlsList_itemSelectionChanged">on_projectUrlsList_itemSelectionChanged</a></td>
+<td>Private slot to handle a change of selected items of the project URLs list.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_urlAddButton_clicked">on_urlAddButton_clicked</a></td>
+<td>Private slot to add a project URL to the list.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_urlDeleteButton_clicked">on_urlDeleteButton_clicked</a></td>
+<td>Private slot to delete the selected URL items.</td>
+</tr>
+<tr>
+<td><a href="#SetupWizardDialog.on_urlEditButton_clicked">on_urlEditButton_clicked</a></td>
+<td>Private slot to edit the selected project URL.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SetupWizardDialog.__init__" ID="SetupWizardDialog.__init__"></a>
+<h4>SetupWizardDialog (Constructor)</h4>
+<b>SetupWizardDialog</b>(<i>category, editor, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>category</i> (str)</dt>
+<dd>
+category of setup file to create
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor object to receive the code
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised for an illegal setup file category
+</dd>
+</dl>
+<a NAME="SetupWizardDialog.__addClassifierEntry" ID="SetupWizardDialog.__addClassifierEntry"></a>
+<h4>SetupWizardDialog.__addClassifierEntry</h4>
+<b>__addClassifierEntry</b>(<i>classifier</i>)
+<p>
+        Private method to add a new entry to the list of trove classifiers.
+</p>
+
+<dl>
+
+<dt><i>classifier</i> (str)</dt>
+<dd>
+classifier containing the data for the entry
+</dd>
+</dl>
+<a NAME="SetupWizardDialog.__enableOkButton" ID="SetupWizardDialog.__enableOkButton"></a>
+<h4>SetupWizardDialog.__enableOkButton</h4>
+<b>__enableOkButton</b>(<i></i>)
+<p>
+        Private slot to set the state of the OK button.
+</p>
+
+<a NAME="SetupWizardDialog.__getLicenseText" ID="SetupWizardDialog.__getLicenseText"></a>
+<h4>SetupWizardDialog.__getLicenseText</h4>
+<b>__getLicenseText</b>(<i></i>)
+<p>
+        Private method to get the license text.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+license text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SetupWizardDialog.__getPyprojectCode" ID="SetupWizardDialog.__getPyprojectCode"></a>
+<h4>SetupWizardDialog.__getPyprojectCode</h4>
+<b>__getPyprojectCode</b>(<i></i>)
+<p>
+        Private method to get the source code for a 'pyproject.toml' file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+generated code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SetupWizardDialog.__getSetupCfgCode" ID="SetupWizardDialog.__getSetupCfgCode"></a>
+<h4>SetupWizardDialog.__getSetupCfgCode</h4>
+<b>__getSetupCfgCode</b>(<i></i>)
+<p>
+        Private method to get the source code for a 'setup.cfg' file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+generated code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SetupWizardDialog.__getSetupPyCode" ID="SetupWizardDialog.__getSetupPyCode"></a>
+<h4>SetupWizardDialog.__getSetupPyCode</h4>
+<b>__getSetupPyCode</b>(<i>indLevel, indString</i>)
+<p>
+        Private method to get the source code for a 'setup.py' file.
+</p>
+
+<dl>
+
+<dt><i>indLevel</i> (int)</dt>
+<dd>
+indentation level
+</dd>
+<dt><i>indString</i> (str)</dt>
+<dd>
+string used for indentation (space or tab)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+generated code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SetupWizardDialog.__getStartDir" ID="SetupWizardDialog.__getStartDir"></a>
+<h4>SetupWizardDialog.__getStartDir</h4>
+<b>__getStartDir</b>(<i></i>)
+<p>
+        Private method to get the start directory for selection dialogs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+start directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SetupWizardDialog.__populateClassifiers" ID="SetupWizardDialog.__populateClassifiers"></a>
+<h4>SetupWizardDialog.__populateClassifiers</h4>
+<b>__populateClassifiers</b>(<i></i>)
+<p>
+        Private method to populate the classifiers.
+</p>
+
+<a NAME="SetupWizardDialog.accept" ID="SetupWizardDialog.accept"></a>
+<h4>SetupWizardDialog.accept</h4>
+<b>accept</b>(<i></i>)
+<p>
+        Public slot to handle pressing the OK button.
+</p>
+
+<a NAME="SetupWizardDialog.on_addEntryPointButton_clicked" ID="SetupWizardDialog.on_addEntryPointButton_clicked"></a>
+<h4>SetupWizardDialog.on_addEntryPointButton_clicked</h4>
+<b>on_addEntryPointButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add an entry point to the list.
+</p>
+
+<a NAME="SetupWizardDialog.on_addExludePatternButton_clicked" ID="SetupWizardDialog.on_addExludePatternButton_clicked"></a>
+<h4>SetupWizardDialog.on_addExludePatternButton_clicked</h4>
+<b>on_addExludePatternButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add an exclude pattern to the list.
+</p>
+
+<a NAME="SetupWizardDialog.on_addModuleButton_clicked" ID="SetupWizardDialog.on_addModuleButton_clicked"></a>
+<h4>SetupWizardDialog.on_addModuleButton_clicked</h4>
+<b>on_addModuleButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add Python modules to the list.
+</p>
+
+<a NAME="SetupWizardDialog.on_deleteEntryPointButton_clicked" ID="SetupWizardDialog.on_deleteEntryPointButton_clicked"></a>
+<h4>SetupWizardDialog.on_deleteEntryPointButton_clicked</h4>
+<b>on_deleteEntryPointButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected entry point items.
+</p>
+
+<a NAME="SetupWizardDialog.on_deleteExcludePatternButton_clicked" ID="SetupWizardDialog.on_deleteExcludePatternButton_clicked"></a>
+<h4>SetupWizardDialog.on_deleteExcludePatternButton_clicked</h4>
+<b>on_deleteExcludePatternButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected exclude pattern items.
+</p>
+
+<a NAME="SetupWizardDialog.on_deleteModuleButton_clicked" ID="SetupWizardDialog.on_deleteModuleButton_clicked"></a>
+<h4>SetupWizardDialog.on_deleteModuleButton_clicked</h4>
+<b>on_deleteModuleButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected module items.
+</p>
+
+<a NAME="SetupWizardDialog.on_editEntryPointButton_clicked" ID="SetupWizardDialog.on_editEntryPointButton_clicked"></a>
+<h4>SetupWizardDialog.on_editEntryPointButton_clicked</h4>
+<b>on_editEntryPointButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit the selected entry point.
+</p>
+
+<a NAME="SetupWizardDialog.on_entryPointsList_itemSelectionChanged" ID="SetupWizardDialog.on_entryPointsList_itemSelectionChanged"></a>
+<h4>SetupWizardDialog.on_entryPointsList_itemSelectionChanged</h4>
+<b>on_entryPointsList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of selected items of the
+        entry points list.
+</p>
+
+<a NAME="SetupWizardDialog.on_excludePatternEdit_returnPressed" ID="SetupWizardDialog.on_excludePatternEdit_returnPressed"></a>
+<h4>SetupWizardDialog.on_excludePatternEdit_returnPressed</h4>
+<b>on_excludePatternEdit_returnPressed</b>(<i></i>)
+<p>
+        Private slot handling a press of the return button of the
+        exclude pattern edit.
+</p>
+
+<a NAME="SetupWizardDialog.on_excludePatternEdit_textChanged" ID="SetupWizardDialog.on_excludePatternEdit_textChanged"></a>
+<h4>SetupWizardDialog.on_excludePatternEdit_textChanged</h4>
+<b>on_excludePatternEdit_textChanged</b>(<i>txt</i>)
+<p>
+        Private slot to handle a change of the exclude pattern text.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text of the line edit
+</dd>
+</dl>
+<a NAME="SetupWizardDialog.on_excludePatternList_itemSelectionChanged" ID="SetupWizardDialog.on_excludePatternList_itemSelectionChanged"></a>
+<h4>SetupWizardDialog.on_excludePatternList_itemSelectionChanged</h4>
+<b>on_excludePatternList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of selected items of the
+        exclude pattern list.
+</p>
+
+<a NAME="SetupWizardDialog.on_modulesList_itemSelectionChanged" ID="SetupWizardDialog.on_modulesList_itemSelectionChanged"></a>
+<h4>SetupWizardDialog.on_modulesList_itemSelectionChanged</h4>
+<b>on_modulesList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of selected items of the
+        modules list.
+</p>
+
+<a NAME="SetupWizardDialog.on_projectButton_clicked" ID="SetupWizardDialog.on_projectButton_clicked"></a>
+<h4>SetupWizardDialog.on_projectButton_clicked</h4>
+<b>on_projectButton_clicked</b>(<i></i>)
+<p>
+        Private slot to populate some fields with data retrieved from the
+        current project.
+</p>
+
+<a NAME="SetupWizardDialog.on_projectUrlsList_itemSelectionChanged" ID="SetupWizardDialog.on_projectUrlsList_itemSelectionChanged"></a>
+<h4>SetupWizardDialog.on_projectUrlsList_itemSelectionChanged</h4>
+<b>on_projectUrlsList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of selected items of the
+        project URLs list.
+</p>
+
+<a NAME="SetupWizardDialog.on_urlAddButton_clicked" ID="SetupWizardDialog.on_urlAddButton_clicked"></a>
+<h4>SetupWizardDialog.on_urlAddButton_clicked</h4>
+<b>on_urlAddButton_clicked</b>(<i></i>)
+<p>
+        Private slot to add a project URL to the list.
+</p>
+
+<a NAME="SetupWizardDialog.on_urlDeleteButton_clicked" ID="SetupWizardDialog.on_urlDeleteButton_clicked"></a>
+<h4>SetupWizardDialog.on_urlDeleteButton_clicked</h4>
+<b>on_urlDeleteButton_clicked</b>(<i></i>)
+<p>
+        Private slot to delete the selected URL items.
+</p>
+
+<a NAME="SetupWizardDialog.on_urlEditButton_clicked" ID="SetupWizardDialog.on_urlEditButton_clicked"></a>
+<h4>SetupWizardDialog.on_urlEditButton_clicked</h4>
+<b>on_urlEditButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit the selected project URL.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.VCS.StatusWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.VCS.StatusWidget</h1>
+<p>
+Module implementing a VCS Status widget for the sidebar/toolbar.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#StatusWidget">StatusWidget</a></td>
+<td>Class implementing a VCS Status widget for the sidebar/toolbox.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="StatusWidget" ID="StatusWidget"></a>
+<h2>StatusWidget</h2>
+<p>
+    Class implementing a VCS Status widget for the sidebar/toolbox.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>StatusDataRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#StatusWidget.__init__">StatusWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__addAllUntracked">__addAllUntracked</a></td>
+<td>Private slot to handle the Add All action menu entry.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__addUntracked">__addUntracked</a></td>
+<td>Private slot to add the selected untracked entries.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__clearCommitMessages">__clearCommitMessages</a></td>
+<td>Private slot to clear the list of saved commit messages.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__commit">__commit</a></td>
+<td>Private slot to handle the commit button.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__commitDeselectAll">__commitDeselectAll</a></td>
+<td>Private slot to deselect all entries from commit.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__commitSelectAll">__commitSelectAll</a></td>
+<td>Private slot to select all entries for commit.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__committed">__committed</a></td>
+<td>Private slot called after the commit has been completed.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__conflictResolved">__conflictResolved</a></td>
+<td>Private slot to handle the Conflict Resolved action menu entry.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__diff">__diff</a></td>
+<td>Private slot to handle the Differences action menu entry.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__diffAll">__diffAll</a></td>
+<td>Private slot to handle the All Differences action menu entry.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__editConflict">__editConflict</a></td>
+<td>Private slot to handle the Edit Conflict action menu entry.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__forgetMissing">__forgetMissing</a></td>
+<td>Private slot to handle the Forget action menu entry.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__getCommitableItems">__getCommitableItems</a></td>
+<td>Private method to retrieve all entries the user wants to commit.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__getCommitableUnselectedItems">__getCommitableUnselectedItems</a></td>
+<td>Private method to retrieve all entries the user may commit but hasn't selected.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__getMissingItems">__getMissingItems</a></td>
+<td>Private method to retrieve all entries, that have a missing status.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__getModifiedItems">__getModifiedItems</a></td>
+<td>Private method to retrieve all entries, that have a modified status.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__getSelectedConflictingItems">__getSelectedConflictingItems</a></td>
+<td>Private method to retrieve all selected entries, that have a conflict status.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__getSelectedModifiedItems">__getSelectedModifiedItems</a></td>
+<td>Private method to retrieve all selected entries, that have a modified status.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__getSelectedUnversionedItems">__getSelectedUnversionedItems</a></td>
+<td>Private method to retrieve all selected entries, that have an unversioned status.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__getUnversionedItems">__getUnversionedItems</a></td>
+<td>Private method to retrieve all entries, that have an unversioned status.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__initActionsMenu">__initActionsMenu</a></td>
+<td>Private method to initialize the actions menu.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__itemDoubleClicked">__itemDoubleClicked</a></td>
+<td>Private slot to handle double clicking an item.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__processStatusData">__processStatusData</a></td>
+<td>Private slot to process the status data emitted by the project.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__projectClosed">__projectClosed</a></td>
+<td>Private slot to handle the closing of a project.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__projectOpened">__projectOpened</a></td>
+<td>Private slot to handle the opening of a project.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__quickCommit">__quickCommit</a></td>
+<td>Private slot to commit all marked entries with the entered commit message.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__quickCommitEditTextChanged">__quickCommitEditTextChanged</a></td>
+<td>Private slot to react upon changes of the quick commit text.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__reload">__reload</a></td>
+<td>Private slot to reload the status list.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__reset">__reset</a></td>
+<td>Private method to reset the widget to default.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__restoreMissing">__restoreMissing</a></td>
+<td>Private slot to handle the Restore Missing context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__revert">__revert</a></td>
+<td>Private slot to handle the Revert action menu entry.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__sbsDiff">__sbsDiff</a></td>
+<td>Private slot to handle the Side-By-Side Differences action menu entry.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__selectQuickCommitMessage">__selectQuickCommitMessage</a></td>
+<td>Private slot to select a commit message from the list of saved messages.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__setCheckMark">__setCheckMark</a></td>
+<td>Private method to set or unset all check marks.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__setInfoText">__setInfoText</a></td>
+<td>Private slot to set the info label text.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__setProjectSpellCheckData">__setProjectSpellCheckData</a></td>
+<td>Private slot to set the spell check properties of the quick commit area.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__showActionsMenu">__showActionsMenu</a></td>
+<td>Private slot to prepare the actions button menu before it is shown.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__toggleCheckMark">__toggleCheckMark</a></td>
+<td>Private slot to toggle the check marks.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.__updateEnabledStates">__updateEnabledStates</a></td>
+<td>Private method to set the enabled states depending on the list state.</td>
+</tr>
+<tr>
+<td><a href="#StatusWidget.eventFilter">eventFilter</a></td>
+<td>Public method to process some events for the Commit edit.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="StatusWidget.__init__" ID="StatusWidget.__init__"></a>
+<h4>StatusWidget (Constructor)</h4>
+<b>StatusWidget</b>(<i>project, viewmanager, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>viewmanager</i> (ViewManager)</dt>
+<dd>
+reference to the viewmanager object
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="StatusWidget.__addAllUntracked" ID="StatusWidget.__addAllUntracked"></a>
+<h4>StatusWidget.__addAllUntracked</h4>
+<b>__addAllUntracked</b>(<i></i>)
+<p>
+        Private slot to handle the Add All action menu entry.
+</p>
+
+<a NAME="StatusWidget.__addUntracked" ID="StatusWidget.__addUntracked"></a>
+<h4>StatusWidget.__addUntracked</h4>
+<b>__addUntracked</b>(<i>allItems=False</i>)
+<p>
+        Private slot to add the selected untracked entries.
+</p>
+
+<dl>
+
+<dt><i>allItems</i> (bool (optional))</dt>
+<dd>
+flag indicating to show the differences of all files
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="StatusWidget.__clearCommitMessages" ID="StatusWidget.__clearCommitMessages"></a>
+<h4>StatusWidget.__clearCommitMessages</h4>
+<b>__clearCommitMessages</b>(<i></i>)
+<p>
+        Private slot to clear the list of saved commit messages.
+</p>
+
+<a NAME="StatusWidget.__commit" ID="StatusWidget.__commit"></a>
+<h4>StatusWidget.__commit</h4>
+<b>__commit</b>(<i></i>)
+<p>
+        Private slot to handle the commit button.
+</p>
+
+<a NAME="StatusWidget.__commitDeselectAll" ID="StatusWidget.__commitDeselectAll"></a>
+<h4>StatusWidget.__commitDeselectAll</h4>
+<b>__commitDeselectAll</b>(<i></i>)
+<p>
+        Private slot to deselect all entries from commit.
+</p>
+
+<a NAME="StatusWidget.__commitSelectAll" ID="StatusWidget.__commitSelectAll"></a>
+<h4>StatusWidget.__commitSelectAll</h4>
+<b>__commitSelectAll</b>(<i></i>)
+<p>
+        Private slot to select all entries for commit.
+</p>
+
+<a NAME="StatusWidget.__committed" ID="StatusWidget.__committed"></a>
+<h4>StatusWidget.__committed</h4>
+<b>__committed</b>(<i></i>)
+<p>
+        Private slot called after the commit has been completed.
+</p>
+
+<a NAME="StatusWidget.__conflictResolved" ID="StatusWidget.__conflictResolved"></a>
+<h4>StatusWidget.__conflictResolved</h4>
+<b>__conflictResolved</b>(<i></i>)
+<p>
+        Private slot to handle the Conflict Resolved action menu entry.
+</p>
+
+<a NAME="StatusWidget.__diff" ID="StatusWidget.__diff"></a>
+<h4>StatusWidget.__diff</h4>
+<b>__diff</b>(<i>allItems=False</i>)
+<p>
+        Private slot to handle the Differences action menu entry.
+</p>
+
+<dl>
+
+<dt><i>allItems</i> (bool (optional))</dt>
+<dd>
+flag indicating to show the differences of all files
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="StatusWidget.__diffAll" ID="StatusWidget.__diffAll"></a>
+<h4>StatusWidget.__diffAll</h4>
+<b>__diffAll</b>(<i></i>)
+<p>
+        Private slot to handle the All Differences action menu entry.
+</p>
+
+<a NAME="StatusWidget.__editConflict" ID="StatusWidget.__editConflict"></a>
+<h4>StatusWidget.__editConflict</h4>
+<b>__editConflict</b>(<i></i>)
+<p>
+        Private slot to handle the Edit Conflict action menu entry.
+</p>
+
+<a NAME="StatusWidget.__forgetMissing" ID="StatusWidget.__forgetMissing"></a>
+<h4>StatusWidget.__forgetMissing</h4>
+<b>__forgetMissing</b>(<i></i>)
+<p>
+        Private slot to handle the Forget action menu entry.
+</p>
+
+<a NAME="StatusWidget.__getCommitableItems" ID="StatusWidget.__getCommitableItems"></a>
+<h4>StatusWidget.__getCommitableItems</h4>
+<b>__getCommitableItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries the user wants to commit.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items, the user has checked
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QListWidgetItem
+</dd>
+</dl>
+<a NAME="StatusWidget.__getCommitableUnselectedItems" ID="StatusWidget.__getCommitableUnselectedItems"></a>
+<h4>StatusWidget.__getCommitableUnselectedItems</h4>
+<b>__getCommitableUnselectedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries the user may commit but hasn't
+        selected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items, the user has checked
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QListWidgetItem
+</dd>
+</dl>
+<a NAME="StatusWidget.__getMissingItems" ID="StatusWidget.__getMissingItems"></a>
+<h4>StatusWidget.__getMissingItems</h4>
+<b>__getMissingItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a missing status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a missing status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QListWidgetItem
+</dd>
+</dl>
+<a NAME="StatusWidget.__getModifiedItems" ID="StatusWidget.__getModifiedItems"></a>
+<h4>StatusWidget.__getModifiedItems</h4>
+<b>__getModifiedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a modified status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a modified status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QListWidgetItem
+</dd>
+</dl>
+<a NAME="StatusWidget.__getSelectedConflictingItems" ID="StatusWidget.__getSelectedConflictingItems"></a>
+<h4>StatusWidget.__getSelectedConflictingItems</h4>
+<b>__getSelectedConflictingItems</b>(<i></i>)
+<p>
+        Private method to retrieve all selected entries, that have a conflict
+        status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all selected entries with a conflict status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QListWidgetItem
+</dd>
+</dl>
+<a NAME="StatusWidget.__getSelectedModifiedItems" ID="StatusWidget.__getSelectedModifiedItems"></a>
+<h4>StatusWidget.__getSelectedModifiedItems</h4>
+<b>__getSelectedModifiedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all selected entries, that have a modified
+        status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all selected entries with a modified status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QListWidgetItem
+</dd>
+</dl>
+<a NAME="StatusWidget.__getSelectedUnversionedItems" ID="StatusWidget.__getSelectedUnversionedItems"></a>
+<h4>StatusWidget.__getSelectedUnversionedItems</h4>
+<b>__getSelectedUnversionedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all selected entries, that have an
+        unversioned status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with an unversioned status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QListWidgetItem
+</dd>
+</dl>
+<a NAME="StatusWidget.__getUnversionedItems" ID="StatusWidget.__getUnversionedItems"></a>
+<h4>StatusWidget.__getUnversionedItems</h4>
+<b>__getUnversionedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have an unversioned
+        status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with an unversioned status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QListWidgetItem
+</dd>
+</dl>
+<a NAME="StatusWidget.__initActionsMenu" ID="StatusWidget.__initActionsMenu"></a>
+<h4>StatusWidget.__initActionsMenu</h4>
+<b>__initActionsMenu</b>(<i></i>)
+<p>
+        Private method to initialize the actions menu.
+</p>
+
+<a NAME="StatusWidget.__itemDoubleClicked" ID="StatusWidget.__itemDoubleClicked"></a>
+<h4>StatusWidget.__itemDoubleClicked</h4>
+<b>__itemDoubleClicked</b>(<i>itm</i>)
+<p>
+        Private slot to handle double clicking an item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QListWidgetItem)</dt>
+<dd>
+reference to the double clicked item
+</dd>
+</dl>
+<a NAME="StatusWidget.__processStatusData" ID="StatusWidget.__processStatusData"></a>
+<h4>StatusWidget.__processStatusData</h4>
+<b>__processStatusData</b>(<i>data</i>)
+<p>
+        Private slot to process the status data emitted by the project.
+</p>
+<p>
+        Each entry of the status data consists of a status flag and and the
+        path relative to the project directory starting with the third column.
+        The known status flags are:
+        <ul>
+            <li>"A" path was added but not yet committed</li>
+            <li>"M" path has local changes</li>
+            <li>"O" path was removed</li>
+            <li>"R" path was deleted and then re-added</li>
+            <li>"U" path needs an update</li>
+            <li>"Z" path contains a conflict</li>
+            <li>"?" path is not tracked</li>
+            <li>"!" path is missing</li>
+            <li>" " path is back at normal</li>
+        </ul>
+</p>
+
+<dl>
+
+<dt><i>data</i> (dict)</dt>
+<dd>
+dictionary containing the status data
+</dd>
+</dl>
+<a NAME="StatusWidget.__projectClosed" ID="StatusWidget.__projectClosed"></a>
+<h4>StatusWidget.__projectClosed</h4>
+<b>__projectClosed</b>(<i></i>)
+<p>
+        Private slot to handle the closing of a project.
+</p>
+
+<a NAME="StatusWidget.__projectOpened" ID="StatusWidget.__projectOpened"></a>
+<h4>StatusWidget.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to handle the opening of a project.
+</p>
+
+<a NAME="StatusWidget.__quickCommit" ID="StatusWidget.__quickCommit"></a>
+<h4>StatusWidget.__quickCommit</h4>
+<b>__quickCommit</b>(<i></i>)
+<p>
+        Private slot to commit all marked entries with the entered
+        commit message.
+</p>
+
+<a NAME="StatusWidget.__quickCommitEditTextChanged" ID="StatusWidget.__quickCommitEditTextChanged"></a>
+<h4>StatusWidget.__quickCommitEditTextChanged</h4>
+<b>__quickCommitEditTextChanged</b>(<i></i>)
+<p>
+        Private slot to react upon changes of the quick commit text.
+</p>
+
+<a NAME="StatusWidget.__reload" ID="StatusWidget.__reload"></a>
+<h4>StatusWidget.__reload</h4>
+<b>__reload</b>(<i></i>)
+<p>
+        Private slot to reload the status list.
+</p>
+
+<a NAME="StatusWidget.__reset" ID="StatusWidget.__reset"></a>
+<h4>StatusWidget.__reset</h4>
+<b>__reset</b>(<i></i>)
+<p>
+        Private method to reset the widget to default.
+</p>
+
+<a NAME="StatusWidget.__restoreMissing" ID="StatusWidget.__restoreMissing"></a>
+<h4>StatusWidget.__restoreMissing</h4>
+<b>__restoreMissing</b>(<i></i>)
+<p>
+        Private slot to handle the Restore Missing context menu entry.
+</p>
+
+<a NAME="StatusWidget.__revert" ID="StatusWidget.__revert"></a>
+<h4>StatusWidget.__revert</h4>
+<b>__revert</b>(<i></i>)
+<p>
+        Private slot to handle the Revert action menu entry.
+</p>
+
+<a NAME="StatusWidget.__sbsDiff" ID="StatusWidget.__sbsDiff"></a>
+<h4>StatusWidget.__sbsDiff</h4>
+<b>__sbsDiff</b>(<i></i>)
+<p>
+        Private slot to handle the Side-By-Side Differences action menu entry.
+</p>
+
+<a NAME="StatusWidget.__selectQuickCommitMessage" ID="StatusWidget.__selectQuickCommitMessage"></a>
+<h4>StatusWidget.__selectQuickCommitMessage</h4>
+<b>__selectQuickCommitMessage</b>(<i></i>)
+<p>
+        Private slot to select a commit message from the list of
+        saved messages.
+</p>
+
+<a NAME="StatusWidget.__setCheckMark" ID="StatusWidget.__setCheckMark"></a>
+<h4>StatusWidget.__setCheckMark</h4>
+<b>__setCheckMark</b>(<i>checked</i>)
+<p>
+        Private method to set or unset all check marks.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+check mark state to be set
+</dd>
+</dl>
+<a NAME="StatusWidget.__setInfoText" ID="StatusWidget.__setInfoText"></a>
+<h4>StatusWidget.__setInfoText</h4>
+<b>__setInfoText</b>(<i>info</i>)
+<p>
+        Private slot to set the info label text.
+</p>
+
+<dl>
+
+<dt><i>info</i> (str)</dt>
+<dd>
+text to be shown
+</dd>
+</dl>
+<a NAME="StatusWidget.__setProjectSpellCheckData" ID="StatusWidget.__setProjectSpellCheckData"></a>
+<h4>StatusWidget.__setProjectSpellCheckData</h4>
+<b>__setProjectSpellCheckData</b>(<i></i>)
+<p>
+        Private slot to set the spell check properties of the
+        quick commit area.
+</p>
+
+<a NAME="StatusWidget.__showActionsMenu" ID="StatusWidget.__showActionsMenu"></a>
+<h4>StatusWidget.__showActionsMenu</h4>
+<b>__showActionsMenu</b>(<i></i>)
+<p>
+        Private slot to prepare the actions button menu before it is shown.
+</p>
+
+<a NAME="StatusWidget.__toggleCheckMark" ID="StatusWidget.__toggleCheckMark"></a>
+<h4>StatusWidget.__toggleCheckMark</h4>
+<b>__toggleCheckMark</b>(<i></i>)
+<p>
+        Private slot to toggle the check marks.
+</p>
+
+<a NAME="StatusWidget.__updateEnabledStates" ID="StatusWidget.__updateEnabledStates"></a>
+<h4>StatusWidget.__updateEnabledStates</h4>
+<b>__updateEnabledStates</b>(<i></i>)
+<p>
+        Private method to set the enabled states depending on the list state.
+</p>
+
+<a NAME="StatusWidget.eventFilter" ID="StatusWidget.eventFilter"></a>
+<h4>StatusWidget.eventFilter</h4>
+<b>eventFilter</b>(<i>obj, evt</i>)
+<p>
+        Public method to process some events for the Commit edit.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (QObject)</dt>
+<dd>
+reference to the object the event was meant for
+</dd>
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag to indicate that the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

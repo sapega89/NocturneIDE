@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HelpViewer.HelpBookmarksWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HelpViewer.HelpBookmarksWidget</h1>
+<p>
+Module implementing a widget showing the list of bookmarks.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HelpBookmarksWidget">HelpBookmarksWidget</a></td>
+<td>Class implementing a widget showing the list of bookmarks.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HelpBookmarksWidget" ID="HelpBookmarksWidget"></a>
+<h2>HelpBookmarksWidget</h2>
+<p>
+    Class implementing a widget showing the list of bookmarks.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>escapePressed()</dt>
+<dd>
+emitted when the ESC key was pressed
+</dd>
+<dt>newBackgroundTab(QUrl, str)</dt>
+<dd>
+emitted to open an entry in a
+        new background tab
+</dd>
+<dt>newTab(QUrl, str)</dt>
+<dd>
+emitted to open an entry in a new tab
+</dd>
+<dt>openUrl(QUrl, str)</dt>
+<dd>
+emitted to open an entry in the current tab
+</dd>
+</dl>
+<h3>Derived from</h3>
+QListWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>UrlRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HelpBookmarksWidget.__init__">HelpBookmarksWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__addBookmark">__addBookmark</a></td>
+<td>Private slot to add a bookmark entry.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__bookmarkActivated">__bookmarkActivated</a></td>
+<td>Private slot handling the activation of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__bookmarkCurrentPage">__bookmarkCurrentPage</a></td>
+<td>Private slot to bookmark the current page.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__deleteBookmarks">__deleteBookmarks</a></td>
+<td>Private method to delete the given bookmark items.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__editBookmark">__editBookmark</a></td>
+<td>Private slot to edit a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__exportBookmarks">__exportBookmarks</a></td>
+<td>Private slot to export the bookmarks into a JSON file.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__importBookmarks">__importBookmarks</a></td>
+<td>Private slot to import bookmarks from a JSON file.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__loadBookmarks">__loadBookmarks</a></td>
+<td>Private method to load the defined bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__newBookmark">__newBookmark</a></td>
+<td>Private slot to create a new bookmark.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__openBookmarks">__openBookmarks</a></td>
+<td>Private method to open all or selected bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__saveBookmarks">__saveBookmarks</a></td>
+<td>Private method to save the defined bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__showBackgroundMenu">__showBackgroundMenu</a></td>
+<td>Private slot to show the background menu (i.e.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__showBookmarkContextMenu">__showBookmarkContextMenu</a></td>
+<td>Private slot to show the context menu for a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__showBookmarksContextMenu">__showBookmarksContextMenu</a></td>
+<td>Private slot to show the context menu for multiple bookmark.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to handle the customContextMenuRequested signal of the viewlist.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.addBookmark">addBookmark</a></td>
+<td>Public slot to add a bookmark with given data.</td>
+</tr>
+<tr>
+<td><a href="#HelpBookmarksWidget.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method handling key press events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HelpBookmarksWidget.__init__" ID="HelpBookmarksWidget.__init__"></a>
+<h4>HelpBookmarksWidget (Constructor)</h4>
+<b>HelpBookmarksWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__addBookmark" ID="HelpBookmarksWidget.__addBookmark"></a>
+<h4>HelpBookmarksWidget.__addBookmark</h4>
+<b>__addBookmark</b>(<i>title, url</i>)
+<p>
+        Private slot to add a bookmark entry.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title for the bookmark
+</dd>
+<dt><i>url</i> (str)</dt>
+<dd>
+URL for the bookmark
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__bookmarkActivated" ID="HelpBookmarksWidget.__bookmarkActivated"></a>
+<h4>HelpBookmarksWidget.__bookmarkActivated</h4>
+<b>__bookmarkActivated</b>(<i>itm</i>)
+<p>
+        Private slot handling the activation of a bookmark.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QListWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__bookmarkCurrentPage" ID="HelpBookmarksWidget.__bookmarkCurrentPage"></a>
+<h4>HelpBookmarksWidget.__bookmarkCurrentPage</h4>
+<b>__bookmarkCurrentPage</b>(<i></i>)
+<p>
+        Private slot to bookmark the current page.
+</p>
+
+<a NAME="HelpBookmarksWidget.__deleteBookmarks" ID="HelpBookmarksWidget.__deleteBookmarks"></a>
+<h4>HelpBookmarksWidget.__deleteBookmarks</h4>
+<b>__deleteBookmarks</b>(<i>items</i>)
+<p>
+        Private method to delete the given bookmark items.
+</p>
+
+<dl>
+
+<dt><i>items</i> (list of QListWidgetItem)</dt>
+<dd>
+list of bookmarks to be deleted
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__editBookmark" ID="HelpBookmarksWidget.__editBookmark"></a>
+<h4>HelpBookmarksWidget.__editBookmark</h4>
+<b>__editBookmark</b>(<i>itm</i>)
+<p>
+        Private slot to edit a bookmark.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QListWidgetItem)</dt>
+<dd>
+reference to the bookmark item to be edited
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__exportBookmarks" ID="HelpBookmarksWidget.__exportBookmarks"></a>
+<h4>HelpBookmarksWidget.__exportBookmarks</h4>
+<b>__exportBookmarks</b>(<i>selected=False</i>)
+<p>
+        Private slot to export the bookmarks into a JSON file.
+</p>
+
+<dl>
+
+<dt><i>selected</i> (bool (optional))</dt>
+<dd>
+flag indicating to export the selected bookmarks
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__importBookmarks" ID="HelpBookmarksWidget.__importBookmarks"></a>
+<h4>HelpBookmarksWidget.__importBookmarks</h4>
+<b>__importBookmarks</b>(<i></i>)
+<p>
+        Private slot to import bookmarks from a JSON file.
+</p>
+
+<a NAME="HelpBookmarksWidget.__loadBookmarks" ID="HelpBookmarksWidget.__loadBookmarks"></a>
+<h4>HelpBookmarksWidget.__loadBookmarks</h4>
+<b>__loadBookmarks</b>(<i></i>)
+<p>
+        Private method to load the defined bookmarks.
+</p>
+
+<a NAME="HelpBookmarksWidget.__newBookmark" ID="HelpBookmarksWidget.__newBookmark"></a>
+<h4>HelpBookmarksWidget.__newBookmark</h4>
+<b>__newBookmark</b>(<i></i>)
+<p>
+        Private slot to create a new bookmark.
+</p>
+
+<a NAME="HelpBookmarksWidget.__openBookmarks" ID="HelpBookmarksWidget.__openBookmarks"></a>
+<h4>HelpBookmarksWidget.__openBookmarks</h4>
+<b>__openBookmarks</b>(<i>selected=False</i>)
+<p>
+        Private method to open all or selected bookmarks.
+</p>
+
+<dl>
+
+<dt><i>selected</i> (bool (optional))</dt>
+<dd>
+flag indicating to open the selected bookmarks
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__saveBookmarks" ID="HelpBookmarksWidget.__saveBookmarks"></a>
+<h4>HelpBookmarksWidget.__saveBookmarks</h4>
+<b>__saveBookmarks</b>(<i></i>)
+<p>
+        Private method to save the defined bookmarks.
+</p>
+
+<a NAME="HelpBookmarksWidget.__showBackgroundMenu" ID="HelpBookmarksWidget.__showBackgroundMenu"></a>
+<h4>HelpBookmarksWidget.__showBackgroundMenu</h4>
+<b>__showBackgroundMenu</b>(<i>point</i>)
+<p>
+        Private slot to show the background menu (i.e. no selection).
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+position to open the menu at
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__showBookmarkContextMenu" ID="HelpBookmarksWidget.__showBookmarkContextMenu"></a>
+<h4>HelpBookmarksWidget.__showBookmarkContextMenu</h4>
+<b>__showBookmarkContextMenu</b>(<i>point</i>)
+<p>
+        Private slot to show the context menu for a bookmark.
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+position to open the menu at
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__showBookmarksContextMenu" ID="HelpBookmarksWidget.__showBookmarksContextMenu"></a>
+<h4>HelpBookmarksWidget.__showBookmarksContextMenu</h4>
+<b>__showBookmarksContextMenu</b>(<i>point</i>)
+<p>
+        Private slot to show the context menu for multiple bookmark.
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+position to open the menu at
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.__showContextMenu" ID="HelpBookmarksWidget.__showContextMenu"></a>
+<h4>HelpBookmarksWidget.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>point</i>)
+<p>
+        Private slot to handle the customContextMenuRequested signal of
+        the viewlist.
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+position to open the menu at
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.addBookmark" ID="HelpBookmarksWidget.addBookmark"></a>
+<h4>HelpBookmarksWidget.addBookmark</h4>
+<b>addBookmark</b>(<i>title, url</i>)
+<p>
+        Public slot to add a bookmark with given data.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title for the bookmark
+</dd>
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL for the bookmark
+</dd>
+</dl>
+<a NAME="HelpBookmarksWidget.keyPressEvent" ID="HelpBookmarksWidget.keyPressEvent"></a>
+<h4>HelpBookmarksWidget.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling key press events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key press event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

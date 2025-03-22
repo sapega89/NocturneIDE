@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.GitStatusMonitorThread</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.GitStatusMonitorThread</h1>
+<p>
+Module implementing the VCS status monitor thread class for Git.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitStatusMonitorThread">GitStatusMonitorThread</a></td>
+<td>Class implementing the VCS status monitor thread class for Git.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitStatusMonitorThread" ID="GitStatusMonitorThread"></a>
+<h2>GitStatusMonitorThread</h2>
+<p>
+    Class implementing the VCS status monitor thread class for Git.
+</p>
+
+<h3>Derived from</h3>
+VcsStatusMonitorThread
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ConflictStates</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitStatusMonitorThread.__init__">GitStatusMonitorThread</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitStatusMonitorThread._getInfo">_getInfo</a></td>
+<td>Protected method implementing the real info action.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusMonitorThread._performMonitor">_performMonitor</a></td>
+<td>Protected method implementing the monitoring action.</td>
+</tr>
+<tr>
+<td><a href="#GitStatusMonitorThread._shutdown">_shutdown</a></td>
+<td>Protected method performing shutdown actions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitStatusMonitorThread.__init__" ID="GitStatusMonitorThread.__init__"></a>
+<h4>GitStatusMonitorThread (Constructor)</h4>
+<b>GitStatusMonitorThread</b>(<i>interval, project, vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>interval</i> (int)</dt>
+<dd>
+new interval in seconds
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>vcs</i> (Git)</dt>
+<dd>
+reference to the version control object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="GitStatusMonitorThread._getInfo" ID="GitStatusMonitorThread._getInfo"></a>
+<h4>GitStatusMonitorThread._getInfo</h4>
+<b>_getInfo</b>(<i></i>)
+<p>
+        Protected method implementing the real info action.
+</p>
+<p>
+        This method should be overridden and create a short info message to be
+        shown in the main window status bar right next to the status indicator.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+short info message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitStatusMonitorThread._performMonitor" ID="GitStatusMonitorThread._performMonitor"></a>
+<h4>GitStatusMonitorThread._performMonitor</h4>
+<b>_performMonitor</b>(<i></i>)
+<p>
+        Protected method implementing the monitoring action.
+</p>
+<p>
+        This method populates the statusList member variable
+        with a list of strings giving the status in the first column and the
+        path relative to the project directory starting with the third column.
+        The allowed status flags are:
+        <ul>
+            <li>"A" path was added but not yet committed</li>
+            <li>"M" path has local changes</li>
+            <li>"O" path was removed</li>
+            <li>"R" path was deleted and then re-added</li>
+            <li>"U" path needs an update</li>
+            <li>"Z" path contains a conflict</li>
+            <li>"?" path is not tracked</li>
+            <li>"!" path is missing</li>
+            <li>" " path is back at normal</li>
+        </ul>
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of flag indicating successful operation and a status message
+            in case of non successful operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="GitStatusMonitorThread._shutdown" ID="GitStatusMonitorThread._shutdown"></a>
+<h4>GitStatusMonitorThread._shutdown</h4>
+<b>_shutdown</b>(<i></i>)
+<p>
+        Protected method performing shutdown actions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

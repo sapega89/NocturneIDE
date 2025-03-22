@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.Browser</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.Browser</h1>
+<p>
+Module implementing a browser with class browsing capabilities.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Browser">Browser</a></td>
+<td>Class used to display a file system tree.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Browser" ID="Browser"></a>
+<h2>Browser</h2>
+<p>
+    Class used to display a file system tree.
+</p>
+<p>
+    Via the context menu that
+    is displayed by a right click the user can select various actions on
+    the selected file.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>binaryFile(filename)</dt>
+<dd>
+emitted to open a file as binary (str)
+</dd>
+<dt>designerFile(filename)</dt>
+<dd>
+emitted to open a Qt-Designer file (str)
+</dd>
+<dt>linguistFile(filename)</dt>
+<dd>
+emitted to open a Qt-Linguist (*.ts)
+        file (str)
+</dd>
+<dt>multiProjectFile(filename)</dt>
+<dd>
+emitted to open an eric multi project
+        file (str)
+</dd>
+<dt>pdfFile(filename)</dt>
+<dd>
+emitted to open a PDF file (str)
+</dd>
+<dt>pixmapEditFile(filename)</dt>
+<dd>
+emitted to edit a pixmap file (str)
+</dd>
+<dt>pixmapFile(filename)</dt>
+<dd>
+emitted to open a pixmap file (str)
+</dd>
+<dt>projectFile(filename)</dt>
+<dd>
+emitted to open an eric project file (str)
+</dd>
+<dt>sourceFile(filename)</dt>
+<dd>
+emitted to open a Python file at the first line (str)
+</dd>
+<dt>sourceFile(filename, lineno)</dt>
+<dd>
+emitted to open a Python file at a
+        line (str, int)
+</dd>
+<dt>sourceFile(filename, lineno, col_offset)</dt>
+<dd>
+emitted to open a Python file at a
+        line and column (str, int, int)
+</dd>
+<dt>sourceFile(filename, lineno, type)</dt>
+<dd>
+emitted to open a Python file
+        at a line giving an explicit file type (str, int, str)
+</dd>
+<dt>sourceFile(filename, linenos)</dt>
+<dd>
+emitted to open a Python file giving
+        a list of lines(str, list)
+</dd>
+<dt>svgFile(filename)</dt>
+<dd>
+emitted to open a SVG file (str)
+</dd>
+<dt>testFile(filename)</dt>
+<dd>
+emitted to open a Python file for a
+        unit test (str)
+</dd>
+<dt>trpreview(filenames)</dt>
+<dd>
+emitted to preview Qt-Linguist (*.qm)
+        files (list of str)
+</dd>
+<dt>trpreview(filenames, ignore)</dt>
+<dd>
+emitted to preview Qt-Linguist (*.qm)
+        files indicating whether non-existent files shall be ignored
+        (list of str, bool)
+</dd>
+<dt>umlFile(filename)</dt>
+<dd>
+emitted to open an eric UML file (str)
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTreeView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Browser.__init__">Browser</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Browser.__addAsToplevelDir">__addAsToplevelDir</a></td>
+<td>Private slot to handle the Add as top level directory popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__createPopupMenus">__createPopupMenus</a></td>
+<td>Private method to generate the various popup menus.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__deleteDirectory">__deleteDirectory</a></td>
+<td>Private method to delete a directory.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__deleteFile">__deleteFile</a></td>
+<td>Private method to delete a file.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__deleteMultiple">__deleteMultiple</a></td>
+<td>Private slot to delete multiple files.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__findInDirectory">__findInDirectory</a></td>
+<td>Private slot to handle the Find in directory popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__newRemoteTopLevelDir">__newRemoteTopLevelDir</a></td>
+<td>Private slot to handle the New Remote Top Level Directory popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__newTopLevelDir">__newTopLevelDir</a></td>
+<td>Private slot to handle the New Top Level Directory popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__refreshDirectory">__refreshDirectory</a></td>
+<td>Private slot to refresh a directory entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__refreshSource">__refreshSource</a></td>
+<td>Private slot to refresh the structure of a source file.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__removeToplevel">__removeToplevel</a></td>
+<td>Private slot to handle the Remove from top level popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__replaceInDirectory">__replaceInDirectory</a></td>
+<td>Private slot to handle the Find&Replace in directory popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser.__showMimeType">__showMimeType</a></td>
+<td>Private slot to show the mime type of the selected entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser._contextMenuRequested">_contextMenuRequested</a></td>
+<td>Protected slot to show the context menu of the list view.</td>
+</tr>
+<tr>
+<td><a href="#Browser._copyToClipboard">_copyToClipboard</a></td>
+<td>Protected method to copy the text shown for an entry to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#Browser._deleteFileOrDirectory">_deleteFileOrDirectory</a></td>
+<td>Protected slot to delete a directory or file.</td>
+</tr>
+<tr>
+<td><a href="#Browser._editPixmap">_editPixmap</a></td>
+<td>Protected slot to handle the open in icon editor popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser._gotoAttribute">_gotoAttribute</a></td>
+<td>Protected slot to handle the selection of the goto menu.</td>
+</tr>
+<tr>
+<td><a href="#Browser._init">_init</a></td>
+<td>Protected method to perform initialization tasks common to this base class and all derived classes.</td>
+</tr>
+<tr>
+<td><a href="#Browser._keyboardSearchType">_keyboardSearchType</a></td>
+<td>Protected method to check, if the item is of the correct type.</td>
+</tr>
+<tr>
+<td><a href="#Browser._newDirectory">_newDirectory</a></td>
+<td>Protected slot to create a new directory.</td>
+</tr>
+<tr>
+<td><a href="#Browser._newFile">_newFile</a></td>
+<td>Protected slot to create a new file.</td>
+</tr>
+<tr>
+<td><a href="#Browser._openFileInEditor">_openFileInEditor</a></td>
+<td>Protected slot to handle the Open in Editor menu action.</td>
+</tr>
+<tr>
+<td><a href="#Browser._openHexEditor">_openHexEditor</a></td>
+<td>Protected slot to handle the open in hex editor popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser._openItem">_openItem</a></td>
+<td>Protected slot to handle the open popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser._openPdfViewer">_openPdfViewer</a></td>
+<td>Protected slot to handle the open in PDF viewer popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser._resizeColumns">_resizeColumns</a></td>
+<td>Protected slot to resize the view when items get expanded or collapsed.</td>
+</tr>
+<tr>
+<td><a href="#Browser._resort">_resort</a></td>
+<td>Protected slot to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#Browser._showGotoMenu">_showGotoMenu</a></td>
+<td>Protected slot to prepare the goto submenu of the attribute menu.</td>
+</tr>
+<tr>
+<td><a href="#Browser._showHidden">_showHidden</a></td>
+<td>Protected slot to show or hide hidden files.</td>
+</tr>
+<tr>
+<td><a href="#Browser._showInFileManager">_showInFileManager</a></td>
+<td>Protected method to show the selected items path in a file manager application.</td>
+</tr>
+<tr>
+<td><a href="#Browser.getSelectedItems">getSelectedItems</a></td>
+<td>Public method to get the selected items.</td>
+</tr>
+<tr>
+<td><a href="#Browser.getSelectedItemsCount">getSelectedItemsCount</a></td>
+<td>Public method to get the count of items selected.</td>
+</tr>
+<tr>
+<td><a href="#Browser.getSelectedItemsCountCategorized">getSelectedItemsCountCategorized</a></td>
+<td>Public method to get a categorized count of selected items.</td>
+</tr>
+<tr>
+<td><a href="#Browser.handleInterpreterChanged">handleInterpreterChanged</a></td>
+<td>Public slot to handle a change of the debug client's interpreter.</td>
+</tr>
+<tr>
+<td><a href="#Browser.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot used to handle the preferencesChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#Browser.handleProgramChange">handleProgramChange</a></td>
+<td>Public slot to handle the programChange signal.</td>
+</tr>
+<tr>
+<td><a href="#Browser.handleTesting">handleTesting</a></td>
+<td>Public slot to handle the testing popup menu entry.</td>
+</tr>
+<tr>
+<td><a href="#Browser.keyboardSearch">keyboardSearch</a></td>
+<td>Public function to search the tree via the keyboard.</td>
+</tr>
+<tr>
+<td><a href="#Browser.layoutDisplay">layoutDisplay</a></td>
+<td>Public slot to perform a layout operation.</td>
+</tr>
+<tr>
+<td><a href="#Browser.mouseDoubleClickEvent">mouseDoubleClickEvent</a></td>
+<td>Protected method of QAbstractItemView.</td>
+</tr>
+<tr>
+<td><a href="#Browser.saveToplevelDirs">saveToplevelDirs</a></td>
+<td>Public slot to save the toplevel directories.</td>
+</tr>
+<tr>
+<td><a href="#Browser.wantedItem">wantedItem</a></td>
+<td>Public method to check type of an item.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Browser.__init__" ID="Browser.__init__"></a>
+<h4>Browser (Constructor)</h4>
+<b>Browser</b>(<i>serverInterface, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>serverInterface</i> (EricServerInterface)</dt>
+<dd>
+reference to the 'eric-ide' server interface object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="Browser.__addAsToplevelDir" ID="Browser.__addAsToplevelDir"></a>
+<h4>Browser.__addAsToplevelDir</h4>
+<b>__addAsToplevelDir</b>(<i></i>)
+<p>
+        Private slot to handle the Add as top level directory popup menu entry.
+</p>
+
+<a NAME="Browser.__createPopupMenus" ID="Browser.__createPopupMenus"></a>
+<h4>Browser.__createPopupMenus</h4>
+<b>__createPopupMenus</b>(<i></i>)
+<p>
+        Private method to generate the various popup menus.
+</p>
+
+<a NAME="Browser.__deleteDirectory" ID="Browser.__deleteDirectory"></a>
+<h4>Browser.__deleteDirectory</h4>
+<b>__deleteDirectory</b>(<i>dn</i>)
+<p>
+        Private method to delete a directory.
+</p>
+
+<dl>
+
+<dt><i>dn</i> (str)</dt>
+<dd>
+directory name to be removed from the project
+</dd>
+</dl>
+<a NAME="Browser.__deleteFile" ID="Browser.__deleteFile"></a>
+<h4>Browser.__deleteFile</h4>
+<b>__deleteFile</b>(<i>fn</i>)
+<p>
+        Private method to delete a file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to be deleted
+</dd>
+</dl>
+<a NAME="Browser.__deleteMultiple" ID="Browser.__deleteMultiple"></a>
+<h4>Browser.__deleteMultiple</h4>
+<b>__deleteMultiple</b>(<i></i>)
+<p>
+        Private slot to delete multiple files.
+</p>
+<p>
+        Note: The context menu for multi selection is only shown for file
+        items.
+</p>
+
+<a NAME="Browser.__findInDirectory" ID="Browser.__findInDirectory"></a>
+<h4>Browser.__findInDirectory</h4>
+<b>__findInDirectory</b>(<i></i>)
+<p>
+        Private slot to handle the Find in directory popup menu entry.
+</p>
+
+<a NAME="Browser.__newRemoteTopLevelDir" ID="Browser.__newRemoteTopLevelDir"></a>
+<h4>Browser.__newRemoteTopLevelDir</h4>
+<b>__newRemoteTopLevelDir</b>(<i></i>)
+<p>
+        Private slot to handle the New Remote Top Level Directory popup menu entry.
+</p>
+
+<a NAME="Browser.__newTopLevelDir" ID="Browser.__newTopLevelDir"></a>
+<h4>Browser.__newTopLevelDir</h4>
+<b>__newTopLevelDir</b>(<i></i>)
+<p>
+        Private slot to handle the New Top Level Directory popup menu entry.
+</p>
+
+<a NAME="Browser.__refreshDirectory" ID="Browser.__refreshDirectory"></a>
+<h4>Browser.__refreshDirectory</h4>
+<b>__refreshDirectory</b>(<i></i>)
+<p>
+        Private slot to refresh a directory entry.
+</p>
+
+<a NAME="Browser.__refreshSource" ID="Browser.__refreshSource"></a>
+<h4>Browser.__refreshSource</h4>
+<b>__refreshSource</b>(<i></i>)
+<p>
+        Private slot to refresh the structure of a source file.
+</p>
+
+<a NAME="Browser.__removeToplevel" ID="Browser.__removeToplevel"></a>
+<h4>Browser.__removeToplevel</h4>
+<b>__removeToplevel</b>(<i></i>)
+<p>
+        Private slot to handle the Remove from top level popup menu entry.
+</p>
+
+<a NAME="Browser.__replaceInDirectory" ID="Browser.__replaceInDirectory"></a>
+<h4>Browser.__replaceInDirectory</h4>
+<b>__replaceInDirectory</b>(<i></i>)
+<p>
+        Private slot to handle the Find&Replace in directory popup menu entry.
+</p>
+
+<a NAME="Browser.__showMimeType" ID="Browser.__showMimeType"></a>
+<h4>Browser.__showMimeType</h4>
+<b>__showMimeType</b>(<i></i>)
+<p>
+        Private slot to show the mime type of the selected entry.
+</p>
+
+<a NAME="Browser._contextMenuRequested" ID="Browser._contextMenuRequested"></a>
+<h4>Browser._contextMenuRequested</h4>
+<b>_contextMenuRequested</b>(<i>coord</i>)
+<p>
+        Protected slot to show the context menu of the list view.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="Browser._copyToClipboard" ID="Browser._copyToClipboard"></a>
+<h4>Browser._copyToClipboard</h4>
+<b>_copyToClipboard</b>(<i></i>)
+<p>
+        Protected method to copy the text shown for an entry to the clipboard.
+</p>
+
+<a NAME="Browser._deleteFileOrDirectory" ID="Browser._deleteFileOrDirectory"></a>
+<h4>Browser._deleteFileOrDirectory</h4>
+<b>_deleteFileOrDirectory</b>(<i></i>)
+<p>
+        Protected slot to delete a directory or file.
+</p>
+
+<a NAME="Browser._editPixmap" ID="Browser._editPixmap"></a>
+<h4>Browser._editPixmap</h4>
+<b>_editPixmap</b>(<i></i>)
+<p>
+        Protected slot to handle the open in icon editor popup menu entry.
+</p>
+
+<a NAME="Browser._gotoAttribute" ID="Browser._gotoAttribute"></a>
+<h4>Browser._gotoAttribute</h4>
+<b>_gotoAttribute</b>(<i>act</i>)
+<p>
+        Protected slot to handle the selection of the goto menu.
+</p>
+
+<dl>
+
+<dt><i>act</i> (EricAction)</dt>
+<dd>
+reference to the action
+</dd>
+</dl>
+<a NAME="Browser._init" ID="Browser._init"></a>
+<h4>Browser._init</h4>
+<b>_init</b>(<i></i>)
+<p>
+        Protected method to perform initialization tasks common to this
+        base class and all derived classes.
+</p>
+
+<a NAME="Browser._keyboardSearchType" ID="Browser._keyboardSearchType"></a>
+<h4>Browser._keyboardSearchType</h4>
+<b>_keyboardSearchType</b>(<i>item</i>)
+<p>
+        Protected method to check, if the item is of the correct type.
+</p>
+
+<dl>
+
+<dt><i>item</i> (BrowserItem)</dt>
+<dd>
+reference to the item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a correct type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Browser._newDirectory" ID="Browser._newDirectory"></a>
+<h4>Browser._newDirectory</h4>
+<b>_newDirectory</b>(<i></i>)
+<p>
+        Protected slot to create a new directory.
+</p>
+
+<a NAME="Browser._newFile" ID="Browser._newFile"></a>
+<h4>Browser._newFile</h4>
+<b>_newFile</b>(<i></i>)
+<p>
+        Protected slot to create a new file.
+</p>
+
+<a NAME="Browser._openFileInEditor" ID="Browser._openFileInEditor"></a>
+<h4>Browser._openFileInEditor</h4>
+<b>_openFileInEditor</b>(<i></i>)
+<p>
+        Protected slot to handle the Open in Editor menu action.
+</p>
+
+<a NAME="Browser._openHexEditor" ID="Browser._openHexEditor"></a>
+<h4>Browser._openHexEditor</h4>
+<b>_openHexEditor</b>(<i></i>)
+<p>
+        Protected slot to handle the open in hex editor popup menu entry.
+</p>
+
+<a NAME="Browser._openItem" ID="Browser._openItem"></a>
+<h4>Browser._openItem</h4>
+<b>_openItem</b>(<i></i>)
+<p>
+        Protected slot to handle the open popup menu entry.
+</p>
+
+<a NAME="Browser._openPdfViewer" ID="Browser._openPdfViewer"></a>
+<h4>Browser._openPdfViewer</h4>
+<b>_openPdfViewer</b>(<i></i>)
+<p>
+        Protected slot to handle the open in PDF viewer popup menu entry.
+</p>
+
+<a NAME="Browser._resizeColumns" ID="Browser._resizeColumns"></a>
+<h4>Browser._resizeColumns</h4>
+<b>_resizeColumns</b>(<i></i>)
+<p>
+        Protected slot to resize the view when items get expanded or collapsed.
+</p>
+
+<a NAME="Browser._resort" ID="Browser._resort"></a>
+<h4>Browser._resort</h4>
+<b>_resort</b>(<i></i>)
+<p>
+        Protected slot to resort the tree.
+</p>
+
+<a NAME="Browser._showGotoMenu" ID="Browser._showGotoMenu"></a>
+<h4>Browser._showGotoMenu</h4>
+<b>_showGotoMenu</b>(<i></i>)
+<p>
+        Protected slot to prepare the goto submenu of the attribute menu.
+</p>
+
+<a NAME="Browser._showHidden" ID="Browser._showHidden"></a>
+<h4>Browser._showHidden</h4>
+<b>_showHidden</b>(<i>checked</i>)
+<p>
+        Protected slot to show or hide hidden files.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+flag indicating the state of the action
+</dd>
+</dl>
+<a NAME="Browser._showInFileManager" ID="Browser._showInFileManager"></a>
+<h4>Browser._showInFileManager</h4>
+<b>_showInFileManager</b>(<i></i>)
+<p>
+        Protected method to show the selected items path in a file manager application.
+</p>
+
+<a NAME="Browser.getSelectedItems" ID="Browser.getSelectedItems"></a>
+<h4>Browser.getSelectedItems</h4>
+<b>getSelectedItems</b>(<i>filterList=None</i>)
+<p>
+        Public method to get the selected items.
+</p>
+
+<dl>
+
+<dt><i>filterList</i> (list of Class)</dt>
+<dd>
+list of classes to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of selected items
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of BrowserItem
+</dd>
+</dl>
+<a NAME="Browser.getSelectedItemsCount" ID="Browser.getSelectedItemsCount"></a>
+<h4>Browser.getSelectedItemsCount</h4>
+<b>getSelectedItemsCount</b>(<i>filterList=None</i>)
+<p>
+        Public method to get the count of items selected.
+</p>
+
+<dl>
+
+<dt><i>filterList</i> (list of Class)</dt>
+<dd>
+list of classes to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+count of items selected
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="Browser.getSelectedItemsCountCategorized" ID="Browser.getSelectedItemsCountCategorized"></a>
+<h4>Browser.getSelectedItemsCountCategorized</h4>
+<b>getSelectedItemsCountCategorized</b>(<i>filterList=None</i>)
+<p>
+        Public method to get a categorized count of selected items.
+</p>
+
+<dl>
+
+<dt><i>filterList</i> (list of Class)</dt>
+<dd>
+list of classes to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+a dictionary containing the counts of items belonging
+            to the individual filter classes. The keys of the dictionary
+            are the string representation of the classes given in the
+            filter (i.e. str(filterClass)). The dictionary contains
+            an additional entry with key "sum", that stores the sum of
+            all selected entries fulfilling the filter criteria.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="Browser.handleInterpreterChanged" ID="Browser.handleInterpreterChanged"></a>
+<h4>Browser.handleInterpreterChanged</h4>
+<b>handleInterpreterChanged</b>(<i>interpreter</i>)
+<p>
+        Public slot to handle a change of the debug client's interpreter.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter of the debug client
+</dd>
+</dl>
+<a NAME="Browser.handlePreferencesChanged" ID="Browser.handlePreferencesChanged"></a>
+<h4>Browser.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot used to handle the preferencesChanged signal.
+</p>
+
+<a NAME="Browser.handleProgramChange" ID="Browser.handleProgramChange"></a>
+<h4>Browser.handleProgramChange</h4>
+<b>handleProgramChange</b>(<i>fn</i>)
+<p>
+        Public slot to handle the programChange signal.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name
+</dd>
+</dl>
+<a NAME="Browser.handleTesting" ID="Browser.handleTesting"></a>
+<h4>Browser.handleTesting</h4>
+<b>handleTesting</b>(<i></i>)
+<p>
+        Public slot to handle the testing popup menu entry.
+</p>
+
+<a NAME="Browser.keyboardSearch" ID="Browser.keyboardSearch"></a>
+<h4>Browser.keyboardSearch</h4>
+<b>keyboardSearch</b>(<i>search</i>)
+<p>
+        Public function to search the tree via the keyboard.
+</p>
+
+<dl>
+
+<dt><i>search</i> (str)</dt>
+<dd>
+the character entered via the keyboard
+</dd>
+</dl>
+<a NAME="Browser.layoutDisplay" ID="Browser.layoutDisplay"></a>
+<h4>Browser.layoutDisplay</h4>
+<b>layoutDisplay</b>(<i></i>)
+<p>
+        Public slot to perform a layout operation.
+</p>
+
+<a NAME="Browser.mouseDoubleClickEvent" ID="Browser.mouseDoubleClickEvent"></a>
+<h4>Browser.mouseDoubleClickEvent</h4>
+<b>mouseDoubleClickEvent</b>(<i>mouseEvent</i>)
+<p>
+        Protected method of QAbstractItemView.
+</p>
+<p>
+        Reimplemented to disable expanding/collapsing of items when
+        double-clicking. Instead the double-clicked entry is opened.
+</p>
+
+<dl>
+
+<dt><i>mouseEvent</i> (QMouseEvent)</dt>
+<dd>
+the mouse event
+</dd>
+</dl>
+<a NAME="Browser.saveToplevelDirs" ID="Browser.saveToplevelDirs"></a>
+<h4>Browser.saveToplevelDirs</h4>
+<b>saveToplevelDirs</b>(<i></i>)
+<p>
+        Public slot to save the toplevel directories.
+</p>
+
+<a NAME="Browser.wantedItem" ID="Browser.wantedItem"></a>
+<h4>Browser.wantedItem</h4>
+<b>wantedItem</b>(<i>itm, filterList=None</i>)
+<p>
+        Public method to check type of an item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (BrowserItem)</dt>
+<dd>
+the item to check
+</dd>
+<dt><i>filterList</i> (list of Class)</dt>
+<dd>
+list of classes to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating item is a valid type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

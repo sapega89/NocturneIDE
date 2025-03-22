@@ -1,0 +1,153 @@
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2007 - 2025 Detlev Offenbach <detlev@die-offenbachs.de>
+#
+
+"""
+Module implementing the exceptions raised by the plugin system.
+"""
+
+from PyQt6.QtCore import QCoreApplication
+
+
+class PluginError(Exception):
+    """
+    Class defining a special error for the plugin classes.
+    """
+
+    def __init__(self):
+        """
+        Constructor
+        """
+        self._errorMessage = QCoreApplication.translate(
+            "PluginError", "Unspecific plugin error."
+        )
+
+    def __repr__(self):
+        """
+        Special method returning a representation of the exception.
+
+        @return string representing the error message
+        @rtype str
+        """
+        return str(self._errorMessage)
+
+    def __str__(self):
+        """
+        Special method returning a string representation of the exception.
+
+        @return string representing the error message
+        @rtype str
+        """
+        return str(self._errorMessage)
+
+
+class PluginPathError(PluginError):
+    """
+    Class defining an error raised, when the plugin paths were not found and
+    could not be created.
+    """
+
+    def __init__(self, msg=None):
+        """
+        Constructor
+
+        @param msg message to be used by the exception
+        @type str
+        """
+        if msg:
+            self._errorMessage = msg
+        else:
+            self._errorMessage = QCoreApplication.translate(
+                "PluginError", "Plugin paths not found or not creatable."
+            )
+
+
+class PluginModulesError(PluginError):
+    """
+    Class defining an error raised, when no plugin modules were found.
+    """
+
+    def __init__(self):
+        """
+        Constructor
+        """
+        self._errorMessage = QCoreApplication.translate(
+            "PluginError", "No plugin modules found."
+        )
+
+
+class PluginLoadError(PluginError):
+    """
+    Class defining an error raised, when there was an error during plugin
+    loading.
+    """
+
+    def __init__(self, name):
+        """
+        Constructor
+
+        @param name name of the plugin module
+        @type str
+        """
+        self._errorMessage = QCoreApplication.translate(
+            "PluginError", "Error loading plugin module: {0}"
+        ).format(name)
+
+
+class PluginActivationError(PluginError):
+    """
+    Class defining an error raised, when there was an error during plugin
+    activation.
+    """
+
+    def __init__(self, name):
+        """
+        Constructor
+
+        @param name name of the plugin module
+        @type str
+        """
+        self._errorMessage = QCoreApplication.translate(
+            "PluginError", "Error activating plugin module: {0}"
+        ).format(name)
+
+
+class PluginModuleFormatError(PluginError):
+    """
+    Class defining an error raised, when the plugin module is invalid.
+    """
+
+    def __init__(self, name, missing):
+        """
+        Constructor
+
+        @param name name of the plugin module
+        @type str
+        @param missing description of the missing element
+        @type str
+        """
+        self._errorMessage = QCoreApplication.translate(
+            "PluginError", "The plugin module {0} is missing {1}."
+        ).format(name, missing)
+
+
+class PluginClassFormatError(PluginError):
+    """
+    Class defining an error raised, when the plugin module's class is invalid.
+    """
+
+    def __init__(self, name, class_, missing):
+        """
+        Constructor
+
+        @param name name of the plugin module
+        @type str
+        @param class_ name of the class not satisfying the requirements
+        @type str
+        @param missing description of the missing element
+        @type str
+        """
+        self._errorMessage = QCoreApplication.translate(
+            "PluginError", "The plugin class {0} of module {1} is missing {2}."
+        ).format(class_, name, missing)

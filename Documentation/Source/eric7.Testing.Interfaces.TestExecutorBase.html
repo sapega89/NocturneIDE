@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Testing.Interfaces.TestExecutorBase</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Testing.Interfaces.TestExecutorBase</h1>
+<p>
+Module implementing the executor base class for the various testing frameworks
+and supporting classes.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TestConfig">TestConfig</a></td>
+<td>Class containing the test run configuration.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase">TestExecutorBase</a></td>
+<td>Base class for test framework specific implementations.</td>
+</tr>
+<tr>
+<td><a href="#TestResult">TestResult</a></td>
+<td>Class containing the test result data.</td>
+</tr>
+<tr>
+<td><a href="#TestResultCategory">TestResultCategory</a></td>
+<td>Class defining the supported result categories.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TestConfig" ID="TestConfig"></a>
+<h2>TestConfig</h2>
+<p>
+    Class containing the test run configuration.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>collectCoverage</td></tr>
+<tr><td>coverageFile</td></tr>
+<tr><td>discover</td></tr>
+<tr><td>discoverOnly</td></tr>
+<tr><td>discoveryStart</td></tr>
+<tr><td>eraseCoverage</td></tr>
+<tr><td>failFast</td></tr>
+<tr><td>failedOnly</td></tr>
+<tr><td>interpreter</td></tr>
+<tr><td>testCases</td></tr>
+<tr><td>testFilename</td></tr>
+<tr><td>testMarkerExpression</td></tr>
+<tr><td>testName</td></tr>
+<tr><td>testNamePattern</td></tr>
+<tr><td>venvName</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TestExecutorBase" ID="TestExecutorBase"></a>
+<h2>TestExecutorBase</h2>
+<p>
+    Base class for test framework specific implementations.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>collectError(list of tuple of (str, str)</dt>
+<dd>
+) emitted when errors
+        are encountered during test collection. Tuple elements are the
+        test name and the error message.
+</dd>
+<dt>collected(list of tuple of (str, str, str, str, int, list)</dt>
+<dd>
+) emitted after
+        all tests have been collected. Tuple elements are the test id, the test name,
+        a short description of the test, the test file name, the line number of
+        the test and the elements of the test path as a list.
+</dd>
+<dt>coverageDataSaved(str)</dt>
+<dd>
+emitted after the coverage data was saved.
+        The element is the absolute path of the coverage data file.
+</dd>
+<dt>discoveryAboutToBeStarted()</dt>
+<dd>
+emitted just before the test discovery
+        will be started
+</dd>
+<dt>discoveryFinished(int, float)</dt>
+<dd>
+emitted when the discovery has finished.
+        The elements are the number of discovered tests and the duration in seconds.
+</dd>
+<dt>startTest(tuple of (str, str, str)</dt>
+<dd>
+emitted before tests are run.
+        Tuple elements are test id, test name and short description.
+</dd>
+<dt>stop()</dt>
+<dd>
+emitted when the test process is being stopped.
+</dd>
+<dt>testFinished(list, str)</dt>
+<dd>
+emitted when the test has finished.
+        The elements are the list of test results and the captured output
+        of the test worker (if any).
+</dd>
+<dt>testResult(TestResult)</dt>
+<dd>
+emitted when a test result is ready
+</dd>
+<dt>testRunAboutToBeStarted()</dt>
+<dd>
+emitted just before the test run will
+        be started.
+</dd>
+<dt>testRunFinished(int, float)</dt>
+<dd>
+emitted when the test run has finished.
+        The elements are the number of tests run and the duration in seconds.
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>module</td></tr>
+<tr><td>name</td></tr>
+<tr><td>runner</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#TestExecutorBase.isInstalled">isInstalled</a></td>
+<td>Class method to check whether a test framework is installed.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TestExecutorBase.__init__">TestExecutorBase</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase._prepareProcess">_prepareProcess</a></td>
+<td>Protected method to prepare a process object to be started.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.createArguments">createArguments</a></td>
+<td>Public method to create the arguments needed to start the test process.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.discover">discover</a></td>
+<td>Public method to start the test discovery process.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.finished">finished</a></td>
+<td>Public method handling the unit test process been finished.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.getMarkers">getMarkers</a></td>
+<td>Public method to get the list of defined markers.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.getVersions">getVersions</a></td>
+<td>Public method to get the test framework version and version information of its installed plugins.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.hasCoverage">hasCoverage</a></td>
+<td>Public method to check, if the collection of coverage data is available.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.readAllOutput">readAllOutput</a></td>
+<td>Public method to read all output of the test process.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.start">start</a></td>
+<td>Public method to start the testing process.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.startDebug">startDebug</a></td>
+<td>Public method to start the test run with debugger support.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.stopIfRunning">stopIfRunning</a></td>
+<td>Public method to stop the testing process, if it is running.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.supportsMarkers">supportsMarkers</a></td>
+<td>Public method to indicate the support for test filtering using markers and/or marker expressions.</td>
+</tr>
+<tr>
+<td><a href="#TestExecutorBase.supportsPatterns">supportsPatterns</a></td>
+<td>Public method to indicate the support for test filtering using test name patterns or a test name pattern expression.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TestExecutorBase.isInstalled" ID="TestExecutorBase.isInstalled"></a>
+<h4>TestExecutorBase.isInstalled (class method)</h4>
+<b>isInstalled</b>(<i>interpreter</i>)
+<p>
+        Class method to check whether a test framework is installed.
+</p>
+<p>
+        The test is performed by checking, if a module loader can found.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for the test
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the test framework module is installed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TestExecutorBase.__init__" ID="TestExecutorBase.__init__"></a>
+<h4>TestExecutorBase (Constructor)</h4>
+<b>TestExecutorBase</b>(<i>testWidget</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>testWidget</i> (TestingWidget)</dt>
+<dd>
+reference to the unit test widget
+</dd>
+</dl>
+<a NAME="TestExecutorBase._prepareProcess" ID="TestExecutorBase._prepareProcess"></a>
+<h4>TestExecutorBase._prepareProcess</h4>
+<b>_prepareProcess</b>(<i>workDir, pythonpath</i>)
+<p>
+        Protected method to prepare a process object to be started.
+</p>
+
+<dl>
+
+<dt><i>workDir</i> (str)</dt>
+<dd>
+working directory
+</dd>
+<dt><i>pythonpath</i> (list of str)</dt>
+<dd>
+list of directories to be added to the Python path
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+prepared process object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QProcess
+</dd>
+</dl>
+<a NAME="TestExecutorBase.createArguments" ID="TestExecutorBase.createArguments"></a>
+<h4>TestExecutorBase.createArguments</h4>
+<b>createArguments</b>(<i>config</i>)
+<p>
+        Public method to create the arguments needed to start the test process.
+</p>
+
+<dl>
+
+<dt><i>config</i> (TestConfig)</dt>
+<dd>
+configuration for the test execution
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of process arguments
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+this method needs to be implemented by
+            derived classes
+</dd>
+</dl>
+<a NAME="TestExecutorBase.discover" ID="TestExecutorBase.discover"></a>
+<h4>TestExecutorBase.discover</h4>
+<b>discover</b>(<i>config, pythonpath</i>)
+<p>
+        Public method to start the test discovery process.
+</p>
+
+<dl>
+
+<dt><i>config</i> (TestConfig)</dt>
+<dd>
+configuration for the test discovery
+</dd>
+<dt><i>pythonpath</i> (list of str)</dt>
+<dd>
+list of directories to be added to the Python path
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised if the the test discovery process did not start
+</dd>
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised if no start directory for the test discovery was
+            given
+</dd>
+</dl>
+<a NAME="TestExecutorBase.finished" ID="TestExecutorBase.finished"></a>
+<h4>TestExecutorBase.finished</h4>
+<b>finished</b>(<i></i>)
+<p>
+        Public method handling the unit test process been finished.
+</p>
+<p>
+        This method should read the results (if necessary) and emit the signal
+        testFinished.
+</p>
+
+<a NAME="TestExecutorBase.getMarkers" ID="TestExecutorBase.getMarkers"></a>
+<h4>TestExecutorBase.getMarkers</h4>
+<b>getMarkers</b>(<i>interpreter, workdir</i>)
+<p>
+        Public method to get the list of defined markers.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for the test (unused)
+</dd>
+<dt><i>workdir</i> (str)</dt>
+<dd>
+name of the working directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the marker as key and the associated description
+            as value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="TestExecutorBase.getVersions" ID="TestExecutorBase.getVersions"></a>
+<h4>TestExecutorBase.getVersions</h4>
+<b>getVersions</b>(<i>interpreter</i>)
+<p>
+        Public method to get the test framework version and version information
+        of its installed plugins.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for the test (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the framework name and version and the
+            list of available plugins with name and version each
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="TestExecutorBase.hasCoverage" ID="TestExecutorBase.hasCoverage"></a>
+<h4>TestExecutorBase.hasCoverage</h4>
+<b>hasCoverage</b>(<i>interpreter</i>)
+<p>
+        Public method to check, if the collection of coverage data is available.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for the test (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of coverage functionality
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TestExecutorBase.readAllOutput" ID="TestExecutorBase.readAllOutput"></a>
+<h4>TestExecutorBase.readAllOutput</h4>
+<b>readAllOutput</b>(<i>process=None</i>)
+<p>
+        Public method to read all output of the test process.
+</p>
+
+<dl>
+
+<dt><i>process</i> (QProcess)</dt>
+<dd>
+reference to the process object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+test process output
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TestExecutorBase.start" ID="TestExecutorBase.start"></a>
+<h4>TestExecutorBase.start</h4>
+<b>start</b>(<i>config, pythonpath</i>)
+<p>
+        Public method to start the testing process.
+</p>
+
+<dl>
+
+<dt><i>config</i> (TestConfig)</dt>
+<dd>
+configuration for the test execution
+</dd>
+<dt><i>pythonpath</i> (list of str)</dt>
+<dd>
+list of directories to be added to the Python path
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised if the the testing process did not start
+</dd>
+</dl>
+<a NAME="TestExecutorBase.startDebug" ID="TestExecutorBase.startDebug"></a>
+<h4>TestExecutorBase.startDebug</h4>
+<b>startDebug</b>(<i>config, pythonpath, debugger</i>)
+<p>
+        Public method to start the test run with debugger support.
+</p>
+
+<dl>
+
+<dt><i>config</i> (TestConfig)</dt>
+<dd>
+configuration for the test execution
+</dd>
+<dt><i>pythonpath</i> (list of str)</dt>
+<dd>
+list of directories to be added to the Python path
+</dd>
+<dt><i>debugger</i> (DebugUI)</dt>
+<dd>
+refference to the debugger interface
+</dd>
+</dl>
+<a NAME="TestExecutorBase.stopIfRunning" ID="TestExecutorBase.stopIfRunning"></a>
+<h4>TestExecutorBase.stopIfRunning</h4>
+<b>stopIfRunning</b>(<i></i>)
+<p>
+        Public method to stop the testing process, if it is running.
+</p>
+
+<a NAME="TestExecutorBase.supportsMarkers" ID="TestExecutorBase.supportsMarkers"></a>
+<h4>TestExecutorBase.supportsMarkers</h4>
+<b>supportsMarkers</b>(<i>interpreter</i>)
+<p>
+        Public method to indicate the support for test filtering using markers and/or
+        marker expressions.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for the test (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating support of markers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TestExecutorBase.supportsPatterns" ID="TestExecutorBase.supportsPatterns"></a>
+<h4>TestExecutorBase.supportsPatterns</h4>
+<b>supportsPatterns</b>(<i>interpreter</i>)
+<p>
+        Public method to indicate the support for test filtering using test name
+        patterns or a test name pattern expression.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for the test (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating support of markers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TestResult" ID="TestResult"></a>
+<h2>TestResult</h2>
+<p>
+    Class containing the test result data.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>category</td></tr>
+<tr><td>description</td></tr>
+<tr><td>duration</td></tr>
+<tr><td>extra</td></tr>
+<tr><td>filename</td></tr>
+<tr><td>id</td></tr>
+<tr><td>lineno</td></tr>
+<tr><td>message</td></tr>
+<tr><td>name</td></tr>
+<tr><td>status</td></tr>
+<tr><td>subtestResult</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TestResultCategory" ID="TestResultCategory"></a>
+<h2>TestResultCategory</h2>
+<p>
+    Class defining the supported result categories.
+</p>
+
+<h3>Derived from</h3>
+IntEnum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>FAIL</td></tr>
+<tr><td>OK</td></tr>
+<tr><td>PENDING</td></tr>
+<tr><td>RUNNING</td></tr>
+<tr><td>SKIP</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

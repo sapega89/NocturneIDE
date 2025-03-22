@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricIconBar</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricIconBar</h1>
+<p>
+Module implementing a bar widget showing just icons.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricIconBar">EricIconBar</a></td>
+<td>Class implementing a bar widget showing just icons.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricIconBar" ID="EricIconBar"></a>
+<h2>EricIconBar</h2>
+<p>
+    Class implementing a bar widget showing just icons.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>currentChanged(index)</dt>
+<dd>
+emitted to indicate a change of the current
+        index
+</dd>
+<dt>currentClicked(index)</dt>
+<dd>
+emitted to indicate, that the current icon
+        was clicked
+</dd>
+<dt>emptyClicked()</dt>
+<dd>
+emitted to indicate a mouse click on the empty part
+        of the icon bar
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>BarSizes</td></tr>
+<tr><td>DefaultBarSize</td></tr>
+<tr><td>LabelStyleSheetTemplate</td></tr>
+<tr><td>MenuStyleSheetTemplate</td></tr>
+<tr><td>MoreLabelAspect</td></tr>
+<tr><td>WidgetStyleSheetTemplate</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricIconBar.__init__">EricIconBar</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.__adjustIconLabels">__adjustIconLabels</a></td>
+<td>Private method to adjust the visibility of the icon labels.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.__createAndAddMoreLabel">__createAndAddMoreLabel</a></td>
+<td>Private method to create the label to be shown for too many icons.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.__createIcon">__createIcon</a></td>
+<td>Private method to creat an icon label.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.__iconClicked">__iconClicked</a></td>
+<td>Private slot to handle an icon been clicked.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.__moreLabelClicked">__moreLabelClicked</a></td>
+<td>Private slot to handle a click onto the 'More' label.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.addIcon">addIcon</a></td>
+<td>Public method to add an icon to the bar.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.barSize">barSize</a></td>
+<td>Public method to get the icon bar size.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.color">color</a></td>
+<td>Public method to return the current color.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.count">count</a></td>
+<td>Public method to get the number of icon labels.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.currentIndex">currentIndex</a></td>
+<td>Public method to get the current index.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.insertIcon">insertIcon</a></td>
+<td>Public method to insert an icon into the bar.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.mouseReleaseEvent">mouseReleaseEvent</a></td>
+<td>Protected method to handle a click on the empty space.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.nextIcon">nextIcon</a></td>
+<td>Public slot to set the icon after the current one.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.orientation">orientation</a></td>
+<td>Public method to get the orientation of the widget.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.previousIcon">previousIcon</a></td>
+<td>Public slot to set the icon before the current one.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.removeIcon">removeIcon</a></td>
+<td>Public method to remove an icon from the bar.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.resizeEvent">resizeEvent</a></td>
+<td>Protected method to handle resizing of the icon bar.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.setBarSize">setBarSize</a></td>
+<td>Public method to set the icon bar size.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.setColor">setColor</a></td>
+<td>Public method to set the color of the widget.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.setCurrentIndex">setCurrentIndex</a></td>
+<td>Public method to set the current index.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.setIcon">setIcon</a></td>
+<td>Public method to set the icon at the given index.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.setOrientation">setOrientation</a></td>
+<td>Public method to set the widget orientation.</td>
+</tr>
+<tr>
+<td><a href="#EricIconBar.wheelEvent">wheelEvent</a></td>
+<td>Protected method to handle a wheel event.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricIconBar.__init__" ID="EricIconBar.__init__"></a>
+<h4>EricIconBar (Constructor)</h4>
+<b>EricIconBar</b>(<i>orientation=Qt.Orientation.Horizontal, barSize=DefaultBarSize, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>orientation</i> (Qt.Orientation)</dt>
+<dd>
+orientation for the widget
+</dd>
+<dt><i>barSize</i> (str)</dt>
+<dd>
+size category for the bar (one of 'xs', 'sm', 'md',
+            'lg', 'xl', 'xxl')
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="EricIconBar.__adjustIconLabels" ID="EricIconBar.__adjustIconLabels"></a>
+<h4>EricIconBar.__adjustIconLabels</h4>
+<b>__adjustIconLabels</b>(<i></i>)
+<p>
+        Private method to adjust the visibility of the icon labels.
+</p>
+
+<a NAME="EricIconBar.__createAndAddMoreLabel" ID="EricIconBar.__createAndAddMoreLabel"></a>
+<h4>EricIconBar.__createAndAddMoreLabel</h4>
+<b>__createAndAddMoreLabel</b>(<i></i>)
+<p>
+        Private method to create the label to be shown for too many icons.
+</p>
+
+<a NAME="EricIconBar.__createIcon" ID="EricIconBar.__createIcon"></a>
+<h4>EricIconBar.__createIcon</h4>
+<b>__createIcon</b>(<i>icon, label=""</i>)
+<p>
+        Private method to creat an icon label.
+</p>
+
+<dl>
+
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+reference to the icon
+</dd>
+<dt><i>label</i> (str (optional))</dt>
+<dd>
+label text to be shown as a tooltip (defaults to "")
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+created and connected label
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricClickableLabel
+</dd>
+</dl>
+<a NAME="EricIconBar.__iconClicked" ID="EricIconBar.__iconClicked"></a>
+<h4>EricIconBar.__iconClicked</h4>
+<b>__iconClicked</b>(<i>label</i>)
+<p>
+        Private slot to handle an icon been clicked.
+</p>
+
+<dl>
+
+<dt><i>label</i> (EricClickableLabel)</dt>
+<dd>
+reference to the clicked label
+</dd>
+</dl>
+<a NAME="EricIconBar.__moreLabelClicked" ID="EricIconBar.__moreLabelClicked"></a>
+<h4>EricIconBar.__moreLabelClicked</h4>
+<b>__moreLabelClicked</b>(<i></i>)
+<p>
+        Private slot to handle a click onto the 'More' label.
+</p>
+
+<a NAME="EricIconBar.addIcon" ID="EricIconBar.addIcon"></a>
+<h4>EricIconBar.addIcon</h4>
+<b>addIcon</b>(<i>icon, label=""</i>)
+<p>
+        Public method to add an icon to the bar.
+</p>
+
+<dl>
+
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+reference to the icon
+</dd>
+<dt><i>label</i> (str (optional))</dt>
+<dd>
+label text to be shown as a tooltip (defaults to "")
+</dd>
+</dl>
+<a NAME="EricIconBar.barSize" ID="EricIconBar.barSize"></a>
+<h4>EricIconBar.barSize</h4>
+<b>barSize</b>(<i></i>)
+<p>
+        Public method to get the icon bar size.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+barSize size category for the bar (one of 'xs', 'sm', 'md',
+            'lg', 'xl', 'xxl')
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricIconBar.color" ID="EricIconBar.color"></a>
+<h4>EricIconBar.color</h4>
+<b>color</b>(<i></i>)
+<p>
+        Public method to return the current color.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="EricIconBar.count" ID="EricIconBar.count"></a>
+<h4>EricIconBar.count</h4>
+<b>count</b>(<i></i>)
+<p>
+        Public method to get the number of icon labels.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of icon labels
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricIconBar.currentIndex" ID="EricIconBar.currentIndex"></a>
+<h4>EricIconBar.currentIndex</h4>
+<b>currentIndex</b>(<i></i>)
+<p>
+        Public method to get the current index.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricIconBar.insertIcon" ID="EricIconBar.insertIcon"></a>
+<h4>EricIconBar.insertIcon</h4>
+<b>insertIcon</b>(<i>index, icon, label=""</i>)
+<p>
+        Public method to insert an icon into the bar.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+position to insert the icon at
+</dd>
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+reference to the icon
+</dd>
+<dt><i>label</i> (str (optional))</dt>
+<dd>
+label text to be shown as a tooltip (defaults to "")
+</dd>
+</dl>
+<a NAME="EricIconBar.mouseReleaseEvent" ID="EricIconBar.mouseReleaseEvent"></a>
+<h4>EricIconBar.mouseReleaseEvent</h4>
+<b>mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle a click on the empty space.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="EricIconBar.nextIcon" ID="EricIconBar.nextIcon"></a>
+<h4>EricIconBar.nextIcon</h4>
+<b>nextIcon</b>(<i></i>)
+<p>
+        Public slot to set the icon after the current one.
+</p>
+
+<a NAME="EricIconBar.orientation" ID="EricIconBar.orientation"></a>
+<h4>EricIconBar.orientation</h4>
+<b>orientation</b>(<i></i>)
+<p>
+        Public method to get the orientation of the widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+orientation of the widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Qt.Orientation
+</dd>
+</dl>
+<a NAME="EricIconBar.previousIcon" ID="EricIconBar.previousIcon"></a>
+<h4>EricIconBar.previousIcon</h4>
+<b>previousIcon</b>(<i></i>)
+<p>
+        Public slot to set the icon before the current one.
+</p>
+
+<a NAME="EricIconBar.removeIcon" ID="EricIconBar.removeIcon"></a>
+<h4>EricIconBar.removeIcon</h4>
+<b>removeIcon</b>(<i>index</i>)
+<p>
+        Public method to remove an icon from the bar.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the icon to be removed
+</dd>
+</dl>
+<a NAME="EricIconBar.resizeEvent" ID="EricIconBar.resizeEvent"></a>
+<h4>EricIconBar.resizeEvent</h4>
+<b>resizeEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle resizing of the icon bar.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QResizeEvent)</dt>
+<dd>
+reference to the event object
+</dd>
+</dl>
+<a NAME="EricIconBar.setBarSize" ID="EricIconBar.setBarSize"></a>
+<h4>EricIconBar.setBarSize</h4>
+<b>setBarSize</b>(<i>barSize</i>)
+<p>
+        Public method to set the icon bar size.
+</p>
+
+<dl>
+
+<dt><i>barSize</i> (str)</dt>
+<dd>
+size category for the bar (one of 'xs', 'sm', 'md',
+            'lg', 'xl', 'xxl')
+</dd>
+</dl>
+<a NAME="EricIconBar.setColor" ID="EricIconBar.setColor"></a>
+<h4>EricIconBar.setColor</h4>
+<b>setColor</b>(<i>color</i>)
+<p>
+        Public method to set the color of the widget.
+</p>
+
+<dl>
+
+<dt><i>color</i> (QColor)</dt>
+<dd>
+color of the widget
+</dd>
+</dl>
+<a NAME="EricIconBar.setCurrentIndex" ID="EricIconBar.setCurrentIndex"></a>
+<h4>EricIconBar.setCurrentIndex</h4>
+<b>setCurrentIndex</b>(<i>index</i>)
+<p>
+        Public method to set the current index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+current index to be set
+</dd>
+</dl>
+<a NAME="EricIconBar.setIcon" ID="EricIconBar.setIcon"></a>
+<h4>EricIconBar.setIcon</h4>
+<b>setIcon</b>(<i>index, icon</i>)
+<p>
+        Public method to set the icon at the given index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+icon index
+</dd>
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+reference to the icon
+</dd>
+</dl>
+<a NAME="EricIconBar.setOrientation" ID="EricIconBar.setOrientation"></a>
+<h4>EricIconBar.setOrientation</h4>
+<b>setOrientation</b>(<i>orientation</i>)
+<p>
+        Public method to set the widget orientation.
+</p>
+
+<dl>
+
+<dt><i>orientation</i> (Qt.Orientation)</dt>
+<dd>
+orientation to be set
+</dd>
+</dl>
+<a NAME="EricIconBar.wheelEvent" ID="EricIconBar.wheelEvent"></a>
+<h4>EricIconBar.wheelEvent</h4>
+<b>wheelEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle a wheel event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QWheelEvent)</dt>
+<dd>
+reference to the wheel event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

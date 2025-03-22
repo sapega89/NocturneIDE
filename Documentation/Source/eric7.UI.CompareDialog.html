@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.CompareDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.CompareDialog</h1>
+<p>
+Module implementing a dialog to compare two files and show the result side by
+side.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CompareDialog">CompareDialog</a></td>
+<td>Class implementing a dialog to compare two files and show the result side by side.</td>
+</tr>
+<tr>
+<td><a href="#CompareWindow">CompareWindow</a></td>
+<td>Main window class for the standalone dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#removeMarkers">removeMarkers</a></td>
+<td>Internal function to remove all diff markers.</td>
+</tr>
+<tr>
+<td><a href="#sbsdiff">sbsdiff</a></td>
+<td>Compare two sequences of lines; generate the delta for display side by side.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CompareDialog" ID="CompareDialog"></a>
+<h2>CompareDialog</h2>
+<p>
+    Class implementing a dialog to compare two files and show the result side
+    by side.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_CompareDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CompareDialog.__init__">CompareDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.__appendText">__appendText</a></td>
+<td>Private method to append text to the end of the contents pane.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.__compare">__compare</a></td>
+<td>Private method to compare two lists of text.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.__fileChanged">__fileChanged</a></td>
+<td>Private slot to enable/disable the Compare button.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.__generateFormats">__generateFormats</a></td>
+<td>Private method to generate the various text formats.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.__moveTextToCurrentDiffPos">__moveTextToCurrentDiffPos</a></td>
+<td>Private slot to move the text display to the current diff position.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.__scrollBarMoved">__scrollBarMoved</a></td>
+<td>Private slot to enable the buttons and set the current diff position depending on scrollbar position.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.compare">compare</a></td>
+<td>Public method to compare two lists of text.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.on_diffButton_clicked">on_diffButton_clicked</a></td>
+<td>Private slot to handle the Compare button press.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.on_downButton_clicked">on_downButton_clicked</a></td>
+<td>Private slot to go to the next difference.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.on_firstButton_clicked">on_firstButton_clicked</a></td>
+<td>Private slot to go to the first difference.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.on_lastButton_clicked">on_lastButton_clicked</a></td>
+<td>Private slot to go to the last difference.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.on_synchronizeCheckBox_toggled">on_synchronizeCheckBox_toggled</a></td>
+<td>Private slot to connect or disconnect the scrollbars of the displays.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.on_upButton_clicked">on_upButton_clicked</a></td>
+<td>Private slot to go to the previous difference.</td>
+</tr>
+<tr>
+<td><a href="#CompareDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CompareDialog.__init__" ID="CompareDialog.__init__"></a>
+<h4>CompareDialog (Constructor)</h4>
+<b>CompareDialog</b>(<i>files=None, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>files</i> (list of tuples of (str, str))</dt>
+<dd>
+list of files to compare and their label
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="CompareDialog.__appendText" ID="CompareDialog.__appendText"></a>
+<h4>CompareDialog.__appendText</h4>
+<b>__appendText</b>(<i>pane, linenumber, line, charFormat, interLine=False</i>)
+<p>
+        Private method to append text to the end of the contents pane.
+</p>
+
+<dl>
+
+<dt><i>pane</i> (QTextedit)</dt>
+<dd>
+text edit widget to append text to
+</dd>
+<dt><i>linenumber</i> (str)</dt>
+<dd>
+number of line to insert
+</dd>
+<dt><i>line</i> (str)</dt>
+<dd>
+text to insert
+</dd>
+<dt><i>charFormat</i> (QTextCharFormat)</dt>
+<dd>
+text format to be used
+</dd>
+<dt><i>interLine</i> (bool)</dt>
+<dd>
+flag indicating interline changes
+</dd>
+</dl>
+<a NAME="CompareDialog.__compare" ID="CompareDialog.__compare"></a>
+<h4>CompareDialog.__compare</h4>
+<b>__compare</b>(<i>lines1, lines2</i>)
+<p>
+        Private method to compare two lists of text.
+</p>
+
+<dl>
+
+<dt><i>lines1</i> (list of str)</dt>
+<dd>
+text to compare against
+</dd>
+<dt><i>lines2</i> (list of str)</dt>
+<dd>
+text to compare
+</dd>
+</dl>
+<a NAME="CompareDialog.__fileChanged" ID="CompareDialog.__fileChanged"></a>
+<h4>CompareDialog.__fileChanged</h4>
+<b>__fileChanged</b>(<i></i>)
+<p>
+        Private slot to enable/disable the Compare button.
+</p>
+
+<a NAME="CompareDialog.__generateFormats" ID="CompareDialog.__generateFormats"></a>
+<h4>CompareDialog.__generateFormats</h4>
+<b>__generateFormats</b>(<i></i>)
+<p>
+        Private method to generate the various text formats.
+</p>
+
+<a NAME="CompareDialog.__moveTextToCurrentDiffPos" ID="CompareDialog.__moveTextToCurrentDiffPos"></a>
+<h4>CompareDialog.__moveTextToCurrentDiffPos</h4>
+<b>__moveTextToCurrentDiffPos</b>(<i></i>)
+<p>
+        Private slot to move the text display to the current diff position.
+</p>
+
+<a NAME="CompareDialog.__scrollBarMoved" ID="CompareDialog.__scrollBarMoved"></a>
+<h4>CompareDialog.__scrollBarMoved</h4>
+<b>__scrollBarMoved</b>(<i>value</i>)
+<p>
+        Private slot to enable the buttons and set the current diff position
+        depending on scrollbar position.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+scrollbar position
+</dd>
+</dl>
+<a NAME="CompareDialog.compare" ID="CompareDialog.compare"></a>
+<h4>CompareDialog.compare</h4>
+<b>compare</b>(<i>lines1, lines2, name1="", name2=""</i>)
+<p>
+        Public method to compare two lists of text.
+</p>
+
+<dl>
+
+<dt><i>lines1</i> (str or list of str)</dt>
+<dd>
+text to compare against
+</dd>
+<dt><i>lines2</i> (str or list of str))</dt>
+<dd>
+text to compare
+</dd>
+<dt><i>name1</i> (str)</dt>
+<dd>
+name to be shown for the first text
+</dd>
+<dt><i>name2</i> (str)</dt>
+<dd>
+name to be shown for the second text
+</dd>
+</dl>
+<a NAME="CompareDialog.on_buttonBox_clicked" ID="CompareDialog.on_buttonBox_clicked"></a>
+<h4>CompareDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="CompareDialog.on_diffButton_clicked" ID="CompareDialog.on_diffButton_clicked"></a>
+<h4>CompareDialog.on_diffButton_clicked</h4>
+<b>on_diffButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the Compare button press.
+</p>
+
+<a NAME="CompareDialog.on_downButton_clicked" ID="CompareDialog.on_downButton_clicked"></a>
+<h4>CompareDialog.on_downButton_clicked</h4>
+<b>on_downButton_clicked</b>(<i></i>)
+<p>
+        Private slot to go to the next difference.
+</p>
+
+<a NAME="CompareDialog.on_firstButton_clicked" ID="CompareDialog.on_firstButton_clicked"></a>
+<h4>CompareDialog.on_firstButton_clicked</h4>
+<b>on_firstButton_clicked</b>(<i></i>)
+<p>
+        Private slot to go to the first difference.
+</p>
+
+<a NAME="CompareDialog.on_lastButton_clicked" ID="CompareDialog.on_lastButton_clicked"></a>
+<h4>CompareDialog.on_lastButton_clicked</h4>
+<b>on_lastButton_clicked</b>(<i></i>)
+<p>
+        Private slot to go to the last difference.
+</p>
+
+<a NAME="CompareDialog.on_synchronizeCheckBox_toggled" ID="CompareDialog.on_synchronizeCheckBox_toggled"></a>
+<h4>CompareDialog.on_synchronizeCheckBox_toggled</h4>
+<b>on_synchronizeCheckBox_toggled</b>(<i>sync</i>)
+<p>
+        Private slot to connect or disconnect the scrollbars of the displays.
+</p>
+
+<dl>
+
+<dt><i>sync</i> (bool)</dt>
+<dd>
+flag indicating synchronisation status
+</dd>
+</dl>
+<a NAME="CompareDialog.on_upButton_clicked" ID="CompareDialog.on_upButton_clicked"></a>
+<h4>CompareDialog.on_upButton_clicked</h4>
+<b>on_upButton_clicked</b>(<i></i>)
+<p>
+        Private slot to go to the previous difference.
+</p>
+
+<a NAME="CompareDialog.show" ID="CompareDialog.show"></a>
+<h4>CompareDialog.show</h4>
+<b>show</b>(<i>filename=None</i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of a file to use as the first file
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="CompareWindow" ID="CompareWindow"></a>
+<h2>CompareWindow</h2>
+<p>
+    Main window class for the standalone dialog.
+</p>
+
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CompareWindow.__init__">CompareWindow</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CompareWindow.eventFilter">eventFilter</a></td>
+<td>Public method to filter events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CompareWindow.__init__" ID="CompareWindow.__init__"></a>
+<h4>CompareWindow (Constructor)</h4>
+<b>CompareWindow</b>(<i>files=None, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>files</i> (list of [(str, str), (str, str)])</dt>
+<dd>
+list of files to compare and their label
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="CompareWindow.eventFilter" ID="CompareWindow.eventFilter"></a>
+<h4>CompareWindow.eventFilter</h4>
+<b>eventFilter</b>(<i>_obj, event</i>)
+<p>
+        Public method to filter events.
+</p>
+
+<dl>
+
+<dt><i>_obj</i> (QObject)</dt>
+<dd>
+reference to the object the event is meant for (unused)
+</dd>
+<dt><i>event</i> (QEvent)</dt>
+<dd>
+reference to the event object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, whether the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="removeMarkers" ID="removeMarkers"></a>
+<h2>removeMarkers</h2>
+<b>removeMarkers</b>(<i>line</i>)
+<p>
+        Internal function to remove all diff markers.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to work on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+line without diff markers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="sbsdiff" ID="sbsdiff"></a>
+<h2>sbsdiff</h2>
+<b>sbsdiff</b>(<i>a, b, linenumberwidth=4</i>)
+<p>
+    Compare two sequences of lines; generate the delta for display side by
+    side.
+</p>
+
+<dl>
+
+<dt><i>a</i> (list of str)</dt>
+<dd>
+first sequence of lines
+</dd>
+<dt><i>b</i> (list of str)</dt>
+<dd>
+second sequence of lines
+</dd>
+<dt><i>linenumberwidth</i> (int)</dt>
+<dd>
+width (in characters) of the linenumbers
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuples of differences. Each tuple is composed of strings as follows.
+        <ul>
+            <li>opcode -- one of e, d, i, r for equal, delete, insert,
+                replace</li>
+            <li>lineno a -- linenumber of sequence a</li>
+            <li>line a -- line of sequence a</li>
+            <li>lineno b -- linenumber of sequence b</li>
+            <li>line b -- line of sequence b</li>
+        </ul>
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (str, str, str, str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

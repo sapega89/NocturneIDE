@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricGui.EricAction</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricGui.EricAction</h1>
+<p>
+Module implementing an Action class extending QAction.
+</p>
+<p>
+This extension is necessary in order to support alternate keyboard
+shortcuts.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ArgumentsError">ArgumentsError</a></td>
+<td>Class implementing an exception, which is raised, if the wrong number of arguments are given.</td>
+</tr>
+<tr>
+<td><a href="#EricAction">EricAction</a></td>
+<td>Class implementing an Action class extending QAction.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#addActions">addActions</a></td>
+<td>Module function to add a list of actions to a widget.</td>
+</tr>
+<tr>
+<td><a href="#createActionGroup">createActionGroup</a></td>
+<td>Module function to create an action group.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ArgumentsError" ID="ArgumentsError"></a>
+<h2>ArgumentsError</h2>
+<p>
+    Class implementing an exception, which is raised, if the wrong number of
+    arguments are given.
+</p>
+
+<h3>Derived from</h3>
+RuntimeError
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ArgumentsError.__init__">ArgumentsError</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ArgumentsError.__repr__">__repr__</a></td>
+<td>Special method returning a representation of the exception.</td>
+</tr>
+<tr>
+<td><a href="#ArgumentsError.__str__">__str__</a></td>
+<td>Special method returning a string representation of the exception.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ArgumentsError.__init__" ID="ArgumentsError.__init__"></a>
+<h4>ArgumentsError (Constructor)</h4>
+<b>ArgumentsError</b>(<i>error</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>error</i> (str)</dt>
+<dd>
+error message of the exception
+</dd>
+</dl>
+<a NAME="ArgumentsError.__repr__" ID="ArgumentsError.__repr__"></a>
+<h4>ArgumentsError.__repr__</h4>
+<b>__repr__</b>(<i></i>)
+<p>
+        Special method returning a representation of the exception.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string representing the error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ArgumentsError.__str__" ID="ArgumentsError.__str__"></a>
+<h4>ArgumentsError.__str__</h4>
+<b>__str__</b>(<i></i>)
+<p>
+        Special method returning a string representation of the exception.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string representing the error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricAction" ID="EricAction"></a>
+<h2>EricAction</h2>
+<p>
+    Class implementing an Action class extending QAction.
+</p>
+
+<h3>Derived from</h3>
+QAction
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricAction.__init__">EricAction</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricAction.__ammendToolTip">__ammendToolTip</a></td>
+<td>Private slot to add the primary keyboard accelerator to the tooltip.</td>
+</tr>
+<tr>
+<td><a href="#EricAction.alternateShortcut">alternateShortcut</a></td>
+<td>Public method to retrieve the alternative keyboard shortcut.</td>
+</tr>
+<tr>
+<td><a href="#EricAction.setAlternateShortcut">setAlternateShortcut</a></td>
+<td>Public slot to set the alternative keyboard shortcut.</td>
+</tr>
+<tr>
+<td><a href="#EricAction.setIconText">setIconText</a></td>
+<td>Public slot to set the icon text of the action.</td>
+</tr>
+<tr>
+<td><a href="#EricAction.setShortcut">setShortcut</a></td>
+<td>Public slot to set the keyboard shortcut.</td>
+</tr>
+<tr>
+<td><a href="#EricAction.setShortcuts">setShortcuts</a></td>
+<td>Public slot to set the list of keyboard shortcuts.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricAction.__init__" ID="EricAction.__init__"></a>
+<h4>EricAction (Constructor)</h4>
+<b>EricAction</b>(<i>*args</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>args</i> (list of one of the following)</dt>
+<dd>
+argument list of the constructor. This list is one of
+            <ul>
+            <li>text, icon, menu text, accelarator, alternative accelerator, parent,
+                name, toggle</li>
+            <li>text, icon, menu text, accelarator, alternative accelerator, parent,
+                name</li>
+            <li>text, menu text, accelarator, alternative accelerator, parent, name,
+                toggle</li>
+            <li>text, menu text, accelarator, alternative accelerator, parent, name</li>
+            </ul>
+            <ul>
+            <li>str, QIcon, str, QKeySequence, QKeySequence, QObject, str, bool</li>
+            <li>str, QIcon, str, QKeySequence, QKeySequemce, QObject, str</li>
+            <li>str, str, QKeySequence, QKeySequence, QObject, str, bool</li>
+            <li>str, str, QKeySequence, QKeySequence, QObject, str</li>
+            </ul>
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ArgumentsError</b>:</dt>
+<dd>
+raised to indicate invalid arguments
+</dd>
+</dl>
+<a NAME="EricAction.__ammendToolTip" ID="EricAction.__ammendToolTip"></a>
+<h4>EricAction.__ammendToolTip</h4>
+<b>__ammendToolTip</b>(<i></i>)
+<p>
+        Private slot to add the primary keyboard accelerator to the tooltip.
+</p>
+
+<a NAME="EricAction.alternateShortcut" ID="EricAction.alternateShortcut"></a>
+<h4>EricAction.alternateShortcut</h4>
+<b>alternateShortcut</b>(<i></i>)
+<p>
+        Public method to retrieve the alternative keyboard shortcut.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the alternative accelerator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QKeySequence
+</dd>
+</dl>
+<a NAME="EricAction.setAlternateShortcut" ID="EricAction.setAlternateShortcut"></a>
+<h4>EricAction.setAlternateShortcut</h4>
+<b>setAlternateShortcut</b>(<i>shortcut, removeEmpty=False</i>)
+<p>
+        Public slot to set the alternative keyboard shortcut.
+</p>
+
+<dl>
+
+<dt><i>shortcut</i> (QKeySequence)</dt>
+<dd>
+the alternative accelerator
+</dd>
+<dt><i>removeEmpty</i> (bool)</dt>
+<dd>
+flag indicating to remove the alternate shortcut,
+            if it is empty
+</dd>
+</dl>
+<a NAME="EricAction.setIconText" ID="EricAction.setIconText"></a>
+<h4>EricAction.setIconText</h4>
+<b>setIconText</b>(<i>text</i>)
+<p>
+        Public slot to set the icon text of the action.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+new icon text
+</dd>
+</dl>
+<a NAME="EricAction.setShortcut" ID="EricAction.setShortcut"></a>
+<h4>EricAction.setShortcut</h4>
+<b>setShortcut</b>(<i>shortcut</i>)
+<p>
+        Public slot to set the keyboard shortcut.
+</p>
+
+<dl>
+
+<dt><i>shortcut</i> (QKeySequence)</dt>
+<dd>
+the accelerator
+</dd>
+</dl>
+<a NAME="EricAction.setShortcuts" ID="EricAction.setShortcuts"></a>
+<h4>EricAction.setShortcuts</h4>
+<b>setShortcuts</b>(<i>shortcuts</i>)
+<p>
+        Public slot to set the list of keyboard shortcuts.
+</p>
+
+<dl>
+
+<dt><i>shortcuts</i> (list of QKeySequence or QKeySequence.StandardKey)</dt>
+<dd>
+list of keyboard accelerators or key for a platform
+            dependent list of accelerators
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="addActions" ID="addActions"></a>
+<h2>addActions</h2>
+<b>addActions</b>(<i>target, actions</i>)
+<p>
+    Module function to add a list of actions to a widget.
+</p>
+
+<dl>
+
+<dt><i>target</i> (QWidget)</dt>
+<dd>
+reference to the target widget
+</dd>
+<dt><i>actions</i> (list of QAction)</dt>
+<dd>
+list of actions to be added to the target. A
+        None indicates a separator
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createActionGroup" ID="createActionGroup"></a>
+<h2>createActionGroup</h2>
+<b>createActionGroup</b>(<i>parent, name=None, exclusive=False</i>)
+<p>
+    Module function to create an action group.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+parent object of the action group
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the action group object
+</dd>
+<dt><i>exclusive</i> (bool)</dt>
+<dd>
+flag indicating an exclusive action group
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the created action group
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QActionGroup
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

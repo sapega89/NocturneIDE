@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.FindLocationWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.FindLocationWidget</h1>
+<p>
+Module implementing a dialog to search for files.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#FindLocationDialog">FindLocationDialog</a></td>
+<td>Class implementing a dialog to search for files.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget">FindLocationWidget</a></td>
+<td>Class implementing a widget to search for files.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="FindLocationDialog" ID="FindLocationDialog"></a>
+<h2>FindLocationDialog</h2>
+<p>
+    Class implementing a dialog to search for files.
+</p>
+<p>
+    The occurrences found are displayed in a QTreeWidget showing the
+    filename and the pathname. The file will be opened upon a double click
+    onto the respective entry of the list or by pressing the open button.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>designerFile(str)</dt>
+<dd>
+emitted to open a Qt-Designer file
+</dd>
+<dt>linguistFile(str)</dt>
+<dd>
+emitted to open a Qt-Linguist (*.ts) file
+</dd>
+<dt>pixmapFile(str)</dt>
+<dd>
+emitted to open a pixmap file
+</dd>
+<dt>sourceFile(str)</dt>
+<dd>
+emitted to open a file in the editor
+</dd>
+<dt>svgFile(str)</dt>
+<dd>
+emitted to open a SVG file
+</dd>
+<dt>trpreview([str])</dt>
+<dd>
+emitted to preview Qt-Linguist (*.qm) files
+</dd>
+<dt>umlFile(str)</dt>
+<dd>
+emitted to open an eric UML file
+</dd>
+</dl>
+<h3>Derived from</h3>
+QDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FindLocationDialog.__init__">FindLocationDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FindLocationDialog.activate">activate</a></td>
+<td>Public method to activate the dialog.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FindLocationDialog.__init__" ID="FindLocationDialog.__init__"></a>
+<h4>FindLocationDialog (Constructor)</h4>
+<b>FindLocationDialog</b>(<i>project, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of this dialog (defaults to None)
+</dd>
+</dl>
+<a NAME="FindLocationDialog.activate" ID="FindLocationDialog.activate"></a>
+<h4>FindLocationDialog.activate</h4>
+<b>activate</b>(<i></i>)
+<p>
+        Public method to activate the dialog.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="FindLocationWidget" ID="FindLocationWidget"></a>
+<h2>FindLocationWidget</h2>
+<p>
+    Class implementing a widget to search for files.
+</p>
+<p>
+    The occurrences found are displayed in a QTreeWidget showing the
+    filename and the pathname. The file will be opened upon a double click
+    onto the respective entry of the list or by pressing the open button.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>designerFile(str)</dt>
+<dd>
+emitted to open a Qt-Designer file
+</dd>
+<dt>linguistFile(str)</dt>
+<dd>
+emitted to open a Qt-Linguist (*.ts) file
+</dd>
+<dt>pixmapFile(str)</dt>
+<dd>
+emitted to open a pixmap file
+</dd>
+<dt>sourceFile(str)</dt>
+<dd>
+emitted to open a file in the editor
+</dd>
+<dt>svgFile(str)</dt>
+<dd>
+emitted to open a SVG file
+</dd>
+<dt>trpreview([str])</dt>
+<dd>
+emitted to preview Qt-Linguist (*.qm) files
+</dd>
+<dt>umlFile(str)</dt>
+<dd>
+emitted to open an eric UML file
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_FindLocationWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FindLocationWidget.__init__">FindLocationWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.__clearResults">__clearResults</a></td>
+<td>Private slot to clear the current search results.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.__openFile">__openFile</a></td>
+<td>Private slot to open a file.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.__projectClosed">__projectClosed</a></td>
+<td>Private slot to handle a project being closed.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.__projectOpened">__projectOpened</a></td>
+<td>Private slot to handle a project being opened.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.__searchFile">__searchFile</a></td>
+<td>Private slot to handle the search.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.__stopSearch">__stopSearch</a></td>
+<td>Private slot to handle the stop button being pressed.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.activate">activate</a></td>
+<td>Public slot to activate this widget.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.checkStop">checkStop</a></td>
+<td>Public method to check, if the search should be stopped.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.on_fileList_currentItemChanged">on_fileList_currentItemChanged</a></td>
+<td>Private slot handling a change of the current item.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.on_fileList_itemActivated">on_fileList_itemActivated</a></td>
+<td>Private slot to handle the double click on a file item.</td>
+</tr>
+<tr>
+<td><a href="#FindLocationWidget.on_searchDirPicker_textChanged">on_searchDirPicker_textChanged</a></td>
+<td>Private slot to handle the textChanged signal of the search directory edit.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FindLocationWidget.__init__" ID="FindLocationWidget.__init__"></a>
+<h4>FindLocationWidget (Constructor)</h4>
+<b>FindLocationWidget</b>(<i>project, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this dialog
+</dd>
+</dl>
+<a NAME="FindLocationWidget.__clearResults" ID="FindLocationWidget.__clearResults"></a>
+<h4>FindLocationWidget.__clearResults</h4>
+<b>__clearResults</b>(<i></i>)
+<p>
+        Private slot to clear the current search results.
+</p>
+
+<a NAME="FindLocationWidget.__openFile" ID="FindLocationWidget.__openFile"></a>
+<h4>FindLocationWidget.__openFile</h4>
+<b>__openFile</b>(<i>itm=None</i>)
+<p>
+        Private slot to open a file.
+</p>
+<p>
+        It emits a signal depending on the file extension.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+item to be opened
+</dd>
+</dl>
+<a NAME="FindLocationWidget.__projectClosed" ID="FindLocationWidget.__projectClosed"></a>
+<h4>FindLocationWidget.__projectClosed</h4>
+<b>__projectClosed</b>(<i></i>)
+<p>
+        Private slot to handle a project being closed.
+</p>
+
+<a NAME="FindLocationWidget.__projectOpened" ID="FindLocationWidget.__projectOpened"></a>
+<h4>FindLocationWidget.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to handle a project being opened.
+</p>
+
+<a NAME="FindLocationWidget.__searchFile" ID="FindLocationWidget.__searchFile"></a>
+<h4>FindLocationWidget.__searchFile</h4>
+<b>__searchFile</b>(<i></i>)
+<p>
+        Private slot to handle the search.
+</p>
+
+<a NAME="FindLocationWidget.__stopSearch" ID="FindLocationWidget.__stopSearch"></a>
+<h4>FindLocationWidget.__stopSearch</h4>
+<b>__stopSearch</b>(<i></i>)
+<p>
+        Private slot to handle the stop button being pressed.
+</p>
+
+<a NAME="FindLocationWidget.activate" ID="FindLocationWidget.activate"></a>
+<h4>FindLocationWidget.activate</h4>
+<b>activate</b>(<i></i>)
+<p>
+        Public slot to activate this widget.
+</p>
+
+<a NAME="FindLocationWidget.checkStop" ID="FindLocationWidget.checkStop"></a>
+<h4>FindLocationWidget.checkStop</h4>
+<b>checkStop</b>(<i></i>)
+<p>
+        Public method to check, if the search should be stopped.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the search should be stopped
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="FindLocationWidget.on_fileList_currentItemChanged" ID="FindLocationWidget.on_fileList_currentItemChanged"></a>
+<h4>FindLocationWidget.on_fileList_currentItemChanged</h4>
+<b>on_fileList_currentItemChanged</b>(<i>current, _previous</i>)
+<p>
+        Private slot handling a change of the current item.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+current item
+</dd>
+<dt><i>_previous</i> (QTreeWidgetItem)</dt>
+<dd>
+prevoius current item (unused)
+</dd>
+</dl>
+<a NAME="FindLocationWidget.on_fileList_itemActivated" ID="FindLocationWidget.on_fileList_itemActivated"></a>
+<h4>FindLocationWidget.on_fileList_itemActivated</h4>
+<b>on_fileList_itemActivated</b>(<i>itm, _column</i>)
+<p>
+        Private slot to handle the double click on a file item.
+</p>
+<p>
+        It emits the signal sourceFile or designerFile depending on the
+        file extension.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+the double clicked listview item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column that was double clicked (unused)
+</dd>
+</dl>
+<a NAME="FindLocationWidget.on_searchDirPicker_textChanged" ID="FindLocationWidget.on_searchDirPicker_textChanged"></a>
+<h4>FindLocationWidget.on_searchDirPicker_textChanged</h4>
+<b>on_searchDirPicker_textChanged</b>(<i>text</i>)
+<p>
+        Private slot to handle the textChanged signal of the search directory
+        edit.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text of the search dir edit
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

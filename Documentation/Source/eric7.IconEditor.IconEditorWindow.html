@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.IconEditor.IconEditorWindow</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.IconEditor.IconEditorWindow</h1>
+<p>
+Module implementing the icon editor main window.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#IconEditorWindow">IconEditorWindow</a></td>
+<td>Class implementing the web browser main window.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="IconEditorWindow" ID="IconEditorWindow"></a>
+<h2>IconEditorWindow</h2>
+<p>
+    Class implementing the web browser main window.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>editorClosed()</dt>
+<dd>
+emitted after the window was requested to close down
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>windows</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IconEditorWindow.__init__">IconEditorWindow</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__about">__about</a></td>
+<td>Private slot to show a little About message.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__aboutQt">__aboutQt</a></td>
+<td>Private slot to handle the About Qt dialog.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__checkActions">__checkActions</a></td>
+<td>Private slot to check some actions for their enable/disable status.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__closeAll">__closeAll</a></td>
+<td>Private slot to close all windows.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__closeOthers">__closeOthers</a></td>
+<td>Private slot to close all other windows.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__createPaletteDock">__createPaletteDock</a></td>
+<td>Private method to initialize the palette dock widget.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__createStatusBar">__createStatusBar</a></td>
+<td>Private method to initialize the status bar.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__initActions">__initActions</a></td>
+<td>Private method to define the user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__initEditActions">__initEditActions</a></td>
+<td>Private method to create the Edit actions.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__initFileActions">__initFileActions</a></td>
+<td>Private method to define the file related user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__initFileFilters">__initFileFilters</a></td>
+<td>Private method to define the supported image file filters.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__initHelpActions">__initHelpActions</a></td>
+<td>Private method to create the Help actions.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__initMenus">__initMenus</a></td>
+<td>Private method to create the menus.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__initToolbars">__initToolbars</a></td>
+<td>Private method to create the toolbars.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__initToolsActions">__initToolsActions</a></td>
+<td>Private method to create the View actions.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__initViewActions">__initViewActions</a></td>
+<td>Private method to create the View actions.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__loadIconFile">__loadIconFile</a></td>
+<td>Private method to load an icon file.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__maybeSave">__maybeSave</a></td>
+<td>Private method to ask the user to save the file, if it was modified.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__modificationChanged">__modificationChanged</a></td>
+<td>Private slot to handle the modificationChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__newIcon">__newIcon</a></td>
+<td>Private slot to create a new icon.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__newWindow">__newWindow</a></td>
+<td>Private slot called to open a new icon editor window.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__openIcon">__openIcon</a></td>
+<td>Private slot to open an icon file.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__saveIcon">__saveIcon</a></td>
+<td>Private slot to save the icon.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__saveIconAs">__saveIconAs</a></td>
+<td>Private slot to save the icon with a new name.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__saveIconFile">__saveIconFile</a></td>
+<td>Private method to save to the given file.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__setCurrentFile">__setCurrentFile</a></td>
+<td>Private method to register the file name of the current file.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__strippedName">__strippedName</a></td>
+<td>Private method to return the filename part of the given path.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__updatePosition">__updatePosition</a></td>
+<td>Private slot to show the current cursor position.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__updateSize">__updateSize</a></td>
+<td>Private slot to show the current icon size.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__updateZoom">__updateZoom</a></td>
+<td>Private slot to show the current zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__whatsThis">__whatsThis</a></td>
+<td>Private slot called in to enter Whats This mode.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__zoomIn">__zoomIn</a></td>
+<td>Private slot called to handle the zoom in action.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__zoomOut">__zoomOut</a></td>
+<td>Private slot called to handle the zoom out action.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.__zoomReset">__zoomReset</a></td>
+<td>Private slot called to handle the zoom reset action.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.closeEvent">closeEvent</a></td>
+<td>Protected event handler for the close event.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.event">event</a></td>
+<td>Public method handling events.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.gestureEvent">gestureEvent</a></td>
+<td>Protected method handling gesture events.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.setRecentPaths">setRecentPaths</a></td>
+<td>Public method to set the last open and save paths.</td>
+</tr>
+<tr>
+<td><a href="#IconEditorWindow.wheelEvent">wheelEvent</a></td>
+<td>Protected method to handle wheel events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IconEditorWindow.__init__" ID="IconEditorWindow.__init__"></a>
+<h4>IconEditorWindow (Constructor)</h4>
+<b>IconEditorWindow</b>(<i>fileName="", parent=None, fromEric=False, initShortcutsOnly=False, project=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of a file to load on startup
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this window
+</dd>
+<dt><i>fromEric</i> (bool)</dt>
+<dd>
+flag indicating whether it was called from within
+            eric
+</dd>
+<dt><i>initShortcutsOnly</i> (bool)</dt>
+<dd>
+flag indicating to just initialize the
+            keyboard shortcuts
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__about" ID="IconEditorWindow.__about"></a>
+<h4>IconEditorWindow.__about</h4>
+<b>__about</b>(<i></i>)
+<p>
+        Private slot to show a little About message.
+</p>
+
+<a NAME="IconEditorWindow.__aboutQt" ID="IconEditorWindow.__aboutQt"></a>
+<h4>IconEditorWindow.__aboutQt</h4>
+<b>__aboutQt</b>(<i></i>)
+<p>
+        Private slot to handle the About Qt dialog.
+</p>
+
+<a NAME="IconEditorWindow.__checkActions" ID="IconEditorWindow.__checkActions"></a>
+<h4>IconEditorWindow.__checkActions</h4>
+<b>__checkActions</b>(<i></i>)
+<p>
+        Private slot to check some actions for their enable/disable status.
+</p>
+
+<a NAME="IconEditorWindow.__closeAll" ID="IconEditorWindow.__closeAll"></a>
+<h4>IconEditorWindow.__closeAll</h4>
+<b>__closeAll</b>(<i></i>)
+<p>
+        Private slot to close all windows.
+</p>
+
+<a NAME="IconEditorWindow.__closeOthers" ID="IconEditorWindow.__closeOthers"></a>
+<h4>IconEditorWindow.__closeOthers</h4>
+<b>__closeOthers</b>(<i></i>)
+<p>
+        Private slot to close all other windows.
+</p>
+
+<a NAME="IconEditorWindow.__createPaletteDock" ID="IconEditorWindow.__createPaletteDock"></a>
+<h4>IconEditorWindow.__createPaletteDock</h4>
+<b>__createPaletteDock</b>(<i></i>)
+<p>
+        Private method to initialize the palette dock widget.
+</p>
+
+<a NAME="IconEditorWindow.__createStatusBar" ID="IconEditorWindow.__createStatusBar"></a>
+<h4>IconEditorWindow.__createStatusBar</h4>
+<b>__createStatusBar</b>(<i></i>)
+<p>
+        Private method to initialize the status bar.
+</p>
+
+<a NAME="IconEditorWindow.__initActions" ID="IconEditorWindow.__initActions"></a>
+<h4>IconEditorWindow.__initActions</h4>
+<b>__initActions</b>(<i></i>)
+<p>
+        Private method to define the user interface actions.
+</p>
+
+<a NAME="IconEditorWindow.__initEditActions" ID="IconEditorWindow.__initEditActions"></a>
+<h4>IconEditorWindow.__initEditActions</h4>
+<b>__initEditActions</b>(<i></i>)
+<p>
+        Private method to create the Edit actions.
+</p>
+
+<a NAME="IconEditorWindow.__initFileActions" ID="IconEditorWindow.__initFileActions"></a>
+<h4>IconEditorWindow.__initFileActions</h4>
+<b>__initFileActions</b>(<i></i>)
+<p>
+        Private method to define the file related user interface actions.
+</p>
+
+<a NAME="IconEditorWindow.__initFileFilters" ID="IconEditorWindow.__initFileFilters"></a>
+<h4>IconEditorWindow.__initFileFilters</h4>
+<b>__initFileFilters</b>(<i></i>)
+<p>
+        Private method to define the supported image file filters.
+</p>
+
+<a NAME="IconEditorWindow.__initHelpActions" ID="IconEditorWindow.__initHelpActions"></a>
+<h4>IconEditorWindow.__initHelpActions</h4>
+<b>__initHelpActions</b>(<i></i>)
+<p>
+        Private method to create the Help actions.
+</p>
+
+<a NAME="IconEditorWindow.__initMenus" ID="IconEditorWindow.__initMenus"></a>
+<h4>IconEditorWindow.__initMenus</h4>
+<b>__initMenus</b>(<i></i>)
+<p>
+        Private method to create the menus.
+</p>
+
+<a NAME="IconEditorWindow.__initToolbars" ID="IconEditorWindow.__initToolbars"></a>
+<h4>IconEditorWindow.__initToolbars</h4>
+<b>__initToolbars</b>(<i></i>)
+<p>
+        Private method to create the toolbars.
+</p>
+
+<a NAME="IconEditorWindow.__initToolsActions" ID="IconEditorWindow.__initToolsActions"></a>
+<h4>IconEditorWindow.__initToolsActions</h4>
+<b>__initToolsActions</b>(<i></i>)
+<p>
+        Private method to create the View actions.
+</p>
+
+<a NAME="IconEditorWindow.__initViewActions" ID="IconEditorWindow.__initViewActions"></a>
+<h4>IconEditorWindow.__initViewActions</h4>
+<b>__initViewActions</b>(<i></i>)
+<p>
+        Private method to create the View actions.
+</p>
+
+<a NAME="IconEditorWindow.__loadIconFile" ID="IconEditorWindow.__loadIconFile"></a>
+<h4>IconEditorWindow.__loadIconFile</h4>
+<b>__loadIconFile</b>(<i>fileName</i>)
+<p>
+        Private method to load an icon file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the icon file to load
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__maybeSave" ID="IconEditorWindow.__maybeSave"></a>
+<h4>IconEditorWindow.__maybeSave</h4>
+<b>__maybeSave</b>(<i></i>)
+<p>
+        Private method to ask the user to save the file, if it was modified.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if it is ok to continue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__modificationChanged" ID="IconEditorWindow.__modificationChanged"></a>
+<h4>IconEditorWindow.__modificationChanged</h4>
+<b>__modificationChanged</b>(<i>m</i>)
+<p>
+        Private slot to handle the modificationChanged signal.
+</p>
+
+<dl>
+
+<dt><i>m</i> (bool)</dt>
+<dd>
+modification status
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__newIcon" ID="IconEditorWindow.__newIcon"></a>
+<h4>IconEditorWindow.__newIcon</h4>
+<b>__newIcon</b>(<i></i>)
+<p>
+        Private slot to create a new icon.
+</p>
+
+<a NAME="IconEditorWindow.__newWindow" ID="IconEditorWindow.__newWindow"></a>
+<h4>IconEditorWindow.__newWindow</h4>
+<b>__newWindow</b>(<i></i>)
+<p>
+        Private slot called to open a new icon editor window.
+</p>
+
+<a NAME="IconEditorWindow.__openIcon" ID="IconEditorWindow.__openIcon"></a>
+<h4>IconEditorWindow.__openIcon</h4>
+<b>__openIcon</b>(<i></i>)
+<p>
+        Private slot to open an icon file.
+</p>
+
+<a NAME="IconEditorWindow.__saveIcon" ID="IconEditorWindow.__saveIcon"></a>
+<h4>IconEditorWindow.__saveIcon</h4>
+<b>__saveIcon</b>(<i></i>)
+<p>
+        Private slot to save the icon.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__saveIconAs" ID="IconEditorWindow.__saveIconAs"></a>
+<h4>IconEditorWindow.__saveIconAs</h4>
+<b>__saveIconAs</b>(<i></i>)
+<p>
+        Private slot to save the icon with a new name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__saveIconFile" ID="IconEditorWindow.__saveIconFile"></a>
+<h4>IconEditorWindow.__saveIconFile</h4>
+<b>__saveIconFile</b>(<i>fileName</i>)
+<p>
+        Private method to save to the given file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to save to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__setCurrentFile" ID="IconEditorWindow.__setCurrentFile"></a>
+<h4>IconEditorWindow.__setCurrentFile</h4>
+<b>__setCurrentFile</b>(<i>fileName</i>)
+<p>
+        Private method to register the file name of the current file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to register
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__strippedName" ID="IconEditorWindow.__strippedName"></a>
+<h4>IconEditorWindow.__strippedName</h4>
+<b>__strippedName</b>(<i>fullFileName</i>)
+<p>
+        Private method to return the filename part of the given path.
+</p>
+
+<dl>
+
+<dt><i>fullFileName</i> (str)</dt>
+<dd>
+full pathname of the given file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+filename part
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__updatePosition" ID="IconEditorWindow.__updatePosition"></a>
+<h4>IconEditorWindow.__updatePosition</h4>
+<b>__updatePosition</b>(<i>x, y</i>)
+<p>
+        Private slot to show the current cursor position.
+</p>
+
+<dl>
+
+<dt><i>x</i> (int)</dt>
+<dd>
+x-coordinate
+</dd>
+<dt><i>y</i> (int)</dt>
+<dd>
+y-coordinate
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__updateSize" ID="IconEditorWindow.__updateSize"></a>
+<h4>IconEditorWindow.__updateSize</h4>
+<b>__updateSize</b>(<i>w, h</i>)
+<p>
+        Private slot to show the current icon size.
+</p>
+
+<dl>
+
+<dt><i>w</i> (int)</dt>
+<dd>
+width of the icon
+</dd>
+<dt><i>h</i> (int)</dt>
+<dd>
+height of the icon
+</dd>
+</dl>
+<a NAME="IconEditorWindow.__updateZoom" ID="IconEditorWindow.__updateZoom"></a>
+<h4>IconEditorWindow.__updateZoom</h4>
+<b>__updateZoom</b>(<i></i>)
+<p>
+        Private slot to show the current zoom factor.
+</p>
+
+<a NAME="IconEditorWindow.__whatsThis" ID="IconEditorWindow.__whatsThis"></a>
+<h4>IconEditorWindow.__whatsThis</h4>
+<b>__whatsThis</b>(<i></i>)
+<p>
+        Private slot called in to enter Whats This mode.
+</p>
+
+<a NAME="IconEditorWindow.__zoomIn" ID="IconEditorWindow.__zoomIn"></a>
+<h4>IconEditorWindow.__zoomIn</h4>
+<b>__zoomIn</b>(<i></i>)
+<p>
+        Private slot called to handle the zoom in action.
+</p>
+
+<a NAME="IconEditorWindow.__zoomOut" ID="IconEditorWindow.__zoomOut"></a>
+<h4>IconEditorWindow.__zoomOut</h4>
+<b>__zoomOut</b>(<i></i>)
+<p>
+        Private slot called to handle the zoom out action.
+</p>
+
+<a NAME="IconEditorWindow.__zoomReset" ID="IconEditorWindow.__zoomReset"></a>
+<h4>IconEditorWindow.__zoomReset</h4>
+<b>__zoomReset</b>(<i></i>)
+<p>
+        Private slot called to handle the zoom reset action.
+</p>
+
+<a NAME="IconEditorWindow.closeEvent" ID="IconEditorWindow.closeEvent"></a>
+<h4>IconEditorWindow.closeEvent</h4>
+<b>closeEvent</b>(<i>evt</i>)
+<p>
+        Protected event handler for the close event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QCloseEvent)</dt>
+<dd>
+the close event
+            <br />This event is simply accepted after the history has been
+            saved and all window references have been deleted.
+</dd>
+</dl>
+<a NAME="IconEditorWindow.event" ID="IconEditorWindow.event"></a>
+<h4>IconEditorWindow.event</h4>
+<b>event</b>(<i>evt</i>)
+<p>
+        Public method handling events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IconEditorWindow.gestureEvent" ID="IconEditorWindow.gestureEvent"></a>
+<h4>IconEditorWindow.gestureEvent</h4>
+<b>gestureEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling gesture events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QGestureEvent)</dt>
+<dd>
+reference to the gesture event
+</dd>
+</dl>
+<a NAME="IconEditorWindow.setRecentPaths" ID="IconEditorWindow.setRecentPaths"></a>
+<h4>IconEditorWindow.setRecentPaths</h4>
+<b>setRecentPaths</b>(<i>openPath, savePath</i>)
+<p>
+        Public method to set the last open and save paths.
+</p>
+
+<dl>
+
+<dt><i>openPath</i> (str)</dt>
+<dd>
+least recently used open path
+</dd>
+<dt><i>savePath</i> (str)</dt>
+<dd>
+least recently used save path
+</dd>
+</dl>
+<a NAME="IconEditorWindow.wheelEvent" ID="IconEditorWindow.wheelEvent"></a>
+<h4>IconEditorWindow.wheelEvent</h4>
+<b>wheelEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle wheel events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QWheelEvent)</dt>
+<dd>
+reference to the wheel event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

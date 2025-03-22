@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.VCS.ProjectBrowserHelper</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.VCS.ProjectBrowserHelper</h1>
+<p>
+Module implementing the base class of the VCS project browser helper.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#VcsProjectBrowserHelper">VcsProjectBrowserHelper</a></td>
+<td>Class implementing the base class of the VCS project browser helper.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="VcsProjectBrowserHelper" ID="VcsProjectBrowserHelper"></a>
+<h2>VcsProjectBrowserHelper</h2>
+<p>
+    Class implementing the base class of the VCS project browser helper.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VcsProjectBrowserHelper.__init__">VcsProjectBrowserHelper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSAdd">_VCSAdd</a></td>
+<td>Protected slot called by the context menu to add the selected file to the VCS repository.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSAddTree">_VCSAddTree</a></td>
+<td>Protected slot called by the context menu.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSCommit">_VCSCommit</a></td>
+<td>Protected slot called by the context menu to commit the changes to the VCS repository.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSDiff">_VCSDiff</a></td>
+<td>Protected slot called by the context menu to show the difference of a file/directory to the repository.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSInfoDisplay">_VCSInfoDisplay</a></td>
+<td>Protected slot called to show some vcs information.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSLogBrowser">_VCSLogBrowser</a></td>
+<td>Protected slot called by the context menu to show the log browser for a file.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSMerge">_VCSMerge</a></td>
+<td>Protected slot called by the context menu to merge changes into to a file.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSRemove">_VCSRemove</a></td>
+<td>Protected slot called by the context menu to remove the selected file from the VCS repository.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSRevert">_VCSRevert</a></td>
+<td>Protected slot called by the context menu to revert changes made to a file.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSStatus">_VCSStatus</a></td>
+<td>Protected slot called by the context menu to show the status of a file.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._VCSUpdate">_VCSUpdate</a></td>
+<td>Protected slot called by the context menu to update a file from the VCS repository.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper._updateVCSStatus">_updateVCSStatus</a></td>
+<td>Protected method to update the VCS status of an item.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper.addVCSMenus">addVCSMenus</a></td>
+<td>Public method to add the VCS entries to the various project browser menus.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper.showContextMenu">showContextMenu</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper.showContextMenuDir">showContextMenuDir</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper.showContextMenuDirMulti">showContextMenuDirMulti</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#VcsProjectBrowserHelper.showContextMenuMulti">showContextMenuMulti</a></td>
+<td>Public slot called before the context menu (multiple selections) is shown.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VcsProjectBrowserHelper.__init__" ID="VcsProjectBrowserHelper.__init__"></a>
+<h4>VcsProjectBrowserHelper (Constructor)</h4>
+<b>VcsProjectBrowserHelper</b>(<i>vcsObject, browserObject, projectObject, isTranslationsBrowser, parent=None, name=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcsObject</i> (VersionControl)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>browserObject</i> (ProjectBaseBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>projectObject</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>isTranslationsBrowser</i> (bool)</dt>
+<dd>
+flag indicating, the helper is requested
+            for the translations browser (this needs some special treatment)
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="VcsProjectBrowserHelper._VCSAdd" ID="VcsProjectBrowserHelper._VCSAdd"></a>
+<h4>VcsProjectBrowserHelper._VCSAdd</h4>
+<b>_VCSAdd</b>(<i></i>)
+<p>
+        Protected slot called by the context menu to add the selected file to
+        the VCS repository.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSAddTree" ID="VcsProjectBrowserHelper._VCSAddTree"></a>
+<h4>VcsProjectBrowserHelper._VCSAddTree</h4>
+<b>_VCSAddTree</b>(<i></i>)
+<p>
+        Protected slot called by the context menu.
+</p>
+<p>
+        It is used to add the selected
+        directory tree to the VCS repository.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSCommit" ID="VcsProjectBrowserHelper._VCSCommit"></a>
+<h4>VcsProjectBrowserHelper._VCSCommit</h4>
+<b>_VCSCommit</b>(<i></i>)
+<p>
+        Protected slot called by the context menu to commit the changes to the
+        VCS repository.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSDiff" ID="VcsProjectBrowserHelper._VCSDiff"></a>
+<h4>VcsProjectBrowserHelper._VCSDiff</h4>
+<b>_VCSDiff</b>(<i></i>)
+<p>
+        Protected slot called by the context menu to show the difference of a
+        file/directory to the repository.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSInfoDisplay" ID="VcsProjectBrowserHelper._VCSInfoDisplay"></a>
+<h4>VcsProjectBrowserHelper._VCSInfoDisplay</h4>
+<b>_VCSInfoDisplay</b>(<i></i>)
+<p>
+        Protected slot called to show some vcs information.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSLogBrowser" ID="VcsProjectBrowserHelper._VCSLogBrowser"></a>
+<h4>VcsProjectBrowserHelper._VCSLogBrowser</h4>
+<b>_VCSLogBrowser</b>(<i></i>)
+<p>
+        Protected slot called by the context menu to show the log browser for a
+        file.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSMerge" ID="VcsProjectBrowserHelper._VCSMerge"></a>
+<h4>VcsProjectBrowserHelper._VCSMerge</h4>
+<b>_VCSMerge</b>(<i></i>)
+<p>
+        Protected slot called by the context menu to merge changes into to a
+        file.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSRemove" ID="VcsProjectBrowserHelper._VCSRemove"></a>
+<h4>VcsProjectBrowserHelper._VCSRemove</h4>
+<b>_VCSRemove</b>(<i></i>)
+<p>
+        Protected slot called by the context menu to remove the selected file
+        from the VCS repository.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSRevert" ID="VcsProjectBrowserHelper._VCSRevert"></a>
+<h4>VcsProjectBrowserHelper._VCSRevert</h4>
+<b>_VCSRevert</b>(<i></i>)
+<p>
+        Protected slot called by the context menu to revert changes made to a
+        file.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSStatus" ID="VcsProjectBrowserHelper._VCSStatus"></a>
+<h4>VcsProjectBrowserHelper._VCSStatus</h4>
+<b>_VCSStatus</b>(<i></i>)
+<p>
+        Protected slot called by the context menu to show the status of a file.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._VCSUpdate" ID="VcsProjectBrowserHelper._VCSUpdate"></a>
+<h4>VcsProjectBrowserHelper._VCSUpdate</h4>
+<b>_VCSUpdate</b>(<i></i>)
+<p>
+        Protected slot called by the context menu to update a file from the
+        VCS repository.
+</p>
+
+<a NAME="VcsProjectBrowserHelper._updateVCSStatus" ID="VcsProjectBrowserHelper._updateVCSStatus"></a>
+<h4>VcsProjectBrowserHelper._updateVCSStatus</h4>
+<b>_updateVCSStatus</b>(<i>name</i>)
+<p>
+        Protected method to update the VCS status of an item.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+filename or directoryname of the item to be updated
+</dd>
+</dl>
+<a NAME="VcsProjectBrowserHelper.addVCSMenus" ID="VcsProjectBrowserHelper.addVCSMenus"></a>
+<h4>VcsProjectBrowserHelper.addVCSMenus</h4>
+<b>addVCSMenus</b>(<i>mainMenu, multiMenu, backMenu, dirMenu, dirMultiMenu</i>)
+<p>
+        Public method to add the VCS entries to the various project browser
+        menus.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the main menu
+</dd>
+<dt><i>multiMenu</i> (QMenu)</dt>
+<dd>
+reference to the multiple selection menu
+</dd>
+<dt><i>backMenu</i> (QMenu)</dt>
+<dd>
+reference to the background menu
+</dd>
+<dt><i>dirMenu</i> (QMenu)</dt>
+<dd>
+reference to the directory menu
+</dd>
+<dt><i>dirMultiMenu</i> (QMenu)</dt>
+<dd>
+reference to the multiple selection directory menu
+</dd>
+</dl>
+<a NAME="VcsProjectBrowserHelper.showContextMenu" ID="VcsProjectBrowserHelper.showContextMenu"></a>
+<h4>VcsProjectBrowserHelper.showContextMenu</h4>
+<b>showContextMenu</b>(<i>menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the file status.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VcsProjectBrowserHelper.showContextMenuDir" ID="VcsProjectBrowserHelper.showContextMenuDir"></a>
+<h4>VcsProjectBrowserHelper.showContextMenuDir</h4>
+<b>showContextMenuDir</b>(<i>menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that
+            need activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VcsProjectBrowserHelper.showContextMenuDirMulti" ID="VcsProjectBrowserHelper.showContextMenuDirMulti"></a>
+<h4>VcsProjectBrowserHelper.showContextMenuDirMulti</h4>
+<b>showContextMenuDirMulti</b>(<i>menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="VcsProjectBrowserHelper.showContextMenuMulti" ID="VcsProjectBrowserHelper.showContextMenuMulti"></a>
+<h4>VcsProjectBrowserHelper.showContextMenuMulti</h4>
+<b>showContextMenuMulti</b>(<i>menu, standardItems</i>)
+<p>
+        Public slot called before the context menu (multiple selections) is
+        shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the files status.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

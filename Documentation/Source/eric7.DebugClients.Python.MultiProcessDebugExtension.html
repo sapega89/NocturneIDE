@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.MultiProcessDebugExtension</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.MultiProcessDebugExtension</h1>
+<p>
+Module implementing a function to patch the process creation functions to
+support multiprocess debugging.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_debugClient</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_shallPatch">_shallPatch</a></td>
+<td>Function to determine, if the multiprocessing patches should be done.</td>
+</tr>
+<tr>
+<td><a href="#createCreateProcess">createCreateProcess</a></td>
+<td>Function to patch the 'CreateProcess' process creation function of Windows.</td>
+</tr>
+<tr>
+<td><a href="#createExecl">createExecl</a></td>
+<td>Function to patch the 'execl' process creation functions.</td>
+</tr>
+<tr>
+<td><a href="#createExecv">createExecv</a></td>
+<td>Function to patch the 'execv' process creation functions.</td>
+</tr>
+<tr>
+<td><a href="#createExecve">createExecve</a></td>
+<td>Function to patch the 'execve' process creation functions.</td>
+</tr>
+<tr>
+<td><a href="#createFork">createFork</a></td>
+<td>Function to patch the 'fork' process creation functions.</td>
+</tr>
+<tr>
+<td><a href="#createForkExec">createForkExec</a></td>
+<td>Function to patch the 'fork_exec' process creation functions.</td>
+</tr>
+<tr>
+<td><a href="#createPosixSpawn">createPosixSpawn</a></td>
+<td>Function to patch the 'posix_spawn' process creation functions.</td>
+</tr>
+<tr>
+<td><a href="#createSpawnl">createSpawnl</a></td>
+<td>Function to patch the 'spawnl' process creation functions.</td>
+</tr>
+<tr>
+<td><a href="#createSpawnv">createSpawnv</a></td>
+<td>Function to patch the 'spawnv' process creation functions.</td>
+</tr>
+<tr>
+<td><a href="#createSpawnve">createSpawnve</a></td>
+<td>Function to patch the 'spawnve' process creation functions.</td>
+</tr>
+<tr>
+<td><a href="#newCreateProcess">newCreateProcess</a></td>
+<td>Function replacing the 'CreateProcess' function of the _subprocess or _winapi module.</td>
+</tr>
+<tr>
+<td><a href="#newExecl">newExecl</a></td>
+<td>Function replacing the 'execl' functions of the os module.</td>
+</tr>
+<tr>
+<td><a href="#newExecv">newExecv</a></td>
+<td>Function replacing the 'execv' functions of the os module.</td>
+</tr>
+<tr>
+<td><a href="#newExecve">newExecve</a></td>
+<td>Function replacing the 'execve' functions of the os module.</td>
+</tr>
+<tr>
+<td><a href="#newFork">newFork</a></td>
+<td>Function replacing the 'fork' function of the os module.</td>
+</tr>
+<tr>
+<td><a href="#newForkExec">newForkExec</a></td>
+<td>Function replacing the 'fork_exec' functions of the _posixsubprocess module.</td>
+</tr>
+<tr>
+<td><a href="#newPosixSpawn">newPosixSpawn</a></td>
+<td>Function replacing the 'posix_spawn' functions of the os module.</td>
+</tr>
+<tr>
+<td><a href="#newSpawnl">newSpawnl</a></td>
+<td>Function replacing the 'spawnl' functions of the os module.</td>
+</tr>
+<tr>
+<td><a href="#newSpawnv">newSpawnv</a></td>
+<td>Function replacing the 'spawnv' functions of the os module.</td>
+</tr>
+<tr>
+<td><a href="#newSpawnve">newSpawnve</a></td>
+<td>Function replacing the 'spawnve' functions of the os module.</td>
+</tr>
+<tr>
+<td><a href="#patchModule">patchModule</a></td>
+<td>Function to replace a function of a module with a modified one.</td>
+</tr>
+<tr>
+<td><a href="#patchNewProcessFunctions">patchNewProcessFunctions</a></td>
+<td>Function to patch the process creation functions to support multiprocess debugging.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="_shallPatch" ID="_shallPatch"></a>
+<h2>_shallPatch</h2>
+<b>_shallPatch</b>(<i></i>)
+<p>
+    Function to determine, if the multiprocessing patches should be done.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating patching should be performed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createCreateProcess" ID="createCreateProcess"></a>
+<h2>createCreateProcess</h2>
+<b>createCreateProcess</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'CreateProcess' process creation function of
+    Windows.
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createExecl" ID="createExecl"></a>
+<h2>createExecl</h2>
+<b>createExecl</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'execl' process creation functions.
+</p>
+<p>
+    <ul>
+        <li>os.execl(path, arg0, arg1, ...)</li>
+        <li>os.execle(path, arg0, arg1, ..., env)</li>
+        <li>os.execlp(file, arg0, arg1, ...)</li>
+        <li>os.execlpe(file, arg0, arg1, ..., env)</li>
+    </ul>
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createExecv" ID="createExecv"></a>
+<h2>createExecv</h2>
+<b>createExecv</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'execv' process creation functions.
+</p>
+<p>
+    <ul>
+        <li>os.execv(path, args)</li>
+        <li>os.execvp(file, args)</li>
+    </ul>
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createExecve" ID="createExecve"></a>
+<h2>createExecve</h2>
+<b>createExecve</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'execve' process creation functions.
+</p>
+<p>
+    <ul>
+        <li>os.execve(path, args, env)</li>
+        <li>os.execvpe(file, args, env)</li>
+    </ul>
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createFork" ID="createFork"></a>
+<h2>createFork</h2>
+<b>createFork</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'fork' process creation functions.
+</p>
+<p>
+    <ul>
+        <li>os.fork()</li>
+    </ul>
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createForkExec" ID="createForkExec"></a>
+<h2>createForkExec</h2>
+<b>createForkExec</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'fork_exec' process creation functions.
+</p>
+<p>
+    <ul>
+        <li>_posixsubprocess.fork_exec(args, executable_list, close_fds,
+            ... (13 more))</li>
+    </ul>
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createPosixSpawn" ID="createPosixSpawn"></a>
+<h2>createPosixSpawn</h2>
+<b>createPosixSpawn</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'posix_spawn' process creation functions.
+</p>
+<p>
+    <ul>
+        <li>os.posix_spawn(path, argv, env, *, file_actions=None, ...
+            (6 more))</li>
+        <li>os.posix_spawnp(path, argv, env, *, file_actions=None, ...
+            (6 more))</li>
+    </ul>
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createSpawnl" ID="createSpawnl"></a>
+<h2>createSpawnl</h2>
+<b>createSpawnl</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'spawnl' process creation functions.
+</p>
+<p>
+    <ul>
+        <li>os.spawnl(mode, path, arg0, arg1, ...)</li>
+        <li>os.spawnlp(mode, file, arg0, arg1, ...)</li>
+    </ul>
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createSpawnv" ID="createSpawnv"></a>
+<h2>createSpawnv</h2>
+<b>createSpawnv</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'spawnv' process creation functions.
+</p>
+<p>
+    <ul>
+        <li>os.spawnv(mode, path, args)</li>
+        <li>os.spawnvp(mode, file, args)</li>
+    </ul>
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createSpawnve" ID="createSpawnve"></a>
+<h2>createSpawnve</h2>
+<b>createSpawnve</b>(<i>originalName</i>)
+<p>
+    Function to patch the 'spawnve' process creation functions.
+</p>
+<p>
+    <ul>
+        <li>os.spawnve(mode, path, args, env)</li>
+        <li>os.spawnvpe(mode, file, args, env)</li>
+    </ul>
+</p>
+
+<dl>
+
+<dt><i>originalName</i> (str)</dt>
+<dd>
+original name of the function to be patched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function replacing the original one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+function
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newCreateProcess" ID="newCreateProcess"></a>
+<h2>newCreateProcess</h2>
+<b>newCreateProcess</b>(<i>appName, cmdline, *args</i>)
+<p>
+        Function replacing the 'CreateProcess' function of the _subprocess
+        or _winapi module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newExecl" ID="newExecl"></a>
+<h2>newExecl</h2>
+<b>newExecl</b>(<i>path, *args</i>)
+<p>
+        Function replacing the 'execl' functions of the os module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newExecv" ID="newExecv"></a>
+<h2>newExecv</h2>
+<b>newExecv</b>(<i>path, args</i>)
+<p>
+        Function replacing the 'execv' functions of the os module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newExecve" ID="newExecve"></a>
+<h2>newExecve</h2>
+<b>newExecve</b>(<i>path, args, env</i>)
+<p>
+        Function replacing the 'execve' functions of the os module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newFork" ID="newFork"></a>
+<h2>newFork</h2>
+<b>newFork</b>(<i></i>)
+<p>
+        Function replacing the 'fork' function of the os module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newForkExec" ID="newForkExec"></a>
+<h2>newForkExec</h2>
+<b>newForkExec</b>(<i>args, *other_args</i>)
+<p>
+        Function replacing the 'fork_exec' functions of the _posixsubprocess
+        module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newPosixSpawn" ID="newPosixSpawn"></a>
+<h2>newPosixSpawn</h2>
+<b>newPosixSpawn</b>(<i>path, argv, env, **kwargs</i>)
+<p>
+        Function replacing the 'posix_spawn' functions of the os module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newSpawnl" ID="newSpawnl"></a>
+<h2>newSpawnl</h2>
+<b>newSpawnl</b>(<i>mode, path, *args</i>)
+<p>
+        Function replacing the 'spawnl' functions of the os module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newSpawnv" ID="newSpawnv"></a>
+<h2>newSpawnv</h2>
+<b>newSpawnv</b>(<i>mode, path, args</i>)
+<p>
+        Function replacing the 'spawnv' functions of the os module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="newSpawnve" ID="newSpawnve"></a>
+<h2>newSpawnve</h2>
+<b>newSpawnve</b>(<i>mode, path, args, env</i>)
+<p>
+        Function replacing the 'spawnve' functions of the os module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="patchModule" ID="patchModule"></a>
+<h2>patchModule</h2>
+<b>patchModule</b>(<i>module, functionName, createFunction</i>)
+<p>
+    Function to replace a function of a module with a modified one.
+</p>
+
+<dl>
+
+<dt><i>module</i> (types.ModuleType)</dt>
+<dd>
+reference to the module
+</dd>
+<dt><i>functionName</i> (str)</dt>
+<dd>
+name of the function to be replaced
+</dd>
+<dt><i>createFunction</i> (types.FunctionType)</dt>
+<dd>
+function creating the replacement
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="patchNewProcessFunctions" ID="patchNewProcessFunctions"></a>
+<h2>patchNewProcessFunctions</h2>
+<b>patchNewProcessFunctions</b>(<i>multiprocessEnabled, debugClient</i>)
+<p>
+    Function to patch the process creation functions to support multiprocess
+    debugging.
+</p>
+
+<dl>
+
+<dt><i>multiprocessEnabled</i> (bool)</dt>
+<dd>
+flag indicating multiprocess support
+</dd>
+<dt><i>debugClient</i> (DebugClient)</dt>
+<dd>
+reference to the debug client object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.GreaseMonkey.GreaseMonkeyManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.GreaseMonkey.GreaseMonkeyManager</h1>
+<p>
+Module implementing the manager for GreaseMonkey scripts.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GreaseMonkeyManager">GreaseMonkeyManager</a></td>
+<td>Class implementing the manager for GreaseMonkey scripts.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GreaseMonkeyManager" ID="GreaseMonkeyManager"></a>
+<h2>GreaseMonkeyManager</h2>
+<p>
+    Class implementing the manager for GreaseMonkey scripts.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>scriptsChanged()</dt>
+<dd>
+emitted to indicate a change of scripts
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GreaseMonkeyManager.__init__">GreaseMonkeyManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.__downloaderFinished">__downloaderFinished</a></td>
+<td>Private slot to handle the completion of a script download.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.__load">__load</a></td>
+<td>Private slot to load the available scripts into the manager.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.__scriptChanged">__scriptChanged</a></td>
+<td>Private slot handling a changed script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.addScript">addScript</a></td>
+<td>Public method to add a script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.allScripts">allScripts</a></td>
+<td>Public method to get a list of all scripts.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.canRunOnScheme">canRunOnScheme</a></td>
+<td>Public method to check, if scripts can be run on a scheme.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.containsScript">containsScript</a></td>
+<td>Public method to check, if the given script exists.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.disableScript">disableScript</a></td>
+<td>Public method to disable the given script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.doDownloadScript">doDownloadScript</a></td>
+<td>Public slot to download a GreaseMonkey script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.downloadScript">downloadScript</a></td>
+<td>Public method to download a GreaseMonkey script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.enableScript">enableScript</a></td>
+<td>Public method to enable the given script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.removeScript">removeScript</a></td>
+<td>Public method to remove a script.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.requireScripts">requireScripts</a></td>
+<td>Public method to get the sources of all required scripts.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.requireScriptsDirectory">requireScriptsDirectory</a></td>
+<td>Public method to get the path of the scripts directory.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.saveConfiguration">saveConfiguration</a></td>
+<td>Public method to save the configuration.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.scriptsDirectory">scriptsDirectory</a></td>
+<td>Public method to get the path of the scripts directory.</td>
+</tr>
+<tr>
+<td><a href="#GreaseMonkeyManager.showConfigurationDialog">showConfigurationDialog</a></td>
+<td>Public method to show the configuration dialog.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GreaseMonkeyManager.__init__" ID="GreaseMonkeyManager.__init__"></a>
+<h4>GreaseMonkeyManager (Constructor)</h4>
+<b>GreaseMonkeyManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.__downloaderFinished" ID="GreaseMonkeyManager.__downloaderFinished"></a>
+<h4>GreaseMonkeyManager.__downloaderFinished</h4>
+<b>__downloaderFinished</b>(<i>fileName, downloader</i>)
+<p>
+        Private slot to handle the completion of a script download.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the downloaded script
+</dd>
+<dt><i>downloader</i> (GreaseMonkeyDownloader)</dt>
+<dd>
+reference to the downloader object
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.__load" ID="GreaseMonkeyManager.__load"></a>
+<h4>GreaseMonkeyManager.__load</h4>
+<b>__load</b>(<i></i>)
+<p>
+        Private slot to load the available scripts into the manager.
+</p>
+
+<a NAME="GreaseMonkeyManager.__scriptChanged" ID="GreaseMonkeyManager.__scriptChanged"></a>
+<h4>GreaseMonkeyManager.__scriptChanged</h4>
+<b>__scriptChanged</b>(<i>script</i>)
+<p>
+        Private slot handling a changed script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (GreaseMonkeyScript)</dt>
+<dd>
+reference to the changed script
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.addScript" ID="GreaseMonkeyManager.addScript"></a>
+<h4>GreaseMonkeyManager.addScript</h4>
+<b>addScript</b>(<i>script</i>)
+<p>
+        Public method to add a script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (GreaseMonkeyScript)</dt>
+<dd>
+script to be added
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.allScripts" ID="GreaseMonkeyManager.allScripts"></a>
+<h4>GreaseMonkeyManager.allScripts</h4>
+<b>allScripts</b>(<i></i>)
+<p>
+        Public method to get a list of all scripts.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all scripts (list o
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GreaseMonkeyScript
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.canRunOnScheme" ID="GreaseMonkeyManager.canRunOnScheme"></a>
+<h4>GreaseMonkeyManager.canRunOnScheme</h4>
+<b>canRunOnScheme</b>(<i>scheme</i>)
+<p>
+        Public method to check, if scripts can be run on a scheme.
+</p>
+
+<dl>
+
+<dt><i>scheme</i> (str)</dt>
+<dd>
+scheme to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that scripts can be run
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.containsScript" ID="GreaseMonkeyManager.containsScript"></a>
+<h4>GreaseMonkeyManager.containsScript</h4>
+<b>containsScript</b>(<i>fullName</i>)
+<p>
+        Public method to check, if the given script exists.
+</p>
+
+<dl>
+
+<dt><i>fullName</i> (str)</dt>
+<dd>
+full name of the script
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.disableScript" ID="GreaseMonkeyManager.disableScript"></a>
+<h4>GreaseMonkeyManager.disableScript</h4>
+<b>disableScript</b>(<i>script</i>)
+<p>
+        Public method to disable the given script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (GreaseMonkeyScript)</dt>
+<dd>
+script to be disabled
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.doDownloadScript" ID="GreaseMonkeyManager.doDownloadScript"></a>
+<h4>GreaseMonkeyManager.doDownloadScript</h4>
+<b>doDownloadScript</b>(<i>url</i>)
+<p>
+        Public slot to download a GreaseMonkey script.
+</p>
+<p>
+        Note: The download needed to be separated in the invoking part
+        (s.a.) and the one doing the real download because the invoking
+        part runs in a different thread (i.e. the web engine thread).
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to download script from
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.downloadScript" ID="GreaseMonkeyManager.downloadScript"></a>
+<h4>GreaseMonkeyManager.downloadScript</h4>
+<b>downloadScript</b>(<i>url</i>)
+<p>
+        Public method to download a GreaseMonkey script.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to download script from
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.enableScript" ID="GreaseMonkeyManager.enableScript"></a>
+<h4>GreaseMonkeyManager.enableScript</h4>
+<b>enableScript</b>(<i>script</i>)
+<p>
+        Public method to enable the given script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (GreaseMonkeyScript)</dt>
+<dd>
+script to be enabled
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.removeScript" ID="GreaseMonkeyManager.removeScript"></a>
+<h4>GreaseMonkeyManager.removeScript</h4>
+<b>removeScript</b>(<i>script, removeFile=True</i>)
+<p>
+        Public method to remove a script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (GreaseMonkeyScript)</dt>
+<dd>
+script to be removed
+</dd>
+<dt><i>removeFile</i> (bool)</dt>
+<dd>
+flag indicating to remove the script file as well
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.requireScripts" ID="GreaseMonkeyManager.requireScripts"></a>
+<h4>GreaseMonkeyManager.requireScripts</h4>
+<b>requireScripts</b>(<i>urlList</i>)
+<p>
+        Public method to get the sources of all required scripts.
+</p>
+
+<dl>
+
+<dt><i>urlList</i> (list of str)</dt>
+<dd>
+list of URLs
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sources of all required scripts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.requireScriptsDirectory" ID="GreaseMonkeyManager.requireScriptsDirectory"></a>
+<h4>GreaseMonkeyManager.requireScriptsDirectory</h4>
+<b>requireScriptsDirectory</b>(<i></i>)
+<p>
+        Public method to get the path of the scripts directory.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the scripts directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.saveConfiguration" ID="GreaseMonkeyManager.saveConfiguration"></a>
+<h4>GreaseMonkeyManager.saveConfiguration</h4>
+<b>saveConfiguration</b>(<i></i>)
+<p>
+        Public method to save the configuration.
+</p>
+
+<a NAME="GreaseMonkeyManager.scriptsDirectory" ID="GreaseMonkeyManager.scriptsDirectory"></a>
+<h4>GreaseMonkeyManager.scriptsDirectory</h4>
+<b>scriptsDirectory</b>(<i></i>)
+<p>
+        Public method to get the path of the scripts directory.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the scripts directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GreaseMonkeyManager.showConfigurationDialog" ID="GreaseMonkeyManager.showConfigurationDialog"></a>
+<h4>GreaseMonkeyManager.showConfigurationDialog</h4>
+<b>showConfigurationDialog</b>(<i>parent=None</i>)
+<p>
+        Public method to show the configuration dialog.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

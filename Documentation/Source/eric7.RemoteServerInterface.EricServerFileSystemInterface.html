@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.RemoteServerInterface.EricServerFileSystemInterface</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.RemoteServerInterface.EricServerFileSystemInterface</h1>
+<p>
+Module implementing the file system interface to the eric-ide server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_RemoteFsCache</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricServerFileSystemInterface">EricServerFileSystemInterface</a></td>
+<td>Class implementing the file system interface to the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerNotConnectedError">EricServerNotConnectedError</a></td>
+<td>Class defining a special OSError indicating a missing server connection.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricServerFileSystemInterface" ID="EricServerFileSystemInterface"></a>
+<h2>EricServerFileSystemInterface</h2>
+<p>
+    Class implementing the file system interface to the eric-ide server.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>NotConnectedMessage</td></tr>
+<tr><td>_MagicCheck</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricServerFileSystemInterface.__init__">EricServerFileSystemInterface</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.__connectionStateChanged">__connectionStateChanged</a></td>
+<td>Private slot handling a change of the server connection state.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.__getPathSep">__getPathSep</a></td>
+<td>Private method to get the path separator of the connected server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.__hasMagic">__hasMagic</a></td>
+<td>Private method to check, if a given path contains glob style magic characters.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.abspath">abspath</a></td>
+<td>Public method to convert the given path to an absolute path.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.access">access</a></td>
+<td>Public method to test the given access rights to a file or directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.basename">basename</a></td>
+<td>Public method to extract the final component of a path name.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.callback">callback</a></td>
+<td>Function to handle the server reply</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.chdir">chdir</a></td>
+<td>Public method to change the current working directory of the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.compactPath">compactPath</a></td>
+<td>Public method to return a compacted path fitting inside the given width.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.direntries">direntries</a></td>
+<td>Public method to get a list of all files and directories of a given directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.dirname">dirname</a></td>
+<td>Public method to extract the directory component of a path name.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.exists">exists</a></td>
+<td>Public method the existence of a file or directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.expanduser">expanduser</a></td>
+<td>Public method to expand an initial '~' or '~user' component.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.fromNativeSeparators">fromNativeSeparators</a></td>
+<td>Public method to convert a path using server native separator characters to use "/" separator characters.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.getcwd">getcwd</a></td>
+<td>Public method to get the current working directory of the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.glob">glob</a></td>
+<td>Public method to get a list of of all files matching a given pattern like 'glob.glob()'.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.isEmpty">isEmpty</a></td>
+<td>Public method to check, if the given name is empty (i.e.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.isabs">isabs</a></td>
+<td>Public method to chack a path for being an absolute path.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.isdir">isdir</a></td>
+<td>Public method to check, if the given name is a directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.isfile">isfile</a></td>
+<td>Public method to check, if the given name is a regular file.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.join">join</a></td>
+<td>Public method to join two or more path name components using the path separator of the server side.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.listdir">listdir</a></td>
+<td>Public method to get a directory listing.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.makedirs">makedirs</a></td>
+<td>Public method to create a new directory on the eric-ide serverincluding all intermediate-level directories.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.mkdir">mkdir</a></td>
+<td>Public method to create a new directory on the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.populateFsCache">populateFsCache</a></td>
+<td>Public method to populate the remote file system cache for a given directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.readEncodedFile">readEncodedFile</a></td>
+<td>Public method to read a file and decode its contents into proper text.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.readEncodedFileWithEncoding">readEncodedFileWithEncoding</a></td>
+<td>Public method to read a file and decode its contents into proper text.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.readFile">readFile</a></td>
+<td>Public method to read a file from the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.remove">remove</a></td>
+<td>Public method to delete a file on the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.removeFromFsCache">removeFromFsCache</a></td>
+<td>Public method to remove a given directory from the remote file system cache.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.replace">replace</a></td>
+<td>Public method to rename a file or directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.rmdir">rmdir</a></td>
+<td>Public method to delete a directory on the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.separator">separator</a></td>
+<td>Public method to return the server side path separator string.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.serverInterface">serverInterface</a></td>
+<td>Public method to get a reference to the server interface object.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.shutilCopy">shutilCopy</a></td>
+<td>Public method to copy a source file to a given destination file or directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.shutilRmtree">shutilRmtree</a></td>
+<td>Public method to delete an entire directory tree.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.split">split</a></td>
+<td>Public method to split a path name.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.splitdrive">splitdrive</a></td>
+<td>Public method to split a path into drive and path.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.splitext">splitext</a></td>
+<td>Public method to split a path name into a root part and an extension.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.stat">stat</a></td>
+<td>Public method to get the status of a file.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.toNativeSeparators">toNativeSeparators</a></td>
+<td>Public method to convert a path to use server native separator characters.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.writeEncodedFile">writeEncodedFile</a></td>
+<td>Public method to write a file with properly encoded text.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileSystemInterface.writeFile">writeFile</a></td>
+<td>Public method to write the data to a file on the eric-ide server.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricServerFileSystemInterface.__init__" ID="EricServerFileSystemInterface.__init__"></a>
+<h4>EricServerFileSystemInterface (Constructor)</h4>
+<b>EricServerFileSystemInterface</b>(<i>serverInterface</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>serverInterface</i> (EricServerInterface)</dt>
+<dd>
+reference to the eric-ide server interface
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.__connectionStateChanged" ID="EricServerFileSystemInterface.__connectionStateChanged"></a>
+<h4>EricServerFileSystemInterface.__connectionStateChanged</h4>
+<b>__connectionStateChanged</b>(<i>connected</i>)
+<p>
+        Private slot handling a change of the server connection state.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+flag indicating a connected state
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.__getPathSep" ID="EricServerFileSystemInterface.__getPathSep"></a>
+<h4>EricServerFileSystemInterface.__getPathSep</h4>
+<b>__getPathSep</b>(<i></i>)
+<p>
+        Private method to get the path separator of the connected server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path separator character of the server
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.__hasMagic" ID="EricServerFileSystemInterface.__hasMagic"></a>
+<h4>EricServerFileSystemInterface.__hasMagic</h4>
+<b>__hasMagic</b>(<i>pathname</i>)
+<p>
+        Private method to check, if a given path contains glob style magic characters.
+</p>
+<p>
+        Note: This was taken from 'glob.glob'.
+</p>
+
+<dl>
+
+<dt><i>pathname</i> (str)</dt>
+<dd>
+path name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of magic characters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.abspath" ID="EricServerFileSystemInterface.abspath"></a>
+<h4>EricServerFileSystemInterface.abspath</h4>
+<b>abspath</b>(<i>p</i>)
+<p>
+        Public method to convert the given path to an absolute path.
+</p>
+
+<dl>
+
+<dt><i>p</i> (str)</dt>
+<dd>
+path to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+absolute path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.access" ID="EricServerFileSystemInterface.access"></a>
+<h4>EricServerFileSystemInterface.access</h4>
+<b>access</b>(<i>name, modes</i>)
+<p>
+        Public method to test the given access rights to a file or directory.
+</p>
+<p>
+        The modes to check for are 'read', 'write' or 'execute' or any combination.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the file or directory
+</dd>
+<dt><i>modes</i> (str or list of str)</dt>
+<dd>
+list of modes to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the user has the asked for permissions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised for an illegal modes list
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.basename" ID="EricServerFileSystemInterface.basename"></a>
+<h4>EricServerFileSystemInterface.basename</h4>
+<b>basename</b>(<i>p</i>)
+<p>
+        Public method to extract the final component of a path name.
+</p>
+
+<dl>
+
+<dt><i>p</i> (str)</dt>
+<dd>
+path name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+final component
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.callback" ID="EricServerFileSystemInterface.callback"></a>
+<h4>EricServerFileSystemInterface.callback</h4>
+<b>callback</b>(<i>params</i>)
+<p>
+            Function to handle the server reply
+</p>
+
+<dl>
+
+<dt><i>reply</i> (str)</dt>
+<dd>
+name of the server reply
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.chdir" ID="EricServerFileSystemInterface.chdir"></a>
+<h4>EricServerFileSystemInterface.chdir</h4>
+<b>chdir</b>(<i>directory</i>)
+<p>
+        Public method to change the current working directory of the eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+absolute path of the working directory to change to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing an OK flag and an error string in case of an issue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.compactPath" ID="EricServerFileSystemInterface.compactPath"></a>
+<h4>EricServerFileSystemInterface.compactPath</h4>
+<b>compactPath</b>(<i>longPath, width, measure=len</i>)
+<p>
+        Public method to return a compacted path fitting inside the given width.
+</p>
+
+<dl>
+
+<dt><i>longPath</i> (str)</dt>
+<dd>
+path to be compacted
+</dd>
+<dt><i>width</i> (int)</dt>
+<dd>
+width for the compacted path
+</dd>
+<dt><i>measure</i> (function (optional))</dt>
+<dd>
+reference to a function used to measure the length of the
+            string (defaults to len)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+compacted path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.direntries" ID="EricServerFileSystemInterface.direntries"></a>
+<h4>EricServerFileSystemInterface.direntries</h4>
+<b>direntries</b>(<i>directory, filesonly=False, pattern=None, followsymlinks=True, ignore=None, recursive=True, dirsonly=False, </i>)
+<p>
+        Public method to get a list of all files and directories of a given directory.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+root of the tree to check
+</dd>
+<dt><i>filesonly</i> (bool (optional))</dt>
+<dd>
+flag indicating that only files are wanted (defaults to False)
+</dd>
+<dt><i>pattern</i> (str or list of str (optional))</dt>
+<dd>
+a filename pattern or list of filename patterns to check
+            against (defaults to None)
+</dd>
+<dt><i>followsymlinks</i> (bool (optional))</dt>
+<dd>
+flag indicating whether symbolic links should be
+            followed (defaults to True)
+</dd>
+<dt><i>ignore</i> (list of str (optional))</dt>
+<dd>
+list of entries to be ignored (defaults to None)
+</dd>
+<dt><i>recursive</i> (bool (optional))</dt>
+<dd>
+flag indicating a recursive search (defaults to True)
+</dd>
+<dt><i>dirsonly</i> (bool)</dt>
+<dd>
+flag indicating to return only directories. When True it has
+            precedence over the 'filesonly' parameter (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all files and directories in the tree rooted at path.
+            The names are expanded to start with the given directory name.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised in case the server reported an issue
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.dirname" ID="EricServerFileSystemInterface.dirname"></a>
+<h4>EricServerFileSystemInterface.dirname</h4>
+<b>dirname</b>(<i>p</i>)
+<p>
+        Public method to extract the directory component of a path name.
+</p>
+
+<dl>
+
+<dt><i>p</i> (str)</dt>
+<dd>
+path name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+directory component
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.exists" ID="EricServerFileSystemInterface.exists"></a>
+<h4>EricServerFileSystemInterface.exists</h4>
+<b>exists</b>(<i>name</i>)
+<p>
+        Public method the existence of a file or directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the file or directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the file existence
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.expanduser" ID="EricServerFileSystemInterface.expanduser"></a>
+<h4>EricServerFileSystemInterface.expanduser</h4>
+<b>expanduser</b>(<i>name</i>)
+<p>
+        Public method to expand an initial '~' or '~user' component.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+path name to be expanded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+expanded path name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.fromNativeSeparators" ID="EricServerFileSystemInterface.fromNativeSeparators"></a>
+<h4>EricServerFileSystemInterface.fromNativeSeparators</h4>
+<b>fromNativeSeparators</b>(<i>p</i>)
+<p>
+        Public method to convert a path using server native separator characters to
+        use "/" separator characters.
+</p>
+
+<dl>
+
+<dt><i>p</i> (str)</dt>
+<dd>
+path name to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path name with converted separator characters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.getcwd" ID="EricServerFileSystemInterface.getcwd"></a>
+<h4>EricServerFileSystemInterface.getcwd</h4>
+<b>getcwd</b>(<i></i>)
+<p>
+        Public method to get the current working directory of the eric-ide server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current working directory of the eric-ide server
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.glob" ID="EricServerFileSystemInterface.glob"></a>
+<h4>EricServerFileSystemInterface.glob</h4>
+<b>glob</b>(<i>pathname, recursive=False, includeHidden=False</i>)
+<p>
+        Public method to get a list of of all files matching a given pattern
+        like 'glob.glob()'.
+</p>
+
+<dl>
+
+<dt><i>pathname</i> (str)</dt>
+<dd>
+path name pattern with simple shell-style wildcards
+</dd>
+<dt><i>recursive</i> (bool (optional))</dt>
+<dd>
+flag indicating a recursive list (defaults to False)
+</dd>
+<dt><i>includeHidden</i> (bool (optional))</dt>
+<dd>
+flag indicating to include hidden files (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all files matching the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.isEmpty" ID="EricServerFileSystemInterface.isEmpty"></a>
+<h4>EricServerFileSystemInterface.isEmpty</h4>
+<b>isEmpty</b>(<i>name</i>)
+<p>
+        Public method to check, if the given name is empty (i.e. just the remote
+        name indicator).
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file or directory path to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an empty path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.isabs" ID="EricServerFileSystemInterface.isabs"></a>
+<h4>EricServerFileSystemInterface.isabs</h4>
+<b>isabs</b>(<i>p</i>)
+<p>
+        Public method to chack a path for being an absolute path.
+</p>
+
+<dl>
+
+<dt><i>p</i> (str)</dt>
+<dd>
+path to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an absolute path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.isdir" ID="EricServerFileSystemInterface.isdir"></a>
+<h4>EricServerFileSystemInterface.isdir</h4>
+<b>isdir</b>(<i>name</i>)
+<p>
+        Public method to check, if the given name is a directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.isfile" ID="EricServerFileSystemInterface.isfile"></a>
+<h4>EricServerFileSystemInterface.isfile</h4>
+<b>isfile</b>(<i>name</i>)
+<p>
+        Public method to check, if the given name is a regular file.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a regular file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.join" ID="EricServerFileSystemInterface.join"></a>
+<h4>EricServerFileSystemInterface.join</h4>
+<b>join</b>(<i>a, *p</i>)
+<p>
+        Public method to join two or more path name components using the path separator
+        of the server side.
+</p>
+
+<dl>
+
+<dt><i>a</i> (str)</dt>
+<dd>
+first path component
+</dd>
+<dt><i>*p</i> (list of str)</dt>
+<dd>
+list of additional path components
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+joined path name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.listdir" ID="EricServerFileSystemInterface.listdir"></a>
+<h4>EricServerFileSystemInterface.listdir</h4>
+<b>listdir</b>(<i>directory="", recursive=False</i>)
+<p>
+        Public method to get a directory listing.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+directory to be listed. An empty directory means to list
+            the eric-ide server current directory. (defaults to "")
+</dd>
+<dt><i>recursive</i> (bool (optional))</dt>
+<dd>
+flag indicating a recursive listing (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the listed directory, the path separator and the
+            directory listing. Each directory listing entry contains a dictionary
+            with the relevant data.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str, dict)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised in case the server reported an issue
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.makedirs" ID="EricServerFileSystemInterface.makedirs"></a>
+<h4>EricServerFileSystemInterface.makedirs</h4>
+<b>makedirs</b>(<i>directory, exist_ok=False</i>)
+<p>
+        Public method to create a new directory on the eric-ide serverincluding all
+        intermediate-level directories.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+absolute path of the new directory
+</dd>
+<dt><i>exist_ok</i> (bool (optional))</dt>
+<dd>
+flag indicating that the existence of the directory is
+            acceptable (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing an OK flag and an error string in case of an issue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.mkdir" ID="EricServerFileSystemInterface.mkdir"></a>
+<h4>EricServerFileSystemInterface.mkdir</h4>
+<b>mkdir</b>(<i>directory, mode=0o777</i>)
+<p>
+        Public method to create a new directory on the eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+absolute path of the new directory
+</dd>
+<dt><i>mode</i> (int)</dt>
+<dd>
+permissions value (defaults to 0o777)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing an OK flag and an error string in case of an issue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.populateFsCache" ID="EricServerFileSystemInterface.populateFsCache"></a>
+<h4>EricServerFileSystemInterface.populateFsCache</h4>
+<b>populateFsCache</b>(<i>directory</i>)
+<p>
+        Public method to populate the remote file system cache for a given directory.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+remote directory to be cached
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an empty directory
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.readEncodedFile" ID="EricServerFileSystemInterface.readEncodedFile"></a>
+<h4>EricServerFileSystemInterface.readEncodedFile</h4>
+<b>readEncodedFile</b>(<i>filename, create=False</i>)
+<p>
+        Public method to read a file and decode its contents into proper text.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to read
+</dd>
+<dt><i>create</i> (bool (optional))</dt>
+<dd>
+flag indicating to create an empty file, if it does not exist
+            (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of decoded text and encoding
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.readEncodedFileWithEncoding" ID="EricServerFileSystemInterface.readEncodedFileWithEncoding"></a>
+<h4>EricServerFileSystemInterface.readEncodedFileWithEncoding</h4>
+<b>readEncodedFileWithEncoding</b>(<i>filename, encoding, create=False</i>)
+<p>
+        Public method to read a file and decode its contents into proper text.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to read
+</dd>
+<dt><i>encoding</i> (str)</dt>
+<dd>
+encoding to be used to read the file
+</dd>
+<dt><i>create</i> (bool (optional))</dt>
+<dd>
+flag indicating to create an empty file, if it does not exist
+            (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of decoded text and encoding
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.readFile" ID="EricServerFileSystemInterface.readFile"></a>
+<h4>EricServerFileSystemInterface.readFile</h4>
+<b>readFile</b>(<i>filename, create=False, newline=None</i>)
+<p>
+        Public method to read a file from the eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to read
+</dd>
+<dt><i>create</i> (bool (optional))</dt>
+<dd>
+flag indicating to create an empty file, if it does not exist
+            (defaults to False)
+</dd>
+<dt><i>newline</i> (str (optional))</dt>
+<dd>
+determines how to parse newline characters from the stream
+            (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+bytes data read from the eric-ide server
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>EricServerNotConnectedError</b>:</dt>
+<dd>
+raised to indicate a missing server
+            connection
+</dd>
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised in case the server reported an issue
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.remove" ID="EricServerFileSystemInterface.remove"></a>
+<h4>EricServerFileSystemInterface.remove</h4>
+<b>remove</b>(<i>filename</i>)
+<p>
+        Public method to delete a file on the eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+absolute path of the file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing an OK flag and an error string in case of an issue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.removeFromFsCache" ID="EricServerFileSystemInterface.removeFromFsCache"></a>
+<h4>EricServerFileSystemInterface.removeFromFsCache</h4>
+<b>removeFromFsCache</b>(<i>directory</i>)
+<p>
+        Public method to remove a given directory from the remote file system cache.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+remote directory to be removed
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.replace" ID="EricServerFileSystemInterface.replace"></a>
+<h4>EricServerFileSystemInterface.replace</h4>
+<b>replace</b>(<i>oldName, newName</i>)
+<p>
+        Public method to rename a file or directory.
+</p>
+
+<dl>
+
+<dt><i>oldName</i> (str)</dt>
+<dd>
+current name of the file or directory
+</dd>
+<dt><i>newName</i> (str)</dt>
+<dd>
+new name for the file or directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing an OK flag and an error string in case of an issue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.rmdir" ID="EricServerFileSystemInterface.rmdir"></a>
+<h4>EricServerFileSystemInterface.rmdir</h4>
+<b>rmdir</b>(<i>directory</i>)
+<p>
+        Public method to delete a directory on the eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+absolute path of the directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing an OK flag and an error string in case of an issue
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.separator" ID="EricServerFileSystemInterface.separator"></a>
+<h4>EricServerFileSystemInterface.separator</h4>
+<b>separator</b>(<i></i>)
+<p>
+        Public method to return the server side path separator string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path separator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.serverInterface" ID="EricServerFileSystemInterface.serverInterface"></a>
+<h4>EricServerFileSystemInterface.serverInterface</h4>
+<b>serverInterface</b>(<i></i>)
+<p>
+        Public method to get a reference to the server interface object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the server interface object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricServerInterface
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.shutilCopy" ID="EricServerFileSystemInterface.shutilCopy"></a>
+<h4>EricServerFileSystemInterface.shutilCopy</h4>
+<b>shutilCopy</b>(<i>srcName, dstName</i>)
+<p>
+        Public method to copy a source file to a given destination file or directory.
+</p>
+
+<dl>
+
+<dt><i>srcName</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>dstName</i> (str)</dt>
+<dd>
+name of the destination file or directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the destination file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>EricServerNotConnectedError</b>:</dt>
+<dd>
+raised to indicate a missing server
+            connection
+</dd>
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.shutilRmtree" ID="EricServerFileSystemInterface.shutilRmtree"></a>
+<h4>EricServerFileSystemInterface.shutilRmtree</h4>
+<b>shutilRmtree</b>(<i>pathname, ignore_errors=False</i>)
+<p>
+        Public method to delete an entire directory tree.
+</p>
+
+<dl>
+
+<dt><i>pathname</i> (str)</dt>
+<dd>
+name of the directory to be deleted
+</dd>
+<dt><i>ignore_errors</i> (bool (optional))</dt>
+<dd>
+flag indicating to ignore error resulting from failed
+            removals (defaults to False)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>EricServerNotConnectedError</b>:</dt>
+<dd>
+raised to indicate a missing server
+            connection
+</dd>
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.split" ID="EricServerFileSystemInterface.split"></a>
+<h4>EricServerFileSystemInterface.split</h4>
+<b>split</b>(<i>p</i>)
+<p>
+        Public method to split a path name.
+</p>
+
+<dl>
+
+<dt><i>p</i> (str)</dt>
+<dd>
+path name to be split
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing head and tail, where tail is everything after the last
+            path separator.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.splitdrive" ID="EricServerFileSystemInterface.splitdrive"></a>
+<h4>EricServerFileSystemInterface.splitdrive</h4>
+<b>splitdrive</b>(<i>p</i>)
+<p>
+        Public method to split a path into drive and path.
+</p>
+
+<dl>
+
+<dt><i>p</i> (str)</dt>
+<dd>
+path name to be split
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the drive letter (incl. colon) and the path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.splitext" ID="EricServerFileSystemInterface.splitext"></a>
+<h4>EricServerFileSystemInterface.splitext</h4>
+<b>splitext</b>(<i>p</i>)
+<p>
+        Public method to split a path name into a root part and an extension.
+</p>
+
+<dl>
+
+<dt><i>p</i> (str)</dt>
+<dd>
+path name to be split
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the root part and the extension
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.stat" ID="EricServerFileSystemInterface.stat"></a>
+<h4>EricServerFileSystemInterface.stat</h4>
+<b>stat</b>(<i>filename, stNames</i>)
+<p>
+        Public method to get the status of a file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+<dt><i>stNames</i> (list of str)</dt>
+<dd>
+list of 'stat_result' members to retrieve
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the requested status data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised in case the server reported an issue
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.toNativeSeparators" ID="EricServerFileSystemInterface.toNativeSeparators"></a>
+<h4>EricServerFileSystemInterface.toNativeSeparators</h4>
+<b>toNativeSeparators</b>(<i>p</i>)
+<p>
+        Public method to convert a path to use server native separator characters.
+</p>
+
+<dl>
+
+<dt><i>p</i> (str)</dt>
+<dd>
+path name to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path name with converted separator characters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.writeEncodedFile" ID="EricServerFileSystemInterface.writeEncodedFile"></a>
+<h4>EricServerFileSystemInterface.writeEncodedFile</h4>
+<b>writeEncodedFile</b>(<i>filename, text, origEncoding, forcedEncoding="", withBackup=False</i>)
+<p>
+        Public method to write a file with properly encoded text.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to read
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be written
+</dd>
+<dt><i>origEncoding</i> (str)</dt>
+<dd>
+type of the original encoding
+</dd>
+<dt><i>forcedEncoding</i> (str (optional))</dt>
+<dd>
+encoding to be used for writing, if no coding
+            line is present (defaults to "")
+</dd>
+<dt><i>withBackup</i> (bool (optional))</dt>
+<dd>
+flag indicating to create a backup file first
+            (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+encoding used for writing the file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileSystemInterface.writeFile" ID="EricServerFileSystemInterface.writeFile"></a>
+<h4>EricServerFileSystemInterface.writeFile</h4>
+<b>writeFile</b>(<i>filename, data, withBackup=False, newline=None</i>)
+<p>
+        Public method to write the data to a file on the eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to write
+</dd>
+<dt><i>data</i> (bytes or QByteArray)</dt>
+<dd>
+data to be written
+</dd>
+<dt><i>withBackup</i> (bool (optional))</dt>
+<dd>
+flag indicating to create a backup file first
+            (defaults to False)
+</dd>
+<dt><i>newline</i> (str (optional))</dt>
+<dd>
+determines how to parse newline characters from the stream
+            (defaults to None)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>EricServerNotConnectedError</b>:</dt>
+<dd>
+raised to indicate a missing server
+            connection
+</dd>
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised in case the server reported an issue
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricServerNotConnectedError" ID="EricServerNotConnectedError"></a>
+<h2>EricServerNotConnectedError</h2>
+<p>
+    Class defining a special OSError indicating a missing server connection.
+</p>
+
+<h3>Derived from</h3>
+OSError
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricServerNotConnectedError.__init__">EricServerNotConnectedError</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricServerNotConnectedError.__init__" ID="EricServerNotConnectedError.__init__"></a>
+<h4>EricServerNotConnectedError (Constructor)</h4>
+<b>EricServerNotConnectedError</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

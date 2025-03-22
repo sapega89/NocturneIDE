@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Network.IRC.IrcWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Network.IRC.IrcWidget</h1>
+<p>
+Module implementing the IRC window.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SSL_AVAILABLE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#IrcConnectionState">IrcConnectionState</a></td>
+<td>Class defining the connection states.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget">IrcWidget</a></td>
+<td>Class implementing the IRC window.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="IrcConnectionState" ID="IrcConnectionState"></a>
+<h2>IrcConnectionState</h2>
+<p>
+    Class defining the connection states.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Connected</td></tr>
+<tr><td>Connecting</td></tr>
+<tr><td>Disconnected</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="IrcWidget" ID="IrcWidget"></a>
+<h2>IrcWidget</h2>
+<p>
+    Class implementing the IRC window.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>autoConnected()</dt>
+<dd>
+emitted after an automatic connection was initiated
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_IrcWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IrcWidget.__init__">IrcWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__autoJoinChannels">__autoJoinChannels</a></td>
+<td>Private slot to join channels automatically once a server got connected.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__away">__away</a></td>
+<td>Private slot handling the change of the away state.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__changeNick">__changeNick</a></td>
+<td>Private slot to use a new nick name.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__closeAllChannels">__closeAllChannels</a></td>
+<td>Private method to close all channels.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__closeChannel">__closeChannel</a></td>
+<td>Private slot handling the closing of a channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__connectNetwork">__connectNetwork</a></td>
+<td>Private slot to connect to or disconnect from the given network.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__editNetwork">__editNetwork</a></td>
+<td>Private slot to edit the network configuration.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__handleCtcp">__handleCtcp</a></td>
+<td>Private method to handle a CTCP command.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__handleCtcpReply">__handleCtcpReply</a></td>
+<td>Private method to handle a server message containing a CTCP reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__handleNamedMessage">__handleNamedMessage</a></td>
+<td>Private method to handle a server message containing a message name.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__handleNickInUse">__handleNickInUse</a></td>
+<td>Private method to handle a 443 server error.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__handleNickInUseLogin">__handleNickInUseLogin</a></td>
+<td>Private method to handle a 443 server error at login.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__handleNumericMessage">__handleNumericMessage</a></td>
+<td>Private method to handle a server message containing a numeric code.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__handleServerError">__handleServerError</a></td>
+<td>Private slot to handle a server error reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__handleServerReply">__handleServerReply</a></td>
+<td>Private slot to handle a server reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__hostConnected">__hostConnected</a></td>
+<td>Private slot to log in to the server after the connection was established.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__hostDisconnected">__hostDisconnected</a></td>
+<td>Private slot to indicate the host was disconnected.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__hostFound">__hostFound</a></td>
+<td>Private slot to indicate the host was found.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__leaveAllChannels">__leaveAllChannels</a></td>
+<td>Private slot to leave all channels and close their tabs.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__leaveChannel">__leaveChannel</a></td>
+<td>Private slot to leave a channel and close the associated tab.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__leaveChannels">__leaveChannels</a></td>
+<td>Private slot to leave a list of channels and close their associated tabs.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__networkDataChanged">__networkDataChanged</a></td>
+<td>Private slot handling changes of the network and identity definitions.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__openPrivate">__openPrivate</a></td>
+<td>Private slot to open a private chat with the given user.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__ping">__ping</a></td>
+<td>Private method to handle a PING message.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__query">__query</a></td>
+<td>Private method to handle a new private connection.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__readyRead">__readyRead</a></td>
+<td>Private slot to read data from the socket.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__registerWithServices">__registerWithServices</a></td>
+<td>Private method to register to services.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__send">__send</a></td>
+<td>Private slot to send data to the IRC server.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__sendCtcpReply">__sendCtcpReply</a></td>
+<td>Private slot to send a CTCP reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__sendCtcpRequest">__sendCtcpRequest</a></td>
+<td>Private slot to send a CTCP request.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__setChannelTypePrefixes">__setChannelTypePrefixes</a></td>
+<td>Private method to set the channel type prefixes.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__setUserPrivilegePrefix">__setUserPrivilegePrefix</a></td>
+<td>Private method to set the user privilege prefix.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__sslErrors">__sslErrors</a></td>
+<td>Private slot to handle SSL errors.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__tcpError">__tcpError</a></td>
+<td>Private slot to handle errors reported by the TCP socket.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.__updateUsersCount">__updateUsersCount</a></td>
+<td>Private method to update the users count on the channel tabs.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.autoConnect">autoConnect</a></td>
+<td>Public method to initiate the IRC auto connection.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.isChannelName">isChannelName</a></td>
+<td>Public method to check, if the given name is a channel name.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.joinChannel">joinChannel</a></td>
+<td>Public slot to join a channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.on_channelsWidget_tabCloseRequested">on_channelsWidget_tabCloseRequested</a></td>
+<td>Private slot to close a channel by pressing the close button of the channels widget.</td>
+</tr>
+<tr>
+<td><a href="#IrcWidget.shutdown">shutdown</a></td>
+<td>Public method to shut down the widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IrcWidget.__init__" ID="IrcWidget.__init__"></a>
+<h4>IrcWidget (Constructor)</h4>
+<b>IrcWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="IrcWidget.__autoJoinChannels" ID="IrcWidget.__autoJoinChannels"></a>
+<h4>IrcWidget.__autoJoinChannels</h4>
+<b>__autoJoinChannels</b>(<i></i>)
+<p>
+        Private slot to join channels automatically once a server got
+        connected.
+</p>
+
+<a NAME="IrcWidget.__away" ID="IrcWidget.__away"></a>
+<h4>IrcWidget.__away</h4>
+<b>__away</b>(<i>isAway</i>)
+<p>
+        Private slot handling the change of the away state.
+</p>
+
+<dl>
+
+<dt><i>isAway</i> (bool)</dt>
+<dd>
+flag indicating the current away state
+</dd>
+</dl>
+<a NAME="IrcWidget.__changeNick" ID="IrcWidget.__changeNick"></a>
+<h4>IrcWidget.__changeNick</h4>
+<b>__changeNick</b>(<i>nick</i>)
+<p>
+        Private slot to use a new nick name.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (str)</dt>
+<dd>
+nick name to use
+</dd>
+</dl>
+<a NAME="IrcWidget.__closeAllChannels" ID="IrcWidget.__closeAllChannels"></a>
+<h4>IrcWidget.__closeAllChannels</h4>
+<b>__closeAllChannels</b>(<i></i>)
+<p>
+        Private method to close all channels.
+</p>
+
+<a NAME="IrcWidget.__closeChannel" ID="IrcWidget.__closeChannel"></a>
+<h4>IrcWidget.__closeChannel</h4>
+<b>__closeChannel</b>(<i>name</i>)
+<p>
+        Private slot handling the closing of a channel.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the closed channel
+</dd>
+</dl>
+<a NAME="IrcWidget.__connectNetwork" ID="IrcWidget.__connectNetwork"></a>
+<h4>IrcWidget.__connectNetwork</h4>
+<b>__connectNetwork</b>(<i>name, connect, silent</i>)
+<p>
+        Private slot to connect to or disconnect from the given network.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the network to connect to
+</dd>
+<dt><i>connect</i> (bool)</dt>
+<dd>
+flag indicating to connect
+</dd>
+<dt><i>silent</i> (bool)</dt>
+<dd>
+flag indicating a silent connect/disconnect
+</dd>
+</dl>
+<a NAME="IrcWidget.__editNetwork" ID="IrcWidget.__editNetwork"></a>
+<h4>IrcWidget.__editNetwork</h4>
+<b>__editNetwork</b>(<i></i>)
+<p>
+        Private slot to edit the network configuration.
+</p>
+
+<a NAME="IrcWidget.__handleCtcp" ID="IrcWidget.__handleCtcp"></a>
+<h4>IrcWidget.__handleCtcp</h4>
+<b>__handleCtcp</b>(<i>match</i>)
+<p>
+        Private method to handle a CTCP command.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+reference to the match object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcWidget.__handleCtcpReply" ID="IrcWidget.__handleCtcpReply"></a>
+<h4>IrcWidget.__handleCtcpReply</h4>
+<b>__handleCtcpReply</b>(<i>match</i>)
+<p>
+        Private method to handle a server message containing a CTCP reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+reference to the match object
+</dd>
+</dl>
+<a NAME="IrcWidget.__handleNamedMessage" ID="IrcWidget.__handleNamedMessage"></a>
+<h4>IrcWidget.__handleNamedMessage</h4>
+<b>__handleNamedMessage</b>(<i>match</i>)
+<p>
+        Private method to handle a server message containing a message name.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+reference to the match object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcWidget.__handleNickInUse" ID="IrcWidget.__handleNickInUse"></a>
+<h4>IrcWidget.__handleNickInUse</h4>
+<b>__handleNickInUse</b>(<i></i>)
+<p>
+        Private method to handle a 443 server error.
+</p>
+
+<a NAME="IrcWidget.__handleNickInUseLogin" ID="IrcWidget.__handleNickInUseLogin"></a>
+<h4>IrcWidget.__handleNickInUseLogin</h4>
+<b>__handleNickInUseLogin</b>(<i></i>)
+<p>
+        Private method to handle a 443 server error at login.
+</p>
+
+<a NAME="IrcWidget.__handleNumericMessage" ID="IrcWidget.__handleNumericMessage"></a>
+<h4>IrcWidget.__handleNumericMessage</h4>
+<b>__handleNumericMessage</b>(<i>match</i>)
+<p>
+        Private method to handle a server message containing a numeric code.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+reference to the match object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcWidget.__handleServerError" ID="IrcWidget.__handleServerError"></a>
+<h4>IrcWidget.__handleServerError</h4>
+<b>__handleServerError</b>(<i>code, message</i>)
+<p>
+        Private slot to handle a server error reply.
+</p>
+
+<dl>
+
+<dt><i>code</i> (int)</dt>
+<dd>
+numerical code sent by the server
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message sent by the server
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcWidget.__handleServerReply" ID="IrcWidget.__handleServerReply"></a>
+<h4>IrcWidget.__handleServerReply</h4>
+<b>__handleServerReply</b>(<i>code, server, message</i>)
+<p>
+        Private slot to handle a server reply.
+</p>
+
+<dl>
+
+<dt><i>code</i> (int)</dt>
+<dd>
+numerical code sent by the server
+</dd>
+<dt><i>server</i> (str)</dt>
+<dd>
+name of the server
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message sent by the server
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcWidget.__hostConnected" ID="IrcWidget.__hostConnected"></a>
+<h4>IrcWidget.__hostConnected</h4>
+<b>__hostConnected</b>(<i></i>)
+<p>
+        Private slot to log in to the server after the connection was
+        established.
+</p>
+
+<a NAME="IrcWidget.__hostDisconnected" ID="IrcWidget.__hostDisconnected"></a>
+<h4>IrcWidget.__hostDisconnected</h4>
+<b>__hostDisconnected</b>(<i></i>)
+<p>
+        Private slot to indicate the host was disconnected.
+</p>
+
+<a NAME="IrcWidget.__hostFound" ID="IrcWidget.__hostFound"></a>
+<h4>IrcWidget.__hostFound</h4>
+<b>__hostFound</b>(<i></i>)
+<p>
+        Private slot to indicate the host was found.
+</p>
+
+<a NAME="IrcWidget.__leaveAllChannels" ID="IrcWidget.__leaveAllChannels"></a>
+<h4>IrcWidget.__leaveAllChannels</h4>
+<b>__leaveAllChannels</b>(<i></i>)
+<p>
+        Private slot to leave all channels and close their tabs.
+</p>
+
+<a NAME="IrcWidget.__leaveChannel" ID="IrcWidget.__leaveChannel"></a>
+<h4>IrcWidget.__leaveChannel</h4>
+<b>__leaveChannel</b>(<i></i>)
+<p>
+        Private slot to leave a channel and close the associated tab.
+</p>
+
+<a NAME="IrcWidget.__leaveChannels" ID="IrcWidget.__leaveChannels"></a>
+<h4>IrcWidget.__leaveChannels</h4>
+<b>__leaveChannels</b>(<i>channelNames</i>)
+<p>
+        Private slot to leave a list of channels and close their associated
+        tabs.
+</p>
+
+<dl>
+
+<dt><i>channelNames</i> (list of str)</dt>
+<dd>
+list of channels to leave
+</dd>
+</dl>
+<a NAME="IrcWidget.__networkDataChanged" ID="IrcWidget.__networkDataChanged"></a>
+<h4>IrcWidget.__networkDataChanged</h4>
+<b>__networkDataChanged</b>(<i></i>)
+<p>
+        Private slot handling changes of the network and identity definitions.
+</p>
+
+<a NAME="IrcWidget.__openPrivate" ID="IrcWidget.__openPrivate"></a>
+<h4>IrcWidget.__openPrivate</h4>
+<b>__openPrivate</b>(<i>name</i>)
+<p>
+        Private slot to open a private chat with the given user.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the user
+</dd>
+</dl>
+<a NAME="IrcWidget.__ping" ID="IrcWidget.__ping"></a>
+<h4>IrcWidget.__ping</h4>
+<b>__ping</b>(<i>match</i>)
+<p>
+        Private method to handle a PING message.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+reference to the match object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcWidget.__query" ID="IrcWidget.__query"></a>
+<h4>IrcWidget.__query</h4>
+<b>__query</b>(<i>match</i>)
+<p>
+        Private method to handle a new private connection.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+reference to the match object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcWidget.__readyRead" ID="IrcWidget.__readyRead"></a>
+<h4>IrcWidget.__readyRead</h4>
+<b>__readyRead</b>(<i></i>)
+<p>
+        Private slot to read data from the socket.
+</p>
+
+<a NAME="IrcWidget.__registerWithServices" ID="IrcWidget.__registerWithServices"></a>
+<h4>IrcWidget.__registerWithServices</h4>
+<b>__registerWithServices</b>(<i></i>)
+<p>
+        Private method to register to services.
+</p>
+
+<a NAME="IrcWidget.__send" ID="IrcWidget.__send"></a>
+<h4>IrcWidget.__send</h4>
+<b>__send</b>(<i>data</i>)
+<p>
+        Private slot to send data to the IRC server.
+</p>
+
+<dl>
+
+<dt><i>data</i> (str)</dt>
+<dd>
+data to be sent
+</dd>
+</dl>
+<a NAME="IrcWidget.__sendCtcpReply" ID="IrcWidget.__sendCtcpReply"></a>
+<h4>IrcWidget.__sendCtcpReply</h4>
+<b>__sendCtcpReply</b>(<i>receiver, text</i>)
+<p>
+        Private slot to send a CTCP reply.
+</p>
+
+<dl>
+
+<dt><i>receiver</i> (str)</dt>
+<dd>
+nick name of the receiver
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be sent
+</dd>
+</dl>
+<a NAME="IrcWidget.__sendCtcpRequest" ID="IrcWidget.__sendCtcpRequest"></a>
+<h4>IrcWidget.__sendCtcpRequest</h4>
+<b>__sendCtcpRequest</b>(<i>receiver, request, arguments</i>)
+<p>
+        Private slot to send a CTCP request.
+</p>
+
+<dl>
+
+<dt><i>receiver</i> (str)</dt>
+<dd>
+nick name of the receiver
+</dd>
+<dt><i>request</i> (str)</dt>
+<dd>
+CTCP request to be sent
+</dd>
+<dt><i>arguments</i> (str)</dt>
+<dd>
+arguments to be sent
+</dd>
+</dl>
+<a NAME="IrcWidget.__setChannelTypePrefixes" ID="IrcWidget.__setChannelTypePrefixes"></a>
+<h4>IrcWidget.__setChannelTypePrefixes</h4>
+<b>__setChannelTypePrefixes</b>(<i>prefixes</i>)
+<p>
+        Private method to set the channel type prefixes.
+</p>
+
+<dl>
+
+<dt><i>prefixes</i> (str)</dt>
+<dd>
+channel prefix characters
+</dd>
+</dl>
+<a NAME="IrcWidget.__setUserPrivilegePrefix" ID="IrcWidget.__setUserPrivilegePrefix"></a>
+<h4>IrcWidget.__setUserPrivilegePrefix</h4>
+<b>__setUserPrivilegePrefix</b>(<i>prefix1, prefix2</i>)
+<p>
+        Private method to set the user privilege prefix.
+</p>
+
+<dl>
+
+<dt><i>prefix1</i> (str)</dt>
+<dd>
+first part of the prefix
+</dd>
+<dt><i>prefix2</i> (str)</dt>
+<dd>
+indictors the first part gets mapped to
+</dd>
+</dl>
+<a NAME="IrcWidget.__sslErrors" ID="IrcWidget.__sslErrors"></a>
+<h4>IrcWidget.__sslErrors</h4>
+<b>__sslErrors</b>(<i>errors</i>)
+<p>
+        Private slot to handle SSL errors.
+</p>
+
+<dl>
+
+<dt><i>errors</i> (list of QSslError)</dt>
+<dd>
+list of SSL errors
+</dd>
+</dl>
+<a NAME="IrcWidget.__tcpError" ID="IrcWidget.__tcpError"></a>
+<h4>IrcWidget.__tcpError</h4>
+<b>__tcpError</b>(<i>error</i>)
+<p>
+        Private slot to handle errors reported by the TCP socket.
+</p>
+
+<dl>
+
+<dt><i>error</i> (QAbstractSocket.SocketError)</dt>
+<dd>
+error code reported by the socket
+</dd>
+</dl>
+<a NAME="IrcWidget.__updateUsersCount" ID="IrcWidget.__updateUsersCount"></a>
+<h4>IrcWidget.__updateUsersCount</h4>
+<b>__updateUsersCount</b>(<i></i>)
+<p>
+        Private method to update the users count on the channel tabs.
+</p>
+
+<a NAME="IrcWidget.autoConnect" ID="IrcWidget.autoConnect"></a>
+<h4>IrcWidget.autoConnect</h4>
+<b>autoConnect</b>(<i></i>)
+<p>
+        Public method to initiate the IRC auto connection.
+</p>
+
+<a NAME="IrcWidget.isChannelName" ID="IrcWidget.isChannelName"></a>
+<h4>IrcWidget.isChannelName</h4>
+<b>isChannelName</b>(<i>name</i>)
+<p>
+        Public method to check, if the given name is a channel name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a channel name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcWidget.joinChannel" ID="IrcWidget.joinChannel"></a>
+<h4>IrcWidget.joinChannel</h4>
+<b>joinChannel</b>(<i>name, key=""</i>)
+<p>
+        Public slot to join a channel.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the channel
+</dd>
+<dt><i>key</i> (str)</dt>
+<dd>
+key of the channel
+</dd>
+</dl>
+<a NAME="IrcWidget.on_channelsWidget_tabCloseRequested" ID="IrcWidget.on_channelsWidget_tabCloseRequested"></a>
+<h4>IrcWidget.on_channelsWidget_tabCloseRequested</h4>
+<b>on_channelsWidget_tabCloseRequested</b>(<i>index</i>)
+<p>
+        Private slot to close a channel by pressing the close button of
+        the channels widget.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the tab to be closed
+</dd>
+</dl>
+<a NAME="IrcWidget.shutdown" ID="IrcWidget.shutdown"></a>
+<h4>IrcWidget.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to shut down the widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful shutdown
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

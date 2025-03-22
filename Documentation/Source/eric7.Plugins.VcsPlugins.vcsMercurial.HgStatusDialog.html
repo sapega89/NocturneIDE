@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.HgStatusDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.HgStatusDialog</h1>
+<p>
+Module implementing a dialog to show the output of the hg status command
+process.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgStatusDialog">HgStatusDialog</a></td>
+<td>Class implementing a dialog to show the output of the hg status command process.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgStatusDialog" ID="HgStatusDialog"></a>
+<h2>HgStatusDialog</h2>
+<p>
+    Class implementing a dialog to show the output of the hg status command
+    process.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_HgStatusDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgStatusDialog.__init__">HgStatusDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__abortMerge">__abortMerge</a></td>
+<td>Private slot used to abort an uncommitted merge.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__add">__add</a></td>
+<td>Private slot to handle the Add context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__commit">__commit</a></td>
+<td>Private slot to handle the Commit context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__commitDeselectAll">__commitDeselectAll</a></td>
+<td>Private slot to deselect all entries from commit.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__commitMerge">__commitMerge</a></td>
+<td>Private slot to handle the Commit Merge context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__commitSelect">__commitSelect</a></td>
+<td>Private slot to select or deselect all entries.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__commitSelectAll">__commitSelectAll</a></td>
+<td>Private slot to select all entries for commit.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__committed">__committed</a></td>
+<td>Private slot called after the commit has finished.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__diff">__diff</a></td>
+<td>Private slot to handle the Diff context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__forget">__forget</a></td>
+<td>Private slot to handle the Forget Missing context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__generateDiffs">__generateDiffs</a></td>
+<td>Private slot to generate diff outputs for the selected item.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__generateItem">__generateItem</a></td>
+<td>Private method to generate a status item in the status list.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__generatorFinished">__generatorFinished</a></td>
+<td>Private slot connected to the finished signal of the diff generator.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__getCommitableItems">__getCommitableItems</a></td>
+<td>Private method to retrieve all entries the user wants to commit.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__getCommitableUnselectedItems">__getCommitableUnselectedItems</a></td>
+<td>Private method to retrieve all entries the user may commit but hasn't selected.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__getMissingItems">__getMissingItems</a></td>
+<td>Private method to retrieve all entries, that have a missing status.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__getModifiedItems">__getModifiedItems</a></td>
+<td>Private method to retrieve all entries, that have a modified status.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__getUnversionedItems">__getUnversionedItems</a></td>
+<td>Private method to retrieve all entries, that have an unversioned status.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__initActionsMenu">__initActionsMenu</a></td>
+<td>Private method to initialize the actions menu.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__lfAdd">__lfAdd</a></td>
+<td>Private slot to add a file to the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__processOutputLine">__processOutputLine</a></td>
+<td>Private method to process the lines of output.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__refreshDiff">__refreshDiff</a></td>
+<td>Private method to refresh the diff output after a refresh.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the list columns.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__restoreMissing">__restoreMissing</a></td>
+<td>Private slot to handle the Restore Missing context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__revert">__revert</a></td>
+<td>Private slot to handle the Revert context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__sbsDiff">__sbsDiff</a></td>
+<td>Private slot to handle the Side-By-Side Diff context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__showActionsMenu">__showActionsMenu</a></td>
+<td>Private slot to prepare the actions button menu before it is shown.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.__showError">__showError</a></td>
+<td>Private slot to show some error.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the status display.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.on_statusFilterCombo_activated">on_statusFilterCombo_activated</a></td>
+<td>Private slot to react to the selection of a status filter.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.on_statusList_itemSelectionChanged">on_statusList_itemSelectionChanged</a></td>
+<td>Private slot to act upon changes of selected items.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+<tr>
+<td><a href="#HgStatusDialog.start">start</a></td>
+<td>Public slot to start the hg status command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgStatusDialog.__init__" ID="HgStatusDialog.__init__"></a>
+<h4>HgStatusDialog (Constructor)</h4>
+<b>HgStatusDialog</b>(<i>vcs, mq=False, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>mq</i> (bool)</dt>
+<dd>
+flag indicating to show a queue repo status
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__abortMerge" ID="HgStatusDialog.__abortMerge"></a>
+<h4>HgStatusDialog.__abortMerge</h4>
+<b>__abortMerge</b>(<i></i>)
+<p>
+        Private slot used to abort an uncommitted merge.
+</p>
+
+<a NAME="HgStatusDialog.__add" ID="HgStatusDialog.__add"></a>
+<h4>HgStatusDialog.__add</h4>
+<b>__add</b>(<i></i>)
+<p>
+        Private slot to handle the Add context menu entry.
+</p>
+
+<a NAME="HgStatusDialog.__commit" ID="HgStatusDialog.__commit"></a>
+<h4>HgStatusDialog.__commit</h4>
+<b>__commit</b>(<i></i>)
+<p>
+        Private slot to handle the Commit context menu entry.
+</p>
+
+<a NAME="HgStatusDialog.__commitDeselectAll" ID="HgStatusDialog.__commitDeselectAll"></a>
+<h4>HgStatusDialog.__commitDeselectAll</h4>
+<b>__commitDeselectAll</b>(<i></i>)
+<p>
+        Private slot to deselect all entries from commit.
+</p>
+
+<a NAME="HgStatusDialog.__commitMerge" ID="HgStatusDialog.__commitMerge"></a>
+<h4>HgStatusDialog.__commitMerge</h4>
+<b>__commitMerge</b>(<i></i>)
+<p>
+        Private slot to handle the Commit Merge context menu entry.
+</p>
+
+<a NAME="HgStatusDialog.__commitSelect" ID="HgStatusDialog.__commitSelect"></a>
+<h4>HgStatusDialog.__commitSelect</h4>
+<b>__commitSelect</b>(<i>selected</i>)
+<p>
+        Private slot to select or deselect all entries.
+</p>
+
+<dl>
+
+<dt><i>selected</i> (bool)</dt>
+<dd>
+commit selection state to be set
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__commitSelectAll" ID="HgStatusDialog.__commitSelectAll"></a>
+<h4>HgStatusDialog.__commitSelectAll</h4>
+<b>__commitSelectAll</b>(<i></i>)
+<p>
+        Private slot to select all entries for commit.
+</p>
+
+<a NAME="HgStatusDialog.__committed" ID="HgStatusDialog.__committed"></a>
+<h4>HgStatusDialog.__committed</h4>
+<b>__committed</b>(<i></i>)
+<p>
+        Private slot called after the commit has finished.
+</p>
+
+<a NAME="HgStatusDialog.__diff" ID="HgStatusDialog.__diff"></a>
+<h4>HgStatusDialog.__diff</h4>
+<b>__diff</b>(<i></i>)
+<p>
+        Private slot to handle the Diff context menu entry.
+</p>
+
+<a NAME="HgStatusDialog.__finish" ID="HgStatusDialog.__finish"></a>
+<h4>HgStatusDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="HgStatusDialog.__forget" ID="HgStatusDialog.__forget"></a>
+<h4>HgStatusDialog.__forget</h4>
+<b>__forget</b>(<i></i>)
+<p>
+        Private slot to handle the Forget Missing context menu entry.
+</p>
+
+<a NAME="HgStatusDialog.__generateDiffs" ID="HgStatusDialog.__generateDiffs"></a>
+<h4>HgStatusDialog.__generateDiffs</h4>
+<b>__generateDiffs</b>(<i></i>)
+<p>
+        Private slot to generate diff outputs for the selected item.
+</p>
+
+<a NAME="HgStatusDialog.__generateItem" ID="HgStatusDialog.__generateItem"></a>
+<h4>HgStatusDialog.__generateItem</h4>
+<b>__generateItem</b>(<i>status, path</i>)
+<p>
+        Private method to generate a status item in the status list.
+</p>
+
+<dl>
+
+<dt><i>status</i> (str)</dt>
+<dd>
+status indicator
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the file or directory
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__generatorFinished" ID="HgStatusDialog.__generatorFinished"></a>
+<h4>HgStatusDialog.__generatorFinished</h4>
+<b>__generatorFinished</b>(<i></i>)
+<p>
+        Private slot connected to the finished signal of the diff generator.
+</p>
+
+<a NAME="HgStatusDialog.__getCommitableItems" ID="HgStatusDialog.__getCommitableItems"></a>
+<h4>HgStatusDialog.__getCommitableItems</h4>
+<b>__getCommitableItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries the user wants to commit.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items, the user has checked
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItems
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__getCommitableUnselectedItems" ID="HgStatusDialog.__getCommitableUnselectedItems"></a>
+<h4>HgStatusDialog.__getCommitableUnselectedItems</h4>
+<b>__getCommitableUnselectedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries the user may commit but hasn't
+        selected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items, the user has checked
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItems
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__getMissingItems" ID="HgStatusDialog.__getMissingItems"></a>
+<h4>HgStatusDialog.__getMissingItems</h4>
+<b>__getMissingItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a missing status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a missing status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItems
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__getModifiedItems" ID="HgStatusDialog.__getModifiedItems"></a>
+<h4>HgStatusDialog.__getModifiedItems</h4>
+<b>__getModifiedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a modified status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a modified status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItems
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__getUnversionedItems" ID="HgStatusDialog.__getUnversionedItems"></a>
+<h4>HgStatusDialog.__getUnversionedItems</h4>
+<b>__getUnversionedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have an unversioned
+        status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with an unversioned status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItems
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__initActionsMenu" ID="HgStatusDialog.__initActionsMenu"></a>
+<h4>HgStatusDialog.__initActionsMenu</h4>
+<b>__initActionsMenu</b>(<i></i>)
+<p>
+        Private method to initialize the actions menu.
+</p>
+
+<a NAME="HgStatusDialog.__lfAdd" ID="HgStatusDialog.__lfAdd"></a>
+<h4>HgStatusDialog.__lfAdd</h4>
+<b>__lfAdd</b>(<i>mode</i>)
+<p>
+        Private slot to add a file to the repository.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (str)</dt>
+<dd>
+add mode (one of 'normal' or 'large')
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__processOutputLine" ID="HgStatusDialog.__processOutputLine"></a>
+<h4>HgStatusDialog.__processOutputLine</h4>
+<b>__processOutputLine</b>(<i>line</i>)
+<p>
+        Private method to process the lines of output.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+output line to be processed
+</dd>
+</dl>
+<a NAME="HgStatusDialog.__refreshDiff" ID="HgStatusDialog.__refreshDiff"></a>
+<h4>HgStatusDialog.__refreshDiff</h4>
+<b>__refreshDiff</b>(<i></i>)
+<p>
+        Private method to refresh the diff output after a refresh.
+</p>
+
+<a NAME="HgStatusDialog.__resizeColumns" ID="HgStatusDialog.__resizeColumns"></a>
+<h4>HgStatusDialog.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the list columns.
+</p>
+
+<a NAME="HgStatusDialog.__resort" ID="HgStatusDialog.__resort"></a>
+<h4>HgStatusDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="HgStatusDialog.__restoreMissing" ID="HgStatusDialog.__restoreMissing"></a>
+<h4>HgStatusDialog.__restoreMissing</h4>
+<b>__restoreMissing</b>(<i></i>)
+<p>
+        Private slot to handle the Restore Missing context menu entry.
+</p>
+
+<a NAME="HgStatusDialog.__revert" ID="HgStatusDialog.__revert"></a>
+<h4>HgStatusDialog.__revert</h4>
+<b>__revert</b>(<i></i>)
+<p>
+        Private slot to handle the Revert context menu entry.
+</p>
+
+<a NAME="HgStatusDialog.__sbsDiff" ID="HgStatusDialog.__sbsDiff"></a>
+<h4>HgStatusDialog.__sbsDiff</h4>
+<b>__sbsDiff</b>(<i></i>)
+<p>
+        Private slot to handle the Side-By-Side Diff context menu entry.
+</p>
+
+<a NAME="HgStatusDialog.__showActionsMenu" ID="HgStatusDialog.__showActionsMenu"></a>
+<h4>HgStatusDialog.__showActionsMenu</h4>
+<b>__showActionsMenu</b>(<i></i>)
+<p>
+        Private slot to prepare the actions button menu before it is shown.
+</p>
+
+<a NAME="HgStatusDialog.__showError" ID="HgStatusDialog.__showError"></a>
+<h4>HgStatusDialog.__showError</h4>
+<b>__showError</b>(<i>out</i>)
+<p>
+        Private slot to show some error.
+</p>
+
+<dl>
+
+<dt><i>out</i> (str)</dt>
+<dd>
+error to be shown
+</dd>
+</dl>
+<a NAME="HgStatusDialog.closeEvent" ID="HgStatusDialog.closeEvent"></a>
+<h4>HgStatusDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="HgStatusDialog.on_buttonBox_clicked" ID="HgStatusDialog.on_buttonBox_clicked"></a>
+<h4>HgStatusDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="HgStatusDialog.on_refreshButton_clicked" ID="HgStatusDialog.on_refreshButton_clicked"></a>
+<h4>HgStatusDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the status display.
+</p>
+
+<a NAME="HgStatusDialog.on_statusFilterCombo_activated" ID="HgStatusDialog.on_statusFilterCombo_activated"></a>
+<h4>HgStatusDialog.on_statusFilterCombo_activated</h4>
+<b>on_statusFilterCombo_activated</b>(<i>index</i>)
+<p>
+        Private slot to react to the selection of a status filter.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="HgStatusDialog.on_statusList_itemSelectionChanged" ID="HgStatusDialog.on_statusList_itemSelectionChanged"></a>
+<h4>HgStatusDialog.on_statusList_itemSelectionChanged</h4>
+<b>on_statusList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to act upon changes of selected items.
+</p>
+
+<a NAME="HgStatusDialog.show" ID="HgStatusDialog.show"></a>
+<h4>HgStatusDialog.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<a NAME="HgStatusDialog.start" ID="HgStatusDialog.start"></a>
+<h4>HgStatusDialog.start</h4>
+<b>start</b>(<i>fn</i>)
+<p>
+        Public slot to start the hg status command.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str or list of str)</dt>
+<dd>
+filename(s)/directoryname(s) to show the status of
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

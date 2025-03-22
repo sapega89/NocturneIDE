@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Testing.TestingWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Testing.TestingWidget</h1>
+<p>
+Module implementing a widget to orchestrate unit test execution.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TestingWidget">TestingWidget</a></td>
+<td>Class implementing a widget to orchestrate unit test execution.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidgetModes">TestingWidgetModes</a></td>
+<td>Class defining the various modes of the testing widget.</td>
+</tr>
+<tr>
+<td><a href="#TestingWindow">TestingWindow</a></td>
+<td>Main window class for the standalone dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#clearSavedHistories">clearSavedHistories</a></td>
+<td>Function to clear the saved history lists.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TestingWidget" ID="TestingWidget"></a>
+<h2>TestingWidget</h2>
+<p>
+    Class implementing a widget to orchestrate unit test execution.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>testFile(str, int, bool)</dt>
+<dd>
+emitted to show the source of a
+       test file
+</dd>
+<dt>testRunStopped()</dt>
+<dd>
+emitted after a test run has finished
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_TestingWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>TestCaseFileRole</td></tr>
+<tr><td>TestCaseIdRole</td></tr>
+<tr><td>TestCaseLinenoRole</td></tr>
+<tr><td>TestCaseNameRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TestingWidget.__init__">TestingWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__adjustPendingState">__adjustPendingState</a></td>
+<td>Private method to change the status indicator of all still pending tests to "not run".</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__coverageData">__coverageData</a></td>
+<td>Private slot to handle the 'coverageData' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__determineInterpreter">__determineInterpreter</a></td>
+<td>Private method to determine the interpreter to be used.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__discoverTests">__discoverTests</a></td>
+<td>Private slot to discover tests but don't execute them.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__findDiscoveryItem">__findDiscoveryItem</a></td>
+<td>Private method to find an item given the module path.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__insertDiscovery">__insertDiscovery</a></td>
+<td>Private slot to insert the discovery start directory into the discoveryPicker object.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__insertHistory">__insertHistory</a></td>
+<td>Private slot to insert an item into a history object.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__insertTestFile">__insertTestFile</a></td>
+<td>Private slot to insert a test file name into the testsuitePicker object.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__insertTestName">__insertTestName</a></td>
+<td>Private slot to insert a test name into the testComboBox object.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__loadRecent">__loadRecent</a></td>
+<td>Private method to load the most recently used lists.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__openEditor">__openEditor</a></td>
+<td>Private method to open an editor window for the given file.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__populateTestFrameworkComboBox">__populateTestFrameworkComboBox</a></td>
+<td>Private method to (re-)populate the test framework selector.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__populateVenvComboBox">__populateVenvComboBox</a></td>
+<td>Private method to (re-)populate the virtual environments selector.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__processTestResult">__processTestResult</a></td>
+<td>Private slot to handle the receipt of a test result object.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__projectClosed">__projectClosed</a></td>
+<td>Private slot to handle a project being closed.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__projectOpened">__projectOpened</a></td>
+<td>Private slot to handle a project being opened.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__resetResults">__resetResults</a></td>
+<td>Private slot to reset the test results tab and data.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__saveRecent">__saveRecent</a></td>
+<td>Private method to save the most recently used lists.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__selectedTestCases">__selectedTestCases</a></td>
+<td>Private method to assemble the list of selected test cases and suites.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__setDiscoverMode">__setDiscoverMode</a></td>
+<td>Private slot to switch the widget to test discovery mode.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__setIdleMode">__setIdleMode</a></td>
+<td>Private slot to switch the widget to idle mode.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__setRunningMode">__setRunningMode</a></td>
+<td>Private slot to switch the widget to running mode.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__setStatusLabel">__setStatusLabel</a></td>
+<td>Private slot to set the status label to the text sent by the model.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__setStoppedMode">__setStoppedMode</a></td>
+<td>Private slot to switch the widget to stopped mode.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__showCoverageDialog">__showCoverageDialog</a></td>
+<td>Private slot to show a code coverage dialog for the most recent test run.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__showLogOutput">__showLogOutput</a></td>
+<td>Private slot to show the output of the most recent test run.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__showSource">__showSource</a></td>
+<td>Private slot to show the source of a traceback in an editor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__stopTests">__stopTests</a></td>
+<td>Private slot to stop the current test run.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testDiscoveryAboutToBeStarted">__testDiscoveryAboutToBeStarted</a></td>
+<td>Private slot to handle the 'testDiscoveryAboutToBeStarted' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testDiscoveryError">__testDiscoveryError</a></td>
+<td>Private slot handling the 'collectError' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testDiscoveryProcessFinished">__testDiscoveryProcessFinished</a></td>
+<td>Private slot to handle the 'testFinished' signal of the executor in discovery mode.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testProcessFinished">__testProcessFinished</a></td>
+<td>Private slot to handle the 'testFinished' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testRunAboutToBeStarted">__testRunAboutToBeStarted</a></td>
+<td>Private slot to handle the 'testRunAboutToBeStarted' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testRunFinished">__testRunFinished</a></td>
+<td>Private slot to handle the 'testRunFinished' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testStarted">__testStarted</a></td>
+<td>Private slot handling the 'startTest' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testsCollectError">__testsCollectError</a></td>
+<td>Private slot handling the 'collectError' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testsCollected">__testsCollected</a></td>
+<td>Private slot handling the 'collected' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testsDiscovered">__testsDiscovered</a></td>
+<td>Private slot handling the 'collected' signal of the executor in discovery mode.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__testsStopped">__testsStopped</a></td>
+<td>Private slot to handle the 'stop' signal of the executor.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__updateButtonBoxButtons">__updateButtonBoxButtons</a></td>
+<td>Private slot to update the state of the buttons of the button box.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__updateCoverage">__updateCoverage</a></td>
+<td>Private slot to update the state of the coverage checkbox depending on the selected framework's capabilities.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__updateMarkerSupport">__updateMarkerSupport</a></td>
+<td>Private slot to update the state of the marker related widgets depending on the selected framework's capabilities.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__updatePatternSupport">__updatePatternSupport</a></td>
+<td>Private slot to update the state of the test name pattern line edit depending on the selected framework's capabilities.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__updateProgress">__updateProgress</a></td>
+<td>Private slot to update the progress indicators.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.__updateStatusFilterComboBox">__updateStatusFilterComboBox</a></td>
+<td>Private method to update the status filter dialog box.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.clearRecent">clearRecent</a></td>
+<td>Public slot to clear the recently used lists.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.closeEvent">closeEvent</a></td>
+<td>Protected method to handle the close event.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.getFailedTests">getFailedTests</a></td>
+<td>Public method to get the list of failed tests (if any).</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.getResultsModel">getResultsModel</a></td>
+<td>Public method to get a reference to the model containing the test result data.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.hasFailedTests">hasFailedTests</a></td>
+<td>Public method to check for failed tests.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_discoverCheckBox_toggled">on_discoverCheckBox_toggled</a></td>
+<td>Private slot handling state changes of the 'discover' checkbox.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_discoveryList_customContextMenuRequested">on_discoveryList_customContextMenuRequested</a></td>
+<td>Private slot to show the context menu of the dicovery list.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_discoveryList_itemActivated">on_discoveryList_itemActivated</a></td>
+<td>Private slot handling the user activating an item.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_discoveryList_itemChanged">on_discoveryList_itemChanged</a></td>
+<td>Private slot handling the user checking or unchecking an item.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_discoveryPicker_editTextChanged">on_discoveryPicker_editTextChanged</a></td>
+<td>Private slot to handle a change of the discovery start directory.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_frameworkComboBox_currentIndexChanged">on_frameworkComboBox_currentIndexChanged</a></td>
+<td>Private slot handling the selection of a test framework.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_showMarkersButton_clicked">on_showMarkersButton_clicked</a></td>
+<td>Private slot to show a window containing the list of defined markers.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_statusFilterComboBox_currentTextChanged">on_statusFilterComboBox_currentTextChanged</a></td>
+<td>Private slot handling the selection of a status for items to be shown.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_testsuitePicker_aboutToShowPathPickerDialog">on_testsuitePicker_aboutToShowPathPickerDialog</a></td>
+<td>Private slot called before the test file selection dialog is shown.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_venvComboBox_currentIndexChanged">on_venvComboBox_currentIndexChanged</a></td>
+<td>Private slot handling the selection of a virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.on_versionsButton_clicked">on_versionsButton_clicked</a></td>
+<td>Private slot to show the versions of available plugins.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.setTestFile">setTestFile</a></td>
+<td>Public slot to set the given test file as the current one.</td>
+</tr>
+<tr>
+<td><a href="#TestingWidget.startTests">startTests</a></td>
+<td>Public slot to start the test run.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TestingWidget.__init__" ID="TestingWidget.__init__"></a>
+<h4>TestingWidget (Constructor)</h4>
+<b>TestingWidget</b>(<i>testfile=None, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>testfile</i> (str)</dt>
+<dd>
+file name of the test to load
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="TestingWidget.__adjustPendingState" ID="TestingWidget.__adjustPendingState"></a>
+<h4>TestingWidget.__adjustPendingState</h4>
+<b>__adjustPendingState</b>(<i></i>)
+<p>
+        Private method to change the status indicator of all still pending
+        tests to "not run".
+</p>
+
+<a NAME="TestingWidget.__coverageData" ID="TestingWidget.__coverageData"></a>
+<h4>TestingWidget.__coverageData</h4>
+<b>__coverageData</b>(<i>coverageFile</i>)
+<p>
+        Private slot to handle the 'coverageData' signal of the executor.
+</p>
+
+<dl>
+
+<dt><i>coverageFile</i> (str)</dt>
+<dd>
+file containing the coverage data
+</dd>
+</dl>
+<a NAME="TestingWidget.__determineInterpreter" ID="TestingWidget.__determineInterpreter"></a>
+<h4>TestingWidget.__determineInterpreter</h4>
+<b>__determineInterpreter</b>(<i>venvName</i>)
+<p>
+        Private method to determine the interpreter to be used.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the interpreter executable
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TestingWidget.__discoverTests" ID="TestingWidget.__discoverTests"></a>
+<h4>TestingWidget.__discoverTests</h4>
+<b>__discoverTests</b>(<i></i>)
+<p>
+        Private slot to discover tests but don't execute them.
+</p>
+
+<a NAME="TestingWidget.__findDiscoveryItem" ID="TestingWidget.__findDiscoveryItem"></a>
+<h4>TestingWidget.__findDiscoveryItem</h4>
+<b>__findDiscoveryItem</b>(<i>modulePath</i>)
+<p>
+        Private method to find an item given the module path.
+</p>
+
+<dl>
+
+<dt><i>modulePath</i> (str)</dt>
+<dd>
+path of the module in dotted notation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the item or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem or None
+</dd>
+</dl>
+<a NAME="TestingWidget.__insertDiscovery" ID="TestingWidget.__insertDiscovery"></a>
+<h4>TestingWidget.__insertDiscovery</h4>
+<b>__insertDiscovery</b>(<i>start</i>)
+<p>
+        Private slot to insert the discovery start directory into the
+        discoveryPicker object.
+</p>
+
+<dl>
+
+<dt><i>start</i> (str)</dt>
+<dd>
+start directory name to be inserted
+</dd>
+</dl>
+<a NAME="TestingWidget.__insertHistory" ID="TestingWidget.__insertHistory"></a>
+<h4>TestingWidget.__insertHistory</h4>
+<b>__insertHistory</b>(<i>widget, history, item</i>)
+<p>
+        Private slot to insert an item into a history object.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QComboBox or EricComboPathPicker)</dt>
+<dd>
+reference to the widget
+</dd>
+<dt><i>history</i> (list of str)</dt>
+<dd>
+array containing the history
+</dd>
+<dt><i>item</i> (str)</dt>
+<dd>
+item to be inserted
+</dd>
+</dl>
+<a NAME="TestingWidget.__insertTestFile" ID="TestingWidget.__insertTestFile"></a>
+<h4>TestingWidget.__insertTestFile</h4>
+<b>__insertTestFile</b>(<i>prog</i>)
+<p>
+        Private slot to insert a test file name into the testsuitePicker
+        object.
+</p>
+
+<dl>
+
+<dt><i>prog</i> (str)</dt>
+<dd>
+test file name to be inserted
+</dd>
+</dl>
+<a NAME="TestingWidget.__insertTestName" ID="TestingWidget.__insertTestName"></a>
+<h4>TestingWidget.__insertTestName</h4>
+<b>__insertTestName</b>(<i>testName</i>)
+<p>
+        Private slot to insert a test name into the testComboBox object.
+</p>
+
+<dl>
+
+<dt><i>testName</i> (str)</dt>
+<dd>
+name of the test to be inserted
+</dd>
+</dl>
+<a NAME="TestingWidget.__loadRecent" ID="TestingWidget.__loadRecent"></a>
+<h4>TestingWidget.__loadRecent</h4>
+<b>__loadRecent</b>(<i></i>)
+<p>
+        Private method to load the most recently used lists.
+</p>
+
+<a NAME="TestingWidget.__openEditor" ID="TestingWidget.__openEditor"></a>
+<h4>TestingWidget.__openEditor</h4>
+<b>__openEditor</b>(<i>filename, linenumber=1</i>)
+<p>
+        Private method to open an editor window for the given file.
+</p>
+<p>
+        Note: This method opens an editor window when the testing dialog
+        is called as a standalone application.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+path of the file to be opened
+</dd>
+<dt><i>linenumber</i> (int (optional))</dt>
+<dd>
+line number to place the cursor at (defaults to 1)
+</dd>
+</dl>
+<a NAME="TestingWidget.__populateTestFrameworkComboBox" ID="TestingWidget.__populateTestFrameworkComboBox"></a>
+<h4>TestingWidget.__populateTestFrameworkComboBox</h4>
+<b>__populateTestFrameworkComboBox</b>(<i></i>)
+<p>
+        Private method to (re-)populate the test framework selector.
+</p>
+
+<a NAME="TestingWidget.__populateVenvComboBox" ID="TestingWidget.__populateVenvComboBox"></a>
+<h4>TestingWidget.__populateVenvComboBox</h4>
+<b>__populateVenvComboBox</b>(<i></i>)
+<p>
+        Private method to (re-)populate the virtual environments selector.
+</p>
+
+<a NAME="TestingWidget.__processTestResult" ID="TestingWidget.__processTestResult"></a>
+<h4>TestingWidget.__processTestResult</h4>
+<b>__processTestResult</b>(<i>result</i>)
+<p>
+        Private slot to handle the receipt of a test result object.
+</p>
+
+<dl>
+
+<dt><i>result</i> (TestResult)</dt>
+<dd>
+test result object
+</dd>
+</dl>
+<a NAME="TestingWidget.__projectClosed" ID="TestingWidget.__projectClosed"></a>
+<h4>TestingWidget.__projectClosed</h4>
+<b>__projectClosed</b>(<i></i>)
+<p>
+        Private slot to handle a project being closed.
+</p>
+
+<a NAME="TestingWidget.__projectOpened" ID="TestingWidget.__projectOpened"></a>
+<h4>TestingWidget.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to handle a project being opened.
+</p>
+
+<a NAME="TestingWidget.__resetResults" ID="TestingWidget.__resetResults"></a>
+<h4>TestingWidget.__resetResults</h4>
+<b>__resetResults</b>(<i></i>)
+<p>
+        Private slot to reset the test results tab and data.
+</p>
+
+<a NAME="TestingWidget.__saveRecent" ID="TestingWidget.__saveRecent"></a>
+<h4>TestingWidget.__saveRecent</h4>
+<b>__saveRecent</b>(<i></i>)
+<p>
+        Private method to save the most recently used lists.
+</p>
+
+<a NAME="TestingWidget.__selectedTestCases" ID="TestingWidget.__selectedTestCases"></a>
+<h4>TestingWidget.__selectedTestCases</h4>
+<b>__selectedTestCases</b>(<i>parent=None</i>)
+<p>
+        Private method to assemble the list of selected test cases and suites.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the parent item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of selected test cases
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="TestingWidget.__setDiscoverMode" ID="TestingWidget.__setDiscoverMode"></a>
+<h4>TestingWidget.__setDiscoverMode</h4>
+<b>__setDiscoverMode</b>(<i></i>)
+<p>
+        Private slot to switch the widget to test discovery mode.
+</p>
+
+<a NAME="TestingWidget.__setIdleMode" ID="TestingWidget.__setIdleMode"></a>
+<h4>TestingWidget.__setIdleMode</h4>
+<b>__setIdleMode</b>(<i></i>)
+<p>
+        Private slot to switch the widget to idle mode.
+</p>
+
+<a NAME="TestingWidget.__setRunningMode" ID="TestingWidget.__setRunningMode"></a>
+<h4>TestingWidget.__setRunningMode</h4>
+<b>__setRunningMode</b>(<i></i>)
+<p>
+        Private slot to switch the widget to running mode.
+</p>
+
+<a NAME="TestingWidget.__setStatusLabel" ID="TestingWidget.__setStatusLabel"></a>
+<h4>TestingWidget.__setStatusLabel</h4>
+<b>__setStatusLabel</b>(<i>statusText</i>)
+<p>
+        Private slot to set the status label to the text sent by the model.
+</p>
+
+<dl>
+
+<dt><i>statusText</i> (str)</dt>
+<dd>
+text to be shown
+</dd>
+</dl>
+<a NAME="TestingWidget.__setStoppedMode" ID="TestingWidget.__setStoppedMode"></a>
+<h4>TestingWidget.__setStoppedMode</h4>
+<b>__setStoppedMode</b>(<i></i>)
+<p>
+        Private slot to switch the widget to stopped mode.
+</p>
+
+<a NAME="TestingWidget.__showCoverageDialog" ID="TestingWidget.__showCoverageDialog"></a>
+<h4>TestingWidget.__showCoverageDialog</h4>
+<b>__showCoverageDialog</b>(<i></i>)
+<p>
+        Private slot to show a code coverage dialog for the most recent test
+        run.
+</p>
+
+<a NAME="TestingWidget.__showLogOutput" ID="TestingWidget.__showLogOutput"></a>
+<h4>TestingWidget.__showLogOutput</h4>
+<b>__showLogOutput</b>(<i></i>)
+<p>
+        Private slot to show the output of the most recent test run.
+</p>
+
+<a NAME="TestingWidget.__showSource" ID="TestingWidget.__showSource"></a>
+<h4>TestingWidget.__showSource</h4>
+<b>__showSource</b>(<i>filename, lineno</i>)
+<p>
+        Private slot to show the source of a traceback in an editor.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name of the file to be shown
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number to go to in the file
+</dd>
+</dl>
+<a NAME="TestingWidget.__stopTests" ID="TestingWidget.__stopTests"></a>
+<h4>TestingWidget.__stopTests</h4>
+<b>__stopTests</b>(<i></i>)
+<p>
+        Private slot to stop the current test run.
+</p>
+
+<a NAME="TestingWidget.__testDiscoveryAboutToBeStarted" ID="TestingWidget.__testDiscoveryAboutToBeStarted"></a>
+<h4>TestingWidget.__testDiscoveryAboutToBeStarted</h4>
+<b>__testDiscoveryAboutToBeStarted</b>(<i></i>)
+<p>
+        Private slot to handle the 'testDiscoveryAboutToBeStarted' signal of the
+        executor.
+</p>
+
+<a NAME="TestingWidget.__testDiscoveryError" ID="TestingWidget.__testDiscoveryError"></a>
+<h4>TestingWidget.__testDiscoveryError</h4>
+<b>__testDiscoveryError</b>(<i>errors</i>)
+<p>
+        Private slot handling the 'collectError' signal of the executor.
+</p>
+
+<dl>
+
+<dt><i>errors</i> (list of tuple of (str, str))</dt>
+<dd>
+list of tuples containing the test name and a description
+            of the error
+</dd>
+</dl>
+<a NAME="TestingWidget.__testDiscoveryProcessFinished" ID="TestingWidget.__testDiscoveryProcessFinished"></a>
+<h4>TestingWidget.__testDiscoveryProcessFinished</h4>
+<b>__testDiscoveryProcessFinished</b>(<i>_results, output</i>)
+<p>
+        Private slot to handle the 'testFinished' signal of the executor in
+        discovery mode.
+</p>
+
+<dl>
+
+<dt><i>_results</i> (list of TestResult)</dt>
+<dd>
+list of test result objects (if not sent via the
+            'testResult' signal) (unused)
+</dd>
+<dt><i>output</i> (str)</dt>
+<dd>
+string containing the test process output (if any)
+</dd>
+</dl>
+<a NAME="TestingWidget.__testProcessFinished" ID="TestingWidget.__testProcessFinished"></a>
+<h4>TestingWidget.__testProcessFinished</h4>
+<b>__testProcessFinished</b>(<i>_results, output</i>)
+<p>
+        Private slot to handle the 'testFinished' signal of the executor.
+</p>
+
+<dl>
+
+<dt><i>_results</i> (list of TestResult)</dt>
+<dd>
+list of test result objects (if not sent via the
+            'testResult' signal) (unused)
+</dd>
+<dt><i>output</i> (str)</dt>
+<dd>
+string containing the test process output (if any)
+</dd>
+</dl>
+<a NAME="TestingWidget.__testRunAboutToBeStarted" ID="TestingWidget.__testRunAboutToBeStarted"></a>
+<h4>TestingWidget.__testRunAboutToBeStarted</h4>
+<b>__testRunAboutToBeStarted</b>(<i></i>)
+<p>
+        Private slot to handle the 'testRunAboutToBeStarted' signal of the
+        executor.
+</p>
+
+<a NAME="TestingWidget.__testRunFinished" ID="TestingWidget.__testRunFinished"></a>
+<h4>TestingWidget.__testRunFinished</h4>
+<b>__testRunFinished</b>(<i>noTests, duration</i>)
+<p>
+        Private slot to handle the 'testRunFinished' signal of the executor.
+</p>
+
+<dl>
+
+<dt><i>noTests</i> (int)</dt>
+<dd>
+number of tests run by the executor
+</dd>
+<dt><i>duration</i> (float)</dt>
+<dd>
+time needed in seconds to run the tests
+</dd>
+</dl>
+<a NAME="TestingWidget.__testStarted" ID="TestingWidget.__testStarted"></a>
+<h4>TestingWidget.__testStarted</h4>
+<b>__testStarted</b>(<i>test</i>)
+<p>
+        Private slot handling the 'startTest' signal of the executor.
+</p>
+
+<dl>
+
+<dt><i>test</i> (tuple of (str, str, str))</dt>
+<dd>
+tuple containing the id, name and short description of the
+            tests about to be run
+</dd>
+</dl>
+<a NAME="TestingWidget.__testsCollectError" ID="TestingWidget.__testsCollectError"></a>
+<h4>TestingWidget.__testsCollectError</h4>
+<b>__testsCollectError</b>(<i>errors</i>)
+<p>
+        Private slot handling the 'collectError' signal of the executor.
+</p>
+
+<dl>
+
+<dt><i>errors</i> (list of tuple of (str, str))</dt>
+<dd>
+list of tuples containing the test name and a description
+            of the error
+</dd>
+</dl>
+<a NAME="TestingWidget.__testsCollected" ID="TestingWidget.__testsCollected"></a>
+<h4>TestingWidget.__testsCollected</h4>
+<b>__testsCollected</b>(<i>testNames</i>)
+<p>
+        Private slot handling the 'collected' signal of the executor.
+</p>
+
+<dl>
+
+<dt><i>testNames</i> (list of tuple of (str, str, str, str, int, list))</dt>
+<dd>
+list of tuples containing the test id, the test name
+            a description, the file name, the line number and the test path as a list
+            of collected tests
+</dd>
+</dl>
+<a NAME="TestingWidget.__testsDiscovered" ID="TestingWidget.__testsDiscovered"></a>
+<h4>TestingWidget.__testsDiscovered</h4>
+<b>__testsDiscovered</b>(<i>testNames</i>)
+<p>
+        Private slot handling the 'collected' signal of the executor in discovery
+        mode.
+</p>
+
+<dl>
+
+<dt><i>testNames</i> (list of tuple of (str, str, str, str, int, list))</dt>
+<dd>
+list of tuples containing the test id, the test name
+            a description, the file name, the line number and the test path as a list
+            of collected tests
+</dd>
+</dl>
+<a NAME="TestingWidget.__testsStopped" ID="TestingWidget.__testsStopped"></a>
+<h4>TestingWidget.__testsStopped</h4>
+<b>__testsStopped</b>(<i></i>)
+<p>
+        Private slot to handle the 'stop' signal of the executor.
+</p>
+
+<a NAME="TestingWidget.__updateButtonBoxButtons" ID="TestingWidget.__updateButtonBoxButtons"></a>
+<h4>TestingWidget.__updateButtonBoxButtons</h4>
+<b>__updateButtonBoxButtons</b>(<i></i>)
+<p>
+        Private slot to update the state of the buttons of the button box.
+</p>
+
+<a NAME="TestingWidget.__updateCoverage" ID="TestingWidget.__updateCoverage"></a>
+<h4>TestingWidget.__updateCoverage</h4>
+<b>__updateCoverage</b>(<i></i>)
+<p>
+        Private slot to update the state of the coverage checkbox depending on
+        the selected framework's capabilities.
+</p>
+
+<a NAME="TestingWidget.__updateMarkerSupport" ID="TestingWidget.__updateMarkerSupport"></a>
+<h4>TestingWidget.__updateMarkerSupport</h4>
+<b>__updateMarkerSupport</b>(<i></i>)
+<p>
+        Private slot to update the state of the marker related widgets depending on
+        the selected framework's capabilities.
+</p>
+
+<a NAME="TestingWidget.__updatePatternSupport" ID="TestingWidget.__updatePatternSupport"></a>
+<h4>TestingWidget.__updatePatternSupport</h4>
+<b>__updatePatternSupport</b>(<i></i>)
+<p>
+        Private slot to update the state of the test name pattern line edit depending on
+        the selected framework's capabilities.
+</p>
+
+<a NAME="TestingWidget.__updateProgress" ID="TestingWidget.__updateProgress"></a>
+<h4>TestingWidget.__updateProgress</h4>
+<b>__updateProgress</b>(<i></i>)
+<p>
+        Private slot to update the progress indicators.
+</p>
+
+<a NAME="TestingWidget.__updateStatusFilterComboBox" ID="TestingWidget.__updateStatusFilterComboBox"></a>
+<h4>TestingWidget.__updateStatusFilterComboBox</h4>
+<b>__updateStatusFilterComboBox</b>(<i></i>)
+<p>
+        Private method to update the status filter dialog box.
+</p>
+
+<a NAME="TestingWidget.clearRecent" ID="TestingWidget.clearRecent"></a>
+<h4>TestingWidget.clearRecent</h4>
+<b>clearRecent</b>(<i></i>)
+<p>
+        Public slot to clear the recently used lists.
+</p>
+
+<a NAME="TestingWidget.closeEvent" ID="TestingWidget.closeEvent"></a>
+<h4>TestingWidget.closeEvent</h4>
+<b>closeEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the close event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="TestingWidget.getFailedTests" ID="TestingWidget.getFailedTests"></a>
+<h4>TestingWidget.getFailedTests</h4>
+<b>getFailedTests</b>(<i></i>)
+<p>
+        Public method to get the list of failed tests (if any).
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of IDs of failed tests
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="TestingWidget.getResultsModel" ID="TestingWidget.getResultsModel"></a>
+<h4>TestingWidget.getResultsModel</h4>
+<b>getResultsModel</b>(<i></i>)
+<p>
+        Public method to get a reference to the model containing the test
+        result data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the test results model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+TestResultsModel
+</dd>
+</dl>
+<a NAME="TestingWidget.hasFailedTests" ID="TestingWidget.hasFailedTests"></a>
+<h4>TestingWidget.hasFailedTests</h4>
+<b>hasFailedTests</b>(<i></i>)
+<p>
+        Public method to check for failed tests.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of failed tests
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TestingWidget.on_buttonBox_clicked" ID="TestingWidget.on_buttonBox_clicked"></a>
+<h4>TestingWidget.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="TestingWidget.on_discoverCheckBox_toggled" ID="TestingWidget.on_discoverCheckBox_toggled"></a>
+<h4>TestingWidget.on_discoverCheckBox_toggled</h4>
+<b>on_discoverCheckBox_toggled</b>(<i>_checked</i>)
+<p>
+        Private slot handling state changes of the 'discover' checkbox.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+state of the checkbox (unused)
+</dd>
+</dl>
+<a NAME="TestingWidget.on_discoveryList_customContextMenuRequested" ID="TestingWidget.on_discoveryList_customContextMenuRequested"></a>
+<h4>TestingWidget.on_discoveryList_customContextMenuRequested</h4>
+<b>on_discoveryList_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu of the dicovery list.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="TestingWidget.on_discoveryList_itemActivated" ID="TestingWidget.on_discoveryList_itemActivated"></a>
+<h4>TestingWidget.on_discoveryList_itemActivated</h4>
+<b>on_discoveryList_itemActivated</b>(<i>item, column</i>)
+<p>
+        Private slot handling the user activating an item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column of the double click
+</dd>
+</dl>
+<a NAME="TestingWidget.on_discoveryList_itemChanged" ID="TestingWidget.on_discoveryList_itemChanged"></a>
+<h4>TestingWidget.on_discoveryList_itemChanged</h4>
+<b>on_discoveryList_itemChanged</b>(<i>item, column</i>)
+<p>
+        Private slot handling the user checking or unchecking an item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+changed column
+</dd>
+</dl>
+<a NAME="TestingWidget.on_discoveryPicker_editTextChanged" ID="TestingWidget.on_discoveryPicker_editTextChanged"></a>
+<h4>TestingWidget.on_discoveryPicker_editTextChanged</h4>
+<b>on_discoveryPicker_editTextChanged</b>(<i>txt</i>)
+<p>
+        Private slot to handle a change of the discovery start directory.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+new discovery start directory
+</dd>
+</dl>
+<a NAME="TestingWidget.on_frameworkComboBox_currentIndexChanged" ID="TestingWidget.on_frameworkComboBox_currentIndexChanged"></a>
+<h4>TestingWidget.on_frameworkComboBox_currentIndexChanged</h4>
+<b>on_frameworkComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot handling the selection of a test framework.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected framework
+</dd>
+</dl>
+<a NAME="TestingWidget.on_showMarkersButton_clicked" ID="TestingWidget.on_showMarkersButton_clicked"></a>
+<h4>TestingWidget.on_showMarkersButton_clicked</h4>
+<b>on_showMarkersButton_clicked</b>(<i></i>)
+<p>
+        Private slot to show a window containing the list of defined markers.
+</p>
+
+<a NAME="TestingWidget.on_statusFilterComboBox_currentTextChanged" ID="TestingWidget.on_statusFilterComboBox_currentTextChanged"></a>
+<h4>TestingWidget.on_statusFilterComboBox_currentTextChanged</h4>
+<b>on_statusFilterComboBox_currentTextChanged</b>(<i>status</i>)
+<p>
+        Private slot handling the selection of a status for items to be shown.
+</p>
+
+<dl>
+
+<dt><i>status</i> (str)</dt>
+<dd>
+selected status
+</dd>
+</dl>
+<a NAME="TestingWidget.on_testsuitePicker_aboutToShowPathPickerDialog" ID="TestingWidget.on_testsuitePicker_aboutToShowPathPickerDialog"></a>
+<h4>TestingWidget.on_testsuitePicker_aboutToShowPathPickerDialog</h4>
+<b>on_testsuitePicker_aboutToShowPathPickerDialog</b>(<i></i>)
+<p>
+        Private slot called before the test file selection dialog is shown.
+</p>
+
+<a NAME="TestingWidget.on_venvComboBox_currentIndexChanged" ID="TestingWidget.on_venvComboBox_currentIndexChanged"></a>
+<h4>TestingWidget.on_venvComboBox_currentIndexChanged</h4>
+<b>on_venvComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot handling the selection of a virtual environment.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected environment
+</dd>
+</dl>
+<a NAME="TestingWidget.on_versionsButton_clicked" ID="TestingWidget.on_versionsButton_clicked"></a>
+<h4>TestingWidget.on_versionsButton_clicked</h4>
+<b>on_versionsButton_clicked</b>(<i></i>)
+<p>
+        Private slot to show the versions of available plugins.
+</p>
+
+<a NAME="TestingWidget.setTestFile" ID="TestingWidget.setTestFile"></a>
+<h4>TestingWidget.setTestFile</h4>
+<b>setTestFile</b>(<i>testFile, forProject=False</i>)
+<p>
+        Public slot to set the given test file as the current one.
+</p>
+
+<dl>
+
+<dt><i>testFile</i> (str)</dt>
+<dd>
+path of the test file
+</dd>
+<dt><i>forProject</i> (bool (optional))</dt>
+<dd>
+flag indicating that this call is for a project
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="TestingWidget.startTests" ID="TestingWidget.startTests"></a>
+<h4>TestingWidget.startTests</h4>
+<b>startTests</b>(<i>failedOnly=False, debug=False</i>)
+<p>
+        Public slot to start the test run.
+</p>
+
+<dl>
+
+<dt><i>failedOnly</i> (bool (optional))</dt>
+<dd>
+flag indicating to run only failed tests (defaults to False)
+</dd>
+<dt><i>debug</i> (bool (optional))</dt>
+<dd>
+flag indicating to start the test run with debugger support
+            (defaults to False)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TestingWidgetModes" ID="TestingWidgetModes"></a>
+<h2>TestingWidgetModes</h2>
+<p>
+    Class defining the various modes of the testing widget.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DISCOVERY</td></tr>
+<tr><td>IDLE</td></tr>
+<tr><td>RUNNING</td></tr>
+<tr><td>STOPPED</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TestingWindow" ID="TestingWindow"></a>
+<h2>TestingWindow</h2>
+<p>
+    Main window class for the standalone dialog.
+</p>
+
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TestingWindow.__init__">TestingWindow</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TestingWindow.eventFilter">eventFilter</a></td>
+<td>Public method to filter events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TestingWindow.__init__" ID="TestingWindow.__init__"></a>
+<h4>TestingWindow (Constructor)</h4>
+<b>TestingWindow</b>(<i>testfile=None, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>testfile</i> (str)</dt>
+<dd>
+file name of the test script to open
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="TestingWindow.eventFilter" ID="TestingWindow.eventFilter"></a>
+<h4>TestingWindow.eventFilter</h4>
+<b>eventFilter</b>(<i>_obj, event</i>)
+<p>
+        Public method to filter events.
+</p>
+
+<dl>
+
+<dt><i>_obj</i> (QObject)</dt>
+<dd>
+reference to the object the event is meant for (unused)
+</dd>
+<dt><i>event</i> (QEvent)</dt>
+<dd>
+reference to the event object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, whether the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="clearSavedHistories" ID="clearSavedHistories"></a>
+<h2>clearSavedHistories</h2>
+<b>clearSavedHistories</b>(<i>self</i>)
+<p>
+    Function to clear the saved history lists.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

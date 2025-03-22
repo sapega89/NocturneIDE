@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.PdfViewer.PdfViewerWindow</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.PdfViewer.PdfViewerWindow</h1>
+<p>
+Module implementing the PDF viewer main window.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PdfViewerWindow">PdfViewerWindow</a></td>
+<td>Class implementing the PDF viewer main window.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PdfViewerWindow" ID="PdfViewerWindow"></a>
+<h2>PdfViewerWindow</h2>
+<p>
+    Class implementing the PDF viewer main window.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>viewerClosed()</dt>
+<dd>
+emitted after the window was requested to close
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>maxMenuFilePathLen</td></tr>
+<tr><td>windows</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PdfViewerWindow.__init__">PdfViewerWindow</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__about">__about</a></td>
+<td>Private slot to show a little About message.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__aboutQt">__aboutQt</a></td>
+<td>Private slot to handle the About Qt dialog.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__addToRecentList">__addToRecentList</a></td>
+<td>Private method to add a file name to the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__backInHistory">__backInHistory</a></td>
+<td>Private slot to go back in the view history.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__checkActions">__checkActions</a></td>
+<td>Private slot to check some actions for their enable/disable status.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__clearRecent">__clearRecent</a></td>
+<td>Private method to clear the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__closeAll">__closeAll</a></td>
+<td>Private slot to close all windows.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__closeOthers">__closeOthers</a></td>
+<td>Private slot to close all other windows.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__copyAllText">__copyAllText</a></td>
+<td>Private slot to copy all text of the document to the system clipboard.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__copyAllTextOfPage">__copyAllTextOfPage</a></td>
+<td>Private slot to copy all text of the current page to the system clipboard.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__copyText">__copyText</a></td>
+<td>Private slot to copy the selected text to the system clipboard.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__createStatusBar">__createStatusBar</a></td>
+<td>Private method to initialize the status bar.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__displayModeSelected">__displayModeSelected</a></td>
+<td>Private slot to handle the selection of a display mode.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__endDocument">__endDocument</a></td>
+<td>Private slot to go to the last page of the document.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__forwardInHistory">__forwardInHistory</a></td>
+<td>Private slot to go forward in the view history.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__getErrorString">__getErrorString</a></td>
+<td>Private method to get an error string for the given error.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__gotoPage">__gotoPage</a></td>
+<td>Private slot to show a dialog to select a page to jump to.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__handleSearchResult">__handleSearchResult</a></td>
+<td>Private slot to handle the selection of a search result.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__initActions">__initActions</a></td>
+<td>Private method to define the user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__initEditActions">__initEditActions</a></td>
+<td>Private method to create the Edit actions.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__initFileActions">__initFileActions</a></td>
+<td>Private method to define the file related user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__initGotoActions">__initGotoActions</a></td>
+<td>Private method to define the navigation related user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__initHelpActions">__initHelpActions</a></td>
+<td>Private method to create the Help actions.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__initMenus">__initMenus</a></td>
+<td>Private method to create the menus.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__initSettingsActions">__initSettingsActions</a></td>
+<td>Private method to create the Settings actions.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__initToolbars">__initToolbars</a></td>
+<td>Private method to create the toolbars.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__initViewActions">__initViewActions</a></td>
+<td>Private method to define the view related user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__loadPdfFile">__loadPdfFile</a></td>
+<td>Private method to load a PDF file.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__loadRecent">__loadRecent</a></td>
+<td>Private method to load the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__nextPage">__nextPage</a></td>
+<td>Private slot to go to the next page.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__openPdfFile">__openPdfFile</a></td>
+<td>Private slot to open a PDF file.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__openPdfFileNewWindow">__openPdfFileNewWindow</a></td>
+<td>Private slot called to open a PDF file in new viewer window.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__openRecentPdfFile">__openRecentPdfFile</a></td>
+<td>Private method to open a file from the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__pageSelected">__pageSelected</a></td>
+<td>Private slot to navigate to the given page.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__previousPage">__previousPage</a></td>
+<td>Private slot to go to the previous page.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__reload">__reload</a></td>
+<td>Private slot to reload the current PDF document.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__restoreViewerState">__restoreViewerState</a></td>
+<td>Private method to restore the PDF Viewer state data.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__saveRecent">__saveRecent</a></td>
+<td>Private method to save the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__saveViewerState">__saveViewerState</a></td>
+<td>Private method to save the PDF Viewer state data.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__search">__search</a></td>
+<td>Private slot to initiate a search.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__setCurrentFile">__setCurrentFile</a></td>
+<td>Private method to register the file name of the current file.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__setDisplayMode">__setDisplayMode</a></td>
+<td>Private method to set the display mode iaw.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__setViewerTitle">__setViewerTitle</a></td>
+<td>Private method to set the viewer title.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__showDocumentProperties">__showDocumentProperties</a></td>
+<td>Private slot to open a dialog showing the document properties.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__showFileMenu">__showFileMenu</a></td>
+<td>Private slot to modify the file menu before being shown.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__showPreferences">__showPreferences</a></td>
+<td>Private slot to set the preferences.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__showRecentMenu">__showRecentMenu</a></td>
+<td>Private slot to set up the recent files menu.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__startDocument">__startDocument</a></td>
+<td>Private slot to go to the first page of the document.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__tocActivated">__tocActivated</a></td>
+<td>Private slot to handle the selection of a ToC topic.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__toggleFullScreen">__toggleFullScreen</a></td>
+<td>Private slot to toggle the full screen mode.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__toggleOpenRecentNew">__toggleOpenRecentNew</a></td>
+<td>Private slot to toggle the 'Open Recent File in New Window' action.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__toggleSideBar">__toggleSideBar</a></td>
+<td>Private slot to togle the sidebar (info) widget.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__whatsThis">__whatsThis</a></td>
+<td>Private slot called in to enter Whats This mode.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__zoomIn">__zoomIn</a></td>
+<td>Private slot to zoom into the view.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__zoomModeChanged">__zoomModeChanged</a></td>
+<td>Private slot to handle a change of the zoom mode.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__zoomOut">__zoomOut</a></td>
+<td>Private slot to zoom out of the view.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__zoomPageWidth">__zoomPageWidth</a></td>
+<td>Private slot to fit the page width.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__zoomReset">__zoomReset</a></td>
+<td>Private slot to reset the zoom factor of the view.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.__zoomWholePage">__zoomWholePage</a></td>
+<td>Private slot to fit the page width.</td>
+</tr>
+<tr>
+<td><a href="#PdfViewerWindow.closeEvent">closeEvent</a></td>
+<td>Protected method handling the close event.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PdfViewerWindow.__init__" ID="PdfViewerWindow.__init__"></a>
+<h4>PdfViewerWindow (Constructor)</h4>
+<b>PdfViewerWindow</b>(<i>fileName="", parent=None, fromEric=False, project=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of a file to load on startup
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this window
+</dd>
+<dt><i>fromEric</i> (bool)</dt>
+<dd>
+flag indicating whether it was called from within
+            eric
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__about" ID="PdfViewerWindow.__about"></a>
+<h4>PdfViewerWindow.__about</h4>
+<b>__about</b>(<i></i>)
+<p>
+        Private slot to show a little About message.
+</p>
+
+<a NAME="PdfViewerWindow.__aboutQt" ID="PdfViewerWindow.__aboutQt"></a>
+<h4>PdfViewerWindow.__aboutQt</h4>
+<b>__aboutQt</b>(<i></i>)
+<p>
+        Private slot to handle the About Qt dialog.
+</p>
+
+<a NAME="PdfViewerWindow.__addToRecentList" ID="PdfViewerWindow.__addToRecentList"></a>
+<h4>PdfViewerWindow.__addToRecentList</h4>
+<b>__addToRecentList</b>(<i>fileName</i>)
+<p>
+        Private method to add a file name to the list of recently opened files.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be added
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__backInHistory" ID="PdfViewerWindow.__backInHistory"></a>
+<h4>PdfViewerWindow.__backInHistory</h4>
+<b>__backInHistory</b>(<i></i>)
+<p>
+        Private slot to go back in the view history.
+</p>
+
+<a NAME="PdfViewerWindow.__checkActions" ID="PdfViewerWindow.__checkActions"></a>
+<h4>PdfViewerWindow.__checkActions</h4>
+<b>__checkActions</b>(<i></i>)
+<p>
+        Private slot to check some actions for their enable/disable status.
+</p>
+
+<a NAME="PdfViewerWindow.__clearRecent" ID="PdfViewerWindow.__clearRecent"></a>
+<h4>PdfViewerWindow.__clearRecent</h4>
+<b>__clearRecent</b>(<i></i>)
+<p>
+        Private method to clear the list of recently opened files.
+</p>
+
+<a NAME="PdfViewerWindow.__closeAll" ID="PdfViewerWindow.__closeAll"></a>
+<h4>PdfViewerWindow.__closeAll</h4>
+<b>__closeAll</b>(<i></i>)
+<p>
+        Private slot to close all windows.
+</p>
+
+<a NAME="PdfViewerWindow.__closeOthers" ID="PdfViewerWindow.__closeOthers"></a>
+<h4>PdfViewerWindow.__closeOthers</h4>
+<b>__closeOthers</b>(<i></i>)
+<p>
+        Private slot to close all other windows.
+</p>
+
+<a NAME="PdfViewerWindow.__copyAllText" ID="PdfViewerWindow.__copyAllText"></a>
+<h4>PdfViewerWindow.__copyAllText</h4>
+<b>__copyAllText</b>(<i></i>)
+<p>
+        Private slot to copy all text of the document to the system clipboard.
+</p>
+
+<a NAME="PdfViewerWindow.__copyAllTextOfPage" ID="PdfViewerWindow.__copyAllTextOfPage"></a>
+<h4>PdfViewerWindow.__copyAllTextOfPage</h4>
+<b>__copyAllTextOfPage</b>(<i></i>)
+<p>
+        Private slot to copy all text of the current page to the system clipboard.
+</p>
+
+<a NAME="PdfViewerWindow.__copyText" ID="PdfViewerWindow.__copyText"></a>
+<h4>PdfViewerWindow.__copyText</h4>
+<b>__copyText</b>(<i></i>)
+<p>
+        Private slot to copy the selected text to the system clipboard.
+</p>
+
+<a NAME="PdfViewerWindow.__createStatusBar" ID="PdfViewerWindow.__createStatusBar"></a>
+<h4>PdfViewerWindow.__createStatusBar</h4>
+<b>__createStatusBar</b>(<i></i>)
+<p>
+        Private method to initialize the status bar.
+</p>
+
+<a NAME="PdfViewerWindow.__displayModeSelected" ID="PdfViewerWindow.__displayModeSelected"></a>
+<h4>PdfViewerWindow.__displayModeSelected</h4>
+<b>__displayModeSelected</b>(<i>act</i>)
+<p>
+        Private slot to handle the selection of a display mode.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__endDocument" ID="PdfViewerWindow.__endDocument"></a>
+<h4>PdfViewerWindow.__endDocument</h4>
+<b>__endDocument</b>(<i></i>)
+<p>
+        Private slot to go to the last page of the document.
+</p>
+
+<a NAME="PdfViewerWindow.__forwardInHistory" ID="PdfViewerWindow.__forwardInHistory"></a>
+<h4>PdfViewerWindow.__forwardInHistory</h4>
+<b>__forwardInHistory</b>(<i></i>)
+<p>
+        Private slot to go forward in the view history.
+</p>
+
+<a NAME="PdfViewerWindow.__getErrorString" ID="PdfViewerWindow.__getErrorString"></a>
+<h4>PdfViewerWindow.__getErrorString</h4>
+<b>__getErrorString</b>(<i>err</i>)
+<p>
+        Private method to get an error string for the given error.
+</p>
+
+<dl>
+
+<dt><i>err</i> (QPdfDocument.Error)</dt>
+<dd>
+error type
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string for the given error type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__gotoPage" ID="PdfViewerWindow.__gotoPage"></a>
+<h4>PdfViewerWindow.__gotoPage</h4>
+<b>__gotoPage</b>(<i></i>)
+<p>
+        Private slot to show a dialog to select a page to jump to.
+</p>
+
+<a NAME="PdfViewerWindow.__handleSearchResult" ID="PdfViewerWindow.__handleSearchResult"></a>
+<h4>PdfViewerWindow.__handleSearchResult</h4>
+<b>__handleSearchResult</b>(<i>link</i>)
+<p>
+        Private slot to handle the selection of a search result.
+</p>
+
+<dl>
+
+<dt><i>link</i> (QPdfLink)</dt>
+<dd>
+PDF link to navigate to
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__initActions" ID="PdfViewerWindow.__initActions"></a>
+<h4>PdfViewerWindow.__initActions</h4>
+<b>__initActions</b>(<i></i>)
+<p>
+        Private method to define the user interface actions.
+</p>
+
+<a NAME="PdfViewerWindow.__initEditActions" ID="PdfViewerWindow.__initEditActions"></a>
+<h4>PdfViewerWindow.__initEditActions</h4>
+<b>__initEditActions</b>(<i></i>)
+<p>
+        Private method to create the Edit actions.
+</p>
+
+<a NAME="PdfViewerWindow.__initFileActions" ID="PdfViewerWindow.__initFileActions"></a>
+<h4>PdfViewerWindow.__initFileActions</h4>
+<b>__initFileActions</b>(<i></i>)
+<p>
+        Private method to define the file related user interface actions.
+</p>
+
+<a NAME="PdfViewerWindow.__initGotoActions" ID="PdfViewerWindow.__initGotoActions"></a>
+<h4>PdfViewerWindow.__initGotoActions</h4>
+<b>__initGotoActions</b>(<i></i>)
+<p>
+        Private method to define the navigation related user interface actions.
+</p>
+
+<a NAME="PdfViewerWindow.__initHelpActions" ID="PdfViewerWindow.__initHelpActions"></a>
+<h4>PdfViewerWindow.__initHelpActions</h4>
+<b>__initHelpActions</b>(<i></i>)
+<p>
+        Private method to create the Help actions.
+</p>
+
+<a NAME="PdfViewerWindow.__initMenus" ID="PdfViewerWindow.__initMenus"></a>
+<h4>PdfViewerWindow.__initMenus</h4>
+<b>__initMenus</b>(<i></i>)
+<p>
+        Private method to create the menus.
+</p>
+
+<a NAME="PdfViewerWindow.__initSettingsActions" ID="PdfViewerWindow.__initSettingsActions"></a>
+<h4>PdfViewerWindow.__initSettingsActions</h4>
+<b>__initSettingsActions</b>(<i></i>)
+<p>
+        Private method to create the Settings actions.
+</p>
+
+<a NAME="PdfViewerWindow.__initToolbars" ID="PdfViewerWindow.__initToolbars"></a>
+<h4>PdfViewerWindow.__initToolbars</h4>
+<b>__initToolbars</b>(<i></i>)
+<p>
+        Private method to create the toolbars.
+</p>
+
+<a NAME="PdfViewerWindow.__initViewActions" ID="PdfViewerWindow.__initViewActions"></a>
+<h4>PdfViewerWindow.__initViewActions</h4>
+<b>__initViewActions</b>(<i></i>)
+<p>
+        Private method to define the view related user interface actions.
+</p>
+
+<a NAME="PdfViewerWindow.__loadPdfFile" ID="PdfViewerWindow.__loadPdfFile"></a>
+<h4>PdfViewerWindow.__loadPdfFile</h4>
+<b>__loadPdfFile</b>(<i>fileName</i>)
+<p>
+        Private method to load a PDF file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+path of the PDF file to load
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__loadRecent" ID="PdfViewerWindow.__loadRecent"></a>
+<h4>PdfViewerWindow.__loadRecent</h4>
+<b>__loadRecent</b>(<i></i>)
+<p>
+        Private method to load the list of recently opened files.
+</p>
+
+<a NAME="PdfViewerWindow.__nextPage" ID="PdfViewerWindow.__nextPage"></a>
+<h4>PdfViewerWindow.__nextPage</h4>
+<b>__nextPage</b>(<i></i>)
+<p>
+        Private slot to go to the next page.
+</p>
+
+<a NAME="PdfViewerWindow.__openPdfFile" ID="PdfViewerWindow.__openPdfFile"></a>
+<h4>PdfViewerWindow.__openPdfFile</h4>
+<b>__openPdfFile</b>(<i></i>)
+<p>
+        Private slot to open a PDF file.
+</p>
+
+<a NAME="PdfViewerWindow.__openPdfFileNewWindow" ID="PdfViewerWindow.__openPdfFileNewWindow"></a>
+<h4>PdfViewerWindow.__openPdfFileNewWindow</h4>
+<b>__openPdfFileNewWindow</b>(<i>fileName=""</i>)
+<p>
+        Private slot called to open a PDF file in new viewer window.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str (optional))</dt>
+<dd>
+name of the file to open (defaults to "")
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__openRecentPdfFile" ID="PdfViewerWindow.__openRecentPdfFile"></a>
+<h4>PdfViewerWindow.__openRecentPdfFile</h4>
+<b>__openRecentPdfFile</b>(<i>act</i>)
+<p>
+        Private method to open a file from the list of recently opened files.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__pageSelected" ID="PdfViewerWindow.__pageSelected"></a>
+<h4>PdfViewerWindow.__pageSelected</h4>
+<b>__pageSelected</b>(<i>page</i>)
+<p>
+        Private slot to navigate to the given page.
+</p>
+
+<dl>
+
+<dt><i>page</i> (int)</dt>
+<dd>
+index of the page to be shown
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__previousPage" ID="PdfViewerWindow.__previousPage"></a>
+<h4>PdfViewerWindow.__previousPage</h4>
+<b>__previousPage</b>(<i></i>)
+<p>
+        Private slot to go to the previous page.
+</p>
+
+<a NAME="PdfViewerWindow.__reload" ID="PdfViewerWindow.__reload"></a>
+<h4>PdfViewerWindow.__reload</h4>
+<b>__reload</b>(<i></i>)
+<p>
+        Private slot to reload the current PDF document.
+</p>
+
+<a NAME="PdfViewerWindow.__restoreViewerState" ID="PdfViewerWindow.__restoreViewerState"></a>
+<h4>PdfViewerWindow.__restoreViewerState</h4>
+<b>__restoreViewerState</b>(<i></i>)
+<p>
+        Private method to restore the PDF Viewer state data.
+</p>
+
+<a NAME="PdfViewerWindow.__saveRecent" ID="PdfViewerWindow.__saveRecent"></a>
+<h4>PdfViewerWindow.__saveRecent</h4>
+<b>__saveRecent</b>(<i></i>)
+<p>
+        Private method to save the list of recently opened files.
+</p>
+
+<a NAME="PdfViewerWindow.__saveViewerState" ID="PdfViewerWindow.__saveViewerState"></a>
+<h4>PdfViewerWindow.__saveViewerState</h4>
+<b>__saveViewerState</b>(<i></i>)
+<p>
+        Private method to save the PDF Viewer state data.
+</p>
+
+<a NAME="PdfViewerWindow.__search" ID="PdfViewerWindow.__search"></a>
+<h4>PdfViewerWindow.__search</h4>
+<b>__search</b>(<i></i>)
+<p>
+        Private slot to initiate a search.
+</p>
+
+<a NAME="PdfViewerWindow.__setCurrentFile" ID="PdfViewerWindow.__setCurrentFile"></a>
+<h4>PdfViewerWindow.__setCurrentFile</h4>
+<b>__setCurrentFile</b>(<i>fileName</i>)
+<p>
+        Private method to register the file name of the current file.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to register
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__setDisplayMode" ID="PdfViewerWindow.__setDisplayMode"></a>
+<h4>PdfViewerWindow.__setDisplayMode</h4>
+<b>__setDisplayMode</b>(<i></i>)
+<p>
+        Private method to set the display mode iaw. configuration.
+</p>
+
+<a NAME="PdfViewerWindow.__setViewerTitle" ID="PdfViewerWindow.__setViewerTitle"></a>
+<h4>PdfViewerWindow.__setViewerTitle</h4>
+<b>__setViewerTitle</b>(<i>title</i>)
+<p>
+        Private method to set the viewer title.
+</p>
+
+<dl>
+
+<dt><i>title</i> (str)</dt>
+<dd>
+title to be set
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__showDocumentProperties" ID="PdfViewerWindow.__showDocumentProperties"></a>
+<h4>PdfViewerWindow.__showDocumentProperties</h4>
+<b>__showDocumentProperties</b>(<i></i>)
+<p>
+        Private slot to open a dialog showing the document properties.
+</p>
+
+<a NAME="PdfViewerWindow.__showFileMenu" ID="PdfViewerWindow.__showFileMenu"></a>
+<h4>PdfViewerWindow.__showFileMenu</h4>
+<b>__showFileMenu</b>(<i></i>)
+<p>
+        Private slot to modify the file menu before being shown.
+</p>
+
+<a NAME="PdfViewerWindow.__showPreferences" ID="PdfViewerWindow.__showPreferences"></a>
+<h4>PdfViewerWindow.__showPreferences</h4>
+<b>__showPreferences</b>(<i></i>)
+<p>
+        Private slot to set the preferences.
+</p>
+
+<a NAME="PdfViewerWindow.__showRecentMenu" ID="PdfViewerWindow.__showRecentMenu"></a>
+<h4>PdfViewerWindow.__showRecentMenu</h4>
+<b>__showRecentMenu</b>(<i></i>)
+<p>
+        Private slot to set up the recent files menu.
+</p>
+
+<a NAME="PdfViewerWindow.__startDocument" ID="PdfViewerWindow.__startDocument"></a>
+<h4>PdfViewerWindow.__startDocument</h4>
+<b>__startDocument</b>(<i></i>)
+<p>
+        Private slot to go to the first page of the document.
+</p>
+
+<a NAME="PdfViewerWindow.__tocActivated" ID="PdfViewerWindow.__tocActivated"></a>
+<h4>PdfViewerWindow.__tocActivated</h4>
+<b>__tocActivated</b>(<i>page, zoomFactor</i>)
+<p>
+        Private slot to handle the selection of a ToC topic.
+</p>
+
+<dl>
+
+<dt><i>page</i> (int)</dt>
+<dd>
+page number
+</dd>
+<dt><i>zoomFactor</i> (float)</dt>
+<dd>
+zoom factor
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__toggleFullScreen" ID="PdfViewerWindow.__toggleFullScreen"></a>
+<h4>PdfViewerWindow.__toggleFullScreen</h4>
+<b>__toggleFullScreen</b>(<i>on</i>)
+<p>
+        Private slot to toggle the full screen mode.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating to activate full screen mode
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__toggleOpenRecentNew" ID="PdfViewerWindow.__toggleOpenRecentNew"></a>
+<h4>PdfViewerWindow.__toggleOpenRecentNew</h4>
+<b>__toggleOpenRecentNew</b>(<i>on</i>)
+<p>
+        Private slot to toggle the 'Open Recent File in New Window' action.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+desired state of the action
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__toggleSideBar" ID="PdfViewerWindow.__toggleSideBar"></a>
+<h4>PdfViewerWindow.__toggleSideBar</h4>
+<b>__toggleSideBar</b>(<i>visible</i>)
+<p>
+        Private slot to togle the sidebar (info) widget.
+</p>
+
+<dl>
+
+<dt><i>visible</i> (bool)</dt>
+<dd>
+desired state of the sidebar
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__whatsThis" ID="PdfViewerWindow.__whatsThis"></a>
+<h4>PdfViewerWindow.__whatsThis</h4>
+<b>__whatsThis</b>(<i></i>)
+<p>
+        Private slot called in to enter Whats This mode.
+</p>
+
+<a NAME="PdfViewerWindow.__zoomIn" ID="PdfViewerWindow.__zoomIn"></a>
+<h4>PdfViewerWindow.__zoomIn</h4>
+<b>__zoomIn</b>(<i></i>)
+<p>
+        Private slot to zoom into the view.
+</p>
+
+<a NAME="PdfViewerWindow.__zoomModeChanged" ID="PdfViewerWindow.__zoomModeChanged"></a>
+<h4>PdfViewerWindow.__zoomModeChanged</h4>
+<b>__zoomModeChanged</b>(<i>zoomMode</i>)
+<p>
+        Private slot to handle a change of the zoom mode.
+</p>
+
+<dl>
+
+<dt><i>zoomMode</i> (QPdfView.ZoomMode)</dt>
+<dd>
+new zoom mode
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__zoomOut" ID="PdfViewerWindow.__zoomOut"></a>
+<h4>PdfViewerWindow.__zoomOut</h4>
+<b>__zoomOut</b>(<i></i>)
+<p>
+        Private slot to zoom out of the view.
+</p>
+
+<a NAME="PdfViewerWindow.__zoomPageWidth" ID="PdfViewerWindow.__zoomPageWidth"></a>
+<h4>PdfViewerWindow.__zoomPageWidth</h4>
+<b>__zoomPageWidth</b>(<i>checked</i>)
+<p>
+        Private slot to fit the page width.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+flag indicating the check state
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.__zoomReset" ID="PdfViewerWindow.__zoomReset"></a>
+<h4>PdfViewerWindow.__zoomReset</h4>
+<b>__zoomReset</b>(<i></i>)
+<p>
+        Private slot to reset the zoom factor of the view.
+</p>
+
+<a NAME="PdfViewerWindow.__zoomWholePage" ID="PdfViewerWindow.__zoomWholePage"></a>
+<h4>PdfViewerWindow.__zoomWholePage</h4>
+<b>__zoomWholePage</b>(<i>checked</i>)
+<p>
+        Private slot to fit the page width.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+flag indicating the check state
+</dd>
+</dl>
+<a NAME="PdfViewerWindow.closeEvent" ID="PdfViewerWindow.closeEvent"></a>
+<h4>PdfViewerWindow.closeEvent</h4>
+<b>closeEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling the close event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the close event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

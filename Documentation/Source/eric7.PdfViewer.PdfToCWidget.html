@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.PdfViewer.PdfToCWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.PdfViewer.PdfToCWidget</h1>
+<p>
+Module implementing a Table of Contents viewer widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PdfToCModel">PdfToCModel</a></td>
+<td>Class implementing a TOC model with page numbers.</td>
+</tr>
+<tr>
+<td><a href="#PdfToCWidget">PdfToCWidget</a></td>
+<td>Class implementing a Table of Contents viewer widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PdfToCModel" ID="PdfToCModel"></a>
+<h2>PdfToCModel</h2>
+<p>
+    Class implementing a TOC model with page numbers.
+</p>
+
+<h3>Derived from</h3>
+QPdfBookmarkModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PdfToCModel.__init__">PdfToCModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PdfToCModel.columnCount">columnCount</a></td>
+<td>Public method to define the number of columns to be shown.</td>
+</tr>
+<tr>
+<td><a href="#PdfToCModel.data">data</a></td>
+<td>Public method to return the requested data.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PdfToCModel.__init__" ID="PdfToCModel.__init__"></a>
+<h4>PdfToCModel (Constructor)</h4>
+<b>PdfToCModel</b>(<i>parent</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (TYPE)</dt>
+<dd>
+DESCRIPTION
+</dd>
+</dl>
+<a NAME="PdfToCModel.columnCount" ID="PdfToCModel.columnCount"></a>
+<h4>PdfToCModel.columnCount</h4>
+<b>columnCount</b>(<i>_index</i>)
+<p>
+        Public method to define the number of columns to be shown.
+</p>
+
+<dl>
+
+<dt><i>_index</i> (QModelIndex)</dt>
+<dd>
+index of the element (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+column count (always 2)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="PdfToCModel.data" ID="PdfToCModel.data"></a>
+<h4>PdfToCModel.data</h4>
+<b>data</b>(<i>index, role</i>)
+<p>
+        Public method to return the requested data.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the element
+</dd>
+<dt><i>role</i> (Qt.ItemDataRole)</dt>
+<dd>
+data role
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PdfToCWidget" ID="PdfToCWidget"></a>
+<h2>PdfToCWidget</h2>
+<p>
+    Class implementing a Table of Contents viewer widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>topicActivated(page, zoomFactor)</dt>
+<dd>
+emitted to navigate to the selected topic
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PdfToCWidget.__init__">PdfToCWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PdfToCWidget.__handleDocumentStatus">__handleDocumentStatus</a></td>
+<td>Private slot to handle a change of the document status.</td>
+</tr>
+<tr>
+<td><a href="#PdfToCWidget.__searchTextChanged">__searchTextChanged</a></td>
+<td>Private slot to handle a change of the search text.</td>
+</tr>
+<tr>
+<td><a href="#PdfToCWidget.__topicSelected">__topicSelected</a></td>
+<td>Private slot to handle the selection of a ToC entry.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PdfToCWidget.__init__" ID="PdfToCWidget.__init__"></a>
+<h4>PdfToCWidget (Constructor)</h4>
+<b>PdfToCWidget</b>(<i>document, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>document</i> (QPdfDocument)</dt>
+<dd>
+reference to the PDF document object
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="PdfToCWidget.__handleDocumentStatus" ID="PdfToCWidget.__handleDocumentStatus"></a>
+<h4>PdfToCWidget.__handleDocumentStatus</h4>
+<b>__handleDocumentStatus</b>(<i>status</i>)
+<p>
+        Private slot to handle a change of the document status.
+</p>
+
+<dl>
+
+<dt><i>status</i> (QPdfDocument.Status)</dt>
+<dd>
+document status
+</dd>
+</dl>
+<a NAME="PdfToCWidget.__searchTextChanged" ID="PdfToCWidget.__searchTextChanged"></a>
+<h4>PdfToCWidget.__searchTextChanged</h4>
+<b>__searchTextChanged</b>(<i>text</i>)
+<p>
+        Private slot to handle a change of the search text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+search text
+</dd>
+</dl>
+<a NAME="PdfToCWidget.__topicSelected" ID="PdfToCWidget.__topicSelected"></a>
+<h4>PdfToCWidget.__topicSelected</h4>
+<b>__topicSelected</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of a ToC entry.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the activated entry
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

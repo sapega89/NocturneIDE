@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.QueuesExtension.ProjectHelper</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.QueuesExtension.ProjectHelper</h1>
+<p>
+Module implementing the queues extension project helper.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#QueuesProjectHelper">QueuesProjectHelper</a></td>
+<td>Class implementing the queues extension project helper.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="QueuesProjectHelper" ID="QueuesProjectHelper"></a>
+<h2>QueuesProjectHelper</h2>
+<p>
+    Class implementing the queues extension project helper.
+</p>
+
+<h3>Derived from</h3>
+HgExtensionProjectHelper
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#QueuesProjectHelper.__init__">QueuesProjectHelper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueActivateQueue">__hgQueueActivateQueue</a></td>
+<td>Private slot used to set the active queue.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueCommit">__hgQueueCommit</a></td>
+<td>Private slot to commit changes in the queue repository.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueCreateQueue">__hgQueueCreateQueue</a></td>
+<td>Private slot used to create a new queue.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueDeletePatch">__hgQueueDeletePatch</a></td>
+<td>Private slot used to delete a patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueDeleteQueue">__hgQueueDeleteQueue</a></td>
+<td>Private slot used to delete the reference to a queue.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueFinishAppliedPatches">__hgQueueFinishAppliedPatches</a></td>
+<td>Private slot used to finish all applied patches.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueFoldUnappliedPatches">__hgQueueFoldUnappliedPatches</a></td>
+<td>Private slot used to fold patches into the current patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueGotoPatch">__hgQueueGotoPatch</a></td>
+<td>Private slot used to push or pop patches until the a named one is at the top of the stack.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueGotoPatchForced">__hgQueueGotoPatchForced</a></td>
+<td>Private slot used to push or pop patches until the a named one is at the top of the stack overwriting local changes.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueGuardsDeactivate">__hgQueueGuardsDeactivate</a></td>
+<td>Private slot used to deactivate all active guards.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueGuardsDefine">__hgQueueGuardsDefine</a></td>
+<td>Private slot used to define guards for the current or a named patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueGuardsDropAll">__hgQueueGuardsDropAll</a></td>
+<td>Private slot used to drop all guards of the current or a named patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueGuardsIdentifyActive">__hgQueueGuardsIdentifyActive</a></td>
+<td>Private slot used to list all active guards.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueGuardsList">__hgQueueGuardsList</a></td>
+<td>Private slot used to list the guards for the current or a named patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueGuardsListAll">__hgQueueGuardsListAll</a></td>
+<td>Private slot used to list all guards of all patches.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueGuardsSetActive">__hgQueueGuardsSetActive</a></td>
+<td>Private slot used to set the active guards.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueInit">__hgQueueInit</a></td>
+<td>Private slot to initialize a new queue repository.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueListPatches">__hgQueueListPatches</a></td>
+<td>Private slot used to show a list of applied and unapplied patches.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueListQueues">__hgQueueListQueues</a></td>
+<td>Private slot used to list available queues.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueNewPatch">__hgQueueNewPatch</a></td>
+<td>Private slot used to create a new named patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePopAllPatches">__hgQueuePopAllPatches</a></td>
+<td>Private slot used to pop all patches off the stack.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePopAllPatchesForced">__hgQueuePopAllPatchesForced</a></td>
+<td>Private slot used to pop all patches off the stack forgetting any local changes to patched files.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePopPatch">__hgQueuePopPatch</a></td>
+<td>Private slot used to pop the current patch off the stack.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePopPatchForced">__hgQueuePopPatchForced</a></td>
+<td>Private slot used to pop the current patch off the stack forgetting any local changes to patched files.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePopPatches">__hgQueuePopPatches</a></td>
+<td>Private slot used to pop patches off the stack until a named one is at the top.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePopPatchesForced">__hgQueuePopPatchesForced</a></td>
+<td>Private slot used to pop patches off the stack until a named one is at the top forgetting any local changes to patched files.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePurgeQueue">__hgQueuePurgeQueue</a></td>
+<td>Private slot used to delete the reference to a queue and remove the patch directory.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePushAllPatches">__hgQueuePushAllPatches</a></td>
+<td>Private slot used to push all patches onto the stack.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePushAllPatchesForced">__hgQueuePushAllPatchesForced</a></td>
+<td>Private slot used to push all patches onto the stack on top of local changes.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePushPatch">__hgQueuePushPatch</a></td>
+<td>Private slot used to push the next patch onto the stack.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePushPatchForced">__hgQueuePushPatchForced</a></td>
+<td>Private slot used to push the next patch onto the stack on top of local changes.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePushPatches">__hgQueuePushPatches</a></td>
+<td>Private slot used to push patches onto the stack until a named one is at the top.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePushPatchesForced">__hgQueuePushPatchesForced</a></td>
+<td>Private slot used to push patches onto the stack until a named one is at the top on top of local changes.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueuePushPopPatches">__hgQueuePushPopPatches</a></td>
+<td>Private method to push patches onto the stack or pop patches off the stack.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueRefreshPatch">__hgQueueRefreshPatch</a></td>
+<td>Private slot used to refresh the current patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueRefreshPatchMessage">__hgQueueRefreshPatchMessage</a></td>
+<td>Private slot used to refresh the current patch and its commit message.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueRenamePatch">__hgQueueRenamePatch</a></td>
+<td>Private slot used to rename a patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueRenameQueue">__hgQueueRenameQueue</a></td>
+<td>Private slot used to rename the active queue.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueShowHeader">__hgQueueShowHeader</a></td>
+<td>Private slot used to show the commit message of the current patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueShowPatch">__hgQueueShowPatch</a></td>
+<td>Private slot used to show the contents of the current patch.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueStatus">__hgQueueStatus</a></td>
+<td>Private slot to show the status of the queue repository.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__hgQueueSummary">__hgQueueSummary</a></td>
+<td>Private slot to show a summary of the queue repository.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__initGuardsActions">__initGuardsActions</a></td>
+<td>Private method to generate the guards action objects.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__initPushPopActions">__initPushPopActions</a></td>
+<td>Private method to generate the push and pop action objects.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__initPushPopForceActions">__initPushPopForceActions</a></td>
+<td>Private method to generate the push and pop (force) action objects.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.__initQueuesMgmtActions">__initQueuesMgmtActions</a></td>
+<td>Private method to generate the queues management action objects.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.initActions">initActions</a></td>
+<td>Public method to generate the action objects.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.initMenu">initMenu</a></td>
+<td>Public method to generate the extension menu.</td>
+</tr>
+<tr>
+<td><a href="#QueuesProjectHelper.menuTitle">menuTitle</a></td>
+<td>Public method to get the menu title.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="QueuesProjectHelper.__init__" ID="QueuesProjectHelper.__init__"></a>
+<h4>QueuesProjectHelper (Constructor)</h4>
+<b>QueuesProjectHelper</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueActivateQueue" ID="QueuesProjectHelper.__hgQueueActivateQueue"></a>
+<h4>QueuesProjectHelper.__hgQueueActivateQueue</h4>
+<b>__hgQueueActivateQueue</b>(<i></i>)
+<p>
+        Private slot used to set the active queue.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueCommit" ID="QueuesProjectHelper.__hgQueueCommit"></a>
+<h4>QueuesProjectHelper.__hgQueueCommit</h4>
+<b>__hgQueueCommit</b>(<i></i>)
+<p>
+        Private slot to commit changes in the queue repository.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueCreateQueue" ID="QueuesProjectHelper.__hgQueueCreateQueue"></a>
+<h4>QueuesProjectHelper.__hgQueueCreateQueue</h4>
+<b>__hgQueueCreateQueue</b>(<i></i>)
+<p>
+        Private slot used to create a new queue.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueDeletePatch" ID="QueuesProjectHelper.__hgQueueDeletePatch"></a>
+<h4>QueuesProjectHelper.__hgQueueDeletePatch</h4>
+<b>__hgQueueDeletePatch</b>(<i></i>)
+<p>
+        Private slot used to delete a patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueDeleteQueue" ID="QueuesProjectHelper.__hgQueueDeleteQueue"></a>
+<h4>QueuesProjectHelper.__hgQueueDeleteQueue</h4>
+<b>__hgQueueDeleteQueue</b>(<i></i>)
+<p>
+        Private slot used to delete the reference to a queue.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueFinishAppliedPatches" ID="QueuesProjectHelper.__hgQueueFinishAppliedPatches"></a>
+<h4>QueuesProjectHelper.__hgQueueFinishAppliedPatches</h4>
+<b>__hgQueueFinishAppliedPatches</b>(<i></i>)
+<p>
+        Private slot used to finish all applied patches.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueFoldUnappliedPatches" ID="QueuesProjectHelper.__hgQueueFoldUnappliedPatches"></a>
+<h4>QueuesProjectHelper.__hgQueueFoldUnappliedPatches</h4>
+<b>__hgQueueFoldUnappliedPatches</b>(<i></i>)
+<p>
+        Private slot used to fold patches into the current patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueGotoPatch" ID="QueuesProjectHelper.__hgQueueGotoPatch"></a>
+<h4>QueuesProjectHelper.__hgQueueGotoPatch</h4>
+<b>__hgQueueGotoPatch</b>(<i></i>)
+<p>
+        Private slot used to push or pop patches until the a named one
+        is at the top of the stack.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueGotoPatchForced" ID="QueuesProjectHelper.__hgQueueGotoPatchForced"></a>
+<h4>QueuesProjectHelper.__hgQueueGotoPatchForced</h4>
+<b>__hgQueueGotoPatchForced</b>(<i></i>)
+<p>
+        Private slot used to push or pop patches until the a named one
+        is at the top of the stack overwriting local changes.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueGuardsDeactivate" ID="QueuesProjectHelper.__hgQueueGuardsDeactivate"></a>
+<h4>QueuesProjectHelper.__hgQueueGuardsDeactivate</h4>
+<b>__hgQueueGuardsDeactivate</b>(<i></i>)
+<p>
+        Private slot used to deactivate all active guards.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueGuardsDefine" ID="QueuesProjectHelper.__hgQueueGuardsDefine"></a>
+<h4>QueuesProjectHelper.__hgQueueGuardsDefine</h4>
+<b>__hgQueueGuardsDefine</b>(<i></i>)
+<p>
+        Private slot used to define guards for the current or a named patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueGuardsDropAll" ID="QueuesProjectHelper.__hgQueueGuardsDropAll"></a>
+<h4>QueuesProjectHelper.__hgQueueGuardsDropAll</h4>
+<b>__hgQueueGuardsDropAll</b>(<i></i>)
+<p>
+        Private slot used to drop all guards of the current or a named patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueGuardsIdentifyActive" ID="QueuesProjectHelper.__hgQueueGuardsIdentifyActive"></a>
+<h4>QueuesProjectHelper.__hgQueueGuardsIdentifyActive</h4>
+<b>__hgQueueGuardsIdentifyActive</b>(<i></i>)
+<p>
+        Private slot used to list all active guards.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueGuardsList" ID="QueuesProjectHelper.__hgQueueGuardsList"></a>
+<h4>QueuesProjectHelper.__hgQueueGuardsList</h4>
+<b>__hgQueueGuardsList</b>(<i></i>)
+<p>
+        Private slot used to list the guards for the current or a named patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueGuardsListAll" ID="QueuesProjectHelper.__hgQueueGuardsListAll"></a>
+<h4>QueuesProjectHelper.__hgQueueGuardsListAll</h4>
+<b>__hgQueueGuardsListAll</b>(<i></i>)
+<p>
+        Private slot used to list all guards of all patches.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueGuardsSetActive" ID="QueuesProjectHelper.__hgQueueGuardsSetActive"></a>
+<h4>QueuesProjectHelper.__hgQueueGuardsSetActive</h4>
+<b>__hgQueueGuardsSetActive</b>(<i></i>)
+<p>
+        Private slot used to set the active guards.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueInit" ID="QueuesProjectHelper.__hgQueueInit"></a>
+<h4>QueuesProjectHelper.__hgQueueInit</h4>
+<b>__hgQueueInit</b>(<i></i>)
+<p>
+        Private slot to initialize a new queue repository.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueListPatches" ID="QueuesProjectHelper.__hgQueueListPatches"></a>
+<h4>QueuesProjectHelper.__hgQueueListPatches</h4>
+<b>__hgQueueListPatches</b>(<i></i>)
+<p>
+        Private slot used to show a list of applied and unapplied patches.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueListQueues" ID="QueuesProjectHelper.__hgQueueListQueues"></a>
+<h4>QueuesProjectHelper.__hgQueueListQueues</h4>
+<b>__hgQueueListQueues</b>(<i></i>)
+<p>
+        Private slot used to list available queues.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueNewPatch" ID="QueuesProjectHelper.__hgQueueNewPatch"></a>
+<h4>QueuesProjectHelper.__hgQueueNewPatch</h4>
+<b>__hgQueueNewPatch</b>(<i></i>)
+<p>
+        Private slot used to create a new named patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePopAllPatches" ID="QueuesProjectHelper.__hgQueuePopAllPatches"></a>
+<h4>QueuesProjectHelper.__hgQueuePopAllPatches</h4>
+<b>__hgQueuePopAllPatches</b>(<i></i>)
+<p>
+        Private slot used to pop all patches off the stack.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePopAllPatchesForced" ID="QueuesProjectHelper.__hgQueuePopAllPatchesForced"></a>
+<h4>QueuesProjectHelper.__hgQueuePopAllPatchesForced</h4>
+<b>__hgQueuePopAllPatchesForced</b>(<i></i>)
+<p>
+        Private slot used to pop all patches off the stack forgetting
+        any local changes to patched files.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePopPatch" ID="QueuesProjectHelper.__hgQueuePopPatch"></a>
+<h4>QueuesProjectHelper.__hgQueuePopPatch</h4>
+<b>__hgQueuePopPatch</b>(<i></i>)
+<p>
+        Private slot used to pop the current patch off the stack.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePopPatchForced" ID="QueuesProjectHelper.__hgQueuePopPatchForced"></a>
+<h4>QueuesProjectHelper.__hgQueuePopPatchForced</h4>
+<b>__hgQueuePopPatchForced</b>(<i></i>)
+<p>
+        Private slot used to pop the current patch off the stack forgetting
+        any local changes to patched files.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePopPatches" ID="QueuesProjectHelper.__hgQueuePopPatches"></a>
+<h4>QueuesProjectHelper.__hgQueuePopPatches</h4>
+<b>__hgQueuePopPatches</b>(<i></i>)
+<p>
+        Private slot used to pop patches off the stack until a named
+        one is at the top.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePopPatchesForced" ID="QueuesProjectHelper.__hgQueuePopPatchesForced"></a>
+<h4>QueuesProjectHelper.__hgQueuePopPatchesForced</h4>
+<b>__hgQueuePopPatchesForced</b>(<i></i>)
+<p>
+        Private slot used to pop patches off the stack until a named
+        one is at the top forgetting any local changes to patched files.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePurgeQueue" ID="QueuesProjectHelper.__hgQueuePurgeQueue"></a>
+<h4>QueuesProjectHelper.__hgQueuePurgeQueue</h4>
+<b>__hgQueuePurgeQueue</b>(<i></i>)
+<p>
+        Private slot used to delete the reference to a queue and remove
+        the patch directory.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePushAllPatches" ID="QueuesProjectHelper.__hgQueuePushAllPatches"></a>
+<h4>QueuesProjectHelper.__hgQueuePushAllPatches</h4>
+<b>__hgQueuePushAllPatches</b>(<i></i>)
+<p>
+        Private slot used to push all patches onto the stack.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePushAllPatchesForced" ID="QueuesProjectHelper.__hgQueuePushAllPatchesForced"></a>
+<h4>QueuesProjectHelper.__hgQueuePushAllPatchesForced</h4>
+<b>__hgQueuePushAllPatchesForced</b>(<i></i>)
+<p>
+        Private slot used to push all patches onto the stack on top
+        of local changes.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePushPatch" ID="QueuesProjectHelper.__hgQueuePushPatch"></a>
+<h4>QueuesProjectHelper.__hgQueuePushPatch</h4>
+<b>__hgQueuePushPatch</b>(<i></i>)
+<p>
+        Private slot used to push the next patch onto the stack.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePushPatchForced" ID="QueuesProjectHelper.__hgQueuePushPatchForced"></a>
+<h4>QueuesProjectHelper.__hgQueuePushPatchForced</h4>
+<b>__hgQueuePushPatchForced</b>(<i></i>)
+<p>
+        Private slot used to push the next patch onto the stack on top
+        of local changes.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePushPatches" ID="QueuesProjectHelper.__hgQueuePushPatches"></a>
+<h4>QueuesProjectHelper.__hgQueuePushPatches</h4>
+<b>__hgQueuePushPatches</b>(<i></i>)
+<p>
+        Private slot used to push patches onto the stack until a named
+        one is at the top.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePushPatchesForced" ID="QueuesProjectHelper.__hgQueuePushPatchesForced"></a>
+<h4>QueuesProjectHelper.__hgQueuePushPatchesForced</h4>
+<b>__hgQueuePushPatchesForced</b>(<i></i>)
+<p>
+        Private slot used to push patches onto the stack until a named
+        one is at the top on top of local changes.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueuePushPopPatches" ID="QueuesProjectHelper.__hgQueuePushPopPatches"></a>
+<h4>QueuesProjectHelper.__hgQueuePushPopPatches</h4>
+<b>__hgQueuePushPopPatches</b>(<i>operation, doAll=False, named=False, force=False</i>)
+<p>
+        Private method to push patches onto the stack or pop patches off the
+        stack.
+</p>
+
+<dl>
+
+<dt><i>operation</i> (QueueOperation)</dt>
+<dd>
+operation to be performed
+</dd>
+<dt><i>doAll</i> (bool)</dt>
+<dd>
+flag indicating to push/pop all
+</dd>
+<dt><i>named</i> (bool)</dt>
+<dd>
+flag indicating to push/pop until a named patch
+            is at the top of the stack
+</dd>
+<dt><i>force</i> (bool)</dt>
+<dd>
+flag indicating a forceful pop
+</dd>
+</dl>
+<a NAME="QueuesProjectHelper.__hgQueueRefreshPatch" ID="QueuesProjectHelper.__hgQueueRefreshPatch"></a>
+<h4>QueuesProjectHelper.__hgQueueRefreshPatch</h4>
+<b>__hgQueueRefreshPatch</b>(<i></i>)
+<p>
+        Private slot used to refresh the current patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueRefreshPatchMessage" ID="QueuesProjectHelper.__hgQueueRefreshPatchMessage"></a>
+<h4>QueuesProjectHelper.__hgQueueRefreshPatchMessage</h4>
+<b>__hgQueueRefreshPatchMessage</b>(<i></i>)
+<p>
+        Private slot used to refresh the current patch and its commit message.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueRenamePatch" ID="QueuesProjectHelper.__hgQueueRenamePatch"></a>
+<h4>QueuesProjectHelper.__hgQueueRenamePatch</h4>
+<b>__hgQueueRenamePatch</b>(<i></i>)
+<p>
+        Private slot used to rename a patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueRenameQueue" ID="QueuesProjectHelper.__hgQueueRenameQueue"></a>
+<h4>QueuesProjectHelper.__hgQueueRenameQueue</h4>
+<b>__hgQueueRenameQueue</b>(<i></i>)
+<p>
+        Private slot used to rename the active queue.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueShowHeader" ID="QueuesProjectHelper.__hgQueueShowHeader"></a>
+<h4>QueuesProjectHelper.__hgQueueShowHeader</h4>
+<b>__hgQueueShowHeader</b>(<i></i>)
+<p>
+        Private slot used to show the commit message of the current patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueShowPatch" ID="QueuesProjectHelper.__hgQueueShowPatch"></a>
+<h4>QueuesProjectHelper.__hgQueueShowPatch</h4>
+<b>__hgQueueShowPatch</b>(<i></i>)
+<p>
+        Private slot used to show the contents of the current patch.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueStatus" ID="QueuesProjectHelper.__hgQueueStatus"></a>
+<h4>QueuesProjectHelper.__hgQueueStatus</h4>
+<b>__hgQueueStatus</b>(<i></i>)
+<p>
+        Private slot to show the status of the queue repository.
+</p>
+
+<a NAME="QueuesProjectHelper.__hgQueueSummary" ID="QueuesProjectHelper.__hgQueueSummary"></a>
+<h4>QueuesProjectHelper.__hgQueueSummary</h4>
+<b>__hgQueueSummary</b>(<i></i>)
+<p>
+        Private slot to show a summary of the queue repository.
+</p>
+
+<a NAME="QueuesProjectHelper.__initGuardsActions" ID="QueuesProjectHelper.__initGuardsActions"></a>
+<h4>QueuesProjectHelper.__initGuardsActions</h4>
+<b>__initGuardsActions</b>(<i></i>)
+<p>
+        Private method to generate the guards action objects.
+</p>
+
+<a NAME="QueuesProjectHelper.__initPushPopActions" ID="QueuesProjectHelper.__initPushPopActions"></a>
+<h4>QueuesProjectHelper.__initPushPopActions</h4>
+<b>__initPushPopActions</b>(<i></i>)
+<p>
+        Private method to generate the push and pop action objects.
+</p>
+
+<a NAME="QueuesProjectHelper.__initPushPopForceActions" ID="QueuesProjectHelper.__initPushPopForceActions"></a>
+<h4>QueuesProjectHelper.__initPushPopForceActions</h4>
+<b>__initPushPopForceActions</b>(<i></i>)
+<p>
+        Private method to generate the push and pop (force) action objects.
+</p>
+
+<a NAME="QueuesProjectHelper.__initQueuesMgmtActions" ID="QueuesProjectHelper.__initQueuesMgmtActions"></a>
+<h4>QueuesProjectHelper.__initQueuesMgmtActions</h4>
+<b>__initQueuesMgmtActions</b>(<i></i>)
+<p>
+        Private method to generate the queues management action objects.
+</p>
+
+<a NAME="QueuesProjectHelper.initActions" ID="QueuesProjectHelper.initActions"></a>
+<h4>QueuesProjectHelper.initActions</h4>
+<b>initActions</b>(<i></i>)
+<p>
+        Public method to generate the action objects.
+</p>
+
+<a NAME="QueuesProjectHelper.initMenu" ID="QueuesProjectHelper.initMenu"></a>
+<h4>QueuesProjectHelper.initMenu</h4>
+<b>initMenu</b>(<i>mainMenu</i>)
+<p>
+        Public method to generate the extension menu.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the main menu
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+populated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="QueuesProjectHelper.menuTitle" ID="QueuesProjectHelper.menuTitle"></a>
+<h4>QueuesProjectHelper.menuTitle</h4>
+<b>menuTitle</b>(<i></i>)
+<p>
+        Public method to get the menu title.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+title of the menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

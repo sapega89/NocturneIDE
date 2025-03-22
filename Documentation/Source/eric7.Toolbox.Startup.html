@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Toolbox.Startup</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Toolbox.Startup</h1>
+<p>
+Module implementing some startup helper funcions.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>application</td></tr>
+<tr><td>loaded_translators</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#appStartup">appStartup</a></td>
+<td>Module function to start up an application that doesn't need a specialized start up.</td>
+</tr>
+<tr>
+<td><a href="#getDefaultIconPaths">getDefaultIconPaths</a></td>
+<td>Module function to determine the default icon paths.</td>
+</tr>
+<tr>
+<td><a href="#initializeResourceSearchPath">initializeResourceSearchPath</a></td>
+<td>Module function to initialize the default mime source factory.</td>
+</tr>
+<tr>
+<td><a href="#loadTranslatorForLocale">loadTranslatorForLocale</a></td>
+<td>Module function to find and load a specific translation.</td>
+</tr>
+<tr>
+<td><a href="#loadTranslators">loadTranslators</a></td>
+<td>Module function to load all required translations.</td>
+</tr>
+<tr>
+<td><a href="#setLibraryPaths">setLibraryPaths</a></td>
+<td>Module function to set the Qt library paths correctly.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="appStartup" ID="appStartup"></a>
+<h2>appStartup</h2>
+<b>appStartup</b>(<i>args, mwFactory, quitOnLastWindowClosed=True, app=None, raiseIt=True, installErrorHandler=False, </i>)
+<p>
+    Module function to start up an application that doesn't need a specialized
+    start up.
+</p>
+<p>
+    This function is used by all of eric's helper programs.
+</p>
+
+<dl>
+
+<dt><i>args</i> (argparse.Namespace)</dt>
+<dd>
+namespace object created by ArgumentParser.parse_args() containing
+        the parsed command line arguments
+</dd>
+<dt><i>mwFactory</i> (function)</dt>
+<dd>
+factory function generating the main widget. This
+        function must accept the following parameter.
+        <dl>
+            <dt>args</dt>
+            <dd>parsed command line arguments (argparse.Namespace)</dd>
+        </dl>
+</dd>
+<dt><i>quitOnLastWindowClosed</i> (bool)</dt>
+<dd>
+flag indicating to quit the application,
+        if the last window was closed
+</dd>
+<dt><i>app</i> (QApplication or None)</dt>
+<dd>
+reference to the application object
+</dd>
+<dt><i>raiseIt</i> (bool)</dt>
+<dd>
+flag indicating to raise the generated application
+        window
+</dd>
+<dt><i>installErrorHandler</i> (bool)</dt>
+<dd>
+flag indicating to install an error
+        handler dialog
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+exit result
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getDefaultIconPaths" ID="getDefaultIconPaths"></a>
+<h2>getDefaultIconPaths</h2>
+<b>getDefaultIconPaths</b>(<i>application</i>)
+<p>
+    Module function to determine the default icon paths.
+</p>
+
+<dl>
+
+<dt><i>application</i> (EricApplication)</dt>
+<dd>
+reference to the application object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of default icon paths
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="initializeResourceSearchPath" ID="initializeResourceSearchPath"></a>
+<h2>initializeResourceSearchPath</h2>
+<b>initializeResourceSearchPath</b>(<i>application</i>)
+<p>
+    Module function to initialize the default mime source factory.
+</p>
+
+<dl>
+
+<dt><i>application</i> (EricApplication)</dt>
+<dd>
+reference to the application object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="loadTranslatorForLocale" ID="loadTranslatorForLocale"></a>
+<h2>loadTranslatorForLocale</h2>
+<b>loadTranslatorForLocale</b>(<i>dirs, tn</i>)
+<p>
+    Module function to find and load a specific translation.
+</p>
+
+<dl>
+
+<dt><i>dirs</i> (list of str)</dt>
+<dd>
+searchpath for the translations
+</dd>
+<dt><i>tn</i> (str)</dt>
+<dd>
+translation to be loaded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a status flag and the loaded translator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, QTranslator)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="loadTranslators" ID="loadTranslators"></a>
+<h2>loadTranslators</h2>
+<b>loadTranslators</b>(<i>qtTransDir, app, translationFiles=()</i>)
+<p>
+    Module function to load all required translations.
+</p>
+
+<dl>
+
+<dt><i>qtTransDir</i> (str)</dt>
+<dd>
+directory of the Qt translations files
+</dd>
+<dt><i>app</i> (QApplication)</dt>
+<dd>
+reference to the application object
+</dd>
+<dt><i>translationFiles</i> (tuple of str)</dt>
+<dd>
+tuple of additional translations to
+        be loaded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested locale
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setLibraryPaths" ID="setLibraryPaths"></a>
+<h2>setLibraryPaths</h2>
+<b>setLibraryPaths</b>(<i></i>)
+<p>
+    Module function to set the Qt library paths correctly.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

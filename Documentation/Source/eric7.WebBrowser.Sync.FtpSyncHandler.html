@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Sync.FtpSyncHandler</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Sync.FtpSyncHandler</h1>
+<p>
+Module implementing a synchronization handler using FTP.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#FtpSyncHandler">FtpSyncHandler</a></td>
+<td>Class implementing a synchronization handler using FTP.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="FtpSyncHandler" ID="FtpSyncHandler"></a>
+<h2>FtpSyncHandler</h2>
+<p>
+    Class implementing a synchronization handler using FTP.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>syncError(message)</dt>
+<dd>
+emitted for a general error with the error message
+</dd>
+<dt>syncFinished(type_, done, download)</dt>
+<dd>
+emitted after a synchronization
+        has finished
+</dd>
+<dt>syncMessage(message)</dt>
+<dd>
+emitted to send a message about synchronization
+</dd>
+<dt>syncStatus(type_, message)</dt>
+<dd>
+emitted to indicate the synchronization status
+</dd>
+</dl>
+<h3>Derived from</h3>
+SyncHandler
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FtpSyncHandler.__init__">FtpSyncHandler</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__changeToStore">__changeToStore</a></td>
+<td>Private slot to change to the storage directory.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__connectAndLogin">__connectAndLogin</a></td>
+<td>Private method to connect to the FTP server and log in.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__dirListCallback">__dirListCallback</a></td>
+<td>Private slot handling the receipt of directory listing lines.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__doFtpCommands">__doFtpCommands</a></td>
+<td>Private slot executing the sequence of FTP commands.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__downloadFile">__downloadFile</a></td>
+<td>Private method to downlaod the given file.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__downloadFileCallback">__downloadFileCallback</a></td>
+<td>Private method receiving the downloaded data.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__idleTimeout">__idleTimeout</a></td>
+<td>Private slot to prevent a disconnect from the server.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__initialSync">__initialSync</a></td>
+<td>Private slot to do the initial synchronization.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__initialSyncFile">__initialSyncFile</a></td>
+<td>Private method to do the initial synchronization of the given file.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__syncFile">__syncFile</a></td>
+<td>Private method to synchronize the given file.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.__uploadFile">__uploadFile</a></td>
+<td>Private method to upload the given file.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.initialLoadAndCheck">initialLoadAndCheck</a></td>
+<td>Public method to do the initial check.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.shutdown">shutdown</a></td>
+<td>Public method to shut down the handler.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.syncBookmarks">syncBookmarks</a></td>
+<td>Public method to synchronize the bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.syncHistory">syncHistory</a></td>
+<td>Public method to synchronize the history.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.syncPasswords">syncPasswords</a></td>
+<td>Public method to synchronize the passwords.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.syncSpeedDial">syncSpeedDial</a></td>
+<td>Public method to synchronize the speed dial data.</td>
+</tr>
+<tr>
+<td><a href="#FtpSyncHandler.syncUserAgents">syncUserAgents</a></td>
+<td>Public method to synchronize the user agents.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FtpSyncHandler.__init__" ID="FtpSyncHandler.__init__"></a>
+<h4>FtpSyncHandler (Constructor)</h4>
+<b>FtpSyncHandler</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="FtpSyncHandler.__changeToStore" ID="FtpSyncHandler.__changeToStore"></a>
+<h4>FtpSyncHandler.__changeToStore</h4>
+<b>__changeToStore</b>(<i></i>)
+<p>
+        Private slot to change to the storage directory.
+</p>
+<p>
+        This action will create the storage path on the server, if it
+        does not exist. Upon return, the current directory of the server
+        is the sync directory.
+</p>
+
+<a NAME="FtpSyncHandler.__connectAndLogin" ID="FtpSyncHandler.__connectAndLogin"></a>
+<h4>FtpSyncHandler.__connectAndLogin</h4>
+<b>__connectAndLogin</b>(<i></i>)
+<p>
+        Private method to connect to the FTP server and log in.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful log in
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="FtpSyncHandler.__dirListCallback" ID="FtpSyncHandler.__dirListCallback"></a>
+<h4>FtpSyncHandler.__dirListCallback</h4>
+<b>__dirListCallback</b>(<i>line</i>)
+<p>
+        Private slot handling the receipt of directory listing lines.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+the received line of the directory listing
+</dd>
+</dl>
+<a NAME="FtpSyncHandler.__doFtpCommands" ID="FtpSyncHandler.__doFtpCommands"></a>
+<h4>FtpSyncHandler.__doFtpCommands</h4>
+<b>__doFtpCommands</b>(<i></i>)
+<p>
+        Private slot executing the sequence of FTP commands.
+</p>
+
+<a NAME="FtpSyncHandler.__downloadFile" ID="FtpSyncHandler.__downloadFile"></a>
+<h4>FtpSyncHandler.__downloadFile</h4>
+<b>__downloadFile</b>(<i>type_, fileName, timestamp</i>)
+<p>
+        Private method to downlaod the given file.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of
+            "bookmarks", "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be downloaded
+</dd>
+<dt><i>timestamp</i> (int)</dt>
+<dd>
+time stamp in seconds of the file to be downloaded
+</dd>
+</dl>
+<a NAME="FtpSyncHandler.__downloadFileCallback" ID="FtpSyncHandler.__downloadFileCallback"></a>
+<h4>FtpSyncHandler.__downloadFileCallback</h4>
+<b>__downloadFileCallback</b>(<i>buffer, data</i>)
+<p>
+        Private method receiving the downloaded data.
+</p>
+
+<dl>
+
+<dt><i>buffer</i> (io.BytesIO)</dt>
+<dd>
+reference to the buffer
+</dd>
+<dt><i>data</i> (bytes)</dt>
+<dd>
+byte string to store in the buffer
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of bytes written to the buffer
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="FtpSyncHandler.__idleTimeout" ID="FtpSyncHandler.__idleTimeout"></a>
+<h4>FtpSyncHandler.__idleTimeout</h4>
+<b>__idleTimeout</b>(<i></i>)
+<p>
+        Private slot to prevent a disconnect from the server.
+</p>
+
+<a NAME="FtpSyncHandler.__initialSync" ID="FtpSyncHandler.__initialSync"></a>
+<h4>FtpSyncHandler.__initialSync</h4>
+<b>__initialSync</b>(<i></i>)
+<p>
+        Private slot to do the initial synchronization.
+</p>
+
+<a NAME="FtpSyncHandler.__initialSyncFile" ID="FtpSyncHandler.__initialSyncFile"></a>
+<h4>FtpSyncHandler.__initialSyncFile</h4>
+<b>__initialSyncFile</b>(<i>type_, fileName</i>)
+<p>
+        Private method to do the initial synchronization of the given file.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of "bookmarks",
+            "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be synchronized
+</dd>
+</dl>
+<a NAME="FtpSyncHandler.__syncFile" ID="FtpSyncHandler.__syncFile"></a>
+<h4>FtpSyncHandler.__syncFile</h4>
+<b>__syncFile</b>(<i>type_, fileName</i>)
+<p>
+        Private method to synchronize the given file.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of "bookmarks",
+            "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be synchronized
+</dd>
+</dl>
+<a NAME="FtpSyncHandler.__uploadFile" ID="FtpSyncHandler.__uploadFile"></a>
+<h4>FtpSyncHandler.__uploadFile</h4>
+<b>__uploadFile</b>(<i>type_, fileName</i>)
+<p>
+        Private method to upload the given file.
+</p>
+
+<dl>
+
+<dt><i>type_</i> (str)</dt>
+<dd>
+type of the synchronization event (one of "bookmarks",
+            "history", "passwords", "useragents" or "speeddial")
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+name of the file to be uploaded
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="FtpSyncHandler.initialLoadAndCheck" ID="FtpSyncHandler.initialLoadAndCheck"></a>
+<h4>FtpSyncHandler.initialLoadAndCheck</h4>
+<b>initialLoadAndCheck</b>(<i>forceUpload</i>)
+<p>
+        Public method to do the initial check.
+</p>
+
+<dl>
+
+<dt><i>forceUpload</i> (bool)</dt>
+<dd>
+flag indicating a forced upload of the files
+</dd>
+</dl>
+<a NAME="FtpSyncHandler.shutdown" ID="FtpSyncHandler.shutdown"></a>
+<h4>FtpSyncHandler.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to shut down the handler.
+</p>
+
+<a NAME="FtpSyncHandler.syncBookmarks" ID="FtpSyncHandler.syncBookmarks"></a>
+<h4>FtpSyncHandler.syncBookmarks</h4>
+<b>syncBookmarks</b>(<i></i>)
+<p>
+        Public method to synchronize the bookmarks.
+</p>
+
+<a NAME="FtpSyncHandler.syncHistory" ID="FtpSyncHandler.syncHistory"></a>
+<h4>FtpSyncHandler.syncHistory</h4>
+<b>syncHistory</b>(<i></i>)
+<p>
+        Public method to synchronize the history.
+</p>
+
+<a NAME="FtpSyncHandler.syncPasswords" ID="FtpSyncHandler.syncPasswords"></a>
+<h4>FtpSyncHandler.syncPasswords</h4>
+<b>syncPasswords</b>(<i></i>)
+<p>
+        Public method to synchronize the passwords.
+</p>
+
+<a NAME="FtpSyncHandler.syncSpeedDial" ID="FtpSyncHandler.syncSpeedDial"></a>
+<h4>FtpSyncHandler.syncSpeedDial</h4>
+<b>syncSpeedDial</b>(<i></i>)
+<p>
+        Public method to synchronize the speed dial data.
+</p>
+
+<a NAME="FtpSyncHandler.syncUserAgents" ID="FtpSyncHandler.syncUserAgents"></a>
+<h4>FtpSyncHandler.syncUserAgents</h4>
+<b>syncUserAgents</b>(<i></i>)
+<p>
+        Public method to synchronize the user agents.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DocumentationTools.ModuleDocumentor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DocumentationTools.ModuleDocumentor</h1>
+<p>
+Module implementing the builtin documentation generator.
+</p>
+<p>
+The different parts of the module document are assembled from the parsed
+Python file. The appearance is determined by several templates defined within
+this module.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_event</td></tr>
+<tr><td>_signal</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ModuleDocument">ModuleDocument</a></td>
+<td>Class implementing the builtin documentation generator.</td>
+</tr>
+<tr>
+<td><a href="#TagError">TagError</a></td>
+<td>Exception class raised, if an invalid documentation tag was found.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ModuleDocument" ID="ModuleDocument"></a>
+<h2>ModuleDocument</h2>
+<p>
+    Class implementing the builtin documentation generator.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ModuleDocument.__init__">ModuleDocument</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__checkDeprecated">__checkDeprecated</a></td>
+<td>Private method to check, if the object to be documented contains a deprecated flag.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__formatCrossReferenceEntry">__formatCrossReferenceEntry</a></td>
+<td>Private method to format a cross reference entry.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__formatDescription">__formatDescription</a></td>
+<td>Private method to format the contents of the documentation string.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genClassListSection">__genClassListSection</a></td>
+<td>Private method to generate the section listing all classes of the module.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genClassesSection">__genClassesSection</a></td>
+<td>Private method to generate the document section with details about classes.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genDescriptionListSection">__genDescriptionListSection</a></td>
+<td>Private method to generate the list section of a description.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genFunctionListSection">__genFunctionListSection</a></td>
+<td>Private method to generate the section listing all functions of the module.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genFunctionsSection">__genFunctionsSection</a></td>
+<td>Private method to generate the document section with details about functions.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genGlobalsListSection">__genGlobalsListSection</a></td>
+<td>Private method to generate the section listing all global attributes of the module.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genListSection">__genListSection</a></td>
+<td>Private method to generate a list section of the document.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genMethodSection">__genMethodSection</a></td>
+<td>Private method to generate the method details section.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genMethodsListSection">__genMethodsListSection</a></td>
+<td>Private method to generate the methods list section of a class.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genModuleSection">__genModuleSection</a></td>
+<td>Private method to generate the body of the document.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genParagraphs">__genParagraphs</a></td>
+<td>Private method to assemble the descriptive paragraphs of a docstring.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genParamDescriptionListSection">__genParamDescriptionListSection</a></td>
+<td>Private method to generate the list section of a description.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genRbModulesClassesListSection">__genRbModulesClassesListSection</a></td>
+<td>Private method to generate the classes list section of a Ruby module.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genRbModulesClassesSection">__genRbModulesClassesSection</a></td>
+<td>Private method to generate the Ruby module classes details section.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genRbModulesListSection">__genRbModulesListSection</a></td>
+<td>Private method to generate the section listing all modules of the file (Ruby only).</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genRbModulesSection">__genRbModulesSection</a></td>
+<td>Private method to generate the document section with details about Ruby modules.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__genSeeListSection">__genSeeListSection</a></td>
+<td>Private method to generate the "see also" list section of a description.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__getShortDescription">__getShortDescription</a></td>
+<td>Private method to determine the short description of an object.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.__processInlineTags">__processInlineTags</a></td>
+<td>Private method to process inline tags.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.description">description</a></td>
+<td>Public method used to get the description of the module.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.genDocument">genDocument</a></td>
+<td>Public method to generate the source code documentation.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.getQtHelpKeywords">getQtHelpKeywords</a></td>
+<td>Public method to retrieve the parts for the QtHelp keywords section.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.isEmpty">isEmpty</a></td>
+<td>Public method to determine, if the module contains any classes or functions.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.name">name</a></td>
+<td>Public method used to get the module name.</td>
+</tr>
+<tr>
+<td><a href="#ModuleDocument.shortDescription">shortDescription</a></td>
+<td>Public method used to get the short description of the module.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ModuleDocument.__init__" ID="ModuleDocument.__init__"></a>
+<h4>ModuleDocument (Constructor)</h4>
+<b>ModuleDocument</b>(<i>module</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+information of the parsed Python file
+</dd>
+</dl>
+<a NAME="ModuleDocument.__checkDeprecated" ID="ModuleDocument.__checkDeprecated"></a>
+<h4>ModuleDocument.__checkDeprecated</h4>
+<b>__checkDeprecated</b>(<i>descr</i>)
+<p>
+        Private method to check, if the object to be documented contains a
+        deprecated flag.
+</p>
+
+<dl>
+
+<dt><i>descr</i> (str)</dt>
+<dd>
+documentation string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the deprecation status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ModuleDocument.__formatCrossReferenceEntry" ID="ModuleDocument.__formatCrossReferenceEntry"></a>
+<h4>ModuleDocument.__formatCrossReferenceEntry</h4>
+<b>__formatCrossReferenceEntry</b>(<i>entry</i>)
+<p>
+        Private method to format a cross reference entry.
+</p>
+<p>
+        This cross reference entry looks like "package.module#member label".
+</p>
+
+<dl>
+
+<dt><i>entry</i> (str)</dt>
+<dd>
+entry to be formatted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__formatDescription" ID="ModuleDocument.__formatDescription"></a>
+<h4>ModuleDocument.__formatDescription</h4>
+<b>__formatDescription</b>(<i>descr</i>)
+<p>
+        Private method to format the contents of the documentation string.
+</p>
+
+<dl>
+
+<dt><i>descr</i> (str)</dt>
+<dd>
+contents of the documentation string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted contents of the documentation string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>TagError</b>:</dt>
+<dd>
+A tag doesn't have the correct number of arguments.
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genClassListSection" ID="ModuleDocument.__genClassListSection"></a>
+<h4>ModuleDocument.__genClassListSection</h4>
+<b>__genClassListSection</b>(<i></i>)
+<p>
+        Private method to generate the section listing all classes of the
+        module.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+classes list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genClassesSection" ID="ModuleDocument.__genClassesSection"></a>
+<h4>ModuleDocument.__genClassesSection</h4>
+<b>__genClassesSection</b>(<i></i>)
+<p>
+        Private method to generate the document section with details about
+        classes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+classes details section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genDescriptionListSection" ID="ModuleDocument.__genDescriptionListSection"></a>
+<h4>ModuleDocument.__genDescriptionListSection</h4>
+<b>__genDescriptionListSection</b>(<i>dictionary, template</i>)
+<p>
+        Private method to generate the list section of a description.
+</p>
+
+<dl>
+
+<dt><i>dictionary</i> (dict)</dt>
+<dd>
+dictionary containing the info for the
+            list section
+</dd>
+<dt><i>template</i> (str)</dt>
+<dd>
+template to be used for the list
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genFunctionListSection" ID="ModuleDocument.__genFunctionListSection"></a>
+<h4>ModuleDocument.__genFunctionListSection</h4>
+<b>__genFunctionListSection</b>(<i></i>)
+<p>
+        Private method to generate the section listing all functions of the
+        module.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+functions list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genFunctionsSection" ID="ModuleDocument.__genFunctionsSection"></a>
+<h4>ModuleDocument.__genFunctionsSection</h4>
+<b>__genFunctionsSection</b>(<i></i>)
+<p>
+        Private method to generate the document section with details about
+        functions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+functions details section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genGlobalsListSection" ID="ModuleDocument.__genGlobalsListSection"></a>
+<h4>ModuleDocument.__genGlobalsListSection</h4>
+<b>__genGlobalsListSection</b>(<i>class_=None</i>)
+<p>
+        Private method to generate the section listing all global attributes of
+        the module.
+</p>
+
+<dl>
+
+<dt><i>class_</i> (class)</dt>
+<dd>
+reference to a class object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+globals list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genListSection" ID="ModuleDocument.__genListSection"></a>
+<h4>ModuleDocument.__genListSection</h4>
+<b>__genListSection</b>(<i>names, sectionDict, kwSuffix=""</i>)
+<p>
+        Private method to generate a list section of the document.
+</p>
+
+<dl>
+
+<dt><i>names</i> (list of str)</dt>
+<dd>
+names to appear in the list
+</dd>
+<dt><i>sectionDict</i> (dict)</dt>
+<dd>
+dictionary containing all relevant information
+</dd>
+<dt><i>kwSuffix</i> (str)</dt>
+<dd>
+suffix to be used for the QtHelp keywords
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genMethodSection" ID="ModuleDocument.__genMethodSection"></a>
+<h4>ModuleDocument.__genMethodSection</h4>
+<b>__genMethodSection</b>(<i>obj, className, modifierFilter</i>)
+<p>
+        Private method to generate the method details section.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (class)</dt>
+<dd>
+reference to the object being formatted
+</dd>
+<dt><i>className</i> (str)</dt>
+<dd>
+name of the class containing the method
+</dd>
+<dt><i>modifierFilter</i> (str)</dt>
+<dd>
+filter value designating the method types
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+method list and method details section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genMethodsListSection" ID="ModuleDocument.__genMethodsListSection"></a>
+<h4>ModuleDocument.__genMethodsListSection</h4>
+<b>__genMethodsListSection</b>(<i>names, sectionDict, className, clsName, includeInit=True</i>)
+<p>
+        Private method to generate the methods list section of a class.
+</p>
+
+<dl>
+
+<dt><i>names</i> (list of str)</dt>
+<dd>
+names to appear in the list
+</dd>
+<dt><i>sectionDict</i> (dict)</dt>
+<dd>
+dictionary containing all relevant information
+</dd>
+<dt><i>className</i> (str)</dt>
+<dd>
+class name containing the names
+</dd>
+<dt><i>clsName</i> (str)</dt>
+<dd>
+visible class name containing the names
+</dd>
+<dt><i>includeInit</i> (bool)</dt>
+<dd>
+flag indicating to include the __init__ method
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+methods list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genModuleSection" ID="ModuleDocument.__genModuleSection"></a>
+<h4>ModuleDocument.__genModuleSection</h4>
+<b>__genModuleSection</b>(<i></i>)
+<p>
+        Private method to generate the body of the document.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+body of the document
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genParagraphs" ID="ModuleDocument.__genParagraphs"></a>
+<h4>ModuleDocument.__genParagraphs</h4>
+<b>__genParagraphs</b>(<i>lines</i>)
+<p>
+        Private method to assemble the descriptive paragraphs of a docstring.
+</p>
+<p>
+        A paragraph is made up of a number of consecutive lines without
+        an intermediate empty line. Empty lines are treated as a paragraph
+        delimiter.
+</p>
+
+<dl>
+
+<dt><i>lines</i> (list of str)</dt>
+<dd>
+list of individual lines
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted paragraphs
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genParamDescriptionListSection" ID="ModuleDocument.__genParamDescriptionListSection"></a>
+<h4>ModuleDocument.__genParamDescriptionListSection</h4>
+<b>__genParamDescriptionListSection</b>(<i>_list</i>)
+<p>
+        Private method to generate the list section of a description.
+</p>
+
+<dl>
+
+<dt><i>_list</i> (list of lists with three elements)</dt>
+<dd>
+list containing the info for the parameter description
+            list section
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genRbModulesClassesListSection" ID="ModuleDocument.__genRbModulesClassesListSection"></a>
+<h4>ModuleDocument.__genRbModulesClassesListSection</h4>
+<b>__genRbModulesClassesListSection</b>(<i>names, sectionDict, moduleName</i>)
+<p>
+        Private method to generate the classes list section of a Ruby module.
+</p>
+
+<dl>
+
+<dt><i>names</i> (list of str)</dt>
+<dd>
+names to appear in the list
+</dd>
+<dt><i>sectionDict</i> (dict)</dt>
+<dd>
+dictionary containing all relevant information
+</dd>
+<dt><i>moduleName</i> (str)</dt>
+<dd>
+name of the Ruby module containing the classes
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genRbModulesClassesSection" ID="ModuleDocument.__genRbModulesClassesSection"></a>
+<h4>ModuleDocument.__genRbModulesClassesSection</h4>
+<b>__genRbModulesClassesSection</b>(<i>obj, modName</i>)
+<p>
+        Private method to generate the Ruby module classes details section.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (class)</dt>
+<dd>
+reference to the object being formatted
+</dd>
+<dt><i>modName</i> (str)</dt>
+<dd>
+name of the Ruby module containing the classes
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+classes list and classes details section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genRbModulesListSection" ID="ModuleDocument.__genRbModulesListSection"></a>
+<h4>ModuleDocument.__genRbModulesListSection</h4>
+<b>__genRbModulesListSection</b>(<i></i>)
+<p>
+        Private method to generate the section listing all modules of the file
+        (Ruby only).
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+modules list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genRbModulesSection" ID="ModuleDocument.__genRbModulesSection"></a>
+<h4>ModuleDocument.__genRbModulesSection</h4>
+<b>__genRbModulesSection</b>(<i></i>)
+<p>
+        Private method to generate the document section with details about
+        Ruby modules.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+Ruby modules details section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__genSeeListSection" ID="ModuleDocument.__genSeeListSection"></a>
+<h4>ModuleDocument.__genSeeListSection</h4>
+<b>__genSeeListSection</b>(<i>_list, template</i>)
+<p>
+        Private method to generate the "see also" list section of a
+        description.
+</p>
+
+<dl>
+
+<dt><i>_list</i> (list)</dt>
+<dd>
+list containing the info for the section
+</dd>
+<dt><i>template</i> (str)</dt>
+<dd>
+template to be used for the list
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__getShortDescription" ID="ModuleDocument.__getShortDescription"></a>
+<h4>ModuleDocument.__getShortDescription</h4>
+<b>__getShortDescription</b>(<i>desc</i>)
+<p>
+        Private method to determine the short description of an object.
+</p>
+<p>
+        The short description is just the first non empty line of the
+        documentation string.
+</p>
+
+<dl>
+
+<dt><i>desc</i> (str)</dt>
+<dd>
+documentation string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+short description
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.__processInlineTags" ID="ModuleDocument.__processInlineTags"></a>
+<h4>ModuleDocument.__processInlineTags</h4>
+<b>__processInlineTags</b>(<i>desc</i>)
+<p>
+        Private method to process inline tags.
+</p>
+
+<dl>
+
+<dt><i>desc</i> (str)</dt>
+<dd>
+one line of the description
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+processed line with inline tags expanded
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>TagError</b>:</dt>
+<dd>
+raised to indicate an invalid tag
+</dd>
+</dl>
+<a NAME="ModuleDocument.description" ID="ModuleDocument.description"></a>
+<h4>ModuleDocument.description</h4>
+<b>description</b>(<i></i>)
+<p>
+        Public method used to get the description of the module.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+description of the module
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.genDocument" ID="ModuleDocument.genDocument"></a>
+<h4>ModuleDocument.genDocument</h4>
+<b>genDocument</b>(<i></i>)
+<p>
+        Public method to generate the source code documentation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+source code documentation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.getQtHelpKeywords" ID="ModuleDocument.getQtHelpKeywords"></a>
+<h4>ModuleDocument.getQtHelpKeywords</h4>
+<b>getQtHelpKeywords</b>(<i></i>)
+<p>
+        Public method to retrieve the parts for the QtHelp keywords section.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the name and the ref. The ref is without
+            the filename part.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, str)
+</dd>
+</dl>
+<a NAME="ModuleDocument.isEmpty" ID="ModuleDocument.isEmpty"></a>
+<h4>ModuleDocument.isEmpty</h4>
+<b>isEmpty</b>(<i></i>)
+<p>
+        Public method to determine, if the module contains any classes or
+        functions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an empty module (i.e. __init__.py without
+            any contents)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ModuleDocument.name" ID="ModuleDocument.name"></a>
+<h4>ModuleDocument.name</h4>
+<b>name</b>(<i></i>)
+<p>
+        Public method used to get the module name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the module
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ModuleDocument.shortDescription" ID="ModuleDocument.shortDescription"></a>
+<h4>ModuleDocument.shortDescription</h4>
+<b>shortDescription</b>(<i></i>)
+<p>
+        Public method used to get the short description of the module.
+</p>
+<p>
+        The short description is just the first line of the modules
+        description.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+short description of the module
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TagError" ID="TagError"></a>
+<h2>TagError</h2>
+<p>
+    Exception class raised, if an invalid documentation tag was found.
+</p>
+
+<h3>Derived from</h3>
+Exception
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

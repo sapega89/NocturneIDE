@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.GitLogBrowserDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.GitLogBrowserDialog</h1>
+<p>
+Module implementing a dialog to browse the log history.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>COLORNAMES</td></tr>
+<tr><td>COLORS</td></tr>
+<tr><td>LIGHTCOLORS</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitLogBrowserDialog">GitLogBrowserDialog</a></td>
+<td>Class implementing a dialog to browse the log history.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitLogBrowserDialog" ID="GitLogBrowserDialog"></a>
+<h2>GitLogBrowserDialog</h2>
+<p>
+    Class implementing a dialog to browse the log history.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_GitLogBrowserDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AuthorColumn</td></tr>
+<tr><td>BranchColumn</td></tr>
+<tr><td>CommitDateColumn</td></tr>
+<tr><td>CommitIdColumn</td></tr>
+<tr><td>CommitterColumn</td></tr>
+<tr><td>DateColumn</td></tr>
+<tr><td>IconColumn</td></tr>
+<tr><td>SubjectColumn</td></tr>
+<tr><td>TagsColumn</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitLogBrowserDialog.__init__">GitLogBrowserDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__actionMode">__actionMode</a></td>
+<td>Private method to get the selected action mode.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__addFinishCallback">__addFinishCallback</a></td>
+<td>Private method to add a method to be called once the process finished.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__branchActTriggered">__branchActTriggered</a></td>
+<td>Private slot to create a new branch starting at the selected commit.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__branchSwitchActTriggered">__branchSwitchActTriggered</a></td>
+<td>Private slot to create a new branch starting at the selected commit and switch the work tree to it.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__cherryActTriggered">__cherryActTriggered</a></td>
+<td>Private slot to handle the Copy Commits action.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__commitIdClicked">__commitIdClicked</a></td>
+<td>Private slot to handle the anchorClicked signal of the changeset details pane.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__describeActTriggered">__describeActTriggered</a></td>
+<td>Private slot to show the most recent tag reachable from a commit.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__filterLogs">__filterLogs</a></td>
+<td>Private method to filter the log entries.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__findItem">__findItem</a></td>
+<td>Private slot to find an item matching the entered criteria.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__generateDetailsTableText">__generateDetailsTableText</a></td>
+<td>Private method to generate an HTML table with the details of the given changeset.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__generateDiffs">__generateDiffs</a></td>
+<td>Private slot to generate diff outputs for the selected item.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__generateEdges">__generateEdges</a></td>
+<td>Private method to generate edge info for the give data.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__generateFileItem">__generateFileItem</a></td>
+<td>Private method to generate a changed files tree entry.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__generateIcon">__generateIcon</a></td>
+<td>Private method to generate an icon containing the revision tree for the given data.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__generateLogItem">__generateLogItem</a></td>
+<td>Private method to generate a log tree entry.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__generatorFinished">__generatorFinished</a></td>
+<td>Private slot connected to the finished signal of the diff generator.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__getBranchesForCommit">__getBranchesForCommit</a></td>
+<td>Private method to get all branches reachable from a commit ID.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__getColor">__getColor</a></td>
+<td>Private method to get the (rotating) name of the color given an index.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__getCommitForTag">__getCommitForTag</a></td>
+<td>Private method to get the commit id for a tag.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__getLogEntries">__getLogEntries</a></td>
+<td>Private method to retrieve log entries from the repository.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__getTagsForCommit">__getTagsForCommit</a></td>
+<td>Private method to get all tags reachable from a commit ID.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__identifyProject">__identifyProject</a></td>
+<td>Private method to determine the revision of the project directory.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__initActionsMenu">__initActionsMenu</a></td>
+<td>Private method to initialize the actions menu.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__initData">__initData</a></td>
+<td>Private method to (re-)initialize some data.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__initLogTreeContextMenu">__initLogTreeContextMenu</a></td>
+<td>Private method to initialize the log tree context menu.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__mergeFileSeparators">__mergeFileSeparators</a></td>
+<td>Private method to merge the file separator entries.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__prepareFieldSearch">__prepareFieldSearch</a></td>
+<td>Private slot to prepare the filed search data.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__procFinished">__procFinished</a></td>
+<td>Private slot connected to the finished signal.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__processBuffer">__processBuffer</a></td>
+<td>Private method to process the buffered output of the git log command.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__processBufferItem">__processBufferItem</a></td>
+<td>Private method to process a log entry.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__readStderr">__readStderr</a></td>
+<td>Private slot to handle the readyReadStandardError signal.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__readStdout">__readStdout</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__reloadGeometry">__reloadGeometry</a></td>
+<td>Private method to restore the geometry.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__resetUI">__resetUI</a></td>
+<td>Private method to reset the user interface.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__resizeColumnsFiles">__resizeColumnsFiles</a></td>
+<td>Private method to resize the changed files tree columns.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__resizeColumnsLog">__resizeColumnsLog</a></td>
+<td>Private method to resize the log tree columns.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__resortFiles">__resortFiles</a></td>
+<td>Private method to resort the changed files tree.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__restoreSplitterStates">__restoreSplitterStates</a></td>
+<td>Private method to restore the state of the various splitters.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__shortlogActTriggered">__shortlogActTriggered</a></td>
+<td>Private slot to show a short log suitable for release announcements.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__showAuthorColumns">__showAuthorColumns</a></td>
+<td>Private slot to show/hide the committer columns.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__showBranchesColumn">__showBranchesColumn</a></td>
+<td>Private slot to show/hide the branches column.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__showCommitIdColumn">__showCommitIdColumn</a></td>
+<td>Private slot to show/hide the commit ID column.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__showCommitterColumns">__showCommitterColumns</a></td>
+<td>Private slot to show/hide the committer columns.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__showError">__showError</a></td>
+<td>Private slot to show some error.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__showTagsColumn">__showTagsColumn</a></td>
+<td>Private slot to show/hide the tags column.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__switchActTriggered">__switchActTriggered</a></td>
+<td>Private slot to switch the working directory to the selected commit.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__tagActTriggered">__tagActTriggered</a></td>
+<td>Private slot to tag the selected commit.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__updateDetailsAndFiles">__updateDetailsAndFiles</a></td>
+<td>Private slot to update the details and file changes panes.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__updateFilesTree">__updateFilesTree</a></td>
+<td>Private method to update the files tree with changes of the given item.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__updateSbsSelectLabel">__updateSbsSelectLabel</a></td>
+<td>Private slot to update the enabled status of the diff buttons.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.__updateToolMenuActions">__updateToolMenuActions</a></td>
+<td>Private slot to update the status of the tool menu actions and the tool menu button.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.col2x">col2x</a></td>
+<td>Local function to calculate a x-position for a column.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.keyPressEvent">keyPressEvent</a></td>
+<td>Protected slot to handle a key press event.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_diffSelectLabel_linkActivated">on_diffSelectLabel_linkActivated</a></td>
+<td>Private slot to handle the selection of a diff target.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_downButton_clicked">on_downButton_clicked</a></td>
+<td>Private slot to move the current item down one entry.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_fieldCombo_activated">on_fieldCombo_activated</a></td>
+<td>Private slot called, when a new filter field is selected.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_filesTree_currentItemChanged">on_filesTree_currentItemChanged</a></td>
+<td>Private slot called, when the current item of the files tree changes.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_findNextButton_clicked">on_findNextButton_clicked</a></td>
+<td>Private slot to find the next item matching the entered criteria.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_findPrevButton_clicked">on_findPrevButton_clicked</a></td>
+<td>Private slot to find the previous item matching the entered criteria.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_fromDate_dateChanged">on_fromDate_dateChanged</a></td>
+<td>Private slot called, when the from date changes.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_input_returnPressed">on_input_returnPressed</a></td>
+<td>Private slot to handle the press of the return key in the input field.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_logTree_currentItemChanged">on_logTree_currentItemChanged</a></td>
+<td>Private slot called, when the current item of the log tree changes.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_logTree_customContextMenuRequested">on_logTree_customContextMenuRequested</a></td>
+<td>Private slot to show the context menu of the log tree.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_logTree_itemSelectionChanged">on_logTree_itemSelectionChanged</a></td>
+<td>Private slot called, when the selection has changed.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_modeComboBox_currentIndexChanged">on_modeComboBox_currentIndexChanged</a></td>
+<td>Private slot to react on mode changes.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_nextButton_clicked">on_nextButton_clicked</a></td>
+<td>Private slot to handle the Next button.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_passwordCheckBox_toggled">on_passwordCheckBox_toggled</a></td>
+<td>Private slot to handle the password checkbox toggled.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the log.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_rxEdit_returnPressed">on_rxEdit_returnPressed</a></td>
+<td>Private slot handling a press of the Return key in the rxEdit input.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_rxEdit_textChanged">on_rxEdit_textChanged</a></td>
+<td>Private slot called, when a filter expression is entered.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_saveLabel_linkActivated">on_saveLabel_linkActivated</a></td>
+<td>Private slot to handle the selection of the save link.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_sbsSelectLabel_linkActivated">on_sbsSelectLabel_linkActivated</a></td>
+<td>Private slot to handle selection of a side-by-side link.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_sendButton_clicked">on_sendButton_clicked</a></td>
+<td>Private slot to send the input to the git process.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_stopCheckBox_clicked">on_stopCheckBox_clicked</a></td>
+<td>Private slot called, when the stop on copy/move checkbox is clicked.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_toDate_dateChanged">on_toDate_dateChanged</a></td>
+<td>Private slot called, when the from date changes.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.on_upButton_clicked">on_upButton_clicked</a></td>
+<td>Private slot to move the current item up one entry.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+<tr>
+<td><a href="#GitLogBrowserDialog.start">start</a></td>
+<td>Public slot to start the git log command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitLogBrowserDialog.__init__" ID="GitLogBrowserDialog.__init__"></a>
+<h4>GitLogBrowserDialog (Constructor)</h4>
+<b>GitLogBrowserDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Git)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__actionMode" ID="GitLogBrowserDialog.__actionMode"></a>
+<h4>GitLogBrowserDialog.__actionMode</h4>
+<b>__actionMode</b>(<i></i>)
+<p>
+        Private method to get the selected action mode.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected action mode (one of 'filter' or 'find')
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__addFinishCallback" ID="GitLogBrowserDialog.__addFinishCallback"></a>
+<h4>GitLogBrowserDialog.__addFinishCallback</h4>
+<b>__addFinishCallback</b>(<i>callback</i>)
+<p>
+        Private method to add a method to be called once the process finished.
+</p>
+<p>
+        The callback methods are invoke in a FIFO style and are consumed. If
+        a callback method needs to be called again, it must be added again.
+</p>
+
+<dl>
+
+<dt><i>callback</i> (function)</dt>
+<dd>
+callback method
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__branchActTriggered" ID="GitLogBrowserDialog.__branchActTriggered"></a>
+<h4>GitLogBrowserDialog.__branchActTriggered</h4>
+<b>__branchActTriggered</b>(<i></i>)
+<p>
+        Private slot to create a new branch starting at the selected commit.
+</p>
+
+<a NAME="GitLogBrowserDialog.__branchSwitchActTriggered" ID="GitLogBrowserDialog.__branchSwitchActTriggered"></a>
+<h4>GitLogBrowserDialog.__branchSwitchActTriggered</h4>
+<b>__branchSwitchActTriggered</b>(<i></i>)
+<p>
+        Private slot to create a new branch starting at the selected commit
+        and switch the work tree to it.
+</p>
+
+<a NAME="GitLogBrowserDialog.__cherryActTriggered" ID="GitLogBrowserDialog.__cherryActTriggered"></a>
+<h4>GitLogBrowserDialog.__cherryActTriggered</h4>
+<b>__cherryActTriggered</b>(<i></i>)
+<p>
+        Private slot to handle the Copy Commits action.
+</p>
+
+<a NAME="GitLogBrowserDialog.__commitIdClicked" ID="GitLogBrowserDialog.__commitIdClicked"></a>
+<h4>GitLogBrowserDialog.__commitIdClicked</h4>
+<b>__commitIdClicked</b>(<i>url</i>)
+<p>
+        Private slot to handle the anchorClicked signal of the changeset
+        details pane.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL that was clicked
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__describeActTriggered" ID="GitLogBrowserDialog.__describeActTriggered"></a>
+<h4>GitLogBrowserDialog.__describeActTriggered</h4>
+<b>__describeActTriggered</b>(<i></i>)
+<p>
+        Private slot to show the most recent tag reachable from a commit.
+</p>
+
+<a NAME="GitLogBrowserDialog.__filterLogs" ID="GitLogBrowserDialog.__filterLogs"></a>
+<h4>GitLogBrowserDialog.__filterLogs</h4>
+<b>__filterLogs</b>(<i></i>)
+<p>
+        Private method to filter the log entries.
+</p>
+
+<a NAME="GitLogBrowserDialog.__findItem" ID="GitLogBrowserDialog.__findItem"></a>
+<h4>GitLogBrowserDialog.__findItem</h4>
+<b>__findItem</b>(<i>backwards=False, interactive=False</i>)
+<p>
+        Private slot to find an item matching the entered criteria.
+</p>
+
+<dl>
+
+<dt><i>backwards</i> (bool)</dt>
+<dd>
+flag indicating to search backwards
+</dd>
+<dt><i>interactive</i> (bool)</dt>
+<dd>
+flag indicating an interactive search
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__finish" ID="GitLogBrowserDialog.__finish"></a>
+<h4>GitLogBrowserDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="GitLogBrowserDialog.__generateDetailsTableText" ID="GitLogBrowserDialog.__generateDetailsTableText"></a>
+<h4>GitLogBrowserDialog.__generateDetailsTableText</h4>
+<b>__generateDetailsTableText</b>(<i>itm</i>)
+<p>
+        Private method to generate an HTML table with the details of the given
+        changeset.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item the table should be based on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+HTML table containing details
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__generateDiffs" ID="GitLogBrowserDialog.__generateDiffs"></a>
+<h4>GitLogBrowserDialog.__generateDiffs</h4>
+<b>__generateDiffs</b>(<i>parent=1</i>)
+<p>
+        Private slot to generate diff outputs for the selected item.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (int)</dt>
+<dd>
+number of parent to diff against
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__generateEdges" ID="GitLogBrowserDialog.__generateEdges"></a>
+<h4>GitLogBrowserDialog.__generateEdges</h4>
+<b>__generateEdges</b>(<i>commitId, parents</i>)
+<p>
+        Private method to generate edge info for the give data.
+</p>
+
+<dl>
+
+<dt><i>commitId</i> (str)</dt>
+<dd>
+commit id to calculate edge info for
+</dd>
+<dt><i>parents</i> (list of str)</dt>
+<dd>
+list of parent commits
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the column and color index for
+            the given node and a list of tuples indicating the edges
+            between the given node and its parents
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, [(int, int, int), ...])
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__generateFileItem" ID="GitLogBrowserDialog.__generateFileItem"></a>
+<h4>GitLogBrowserDialog.__generateFileItem</h4>
+<b>__generateFileItem</b>(<i>action, path, copyfrom, additions, deletions</i>)
+<p>
+        Private method to generate a changed files tree entry.
+</p>
+
+<dl>
+
+<dt><i>action</i> (str)</dt>
+<dd>
+indicator for the change action ("A", "C", "D", "M",
+            "R", "T", "U", "X")
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the file in the repository
+</dd>
+<dt><i>copyfrom</i> (str)</dt>
+<dd>
+path the file was copied from
+</dd>
+<dt><i>additions</i> (int)</dt>
+<dd>
+number of added lines
+</dd>
+<dt><i>deletions</i> (int)</dt>
+<dd>
+number of deleted lines
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__generateIcon" ID="GitLogBrowserDialog.__generateIcon"></a>
+<h4>GitLogBrowserDialog.__generateIcon</h4>
+<b>__generateIcon</b>(<i>column, bottomedges, topedges, dotColor, currentCommit</i>)
+<p>
+        Private method to generate an icon containing the revision tree for the
+        given data.
+</p>
+
+<dl>
+
+<dt><i>column</i> (int)</dt>
+<dd>
+column index of the revision
+</dd>
+<dt><i>bottomedges</i> (list of [(int, int, int)])</dt>
+<dd>
+list of edges for the bottom of the node
+</dd>
+<dt><i>topedges</i> (list of [(int, int, int)])</dt>
+<dd>
+list of edges for the top of the node
+</dd>
+<dt><i>dotColor</i> (QColor)</dt>
+<dd>
+color to be used for the dot
+</dd>
+<dt><i>currentCommit</i> (bool)</dt>
+<dd>
+flag indicating to draw the icon for the
+            current commit
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+icon for the node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__generateLogItem" ID="GitLogBrowserDialog.__generateLogItem"></a>
+<h4>GitLogBrowserDialog.__generateLogItem</h4>
+<b>__generateLogItem</b>(<i>author, date, committer, commitDate, subject, message, commitId, fullCommitId, changedPaths, parents, refnames, authorMail, committerMail, </i>)
+<p>
+        Private method to generate a log tree entry.
+</p>
+
+<dl>
+
+<dt><i>author</i> (str)</dt>
+<dd>
+author info
+</dd>
+<dt><i>date</i> (str)</dt>
+<dd>
+date info
+</dd>
+<dt><i>committer</i> (str)</dt>
+<dd>
+committer info
+</dd>
+<dt><i>commitDate</i> (str)</dt>
+<dd>
+commit date info
+</dd>
+<dt><i>subject</i> (str)</dt>
+<dd>
+subject of the log entry
+</dd>
+<dt><i>message</i> (list of str)</dt>
+<dd>
+text of the log message
+</dd>
+<dt><i>commitId</i> (str)</dt>
+<dd>
+commit id info
+</dd>
+<dt><i>fullCommitId</i> (str)</dt>
+<dd>
+unabbreviated commit id info
+</dd>
+<dt><i>changedPaths</i> (list of dict)</dt>
+<dd>
+list of dictionary objects containing
+            info about the changed files/directories
+</dd>
+<dt><i>parents</i> (list of int)</dt>
+<dd>
+list of parent revisions
+</dd>
+<dt><i>refnames</i> (str)</dt>
+<dd>
+tags and branches of the commit
+</dd>
+<dt><i>authorMail</i> (str)</dt>
+<dd>
+author's email address
+</dd>
+<dt><i>committerMail</i> (str)</dt>
+<dd>
+committer's email address
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__generatorFinished" ID="GitLogBrowserDialog.__generatorFinished"></a>
+<h4>GitLogBrowserDialog.__generatorFinished</h4>
+<b>__generatorFinished</b>(<i></i>)
+<p>
+        Private slot connected to the finished signal of the diff generator.
+</p>
+
+<a NAME="GitLogBrowserDialog.__getBranchesForCommit" ID="GitLogBrowserDialog.__getBranchesForCommit"></a>
+<h4>GitLogBrowserDialog.__getBranchesForCommit</h4>
+<b>__getBranchesForCommit</b>(<i>commitId</i>)
+<p>
+        Private method to get all branches reachable from a commit ID.
+</p>
+
+<dl>
+
+<dt><i>commitId</i> (str)</dt>
+<dd>
+commit ID to get the branches for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the branch name and the associated
+            commit ID of its branch head
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__getColor" ID="GitLogBrowserDialog.__getColor"></a>
+<h4>GitLogBrowserDialog.__getColor</h4>
+<b>__getColor</b>(<i>n</i>)
+<p>
+        Private method to get the (rotating) name of the color given an index.
+</p>
+
+<dl>
+
+<dt><i>n</i> (int)</dt>
+<dd>
+color index
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+color name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__getCommitForTag" ID="GitLogBrowserDialog.__getCommitForTag"></a>
+<h4>GitLogBrowserDialog.__getCommitForTag</h4>
+<b>__getCommitForTag</b>(<i>tag</i>)
+<p>
+        Private method to get the commit id for a tag.
+</p>
+
+<dl>
+
+<dt><i>tag</i> (str)</dt>
+<dd>
+tag name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+commit id shortened to 10 characters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__getLogEntries" ID="GitLogBrowserDialog.__getLogEntries"></a>
+<h4>GitLogBrowserDialog.__getLogEntries</h4>
+<b>__getLogEntries</b>(<i>skip=0, noEntries=0</i>)
+<p>
+        Private method to retrieve log entries from the repository.
+</p>
+
+<dl>
+
+<dt><i>skip</i> (int)</dt>
+<dd>
+number of log entries to skip
+</dd>
+<dt><i>noEntries</i> (int)</dt>
+<dd>
+number of entries to get (0 = default)
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__getTagsForCommit" ID="GitLogBrowserDialog.__getTagsForCommit"></a>
+<h4>GitLogBrowserDialog.__getTagsForCommit</h4>
+<b>__getTagsForCommit</b>(<i>commitId</i>)
+<p>
+        Private method to get all tags reachable from a commit ID.
+</p>
+
+<dl>
+
+<dt><i>commitId</i> (str)</dt>
+<dd>
+commit ID to get the tags for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the tag name and the associated
+            commit ID
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__identifyProject" ID="GitLogBrowserDialog.__identifyProject"></a>
+<h4>GitLogBrowserDialog.__identifyProject</h4>
+<b>__identifyProject</b>(<i></i>)
+<p>
+        Private method to determine the revision of the project directory.
+</p>
+
+<a NAME="GitLogBrowserDialog.__initActionsMenu" ID="GitLogBrowserDialog.__initActionsMenu"></a>
+<h4>GitLogBrowserDialog.__initActionsMenu</h4>
+<b>__initActionsMenu</b>(<i></i>)
+<p>
+        Private method to initialize the actions menu.
+</p>
+
+<a NAME="GitLogBrowserDialog.__initData" ID="GitLogBrowserDialog.__initData"></a>
+<h4>GitLogBrowserDialog.__initData</h4>
+<b>__initData</b>(<i></i>)
+<p>
+        Private method to (re-)initialize some data.
+</p>
+
+<a NAME="GitLogBrowserDialog.__initLogTreeContextMenu" ID="GitLogBrowserDialog.__initLogTreeContextMenu"></a>
+<h4>GitLogBrowserDialog.__initLogTreeContextMenu</h4>
+<b>__initLogTreeContextMenu</b>(<i></i>)
+<p>
+        Private method to initialize the log tree context menu.
+</p>
+
+<a NAME="GitLogBrowserDialog.__mergeFileSeparators" ID="GitLogBrowserDialog.__mergeFileSeparators"></a>
+<h4>GitLogBrowserDialog.__mergeFileSeparators</h4>
+<b>__mergeFileSeparators</b>(<i>fileSeparators</i>)
+<p>
+        Private method to merge the file separator entries.
+</p>
+
+<dl>
+
+<dt><i>fileSeparators</i> (list of str)</dt>
+<dd>
+list of file separator entries to be merged
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+merged list of file separator entries
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__prepareFieldSearch" ID="GitLogBrowserDialog.__prepareFieldSearch"></a>
+<h4>GitLogBrowserDialog.__prepareFieldSearch</h4>
+<b>__prepareFieldSearch</b>(<i></i>)
+<p>
+        Private slot to prepare the filed search data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of field index, search expression and flag indicating
+            that the field index is a data role
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, bool)
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__procFinished" ID="GitLogBrowserDialog.__procFinished"></a>
+<h4>GitLogBrowserDialog.__procFinished</h4>
+<b>__procFinished</b>(<i>_exitCode, _exitStatus</i>)
+<p>
+        Private slot connected to the finished signal.
+</p>
+
+<dl>
+
+<dt><i>_exitCode</i> (int)</dt>
+<dd>
+exit code of the process (unused)
+</dd>
+<dt><i>_exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process (unused)
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__processBuffer" ID="GitLogBrowserDialog.__processBuffer"></a>
+<h4>GitLogBrowserDialog.__processBuffer</h4>
+<b>__processBuffer</b>(<i></i>)
+<p>
+        Private method to process the buffered output of the git log command.
+</p>
+
+<a NAME="GitLogBrowserDialog.__processBufferItem" ID="GitLogBrowserDialog.__processBufferItem"></a>
+<h4>GitLogBrowserDialog.__processBufferItem</h4>
+<b>__processBufferItem</b>(<i>logEntry</i>)
+<p>
+        Private method to process a log entry.
+</p>
+
+<dl>
+
+<dt><i>logEntry</i> (dict)</dt>
+<dd>
+dictionary as generated by __processBuffer
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__readStderr" ID="GitLogBrowserDialog.__readStderr"></a>
+<h4>GitLogBrowserDialog.__readStderr</h4>
+<b>__readStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardError signal.
+</p>
+<p>
+        It reads the error output of the process and inserts it into the
+        error pane.
+</p>
+
+<a NAME="GitLogBrowserDialog.__readStdout" ID="GitLogBrowserDialog.__readStdout"></a>
+<h4>GitLogBrowserDialog.__readStdout</h4>
+<b>__readStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal.
+</p>
+<p>
+        It reads the output of the process and inserts it into a buffer.
+</p>
+
+<a NAME="GitLogBrowserDialog.__reloadGeometry" ID="GitLogBrowserDialog.__reloadGeometry"></a>
+<h4>GitLogBrowserDialog.__reloadGeometry</h4>
+<b>__reloadGeometry</b>(<i></i>)
+<p>
+        Private method to restore the geometry.
+</p>
+
+<a NAME="GitLogBrowserDialog.__resetUI" ID="GitLogBrowserDialog.__resetUI"></a>
+<h4>GitLogBrowserDialog.__resetUI</h4>
+<b>__resetUI</b>(<i></i>)
+<p>
+        Private method to reset the user interface.
+</p>
+
+<a NAME="GitLogBrowserDialog.__resizeColumnsFiles" ID="GitLogBrowserDialog.__resizeColumnsFiles"></a>
+<h4>GitLogBrowserDialog.__resizeColumnsFiles</h4>
+<b>__resizeColumnsFiles</b>(<i></i>)
+<p>
+        Private method to resize the changed files tree columns.
+</p>
+
+<a NAME="GitLogBrowserDialog.__resizeColumnsLog" ID="GitLogBrowserDialog.__resizeColumnsLog"></a>
+<h4>GitLogBrowserDialog.__resizeColumnsLog</h4>
+<b>__resizeColumnsLog</b>(<i></i>)
+<p>
+        Private method to resize the log tree columns.
+</p>
+
+<a NAME="GitLogBrowserDialog.__resortFiles" ID="GitLogBrowserDialog.__resortFiles"></a>
+<h4>GitLogBrowserDialog.__resortFiles</h4>
+<b>__resortFiles</b>(<i></i>)
+<p>
+        Private method to resort the changed files tree.
+</p>
+
+<a NAME="GitLogBrowserDialog.__restoreSplitterStates" ID="GitLogBrowserDialog.__restoreSplitterStates"></a>
+<h4>GitLogBrowserDialog.__restoreSplitterStates</h4>
+<b>__restoreSplitterStates</b>(<i></i>)
+<p>
+        Private method to restore the state of the various splitters.
+</p>
+
+<a NAME="GitLogBrowserDialog.__shortlogActTriggered" ID="GitLogBrowserDialog.__shortlogActTriggered"></a>
+<h4>GitLogBrowserDialog.__shortlogActTriggered</h4>
+<b>__shortlogActTriggered</b>(<i></i>)
+<p>
+        Private slot to show a short log suitable for release announcements.
+</p>
+
+<a NAME="GitLogBrowserDialog.__showAuthorColumns" ID="GitLogBrowserDialog.__showAuthorColumns"></a>
+<h4>GitLogBrowserDialog.__showAuthorColumns</h4>
+<b>__showAuthorColumns</b>(<i>on</i>)
+<p>
+        Private slot to show/hide the committer columns.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the selection state
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__showBranchesColumn" ID="GitLogBrowserDialog.__showBranchesColumn"></a>
+<h4>GitLogBrowserDialog.__showBranchesColumn</h4>
+<b>__showBranchesColumn</b>(<i>on</i>)
+<p>
+        Private slot to show/hide the branches column.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the selection state
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__showCommitIdColumn" ID="GitLogBrowserDialog.__showCommitIdColumn"></a>
+<h4>GitLogBrowserDialog.__showCommitIdColumn</h4>
+<b>__showCommitIdColumn</b>(<i>on</i>)
+<p>
+        Private slot to show/hide the commit ID column.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the selection state
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__showCommitterColumns" ID="GitLogBrowserDialog.__showCommitterColumns"></a>
+<h4>GitLogBrowserDialog.__showCommitterColumns</h4>
+<b>__showCommitterColumns</b>(<i>on</i>)
+<p>
+        Private slot to show/hide the committer columns.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the selection state
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__showError" ID="GitLogBrowserDialog.__showError"></a>
+<h4>GitLogBrowserDialog.__showError</h4>
+<b>__showError</b>(<i>out</i>)
+<p>
+        Private slot to show some error.
+</p>
+
+<dl>
+
+<dt><i>out</i> (str)</dt>
+<dd>
+error to be shown
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__showTagsColumn" ID="GitLogBrowserDialog.__showTagsColumn"></a>
+<h4>GitLogBrowserDialog.__showTagsColumn</h4>
+<b>__showTagsColumn</b>(<i>on</i>)
+<p>
+        Private slot to show/hide the tags column.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the selection state
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__switchActTriggered" ID="GitLogBrowserDialog.__switchActTriggered"></a>
+<h4>GitLogBrowserDialog.__switchActTriggered</h4>
+<b>__switchActTriggered</b>(<i></i>)
+<p>
+        Private slot to switch the working directory to the
+        selected commit.
+</p>
+
+<a NAME="GitLogBrowserDialog.__tagActTriggered" ID="GitLogBrowserDialog.__tagActTriggered"></a>
+<h4>GitLogBrowserDialog.__tagActTriggered</h4>
+<b>__tagActTriggered</b>(<i></i>)
+<p>
+        Private slot to tag the selected commit.
+</p>
+
+<a NAME="GitLogBrowserDialog.__updateDetailsAndFiles" ID="GitLogBrowserDialog.__updateDetailsAndFiles"></a>
+<h4>GitLogBrowserDialog.__updateDetailsAndFiles</h4>
+<b>__updateDetailsAndFiles</b>(<i></i>)
+<p>
+        Private slot to update the details and file changes panes.
+</p>
+
+<a NAME="GitLogBrowserDialog.__updateFilesTree" ID="GitLogBrowserDialog.__updateFilesTree"></a>
+<h4>GitLogBrowserDialog.__updateFilesTree</h4>
+<b>__updateFilesTree</b>(<i>itm</i>)
+<p>
+        Private method to update the files tree with changes of the given item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item the update should be based on
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.__updateSbsSelectLabel" ID="GitLogBrowserDialog.__updateSbsSelectLabel"></a>
+<h4>GitLogBrowserDialog.__updateSbsSelectLabel</h4>
+<b>__updateSbsSelectLabel</b>(<i></i>)
+<p>
+        Private slot to update the enabled status of the diff buttons.
+</p>
+
+<a NAME="GitLogBrowserDialog.__updateToolMenuActions" ID="GitLogBrowserDialog.__updateToolMenuActions"></a>
+<h4>GitLogBrowserDialog.__updateToolMenuActions</h4>
+<b>__updateToolMenuActions</b>(<i></i>)
+<p>
+        Private slot to update the status of the tool menu actions and
+        the tool menu button.
+</p>
+
+<a NAME="GitLogBrowserDialog.closeEvent" ID="GitLogBrowserDialog.closeEvent"></a>
+<h4>GitLogBrowserDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.col2x" ID="GitLogBrowserDialog.col2x"></a>
+<h4>GitLogBrowserDialog.col2x</h4>
+<b>col2x</b>(<i>radius</i>)
+<p>
+            Local function to calculate a x-position for a column.
+</p>
+
+<dl>
+
+<dt><i>col</i> (int)</dt>
+<dd>
+column number
+</dd>
+<dt><i>radius</i> (int)</dt>
+<dd>
+radius of the indicator circle
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.keyPressEvent" ID="GitLogBrowserDialog.keyPressEvent"></a>
+<h4>GitLogBrowserDialog.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected slot to handle a key press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+the key press event
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_buttonBox_clicked" ID="GitLogBrowserDialog.on_buttonBox_clicked"></a>
+<h4>GitLogBrowserDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_diffSelectLabel_linkActivated" ID="GitLogBrowserDialog.on_diffSelectLabel_linkActivated"></a>
+<h4>GitLogBrowserDialog.on_diffSelectLabel_linkActivated</h4>
+<b>on_diffSelectLabel_linkActivated</b>(<i>link</i>)
+<p>
+        Private slot to handle the selection of a diff target.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str)</dt>
+<dd>
+activated link
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_downButton_clicked" ID="GitLogBrowserDialog.on_downButton_clicked"></a>
+<h4>GitLogBrowserDialog.on_downButton_clicked</h4>
+<b>on_downButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the current item down one entry.
+</p>
+
+<a NAME="GitLogBrowserDialog.on_fieldCombo_activated" ID="GitLogBrowserDialog.on_fieldCombo_activated"></a>
+<h4>GitLogBrowserDialog.on_fieldCombo_activated</h4>
+<b>on_fieldCombo_activated</b>(<i>index</i>)
+<p>
+        Private slot called, when a new filter field is selected.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_filesTree_currentItemChanged" ID="GitLogBrowserDialog.on_filesTree_currentItemChanged"></a>
+<h4>GitLogBrowserDialog.on_filesTree_currentItemChanged</h4>
+<b>on_filesTree_currentItemChanged</b>(<i>current, previous</i>)
+<p>
+        Private slot called, when the current item of the files tree changes.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the new current item
+</dd>
+<dt><i>previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the old current item
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_findNextButton_clicked" ID="GitLogBrowserDialog.on_findNextButton_clicked"></a>
+<h4>GitLogBrowserDialog.on_findNextButton_clicked</h4>
+<b>on_findNextButton_clicked</b>(<i></i>)
+<p>
+        Private slot to find the next item matching the entered criteria.
+</p>
+
+<a NAME="GitLogBrowserDialog.on_findPrevButton_clicked" ID="GitLogBrowserDialog.on_findPrevButton_clicked"></a>
+<h4>GitLogBrowserDialog.on_findPrevButton_clicked</h4>
+<b>on_findPrevButton_clicked</b>(<i></i>)
+<p>
+        Private slot to find the previous item matching the entered criteria.
+</p>
+
+<a NAME="GitLogBrowserDialog.on_fromDate_dateChanged" ID="GitLogBrowserDialog.on_fromDate_dateChanged"></a>
+<h4>GitLogBrowserDialog.on_fromDate_dateChanged</h4>
+<b>on_fromDate_dateChanged</b>(<i>date</i>)
+<p>
+        Private slot called, when the from date changes.
+</p>
+
+<dl>
+
+<dt><i>date</i> (QDate)</dt>
+<dd>
+new date
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_input_returnPressed" ID="GitLogBrowserDialog.on_input_returnPressed"></a>
+<h4>GitLogBrowserDialog.on_input_returnPressed</h4>
+<b>on_input_returnPressed</b>(<i></i>)
+<p>
+        Private slot to handle the press of the return key in the input field.
+</p>
+
+<a NAME="GitLogBrowserDialog.on_logTree_currentItemChanged" ID="GitLogBrowserDialog.on_logTree_currentItemChanged"></a>
+<h4>GitLogBrowserDialog.on_logTree_currentItemChanged</h4>
+<b>on_logTree_currentItemChanged</b>(<i>current, previous</i>)
+<p>
+        Private slot called, when the current item of the log tree changes.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the new current item
+</dd>
+<dt><i>previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the old current item
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_logTree_customContextMenuRequested" ID="GitLogBrowserDialog.on_logTree_customContextMenuRequested"></a>
+<h4>GitLogBrowserDialog.on_logTree_customContextMenuRequested</h4>
+<b>on_logTree_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu of the log tree.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position of the mouse pointer
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_logTree_itemSelectionChanged" ID="GitLogBrowserDialog.on_logTree_itemSelectionChanged"></a>
+<h4>GitLogBrowserDialog.on_logTree_itemSelectionChanged</h4>
+<b>on_logTree_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot called, when the selection has changed.
+</p>
+
+<a NAME="GitLogBrowserDialog.on_modeComboBox_currentIndexChanged" ID="GitLogBrowserDialog.on_modeComboBox_currentIndexChanged"></a>
+<h4>GitLogBrowserDialog.on_modeComboBox_currentIndexChanged</h4>
+<b>on_modeComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to react on mode changes.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_nextButton_clicked" ID="GitLogBrowserDialog.on_nextButton_clicked"></a>
+<h4>GitLogBrowserDialog.on_nextButton_clicked</h4>
+<b>on_nextButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the Next button.
+</p>
+
+<a NAME="GitLogBrowserDialog.on_passwordCheckBox_toggled" ID="GitLogBrowserDialog.on_passwordCheckBox_toggled"></a>
+<h4>GitLogBrowserDialog.on_passwordCheckBox_toggled</h4>
+<b>on_passwordCheckBox_toggled</b>(<i>isOn</i>)
+<p>
+        Private slot to handle the password checkbox toggled.
+</p>
+
+<dl>
+
+<dt><i>isOn</i> (bool)</dt>
+<dd>
+flag indicating the status of the check box
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_refreshButton_clicked" ID="GitLogBrowserDialog.on_refreshButton_clicked"></a>
+<h4>GitLogBrowserDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the log.
+</p>
+
+<a NAME="GitLogBrowserDialog.on_rxEdit_returnPressed" ID="GitLogBrowserDialog.on_rxEdit_returnPressed"></a>
+<h4>GitLogBrowserDialog.on_rxEdit_returnPressed</h4>
+<b>on_rxEdit_returnPressed</b>(<i></i>)
+<p>
+        Private slot handling a press of the Return key in the rxEdit input.
+</p>
+
+<a NAME="GitLogBrowserDialog.on_rxEdit_textChanged" ID="GitLogBrowserDialog.on_rxEdit_textChanged"></a>
+<h4>GitLogBrowserDialog.on_rxEdit_textChanged</h4>
+<b>on_rxEdit_textChanged</b>(<i>txt</i>)
+<p>
+        Private slot called, when a filter expression is entered.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+filter expression
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_saveLabel_linkActivated" ID="GitLogBrowserDialog.on_saveLabel_linkActivated"></a>
+<h4>GitLogBrowserDialog.on_saveLabel_linkActivated</h4>
+<b>on_saveLabel_linkActivated</b>(<i>link</i>)
+<p>
+        Private slot to handle the selection of the save link.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str)</dt>
+<dd>
+activated link
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_sbsSelectLabel_linkActivated" ID="GitLogBrowserDialog.on_sbsSelectLabel_linkActivated"></a>
+<h4>GitLogBrowserDialog.on_sbsSelectLabel_linkActivated</h4>
+<b>on_sbsSelectLabel_linkActivated</b>(<i>link</i>)
+<p>
+        Private slot to handle selection of a side-by-side link.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str)</dt>
+<dd>
+text of the selected link
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_sendButton_clicked" ID="GitLogBrowserDialog.on_sendButton_clicked"></a>
+<h4>GitLogBrowserDialog.on_sendButton_clicked</h4>
+<b>on_sendButton_clicked</b>(<i></i>)
+<p>
+        Private slot to send the input to the git process.
+</p>
+
+<a NAME="GitLogBrowserDialog.on_stopCheckBox_clicked" ID="GitLogBrowserDialog.on_stopCheckBox_clicked"></a>
+<h4>GitLogBrowserDialog.on_stopCheckBox_clicked</h4>
+<b>on_stopCheckBox_clicked</b>(<i>_checked</i>)
+<p>
+        Private slot called, when the stop on copy/move checkbox is clicked.
+</p>
+
+<dl>
+
+<dt><i>_checked</i> (bool)</dt>
+<dd>
+flag indicating the state of the check box (unused)
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_toDate_dateChanged" ID="GitLogBrowserDialog.on_toDate_dateChanged"></a>
+<h4>GitLogBrowserDialog.on_toDate_dateChanged</h4>
+<b>on_toDate_dateChanged</b>(<i>date</i>)
+<p>
+        Private slot called, when the from date changes.
+</p>
+
+<dl>
+
+<dt><i>date</i> (QDate)</dt>
+<dd>
+new date
+</dd>
+</dl>
+<a NAME="GitLogBrowserDialog.on_upButton_clicked" ID="GitLogBrowserDialog.on_upButton_clicked"></a>
+<h4>GitLogBrowserDialog.on_upButton_clicked</h4>
+<b>on_upButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move the current item up one entry.
+</p>
+
+<a NAME="GitLogBrowserDialog.show" ID="GitLogBrowserDialog.show"></a>
+<h4>GitLogBrowserDialog.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<a NAME="GitLogBrowserDialog.start" ID="GitLogBrowserDialog.start"></a>
+<h4>GitLogBrowserDialog.start</h4>
+<b>start</b>(<i>fn, isFile=False, noEntries=0</i>)
+<p>
+        Public slot to start the git log command.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to show the log for
+</dd>
+<dt><i>isFile</i> (bool)</dt>
+<dd>
+flag indicating log for a file is to be shown
+</dd>
+<dt><i>noEntries</i> (int)</dt>
+<dd>
+number of entries to get (0 = default)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

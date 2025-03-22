@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonWebreplSocket</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonWebreplSocket</h1>
+<p>
+Module implementing a websocket class to be connect to the MicroPython webrepl
+interface.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonWebreplSocket">MicroPythonWebreplSocket</a></td>
+<td>Class implementing a websocket client to be connected to the MicroPython webrepl interface.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicroPythonWebreplSocket" ID="MicroPythonWebreplSocket"></a>
+<h2>MicroPythonWebreplSocket</h2>
+<p>
+    Class implementing a websocket client to be connected to the MicroPython webrepl
+    interface.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>readyRead()</dt>
+<dd>
+emitted to signal the availability of data
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWebSocket
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.__init__">MicroPythonWebreplSocket</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.__textDataReceived">__textDataReceived</a></td>
+<td>Private slot handling a received text message.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.connectToDevice">connectToDevice</a></td>
+<td>Public method to connect to the given host and port.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.disconnect">disconnect</a></td>
+<td>Public method to disconnect the websocket.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.hasTimedOut">hasTimedOut</a></td>
+<td>Public method to check, if the last 'readUntil()' has timed out.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.isConnected">isConnected</a></td>
+<td>Public method to check the connected state of the websocket.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.login">login</a></td>
+<td>Public method to login to the webrepl console of the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.readAll">readAll</a></td>
+<td>Public method to read all available data.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.readUntil">readUntil</a></td>
+<td>Public method to read data until an expected sequence is found (default: \n) or a specific size is exceeded.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.setTimeout">setTimeout</a></td>
+<td>Public method to set the socket timeout value.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.timeout">timeout</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.waitForConnected">waitForConnected</a></td>
+<td>Public method to wait for the websocket being connected.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWebreplSocket.writeTextMessage">writeTextMessage</a></td>
+<td>Public method write some text data to the webrepl server of the connected device.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonWebreplSocket.__init__" ID="MicroPythonWebreplSocket.__init__"></a>
+<h4>MicroPythonWebreplSocket (Constructor)</h4>
+<b>MicroPythonWebreplSocket</b>(<i>timeout=10000, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>timeout</i> (int)</dt>
+<dd>
+timout in milliseconds to be set
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.__textDataReceived" ID="MicroPythonWebreplSocket.__textDataReceived"></a>
+<h4>MicroPythonWebreplSocket.__textDataReceived</h4>
+<b>__textDataReceived</b>(<i>strMessage</i>)
+<p>
+        Private slot handling a received text message.
+</p>
+
+<dl>
+
+<dt><i>strMessage</i> (str)</dt>
+<dd>
+received text message
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.connectToDevice" ID="MicroPythonWebreplSocket.connectToDevice"></a>
+<h4>MicroPythonWebreplSocket.connectToDevice</h4>
+<b>connectToDevice</b>(<i>host, port</i>)
+<p>
+        Public method to connect to the given host and port.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host name or IP address
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+port number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.disconnect" ID="MicroPythonWebreplSocket.disconnect"></a>
+<h4>MicroPythonWebreplSocket.disconnect</h4>
+<b>disconnect</b>(<i></i>)
+<p>
+        Public method to disconnect the websocket.
+</p>
+
+<a NAME="MicroPythonWebreplSocket.hasTimedOut" ID="MicroPythonWebreplSocket.hasTimedOut"></a>
+<h4>MicroPythonWebreplSocket.hasTimedOut</h4>
+<b>hasTimedOut</b>(<i></i>)
+<p>
+        Public method to check, if the last 'readUntil()' has timed out.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a timeout
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.isConnected" ID="MicroPythonWebreplSocket.isConnected"></a>
+<h4>MicroPythonWebreplSocket.isConnected</h4>
+<b>isConnected</b>(<i></i>)
+<p>
+        Public method to check the connected state of the websocket.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the connected state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.login" ID="MicroPythonWebreplSocket.login"></a>
+<h4>MicroPythonWebreplSocket.login</h4>
+<b>login</b>(<i>password</i>)
+<p>
+        Public method to login to the webrepl console of the device.
+</p>
+
+<dl>
+
+<dt><i>password</i> (str)</dt>
+<dd>
+password
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful login and an error indication
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.readAll" ID="MicroPythonWebreplSocket.readAll"></a>
+<h4>MicroPythonWebreplSocket.readAll</h4>
+<b>readAll</b>(<i>timeout=0</i>)
+<p>
+        Public method to read all available data.
+</p>
+
+<dl>
+
+<dt><i>timeout</i> (int (optional))</dt>
+<dd>
+timeout in milliseconds (0 for no timeout)
+            (defaults to 0)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+received data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.readUntil" ID="MicroPythonWebreplSocket.readUntil"></a>
+<h4>MicroPythonWebreplSocket.readUntil</h4>
+<b>readUntil</b>(<i>expected=b"\n", size=None, timeout=0</i>)
+<p>
+        Public method to read data until an expected sequence is found
+        (default: \n) or a specific size is exceeded.
+</p>
+
+<dl>
+
+<dt><i>expected</i> (bytes)</dt>
+<dd>
+expected bytes sequence
+</dd>
+<dt><i>size</i> (int (optional))</dt>
+<dd>
+maximum data to be read (defaults to None)
+</dd>
+<dt><i>timeout</i> (int (optional))</dt>
+<dd>
+timeout in milliseconds (0 for configured default)
+            (defaults to 0)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+bytes read from the device including the expected sequence
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.setTimeout" ID="MicroPythonWebreplSocket.setTimeout"></a>
+<h4>MicroPythonWebreplSocket.setTimeout</h4>
+<b>setTimeout</b>(<i>timeout</i>)
+<p>
+        Public method to set the socket timeout value.
+</p>
+
+<dl>
+
+<dt><i>timeout</i> (int)</dt>
+<dd>
+timout in milliseconds to be set
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.timeout" ID="MicroPythonWebreplSocket.timeout"></a>
+<h4>MicroPythonWebreplSocket.timeout</h4>
+<b>timeout</b>(<i></i>)
+
+<a NAME="MicroPythonWebreplSocket.waitForConnected" ID="MicroPythonWebreplSocket.waitForConnected"></a>
+<h4>MicroPythonWebreplSocket.waitForConnected</h4>
+<b>waitForConnected</b>(<i></i>)
+<p>
+        Public method to wait for the websocket being connected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the connect result
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonWebreplSocket.writeTextMessage" ID="MicroPythonWebreplSocket.writeTextMessage"></a>
+<h4>MicroPythonWebreplSocket.writeTextMessage</h4>
+<b>writeTextMessage</b>(<i>data</i>)
+<p>
+        Public method write some text data to the webrepl server of the connected
+        device.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytes)</dt>
+<dd>
+text data to be sent
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  eric7:
+    build: .
+    container_name: eric7_ide
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./:/workspace
+    working_dir: /workspace
+    network_mode: host
+    stdin_open: true
+    tty: true

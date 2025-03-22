@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.WebBrowserSingleApplication</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.WebBrowserSingleApplication</h1>
+<p>
+Module implementing the single application server and client for the web
+browser.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SAFile</td></tr>
+<tr><td>SALoadUrl</td></tr>
+<tr><td>SANewTab</td></tr>
+<tr><td>SASearch</td></tr>
+<tr><td>SAShutdown</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserSingleApplicationClient">WebBrowserSingleApplicationClient</a></td>
+<td>Class implementing the single application client of the web browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationServer">WebBrowserSingleApplicationServer</a></td>
+<td>Class implementing the single application server embedded within the Web Browser.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="WebBrowserSingleApplicationClient" ID="WebBrowserSingleApplicationClient"></a>
+<h2>WebBrowserSingleApplicationClient</h2>
+<p>
+    Class implementing the single application client of the web browser.
+</p>
+
+<h3>Derived from</h3>
+SingleApplicationClient
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserSingleApplicationClient.__init__">WebBrowserSingleApplicationClient</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationClient.__loadUrl">__loadUrl</a></td>
+<td>Private method to send an URL to be loaded.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationClient.__newTab">__newTab</a></td>
+<td>Private method to send an URL to be loaded in a new tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationClient.__search">__search</a></td>
+<td>Private method to send a word to search for.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationClient.__shutdown">__shutdown</a></td>
+<td>Private method to signal a shutdown request to the browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationClient.processArgs">processArgs</a></td>
+<td>Public method to process the command line args passed to the UI.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WebBrowserSingleApplicationClient.__init__" ID="WebBrowserSingleApplicationClient.__init__"></a>
+<h4>WebBrowserSingleApplicationClient (Constructor)</h4>
+<b>WebBrowserSingleApplicationClient</b>(<i>name=""</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name to be used by the single application server
+</dd>
+</dl>
+<a NAME="WebBrowserSingleApplicationClient.__loadUrl" ID="WebBrowserSingleApplicationClient.__loadUrl"></a>
+<h4>WebBrowserSingleApplicationClient.__loadUrl</h4>
+<b>__loadUrl</b>(<i>url</i>)
+<p>
+        Private method to send an URL to be loaded.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to be loaded
+</dd>
+</dl>
+<a NAME="WebBrowserSingleApplicationClient.__newTab" ID="WebBrowserSingleApplicationClient.__newTab"></a>
+<h4>WebBrowserSingleApplicationClient.__newTab</h4>
+<b>__newTab</b>(<i>url</i>)
+<p>
+        Private method to send an URL to be loaded in a new tab.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to be loaded
+</dd>
+</dl>
+<a NAME="WebBrowserSingleApplicationClient.__search" ID="WebBrowserSingleApplicationClient.__search"></a>
+<h4>WebBrowserSingleApplicationClient.__search</h4>
+<b>__search</b>(<i>word</i>)
+<p>
+        Private method to send a word to search for.
+</p>
+
+<dl>
+
+<dt><i>word</i> (str)</dt>
+<dd>
+to to be searched for
+</dd>
+</dl>
+<a NAME="WebBrowserSingleApplicationClient.__shutdown" ID="WebBrowserSingleApplicationClient.__shutdown"></a>
+<h4>WebBrowserSingleApplicationClient.__shutdown</h4>
+<b>__shutdown</b>(<i></i>)
+<p>
+        Private method to signal a shutdown request to the browser.
+</p>
+
+<a NAME="WebBrowserSingleApplicationClient.processArgs" ID="WebBrowserSingleApplicationClient.processArgs"></a>
+<h4>WebBrowserSingleApplicationClient.processArgs</h4>
+<b>processArgs</b>(<i>args, disconnect=True</i>)
+<p>
+        Public method to process the command line args passed to the UI.
+</p>
+
+<dl>
+
+<dt><i>args</i> (argparse.Namespace)</dt>
+<dd>
+namespace object containing the parsed command line parameters
+</dd>
+<dt><i>disconnect</i> (bool)</dt>
+<dd>
+flag indicating to disconnect when done
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="WebBrowserSingleApplicationServer" ID="WebBrowserSingleApplicationServer"></a>
+<h2>WebBrowserSingleApplicationServer</h2>
+<p>
+    Class implementing the single application server embedded within the
+    Web Browser.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>loadUrl(str)</dt>
+<dd>
+emitted to load an URL
+</dd>
+<dt>newTab(str)</dt>
+<dd>
+emitted to load an URL in a new tab
+</dd>
+<dt>search(str)</dt>
+<dd>
+emitted to search for a given word
+</dd>
+<dt>shutdown()</dt>
+<dd>
+emitted to shut down the browser
+</dd>
+</dl>
+<h3>Derived from</h3>
+SingleApplicationServer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserSingleApplicationServer.__init__">WebBrowserSingleApplicationServer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationServer.__saLoadUrl">__saLoadUrl</a></td>
+<td>Private method to load an URL in a new tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationServer.__saNewTab">__saNewTab</a></td>
+<td>Private method to load an URL .</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationServer.__saSearch">__saSearch</a></td>
+<td>Private method to search for a given word.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationServer.__saShutdown">__saShutdown</a></td>
+<td>Private method to shut down the web browser.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserSingleApplicationServer.handleCommand">handleCommand</a></td>
+<td>Public slot to handle the command sent by the client.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WebBrowserSingleApplicationServer.__init__" ID="WebBrowserSingleApplicationServer.__init__"></a>
+<h4>WebBrowserSingleApplicationServer (Constructor)</h4>
+<b>WebBrowserSingleApplicationServer</b>(<i>name=""</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name to be used by the single application server
+</dd>
+</dl>
+<a NAME="WebBrowserSingleApplicationServer.__saLoadUrl" ID="WebBrowserSingleApplicationServer.__saLoadUrl"></a>
+<h4>WebBrowserSingleApplicationServer.__saLoadUrl</h4>
+<b>__saLoadUrl</b>(<i>url</i>)
+<p>
+        Private method to load an URL in a new tab.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to be loaded
+</dd>
+</dl>
+<a NAME="WebBrowserSingleApplicationServer.__saNewTab" ID="WebBrowserSingleApplicationServer.__saNewTab"></a>
+<h4>WebBrowserSingleApplicationServer.__saNewTab</h4>
+<b>__saNewTab</b>(<i>url</i>)
+<p>
+        Private method to load an URL .
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to be loaded
+</dd>
+</dl>
+<a NAME="WebBrowserSingleApplicationServer.__saSearch" ID="WebBrowserSingleApplicationServer.__saSearch"></a>
+<h4>WebBrowserSingleApplicationServer.__saSearch</h4>
+<b>__saSearch</b>(<i>word</i>)
+<p>
+        Private method to search for a given word.
+</p>
+
+<dl>
+
+<dt><i>word</i> (str)</dt>
+<dd>
+word to be searched for
+</dd>
+</dl>
+<a NAME="WebBrowserSingleApplicationServer.__saShutdown" ID="WebBrowserSingleApplicationServer.__saShutdown"></a>
+<h4>WebBrowserSingleApplicationServer.__saShutdown</h4>
+<b>__saShutdown</b>(<i></i>)
+<p>
+        Private method to shut down the web browser.
+</p>
+
+<a NAME="WebBrowserSingleApplicationServer.handleCommand" ID="WebBrowserSingleApplicationServer.handleCommand"></a>
+<h4>WebBrowserSingleApplicationServer.handleCommand</h4>
+<b>handleCommand</b>(<i>command, arguments</i>)
+<p>
+        Public slot to handle the command sent by the client.
+</p>
+
+<dl>
+
+<dt><i>command</i> (str)</dt>
+<dd>
+command sent by the client
+</dd>
+<dt><i>arguments</i> (list of str)</dt>
+<dd>
+list of command arguments
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Utilities.BackgroundService</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Utilities.BackgroundService</h1>
+<p>
+Module implementing a background service for the various checkers and other
+Python interpreter dependent functions.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BackgroundService">BackgroundService</a></td>
+<td>Class implementing the main part of the background service.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BackgroundService" ID="BackgroundService"></a>
+<h2>BackgroundService</h2>
+<p>
+    Class implementing the main part of the background service.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>batchJobDone(function, language)</dt>
+<dd>
+emitted to indicate the end of
+        a batch job (str, str)
+</dd>
+<dt>serviceNotAvailable(function, language, filename, message)</dt>
+<dd>
+        emitted to indicate the non-availability of a service function
+        (str, str, str, str)
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTcpServer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BackgroundService.__init__">BackgroundService</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.__getPythonInterpreter">__getPythonInterpreter</a></td>
+<td>Private method to generate the path of the Python interpreter to be used to run the background client.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.__processQueue">__processQueue</a></td>
+<td>Private method to take the next service request and send it to the client.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.__receive">__receive</a></td>
+<td>Private method to receive the response from the clients.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.__send">__send</a></td>
+<td>Private method to send a job request to one of the clients.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.__startExternalClient">__startExternalClient</a></td>
+<td>Private method to start the background client as external process.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.enqueueRequest">enqueueRequest</a></td>
+<td>Public method implementing a queued processing of incoming events.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.on_disconnectSocket">on_disconnectSocket</a></td>
+<td>Private slot called when connection to a client is lost.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.on_newConnection">on_newConnection</a></td>
+<td>Private slot for new incoming connections from the clients.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.preferencesOrProjectChanged">preferencesOrProjectChanged</a></td>
+<td>Public slot to restart the built in languages.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.requestCancel">requestCancel</a></td>
+<td>Public method to ask a batch job to terminate.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.restartService">restartService</a></td>
+<td>Public method to restart a given language.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.serviceConnect">serviceConnect</a></td>
+<td>Public method to announce a new service to the background service/client.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.serviceDisconnect">serviceDisconnect</a></td>
+<td>Public method to remove the service from the service list.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundService.shutdown">shutdown</a></td>
+<td>Public method to cleanup the connections and processes when eric is shutting down.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BackgroundService.__init__" ID="BackgroundService.__init__"></a>
+<h4>BackgroundService (Constructor)</h4>
+<b>BackgroundService</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="BackgroundService.__getPythonInterpreter" ID="BackgroundService.__getPythonInterpreter"></a>
+<h4>BackgroundService.__getPythonInterpreter</h4>
+<b>__getPythonInterpreter</b>(<i></i>)
+<p>
+        Private method to generate the path of the Python interpreter to be
+        used to run the background client.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the Python interpreter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BackgroundService.__processQueue" ID="BackgroundService.__processQueue"></a>
+<h4>BackgroundService.__processQueue</h4>
+<b>__processQueue</b>(<i></i>)
+<p>
+        Private method to take the next service request and send it to the
+        client.
+</p>
+
+<a NAME="BackgroundService.__receive" ID="BackgroundService.__receive"></a>
+<h4>BackgroundService.__receive</h4>
+<b>__receive</b>(<i>lang</i>)
+<p>
+        Private method to receive the response from the clients.
+</p>
+
+<dl>
+
+<dt><i>lang</i> (str)</dt>
+<dd>
+language of the incoming connection
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised if hashes don't match
+</dd>
+</dl>
+<a NAME="BackgroundService.__send" ID="BackgroundService.__send"></a>
+<h4>BackgroundService.__send</h4>
+<b>__send</b>(<i>fx, lang, fn, data</i>)
+<p>
+        Private method to send a job request to one of the clients.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+remote function name to execute
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language to connect to
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename for identification
+</dd>
+<dt><i>data</i> (any basic datatype)</dt>
+<dd>
+function argument(s)
+</dd>
+</dl>
+<a NAME="BackgroundService.__startExternalClient" ID="BackgroundService.__startExternalClient"></a>
+<h4>BackgroundService.__startExternalClient</h4>
+<b>__startExternalClient</b>(<i>interpreter, port</i>)
+<p>
+        Private method to start the background client as external process.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+path and name of the executable to start
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+socket port to which the interpreter should connect
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the process object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QProcess or None
+</dd>
+</dl>
+<a NAME="BackgroundService.enqueueRequest" ID="BackgroundService.enqueueRequest"></a>
+<h4>BackgroundService.enqueueRequest</h4>
+<b>enqueueRequest</b>(<i>fx, lang, fn, data</i>)
+<p>
+        Public method implementing a queued processing of incoming events.
+</p>
+<p>
+        Duplicate service requests update an older request to avoid overrun or
+        starving of the services.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+function name of the service
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language to connect to
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename for identification
+</dd>
+<dt><i>data</i> (any basic datatype)</dt>
+<dd>
+function argument(s)
+</dd>
+</dl>
+<a NAME="BackgroundService.on_disconnectSocket" ID="BackgroundService.on_disconnectSocket"></a>
+<h4>BackgroundService.on_disconnectSocket</h4>
+<b>on_disconnectSocket</b>(<i>lang</i>)
+<p>
+        Private slot called when connection to a client is lost.
+</p>
+
+<dl>
+
+<dt><i>lang</i> (str)</dt>
+<dd>
+client language which connection is lost
+</dd>
+</dl>
+<a NAME="BackgroundService.on_newConnection" ID="BackgroundService.on_newConnection"></a>
+<h4>BackgroundService.on_newConnection</h4>
+<b>on_newConnection</b>(<i></i>)
+<p>
+        Private slot for new incoming connections from the clients.
+</p>
+
+<a NAME="BackgroundService.preferencesOrProjectChanged" ID="BackgroundService.preferencesOrProjectChanged"></a>
+<h4>BackgroundService.preferencesOrProjectChanged</h4>
+<b>preferencesOrProjectChanged</b>(<i></i>)
+<p>
+        Public slot to restart the built in languages.
+</p>
+
+<a NAME="BackgroundService.requestCancel" ID="BackgroundService.requestCancel"></a>
+<h4>BackgroundService.requestCancel</h4>
+<b>requestCancel</b>(<i>fx, lang</i>)
+<p>
+        Public method to ask a batch job to terminate.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+function name of the service
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language to connect to
+</dd>
+</dl>
+<a NAME="BackgroundService.restartService" ID="BackgroundService.restartService"></a>
+<h4>BackgroundService.restartService</h4>
+<b>restartService</b>(<i>language, forceKill=False</i>)
+<p>
+        Public method to restart a given language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+to restart
+</dd>
+<dt><i>forceKill</i> (bool)</dt>
+<dd>
+flag to kill a running task
+</dd>
+</dl>
+<a NAME="BackgroundService.serviceConnect" ID="BackgroundService.serviceConnect"></a>
+<h4>BackgroundService.serviceConnect</h4>
+<b>serviceConnect</b>(<i>fx, lang, modulepath, module, callback, onErrorCallback=None, onBatchDone=None, </i>)
+<p>
+        Public method to announce a new service to the background
+        service/client.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+function name of the service
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language of the new service
+</dd>
+<dt><i>modulepath</i> (str)</dt>
+<dd>
+full path to the module
+</dd>
+<dt><i>module</i> (str)</dt>
+<dd>
+name to import
+</dd>
+<dt><i>callback</i> (function)</dt>
+<dd>
+function called on service response
+</dd>
+<dt><i>onErrorCallback</i> (function)</dt>
+<dd>
+function called, if client isn't available
+</dd>
+<dt><i>onBatchDone</i> (function)</dt>
+<dd>
+function called when a batch job is done
+</dd>
+</dl>
+<a NAME="BackgroundService.serviceDisconnect" ID="BackgroundService.serviceDisconnect"></a>
+<h4>BackgroundService.serviceDisconnect</h4>
+<b>serviceDisconnect</b>(<i>fx, lang</i>)
+<p>
+        Public method to remove the service from the service list.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (function)</dt>
+<dd>
+function name of the service
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language of the service
+</dd>
+</dl>
+<a NAME="BackgroundService.shutdown" ID="BackgroundService.shutdown"></a>
+<h4>BackgroundService.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to cleanup the connections and processes when eric is
+        shutting down.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

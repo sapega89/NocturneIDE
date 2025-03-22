@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.GpgExtension.HgGpgSignaturesDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.GpgExtension.HgGpgSignaturesDialog</h1>
+<p>
+Module implementing a dialog showing signed changesets.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgGpgSignaturesDialog">HgGpgSignaturesDialog</a></td>
+<td>Class implementing a dialog showing signed changesets.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgGpgSignaturesDialog" ID="HgGpgSignaturesDialog"></a>
+<h2>HgGpgSignaturesDialog</h2>
+<p>
+    Class implementing a dialog showing signed changesets.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_HgGpgSignaturesDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.__init__">HgGpgSignaturesDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.__filterSignatures">__filterSignatures</a></td>
+<td>Private method to filter the log entries.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.__generateItem">__generateItem</a></td>
+<td>Private method to generate a patch item in the list of patches.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.__processOutputLine">__processOutputLine</a></td>
+<td>Private method to process the lines of output.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the list columns.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.__showError">__showError</a></td>
+<td>Private slot to show some error.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.on_categoryCombo_activated">on_categoryCombo_activated</a></td>
+<td>Private slot called, when a new filter category is selected.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.on_rxEdit_textChanged">on_rxEdit_textChanged</a></td>
+<td>Private slot called, when a filter expression is entered.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.on_signaturesList_itemSelectionChanged">on_signaturesList_itemSelectionChanged</a></td>
+<td>Private slot handling changes of the selection.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.on_verifyButton_clicked">on_verifyButton_clicked</a></td>
+<td>Private slot to verify the signatures of the selected revision.</td>
+</tr>
+<tr>
+<td><a href="#HgGpgSignaturesDialog.start">start</a></td>
+<td>Public slot to start the list command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgGpgSignaturesDialog.__init__" ID="HgGpgSignaturesDialog.__init__"></a>
+<h4>HgGpgSignaturesDialog (Constructor)</h4>
+<b>HgGpgSignaturesDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="HgGpgSignaturesDialog.__filterSignatures" ID="HgGpgSignaturesDialog.__filterSignatures"></a>
+<h4>HgGpgSignaturesDialog.__filterSignatures</h4>
+<b>__filterSignatures</b>(<i></i>)
+<p>
+        Private method to filter the log entries.
+</p>
+
+<a NAME="HgGpgSignaturesDialog.__finish" ID="HgGpgSignaturesDialog.__finish"></a>
+<h4>HgGpgSignaturesDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="HgGpgSignaturesDialog.__generateItem" ID="HgGpgSignaturesDialog.__generateItem"></a>
+<h4>HgGpgSignaturesDialog.__generateItem</h4>
+<b>__generateItem</b>(<i>revision, changeset, signature</i>)
+<p>
+        Private method to generate a patch item in the list of patches.
+</p>
+
+<dl>
+
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision number
+</dd>
+<dt><i>changeset</i> (str)</dt>
+<dd>
+changeset of the bookmark
+</dd>
+<dt><i>signature</i> (str)</dt>
+<dd>
+signature of the changeset
+</dd>
+</dl>
+<a NAME="HgGpgSignaturesDialog.__processOutputLine" ID="HgGpgSignaturesDialog.__processOutputLine"></a>
+<h4>HgGpgSignaturesDialog.__processOutputLine</h4>
+<b>__processOutputLine</b>(<i>line</i>)
+<p>
+        Private method to process the lines of output.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+output line to be processed
+</dd>
+</dl>
+<a NAME="HgGpgSignaturesDialog.__resizeColumns" ID="HgGpgSignaturesDialog.__resizeColumns"></a>
+<h4>HgGpgSignaturesDialog.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the list columns.
+</p>
+
+<a NAME="HgGpgSignaturesDialog.__resort" ID="HgGpgSignaturesDialog.__resort"></a>
+<h4>HgGpgSignaturesDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="HgGpgSignaturesDialog.__showError" ID="HgGpgSignaturesDialog.__showError"></a>
+<h4>HgGpgSignaturesDialog.__showError</h4>
+<b>__showError</b>(<i>out</i>)
+<p>
+        Private slot to show some error.
+</p>
+
+<dl>
+
+<dt><i>out</i> (str)</dt>
+<dd>
+error to be shown
+</dd>
+</dl>
+<a NAME="HgGpgSignaturesDialog.closeEvent" ID="HgGpgSignaturesDialog.closeEvent"></a>
+<h4>HgGpgSignaturesDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="HgGpgSignaturesDialog.on_buttonBox_clicked" ID="HgGpgSignaturesDialog.on_buttonBox_clicked"></a>
+<h4>HgGpgSignaturesDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="HgGpgSignaturesDialog.on_categoryCombo_activated" ID="HgGpgSignaturesDialog.on_categoryCombo_activated"></a>
+<h4>HgGpgSignaturesDialog.on_categoryCombo_activated</h4>
+<b>on_categoryCombo_activated</b>(<i>_index</i>)
+<p>
+        Private slot called, when a new filter category is selected.
+</p>
+
+<dl>
+
+<dt><i>_index</i> (int)</dt>
+<dd>
+index of the selected entry (unused)
+</dd>
+</dl>
+<a NAME="HgGpgSignaturesDialog.on_rxEdit_textChanged" ID="HgGpgSignaturesDialog.on_rxEdit_textChanged"></a>
+<h4>HgGpgSignaturesDialog.on_rxEdit_textChanged</h4>
+<b>on_rxEdit_textChanged</b>(<i>_txt</i>)
+<p>
+        Private slot called, when a filter expression is entered.
+</p>
+
+<dl>
+
+<dt><i>_txt</i> (str)</dt>
+<dd>
+filter expression (unused)
+</dd>
+</dl>
+<a NAME="HgGpgSignaturesDialog.on_signaturesList_itemSelectionChanged" ID="HgGpgSignaturesDialog.on_signaturesList_itemSelectionChanged"></a>
+<h4>HgGpgSignaturesDialog.on_signaturesList_itemSelectionChanged</h4>
+<b>on_signaturesList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot handling changes of the selection.
+</p>
+
+<a NAME="HgGpgSignaturesDialog.on_verifyButton_clicked" ID="HgGpgSignaturesDialog.on_verifyButton_clicked"></a>
+<h4>HgGpgSignaturesDialog.on_verifyButton_clicked</h4>
+<b>on_verifyButton_clicked</b>(<i></i>)
+<p>
+        Private slot to verify the signatures of the selected revision.
+</p>
+
+<a NAME="HgGpgSignaturesDialog.start" ID="HgGpgSignaturesDialog.start"></a>
+<h4>HgGpgSignaturesDialog.start</h4>
+<b>start</b>(<i></i>)
+<p>
+        Public slot to start the list command.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

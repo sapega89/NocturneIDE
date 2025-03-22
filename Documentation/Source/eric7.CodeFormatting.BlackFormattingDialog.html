@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.CodeFormatting.BlackFormattingDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.CodeFormatting.BlackFormattingDialog</h1>
+<p>
+Module implementing a dialog showing the Black code formatting progress and the results.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BlackFormattingDialog">BlackFormattingDialog</a></td>
+<td>Class implementing a dialog showing the Black code formatting progress and the results.</td>
+</tr>
+<tr>
+<td><a href="#BlackMultiprocessingReport">BlackMultiprocessingReport</a></td>
+<td>Class extending the black Report to work with multiprocessing.</td>
+</tr>
+<tr>
+<td><a href="#BlackMultiprocessingResult">BlackMultiprocessingResult</a></td>
+<td>Class containing the reformatting result data.</td>
+</tr>
+<tr>
+<td><a href="#BlackReport">BlackReport</a></td>
+<td>Class extending the black Report to work with our dialog.</td>
+</tr>
+<tr>
+<td><a href="#BlackStatistics">BlackStatistics</a></td>
+<td>Class containing the reformatting statistic data.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BlackFormattingDialog" ID="BlackFormattingDialog"></a>
+<h2>BlackFormattingDialog</h2>
+<p>
+    Class implementing a dialog showing the Black code formatting progress and the
+    results.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_BlackFormattingDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DataRole</td></tr>
+<tr><td>DataTypeRole</td></tr>
+<tr><td>FileNameColumn</td></tr>
+<tr><td>FileNameRole</td></tr>
+<tr><td>StatusColumn</td></tr>
+<tr><td>StatusRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BlackFormattingDialog.__init__">BlackFormattingDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__filterFiles">__filterFiles</a></td>
+<td>Private method to filter the given list of files according the configuration parameters.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__finish">__finish</a></td>
+<td>Private method to perform some actions after the run was performed or canceled.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__formatButtonClicked">__formatButtonClicked</a></td>
+<td>Private slot handling the selection of the 'Format Code' button.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__formatManyFiles">__formatManyFiles</a></td>
+<td>Private method to format the list of files according the configuration using multiple processes in parallel.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__formatOneFile">__formatOneFile</a></td>
+<td>Private method to format the list of files according the configuration.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__handleBlackFormattingResult">__handleBlackFormattingResult</a></td>
+<td>Private slot to handle the result of a black reformatting action.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__performAction">__performAction</a></td>
+<td>Private method to execute the requested formatting action.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__populateStatusFilterCombo">__populateStatusFilterCombo</a></td>
+<td>Private method to populate the status filter combo box with allowed selections.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the columns of the result list.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__resort">__resort</a></td>
+<td>Private method to resort the result list.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.__updateStatistics">__updateStatistics</a></td>
+<td>Private method to update the statistics about the recent formatting run and make them visible.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot to handle button presses of the dialog buttons.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.on_resultsList_itemDoubleClicked">on_resultsList_itemDoubleClicked</a></td>
+<td>Private slot handling a double click of a result item.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.on_statusFilterComboBox_currentTextChanged">on_statusFilterComboBox_currentTextChanged</a></td>
+<td>Private slot handling the selection of a status for items to be shown.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr>
+<td><a href="#BlackFormattingDialog.__diffFormatFile">__diffFormatFile</a></td>
+<td>Static method to check, if the given files need to be reformatted, and generate a unified diff.</td>
+</tr>
+<tr>
+<td><a href="#BlackFormattingDialog.formattingWorkerTask">formattingWorkerTask</a></td>
+<td>Static method acting as the parallel worker for the formatting task.</td>
+</tr>
+</table>
+
+
+<a NAME="BlackFormattingDialog.__init__" ID="BlackFormattingDialog.__init__"></a>
+<h4>BlackFormattingDialog (Constructor)</h4>
+<b>BlackFormattingDialog</b>(<i>configuration, filesList, project=None, action=BlackFormattingAction.Format, parent=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>configuration</i> (dict)</dt>
+<dd>
+dictionary containing the configuration parameters
+</dd>
+<dt><i>filesList</i> (list of str)</dt>
+<dd>
+list of absolute file paths to be processed
+</dd>
+<dt><i>project</i> (Project (optional))</dt>
+<dd>
+reference to the project object (defaults to None)
+</dd>
+<dt><i>action</i> (BlackFormattingAction (optional))</dt>
+<dd>
+action to be performed (defaults to BlackFormattingAction.Format)
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.__filterFiles" ID="BlackFormattingDialog.__filterFiles"></a>
+<h4>BlackFormattingDialog.__filterFiles</h4>
+<b>__filterFiles</b>(<i>filesList</i>)
+<p>
+        Private method to filter the given list of files according the
+        configuration parameters.
+</p>
+
+<dl>
+
+<dt><i>filesList</i> (list of str)</dt>
+<dd>
+list of files
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of filtered files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.__finish" ID="BlackFormattingDialog.__finish"></a>
+<h4>BlackFormattingDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private method to perform some actions after the run was performed or canceled.
+</p>
+
+<a NAME="BlackFormattingDialog.__formatButtonClicked" ID="BlackFormattingDialog.__formatButtonClicked"></a>
+<h4>BlackFormattingDialog.__formatButtonClicked</h4>
+<b>__formatButtonClicked</b>(<i></i>)
+<p>
+        Private slot handling the selection of the 'Format Code' button.
+</p>
+
+<a NAME="BlackFormattingDialog.__formatManyFiles" ID="BlackFormattingDialog.__formatManyFiles"></a>
+<h4>BlackFormattingDialog.__formatManyFiles</h4>
+<b>__formatManyFiles</b>(<i>files</i>)
+<p>
+        Private method to format the list of files according the configuration using
+        multiple processes in parallel.
+</p>
+
+<dl>
+
+<dt><i>files</i> (list of str)</dt>
+<dd>
+list of files to be processed
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.__formatOneFile" ID="BlackFormattingDialog.__formatOneFile"></a>
+<h4>BlackFormattingDialog.__formatOneFile</h4>
+<b>__formatOneFile</b>(<i>file</i>)
+<p>
+        Private method to format the list of files according the configuration.
+</p>
+
+<dl>
+
+<dt><i>file</i> (str)</dt>
+<dd>
+name of the file to be processed
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.__handleBlackFormattingResult" ID="BlackFormattingDialog.__handleBlackFormattingResult"></a>
+<h4>BlackFormattingDialog.__handleBlackFormattingResult</h4>
+<b>__handleBlackFormattingResult</b>(<i>status, filename, data</i>)
+<p>
+        Private slot to handle the result of a black reformatting action.
+</p>
+
+<dl>
+
+<dt><i>status</i> (str)</dt>
+<dd>
+status of the performed action (one of 'changed', 'failed',
+            'ignored', 'unchanged' or 'unmodified')
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the processed file
+</dd>
+<dt><i>data</i> (str)</dt>
+<dd>
+action data (error message or unified diff)
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.__performAction" ID="BlackFormattingDialog.__performAction"></a>
+<h4>BlackFormattingDialog.__performAction</h4>
+<b>__performAction</b>(<i></i>)
+<p>
+        Private method to execute the requested formatting action.
+</p>
+
+<a NAME="BlackFormattingDialog.__populateStatusFilterCombo" ID="BlackFormattingDialog.__populateStatusFilterCombo"></a>
+<h4>BlackFormattingDialog.__populateStatusFilterCombo</h4>
+<b>__populateStatusFilterCombo</b>(<i></i>)
+<p>
+        Private method to populate the status filter combo box with allowed selections.
+</p>
+
+<a NAME="BlackFormattingDialog.__resizeColumns" ID="BlackFormattingDialog.__resizeColumns"></a>
+<h4>BlackFormattingDialog.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the columns of the result list.
+</p>
+
+<a NAME="BlackFormattingDialog.__resort" ID="BlackFormattingDialog.__resort"></a>
+<h4>BlackFormattingDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the result list.
+</p>
+
+<a NAME="BlackFormattingDialog.__updateStatistics" ID="BlackFormattingDialog.__updateStatistics"></a>
+<h4>BlackFormattingDialog.__updateStatistics</h4>
+<b>__updateStatistics</b>(<i></i>)
+<p>
+        Private method to update the statistics about the recent formatting run and
+        make them visible.
+</p>
+
+<a NAME="BlackFormattingDialog.closeEvent" ID="BlackFormattingDialog.closeEvent"></a>
+<h4>BlackFormattingDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>evt</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the close event
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.on_buttonBox_clicked" ID="BlackFormattingDialog.on_buttonBox_clicked"></a>
+<h4>BlackFormattingDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot to handle button presses of the dialog buttons.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+reference to the pressed button
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.on_resultsList_itemDoubleClicked" ID="BlackFormattingDialog.on_resultsList_itemDoubleClicked"></a>
+<h4>BlackFormattingDialog.on_resultsList_itemDoubleClicked</h4>
+<b>on_resultsList_itemDoubleClicked</b>(<i>item, _column</i>)
+<p>
+        Private slot handling a double click of a result item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the double clicked item
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column number that was double clicked (unused)
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.on_statusFilterComboBox_currentTextChanged" ID="BlackFormattingDialog.on_statusFilterComboBox_currentTextChanged"></a>
+<h4>BlackFormattingDialog.on_statusFilterComboBox_currentTextChanged</h4>
+<b>on_statusFilterComboBox_currentTextChanged</b>(<i>status</i>)
+<p>
+        Private slot handling the selection of a status for items to be shown.
+</p>
+
+<dl>
+
+<dt><i>status</i> (str)</dt>
+<dd>
+selected status
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.__diffFormatFile" ID="BlackFormattingDialog.__diffFormatFile"></a>
+<h4>BlackFormattingDialog.__diffFormatFile (static)</h4>
+<b>__diffFormatFile</b>(<i>fast, mode, report, relSrc=""</i>)
+<p>
+        Static method to check, if the given files need to be reformatted, and generate
+        a unified diff.
+</p>
+
+<dl>
+
+<dt><i>src</i> (pathlib.Path)</dt>
+<dd>
+path of file to be checked
+</dd>
+<dt><i>fast</i> (bool)</dt>
+<dd>
+flag indicating fast operation
+</dd>
+<dt><i>mode</i> (black.Mode)</dt>
+<dd>
+code formatting options
+</dd>
+<dt><i>report</i> (BlackReport)</dt>
+<dd>
+reference to the report object
+</dd>
+<dt><i>relSrc</i> (str (optional))</dt>
+<dd>
+name of the file relative to the project (defaults to "")
+</dd>
+</dl>
+<a NAME="BlackFormattingDialog.formattingWorkerTask" ID="BlackFormattingDialog.formattingWorkerTask"></a>
+<h4>BlackFormattingDialog.formattingWorkerTask (static)</h4>
+<b>formattingWorkerTask</b>(<i>outputQueue, config</i>)
+<p>
+        Static method acting as the parallel worker for the formatting task.
+</p>
+
+<dl>
+
+<dt><i>inputQueue</i> (multiprocessing.Queue)</dt>
+<dd>
+input queue
+</dd>
+<dt><i>outputQueue</i> (multiprocessing.Queue)</dt>
+<dd>
+output queue
+</dd>
+<dt><i>config</i> (dict)</dt>
+<dd>
+dictionary containing the configuration parameters
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="BlackMultiprocessingReport" ID="BlackMultiprocessingReport"></a>
+<h2>BlackMultiprocessingReport</h2>
+<p>
+    Class extending the black Report to work with multiprocessing.
+</p>
+
+<h3>Derived from</h3>
+black.Report
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BlackMultiprocessingReport.__init__">BlackMultiprocessingReport</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BlackMultiprocessingReport.done">done</a></td>
+<td>Public method to handle the end of a reformat.</td>
+</tr>
+<tr>
+<td><a href="#BlackMultiprocessingReport.failed">failed</a></td>
+<td>Public method to handle a reformat failure.</td>
+</tr>
+<tr>
+<td><a href="#BlackMultiprocessingReport.path_ignored">path_ignored</a></td>
+<td>Public method handling an ignored path.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BlackMultiprocessingReport.__init__" ID="BlackMultiprocessingReport.__init__"></a>
+<h4>BlackMultiprocessingReport (Constructor)</h4>
+<b>BlackMultiprocessingReport</b>(<i>resultQueue</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>resultQueue</i> (multiprocessing.Queue)</dt>
+<dd>
+reference to the queue to put the results into
+</dd>
+</dl>
+<a NAME="BlackMultiprocessingReport.done" ID="BlackMultiprocessingReport.done"></a>
+<h4>BlackMultiprocessingReport.done</h4>
+<b>done</b>(<i>src, changed, diff=""</i>)
+<p>
+        Public method to handle the end of a reformat.
+</p>
+
+<dl>
+
+<dt><i>src</i> (pathlib.Path)</dt>
+<dd>
+name of the processed file
+</dd>
+<dt><i>changed</i> (black.Changed)</dt>
+<dd>
+change status
+</dd>
+<dt><i>diff</i> (str)</dt>
+<dd>
+unified diff of potential changes (defaults to "")
+</dd>
+</dl>
+<a NAME="BlackMultiprocessingReport.failed" ID="BlackMultiprocessingReport.failed"></a>
+<h4>BlackMultiprocessingReport.failed</h4>
+<b>failed</b>(<i>src, message</i>)
+<p>
+        Public method to handle a reformat failure.
+</p>
+
+<dl>
+
+<dt><i>src</i> (pathlib.Path)</dt>
+<dd>
+name of the processed file
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="BlackMultiprocessingReport.path_ignored" ID="BlackMultiprocessingReport.path_ignored"></a>
+<h4>BlackMultiprocessingReport.path_ignored</h4>
+<b>path_ignored</b>(<i>src, message=""</i>)
+<p>
+        Public method handling an ignored path.
+</p>
+
+<dl>
+
+<dt><i>src</i> (pathlib.Path or str)</dt>
+<dd>
+name of the processed file
+</dd>
+<dt><i>message</i> (str (optional))</dt>
+<dd>
+ignore message (default to "") (unused)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="BlackMultiprocessingResult" ID="BlackMultiprocessingResult"></a>
+<h2>BlackMultiprocessingResult</h2>
+<p>
+    Class containing the reformatting result data.
+</p>
+<p>
+    This class is used when reformatting multiple files in parallel using processes.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>data</td></tr>
+<tr><td>filename</td></tr>
+<tr><td>status</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="BlackReport" ID="BlackReport"></a>
+<h2>BlackReport</h2>
+<p>
+    Class extending the black Report to work with our dialog.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>result(status, file name, data)</dt>
+<dd>
+emitted to signal the reformatting result
+        as three strings giving the status (one of 'changed', 'unchanged', 'unmodified',
+        'failed' or 'ignored'), the file name and data related to the result
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject, black.Report
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BlackReport.__init__">BlackReport</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BlackReport.done">done</a></td>
+<td>Public method to handle the end of a reformat.</td>
+</tr>
+<tr>
+<td><a href="#BlackReport.failed">failed</a></td>
+<td>Public method to handle a reformat failure.</td>
+</tr>
+<tr>
+<td><a href="#BlackReport.path_ignored">path_ignored</a></td>
+<td>Public method handling an ignored path.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BlackReport.__init__" ID="BlackReport.__init__"></a>
+<h4>BlackReport (Constructor)</h4>
+<b>BlackReport</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None
+</dd>
+</dl>
+<a NAME="BlackReport.done" ID="BlackReport.done"></a>
+<h4>BlackReport.done</h4>
+<b>done</b>(<i>src, changed, diff=""</i>)
+<p>
+        Public method to handle the end of a reformat.
+</p>
+
+<dl>
+
+<dt><i>src</i> (pathlib.Path)</dt>
+<dd>
+name of the processed file
+</dd>
+<dt><i>changed</i> (black.Changed)</dt>
+<dd>
+change status
+</dd>
+<dt><i>diff</i> (str)</dt>
+<dd>
+unified diff of potential changes (defaults to "")
+</dd>
+</dl>
+<a NAME="BlackReport.failed" ID="BlackReport.failed"></a>
+<h4>BlackReport.failed</h4>
+<b>failed</b>(<i>src, message</i>)
+<p>
+        Public method to handle a reformat failure.
+</p>
+
+<dl>
+
+<dt><i>src</i> (pathlib.Path)</dt>
+<dd>
+name of the processed file
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+error message
+</dd>
+</dl>
+<a NAME="BlackReport.path_ignored" ID="BlackReport.path_ignored"></a>
+<h4>BlackReport.path_ignored</h4>
+<b>path_ignored</b>(<i>src, message=""</i>)
+<p>
+        Public method handling an ignored path.
+</p>
+
+<dl>
+
+<dt><i>src</i> (pathlib.Path or str)</dt>
+<dd>
+name of the processed file
+</dd>
+<dt><i>message</i> (str (optional))</dt>
+<dd>
+ignore message (default to "") (unused)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="BlackStatistics" ID="BlackStatistics"></a>
+<h2>BlackStatistics</h2>
+<p>
+    Class containing the reformatting statistic data.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>changeCount</td></tr>
+<tr><td>failureCount</td></tr>
+<tr><td>ignoreCount</td></tr>
+<tr><td>processedCount</td></tr>
+<tr><td>sameCount</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

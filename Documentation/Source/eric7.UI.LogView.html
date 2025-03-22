@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.LogView</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.LogView</h1>
+<p>
+Module implementing the log viewer widget and the log widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#LogViewer">LogViewer</a></td>
+<td>Class implementing the containing widget for the log viewer.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit">LogViewerEdit</a></td>
+<td>Class providing a specialized text edit for displaying logging information.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="LogViewer" ID="LogViewer"></a>
+<h2>LogViewer</h2>
+<p>
+    Class implementing the containing widget for the log viewer.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#LogViewer.__init__">LogViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#LogViewer.appendToStderr">appendToStderr</a></td>
+<td>Public slot to appand text to the "stderr" tab.</td>
+</tr>
+<tr>
+<td><a href="#LogViewer.appendToStdout">appendToStdout</a></td>
+<td>Public slot to appand text to the "stdout" tab.</td>
+</tr>
+<tr>
+<td><a href="#LogViewer.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of the preferences.</td>
+</tr>
+<tr>
+<td><a href="#LogViewer.showFind">showFind</a></td>
+<td>Public method to display the search widget.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="LogViewer.__init__" ID="LogViewer.__init__"></a>
+<h4>LogViewer (Constructor)</h4>
+<b>LogViewer</b>(<i>ui, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="LogViewer.appendToStderr" ID="LogViewer.appendToStderr"></a>
+<h4>LogViewer.appendToStderr</h4>
+<b>appendToStderr</b>(<i>txt</i>)
+<p>
+        Public slot to appand text to the "stderr" tab.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be appended
+</dd>
+</dl>
+<a NAME="LogViewer.appendToStdout" ID="LogViewer.appendToStdout"></a>
+<h4>LogViewer.appendToStdout</h4>
+<b>appendToStdout</b>(<i>txt</i>)
+<p>
+        Public slot to appand text to the "stdout" tab.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be appended
+</dd>
+</dl>
+<a NAME="LogViewer.preferencesChanged" ID="LogViewer.preferencesChanged"></a>
+<h4>LogViewer.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of the preferences.
+</p>
+
+<a NAME="LogViewer.showFind" ID="LogViewer.showFind"></a>
+<h4>LogViewer.showFind</h4>
+<b>showFind</b>(<i>txt=""</i>)
+<p>
+        Public method to display the search widget.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be shown in the combo
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="LogViewerEdit" ID="LogViewerEdit"></a>
+<h2>LogViewerEdit</h2>
+<p>
+    Class providing a specialized text edit for displaying logging information.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>searchStringFound(found)</dt>
+<dd>
+emitted to indicate the search result
+        (boolean)
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTextEdit
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#LogViewerEdit.__init__">LogViewerEdit</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.__appendText">__appendText</a></td>
+<td>Private method to append text to the end.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.__configure">__configure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.__filterMessage">__filterMessage</a></td>
+<td>Private method to filter messages.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.__find">__find</a></td>
+<td>Private slot to show the find widget.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.__handleShowContextMenu">__handleShowContextMenu</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.appendToStderr">appendToStderr</a></td>
+<td>Public slot to append text to the "stderr" tab.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.appendToStdout">appendToStdout</a></td>
+<td>Public slot to append text to the "stdout" tab.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method handling key press events.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of the preferences.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.searchNext">searchNext</a></td>
+<td>Public method to search the next occurrence of the given text.</td>
+</tr>
+<tr>
+<td><a href="#LogViewerEdit.searchPrev">searchPrev</a></td>
+<td>Public method to search the previous occurrence of the given text.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="LogViewerEdit.__init__" ID="LogViewerEdit.__init__"></a>
+<h4>LogViewerEdit (Constructor)</h4>
+<b>LogViewerEdit</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="LogViewerEdit.__appendText" ID="LogViewerEdit.__appendText"></a>
+<h4>LogViewerEdit.__appendText</h4>
+<b>__appendText</b>(<i>txt, isErrorMessage=False</i>)
+<p>
+        Private method to append text to the end.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to insert
+</dd>
+<dt><i>isErrorMessage</i> (bool)</dt>
+<dd>
+flag indicating to insert error text
+</dd>
+</dl>
+<a NAME="LogViewerEdit.__configure" ID="LogViewerEdit.__configure"></a>
+<h4>LogViewerEdit.__configure</h4>
+<b>__configure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="LogViewerEdit.__filterMessage" ID="LogViewerEdit.__filterMessage"></a>
+<h4>LogViewerEdit.__filterMessage</h4>
+<b>__filterMessage</b>(<i>message, isErrorMessage=False</i>)
+<p>
+        Private method to filter messages.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be checked
+</dd>
+<dt><i>isErrorMessage</i> (bool)</dt>
+<dd>
+flag indicating to check an error message
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the message should be filtered out
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LogViewerEdit.__find" ID="LogViewerEdit.__find"></a>
+<h4>LogViewerEdit.__find</h4>
+<b>__find</b>(<i></i>)
+<p>
+        Private slot to show the find widget.
+</p>
+
+<a NAME="LogViewerEdit.__handleShowContextMenu" ID="LogViewerEdit.__handleShowContextMenu"></a>
+<h4>LogViewerEdit.__handleShowContextMenu</h4>
+<b>__handleShowContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="LogViewerEdit.appendToStderr" ID="LogViewerEdit.appendToStderr"></a>
+<h4>LogViewerEdit.appendToStderr</h4>
+<b>appendToStderr</b>(<i>txt</i>)
+<p>
+        Public slot to append text to the "stderr" tab.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be appended
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating text was appended
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LogViewerEdit.appendToStdout" ID="LogViewerEdit.appendToStdout"></a>
+<h4>LogViewerEdit.appendToStdout</h4>
+<b>appendToStdout</b>(<i>txt</i>)
+<p>
+        Public slot to append text to the "stdout" tab.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be appended
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating text was appended
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LogViewerEdit.keyPressEvent" ID="LogViewerEdit.keyPressEvent"></a>
+<h4>LogViewerEdit.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling key press events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+key press event
+</dd>
+</dl>
+<a NAME="LogViewerEdit.preferencesChanged" ID="LogViewerEdit.preferencesChanged"></a>
+<h4>LogViewerEdit.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of the preferences.
+</p>
+
+<a NAME="LogViewerEdit.searchNext" ID="LogViewerEdit.searchNext"></a>
+<h4>LogViewerEdit.searchNext</h4>
+<b>searchNext</b>(<i>txt, caseSensitive, wholeWord, regexp</i>)
+<p>
+        Public method to search the next occurrence of the given text.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to search for
+</dd>
+<dt><i>caseSensitive</i> (bool)</dt>
+<dd>
+flag indicating to perform a case sensitive search
+</dd>
+<dt><i>wholeWord</i> (bool)</dt>
+<dd>
+flag indicating to search for whole words only
+</dd>
+<dt><i>regexp</i> (bool)</dt>
+<dd>
+flag indicating a regular expression search
+</dd>
+</dl>
+<a NAME="LogViewerEdit.searchPrev" ID="LogViewerEdit.searchPrev"></a>
+<h4>LogViewerEdit.searchPrev</h4>
+<b>searchPrev</b>(<i>txt, caseSensitive, wholeWord, regexp</i>)
+<p>
+        Public method to search the previous occurrence of the given text.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to search for
+</dd>
+<dt><i>caseSensitive</i> (bool)</dt>
+<dd>
+flag indicating to perform a case sensitive search
+</dd>
+<dt><i>wholeWord</i> (bool)</dt>
+<dd>
+flag indicating to search for whole words only
+</dd>
+<dt><i>regexp</i> (bool)</dt>
+<dd>
+flag indicating a regular expression search
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

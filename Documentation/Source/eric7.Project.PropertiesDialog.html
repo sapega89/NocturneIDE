@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Project.PropertiesDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Project.PropertiesDialog</h1>
+<p>
+Module implementing the project properties dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PropertiesDialog">PropertiesDialog</a></td>
+<td>Class implementing the project properties dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PropertiesDialog" ID="PropertiesDialog"></a>
+<h2>PropertiesDialog</h2>
+<p>
+    Class implementing the project properties dialog.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_PropertiesDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PropertiesDialog.__init__">PropertiesDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.__initFileTypesDict">__initFileTypesDict</a></td>
+<td>Private slot to (re-)initialize the filetype dictionary.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.__populateLicenseComboBox">__populateLicenseComboBox</a></td>
+<td>Private method to populate the license selector with the list of trove license types.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.__setMainScriptPickerFilters">__setMainScriptPickerFilters</a></td>
+<td>Private method to set the filters for the main script file picker.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.__updateOk">__updateOk</a></td>
+<td>Private method to update the state of the OK button.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.getPPath">getPPath</a></td>
+<td>Public method to get the project path.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.getProjectType">getProjectType</a></td>
+<td>Public method to get the selected project type.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_dirPicker_textChanged">on_dirPicker_textChanged</a></td>
+<td>Private slot to handle a change of the project directory.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_filetypesButton_clicked">on_filetypesButton_clicked</a></td>
+<td>Private slot to open a dialog to edit the filetype associations.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_languageComboBox_currentTextChanged">on_languageComboBox_currentTextChanged</a></td>
+<td>Private slot handling the selection of a programming language.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_mainscriptPicker_aboutToShowPathPickerDialog">on_mainscriptPicker_aboutToShowPathPickerDialog</a></td>
+<td>Private slot to perform actions before the main script selection dialog is shown.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_mainscriptPicker_pathSelected">on_mainscriptPicker_pathSelected</a></td>
+<td>Private slot to check the selected main script name.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_makeButton_clicked">on_makeButton_clicked</a></td>
+<td>Private slot to display the make properties dialog.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_spellPropertiesButton_clicked">on_spellPropertiesButton_clicked</a></td>
+<td>Private slot to display the spelling properties dialog.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_srcDirPicker_aboutToShowPathPickerDialog">on_srcDirPicker_aboutToShowPathPickerDialog</a></td>
+<td>Private slot to perform actions before the sources sub-directory selection dialog is shown.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_srcDirPicker_pathSelected">on_srcDirPicker_pathSelected</a></td>
+<td>Private slot to check the selected sources sub-directory name.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_transPropertiesButton_clicked">on_transPropertiesButton_clicked</a></td>
+<td>Private slot to display the translations properties dialog.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.on_vcsInfoButton_clicked">on_vcsInfoButton_clicked</a></td>
+<td>Private slot to display a vcs information dialog.</td>
+</tr>
+<tr>
+<td><a href="#PropertiesDialog.storeData">storeData</a></td>
+<td>Public method to store the entered/modified data.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PropertiesDialog.__init__" ID="PropertiesDialog.__init__"></a>
+<h4>PropertiesDialog (Constructor)</h4>
+<b>PropertiesDialog</b>(<i>project, new=True, isRemote=False, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>new</i> (bool (optional))</dt>
+<dd>
+flag indicating the generation of a new project
+            (defaults to True)
+</dd>
+<dt><i>isRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating a remote project (defaults to False)
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of this dialog (defaults to None)
+</dd>
+<dt><i>name</i> (str (optional))</dt>
+<dd>
+name of this dialog (defaults to None)
+</dd>
+</dl>
+<a NAME="PropertiesDialog.__initFileTypesDict" ID="PropertiesDialog.__initFileTypesDict"></a>
+<h4>PropertiesDialog.__initFileTypesDict</h4>
+<b>__initFileTypesDict</b>(<i>force=False</i>)
+<p>
+        Private slot to (re-)initialize the filetype dictionary.
+</p>
+
+<dl>
+
+<dt><i>force</i> (bool (optional))</dt>
+<dd>
+flag indicating to force the initialization (defaults to False)
+</dd>
+</dl>
+<a NAME="PropertiesDialog.__populateLicenseComboBox" ID="PropertiesDialog.__populateLicenseComboBox"></a>
+<h4>PropertiesDialog.__populateLicenseComboBox</h4>
+<b>__populateLicenseComboBox</b>(<i></i>)
+<p>
+        Private method to populate the license selector with the list of trove
+        license types.
+</p>
+
+<a NAME="PropertiesDialog.__setMainScriptPickerFilters" ID="PropertiesDialog.__setMainScriptPickerFilters"></a>
+<h4>PropertiesDialog.__setMainScriptPickerFilters</h4>
+<b>__setMainScriptPickerFilters</b>(<i></i>)
+<p>
+        Private method to set the filters for the main script file picker.
+</p>
+
+<a NAME="PropertiesDialog.__updateOk" ID="PropertiesDialog.__updateOk"></a>
+<h4>PropertiesDialog.__updateOk</h4>
+<b>__updateOk</b>(<i></i>)
+<p>
+        Private method to update the state of the OK button.
+</p>
+
+<a NAME="PropertiesDialog.getPPath" ID="PropertiesDialog.getPPath"></a>
+<h4>PropertiesDialog.getPPath</h4>
+<b>getPPath</b>(<i></i>)
+<p>
+        Public method to get the project path.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+data of the project directory edit
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PropertiesDialog.getProjectType" ID="PropertiesDialog.getProjectType"></a>
+<h4>PropertiesDialog.getProjectType</h4>
+<b>getProjectType</b>(<i></i>)
+<p>
+        Public method to get the selected project type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected UI type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="PropertiesDialog.on_dirPicker_textChanged" ID="PropertiesDialog.on_dirPicker_textChanged"></a>
+<h4>PropertiesDialog.on_dirPicker_textChanged</h4>
+<b>on_dirPicker_textChanged</b>(<i>txt</i>)
+<p>
+        Private slot to handle a change of the project directory.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="PropertiesDialog.on_filetypesButton_clicked" ID="PropertiesDialog.on_filetypesButton_clicked"></a>
+<h4>PropertiesDialog.on_filetypesButton_clicked</h4>
+<b>on_filetypesButton_clicked</b>(<i></i>)
+<p>
+        Private slot to open a dialog to edit the filetype associations.
+</p>
+
+<a NAME="PropertiesDialog.on_languageComboBox_currentTextChanged" ID="PropertiesDialog.on_languageComboBox_currentTextChanged"></a>
+<h4>PropertiesDialog.on_languageComboBox_currentTextChanged</h4>
+<b>on_languageComboBox_currentTextChanged</b>(<i>language</i>)
+<p>
+        Private slot handling the selection of a programming language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+text of the current item
+</dd>
+</dl>
+<a NAME="PropertiesDialog.on_mainscriptPicker_aboutToShowPathPickerDialog" ID="PropertiesDialog.on_mainscriptPicker_aboutToShowPathPickerDialog"></a>
+<h4>PropertiesDialog.on_mainscriptPicker_aboutToShowPathPickerDialog</h4>
+<b>on_mainscriptPicker_aboutToShowPathPickerDialog</b>(<i></i>)
+<p>
+        Private slot to perform actions before the main script selection dialog
+        is shown.
+</p>
+
+<a NAME="PropertiesDialog.on_mainscriptPicker_pathSelected" ID="PropertiesDialog.on_mainscriptPicker_pathSelected"></a>
+<h4>PropertiesDialog.on_mainscriptPicker_pathSelected</h4>
+<b>on_mainscriptPicker_pathSelected</b>(<i>script</i>)
+<p>
+        Private slot to check the selected main script name.
+</p>
+
+<dl>
+
+<dt><i>script</i> (str)</dt>
+<dd>
+name of the main script
+</dd>
+</dl>
+<a NAME="PropertiesDialog.on_makeButton_clicked" ID="PropertiesDialog.on_makeButton_clicked"></a>
+<h4>PropertiesDialog.on_makeButton_clicked</h4>
+<b>on_makeButton_clicked</b>(<i></i>)
+<p>
+        Private slot to display the make properties dialog.
+</p>
+
+<a NAME="PropertiesDialog.on_spellPropertiesButton_clicked" ID="PropertiesDialog.on_spellPropertiesButton_clicked"></a>
+<h4>PropertiesDialog.on_spellPropertiesButton_clicked</h4>
+<b>on_spellPropertiesButton_clicked</b>(<i></i>)
+<p>
+        Private slot to display the spelling properties dialog.
+</p>
+
+<a NAME="PropertiesDialog.on_srcDirPicker_aboutToShowPathPickerDialog" ID="PropertiesDialog.on_srcDirPicker_aboutToShowPathPickerDialog"></a>
+<h4>PropertiesDialog.on_srcDirPicker_aboutToShowPathPickerDialog</h4>
+<b>on_srcDirPicker_aboutToShowPathPickerDialog</b>(<i></i>)
+<p>
+        Private slot to perform actions before the sources sub-directory selection
+        dialog is shown.
+</p>
+
+<a NAME="PropertiesDialog.on_srcDirPicker_pathSelected" ID="PropertiesDialog.on_srcDirPicker_pathSelected"></a>
+<h4>PropertiesDialog.on_srcDirPicker_pathSelected</h4>
+<b>on_srcDirPicker_pathSelected</b>(<i>srcDir</i>)
+<p>
+        Private slot to check the selected sources sub-directory name.
+</p>
+
+<dl>
+
+<dt><i>srcDir</i> (str)</dt>
+<dd>
+name of the sources directory name
+</dd>
+</dl>
+<a NAME="PropertiesDialog.on_transPropertiesButton_clicked" ID="PropertiesDialog.on_transPropertiesButton_clicked"></a>
+<h4>PropertiesDialog.on_transPropertiesButton_clicked</h4>
+<b>on_transPropertiesButton_clicked</b>(<i></i>)
+<p>
+        Private slot to display the translations properties dialog.
+</p>
+
+<a NAME="PropertiesDialog.on_vcsInfoButton_clicked" ID="PropertiesDialog.on_vcsInfoButton_clicked"></a>
+<h4>PropertiesDialog.on_vcsInfoButton_clicked</h4>
+<b>on_vcsInfoButton_clicked</b>(<i></i>)
+<p>
+        Private slot to display a vcs information dialog.
+</p>
+
+<a NAME="PropertiesDialog.storeData" ID="PropertiesDialog.storeData"></a>
+<h4>PropertiesDialog.storeData</h4>
+<b>storeData</b>(<i></i>)
+<p>
+        Public method to store the entered/modified data.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

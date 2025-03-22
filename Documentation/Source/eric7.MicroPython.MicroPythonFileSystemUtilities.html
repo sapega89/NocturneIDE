@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonFileSystemUtilities</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonFileSystemUtilities</h1>
+<p>
+Module implementing some file system utility functions.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>MPY_EPOCH</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#decoratedName">decoratedName</a></td>
+<td>Function to decorate the given name according to the given mode.</td>
+</tr>
+<tr>
+<td><a href="#fstat">fstat</a></td>
+<td>Function to get the stat() of file.</td>
+</tr>
+<tr>
+<td><a href="#isVisible">isVisible</a></td>
+<td>Function to check, if a filesystem entry is a hidden file or directory.</td>
+</tr>
+<tr>
+<td><a href="#listdirStat">listdirStat</a></td>
+<td>Function to get a list of directory entries and associated stat() tuples.</td>
+</tr>
+<tr>
+<td><a href="#mode2string">mode2string</a></td>
+<td>Function to convert a mode value to a string representation.</td>
+</tr>
+<tr>
+<td><a href="#mtime2string">mtime2string</a></td>
+<td>Function to convert a time value to a string representation.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="decoratedName" ID="decoratedName"></a>
+<h2>decoratedName</h2>
+<b>decoratedName</b>(<i>name, mode, isDir=False</i>)
+<p>
+    Function to decorate the given name according to the given mode.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file or directory name
+</dd>
+<dt><i>mode</i> (int)</dt>
+<dd>
+mode value
+</dd>
+<dt><i>isDir</i> (bool)</dt>
+<dd>
+flag indicating that name is a directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+decorated file or directory name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="fstat" ID="fstat"></a>
+<h2>fstat</h2>
+<b>fstat</b>(<i>filename</i>)
+<p>
+    Function to get the stat() of file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the stat() result
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isVisible" ID="isVisible"></a>
+<h2>isVisible</h2>
+<b>isVisible</b>(<i>name, showHidden</i>)
+<p>
+    Function to check, if a filesystem entry is a hidden file or directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name to be checked
+</dd>
+<dt><i>showHidden</i> (bool)</dt>
+<dd>
+flag indicating to show hidden files as well
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a visible filesystem entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="listdirStat" ID="listdirStat"></a>
+<h2>listdirStat</h2>
+<b>listdirStat</b>(<i>dirname, showHidden=False</i>)
+<p>
+    Function to get a list of directory entries and associated stat() tuples.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to list
+</dd>
+<dt><i>showHidden</i> (bool)</dt>
+<dd>
+flag indicating to show hidden files as well
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the entry name and the associated
+        stat() tuple
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (str, tuple)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="mode2string" ID="mode2string"></a>
+<h2>mode2string</h2>
+<b>mode2string</b>(<i>mode</i>)
+<p>
+    Function to convert a mode value to a string representation.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (int)</dt>
+<dd>
+mode value
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string representation of the given mode value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="mtime2string" ID="mtime2string"></a>
+<h2>mtime2string</h2>
+<b>mtime2string</b>(<i>mtime, adjustEpoch=False</i>)
+<p>
+    Function to convert a time value to a string representation.
+</p>
+
+<dl>
+
+<dt><i>mtime</i> (int)</dt>
+<dd>
+time value
+</dd>
+<dt><i>adjustEpoch</i> (bool (optional))</dt>
+<dd>
+flag indicating to adjust the time for the difference
+        of the MPy epoch (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string representation of the given time
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

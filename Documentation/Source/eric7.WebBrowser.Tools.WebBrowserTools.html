@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Tools.WebBrowserTools</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Tools.WebBrowserTools</h1>
+<p>
+Module implementing tool functions for the web browser.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>WebBrowserDataDirectory</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#containsSpace">containsSpace</a></td>
+<td>Function to check, if a string contains whitespace characters.</td>
+</tr>
+<tr>
+<td><a href="#ensureUniqueFilename">ensureUniqueFilename</a></td>
+<td>Module function to generate an unique file name based on a pattern.</td>
+</tr>
+<tr>
+<td><a href="#filterCharsFromFilename">filterCharsFromFilename</a></td>
+<td>Module function to filter illegal characters.</td>
+</tr>
+<tr>
+<td><a href="#getFileNameFromUrl">getFileNameFromUrl</a></td>
+<td>Module function to generate a file name based on the given URL.</td>
+</tr>
+<tr>
+<td><a href="#getHtmlPage">getHtmlPage</a></td>
+<td>Module function to load a HTML page.</td>
+</tr>
+<tr>
+<td><a href="#getJavascript">getJavascript</a></td>
+<td>Module function to load a JavaScript source file.</td>
+</tr>
+<tr>
+<td><a href="#getJquery">getJquery</a></td>
+<td>Module function to load a JQuery source file.</td>
+</tr>
+<tr>
+<td><a href="#getWebEngineVersions">getWebEngineVersions</a></td>
+<td>Module function to extract the web engine related versions from the default user agent string.</td>
+</tr>
+<tr>
+<td><a href="#pixmapFileToDataUrl">pixmapFileToDataUrl</a></td>
+<td>Module function to load a pixmap file and convert the pixmap to a data: URL.</td>
+</tr>
+<tr>
+<td><a href="#pixmapFromByteArray">pixmapFromByteArray</a></td>
+<td>Module function to convert a byte array to a pixmap.</td>
+</tr>
+<tr>
+<td><a href="#pixmapToByteArray">pixmapToByteArray</a></td>
+<td>Module function to convert a pixmap to a byte array containing the pixmap as a PNG encoded as base64.</td>
+</tr>
+<tr>
+<td><a href="#pixmapToDataUrl">pixmapToDataUrl</a></td>
+<td>Module function to convert a pixmap to a data: URL.</td>
+</tr>
+<tr>
+<td><a href="#readAllFileContents">readAllFileContents</a></td>
+<td>Function to read the string contents of the given file.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="containsSpace" ID="containsSpace"></a>
+<h2>containsSpace</h2>
+<b>containsSpace</b>(<i>string</i>)
+<p>
+    Function to check, if a string contains whitespace characters.
+</p>
+
+<dl>
+
+<dt><i>string</i> (str)</dt>
+<dd>
+string to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of at least one whitespace character
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ensureUniqueFilename" ID="ensureUniqueFilename"></a>
+<h2>ensureUniqueFilename</h2>
+<b>ensureUniqueFilename</b>(<i>name, appendFormat="({0})"</i>)
+<p>
+    Module function to generate an unique file name based on a pattern.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+desired file name
+</dd>
+<dt><i>appendFormat</i> (str)</dt>
+<dd>
+format pattern to be used to make the unique name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+unique file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="filterCharsFromFilename" ID="filterCharsFromFilename"></a>
+<h2>filterCharsFromFilename</h2>
+<b>filterCharsFromFilename</b>(<i>name</i>)
+<p>
+    Module function to filter illegal characters.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name to be sanitized
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sanitized name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getFileNameFromUrl" ID="getFileNameFromUrl"></a>
+<h2>getFileNameFromUrl</h2>
+<b>getFileNameFromUrl</b>(<i>url</i>)
+<p>
+    Module function to generate a file name based on the given URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getHtmlPage" ID="getHtmlPage"></a>
+<h2>getHtmlPage</h2>
+<b>getHtmlPage</b>(<i>pageFileName</i>)
+<p>
+    Module function to load a HTML page.
+</p>
+<p>
+    Note: If the given HTML file path is not absolute, it is assumed to
+    denote a HTML file in the html data directory.
+</p>
+
+<dl>
+
+<dt><i>pageFileName</i> (str)</dt>
+<dd>
+file name of the HTML file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+HTML page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getJavascript" ID="getJavascript"></a>
+<h2>getJavascript</h2>
+<b>getJavascript</b>(<i>jsFileName</i>)
+<p>
+    Module function to load a JavaScript source file.
+</p>
+<p>
+    Note: If the given JavaScript source file path is not absolute, it is
+    assumed to denote a JavaScript source file in the javascript data
+    directory.
+</p>
+
+<dl>
+
+<dt><i>jsFileName</i> (str)</dt>
+<dd>
+file name of the JavaScript source file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+JavaScript source
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getJquery" ID="getJquery"></a>
+<h2>getJquery</h2>
+<b>getJquery</b>(<i>jqName</i>)
+<p>
+    Module function to load a JQuery source file.
+</p>
+<p>
+    Note: If the JQuery file is not found in the javascript data directory and
+    the platform is Linux, it is assumed that it is installed system wide in the
+    '/usr/share/javascript' directory (e.g. as packaged by Debian).
+</p>
+
+<dl>
+
+<dt><i>jqName</i> (str)</dt>
+<dd>
+name of the JQuery library to be loaded (one of 'jquery' or
+        'jquery-ui')
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+JQuery source
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getWebEngineVersions" ID="getWebEngineVersions"></a>
+<h2>getWebEngineVersions</h2>
+<b>getWebEngineVersions</b>(<i></i>)
+<p>
+    Module function to extract the web engine related versions from the default
+    user agent string.
+</p>
+<p>
+    Note: For PyQt 6.3.1 or newer the data is extracted via some Qt functions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the Chromium version, the Chromium security patch
+        version and the QtWebEngine version
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="pixmapFileToDataUrl" ID="pixmapFileToDataUrl"></a>
+<h2>pixmapFileToDataUrl</h2>
+<b>pixmapFileToDataUrl</b>(<i>pixmapFile, asString=False</i>)
+<p>
+    Module function to load a pixmap file and convert the pixmap to a
+    data: URL.
+</p>
+<p>
+    Note: If the given pixmap file path is not absolute, it is assumed to
+    denote a pixmap file in the icons data directory.
+</p>
+
+<dl>
+
+<dt><i>pixmapFile</i> (str)</dt>
+<dd>
+file name of the pixmap file
+</dd>
+<dt><i>asString</i> (bool)</dt>
+<dd>
+flag indicating a string representation is requested
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+data: URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl or str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="pixmapFromByteArray" ID="pixmapFromByteArray"></a>
+<h2>pixmapFromByteArray</h2>
+<b>pixmapFromByteArray</b>(<i>data</i>)
+<p>
+    Module function to convert a byte array to a pixmap.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytes or QByteArray)</dt>
+<dd>
+data for the pixmap
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+extracted pixmap
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPixmap
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="pixmapToByteArray" ID="pixmapToByteArray"></a>
+<h2>pixmapToByteArray</h2>
+<b>pixmapToByteArray</b>(<i>pixmap</i>)
+<p>
+    Module function to convert a pixmap to a byte array containing the pixmap
+    as a PNG encoded as base64.
+</p>
+
+<dl>
+
+<dt><i>pixmap</i> (QPixmap)</dt>
+<dd>
+pixmap to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+byte array containing the pixmap
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QByteArray
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="pixmapToDataUrl" ID="pixmapToDataUrl"></a>
+<h2>pixmapToDataUrl</h2>
+<b>pixmapToDataUrl</b>(<i>pixmap, mimetype="image/png"</i>)
+<p>
+    Module function to convert a pixmap to a data: URL.
+</p>
+
+<dl>
+
+<dt><i>pixmap</i> (QPixmap)</dt>
+<dd>
+pixmap to be converted
+</dd>
+<dt><i>mimetype</i> (str)</dt>
+<dd>
+MIME type to be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+data: URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="readAllFileContents" ID="readAllFileContents"></a>
+<h2>readAllFileContents</h2>
+<b>readAllFileContents</b>(<i>filename</i>)
+<p>
+    Function to read the string contents of the given file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+contents of the file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

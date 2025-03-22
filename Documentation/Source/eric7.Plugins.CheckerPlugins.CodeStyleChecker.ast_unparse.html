@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.ast_unparse</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.ast_unparse</h1>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_ALL_QUOTES</td></tr>
+<tr><td>_INFSTR</td></tr>
+<tr><td>_MULTI_QUOTES</td></tr>
+<tr><td>_SINGLE_QUOTES</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#_Precedence">_Precedence</a></td>
+<td>Precedence table that originated from python grammar.</td>
+</tr>
+<tr>
+<td><a href="#_Unparser">_Unparser</a></td>
+<td>Methods in this class recursively traverse an AST and output source code for the abstract syntax; original formatting is disregarded.</td>
+</tr>
+<tr>
+<td><a href="#nullcontext">nullcontext</a></td>
+<td>Context manager that does no additional processing.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#unparse">unparse</a></td>
+<td></td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="_Precedence" ID="_Precedence"></a>
+<h2>_Precedence</h2>
+<p>
+Precedence table that originated from python grammar.
+</p>
+
+<h3>Derived from</h3>
+IntEnum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AND</td></tr>
+<tr><td>ARITH</td></tr>
+<tr><td>ATOM</td></tr>
+<tr><td>AWAIT</td></tr>
+<tr><td>BAND</td></tr>
+<tr><td>BOR</td></tr>
+<tr><td>BXOR</td></tr>
+<tr><td>CMP</td></tr>
+<tr><td>EXPR</td></tr>
+<tr><td>FACTOR</td></tr>
+<tr><td>NOT</td></tr>
+<tr><td>OR</td></tr>
+<tr><td>POWER</td></tr>
+<tr><td>SHIFT</td></tr>
+<tr><td>TERM</td></tr>
+<tr><td>TEST</td></tr>
+<tr><td>TUPLE</td></tr>
+<tr><td>YIELD</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#_Precedence.next">next</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="_Precedence.next" ID="_Precedence.next"></a>
+<h4>_Precedence.next</h4>
+<b>next</b>(<i></i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_Unparser" ID="_Unparser"></a>
+<h2>_Unparser</h2>
+<p>
+Methods in this class recursively traverse an AST and
+    output source code for the abstract syntax; original formatting
+    is disregarded.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>binop</td></tr>
+<tr><td>binop_precedence</td></tr>
+<tr><td>binop_rassoc</td></tr>
+<tr><td>boolop_precedence</td></tr>
+<tr><td>boolops</td></tr>
+<tr><td>cmpops</td></tr>
+<tr><td>unop</td></tr>
+<tr><td>unop_precedence</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#_Unparser.__init__">_Unparser</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser._for_helper">_for_helper</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser._fstring_Constant">_fstring_Constant</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser._fstring_FormattedValue">_fstring_FormattedValue</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser._fstring_JoinedStr">_fstring_JoinedStr</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser._function_helper">_function_helper</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser._str_literal_helper">_str_literal_helper</a></td>
+<td>Helper for writing string literals, minimizing escapes.</td>
+</tr>
+<tr>
+<td><a href="#_Unparser._write_constant">_write_constant</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser._write_docstring">_write_docstring</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser._write_docstring_and_traverse_body">_write_docstring_and_traverse_body</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser._write_str_avoiding_backslashes">_write_str_avoiding_backslashes</a></td>
+<td>Write string literal value with a best effort attempt to avoid backslashes.</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.block">block</a></td>
+<td>A context manager for preparing the source for blocks.</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.buffer">buffer</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.buffer_writer">buffer_writer</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.delimit">delimit</a></td>
+<td>A context manager for preparing the source for expressions.</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.delimit_if">delimit_if</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.escape_char">escape_char</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.fill">fill</a></td>
+<td>Indent a piece of text and append it, according to the current indentation level</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.get_precedence">get_precedence</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.get_raw_docstring">get_raw_docstring</a></td>
+<td>If a docstring node is found in the body of the *node* parameter, return that docstring node, None otherwise.</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.get_type_comment">get_type_comment</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.increasing_level_traverse">increasing_level_traverse</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.interleave">interleave</a></td>
+<td>Call f on each item in seq, calling inter() in between.</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.is_simple_tuple">is_simple_tuple</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.items_view">items_view</a></td>
+<td>Traverse and separate the given *items* with a comma and append it to the buffer.</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.maybe_newline">maybe_newline</a></td>
+<td>Adds a newline if it isn't the start of generated source</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.require_parens">require_parens</a></td>
+<td>Shortcut to adding precedence related parens</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.set_precedence">set_precedence</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.traverse">traverse</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit">visit</a></td>
+<td>Outputs a source code string that, if converted back to an ast (using ast.parse) will generate an AST equivalent to *node*</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_AnnAssign">visit_AnnAssign</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Assert">visit_Assert</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Assign">visit_Assign</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_AsyncFor">visit_AsyncFor</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_AsyncFunctionDef">visit_AsyncFunctionDef</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_AsyncWith">visit_AsyncWith</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Attribute">visit_Attribute</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_AugAssign">visit_AugAssign</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Await">visit_Await</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_BinOp">visit_BinOp</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_BoolOp">visit_BoolOp</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Break">visit_Break</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Call">visit_Call</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_ClassDef">visit_ClassDef</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Compare">visit_Compare</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Constant">visit_Constant</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Continue">visit_Continue</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Delete">visit_Delete</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Dict">visit_Dict</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_DictComp">visit_DictComp</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_ExceptHandler">visit_ExceptHandler</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Expr">visit_Expr</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_For">visit_For</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_FormattedValue">visit_FormattedValue</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_FunctionDef">visit_FunctionDef</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_FunctionType">visit_FunctionType</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_GeneratorExp">visit_GeneratorExp</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Global">visit_Global</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_If">visit_If</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_IfExp">visit_IfExp</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Import">visit_Import</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_ImportFrom">visit_ImportFrom</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_JoinedStr">visit_JoinedStr</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Lambda">visit_Lambda</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_List">visit_List</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_ListComp">visit_ListComp</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Module">visit_Module</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Name">visit_Name</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_NamedExpr">visit_NamedExpr</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Nonlocal">visit_Nonlocal</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Pass">visit_Pass</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Raise">visit_Raise</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Return">visit_Return</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Set">visit_Set</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_SetComp">visit_SetComp</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Slice">visit_Slice</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Starred">visit_Starred</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Subscript">visit_Subscript</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Try">visit_Try</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Tuple">visit_Tuple</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_UnaryOp">visit_UnaryOp</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_While">visit_While</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_With">visit_With</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_Yield">visit_Yield</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_YieldFrom">visit_YieldFrom</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_alias">visit_alias</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_arg">visit_arg</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_arguments">visit_arguments</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_comprehension">visit_comprehension</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_keyword">visit_keyword</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.visit_withitem">visit_withitem</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.write">write</a></td>
+<td>Append a piece of text</td>
+</tr>
+<tr>
+<td><a href="#_Unparser.write_item">write_item</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#_Unparser.write_key_value_pair">write_key_value_pair</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="_Unparser.__init__" ID="_Unparser.__init__"></a>
+<h4>_Unparser (Constructor)</h4>
+<b>_Unparser</b>(<i>*, _avoid_backslashes=False</i>)
+
+<a NAME="_Unparser._for_helper" ID="_Unparser._for_helper"></a>
+<h4>_Unparser._for_helper</h4>
+<b>_for_helper</b>(<i>fill, node</i>)
+
+<a NAME="_Unparser._fstring_Constant" ID="_Unparser._fstring_Constant"></a>
+<h4>_Unparser._fstring_Constant</h4>
+<b>_fstring_Constant</b>(<i>node, write</i>)
+
+<a NAME="_Unparser._fstring_FormattedValue" ID="_Unparser._fstring_FormattedValue"></a>
+<h4>_Unparser._fstring_FormattedValue</h4>
+<b>_fstring_FormattedValue</b>(<i>node, write</i>)
+
+<a NAME="_Unparser._fstring_JoinedStr" ID="_Unparser._fstring_JoinedStr"></a>
+<h4>_Unparser._fstring_JoinedStr</h4>
+<b>_fstring_JoinedStr</b>(<i>node, write</i>)
+
+<a NAME="_Unparser._function_helper" ID="_Unparser._function_helper"></a>
+<h4>_Unparser._function_helper</h4>
+<b>_function_helper</b>(<i>node, fill_suffix</i>)
+
+<a NAME="_Unparser._str_literal_helper" ID="_Unparser._str_literal_helper"></a>
+<h4>_Unparser._str_literal_helper</h4>
+<b>_str_literal_helper</b>(<i>string, *, quote_types=_ALL_QUOTES, escape_special_whitespace=False</i>)
+<p>
+Helper for writing string literals, minimizing escapes.
+        Returns the tuple (string literal to write, possible quote types).
+</p>
+
+<a NAME="_Unparser._write_constant" ID="_Unparser._write_constant"></a>
+<h4>_Unparser._write_constant</h4>
+<b>_write_constant</b>(<i>value</i>)
+
+<a NAME="_Unparser._write_docstring" ID="_Unparser._write_docstring"></a>
+<h4>_Unparser._write_docstring</h4>
+<b>_write_docstring</b>(<i>node</i>)
+
+<a NAME="_Unparser._write_docstring_and_traverse_body" ID="_Unparser._write_docstring_and_traverse_body"></a>
+<h4>_Unparser._write_docstring_and_traverse_body</h4>
+<b>_write_docstring_and_traverse_body</b>(<i>node</i>)
+
+<a NAME="_Unparser._write_str_avoiding_backslashes" ID="_Unparser._write_str_avoiding_backslashes"></a>
+<h4>_Unparser._write_str_avoiding_backslashes</h4>
+<b>_write_str_avoiding_backslashes</b>(<i>string, *, quote_types=_ALL_QUOTES</i>)
+<p>
+Write string literal value with a best effort attempt to avoid backslashes.
+</p>
+
+<a NAME="_Unparser.block" ID="_Unparser.block"></a>
+<h4>_Unparser.block</h4>
+<b>block</b>(<i>*, extra = None</i>)
+<p>
+A context manager for preparing the source for blocks. It adds
+        the character':', increases the indentation on enter and decreases
+        the indentation on exit. If *extra* is given, it will be directly
+        appended after the colon character.
+</p>
+
+<a NAME="_Unparser.buffer" ID="_Unparser.buffer"></a>
+<h4>_Unparser.buffer</h4>
+<b>buffer</b>(<i></i>)
+
+<a NAME="_Unparser.buffer_writer" ID="_Unparser.buffer_writer"></a>
+<h4>_Unparser.buffer_writer</h4>
+<b>buffer_writer</b>(<i>text</i>)
+
+<a NAME="_Unparser.delimit" ID="_Unparser.delimit"></a>
+<h4>_Unparser.delimit</h4>
+<b>delimit</b>(<i>start, end</i>)
+<p>
+A context manager for preparing the source for expressions. It adds
+        *start* to the buffer and enters, after exit it adds *end*.
+</p>
+
+<a NAME="_Unparser.delimit_if" ID="_Unparser.delimit_if"></a>
+<h4>_Unparser.delimit_if</h4>
+<b>delimit_if</b>(<i>start, end, condition</i>)
+
+<a NAME="_Unparser.escape_char" ID="_Unparser.escape_char"></a>
+<h4>_Unparser.escape_char</h4>
+<b>escape_char</b>(<i></i>)
+
+<a NAME="_Unparser.fill" ID="_Unparser.fill"></a>
+<h4>_Unparser.fill</h4>
+<b>fill</b>(<i>text=""</i>)
+<p>
+Indent a piece of text and append it, according to the current
+        indentation level
+</p>
+
+<a NAME="_Unparser.get_precedence" ID="_Unparser.get_precedence"></a>
+<h4>_Unparser.get_precedence</h4>
+<b>get_precedence</b>(<i>node</i>)
+
+<a NAME="_Unparser.get_raw_docstring" ID="_Unparser.get_raw_docstring"></a>
+<h4>_Unparser.get_raw_docstring</h4>
+<b>get_raw_docstring</b>(<i>node</i>)
+<p>
+If a docstring node is found in the body of the *node* parameter,
+        return that docstring node, None otherwise.
+</p>
+<p>
+        Logic mirrored from ``_PyAST_GetDocString``.
+</p>
+
+<a NAME="_Unparser.get_type_comment" ID="_Unparser.get_type_comment"></a>
+<h4>_Unparser.get_type_comment</h4>
+<b>get_type_comment</b>(<i>node</i>)
+
+<a NAME="_Unparser.increasing_level_traverse" ID="_Unparser.increasing_level_traverse"></a>
+<h4>_Unparser.increasing_level_traverse</h4>
+<b>increasing_level_traverse</b>(<i></i>)
+
+<a NAME="_Unparser.interleave" ID="_Unparser.interleave"></a>
+<h4>_Unparser.interleave</h4>
+<b>interleave</b>(<i>inter, f, seq</i>)
+<p>
+Call f on each item in seq, calling inter() in between.
+</p>
+
+<a NAME="_Unparser.is_simple_tuple" ID="_Unparser.is_simple_tuple"></a>
+<h4>_Unparser.is_simple_tuple</h4>
+<b>is_simple_tuple</b>(<i></i>)
+
+<a NAME="_Unparser.items_view" ID="_Unparser.items_view"></a>
+<h4>_Unparser.items_view</h4>
+<b>items_view</b>(<i>traverser, items</i>)
+<p>
+Traverse and separate the given *items* with a comma and append it to
+        the buffer. If *items* is a single item sequence, a trailing comma
+        will be added.
+</p>
+
+<a NAME="_Unparser.maybe_newline" ID="_Unparser.maybe_newline"></a>
+<h4>_Unparser.maybe_newline</h4>
+<b>maybe_newline</b>(<i></i>)
+<p>
+Adds a newline if it isn't the start of generated source
+</p>
+
+<a NAME="_Unparser.require_parens" ID="_Unparser.require_parens"></a>
+<h4>_Unparser.require_parens</h4>
+<b>require_parens</b>(<i>precedence, node</i>)
+<p>
+Shortcut to adding precedence related parens
+</p>
+
+<a NAME="_Unparser.set_precedence" ID="_Unparser.set_precedence"></a>
+<h4>_Unparser.set_precedence</h4>
+<b>set_precedence</b>(<i>precedence, *nodes</i>)
+
+<a NAME="_Unparser.traverse" ID="_Unparser.traverse"></a>
+<h4>_Unparser.traverse</h4>
+<b>traverse</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit" ID="_Unparser.visit"></a>
+<h4>_Unparser.visit</h4>
+<b>visit</b>(<i>node</i>)
+<p>
+Outputs a source code string that, if converted back to an ast
+        (using ast.parse) will generate an AST equivalent to *node*
+</p>
+
+<a NAME="_Unparser.visit_AnnAssign" ID="_Unparser.visit_AnnAssign"></a>
+<h4>_Unparser.visit_AnnAssign</h4>
+<b>visit_AnnAssign</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Assert" ID="_Unparser.visit_Assert"></a>
+<h4>_Unparser.visit_Assert</h4>
+<b>visit_Assert</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Assign" ID="_Unparser.visit_Assign"></a>
+<h4>_Unparser.visit_Assign</h4>
+<b>visit_Assign</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_AsyncFor" ID="_Unparser.visit_AsyncFor"></a>
+<h4>_Unparser.visit_AsyncFor</h4>
+<b>visit_AsyncFor</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_AsyncFunctionDef" ID="_Unparser.visit_AsyncFunctionDef"></a>
+<h4>_Unparser.visit_AsyncFunctionDef</h4>
+<b>visit_AsyncFunctionDef</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_AsyncWith" ID="_Unparser.visit_AsyncWith"></a>
+<h4>_Unparser.visit_AsyncWith</h4>
+<b>visit_AsyncWith</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Attribute" ID="_Unparser.visit_Attribute"></a>
+<h4>_Unparser.visit_Attribute</h4>
+<b>visit_Attribute</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_AugAssign" ID="_Unparser.visit_AugAssign"></a>
+<h4>_Unparser.visit_AugAssign</h4>
+<b>visit_AugAssign</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Await" ID="_Unparser.visit_Await"></a>
+<h4>_Unparser.visit_Await</h4>
+<b>visit_Await</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_BinOp" ID="_Unparser.visit_BinOp"></a>
+<h4>_Unparser.visit_BinOp</h4>
+<b>visit_BinOp</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_BoolOp" ID="_Unparser.visit_BoolOp"></a>
+<h4>_Unparser.visit_BoolOp</h4>
+<b>visit_BoolOp</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Break" ID="_Unparser.visit_Break"></a>
+<h4>_Unparser.visit_Break</h4>
+<b>visit_Break</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Call" ID="_Unparser.visit_Call"></a>
+<h4>_Unparser.visit_Call</h4>
+<b>visit_Call</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_ClassDef" ID="_Unparser.visit_ClassDef"></a>
+<h4>_Unparser.visit_ClassDef</h4>
+<b>visit_ClassDef</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Compare" ID="_Unparser.visit_Compare"></a>
+<h4>_Unparser.visit_Compare</h4>
+<b>visit_Compare</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Constant" ID="_Unparser.visit_Constant"></a>
+<h4>_Unparser.visit_Constant</h4>
+<b>visit_Constant</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Continue" ID="_Unparser.visit_Continue"></a>
+<h4>_Unparser.visit_Continue</h4>
+<b>visit_Continue</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Delete" ID="_Unparser.visit_Delete"></a>
+<h4>_Unparser.visit_Delete</h4>
+<b>visit_Delete</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Dict" ID="_Unparser.visit_Dict"></a>
+<h4>_Unparser.visit_Dict</h4>
+<b>visit_Dict</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_DictComp" ID="_Unparser.visit_DictComp"></a>
+<h4>_Unparser.visit_DictComp</h4>
+<b>visit_DictComp</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_ExceptHandler" ID="_Unparser.visit_ExceptHandler"></a>
+<h4>_Unparser.visit_ExceptHandler</h4>
+<b>visit_ExceptHandler</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Expr" ID="_Unparser.visit_Expr"></a>
+<h4>_Unparser.visit_Expr</h4>
+<b>visit_Expr</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_For" ID="_Unparser.visit_For"></a>
+<h4>_Unparser.visit_For</h4>
+<b>visit_For</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_FormattedValue" ID="_Unparser.visit_FormattedValue"></a>
+<h4>_Unparser.visit_FormattedValue</h4>
+<b>visit_FormattedValue</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_FunctionDef" ID="_Unparser.visit_FunctionDef"></a>
+<h4>_Unparser.visit_FunctionDef</h4>
+<b>visit_FunctionDef</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_FunctionType" ID="_Unparser.visit_FunctionType"></a>
+<h4>_Unparser.visit_FunctionType</h4>
+<b>visit_FunctionType</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_GeneratorExp" ID="_Unparser.visit_GeneratorExp"></a>
+<h4>_Unparser.visit_GeneratorExp</h4>
+<b>visit_GeneratorExp</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Global" ID="_Unparser.visit_Global"></a>
+<h4>_Unparser.visit_Global</h4>
+<b>visit_Global</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_If" ID="_Unparser.visit_If"></a>
+<h4>_Unparser.visit_If</h4>
+<b>visit_If</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_IfExp" ID="_Unparser.visit_IfExp"></a>
+<h4>_Unparser.visit_IfExp</h4>
+<b>visit_IfExp</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Import" ID="_Unparser.visit_Import"></a>
+<h4>_Unparser.visit_Import</h4>
+<b>visit_Import</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_ImportFrom" ID="_Unparser.visit_ImportFrom"></a>
+<h4>_Unparser.visit_ImportFrom</h4>
+<b>visit_ImportFrom</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_JoinedStr" ID="_Unparser.visit_JoinedStr"></a>
+<h4>_Unparser.visit_JoinedStr</h4>
+<b>visit_JoinedStr</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Lambda" ID="_Unparser.visit_Lambda"></a>
+<h4>_Unparser.visit_Lambda</h4>
+<b>visit_Lambda</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_List" ID="_Unparser.visit_List"></a>
+<h4>_Unparser.visit_List</h4>
+<b>visit_List</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_ListComp" ID="_Unparser.visit_ListComp"></a>
+<h4>_Unparser.visit_ListComp</h4>
+<b>visit_ListComp</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Module" ID="_Unparser.visit_Module"></a>
+<h4>_Unparser.visit_Module</h4>
+<b>visit_Module</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Name" ID="_Unparser.visit_Name"></a>
+<h4>_Unparser.visit_Name</h4>
+<b>visit_Name</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_NamedExpr" ID="_Unparser.visit_NamedExpr"></a>
+<h4>_Unparser.visit_NamedExpr</h4>
+<b>visit_NamedExpr</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Nonlocal" ID="_Unparser.visit_Nonlocal"></a>
+<h4>_Unparser.visit_Nonlocal</h4>
+<b>visit_Nonlocal</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Pass" ID="_Unparser.visit_Pass"></a>
+<h4>_Unparser.visit_Pass</h4>
+<b>visit_Pass</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Raise" ID="_Unparser.visit_Raise"></a>
+<h4>_Unparser.visit_Raise</h4>
+<b>visit_Raise</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Return" ID="_Unparser.visit_Return"></a>
+<h4>_Unparser.visit_Return</h4>
+<b>visit_Return</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Set" ID="_Unparser.visit_Set"></a>
+<h4>_Unparser.visit_Set</h4>
+<b>visit_Set</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_SetComp" ID="_Unparser.visit_SetComp"></a>
+<h4>_Unparser.visit_SetComp</h4>
+<b>visit_SetComp</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Slice" ID="_Unparser.visit_Slice"></a>
+<h4>_Unparser.visit_Slice</h4>
+<b>visit_Slice</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Starred" ID="_Unparser.visit_Starred"></a>
+<h4>_Unparser.visit_Starred</h4>
+<b>visit_Starred</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Subscript" ID="_Unparser.visit_Subscript"></a>
+<h4>_Unparser.visit_Subscript</h4>
+<b>visit_Subscript</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Try" ID="_Unparser.visit_Try"></a>
+<h4>_Unparser.visit_Try</h4>
+<b>visit_Try</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Tuple" ID="_Unparser.visit_Tuple"></a>
+<h4>_Unparser.visit_Tuple</h4>
+<b>visit_Tuple</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_UnaryOp" ID="_Unparser.visit_UnaryOp"></a>
+<h4>_Unparser.visit_UnaryOp</h4>
+<b>visit_UnaryOp</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_While" ID="_Unparser.visit_While"></a>
+<h4>_Unparser.visit_While</h4>
+<b>visit_While</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_With" ID="_Unparser.visit_With"></a>
+<h4>_Unparser.visit_With</h4>
+<b>visit_With</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_Yield" ID="_Unparser.visit_Yield"></a>
+<h4>_Unparser.visit_Yield</h4>
+<b>visit_Yield</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_YieldFrom" ID="_Unparser.visit_YieldFrom"></a>
+<h4>_Unparser.visit_YieldFrom</h4>
+<b>visit_YieldFrom</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_alias" ID="_Unparser.visit_alias"></a>
+<h4>_Unparser.visit_alias</h4>
+<b>visit_alias</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_arg" ID="_Unparser.visit_arg"></a>
+<h4>_Unparser.visit_arg</h4>
+<b>visit_arg</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_arguments" ID="_Unparser.visit_arguments"></a>
+<h4>_Unparser.visit_arguments</h4>
+<b>visit_arguments</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_comprehension" ID="_Unparser.visit_comprehension"></a>
+<h4>_Unparser.visit_comprehension</h4>
+<b>visit_comprehension</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_keyword" ID="_Unparser.visit_keyword"></a>
+<h4>_Unparser.visit_keyword</h4>
+<b>visit_keyword</b>(<i>node</i>)
+
+<a NAME="_Unparser.visit_withitem" ID="_Unparser.visit_withitem"></a>
+<h4>_Unparser.visit_withitem</h4>
+<b>visit_withitem</b>(<i>node</i>)
+
+<a NAME="_Unparser.write" ID="_Unparser.write"></a>
+<h4>_Unparser.write</h4>
+<b>write</b>(<i>text</i>)
+<p>
+Append a piece of text
+</p>
+
+<a NAME="_Unparser.write_item" ID="_Unparser.write_item"></a>
+<h4>_Unparser.write_item</h4>
+<b>write_item</b>(<i></i>)
+
+<a NAME="_Unparser.write_key_value_pair" ID="_Unparser.write_key_value_pair"></a>
+<h4>_Unparser.write_key_value_pair</h4>
+<b>write_key_value_pair</b>(<i>v</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="nullcontext" ID="nullcontext"></a>
+<h2>nullcontext</h2>
+<p>
+Context manager that does no additional processing.
+</p>
+<p>
+        Used as a stand-in for a normal context manager, when a particular
+        block of code is only sometimes used with a normal context manager:
+</p>
+<p>
+        cm = optional_cm if condition else nullcontext()
+        with cm:
+            # Perform operation, using optional_cm if condition is True
+</p>
+
+<h3>Derived from</h3>
+AbstractContextManager
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#nullcontext.__init__">nullcontext</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#nullcontext.__enter__">__enter__</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#nullcontext.__exit__">__exit__</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="nullcontext.__init__" ID="nullcontext.__init__"></a>
+<h4>nullcontext (Constructor)</h4>
+<b>nullcontext</b>(<i>enter_result=None</i>)
+
+<a NAME="nullcontext.__enter__" ID="nullcontext.__enter__"></a>
+<h4>nullcontext.__enter__</h4>
+<b>__enter__</b>(<i></i>)
+
+<a NAME="nullcontext.__exit__" ID="nullcontext.__exit__"></a>
+<h4>nullcontext.__exit__</h4>
+<b>__exit__</b>(<i>*_excinfo</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="unparse" ID="unparse"></a>
+<h2>unparse</h2>
+<b>unparse</b>(<i>ast_obj</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

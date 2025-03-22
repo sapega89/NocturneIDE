@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.OpenSearch.OpenSearchEngine</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.OpenSearch.OpenSearchEngine</h1>
+<p>
+Module implementing the open search engine.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#OpenSearchEngine">OpenSearchEngine</a></td>
+<td>Class implementing the open search engine.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="OpenSearchEngine" ID="OpenSearchEngine"></a>
+<h2>OpenSearchEngine</h2>
+<p>
+    Class implementing the open search engine.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>imageChanged()</dt>
+<dd>
+emitted after the icon has been changed
+</dd>
+<dt>suggestions(list of strings)</dt>
+<dd>
+emitted after the suggestions have
+            been received
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#OpenSearchEngine.parseTemplate">parseTemplate</a></td>
+<td>Class method to parse a search template.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#OpenSearchEngine.__init__">OpenSearchEngine</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.__eq__">__eq__</a></td>
+<td>Special method implementing the == operator.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.__imageObtained">__imageObtained</a></td>
+<td>Private slot to receive the image of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.__lt__">__lt__</a></td>
+<td>Special method implementing the < operator.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.__suggestionsObtained">__suggestionsObtained</a></td>
+<td>Private slot to receive the suggestions.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.description">description</a></td>
+<td>Public method to get the description of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.image">image</a></td>
+<td>Public method to get the image of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.imageUrl">imageUrl</a></td>
+<td>Public method to get the image URL of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.isValid">isValid</a></td>
+<td>Public method to check, if the engine is valid.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.loadImage">loadImage</a></td>
+<td>Public method to load the image of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.name">name</a></td>
+<td>Public method to get the name of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.networkAccessManager">networkAccessManager</a></td>
+<td>Public method to get a reference to the network access manager object.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.providesSuggestions">providesSuggestions</a></td>
+<td>Public method to check, if the engine provides suggestions.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.requestSuggestions">requestSuggestions</a></td>
+<td>Public method to request suggestions.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.searchMethod">searchMethod</a></td>
+<td>Public method to get the HTTP request method used to perform search requests.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.searchParameters">searchParameters</a></td>
+<td>Public method to get the search parameters of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.searchUrl">searchUrl</a></td>
+<td>Public method to get a URL ready for searching.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.searchUrlTemplate">searchUrlTemplate</a></td>
+<td>Public method to get the search URL template of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setDescription">setDescription</a></td>
+<td>Public method to set the engine description.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setImage">setImage</a></td>
+<td>Public method to set the image of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setImageUrl">setImageUrl</a></td>
+<td>Public method to set the engine image URL.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setImageUrlAndLoad">setImageUrlAndLoad</a></td>
+<td>Public method to set the engine image URL.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setName">setName</a></td>
+<td>Public method to set the engine name.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setNetworkAccessManager">setNetworkAccessManager</a></td>
+<td>Public method to set the reference to the network access manager.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setSearchMethod">setSearchMethod</a></td>
+<td>Public method to set the HTTP request method used to perform search requests.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setSearchParameters">setSearchParameters</a></td>
+<td>Public method to set the engine search parameters.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setSearchUrlTemplate">setSearchUrlTemplate</a></td>
+<td>Public method to set the engine search URL template.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setSuggestionsMethod">setSuggestionsMethod</a></td>
+<td>Public method to set the HTTP request method used to perform suggestions requests.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setSuggestionsParameters">setSuggestionsParameters</a></td>
+<td>Public method to set the engine suggestions parameters.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.setSuggestionsUrlTemplate">setSuggestionsUrlTemplate</a></td>
+<td>Public method to set the engine suggestions URL template.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.suggestionsMethod">suggestionsMethod</a></td>
+<td>Public method to get the HTTP request method used to perform suggestions requests.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.suggestionsParameters">suggestionsParameters</a></td>
+<td>Public method to get the suggestions parameters of the engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.suggestionsUrl">suggestionsUrl</a></td>
+<td>Public method to get a URL ready for suggestions.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchEngine.suggestionsUrlTemplate">suggestionsUrlTemplate</a></td>
+<td>Public method to get the search URL template of the engine.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="OpenSearchEngine.parseTemplate" ID="OpenSearchEngine.parseTemplate"></a>
+<h4>OpenSearchEngine.parseTemplate (class method)</h4>
+<b>parseTemplate</b>(<i>searchTerm, searchTemplate</i>)
+<p>
+        Class method to parse a search template.
+</p>
+
+<dl>
+
+<dt><i>searchTerm</i> (str)</dt>
+<dd>
+term to search for
+</dd>
+<dt><i>searchTemplate</i> (str)</dt>
+<dd>
+template to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+parsed template
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.__init__" ID="OpenSearchEngine.__init__"></a>
+<h4>OpenSearchEngine (Constructor)</h4>
+<b>OpenSearchEngine</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.__eq__" ID="OpenSearchEngine.__eq__"></a>
+<h4>OpenSearchEngine.__eq__</h4>
+<b>__eq__</b>(<i>other</i>)
+<p>
+        Special method implementing the == operator.
+</p>
+
+<dl>
+
+<dt><i>other</i> (OpenSearchEngine)</dt>
+<dd>
+reference to an open search engine
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating equality
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.__imageObtained" ID="OpenSearchEngine.__imageObtained"></a>
+<h4>OpenSearchEngine.__imageObtained</h4>
+<b>__imageObtained</b>(<i>reply</i>)
+<p>
+        Private slot to receive the image of the engine.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.__lt__" ID="OpenSearchEngine.__lt__"></a>
+<h4>OpenSearchEngine.__lt__</h4>
+<b>__lt__</b>(<i>other</i>)
+<p>
+        Special method implementing the < operator.
+</p>
+
+<dl>
+
+<dt><i>other</i> (OpenSearchEngine)</dt>
+<dd>
+reference to an open search engine
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating less than
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.__suggestionsObtained" ID="OpenSearchEngine.__suggestionsObtained"></a>
+<h4>OpenSearchEngine.__suggestionsObtained</h4>
+<b>__suggestionsObtained</b>(<i></i>)
+<p>
+        Private slot to receive the suggestions.
+</p>
+
+<a NAME="OpenSearchEngine.description" ID="OpenSearchEngine.description"></a>
+<h4>OpenSearchEngine.description</h4>
+<b>description</b>(<i></i>)
+<p>
+        Public method to get the description of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+description of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.image" ID="OpenSearchEngine.image"></a>
+<h4>OpenSearchEngine.image</h4>
+<b>image</b>(<i></i>)
+<p>
+        Public method to get the image of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+image of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QImage
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.imageUrl" ID="OpenSearchEngine.imageUrl"></a>
+<h4>OpenSearchEngine.imageUrl</h4>
+<b>imageUrl</b>(<i></i>)
+<p>
+        Public method to get the image URL of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+image URL of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.isValid" ID="OpenSearchEngine.isValid"></a>
+<h4>OpenSearchEngine.isValid</h4>
+<b>isValid</b>(<i></i>)
+<p>
+        Public method to check, if the engine is valid.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating validity
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.loadImage" ID="OpenSearchEngine.loadImage"></a>
+<h4>OpenSearchEngine.loadImage</h4>
+<b>loadImage</b>(<i></i>)
+<p>
+        Public method to load the image of the engine.
+</p>
+
+<a NAME="OpenSearchEngine.name" ID="OpenSearchEngine.name"></a>
+<h4>OpenSearchEngine.name</h4>
+<b>name</b>(<i></i>)
+<p>
+        Public method to get the name of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.networkAccessManager" ID="OpenSearchEngine.networkAccessManager"></a>
+<h4>OpenSearchEngine.networkAccessManager</h4>
+<b>networkAccessManager</b>(<i></i>)
+<p>
+        Public method to get a reference to the network access manager object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the network access manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QNetworkAccessManager
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.providesSuggestions" ID="OpenSearchEngine.providesSuggestions"></a>
+<h4>OpenSearchEngine.providesSuggestions</h4>
+<b>providesSuggestions</b>(<i></i>)
+<p>
+        Public method to check, if the engine provides suggestions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating suggestions are provided
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.requestSuggestions" ID="OpenSearchEngine.requestSuggestions"></a>
+<h4>OpenSearchEngine.requestSuggestions</h4>
+<b>requestSuggestions</b>(<i>searchTerm</i>)
+<p>
+        Public method to request suggestions.
+</p>
+
+<dl>
+
+<dt><i>searchTerm</i> (str)</dt>
+<dd>
+term to get suggestions for
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.searchMethod" ID="OpenSearchEngine.searchMethod"></a>
+<h4>OpenSearchEngine.searchMethod</h4>
+<b>searchMethod</b>(<i></i>)
+<p>
+        Public method to get the HTTP request method used to perform search
+        requests.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+HTTP request method
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.searchParameters" ID="OpenSearchEngine.searchParameters"></a>
+<h4>OpenSearchEngine.searchParameters</h4>
+<b>searchParameters</b>(<i></i>)
+<p>
+        Public method to get the search parameters of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+search parameters of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [tuple, tuple]
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.searchUrl" ID="OpenSearchEngine.searchUrl"></a>
+<h4>OpenSearchEngine.searchUrl</h4>
+<b>searchUrl</b>(<i>searchTerm</i>)
+<p>
+        Public method to get a URL ready for searching.
+</p>
+
+<dl>
+
+<dt><i>searchTerm</i> (str)</dt>
+<dd>
+term to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.searchUrlTemplate" ID="OpenSearchEngine.searchUrlTemplate"></a>
+<h4>OpenSearchEngine.searchUrlTemplate</h4>
+<b>searchUrlTemplate</b>(<i></i>)
+<p>
+        Public method to get the search URL template of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+search URL template of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setDescription" ID="OpenSearchEngine.setDescription"></a>
+<h4>OpenSearchEngine.setDescription</h4>
+<b>setDescription</b>(<i>description</i>)
+<p>
+        Public method to set the engine description.
+</p>
+
+<dl>
+
+<dt><i>description</i> (str)</dt>
+<dd>
+description of the engine
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setImage" ID="OpenSearchEngine.setImage"></a>
+<h4>OpenSearchEngine.setImage</h4>
+<b>setImage</b>(<i>image</i>)
+<p>
+        Public method to set the image of the engine.
+</p>
+
+<dl>
+
+<dt><i>image</i> (QImage)</dt>
+<dd>
+image to be set
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setImageUrl" ID="OpenSearchEngine.setImageUrl"></a>
+<h4>OpenSearchEngine.setImageUrl</h4>
+<b>setImageUrl</b>(<i>imageUrl</i>)
+<p>
+        Public method to set the engine image URL.
+</p>
+
+<dl>
+
+<dt><i>imageUrl</i> (str)</dt>
+<dd>
+image URL of the engine
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setImageUrlAndLoad" ID="OpenSearchEngine.setImageUrlAndLoad"></a>
+<h4>OpenSearchEngine.setImageUrlAndLoad</h4>
+<b>setImageUrlAndLoad</b>(<i>imageUrl</i>)
+<p>
+        Public method to set the engine image URL.
+</p>
+
+<dl>
+
+<dt><i>imageUrl</i> (str)</dt>
+<dd>
+image URL of the engine
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setName" ID="OpenSearchEngine.setName"></a>
+<h4>OpenSearchEngine.setName</h4>
+<b>setName</b>(<i>name</i>)
+<p>
+        Public method to set the engine name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the engine
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setNetworkAccessManager" ID="OpenSearchEngine.setNetworkAccessManager"></a>
+<h4>OpenSearchEngine.setNetworkAccessManager</h4>
+<b>setNetworkAccessManager</b>(<i>networkAccessManager</i>)
+<p>
+        Public method to set the reference to the network access manager.
+</p>
+
+<dl>
+
+<dt><i>networkAccessManager</i> (QNetworkAccessManager)</dt>
+<dd>
+reference to the network access manager
+            object
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setSearchMethod" ID="OpenSearchEngine.setSearchMethod"></a>
+<h4>OpenSearchEngine.setSearchMethod</h4>
+<b>setSearchMethod</b>(<i>method</i>)
+<p>
+        Public method to set the HTTP request method used to perform search
+        requests.
+</p>
+
+<dl>
+
+<dt><i>method</i> (str)</dt>
+<dd>
+HTTP request method
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setSearchParameters" ID="OpenSearchEngine.setSearchParameters"></a>
+<h4>OpenSearchEngine.setSearchParameters</h4>
+<b>setSearchParameters</b>(<i>searchParameters</i>)
+<p>
+        Public method to set the engine search parameters.
+</p>
+
+<dl>
+
+<dt><i>searchParameters</i> (list of [tuple, tuple])</dt>
+<dd>
+search parameters of the engine
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setSearchUrlTemplate" ID="OpenSearchEngine.setSearchUrlTemplate"></a>
+<h4>OpenSearchEngine.setSearchUrlTemplate</h4>
+<b>setSearchUrlTemplate</b>(<i>searchUrlTemplate</i>)
+<p>
+        Public method to set the engine search URL template.
+</p>
+<p>
+        The URL template is processed according to the specification:
+        <a
+          href="http://www.opensearch.org/Specifications/OpenSearch/1.1#OpenSearch_URL_template_syntax">
+        http://www.opensearch.org/Specifications/OpenSearch/1.1#OpenSearch_URL_template_syntax</a>
+</p>
+<p>
+        A list of template parameters currently supported and what they are
+        replaced with:
+        <table>
+        <tr><td><b>Parameter</b></td><td><b>Value</b></td></tr>
+        <tr><td>{count}</td><td>20</td></tr>
+        <tr><td>{startIndex}</td><td>0</td></tr>
+        <tr><td>{startPage}</td><td>0</td></tr>
+        <tr><td>{language}</td>
+          <td>the default language code (RFC 3066)</td></tr>
+        <tr><td>{country}</td>
+          <td>the default country code (first part of language)</td></tr>
+        <tr><td>{inputEncoding}</td><td>UTF-8</td></tr>
+        <tr><td>{outputEncoding}</td><td>UTF-8</td></tr>
+        <tr><td>{searchTerms}</td><td>the string supplied by the user</td></tr>
+        <tr><td>{*:source}</td>
+          <td>application name, QCoreApplication::applicationName()</td></tr>
+        </table>
+</p>
+
+<dl>
+
+<dt><i>searchUrlTemplate</i> (str)</dt>
+<dd>
+search URL template of the engine
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setSuggestionsMethod" ID="OpenSearchEngine.setSuggestionsMethod"></a>
+<h4>OpenSearchEngine.setSuggestionsMethod</h4>
+<b>setSuggestionsMethod</b>(<i>method</i>)
+<p>
+        Public method to set the HTTP request method used to perform
+        suggestions requests.
+</p>
+
+<dl>
+
+<dt><i>method</i> (str)</dt>
+<dd>
+HTTP request method
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setSuggestionsParameters" ID="OpenSearchEngine.setSuggestionsParameters"></a>
+<h4>OpenSearchEngine.setSuggestionsParameters</h4>
+<b>setSuggestionsParameters</b>(<i>suggestionsParameters</i>)
+<p>
+        Public method to set the engine suggestions parameters.
+</p>
+
+<dl>
+
+<dt><i>suggestionsParameters</i> (list of [tuple, tuple])</dt>
+<dd>
+suggestions parameters of the engine
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.setSuggestionsUrlTemplate" ID="OpenSearchEngine.setSuggestionsUrlTemplate"></a>
+<h4>OpenSearchEngine.setSuggestionsUrlTemplate</h4>
+<b>setSuggestionsUrlTemplate</b>(<i>suggestionsUrlTemplate</i>)
+<p>
+        Public method to set the engine suggestions URL template.
+</p>
+
+<dl>
+
+<dt><i>suggestionsUrlTemplate</i> (str)</dt>
+<dd>
+suggestions URL template of the
+            engine
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.suggestionsMethod" ID="OpenSearchEngine.suggestionsMethod"></a>
+<h4>OpenSearchEngine.suggestionsMethod</h4>
+<b>suggestionsMethod</b>(<i></i>)
+<p>
+        Public method to get the HTTP request method used to perform
+        suggestions requests.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+HTTP request method
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.suggestionsParameters" ID="OpenSearchEngine.suggestionsParameters"></a>
+<h4>OpenSearchEngine.suggestionsParameters</h4>
+<b>suggestionsParameters</b>(<i></i>)
+<p>
+        Public method to get the suggestions parameters of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+suggestions parameters of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [tuple, tuple]
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.suggestionsUrl" ID="OpenSearchEngine.suggestionsUrl"></a>
+<h4>OpenSearchEngine.suggestionsUrl</h4>
+<b>suggestionsUrl</b>(<i>searchTerm</i>)
+<p>
+        Public method to get a URL ready for suggestions.
+</p>
+
+<dl>
+
+<dt><i>searchTerm</i> (str)</dt>
+<dd>
+term to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="OpenSearchEngine.suggestionsUrlTemplate" ID="OpenSearchEngine.suggestionsUrlTemplate"></a>
+<h4>OpenSearchEngine.suggestionsUrlTemplate</h4>
+<b>suggestionsUrlTemplate</b>(<i></i>)
+<p>
+        Public method to get the search URL template of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+search URL template of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

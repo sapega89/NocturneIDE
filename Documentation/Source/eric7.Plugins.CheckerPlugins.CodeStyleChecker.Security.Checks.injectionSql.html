@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.Checks.injectionSql</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.Checks.injectionSql</h1>
+<p>
+Module implementing a check for SQL injection.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SIMPLE_SQL_RE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_checkString">_checkString</a></td>
+<td>Function to check a given string against the list of search patterns.</td>
+</tr>
+<tr>
+<td><a href="#_evaluateAst">_evaluateAst</a></td>
+<td>Function to analyze the given ast node.</td>
+</tr>
+<tr>
+<td><a href="#checkHardcodedSqlExpressions">checkHardcodedSqlExpressions</a></td>
+<td>Function to check for SQL injection.</td>
+</tr>
+<tr>
+<td><a href="#getChecks">getChecks</a></td>
+<td>Public method to get a dictionary with checks handled by this module.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="_checkString" ID="_checkString"></a>
+<h2>_checkString</h2>
+<b>_checkString</b>(<i>data</i>)
+<p>
+    Function to check a given string against the list of search patterns.
+</p>
+
+<dl>
+
+<dt><i>data</i> (str)</dt>
+<dd>
+string data to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a match
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_evaluateAst" ID="_evaluateAst"></a>
+<h2>_evaluateAst</h2>
+<b>_evaluateAst</b>(<i>node</i>)
+<p>
+    Function to analyze the given ast node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Constant)</dt>
+<dd>
+ast node to be analyzed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating an execute call, the resulting
+        statement and a flag indicating a string replace call
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str, bool)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="checkHardcodedSqlExpressions" ID="checkHardcodedSqlExpressions"></a>
+<h2>checkHardcodedSqlExpressions</h2>
+<b>checkHardcodedSqlExpressions</b>(<i>reportError, context, _config</i>)
+<p>
+    Function to check for SQL injection.
+</p>
+
+<dl>
+
+<dt><i>reportError</i> (func)</dt>
+<dd>
+function to be used to report errors
+</dd>
+<dt><i>context</i> (SecurityContext)</dt>
+<dd>
+security context object
+</dd>
+<dt><i>_config</i> (dict)</dt>
+<dd>
+dictionary with configuration data (unused)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getChecks" ID="getChecks"></a>
+<h2>getChecks</h2>
+<b>getChecks</b>(<i></i>)
+<p>
+    Public method to get a dictionary with checks handled by this module.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing checker lists containing checker function and
+        list of codes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

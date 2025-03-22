@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Annotations.AnnotationsFutureVisitor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Annotations.AnnotationsFutureVisitor</h1>
+<p>
+Module implementing a node visitor for function type annotations.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AnnotationsFutureVisitor">AnnotationsFutureVisitor</a></td>
+<td>Class implementing a node visitor to check __future__ imports.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AnnotationsFutureVisitor" ID="AnnotationsFutureVisitor"></a>
+<h2>AnnotationsFutureVisitor</h2>
+<p>
+    Class implementing a node visitor to check __future__ imports.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>SimplifiedTypes</td></tr>
+<tr><td>SimplifyableTypes</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.__init__">AnnotationsFutureVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.__processAnnotation">__processAnnotation</a></td>
+<td>Private method to process the given annotations.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.getSimplifiedTypes">getSimplifiedTypes</a></td>
+<td>Public method Public method to get the list of detected simplified types.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.getTypingImports">getTypingImports</a></td>
+<td>Public method to get the list of typing imports.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.hasSimplifiedTypes">hasSimplifiedTypes</a></td>
+<td>Public method to check, if the analyzed code includes annotations with simplified types.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.hasTypingImports">hasTypingImports</a></td>
+<td>Public method to check, if the analyzed code includes typing imports.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.importsFutureAnnotations">importsFutureAnnotations</a></td>
+<td>Public method to check, if the analyzed code uses future annotation.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.visit_AnnAssign">visit_AnnAssign</a></td>
+<td>Public method to check type annotations.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.visit_Attribute">visit_Attribute</a></td>
+<td>Public method to record simplifiable names.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.visit_Import">visit_Import</a></td>
+<td>Public method to check imports for typing related stuff.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.visit_ImportFrom">visit_ImportFrom</a></td>
+<td>Public method to detect the 'from __future__ import annotations' import if present.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureVisitor.visit_arg">visit_arg</a></td>
+<td>Public method to check argument annotations.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AnnotationsFutureVisitor.__init__" ID="AnnotationsFutureVisitor.__init__"></a>
+<h4>AnnotationsFutureVisitor (Constructor)</h4>
+<b>AnnotationsFutureVisitor</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="AnnotationsFutureVisitor.__processAnnotation" ID="AnnotationsFutureVisitor.__processAnnotation"></a>
+<h4>AnnotationsFutureVisitor.__processAnnotation</h4>
+<b>__processAnnotation</b>(<i>node</i>)
+<p>
+        Private method to process the given annotations.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.expr)</dt>
+<dd>
+reference to the AST node containing the annotations
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.getSimplifiedTypes" ID="AnnotationsFutureVisitor.getSimplifiedTypes"></a>
+<h4>AnnotationsFutureVisitor.getSimplifiedTypes</h4>
+<b>getSimplifiedTypes</b>(<i></i>)
+<p>
+        Public method Public method to get the list of detected simplified types.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of simplified types
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.getTypingImports" ID="AnnotationsFutureVisitor.getTypingImports"></a>
+<h4>AnnotationsFutureVisitor.getTypingImports</h4>
+<b>getTypingImports</b>(<i></i>)
+<p>
+        Public method to get the list of typing imports.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of typing imports
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.hasSimplifiedTypes" ID="AnnotationsFutureVisitor.hasSimplifiedTypes"></a>
+<h4>AnnotationsFutureVisitor.hasSimplifiedTypes</h4>
+<b>hasSimplifiedTypes</b>(<i></i>)
+<p>
+        Public method to check, if the analyzed code includes annotations with
+        simplified types.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of simplified types
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.hasTypingImports" ID="AnnotationsFutureVisitor.hasTypingImports"></a>
+<h4>AnnotationsFutureVisitor.hasTypingImports</h4>
+<b>hasTypingImports</b>(<i></i>)
+<p>
+        Public method to check, if the analyzed code includes typing imports.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the use of typing imports
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.importsFutureAnnotations" ID="AnnotationsFutureVisitor.importsFutureAnnotations"></a>
+<h4>AnnotationsFutureVisitor.importsFutureAnnotations</h4>
+<b>importsFutureAnnotations</b>(<i></i>)
+<p>
+        Public method to check, if the analyzed code uses future annotation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicatung the use of future annotation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.visit_AnnAssign" ID="AnnotationsFutureVisitor.visit_AnnAssign"></a>
+<h4>AnnotationsFutureVisitor.visit_AnnAssign</h4>
+<b>visit_AnnAssign</b>(<i>node</i>)
+<p>
+        Public method to check type annotations.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AnnAssign)</dt>
+<dd>
+reference to the AST Assign node
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.visit_Attribute" ID="AnnotationsFutureVisitor.visit_Attribute"></a>
+<h4>AnnotationsFutureVisitor.visit_Attribute</h4>
+<b>visit_Attribute</b>(<i>node</i>)
+<p>
+        Public method to record simplifiable names.
+</p>
+<p>
+        If 'import typing' or 'import typing as t' is used, add simplifiable
+        names that were used later on in the code.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Attribute)</dt>
+<dd>
+reference to the AST Attribute node
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.visit_Import" ID="AnnotationsFutureVisitor.visit_Import"></a>
+<h4>AnnotationsFutureVisitor.visit_Import</h4>
+<b>visit_Import</b>(<i>node</i>)
+<p>
+        Public method to check imports for typing related stuff.
+</p>
+<p>
+        This looks like:
+        import typing
+        or
+        import typing as t
+</p>
+<p>
+        typing or t will be added to the list of typing aliases.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Import)</dt>
+<dd>
+reference to the AST Import node
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.visit_ImportFrom" ID="AnnotationsFutureVisitor.visit_ImportFrom"></a>
+<h4>AnnotationsFutureVisitor.visit_ImportFrom</h4>
+<b>visit_ImportFrom</b>(<i>node</i>)
+<p>
+        Public method to detect the 'from __future__ import annotations'
+        import if present.
+</p>
+<p>
+        If 'from typing import ...' is used, add simplifiable names that were
+        imported.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ImportFrom)</dt>
+<dd>
+reference to the AST ImportFrom node
+</dd>
+</dl>
+<a NAME="AnnotationsFutureVisitor.visit_arg" ID="AnnotationsFutureVisitor.visit_arg"></a>
+<h4>AnnotationsFutureVisitor.visit_arg</h4>
+<b>visit_arg</b>(<i>node: ast.arg</i>)
+<p>
+        Public method to check argument annotations.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.arg)</dt>
+<dd>
+reference to the AST argument node
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.MarkupProviders.HtmlProvider</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.MarkupProviders.HtmlProvider</h1>
+<p>
+Module implementing the HTML markup provider.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HtmlProvider">HtmlProvider</a></td>
+<td>Class implementing the HTML markup provider.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createProvider">createProvider</a></td>
+<td>Function to instantiate a markup provider object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HtmlProvider" ID="HtmlProvider"></a>
+<h2>HtmlProvider</h2>
+<p>
+    Class implementing the HTML markup provider.
+</p>
+
+<h3>Derived from</h3>
+MarkupBase
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HtmlProvider.__init__">HtmlProvider</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.__insertMarkup">__insertMarkup</a></td>
+<td>Private method to insert the specified markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.__makeList">__makeList</a></td>
+<td>Private method to generate the desired list markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.bold">bold</a></td>
+<td>Public method to generate bold text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.bulletedList">bulletedList</a></td>
+<td>Public method to generate bulleted list text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.code">code</a></td>
+<td>Public method to generate inline code text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.codeBlock">codeBlock</a></td>
+<td>Public method to generate code block text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasBold">hasBold</a></td>
+<td>Public method to indicate the availability of bold markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasBulletedList">hasBulletedList</a></td>
+<td>Public method to indicate the availability of bulleted list markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasCode">hasCode</a></td>
+<td>Public method to indicate the availability of inline code markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasCodeBlock">hasCodeBlock</a></td>
+<td>Public method to indicate the availability of code block markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasHyperlink">hasHyperlink</a></td>
+<td>Public method to indicate the availability of hyperlink markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasImage">hasImage</a></td>
+<td>Public method to indicate the availability of image markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasItalic">hasItalic</a></td>
+<td>Public method to indicate the availability of italic markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasLine">hasLine</a></td>
+<td>Public method to indicate the availability of a horizontal line markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasNumberedList">hasNumberedList</a></td>
+<td>Public method to indicate the availability of numbered list markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasQuote">hasQuote</a></td>
+<td>Public method to indicate the availability of block quote markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasStrikethrough">hasStrikethrough</a></td>
+<td>Public method to indicate the availability of strikethrough markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hasUnderline">hasUnderline</a></td>
+<td>Public method to indicate the availability of underline markup.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.header">header</a></td>
+<td>Public method to generate a header.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.headerLevels">headerLevels</a></td>
+<td>Public method to determine the available header levels.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.hyperlink">hyperlink</a></td>
+<td>Public method to generate hyperlink text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.image">image</a></td>
+<td>Public method to generate image text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.italic">italic</a></td>
+<td>Public method to generate italic text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.kind">kind</a></td>
+<td>Public method to get the markup kind.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.line">line</a></td>
+<td>Public method to generate a horizontal line text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.numberedList">numberedList</a></td>
+<td>Public method to generate numbered list text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.quote">quote</a></td>
+<td>Public method to generate block quote text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.strikethrough">strikethrough</a></td>
+<td>Public method to generate strikethrough text.</td>
+</tr>
+<tr>
+<td><a href="#HtmlProvider.underline">underline</a></td>
+<td>Public method to generate underline text.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HtmlProvider.__init__" ID="HtmlProvider.__init__"></a>
+<h4>HtmlProvider (Constructor)</h4>
+<b>HtmlProvider</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="HtmlProvider.__insertMarkup" ID="HtmlProvider.__insertMarkup"></a>
+<h4>HtmlProvider.__insertMarkup</h4>
+<b>__insertMarkup</b>(<i>markup, editor, addEol=False</i>)
+<p>
+        Private method to insert the specified markup.
+</p>
+<p>
+        If the editor has selected text, this text is enclosed by the given
+        markup. If no text is selected, the markup is inserted at the cursor
+        position and the cursor is positioned in between.
+</p>
+
+<dl>
+
+<dt><i>markup</i> (str)</dt>
+<dd>
+markup string to be inserted
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+<dt><i>addEol</i> (bool)</dt>
+<dd>
+flag indicating to add an eol string after the tag
+</dd>
+</dl>
+<a NAME="HtmlProvider.__makeList" ID="HtmlProvider.__makeList"></a>
+<h4>HtmlProvider.__makeList</h4>
+<b>__makeList</b>(<i>editor, listType</i>)
+<p>
+        Private method to generate the desired list markup.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+<dt><i>listType</i> (str)</dt>
+<dd>
+type of the desired list (should be ul or ol)
+</dd>
+</dl>
+<a NAME="HtmlProvider.bold" ID="HtmlProvider.bold"></a>
+<h4>HtmlProvider.bold</h4>
+<b>bold</b>(<i>editor</i>)
+<p>
+        Public method to generate bold text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.bulletedList" ID="HtmlProvider.bulletedList"></a>
+<h4>HtmlProvider.bulletedList</h4>
+<b>bulletedList</b>(<i>editor</i>)
+<p>
+        Public method to generate bulleted list text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.code" ID="HtmlProvider.code"></a>
+<h4>HtmlProvider.code</h4>
+<b>code</b>(<i>editor</i>)
+<p>
+        Public method to generate inline code text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.codeBlock" ID="HtmlProvider.codeBlock"></a>
+<h4>HtmlProvider.codeBlock</h4>
+<b>codeBlock</b>(<i>editor</i>)
+<p>
+        Public method to generate code block text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasBold" ID="HtmlProvider.hasBold"></a>
+<h4>HtmlProvider.hasBold</h4>
+<b>hasBold</b>(<i></i>)
+<p>
+        Public method to indicate the availability of bold markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of bold markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasBulletedList" ID="HtmlProvider.hasBulletedList"></a>
+<h4>HtmlProvider.hasBulletedList</h4>
+<b>hasBulletedList</b>(<i></i>)
+<p>
+        Public method to indicate the availability of bulleted list markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of bulleted list markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasCode" ID="HtmlProvider.hasCode"></a>
+<h4>HtmlProvider.hasCode</h4>
+<b>hasCode</b>(<i></i>)
+<p>
+        Public method to indicate the availability of inline code markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of inline code markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasCodeBlock" ID="HtmlProvider.hasCodeBlock"></a>
+<h4>HtmlProvider.hasCodeBlock</h4>
+<b>hasCodeBlock</b>(<i></i>)
+<p>
+        Public method to indicate the availability of code block markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of code block markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasHyperlink" ID="HtmlProvider.hasHyperlink"></a>
+<h4>HtmlProvider.hasHyperlink</h4>
+<b>hasHyperlink</b>(<i></i>)
+<p>
+        Public method to indicate the availability of hyperlink markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of hyperlink markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasImage" ID="HtmlProvider.hasImage"></a>
+<h4>HtmlProvider.hasImage</h4>
+<b>hasImage</b>(<i></i>)
+<p>
+        Public method to indicate the availability of image markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of image markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasItalic" ID="HtmlProvider.hasItalic"></a>
+<h4>HtmlProvider.hasItalic</h4>
+<b>hasItalic</b>(<i></i>)
+<p>
+        Public method to indicate the availability of italic markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of italic markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasLine" ID="HtmlProvider.hasLine"></a>
+<h4>HtmlProvider.hasLine</h4>
+<b>hasLine</b>(<i></i>)
+<p>
+        Public method to indicate the availability of a horizontal line markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of a horizontal line markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasNumberedList" ID="HtmlProvider.hasNumberedList"></a>
+<h4>HtmlProvider.hasNumberedList</h4>
+<b>hasNumberedList</b>(<i></i>)
+<p>
+        Public method to indicate the availability of numbered list markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of numbered list markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasQuote" ID="HtmlProvider.hasQuote"></a>
+<h4>HtmlProvider.hasQuote</h4>
+<b>hasQuote</b>(<i></i>)
+<p>
+        Public method to indicate the availability of block quote markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of block quote markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasStrikethrough" ID="HtmlProvider.hasStrikethrough"></a>
+<h4>HtmlProvider.hasStrikethrough</h4>
+<b>hasStrikethrough</b>(<i></i>)
+<p>
+        Public method to indicate the availability of strikethrough markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of strikethrough markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.hasUnderline" ID="HtmlProvider.hasUnderline"></a>
+<h4>HtmlProvider.hasUnderline</h4>
+<b>hasUnderline</b>(<i></i>)
+<p>
+        Public method to indicate the availability of underline markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of underline markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HtmlProvider.header" ID="HtmlProvider.header"></a>
+<h4>HtmlProvider.header</h4>
+<b>header</b>(<i>editor, level</i>)
+<p>
+        Public method to generate a header.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+<dt><i>level</i> (int)</dt>
+<dd>
+header level
+</dd>
+</dl>
+<a NAME="HtmlProvider.headerLevels" ID="HtmlProvider.headerLevels"></a>
+<h4>HtmlProvider.headerLevels</h4>
+<b>headerLevels</b>(<i></i>)
+<p>
+        Public method to determine the available header levels.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+supported header levels
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HtmlProvider.hyperlink" ID="HtmlProvider.hyperlink"></a>
+<h4>HtmlProvider.hyperlink</h4>
+<b>hyperlink</b>(<i>editor</i>)
+<p>
+        Public method to generate hyperlink text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.image" ID="HtmlProvider.image"></a>
+<h4>HtmlProvider.image</h4>
+<b>image</b>(<i>editor</i>)
+<p>
+        Public method to generate image text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.italic" ID="HtmlProvider.italic"></a>
+<h4>HtmlProvider.italic</h4>
+<b>italic</b>(<i>editor</i>)
+<p>
+        Public method to generate italic text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.kind" ID="HtmlProvider.kind"></a>
+<h4>HtmlProvider.kind</h4>
+<b>kind</b>(<i></i>)
+<p>
+        Public method to get the markup kind.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string with markup kind
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HtmlProvider.line" ID="HtmlProvider.line"></a>
+<h4>HtmlProvider.line</h4>
+<b>line</b>(<i>editor</i>)
+<p>
+        Public method to generate a horizontal line text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.numberedList" ID="HtmlProvider.numberedList"></a>
+<h4>HtmlProvider.numberedList</h4>
+<b>numberedList</b>(<i>editor</i>)
+<p>
+        Public method to generate numbered list text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.quote" ID="HtmlProvider.quote"></a>
+<h4>HtmlProvider.quote</h4>
+<b>quote</b>(<i>editor</i>)
+<p>
+        Public method to generate block quote text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.strikethrough" ID="HtmlProvider.strikethrough"></a>
+<h4>HtmlProvider.strikethrough</h4>
+<b>strikethrough</b>(<i>editor</i>)
+<p>
+        Public method to generate strikethrough text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="HtmlProvider.underline" ID="HtmlProvider.underline"></a>
+<h4>HtmlProvider.underline</h4>
+<b>underline</b>(<i>editor</i>)
+<p>
+        Public method to generate underline text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createProvider" ID="createProvider"></a>
+<h2>createProvider</h2>
+<b>createProvider</b>(<i></i>)
+<p>
+    Function to instantiate a markup provider object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated markup provider opject
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HtmlProvider
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

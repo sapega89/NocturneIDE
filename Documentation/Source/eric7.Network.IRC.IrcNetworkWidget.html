@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Network.IRC.IrcNetworkWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Network.IRC.IrcNetworkWidget</h1>
+<p>
+Module implementing the network part of the IRC widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#IrcNetworkWidget">IrcNetworkWidget</a></td>
+<td>Class implementing the network part of the IRC widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="IrcNetworkWidget" ID="IrcNetworkWidget"></a>
+<h2>IrcNetworkWidget</h2>
+<p>
+    Class implementing the network part of the IRC widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>autoConnected()</dt>
+<dd>
+emitted after an automatic connection was initiated
+</dd>
+<dt>away(bool)</dt>
+<dd>
+emitted to indicate the away status
+</dd>
+<dt>connectNetwork(str,bool,bool)</dt>
+<dd>
+emitted to connect or disconnect from
+        a network
+</dd>
+<dt>editNetwork(str)</dt>
+<dd>
+emitted to edit a network configuration
+</dd>
+<dt>joinChannel(str)</dt>
+<dd>
+emitted to join a channel
+</dd>
+<dt>nickChanged(str)</dt>
+<dd>
+emitted to change the nick name
+</dd>
+<dt>sendData(str)</dt>
+<dd>
+emitted to send a message to the channel
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_IrcNetworkWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IrcNetworkWidget.__init__">IrcNetworkWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.__autoConnect">__autoConnect</a></td>
+<td>Private method to perform the IRC auto connection.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.__clearMessages">__clearMessages</a></td>
+<td>Private slot to clear the contents of the messages display.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.__copyAllMessages">__copyAllMessages</a></td>
+<td>Private slot to copy the contents of the messages display to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.__copyMessages">__copyMessages</a></td>
+<td>Private slot to copy the selection of the messages display to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.__cutAllMessages">__cutAllMessages</a></td>
+<td>Private slot to cut the contents of the messages display to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.__initMessagesMenu">__initMessagesMenu</a></td>
+<td>Private slot to initialize the context menu of the messages pane.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.__onlineStateChanged">__onlineStateChanged</a></td>
+<td>Private slot handling online state changes.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.__refreshNetworks">__refreshNetworks</a></td>
+<td>Private slot to refresh all network related widgets.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.__saveMessages">__saveMessages</a></td>
+<td>Private slot to save the contents of the messages display.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.addErrorMessage">addErrorMessage</a></td>
+<td>Public method to add an error message.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.addMessage">addMessage</a></td>
+<td>Public method to add a message.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.addServerMessage">addServerMessage</a></td>
+<td>Public method to add a server message.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.autoConnect">autoConnect</a></td>
+<td>Public method to perform the IRC auto connection.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.getNetworkChannels">getNetworkChannels</a></td>
+<td>Public method to get the list of channels associated with the selected network.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.getNickname">getNickname</a></td>
+<td>Public method to get the currently selected nick name.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.handleAwayCommand">handleAwayCommand</a></td>
+<td>Public slot to process an away command.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.initialize">initialize</a></td>
+<td>Public method to initialize the widget.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.isConnected">isConnected</a></td>
+<td>Public method to check, if the network is connected.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_awayButton_clicked">on_awayButton_clicked</a></td>
+<td>Private slot to toggle the away status.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_channelCombo_editTextChanged">on_channelCombo_editTextChanged</a></td>
+<td>Private slot to react upon changes of the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_connectButton_clicked">on_connectButton_clicked</a></td>
+<td>Private slot to connect to a network.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_editButton_clicked">on_editButton_clicked</a></td>
+<td>Private slot to edit a network.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_joinButton_clicked">on_joinButton_clicked</a></td>
+<td>Private slot to join a channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_messages_anchorClicked">on_messages_anchorClicked</a></td>
+<td>Private slot to open links in the default browser.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_messages_copyAvailable">on_messages_copyAvailable</a></td>
+<td>Private slot to react to text selection/deselection of the messages edit.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_messages_customContextMenuRequested">on_messages_customContextMenuRequested</a></td>
+<td>Private slot to show the context menu of the messages pane.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_networkCombo_currentIndexChanged">on_networkCombo_currentIndexChanged</a></td>
+<td>Private slot to handle selections of a network.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.on_nickCombo_currentIndexChanged">on_nickCombo_currentIndexChanged</a></td>
+<td>Private slot to use another nick name.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.setConnected">setConnected</a></td>
+<td>Public slot to set the connection state.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.setNickName">setNickName</a></td>
+<td>Public slot to set the nick name in use.</td>
+</tr>
+<tr>
+<td><a href="#IrcNetworkWidget.setRegistered">setRegistered</a></td>
+<td>Public slot to set the registered state.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IrcNetworkWidget.__init__" ID="IrcNetworkWidget.__init__"></a>
+<h4>IrcNetworkWidget (Constructor)</h4>
+<b>IrcNetworkWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.__autoConnect" ID="IrcNetworkWidget.__autoConnect"></a>
+<h4>IrcNetworkWidget.__autoConnect</h4>
+<b>__autoConnect</b>(<i></i>)
+<p>
+        Private method to perform the IRC auto connection.
+</p>
+
+<a NAME="IrcNetworkWidget.__clearMessages" ID="IrcNetworkWidget.__clearMessages"></a>
+<h4>IrcNetworkWidget.__clearMessages</h4>
+<b>__clearMessages</b>(<i></i>)
+<p>
+        Private slot to clear the contents of the messages display.
+</p>
+
+<a NAME="IrcNetworkWidget.__copyAllMessages" ID="IrcNetworkWidget.__copyAllMessages"></a>
+<h4>IrcNetworkWidget.__copyAllMessages</h4>
+<b>__copyAllMessages</b>(<i></i>)
+<p>
+        Private slot to copy the contents of the messages display to
+        the clipboard.
+</p>
+
+<a NAME="IrcNetworkWidget.__copyMessages" ID="IrcNetworkWidget.__copyMessages"></a>
+<h4>IrcNetworkWidget.__copyMessages</h4>
+<b>__copyMessages</b>(<i></i>)
+<p>
+        Private slot to copy the selection of the messages display to
+        the clipboard.
+</p>
+
+<a NAME="IrcNetworkWidget.__cutAllMessages" ID="IrcNetworkWidget.__cutAllMessages"></a>
+<h4>IrcNetworkWidget.__cutAllMessages</h4>
+<b>__cutAllMessages</b>(<i></i>)
+<p>
+        Private slot to cut the contents of the messages display to
+        the clipboard.
+</p>
+
+<a NAME="IrcNetworkWidget.__initMessagesMenu" ID="IrcNetworkWidget.__initMessagesMenu"></a>
+<h4>IrcNetworkWidget.__initMessagesMenu</h4>
+<b>__initMessagesMenu</b>(<i></i>)
+<p>
+        Private slot to initialize the context menu of the messages pane.
+</p>
+
+<a NAME="IrcNetworkWidget.__onlineStateChanged" ID="IrcNetworkWidget.__onlineStateChanged"></a>
+<h4>IrcNetworkWidget.__onlineStateChanged</h4>
+<b>__onlineStateChanged</b>(<i>online</i>)
+<p>
+        Private slot handling online state changes.
+</p>
+
+<dl>
+
+<dt><i>online</i> (bool)</dt>
+<dd>
+online state
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.__refreshNetworks" ID="IrcNetworkWidget.__refreshNetworks"></a>
+<h4>IrcNetworkWidget.__refreshNetworks</h4>
+<b>__refreshNetworks</b>(<i></i>)
+<p>
+        Private slot to refresh all network related widgets.
+</p>
+
+<a NAME="IrcNetworkWidget.__saveMessages" ID="IrcNetworkWidget.__saveMessages"></a>
+<h4>IrcNetworkWidget.__saveMessages</h4>
+<b>__saveMessages</b>(<i></i>)
+<p>
+        Private slot to save the contents of the messages display.
+</p>
+
+<a NAME="IrcNetworkWidget.addErrorMessage" ID="IrcNetworkWidget.addErrorMessage"></a>
+<h4>IrcNetworkWidget.addErrorMessage</h4>
+<b>addErrorMessage</b>(<i>msgType, msg</i>)
+<p>
+        Public method to add an error message.
+</p>
+
+<dl>
+
+<dt><i>msgType</i> (str)</dt>
+<dd>
+txpe of the message
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message to be added
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.addMessage" ID="IrcNetworkWidget.addMessage"></a>
+<h4>IrcNetworkWidget.addMessage</h4>
+<b>addMessage</b>(<i>msg</i>)
+<p>
+        Public method to add a message.
+</p>
+
+<dl>
+
+<dt><i>msg</i> (str)</dt>
+<dd>
+message to be added
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.addServerMessage" ID="IrcNetworkWidget.addServerMessage"></a>
+<h4>IrcNetworkWidget.addServerMessage</h4>
+<b>addServerMessage</b>(<i>msgType, msg, filterMsg=True</i>)
+<p>
+        Public method to add a server message.
+</p>
+
+<dl>
+
+<dt><i>msgType</i> (str)</dt>
+<dd>
+txpe of the message
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message to be added
+</dd>
+<dt><i>filterMsg</i> (bool)</dt>
+<dd>
+flag indicating to filter the message
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.autoConnect" ID="IrcNetworkWidget.autoConnect"></a>
+<h4>IrcNetworkWidget.autoConnect</h4>
+<b>autoConnect</b>(<i></i>)
+<p>
+        Public method to perform the IRC auto connection.
+</p>
+
+<a NAME="IrcNetworkWidget.getNetworkChannels" ID="IrcNetworkWidget.getNetworkChannels"></a>
+<h4>IrcNetworkWidget.getNetworkChannels</h4>
+<b>getNetworkChannels</b>(<i></i>)
+<p>
+        Public method to get the list of channels associated with the
+        selected network.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+associated channels
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of IrcChannel
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.getNickname" ID="IrcNetworkWidget.getNickname"></a>
+<h4>IrcNetworkWidget.getNickname</h4>
+<b>getNickname</b>(<i></i>)
+<p>
+        Public method to get the currently selected nick name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected nick name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.handleAwayCommand" ID="IrcNetworkWidget.handleAwayCommand"></a>
+<h4>IrcNetworkWidget.handleAwayCommand</h4>
+<b>handleAwayCommand</b>(<i>awayMessage</i>)
+<p>
+        Public slot to process an away command.
+</p>
+
+<dl>
+
+<dt><i>awayMessage</i> (str)</dt>
+<dd>
+message to be set for being away
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.initialize" ID="IrcNetworkWidget.initialize"></a>
+<h4>IrcNetworkWidget.initialize</h4>
+<b>initialize</b>(<i>manager</i>)
+<p>
+        Public method to initialize the widget.
+</p>
+
+<dl>
+
+<dt><i>manager</i> (IrcNetworkManager)</dt>
+<dd>
+reference to the network manager
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.isConnected" ID="IrcNetworkWidget.isConnected"></a>
+<h4>IrcNetworkWidget.isConnected</h4>
+<b>isConnected</b>(<i></i>)
+<p>
+        Public method to check, if the network is connected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a connected network
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.on_awayButton_clicked" ID="IrcNetworkWidget.on_awayButton_clicked"></a>
+<h4>IrcNetworkWidget.on_awayButton_clicked</h4>
+<b>on_awayButton_clicked</b>(<i></i>)
+<p>
+        Private slot to toggle the away status.
+</p>
+
+<a NAME="IrcNetworkWidget.on_channelCombo_editTextChanged" ID="IrcNetworkWidget.on_channelCombo_editTextChanged"></a>
+<h4>IrcNetworkWidget.on_channelCombo_editTextChanged</h4>
+<b>on_channelCombo_editTextChanged</b>(<i>txt</i>)
+<p>
+        Private slot to react upon changes of the channel.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+current text of the channel combo
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.on_connectButton_clicked" ID="IrcNetworkWidget.on_connectButton_clicked"></a>
+<h4>IrcNetworkWidget.on_connectButton_clicked</h4>
+<b>on_connectButton_clicked</b>(<i></i>)
+<p>
+        Private slot to connect to a network.
+</p>
+
+<a NAME="IrcNetworkWidget.on_editButton_clicked" ID="IrcNetworkWidget.on_editButton_clicked"></a>
+<h4>IrcNetworkWidget.on_editButton_clicked</h4>
+<b>on_editButton_clicked</b>(<i></i>)
+<p>
+        Private slot to edit a network.
+</p>
+
+<a NAME="IrcNetworkWidget.on_joinButton_clicked" ID="IrcNetworkWidget.on_joinButton_clicked"></a>
+<h4>IrcNetworkWidget.on_joinButton_clicked</h4>
+<b>on_joinButton_clicked</b>(<i></i>)
+<p>
+        Private slot to join a channel.
+</p>
+
+<a NAME="IrcNetworkWidget.on_messages_anchorClicked" ID="IrcNetworkWidget.on_messages_anchorClicked"></a>
+<h4>IrcNetworkWidget.on_messages_anchorClicked</h4>
+<b>on_messages_anchorClicked</b>(<i>url</i>)
+<p>
+        Private slot to open links in the default browser.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.on_messages_copyAvailable" ID="IrcNetworkWidget.on_messages_copyAvailable"></a>
+<h4>IrcNetworkWidget.on_messages_copyAvailable</h4>
+<b>on_messages_copyAvailable</b>(<i>yes</i>)
+<p>
+        Private slot to react to text selection/deselection of the
+        messages edit.
+</p>
+
+<dl>
+
+<dt><i>yes</i> (bool)</dt>
+<dd>
+flag signaling the availability of selected text
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.on_messages_customContextMenuRequested" ID="IrcNetworkWidget.on_messages_customContextMenuRequested"></a>
+<h4>IrcNetworkWidget.on_messages_customContextMenuRequested</h4>
+<b>on_messages_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu of the messages pane.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the menu should be opened at
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.on_networkCombo_currentIndexChanged" ID="IrcNetworkWidget.on_networkCombo_currentIndexChanged"></a>
+<h4>IrcNetworkWidget.on_networkCombo_currentIndexChanged</h4>
+<b>on_networkCombo_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle selections of a network.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.on_nickCombo_currentIndexChanged" ID="IrcNetworkWidget.on_nickCombo_currentIndexChanged"></a>
+<h4>IrcNetworkWidget.on_nickCombo_currentIndexChanged</h4>
+<b>on_nickCombo_currentIndexChanged</b>(<i>nick=0</i>)
+<p>
+        Private slot to use another nick name.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (int)</dt>
+<dd>
+index of the selected nick name (unused)
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.setConnected" ID="IrcNetworkWidget.setConnected"></a>
+<h4>IrcNetworkWidget.setConnected</h4>
+<b>setConnected</b>(<i>connected</i>)
+<p>
+        Public slot to set the connection state.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+flag indicating the connection state
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.setNickName" ID="IrcNetworkWidget.setNickName"></a>
+<h4>IrcNetworkWidget.setNickName</h4>
+<b>setNickName</b>(<i>nick</i>)
+<p>
+        Public slot to set the nick name in use.
+</p>
+
+<dl>
+
+<dt><i>nick</i> (str)</dt>
+<dd>
+nick name in use
+</dd>
+</dl>
+<a NAME="IrcNetworkWidget.setRegistered" ID="IrcNetworkWidget.setRegistered"></a>
+<h4>IrcNetworkWidget.setRegistered</h4>
+<b>setRegistered</b>(<i>registered</i>)
+<p>
+        Public slot to set the registered state.
+</p>
+
+<dl>
+
+<dt><i>registered</i> (bool)</dt>
+<dd>
+flag indicating the registration state
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

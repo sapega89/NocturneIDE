@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonDeviceInterface</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonDeviceInterface</h1>
+<p>
+Module  implementing an interface base class to talk to a connected MicroPython device.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonDeviceInterface">MicroPythonDeviceInterface</a></td>
+<td>Class implementing an interface to talk to a connected MicroPython device.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicroPythonDeviceInterface" ID="MicroPythonDeviceInterface"></a>
+<h2>MicroPythonDeviceInterface</h2>
+<p>
+    Class implementing an interface to talk to a connected MicroPython device.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>dataReceived(data)</dt>
+<dd>
+emitted to send data received via the connection
+        for further processing
+</dd>
+<dt>executeAsyncFinished()</dt>
+<dd>
+emitted to indicate the end of an
+        asynchronously executed list of commands (e.g. a script)
+</dd>
+<dt>osdInfo(str)</dt>
+<dd>
+emitted when some OSD data was received from the device
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>PasteModePrompt</td></tr>
+<tr><td>TracebackMarker</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonDeviceInterface.__init__">MicroPythonDeviceInterface</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonDeviceInterface.connectToDevice">connectToDevice</a></td>
+<td>Public method to connect to the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonDeviceInterface.disconnectFromDevice">disconnectFromDevice</a></td>
+<td>Public slot to disconnect from the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonDeviceInterface.execute">execute</a></td>
+<td>Public method to send commands to the connected device and return the result.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonDeviceInterface.executeAsync">executeAsync</a></td>
+<td>Public method to execute a series of commands over a period of time without returning any result (asynchronous execution).</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonDeviceInterface.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot to handle a change of the preferences.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonDeviceInterface.isConnected">isConnected</a></td>
+<td>Public method to get the connection status.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonDeviceInterface.probeDevice">probeDevice</a></td>
+<td>Public method to check the device is responding.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonDeviceInterface.write">write</a></td>
+<td>Public method to write data to the connected device.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonDeviceInterface.__init__" ID="MicroPythonDeviceInterface.__init__"></a>
+<h4>MicroPythonDeviceInterface (Constructor)</h4>
+<b>MicroPythonDeviceInterface</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="MicroPythonDeviceInterface.connectToDevice" ID="MicroPythonDeviceInterface.connectToDevice"></a>
+<h4>MicroPythonDeviceInterface.connectToDevice</h4>
+<b>connectToDevice</b>(<i>connection</i>)
+<p>
+        Public method to connect to the device.
+</p>
+
+<dl>
+
+<dt><i>connection</i> (str)</dt>
+<dd>
+name of the connection to be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+raised to indicate that this method needs to
+            be implemented in a derived class
+</dd>
+</dl>
+<a NAME="MicroPythonDeviceInterface.disconnectFromDevice" ID="MicroPythonDeviceInterface.disconnectFromDevice"></a>
+<h4>MicroPythonDeviceInterface.disconnectFromDevice</h4>
+<b>disconnectFromDevice</b>(<i></i>)
+<p>
+        Public slot to disconnect from the device.
+</p>
+
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+raised to indicate that this method needs to
+            be implemented in a derived class
+</dd>
+</dl>
+<a NAME="MicroPythonDeviceInterface.execute" ID="MicroPythonDeviceInterface.execute"></a>
+<h4>MicroPythonDeviceInterface.execute</h4>
+<b>execute</b>(<i>commands, *, mode="raw", timeout=0</i>)
+<p>
+        Public method to send commands to the connected device and return the
+        result.
+</p>
+<p>
+        If no connection is available, empty results will be returned.
+</p>
+
+<dl>
+
+<dt><i>commands</i> (str or list of str)</dt>
+<dd>
+list of commands to be executed
+</dd>
+<dt><i>mode=</i> (str)</dt>
+<dd>
+submit mode to be used (one of 'raw' or 'paste') (defaults to
+            'raw')
+</dd>
+<dt><i>timeout=</i> (int (optional))</dt>
+<dd>
+per command timeout in milliseconds (0 for configured default)
+            (defaults to 0)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing stdout and stderr output of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bytes, bytes)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+raised to indicate that this method needs to
+            be implemented in a derived class
+</dd>
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised in case of an unsupported submit mode
+</dd>
+</dl>
+<a NAME="MicroPythonDeviceInterface.executeAsync" ID="MicroPythonDeviceInterface.executeAsync"></a>
+<h4>MicroPythonDeviceInterface.executeAsync</h4>
+<b>executeAsync</b>(<i>commandsList, submitMode</i>)
+<p>
+        Public method to execute a series of commands over a period of time
+        without returning any result (asynchronous execution).
+</p>
+
+<dl>
+
+<dt><i>commandsList</i> (list of str)</dt>
+<dd>
+list of commands to be execute on the device
+</dd>
+<dt><i>submitMode</i> (str)</dt>
+<dd>
+mode to be used to submit the commands (one of 'raw'
+            or 'paste')
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+raised to indicate that this method needs to
+            be implemented in a derived class
+</dd>
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an unknown submit mode
+</dd>
+</dl>
+<a NAME="MicroPythonDeviceInterface.handlePreferencesChanged" ID="MicroPythonDeviceInterface.handlePreferencesChanged"></a>
+<h4>MicroPythonDeviceInterface.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of the preferences.
+</p>
+
+<a NAME="MicroPythonDeviceInterface.isConnected" ID="MicroPythonDeviceInterface.isConnected"></a>
+<h4>MicroPythonDeviceInterface.isConnected</h4>
+<b>isConnected</b>(<i></i>)
+<p>
+        Public method to get the connection status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the connection status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+raised to indicate that this method needs to
+            be implemented in a derived class
+</dd>
+</dl>
+<a NAME="MicroPythonDeviceInterface.probeDevice" ID="MicroPythonDeviceInterface.probeDevice"></a>
+<h4>MicroPythonDeviceInterface.probeDevice</h4>
+<b>probeDevice</b>(<i></i>)
+<p>
+        Public method to check the device is responding.
+</p>
+<p>
+        If the device has not been flashed with a MicroPython firmware, the
+        probe will fail.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a communicating MicroPython device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+raised to indicate that this method needs to
+            be implemented in a derived class
+</dd>
+</dl>
+<a NAME="MicroPythonDeviceInterface.write" ID="MicroPythonDeviceInterface.write"></a>
+<h4>MicroPythonDeviceInterface.write</h4>
+<b>write</b>(<i>data</i>)
+<p>
+        Public method to write data to the connected device.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytes or bytearray)</dt>
+<dd>
+data to be written
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+raised to indicate that this method needs to
+            be implemented in a derived class
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,5035 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.ViewManager.ViewManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.ViewManager.ViewManager</h1>
+<p>
+Module implementing the view manager base class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ViewManager">ViewManager</a></td>
+<td>Base class inherited by all specific view manager classes.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ViewManager" ID="ViewManager"></a>
+<h2>ViewManager</h2>
+<p>
+    Base class inherited by all specific view manager classes.
+</p>
+<p>
+    It defines the interface to be implemented by specific
+    view manager classes and all common methods.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>astViewerStateChanged(bool)</dt>
+<dd>
+emitted to signal a change in the
+        AST viewer state
+</dd>
+<dt>bookmarkToggled(Editor)</dt>
+<dd>
+emitted when a bookmark is toggled
+</dd>
+<dt>breakpointToggled(Editor)</dt>
+<dd>
+emitted when a breakpoint is toggled
+</dd>
+<dt>changeCaption(str)</dt>
+<dd>
+emitted if a change of the caption is necessary
+</dd>
+<dt>checkActions(Editor)</dt>
+<dd>
+emitted when some actions should be checked
+        for their status
+</dd>
+<dt>cursorChanged(Editor)</dt>
+<dd>
+emitted after the cursor position of the
+        active window has changed
+</dd>
+<dt>disViewerStateChanged(bool)</dt>
+<dd>
+emitted to signal a change in the
+        DIS viewer state
+</dd>
+<dt>editorChanged(str)</dt>
+<dd>
+emitted when the current editor has changed
+</dd>
+<dt>editorChangedEd(Editor)</dt>
+<dd>
+emitted when the current editor has changed
+</dd>
+<dt>editorClosed(str)</dt>
+<dd>
+emitted just before an editor window gets closed
+</dd>
+<dt>editorClosedEd(Editor)</dt>
+<dd>
+emitted just before an editor window gets
+        closed
+</dd>
+<dt>editorCountChanged(count)</dt>
+<dd>
+emitted whenever the count of open editors
+        changed
+</dd>
+<dt>editorDoubleClickedEd(Editor, position, buttons)</dt>
+<dd>
+emitted to signal
+        a mouse double click in an editor
+</dd>
+<dt>editorLanguageChanged(Editor)</dt>
+<dd>
+emitted to signal a change of an
+        editor's language
+</dd>
+<dt>editorLineChanged(str,int)</dt>
+<dd>
+emitted to signal a change of an
+        editor's current line (line is given one based)
+</dd>
+<dt>editorLineChangedEd(Editor,int)</dt>
+<dd>
+emitted to signal a change of an
+        editor's current line (line is given one based)
+</dd>
+<dt>editorOpened(str)</dt>
+<dd>
+emitted after an editor window was opened
+</dd>
+<dt>editorOpenedEd(Editor)</dt>
+<dd>
+emitted after an editor window was opened
+</dd>
+<dt>editorRenamed(str)</dt>
+<dd>
+emitted after an editor was renamed
+</dd>
+<dt>editorRenamedEd(Editor)</dt>
+<dd>
+emitted after an editor was renamed
+</dd>
+<dt>editorSaved(str)</dt>
+<dd>
+emitted after an editor window was saved
+</dd>
+<dt>editorSavedEd(Editor)</dt>
+<dd>
+emitted after an editor window was saved
+</dd>
+<dt>editorTextChanged(Editor)</dt>
+<dd>
+emitted to signal a change of an
+        editor's text
+</dd>
+<dt>lastEditorClosed()</dt>
+<dd>
+emitted after the last editor window was closed
+</dd>
+<dt>previewStateChanged(bool)</dt>
+<dd>
+emitted to signal a change in the
+        preview state
+</dd>
+<dt>syntaxerrorToggled(Editor)</dt>
+<dd>
+emitted when a syntax error is toggled
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ViewManager.__init__">ViewManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__addBookmarked">__addBookmarked</a></td>
+<td>Private method to add the current file to the list of bookmarked files.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__astViewer">__astViewer</a></td>
+<td>Private slot to handle a change of the AST Viewer selection state.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__bookmarkSelected">__bookmarkSelected</a></td>
+<td>Private method to handle the bookmark selected signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__bookmarkToggled">__bookmarkToggled</a></td>
+<td>Private slot to handle the bookmarkToggled signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__breakpointToggled">__breakpointToggled</a></td>
+<td>Private slot to handle the breakpointToggled signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__changeMarkersUpdated">__changeMarkersUpdated</a></td>
+<td>Private slot to handle the changeMarkersUpdated signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__clearAllBookmarks">__clearAllBookmarks</a></td>
+<td>Private method to handle the clear all bookmarks action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__clearAllFolds">__clearAllFolds</a></td>
+<td>Private method to handle the clear all folds action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__clearAllSyntaxErrors">__clearAllSyntaxErrors</a></td>
+<td>Private method to handle the clear all syntax errors action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__clearAllWarnings">__clearAllWarnings</a></td>
+<td>Private method to handle the clear all warnings action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__clearBookmarked">__clearBookmarked</a></td>
+<td>Private method to clear the bookmarked files menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__connectEditor">__connectEditor</a></td>
+<td>Private method to establish all editor connections.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__convertEOL">__convertEOL</a></td>
+<td>Private method to handle the convert line end characters action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__convertTabs">__convertTabs</a></td>
+<td>Private method to handle the convert tabs to spaces action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__coverageMarkersShown">__coverageMarkersShown</a></td>
+<td>Private slot to handle the coverageMarkersShown signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__cursorChanged">__cursorChanged</a></td>
+<td>Private slot to handle the cursorChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__disViewer">__disViewer</a></td>
+<td>Private slot to handle a change of the DIS Viewer selection state.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editAutoComplete">__editAutoComplete</a></td>
+<td>Private method to handle the autocomplete action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editAutoCompleteFromAPIs">__editAutoCompleteFromAPIs</a></td>
+<td>Private method to handle the autocomplete from APIs action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editAutoCompleteFromAll">__editAutoCompleteFromAll</a></td>
+<td>Private method to handle the autocomplete from All action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editAutoCompleteFromDoc">__editAutoCompleteFromDoc</a></td>
+<td>Private method to handle the autocomplete from document action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editBookmarked">__editBookmarked</a></td>
+<td>Private method to edit the list of bookmarked files.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editBoxComment">__editBoxComment</a></td>
+<td>Private method to handle the box comment action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editComment">__editComment</a></td>
+<td>Private method to handle the comment action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editCopy">__editCopy</a></td>
+<td>Private method to handle the copy action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editCut">__editCut</a></td>
+<td>Private method to handle the cut action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editDelete">__editDelete</a></td>
+<td>Private method to handle the delete action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editDeselectAll">__editDeselectAll</a></td>
+<td>Private method to handle the select all action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editIndent">__editIndent</a></td>
+<td>Private method to handle the indent action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editInsertDocstring">__editInsertDocstring</a></td>
+<td>Private method to insert a docstring.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editJoin">__editJoin</a></td>
+<td>Private method to handle the join action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editPaste">__editPaste</a></td>
+<td>Private method to handle the paste action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editProjectPEL">__editProjectPEL</a></td>
+<td>Private slot to edit the project exception list.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editProjectPWL">__editProjectPWL</a></td>
+<td>Private slot to edit the project word list.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editRedo">__editRedo</a></td>
+<td>Private method to handle the redo action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editRevert">__editRevert</a></td>
+<td>Private method to handle the revert action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editSelectAll">__editSelectAll</a></td>
+<td>Private method to handle the select all action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editSelectBrace">__editSelectBrace</a></td>
+<td>Private method to handle the select to brace action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editShowCallTips">__editShowCallTips</a></td>
+<td>Private method to handle the calltips action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editShowCodeInfo">__editShowCodeInfo</a></td>
+<td>Private method to handle the code info action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editSmartIndent">__editSmartIndent</a></td>
+<td>Private method to handle the smart indent action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editSortSelectedLines">__editSortSelectedLines</a></td>
+<td>Private slot to sort the selected lines.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editSpellingDictionary">__editSpellingDictionary</a></td>
+<td>Private slot to edit the given spelling dictionary.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editStreamComment">__editStreamComment</a></td>
+<td>Private method to handle the stream comment action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editToggleComment">__editToggleComment</a></td>
+<td>Private method to handle the toggle comment action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editUncomment">__editUncomment</a></td>
+<td>Private method to handle the uncomment action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editUndo">__editUndo</a></td>
+<td>Private method to handle the undo action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editUnindent">__editUnindent</a></td>
+<td>Private method to handle the unindent action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editUserPEL">__editUserPEL</a></td>
+<td>Private slot to edit the user exception list.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editUserPWL">__editUserPWL</a></td>
+<td>Private slot to edit the user word list.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editorAutoCompletionAPIsAvailable">__editorAutoCompletionAPIsAvailable</a></td>
+<td>Private method to handle the availability of API autocompletion signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editorCommand">__editorCommand</a></td>
+<td>Private method to send an editor command to the active window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editorConfigChanged">__editorConfigChanged</a></td>
+<td>Private slot to handle changes of an editor's configuration.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editorDoubleClicked">__editorDoubleClicked</a></td>
+<td>Private slot handling mouse double clicks of an editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editorOpened">__editorOpened</a></td>
+<td>Private slot to handle the editorOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editorRenamed">__editorRenamed</a></td>
+<td>Private slot to handle the editorRenamed signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editorSaved">__editorSaved</a></td>
+<td>Private slot to handle the editorSaved signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__editorSelectionChanged">__editorSelectionChanged</a></td>
+<td>Private slot to handle changes of the current editors selection.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__enableSpellingActions">__enableSpellingActions</a></td>
+<td>Private method to set the enabled state of the spelling actions.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__eolPixmap">__eolPixmap</a></td>
+<td>Private method to get an EOL pixmap for an EOL string.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__exportMenuTriggered">__exportMenuTriggered</a></td>
+<td>Private method to handle the selection of an export format.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__findLocation">__findLocation</a></td>
+<td>Private method to handle the Find File action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__findNextWord">__findNextWord</a></td>
+<td>Private slot to find the next occurrence of the current word of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__findPrevWord">__findPrevWord</a></td>
+<td>Private slot to find the previous occurrence of the current word of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__goto">__goto</a></td>
+<td>Private method to handle the goto action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__gotoBrace">__gotoBrace</a></td>
+<td>Private method to handle the goto brace action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__gotoLastEditPosition">__gotoLastEditPosition</a></td>
+<td>Private method to move the cursor to the last edit position.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__gotoNextMethodClass">__gotoNextMethodClass</a></td>
+<td>Private slot to go to the next Python/Ruby method or class definition.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__gotoPreviousMethodClass">__gotoPreviousMethodClass</a></td>
+<td>Private slot to go to the previous Python/Ruby method or class definition.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__gotoSyntaxError">__gotoSyntaxError</a></td>
+<td>Private method to handle the goto syntax error action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__initBookmarkActions">__initBookmarkActions</a></td>
+<td>Private method defining the user interface actions for the bookmarks commands.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__initContextMenuExporters">__initContextMenuExporters</a></td>
+<td>Private method used to setup the Exporters sub menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__initEditActions">__initEditActions</a></td>
+<td>Private method defining the user interface actions for the edit commands.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__initFileActions">__initFileActions</a></td>
+<td>Private method defining the user interface actions for file handling.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__initMacroActions">__initMacroActions</a></td>
+<td>Private method defining the user interface actions for the macro commands.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__initSearchActions">__initSearchActions</a></td>
+<td>Private method defining the user interface actions for the search commands.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__initSpellingActions">__initSpellingActions</a></td>
+<td>Private method to initialize the spell checking actions.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__initViewActions">__initViewActions</a></td>
+<td>Private method defining the user interface actions for the view commands.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__isEditorInfoSupportedEd">__isEditorInfoSupportedEd</a></td>
+<td>Private method to check, if an editor is supported by the documentation viewer.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__lastEditPositionAvailable">__lastEditPositionAvailable</a></td>
+<td>Private slot to handle the lastEditPositionAvailable signal of an editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__lastEditorClosed">__lastEditorClosed</a></td>
+<td>Private slot to handle the lastEditorClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__loadRecent">__loadRecent</a></td>
+<td>Private method to load the recently opened filenames.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__macroDelete">__macroDelete</a></td>
+<td>Private method to handle the delete macro action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__macroLoad">__macroLoad</a></td>
+<td>Private method to handle the load macro action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__macroRun">__macroRun</a></td>
+<td>Private method to handle the run macro action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__macroSave">__macroSave</a></td>
+<td>Private method to handle the save macro action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__macroStartRecording">__macroStartRecording</a></td>
+<td>Private method to handle the start macro recording action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__macroStopRecording">__macroStopRecording</a></td>
+<td>Private method to handle the stop macro recording action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__newDocumentSplitView">__newDocumentSplitView</a></td>
+<td>Private method to open a new view of the current editor in a new split.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__newDocumentView">__newDocumentView</a></td>
+<td>Private method to open a new view of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__newLineBelow">__newLineBelow</a></td>
+<td>Private method to insert a new line below the current one even if cursor is not at the end of the line.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__nextBookmark">__nextBookmark</a></td>
+<td>Private method to handle the next bookmark action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__nextChange">__nextChange</a></td>
+<td>Private method to handle the next change action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__nextTask">__nextTask</a></td>
+<td>Private method to handle the next task action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__nextUncovered">__nextUncovered</a></td>
+<td>Private method to handle the next uncovered action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__nextWarning">__nextWarning</a></td>
+<td>Private method to handle the next warning action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__openFiles">__openFiles</a></td>
+<td>Private slot to open some files.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__openRemoteFiles">__openRemoteFiles</a></td>
+<td>Private slot to open some files.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__openSourceFile">__openSourceFile</a></td>
+<td>Private method to open a file from the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__previewEditor">__previewEditor</a></td>
+<td>Private slot to handle a change of the preview selection state.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__previousBookmark">__previousBookmark</a></td>
+<td>Private method to handle the previous bookmark action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__previousChange">__previousChange</a></td>
+<td>Private method to handle the previous change action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__previousTask">__previousTask</a></td>
+<td>Private method to handle the previous task action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__previousUncovered">__previousUncovered</a></td>
+<td>Private method to handle the previous uncovered action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__previousWarning">__previousWarning</a></td>
+<td>Private method to handle the previous warning action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__reloadCurrentEditor">__reloadCurrentEditor</a></td>
+<td>Private slot to reload the contents of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__replaceFiles">__replaceFiles</a></td>
+<td>Private method to handle the replace in files action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__replaceOpenFiles">__replaceOpenFiles</a></td>
+<td>Private method to handle the replace in open files action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__saveRecent">__saveRecent</a></td>
+<td>Private method to save the list of recently opened filenames.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__searchClearMarkers">__searchClearMarkers</a></td>
+<td>Private method to clear the search markers of the active window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__searchFiles">__searchFiles</a></td>
+<td>Private method to handle the search in files action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__searchNext">__searchNext</a></td>
+<td>Private slot to handle the search next action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__searchOpenFiles">__searchOpenFiles</a></td>
+<td>Private method to handle the search in open files action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__searchPrev">__searchPrev</a></td>
+<td>Private slot to handle the search previous action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__setAutoSpellChecking">__setAutoSpellChecking</a></td>
+<td>Private slot to set the automatic spell checking of all editors.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__setSbFile">__setSbFile</a></td>
+<td>Private method to set the file info in the status bar.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__shortenEmptyLines">__shortenEmptyLines</a></td>
+<td>Private method to handle the shorten empty lines action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__showBookmarkMenu">__showBookmarkMenu</a></td>
+<td>Private method to set up the bookmark menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__showBookmarkedMenu">__showBookmarkedMenu</a></td>
+<td>Private method to set up bookmarked files menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__showBookmarksMenu">__showBookmarksMenu</a></td>
+<td>Private method to handle the show bookmarks menu signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__showEditSpellingMenu">__showEditSpellingMenu</a></td>
+<td>Private method to set up the edit dictionaries menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__showEncodingsMenu">__showEncodingsMenu</a></td>
+<td>Private slot to show the Encodings menu of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__showEolMenu">__showEolMenu</a></td>
+<td>Private slot to show the EOL menu of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__showFileMenu">__showFileMenu</a></td>
+<td>Private method to set up the file menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__showLanguagesMenu">__showLanguagesMenu</a></td>
+<td>Private slot to show the Languages menu of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__showRecentMenu">__showRecentMenu</a></td>
+<td>Private method to set up recent files menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__spellCheck">__spellCheck</a></td>
+<td>Private slot to perform a spell check of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__splitOrientation">__splitOrientation</a></td>
+<td>Private method to handle the split orientation action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__splitView">__splitView</a></td>
+<td>Private method to handle the split view action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__taskMarkersUpdated">__taskMarkersUpdated</a></td>
+<td>Private slot to handle the taskMarkersUpdated signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__toggleAll">__toggleAll</a></td>
+<td>Private method to handle the toggle all folds action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__toggleAllChildren">__toggleAllChildren</a></td>
+<td>Private method to handle the toggle all folds (including children) action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__toggleBookmark">__toggleBookmark</a></td>
+<td>Private method to handle the toggle bookmark action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__toggleCurrent">__toggleCurrent</a></td>
+<td>Private method to handle the toggle current fold action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__unhighlight">__unhighlight</a></td>
+<td>Private slot to switch of all highlights.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__watchedFileChanged">__watchedFileChanged</a></td>
+<td>Private slot handling a file has been modified, renamed or removed.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__watcherError">__watcherError</a></td>
+<td>Private slot to handle an error of the file system watcher.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__zoom">__zoom</a></td>
+<td>Private method to handle the zoom action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__zoomIn">__zoomIn</a></td>
+<td>Private method to handle the zoom in action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__zoomOut">__zoomOut</a></td>
+<td>Private method to handle the zoom out action.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__zoomReset">__zoomReset</a></td>
+<td>Private method to reset the zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.__zoomTo">__zoomTo</a></td>
+<td>Private slot to zoom to a given value.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._addView">_addView</a></td>
+<td>Protected method to add a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._checkActions">_checkActions</a></td>
+<td>Protected slot to check some actions for their enable/disable status and set the statusbar info.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._getOpenFileFilter">_getOpenFileFilter</a></td>
+<td>Protected method to return the active filename filter for a file open dialog.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._getOpenStartDir">_getOpenStartDir</a></td>
+<td>Protected method to return the starting directory for a file open dialog.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._initWindowActions">_initWindowActions</a></td>
+<td>Protected method to define the user interface actions for window handling.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._modificationStatusChanged">_modificationStatusChanged</a></td>
+<td>Protected slot to handle the modificationStatusChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._removeAllViews">_removeAllViews</a></td>
+<td>Protected method to remove all views (i.e.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._removeView">_removeView</a></td>
+<td>Protected method to remove a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._showView">_showView</a></td>
+<td>Protected method to show a view (i.e.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager._syntaxErrorToggled">_syntaxErrorToggled</a></td>
+<td>Protected slot to handle the syntaxerrorToggled signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.activeWindow">activeWindow</a></td>
+<td>Public method to return the active (i.e.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.addSplit">addSplit</a></td>
+<td>Public method used to split the current view.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.addToExtrasMenu">addToExtrasMenu</a></td>
+<td>Public method to add some actions to the Extras menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.addToRecentList">addToRecentList</a></td>
+<td>Public slot to add a filename to the list of recently opened files.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.addWatchedFilePath">addWatchedFilePath</a></td>
+<td>Public method to add a file to the list of monitored files.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.appFocusChanged">appFocusChanged</a></td>
+<td>Public method to handle the global change of focus.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.canCascade">canCascade</a></td>
+<td>Public method to signal if cascading of managed windows is available.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.canSplit">canSplit</a></td>
+<td>Public method to signal if splitting of the view is available.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.canTile">canTile</a></td>
+<td>Public method to signal if tiling of managed windows is available.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.cancelSharedEdit">cancelSharedEdit</a></td>
+<td>Public slot to cancel a shared edit session for the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.cascade">cascade</a></td>
+<td>Public method to cascade the managed windows.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.checkAllDirty">checkAllDirty</a></td>
+<td>Public method to check the dirty status of all editors.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.checkDirty">checkDirty</a></td>
+<td>Public method to check the dirty status and open a message window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.checkFileDirty">checkFileDirty</a></td>
+<td>Public method to check the dirty status of an editor given its file name and open a message window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.clearRecent">clearRecent</a></td>
+<td>Public method to clear the recent files menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.cloneEditor">cloneEditor</a></td>
+<td>Public method to clone an editor displaying the given document.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.closeAllWindows">closeAllWindows</a></td>
+<td>Public method to close all editor windows.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.closeCurrentWindow">closeCurrentWindow</a></td>
+<td>Public method to close the current window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.closeDeviceEditors">closeDeviceEditors</a></td>
+<td>Public slot to close all editors related to a MicroPython device.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.closeEditor">closeEditor</a></td>
+<td>Public method to close an editor window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.closeEditorWindow">closeEditorWindow</a></td>
+<td>Public method to close an arbitrary source editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.closeRemoteEditors">closeRemoteEditors</a></td>
+<td>Public slot to close all editors related to a connected eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.closeViewManager">closeViewManager</a></td>
+<td>Public method to shutdown the viewmanager.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.closeWindow">closeWindow</a></td>
+<td>Public method to close an arbitrary source editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.editorsCheckFocusInEnabled">editorsCheckFocusInEnabled</a></td>
+<td>Public method returning the flag indicating editors should perform focus in checks.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.enableEditorsCheckFocusIn">enableEditorsCheckFocusIn</a></td>
+<td>Public method to set a flag enabling the editors to perform focus in checks.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.eventFilter">eventFilter</a></td>
+<td>Public method called to filter an event.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.exit">exit</a></td>
+<td>Public method to handle the debugged program terminating.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getAPIsManager">getAPIsManager</a></td>
+<td>Public method to get a reference to the APIs manager.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getActions">getActions</a></td>
+<td>Public method to get a list of all actions.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getActiveName">getActiveName</a></td>
+<td>Public method to retrieve the filename of the active window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getEditor">getEditor</a></td>
+<td>Public method to return the editor displaying the given file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getMostRecent">getMostRecent</a></td>
+<td>Public method to get the most recently opened file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getNumber">getNumber</a></td>
+<td>Public method to get a number from the active window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getOpenEditor">getOpenEditor</a></td>
+<td>Public method to return the editor displaying the given file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getOpenEditorCount">getOpenEditorCount</a></td>
+<td>Public method to return the count of editors displaying the given file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getOpenEditorList">getOpenEditorList</a></td>
+<td>Public method to return a list of all editors displaying the given file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getOpenEditors">getOpenEditors</a></td>
+<td>Public method to get references to all open editors.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getOpenEditorsCount">getOpenEditorsCount</a></td>
+<td>Public method to get the number of open editors.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getOpenEditorsForSession">getOpenEditorsForSession</a></td>
+<td>Public method to get a lists of all open editors.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getOpenFilenames">getOpenFilenames</a></td>
+<td>Public method returning a list of the filenames of all editors.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getSRHistory">getSRHistory</a></td>
+<td>Public method to get the search or replace history list.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.getSplitOrientation">getSplitOrientation</a></td>
+<td>Public method to get the orientation of the split view.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.handleResetUI">handleResetUI</a></td>
+<td>Public slot to handle the resetUI signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.hasDirtyEditor">hasDirtyEditor</a></td>
+<td>Public method to ask, if any of the open editors contains unsaved changes.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initActions">initActions</a></td>
+<td>Public method defining the user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initBookmarkMenu">initBookmarkMenu</a></td>
+<td>Public method to create the Bookmark menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initBookmarkToolbar">initBookmarkToolbar</a></td>
+<td>Public method to create the Bookmark toolbar.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initEditMenu">initEditMenu</a></td>
+<td>Public method to create the Edit menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initEditToolbar">initEditToolbar</a></td>
+<td>Public method to create the Edit toolbar.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initFileMenu">initFileMenu</a></td>
+<td>Public method to create the File menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initFileToolbar">initFileToolbar</a></td>
+<td>Public method to create the File toolbar.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initMacroMenu">initMacroMenu</a></td>
+<td>Public method to create the Macro menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initSearchMenu">initSearchMenu</a></td>
+<td>Public method to create the Search menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initSearchToolbar">initSearchToolbar</a></td>
+<td>Public method to create the Search toolbar.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initSpellingToolbar">initSpellingToolbar</a></td>
+<td>Public method to create the Spelling toolbar.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initViewMenu">initViewMenu</a></td>
+<td>Public method to create the View menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.initViewToolbar">initViewToolbar</a></td>
+<td>Public method to create the View toolbar.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.insertNumber">insertNumber</a></td>
+<td>Public slot to insert a number text into the active window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.insertSymbol">insertSymbol</a></td>
+<td>Public slot to insert a symbol text into the active window.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.isConnected">isConnected</a></td>
+<td>Public method to check the connection status of the IDE.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.isEditorInfoSupported">isEditorInfoSupported</a></td>
+<td>Public method to check, if a language is supported by the documentation viewer.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.mainWidget">mainWidget</a></td>
+<td>Public method to return a reference to the main Widget of a specific view manager subclass.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.newEditor">newEditor</a></td>
+<td>Public method to generate a new empty editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.newEditorView">newEditorView</a></td>
+<td>Public method to create a new editor displaying the given document.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.newEditorWithText">newEditorWithText</a></td>
+<td>Public method to generate a new editor with a given text and associated file name.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.nextSplit">nextSplit</a></td>
+<td>Public slot used to move to the next split.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.openFiles">openFiles</a></td>
+<td>Public slot to open some files.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.openSourceFile">openSourceFile</a></td>
+<td>Public slot to display a file in an editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.openSourceFileLinePos">openSourceFileLinePos</a></td>
+<td>Public slot to display a file in an editor at a given line and position.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle the preferencesChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.prevSplit">prevSplit</a></td>
+<td>Public slot used to move to the previous split.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.printCurrentEditor">printCurrentEditor</a></td>
+<td>Public slot to print the contents of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.printEditor">printEditor</a></td>
+<td>Public slot to print an editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.printPreviewCurrentEditor">printPreviewCurrentEditor</a></td>
+<td>Public slot to show a print preview of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.printPreviewEditor">printPreviewEditor</a></td>
+<td>Public slot to show a print preview of an editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.projectClosed">projectClosed</a></td>
+<td>Public slot to handle the projectClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.projectFileRenamed">projectFileRenamed</a></td>
+<td>Public slot to handle the projectFileRenamed signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.projectLexerAssociationsChanged">projectLexerAssociationsChanged</a></td>
+<td>Public slot to handle changes of the project lexer associations.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.projectOpened">projectOpened</a></td>
+<td>Public slot to handle the projectOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.receive">receive</a></td>
+<td>Public slot to handle received editor commands.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.remoteConnectionChanged">remoteConnectionChanged</a></td>
+<td>Public slot handling a change of the connection state to an eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.removeSplit">removeSplit</a></td>
+<td>Public method used to remove the current split view or a split view by index.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.removeWatchedFilePath">removeWatchedFilePath</a></td>
+<td>Public method to remove a file from the list of monitored files.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveAllEditors">saveAllEditors</a></td>
+<td>Public slot to save the contents of all editors.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveAsCurrentEditor">saveAsCurrentEditor</a></td>
+<td>Public slot to save the contents of the current editor to a new file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveAsEditorEd">saveAsEditorEd</a></td>
+<td>Public slot to save the contents of an editor to a new file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveAsRemoteCurrentEditor">saveAsRemoteCurrentEditor</a></td>
+<td>Public slot to save the contents of the current editor to a new file on a connected eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveAsRemoteEditorEd">saveAsRemoteEditorEd</a></td>
+<td>Public slot to save the contents of an editor to a new file on a connected eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveCopyCurrentEditor">saveCopyCurrentEditor</a></td>
+<td>Public slot to save the contents of the current editor to a new copy of the file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveCopyEditorEd">saveCopyEditorEd</a></td>
+<td>Public slot to save the contents of an editor to a new copy of the file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveCurrentEditor">saveCurrentEditor</a></td>
+<td>Public slot to save the contents of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveEditor">saveEditor</a></td>
+<td>Public method to save a named editor file.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveEditorEd">saveEditorEd</a></td>
+<td>Public slot to save the contents of an editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.saveEditorsList">saveEditorsList</a></td>
+<td>Public slot to save a list of editors.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.searchReplaceWidget">searchReplaceWidget</a></td>
+<td>Public method to get a reference to the search widget.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.send">send</a></td>
+<td>Public method to send an editor command to remote editors.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.sendSharedEdit">sendSharedEdit</a></td>
+<td>Public slot to end a shared edit session for the current editor and send the changes.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.setCooperationClient">setCooperationClient</a></td>
+<td>Public method to set a reference to the cooperation client.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.setEditorName">setEditorName</a></td>
+<td>Public method to change the displayed name of the editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.setFileLine">setFileLine</a></td>
+<td>Public method to update the user interface when the current program or line changes.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.setReferences">setReferences</a></td>
+<td>Public method to set some references needed later on.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.setSbInfo">setSbInfo</a></td>
+<td>Public method to transfer statusbar info from the user interface to viewmanager.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.setSplitCount">setSplitCount</a></td>
+<td>Public method to set the number of split views.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.setSplitOrientation">setSplitOrientation</a></td>
+<td>Public method used to set the orientation of the split view.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.shareConnected">shareConnected</a></td>
+<td>Public slot to handle a change of the connected state.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.shareEditor">shareEditor</a></td>
+<td>Public slot to set the shared status of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.showDebugSource">showDebugSource</a></td>
+<td>Public method to open the given file and highlight the given line in it.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.showEditorInfo">showEditorInfo</a></td>
+<td>Public method to show some information for a given editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.showReplaceWidget">showReplaceWidget</a></td>
+<td>Public method to show the replace widget.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.showSearchWidget">showSearchWidget</a></td>
+<td>Public method to show the search widget.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.showWindowMenu">showWindowMenu</a></td>
+<td>Public method to set up the viewmanager part of the Window menu.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.splitCount">splitCount</a></td>
+<td>Public method to get the number of split views.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.startSharedEdit">startSharedEdit</a></td>
+<td>Public slot to start a shared edit session for the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.textForFind">textForFind</a></td>
+<td>Public method to determine the selection or the current word for the next find operation.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.tile">tile</a></td>
+<td>Public method to tile the managed windows.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.unhighlight">unhighlight</a></td>
+<td>Public method to switch off all highlights or the highlight of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#ViewManager.zoomValueChanged">zoomValueChanged</a></td>
+<td>Public slot to handle changes of the zoom value.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ViewManager.__init__" ID="ViewManager.__init__"></a>
+<h4>ViewManager (Constructor)</h4>
+<b>ViewManager</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="ViewManager.__addBookmarked" ID="ViewManager.__addBookmarked"></a>
+<h4>ViewManager.__addBookmarked</h4>
+<b>__addBookmarked</b>(<i></i>)
+<p>
+        Private method to add the current file to the list of bookmarked files.
+</p>
+
+<a NAME="ViewManager.__astViewer" ID="ViewManager.__astViewer"></a>
+<h4>ViewManager.__astViewer</h4>
+<b>__astViewer</b>(<i>checked</i>)
+<p>
+        Private slot to handle a change of the AST Viewer selection state.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the action
+</dd>
+</dl>
+<a NAME="ViewManager.__bookmarkSelected" ID="ViewManager.__bookmarkSelected"></a>
+<h4>ViewManager.__bookmarkSelected</h4>
+<b>__bookmarkSelected</b>(<i>act</i>)
+<p>
+        Private method to handle the bookmark selected signal.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="ViewManager.__bookmarkToggled" ID="ViewManager.__bookmarkToggled"></a>
+<h4>ViewManager.__bookmarkToggled</h4>
+<b>__bookmarkToggled</b>(<i>editor</i>)
+<p>
+        Private slot to handle the bookmarkToggled signal.
+</p>
+<p>
+        It checks some bookmark actions and reemits the signal.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor that sent the signal
+</dd>
+</dl>
+<a NAME="ViewManager.__breakpointToggled" ID="ViewManager.__breakpointToggled"></a>
+<h4>ViewManager.__breakpointToggled</h4>
+<b>__breakpointToggled</b>(<i>editor</i>)
+<p>
+        Private slot to handle the breakpointToggled signal.
+</p>
+<p>
+        It simply reemits the signal.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor that sent the signal
+</dd>
+</dl>
+<a NAME="ViewManager.__changeMarkersUpdated" ID="ViewManager.__changeMarkersUpdated"></a>
+<h4>ViewManager.__changeMarkersUpdated</h4>
+<b>__changeMarkersUpdated</b>(<i>editor</i>)
+<p>
+        Private slot to handle the changeMarkersUpdated signal.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor that sent the signal
+</dd>
+</dl>
+<a NAME="ViewManager.__clearAllBookmarks" ID="ViewManager.__clearAllBookmarks"></a>
+<h4>ViewManager.__clearAllBookmarks</h4>
+<b>__clearAllBookmarks</b>(<i></i>)
+<p>
+        Private method to handle the clear all bookmarks action.
+</p>
+
+<a NAME="ViewManager.__clearAllFolds" ID="ViewManager.__clearAllFolds"></a>
+<h4>ViewManager.__clearAllFolds</h4>
+<b>__clearAllFolds</b>(<i></i>)
+<p>
+        Private method to handle the clear all folds action.
+</p>
+
+<a NAME="ViewManager.__clearAllSyntaxErrors" ID="ViewManager.__clearAllSyntaxErrors"></a>
+<h4>ViewManager.__clearAllSyntaxErrors</h4>
+<b>__clearAllSyntaxErrors</b>(<i></i>)
+<p>
+        Private method to handle the clear all syntax errors action.
+</p>
+
+<a NAME="ViewManager.__clearAllWarnings" ID="ViewManager.__clearAllWarnings"></a>
+<h4>ViewManager.__clearAllWarnings</h4>
+<b>__clearAllWarnings</b>(<i></i>)
+<p>
+        Private method to handle the clear all warnings action.
+</p>
+
+<a NAME="ViewManager.__clearBookmarked" ID="ViewManager.__clearBookmarked"></a>
+<h4>ViewManager.__clearBookmarked</h4>
+<b>__clearBookmarked</b>(<i></i>)
+<p>
+        Private method to clear the bookmarked files menu.
+</p>
+
+<a NAME="ViewManager.__connectEditor" ID="ViewManager.__connectEditor"></a>
+<h4>ViewManager.__connectEditor</h4>
+<b>__connectEditor</b>(<i>editor</i>)
+<p>
+        Private method to establish all editor connections.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor object to be connected
+</dd>
+</dl>
+<a NAME="ViewManager.__convertEOL" ID="ViewManager.__convertEOL"></a>
+<h4>ViewManager.__convertEOL</h4>
+<b>__convertEOL</b>(<i></i>)
+<p>
+        Private method to handle the convert line end characters action.
+</p>
+
+<a NAME="ViewManager.__convertTabs" ID="ViewManager.__convertTabs"></a>
+<h4>ViewManager.__convertTabs</h4>
+<b>__convertTabs</b>(<i></i>)
+<p>
+        Private method to handle the convert tabs to spaces action.
+</p>
+
+<a NAME="ViewManager.__coverageMarkersShown" ID="ViewManager.__coverageMarkersShown"></a>
+<h4>ViewManager.__coverageMarkersShown</h4>
+<b>__coverageMarkersShown</b>(<i>shown</i>)
+<p>
+        Private slot to handle the coverageMarkersShown signal.
+</p>
+
+<dl>
+
+<dt><i>shown</i> (bool)</dt>
+<dd>
+flag indicating whether the markers were shown or cleared
+</dd>
+</dl>
+<a NAME="ViewManager.__cursorChanged" ID="ViewManager.__cursorChanged"></a>
+<h4>ViewManager.__cursorChanged</h4>
+<b>__cursorChanged</b>(<i>fn, line, pos, editor</i>)
+<p>
+        Private slot to handle the cursorChanged signal.
+</p>
+<p>
+        It emits the signal cursorChanged with parameter editor.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number of the cursor
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position in line of the cursor
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="ViewManager.__disViewer" ID="ViewManager.__disViewer"></a>
+<h4>ViewManager.__disViewer</h4>
+<b>__disViewer</b>(<i>checked</i>)
+<p>
+        Private slot to handle a change of the DIS Viewer selection state.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the action
+</dd>
+</dl>
+<a NAME="ViewManager.__editAutoComplete" ID="ViewManager.__editAutoComplete"></a>
+<h4>ViewManager.__editAutoComplete</h4>
+<b>__editAutoComplete</b>(<i></i>)
+<p>
+        Private method to handle the autocomplete action.
+</p>
+
+<a NAME="ViewManager.__editAutoCompleteFromAPIs" ID="ViewManager.__editAutoCompleteFromAPIs"></a>
+<h4>ViewManager.__editAutoCompleteFromAPIs</h4>
+<b>__editAutoCompleteFromAPIs</b>(<i></i>)
+<p>
+        Private method to handle the autocomplete from APIs action.
+</p>
+
+<a NAME="ViewManager.__editAutoCompleteFromAll" ID="ViewManager.__editAutoCompleteFromAll"></a>
+<h4>ViewManager.__editAutoCompleteFromAll</h4>
+<b>__editAutoCompleteFromAll</b>(<i></i>)
+<p>
+        Private method to handle the autocomplete from All action.
+</p>
+
+<a NAME="ViewManager.__editAutoCompleteFromDoc" ID="ViewManager.__editAutoCompleteFromDoc"></a>
+<h4>ViewManager.__editAutoCompleteFromDoc</h4>
+<b>__editAutoCompleteFromDoc</b>(<i></i>)
+<p>
+        Private method to handle the autocomplete from document action.
+</p>
+
+<a NAME="ViewManager.__editBookmarked" ID="ViewManager.__editBookmarked"></a>
+<h4>ViewManager.__editBookmarked</h4>
+<b>__editBookmarked</b>(<i></i>)
+<p>
+        Private method to edit the list of bookmarked files.
+</p>
+
+<a NAME="ViewManager.__editBoxComment" ID="ViewManager.__editBoxComment"></a>
+<h4>ViewManager.__editBoxComment</h4>
+<b>__editBoxComment</b>(<i></i>)
+<p>
+        Private method to handle the box comment action.
+</p>
+
+<a NAME="ViewManager.__editComment" ID="ViewManager.__editComment"></a>
+<h4>ViewManager.__editComment</h4>
+<b>__editComment</b>(<i></i>)
+<p>
+        Private method to handle the comment action.
+</p>
+
+<a NAME="ViewManager.__editCopy" ID="ViewManager.__editCopy"></a>
+<h4>ViewManager.__editCopy</h4>
+<b>__editCopy</b>(<i></i>)
+<p>
+        Private method to handle the copy action.
+</p>
+
+<a NAME="ViewManager.__editCut" ID="ViewManager.__editCut"></a>
+<h4>ViewManager.__editCut</h4>
+<b>__editCut</b>(<i></i>)
+<p>
+        Private method to handle the cut action.
+</p>
+
+<a NAME="ViewManager.__editDelete" ID="ViewManager.__editDelete"></a>
+<h4>ViewManager.__editDelete</h4>
+<b>__editDelete</b>(<i></i>)
+<p>
+        Private method to handle the delete action.
+</p>
+
+<a NAME="ViewManager.__editDeselectAll" ID="ViewManager.__editDeselectAll"></a>
+<h4>ViewManager.__editDeselectAll</h4>
+<b>__editDeselectAll</b>(<i></i>)
+<p>
+        Private method to handle the select all action.
+</p>
+
+<a NAME="ViewManager.__editIndent" ID="ViewManager.__editIndent"></a>
+<h4>ViewManager.__editIndent</h4>
+<b>__editIndent</b>(<i></i>)
+<p>
+        Private method to handle the indent action.
+</p>
+
+<a NAME="ViewManager.__editInsertDocstring" ID="ViewManager.__editInsertDocstring"></a>
+<h4>ViewManager.__editInsertDocstring</h4>
+<b>__editInsertDocstring</b>(<i></i>)
+<p>
+        Private method to insert a docstring.
+</p>
+
+<a NAME="ViewManager.__editJoin" ID="ViewManager.__editJoin"></a>
+<h4>ViewManager.__editJoin</h4>
+<b>__editJoin</b>(<i></i>)
+<p>
+        Private method to handle the join action.
+</p>
+
+<a NAME="ViewManager.__editPaste" ID="ViewManager.__editPaste"></a>
+<h4>ViewManager.__editPaste</h4>
+<b>__editPaste</b>(<i></i>)
+<p>
+        Private method to handle the paste action.
+</p>
+
+<a NAME="ViewManager.__editProjectPEL" ID="ViewManager.__editProjectPEL"></a>
+<h4>ViewManager.__editProjectPEL</h4>
+<b>__editProjectPEL</b>(<i></i>)
+<p>
+        Private slot to edit the project exception list.
+</p>
+
+<a NAME="ViewManager.__editProjectPWL" ID="ViewManager.__editProjectPWL"></a>
+<h4>ViewManager.__editProjectPWL</h4>
+<b>__editProjectPWL</b>(<i></i>)
+<p>
+        Private slot to edit the project word list.
+</p>
+
+<a NAME="ViewManager.__editRedo" ID="ViewManager.__editRedo"></a>
+<h4>ViewManager.__editRedo</h4>
+<b>__editRedo</b>(<i></i>)
+<p>
+        Private method to handle the redo action.
+</p>
+
+<a NAME="ViewManager.__editRevert" ID="ViewManager.__editRevert"></a>
+<h4>ViewManager.__editRevert</h4>
+<b>__editRevert</b>(<i></i>)
+<p>
+        Private method to handle the revert action.
+</p>
+
+<a NAME="ViewManager.__editSelectAll" ID="ViewManager.__editSelectAll"></a>
+<h4>ViewManager.__editSelectAll</h4>
+<b>__editSelectAll</b>(<i></i>)
+<p>
+        Private method to handle the select all action.
+</p>
+
+<a NAME="ViewManager.__editSelectBrace" ID="ViewManager.__editSelectBrace"></a>
+<h4>ViewManager.__editSelectBrace</h4>
+<b>__editSelectBrace</b>(<i></i>)
+<p>
+        Private method to handle the select to brace action.
+</p>
+
+<a NAME="ViewManager.__editShowCallTips" ID="ViewManager.__editShowCallTips"></a>
+<h4>ViewManager.__editShowCallTips</h4>
+<b>__editShowCallTips</b>(<i></i>)
+<p>
+        Private method to handle the calltips action.
+</p>
+
+<a NAME="ViewManager.__editShowCodeInfo" ID="ViewManager.__editShowCodeInfo"></a>
+<h4>ViewManager.__editShowCodeInfo</h4>
+<b>__editShowCodeInfo</b>(<i></i>)
+<p>
+        Private method to handle the code info action.
+</p>
+
+<a NAME="ViewManager.__editSmartIndent" ID="ViewManager.__editSmartIndent"></a>
+<h4>ViewManager.__editSmartIndent</h4>
+<b>__editSmartIndent</b>(<i></i>)
+<p>
+        Private method to handle the smart indent action.
+</p>
+
+<a NAME="ViewManager.__editSortSelectedLines" ID="ViewManager.__editSortSelectedLines"></a>
+<h4>ViewManager.__editSortSelectedLines</h4>
+<b>__editSortSelectedLines</b>(<i></i>)
+<p>
+        Private slot to sort the selected lines.
+</p>
+
+<a NAME="ViewManager.__editSpellingDictionary" ID="ViewManager.__editSpellingDictionary"></a>
+<h4>ViewManager.__editSpellingDictionary</h4>
+<b>__editSpellingDictionary</b>(<i>dictionaryFile</i>)
+<p>
+        Private slot to edit the given spelling dictionary.
+</p>
+
+<dl>
+
+<dt><i>dictionaryFile</i> (str)</dt>
+<dd>
+file name of the dictionary to edit
+</dd>
+</dl>
+<a NAME="ViewManager.__editStreamComment" ID="ViewManager.__editStreamComment"></a>
+<h4>ViewManager.__editStreamComment</h4>
+<b>__editStreamComment</b>(<i></i>)
+<p>
+        Private method to handle the stream comment action.
+</p>
+
+<a NAME="ViewManager.__editToggleComment" ID="ViewManager.__editToggleComment"></a>
+<h4>ViewManager.__editToggleComment</h4>
+<b>__editToggleComment</b>(<i></i>)
+<p>
+        Private method to handle the toggle comment action.
+</p>
+
+<a NAME="ViewManager.__editUncomment" ID="ViewManager.__editUncomment"></a>
+<h4>ViewManager.__editUncomment</h4>
+<b>__editUncomment</b>(<i></i>)
+<p>
+        Private method to handle the uncomment action.
+</p>
+
+<a NAME="ViewManager.__editUndo" ID="ViewManager.__editUndo"></a>
+<h4>ViewManager.__editUndo</h4>
+<b>__editUndo</b>(<i></i>)
+<p>
+        Private method to handle the undo action.
+</p>
+
+<a NAME="ViewManager.__editUnindent" ID="ViewManager.__editUnindent"></a>
+<h4>ViewManager.__editUnindent</h4>
+<b>__editUnindent</b>(<i></i>)
+<p>
+        Private method to handle the unindent action.
+</p>
+
+<a NAME="ViewManager.__editUserPEL" ID="ViewManager.__editUserPEL"></a>
+<h4>ViewManager.__editUserPEL</h4>
+<b>__editUserPEL</b>(<i></i>)
+<p>
+        Private slot to edit the user exception list.
+</p>
+
+<a NAME="ViewManager.__editUserPWL" ID="ViewManager.__editUserPWL"></a>
+<h4>ViewManager.__editUserPWL</h4>
+<b>__editUserPWL</b>(<i></i>)
+<p>
+        Private slot to edit the user word list.
+</p>
+
+<a NAME="ViewManager.__editorAutoCompletionAPIsAvailable" ID="ViewManager.__editorAutoCompletionAPIsAvailable"></a>
+<h4>ViewManager.__editorAutoCompletionAPIsAvailable</h4>
+<b>__editorAutoCompletionAPIsAvailable</b>(<i>available, editor</i>)
+<p>
+        Private method to handle the availability of API autocompletion signal.
+</p>
+
+<dl>
+
+<dt><i>available</i> (bool)</dt>
+<dd>
+flag indicating the availability of API
+            autocompletion
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="ViewManager.__editorCommand" ID="ViewManager.__editorCommand"></a>
+<h4>ViewManager.__editorCommand</h4>
+<b>__editorCommand</b>(<i>cmd</i>)
+<p>
+        Private method to send an editor command to the active window.
+</p>
+
+<dl>
+
+<dt><i>cmd</i> (int)</dt>
+<dd>
+the scintilla command to be sent
+</dd>
+</dl>
+<a NAME="ViewManager.__editorConfigChanged" ID="ViewManager.__editorConfigChanged"></a>
+<h4>ViewManager.__editorConfigChanged</h4>
+<b>__editorConfigChanged</b>(<i>editor</i>)
+<p>
+        Private slot to handle changes of an editor's configuration.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="ViewManager.__editorDoubleClicked" ID="ViewManager.__editorDoubleClicked"></a>
+<h4>ViewManager.__editorDoubleClicked</h4>
+<b>__editorDoubleClicked</b>(<i>editor, pos, buttons</i>)
+<p>
+        Private slot handling mouse double clicks of an editor.
+</p>
+<p>
+        Note: This method is simply a multiplexer to re-emit the signal
+        with the editor prepended.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor, that emitted the signal
+</dd>
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position of the double click
+</dd>
+<dt><i>buttons</i> (Qt.MouseButton)</dt>
+<dd>
+mouse buttons that were double clicked
+</dd>
+</dl>
+<a NAME="ViewManager.__editorOpened" ID="ViewManager.__editorOpened"></a>
+<h4>ViewManager.__editorOpened</h4>
+<b>__editorOpened</b>(<i></i>)
+<p>
+        Private slot to handle the editorOpened signal.
+</p>
+
+<a NAME="ViewManager.__editorRenamed" ID="ViewManager.__editorRenamed"></a>
+<h4>ViewManager.__editorRenamed</h4>
+<b>__editorRenamed</b>(<i>fn, editor</i>)
+<p>
+        Private slot to handle the editorRenamed signal.
+</p>
+<p>
+        It simply re-emits the signal.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the renamed editor
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="ViewManager.__editorSaved" ID="ViewManager.__editorSaved"></a>
+<h4>ViewManager.__editorSaved</h4>
+<b>__editorSaved</b>(<i>fn, editor</i>)
+<p>
+        Private slot to handle the editorSaved signal.
+</p>
+<p>
+        It simply re-emits the signal.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the saved editor
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="ViewManager.__editorSelectionChanged" ID="ViewManager.__editorSelectionChanged"></a>
+<h4>ViewManager.__editorSelectionChanged</h4>
+<b>__editorSelectionChanged</b>(<i>editor</i>)
+<p>
+        Private slot to handle changes of the current editors selection.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="ViewManager.__enableSpellingActions" ID="ViewManager.__enableSpellingActions"></a>
+<h4>ViewManager.__enableSpellingActions</h4>
+<b>__enableSpellingActions</b>(<i></i>)
+<p>
+        Private method to set the enabled state of the spelling actions.
+</p>
+
+<a NAME="ViewManager.__eolPixmap" ID="ViewManager.__eolPixmap"></a>
+<h4>ViewManager.__eolPixmap</h4>
+<b>__eolPixmap</b>(<i>eolIndicator</i>)
+<p>
+        Private method to get an EOL pixmap for an EOL string.
+</p>
+
+<dl>
+
+<dt><i>eolIndicator</i> (str)</dt>
+<dd>
+eol indicator string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+pixmap for the eol indicator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPixmap
+</dd>
+</dl>
+<a NAME="ViewManager.__exportMenuTriggered" ID="ViewManager.__exportMenuTriggered"></a>
+<h4>ViewManager.__exportMenuTriggered</h4>
+<b>__exportMenuTriggered</b>(<i>act</i>)
+<p>
+        Private method to handle the selection of an export format.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that was triggered
+</dd>
+</dl>
+<a NAME="ViewManager.__findLocation" ID="ViewManager.__findLocation"></a>
+<h4>ViewManager.__findLocation</h4>
+<b>__findLocation</b>(<i></i>)
+<p>
+        Private method to handle the Find File action.
+</p>
+
+<a NAME="ViewManager.__findNextWord" ID="ViewManager.__findNextWord"></a>
+<h4>ViewManager.__findNextWord</h4>
+<b>__findNextWord</b>(<i></i>)
+<p>
+        Private slot to find the next occurrence of the current word of the
+        current editor.
+</p>
+
+<a NAME="ViewManager.__findPrevWord" ID="ViewManager.__findPrevWord"></a>
+<h4>ViewManager.__findPrevWord</h4>
+<b>__findPrevWord</b>(<i></i>)
+<p>
+        Private slot to find the previous occurrence of the current word of
+        the current editor.
+</p>
+
+<a NAME="ViewManager.__goto" ID="ViewManager.__goto"></a>
+<h4>ViewManager.__goto</h4>
+<b>__goto</b>(<i></i>)
+<p>
+        Private method to handle the goto action.
+</p>
+
+<a NAME="ViewManager.__gotoBrace" ID="ViewManager.__gotoBrace"></a>
+<h4>ViewManager.__gotoBrace</h4>
+<b>__gotoBrace</b>(<i></i>)
+<p>
+        Private method to handle the goto brace action.
+</p>
+
+<a NAME="ViewManager.__gotoLastEditPosition" ID="ViewManager.__gotoLastEditPosition"></a>
+<h4>ViewManager.__gotoLastEditPosition</h4>
+<b>__gotoLastEditPosition</b>(<i></i>)
+<p>
+        Private method to move the cursor to the last edit position.
+</p>
+
+<a NAME="ViewManager.__gotoNextMethodClass" ID="ViewManager.__gotoNextMethodClass"></a>
+<h4>ViewManager.__gotoNextMethodClass</h4>
+<b>__gotoNextMethodClass</b>(<i></i>)
+<p>
+        Private slot to go to the next Python/Ruby method or class definition.
+</p>
+
+<a NAME="ViewManager.__gotoPreviousMethodClass" ID="ViewManager.__gotoPreviousMethodClass"></a>
+<h4>ViewManager.__gotoPreviousMethodClass</h4>
+<b>__gotoPreviousMethodClass</b>(<i></i>)
+<p>
+        Private slot to go to the previous Python/Ruby method or class
+        definition.
+</p>
+
+<a NAME="ViewManager.__gotoSyntaxError" ID="ViewManager.__gotoSyntaxError"></a>
+<h4>ViewManager.__gotoSyntaxError</h4>
+<b>__gotoSyntaxError</b>(<i></i>)
+<p>
+        Private method to handle the goto syntax error action.
+</p>
+
+<a NAME="ViewManager.__initBookmarkActions" ID="ViewManager.__initBookmarkActions"></a>
+<h4>ViewManager.__initBookmarkActions</h4>
+<b>__initBookmarkActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the bookmarks
+        commands.
+</p>
+
+<a NAME="ViewManager.__initContextMenuExporters" ID="ViewManager.__initContextMenuExporters"></a>
+<h4>ViewManager.__initContextMenuExporters</h4>
+<b>__initContextMenuExporters</b>(<i></i>)
+<p>
+        Private method used to setup the Exporters sub menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="ViewManager.__initEditActions" ID="ViewManager.__initEditActions"></a>
+<h4>ViewManager.__initEditActions</h4>
+<b>__initEditActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the edit
+            commands.
+</p>
+
+<a NAME="ViewManager.__initFileActions" ID="ViewManager.__initFileActions"></a>
+<h4>ViewManager.__initFileActions</h4>
+<b>__initFileActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for file handling.
+</p>
+
+<a NAME="ViewManager.__initMacroActions" ID="ViewManager.__initMacroActions"></a>
+<h4>ViewManager.__initMacroActions</h4>
+<b>__initMacroActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the macro
+        commands.
+</p>
+
+<a NAME="ViewManager.__initSearchActions" ID="ViewManager.__initSearchActions"></a>
+<h4>ViewManager.__initSearchActions</h4>
+<b>__initSearchActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the search
+        commands.
+</p>
+
+<a NAME="ViewManager.__initSpellingActions" ID="ViewManager.__initSpellingActions"></a>
+<h4>ViewManager.__initSpellingActions</h4>
+<b>__initSpellingActions</b>(<i></i>)
+<p>
+        Private method to initialize the spell checking actions.
+</p>
+
+<a NAME="ViewManager.__initViewActions" ID="ViewManager.__initViewActions"></a>
+<h4>ViewManager.__initViewActions</h4>
+<b>__initViewActions</b>(<i></i>)
+<p>
+        Private method defining the user interface actions for the view
+        commands.
+</p>
+
+<a NAME="ViewManager.__isEditorInfoSupportedEd" ID="ViewManager.__isEditorInfoSupportedEd"></a>
+<h4>ViewManager.__isEditorInfoSupportedEd</h4>
+<b>__isEditorInfoSupportedEd</b>(<i>editor</i>)
+<p>
+        Private method to check, if an editor is supported by the
+        documentation viewer.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the support status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.__lastEditPositionAvailable" ID="ViewManager.__lastEditPositionAvailable"></a>
+<h4>ViewManager.__lastEditPositionAvailable</h4>
+<b>__lastEditPositionAvailable</b>(<i></i>)
+<p>
+        Private slot to handle the lastEditPositionAvailable signal of an
+        editor.
+</p>
+
+<a NAME="ViewManager.__lastEditorClosed" ID="ViewManager.__lastEditorClosed"></a>
+<h4>ViewManager.__lastEditorClosed</h4>
+<b>__lastEditorClosed</b>(<i></i>)
+<p>
+        Private slot to handle the lastEditorClosed signal.
+</p>
+
+<a NAME="ViewManager.__loadRecent" ID="ViewManager.__loadRecent"></a>
+<h4>ViewManager.__loadRecent</h4>
+<b>__loadRecent</b>(<i></i>)
+<p>
+        Private method to load the recently opened filenames.
+</p>
+
+<a NAME="ViewManager.__macroDelete" ID="ViewManager.__macroDelete"></a>
+<h4>ViewManager.__macroDelete</h4>
+<b>__macroDelete</b>(<i></i>)
+<p>
+        Private method to handle the delete macro action.
+</p>
+
+<a NAME="ViewManager.__macroLoad" ID="ViewManager.__macroLoad"></a>
+<h4>ViewManager.__macroLoad</h4>
+<b>__macroLoad</b>(<i></i>)
+<p>
+        Private method to handle the load macro action.
+</p>
+
+<a NAME="ViewManager.__macroRun" ID="ViewManager.__macroRun"></a>
+<h4>ViewManager.__macroRun</h4>
+<b>__macroRun</b>(<i></i>)
+<p>
+        Private method to handle the run macro action.
+</p>
+
+<a NAME="ViewManager.__macroSave" ID="ViewManager.__macroSave"></a>
+<h4>ViewManager.__macroSave</h4>
+<b>__macroSave</b>(<i></i>)
+<p>
+        Private method to handle the save macro action.
+</p>
+
+<a NAME="ViewManager.__macroStartRecording" ID="ViewManager.__macroStartRecording"></a>
+<h4>ViewManager.__macroStartRecording</h4>
+<b>__macroStartRecording</b>(<i></i>)
+<p>
+        Private method to handle the start macro recording action.
+</p>
+
+<a NAME="ViewManager.__macroStopRecording" ID="ViewManager.__macroStopRecording"></a>
+<h4>ViewManager.__macroStopRecording</h4>
+<b>__macroStopRecording</b>(<i></i>)
+<p>
+        Private method to handle the stop macro recording action.
+</p>
+
+<a NAME="ViewManager.__newDocumentSplitView" ID="ViewManager.__newDocumentSplitView"></a>
+<h4>ViewManager.__newDocumentSplitView</h4>
+<b>__newDocumentSplitView</b>(<i></i>)
+<p>
+        Private method to open a new view of the current editor in a new split.
+</p>
+
+<a NAME="ViewManager.__newDocumentView" ID="ViewManager.__newDocumentView"></a>
+<h4>ViewManager.__newDocumentView</h4>
+<b>__newDocumentView</b>(<i></i>)
+<p>
+        Private method to open a new view of the current editor.
+</p>
+
+<a NAME="ViewManager.__newLineBelow" ID="ViewManager.__newLineBelow"></a>
+<h4>ViewManager.__newLineBelow</h4>
+<b>__newLineBelow</b>(<i></i>)
+<p>
+        Private method to insert a new line below the current one even if
+        cursor is not at the end of the line.
+</p>
+
+<a NAME="ViewManager.__nextBookmark" ID="ViewManager.__nextBookmark"></a>
+<h4>ViewManager.__nextBookmark</h4>
+<b>__nextBookmark</b>(<i></i>)
+<p>
+        Private method to handle the next bookmark action.
+</p>
+
+<a NAME="ViewManager.__nextChange" ID="ViewManager.__nextChange"></a>
+<h4>ViewManager.__nextChange</h4>
+<b>__nextChange</b>(<i></i>)
+<p>
+        Private method to handle the next change action.
+</p>
+
+<a NAME="ViewManager.__nextTask" ID="ViewManager.__nextTask"></a>
+<h4>ViewManager.__nextTask</h4>
+<b>__nextTask</b>(<i></i>)
+<p>
+        Private method to handle the next task action.
+</p>
+
+<a NAME="ViewManager.__nextUncovered" ID="ViewManager.__nextUncovered"></a>
+<h4>ViewManager.__nextUncovered</h4>
+<b>__nextUncovered</b>(<i></i>)
+<p>
+        Private method to handle the next uncovered action.
+</p>
+
+<a NAME="ViewManager.__nextWarning" ID="ViewManager.__nextWarning"></a>
+<h4>ViewManager.__nextWarning</h4>
+<b>__nextWarning</b>(<i></i>)
+<p>
+        Private method to handle the next warning action.
+</p>
+
+<a NAME="ViewManager.__openFiles" ID="ViewManager.__openFiles"></a>
+<h4>ViewManager.__openFiles</h4>
+<b>__openFiles</b>(<i></i>)
+<p>
+        Private slot to open some files.
+</p>
+
+<a NAME="ViewManager.__openRemoteFiles" ID="ViewManager.__openRemoteFiles"></a>
+<h4>ViewManager.__openRemoteFiles</h4>
+<b>__openRemoteFiles</b>(<i></i>)
+<p>
+        Private slot to open some files.
+</p>
+
+<a NAME="ViewManager.__openSourceFile" ID="ViewManager.__openSourceFile"></a>
+<h4>ViewManager.__openSourceFile</h4>
+<b>__openSourceFile</b>(<i>act</i>)
+<p>
+        Private method to open a file from the list of recently opened files.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="ViewManager.__previewEditor" ID="ViewManager.__previewEditor"></a>
+<h4>ViewManager.__previewEditor</h4>
+<b>__previewEditor</b>(<i>checked</i>)
+<p>
+        Private slot to handle a change of the preview selection state.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the action
+</dd>
+</dl>
+<a NAME="ViewManager.__previousBookmark" ID="ViewManager.__previousBookmark"></a>
+<h4>ViewManager.__previousBookmark</h4>
+<b>__previousBookmark</b>(<i></i>)
+<p>
+        Private method to handle the previous bookmark action.
+</p>
+
+<a NAME="ViewManager.__previousChange" ID="ViewManager.__previousChange"></a>
+<h4>ViewManager.__previousChange</h4>
+<b>__previousChange</b>(<i></i>)
+<p>
+        Private method to handle the previous change action.
+</p>
+
+<a NAME="ViewManager.__previousTask" ID="ViewManager.__previousTask"></a>
+<h4>ViewManager.__previousTask</h4>
+<b>__previousTask</b>(<i></i>)
+<p>
+        Private method to handle the previous task action.
+</p>
+
+<a NAME="ViewManager.__previousUncovered" ID="ViewManager.__previousUncovered"></a>
+<h4>ViewManager.__previousUncovered</h4>
+<b>__previousUncovered</b>(<i></i>)
+<p>
+        Private method to handle the previous uncovered action.
+</p>
+
+<a NAME="ViewManager.__previousWarning" ID="ViewManager.__previousWarning"></a>
+<h4>ViewManager.__previousWarning</h4>
+<b>__previousWarning</b>(<i></i>)
+<p>
+        Private method to handle the previous warning action.
+</p>
+
+<a NAME="ViewManager.__reloadCurrentEditor" ID="ViewManager.__reloadCurrentEditor"></a>
+<h4>ViewManager.__reloadCurrentEditor</h4>
+<b>__reloadCurrentEditor</b>(<i></i>)
+<p>
+        Private slot to reload the contents of the current editor.
+</p>
+
+<a NAME="ViewManager.__replaceFiles" ID="ViewManager.__replaceFiles"></a>
+<h4>ViewManager.__replaceFiles</h4>
+<b>__replaceFiles</b>(<i></i>)
+<p>
+        Private method to handle the replace in files action.
+</p>
+
+<a NAME="ViewManager.__replaceOpenFiles" ID="ViewManager.__replaceOpenFiles"></a>
+<h4>ViewManager.__replaceOpenFiles</h4>
+<b>__replaceOpenFiles</b>(<i></i>)
+<p>
+        Private method to handle the replace in open files action.
+</p>
+
+<a NAME="ViewManager.__saveRecent" ID="ViewManager.__saveRecent"></a>
+<h4>ViewManager.__saveRecent</h4>
+<b>__saveRecent</b>(<i></i>)
+<p>
+        Private method to save the list of recently opened filenames.
+</p>
+
+<a NAME="ViewManager.__searchClearMarkers" ID="ViewManager.__searchClearMarkers"></a>
+<h4>ViewManager.__searchClearMarkers</h4>
+<b>__searchClearMarkers</b>(<i></i>)
+<p>
+        Private method to clear the search markers of the active window.
+</p>
+
+<a NAME="ViewManager.__searchFiles" ID="ViewManager.__searchFiles"></a>
+<h4>ViewManager.__searchFiles</h4>
+<b>__searchFiles</b>(<i></i>)
+<p>
+        Private method to handle the search in files action.
+</p>
+
+<a NAME="ViewManager.__searchNext" ID="ViewManager.__searchNext"></a>
+<h4>ViewManager.__searchNext</h4>
+<b>__searchNext</b>(<i></i>)
+<p>
+        Private slot to handle the search next action.
+</p>
+
+<a NAME="ViewManager.__searchOpenFiles" ID="ViewManager.__searchOpenFiles"></a>
+<h4>ViewManager.__searchOpenFiles</h4>
+<b>__searchOpenFiles</b>(<i></i>)
+<p>
+        Private method to handle the search in open files action.
+</p>
+
+<a NAME="ViewManager.__searchPrev" ID="ViewManager.__searchPrev"></a>
+<h4>ViewManager.__searchPrev</h4>
+<b>__searchPrev</b>(<i></i>)
+<p>
+        Private slot to handle the search previous action.
+</p>
+
+<a NAME="ViewManager.__setAutoSpellChecking" ID="ViewManager.__setAutoSpellChecking"></a>
+<h4>ViewManager.__setAutoSpellChecking</h4>
+<b>__setAutoSpellChecking</b>(<i></i>)
+<p>
+        Private slot to set the automatic spell checking of all editors.
+</p>
+
+<a NAME="ViewManager.__setSbFile" ID="ViewManager.__setSbFile"></a>
+<h4>ViewManager.__setSbFile</h4>
+<b>__setSbFile</b>(<i>fn=None, line=None, pos=None, encoding=None, language=None, eol=None, zoom=None, </i>)
+<p>
+        Private method to set the file info in the status bar.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to display
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number to display
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+character position to display
+</dd>
+<dt><i>encoding</i> (str)</dt>
+<dd>
+encoding name to display
+</dd>
+<dt><i>language</i> (str)</dt>
+<dd>
+language to display
+</dd>
+<dt><i>eol</i> (str)</dt>
+<dd>
+eol indicator to display
+</dd>
+<dt><i>zoom</i> (int)</dt>
+<dd>
+zoom value
+</dd>
+</dl>
+<a NAME="ViewManager.__shortenEmptyLines" ID="ViewManager.__shortenEmptyLines"></a>
+<h4>ViewManager.__shortenEmptyLines</h4>
+<b>__shortenEmptyLines</b>(<i></i>)
+<p>
+        Private method to handle the shorten empty lines action.
+</p>
+
+<a NAME="ViewManager.__showBookmarkMenu" ID="ViewManager.__showBookmarkMenu"></a>
+<h4>ViewManager.__showBookmarkMenu</h4>
+<b>__showBookmarkMenu</b>(<i></i>)
+<p>
+        Private method to set up the bookmark menu.
+</p>
+
+<a NAME="ViewManager.__showBookmarkedMenu" ID="ViewManager.__showBookmarkedMenu"></a>
+<h4>ViewManager.__showBookmarkedMenu</h4>
+<b>__showBookmarkedMenu</b>(<i></i>)
+<p>
+        Private method to set up bookmarked files menu.
+</p>
+
+<a NAME="ViewManager.__showBookmarksMenu" ID="ViewManager.__showBookmarksMenu"></a>
+<h4>ViewManager.__showBookmarksMenu</h4>
+<b>__showBookmarksMenu</b>(<i></i>)
+<p>
+        Private method to handle the show bookmarks menu signal.
+</p>
+
+<a NAME="ViewManager.__showEditSpellingMenu" ID="ViewManager.__showEditSpellingMenu"></a>
+<h4>ViewManager.__showEditSpellingMenu</h4>
+<b>__showEditSpellingMenu</b>(<i></i>)
+<p>
+        Private method to set up the edit dictionaries menu.
+</p>
+
+<a NAME="ViewManager.__showEncodingsMenu" ID="ViewManager.__showEncodingsMenu"></a>
+<h4>ViewManager.__showEncodingsMenu</h4>
+<b>__showEncodingsMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show the Encodings menu of the current editor.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the menu should be shown at
+</dd>
+</dl>
+<a NAME="ViewManager.__showEolMenu" ID="ViewManager.__showEolMenu"></a>
+<h4>ViewManager.__showEolMenu</h4>
+<b>__showEolMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show the EOL menu of the current editor.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the menu should be shown at
+</dd>
+</dl>
+<a NAME="ViewManager.__showFileMenu" ID="ViewManager.__showFileMenu"></a>
+<h4>ViewManager.__showFileMenu</h4>
+<b>__showFileMenu</b>(<i></i>)
+<p>
+        Private method to set up the file menu.
+</p>
+
+<a NAME="ViewManager.__showLanguagesMenu" ID="ViewManager.__showLanguagesMenu"></a>
+<h4>ViewManager.__showLanguagesMenu</h4>
+<b>__showLanguagesMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show the Languages menu of the current editor.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the menu should be shown at
+</dd>
+</dl>
+<a NAME="ViewManager.__showRecentMenu" ID="ViewManager.__showRecentMenu"></a>
+<h4>ViewManager.__showRecentMenu</h4>
+<b>__showRecentMenu</b>(<i></i>)
+<p>
+        Private method to set up recent files menu.
+</p>
+
+<a NAME="ViewManager.__spellCheck" ID="ViewManager.__spellCheck"></a>
+<h4>ViewManager.__spellCheck</h4>
+<b>__spellCheck</b>(<i></i>)
+<p>
+        Private slot to perform a spell check of the current editor.
+</p>
+
+<a NAME="ViewManager.__splitOrientation" ID="ViewManager.__splitOrientation"></a>
+<h4>ViewManager.__splitOrientation</h4>
+<b>__splitOrientation</b>(<i>checked</i>)
+<p>
+        Private method to handle the split orientation action.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+flag indicating the checked state of the action.
+            True means splitting horizontally.
+</dd>
+</dl>
+<a NAME="ViewManager.__splitView" ID="ViewManager.__splitView"></a>
+<h4>ViewManager.__splitView</h4>
+<b>__splitView</b>(<i></i>)
+<p>
+        Private method to handle the split view action.
+</p>
+
+<a NAME="ViewManager.__taskMarkersUpdated" ID="ViewManager.__taskMarkersUpdated"></a>
+<h4>ViewManager.__taskMarkersUpdated</h4>
+<b>__taskMarkersUpdated</b>(<i>editor</i>)
+<p>
+        Private slot to handle the taskMarkersUpdated signal.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor that sent the signal
+</dd>
+</dl>
+<a NAME="ViewManager.__toggleAll" ID="ViewManager.__toggleAll"></a>
+<h4>ViewManager.__toggleAll</h4>
+<b>__toggleAll</b>(<i></i>)
+<p>
+        Private method to handle the toggle all folds action.
+</p>
+
+<a NAME="ViewManager.__toggleAllChildren" ID="ViewManager.__toggleAllChildren"></a>
+<h4>ViewManager.__toggleAllChildren</h4>
+<b>__toggleAllChildren</b>(<i></i>)
+<p>
+        Private method to handle the toggle all folds (including children)
+        action.
+</p>
+
+<a NAME="ViewManager.__toggleBookmark" ID="ViewManager.__toggleBookmark"></a>
+<h4>ViewManager.__toggleBookmark</h4>
+<b>__toggleBookmark</b>(<i></i>)
+<p>
+        Private method to handle the toggle bookmark action.
+</p>
+
+<a NAME="ViewManager.__toggleCurrent" ID="ViewManager.__toggleCurrent"></a>
+<h4>ViewManager.__toggleCurrent</h4>
+<b>__toggleCurrent</b>(<i></i>)
+<p>
+        Private method to handle the toggle current fold action.
+</p>
+
+<a NAME="ViewManager.__unhighlight" ID="ViewManager.__unhighlight"></a>
+<h4>ViewManager.__unhighlight</h4>
+<b>__unhighlight</b>(<i></i>)
+<p>
+        Private slot to switch of all highlights.
+</p>
+
+<a NAME="ViewManager.__watchedFileChanged" ID="ViewManager.__watchedFileChanged"></a>
+<h4>ViewManager.__watchedFileChanged</h4>
+<b>__watchedFileChanged</b>(<i>filePath</i>)
+<p>
+        Private slot handling a file has been modified, renamed or removed.
+</p>
+
+<dl>
+
+<dt><i>filePath</i> (str)</dt>
+<dd>
+path of the file
+</dd>
+</dl>
+<a NAME="ViewManager.__watcherError" ID="ViewManager.__watcherError"></a>
+<h4>ViewManager.__watcherError</h4>
+<b>__watcherError</b>(<i>errno, strerror</i>)
+<p>
+        Private slot to handle an error of the file system watcher.
+</p>
+
+<dl>
+
+<dt><i>errno</i> (int)</dt>
+<dd>
+numeric error code
+</dd>
+<dt><i>strerror</i> (str)</dt>
+<dd>
+error message as provided by the operating system
+</dd>
+</dl>
+<a NAME="ViewManager.__zoom" ID="ViewManager.__zoom"></a>
+<h4>ViewManager.__zoom</h4>
+<b>__zoom</b>(<i></i>)
+<p>
+        Private method to handle the zoom action.
+</p>
+
+<a NAME="ViewManager.__zoomIn" ID="ViewManager.__zoomIn"></a>
+<h4>ViewManager.__zoomIn</h4>
+<b>__zoomIn</b>(<i></i>)
+<p>
+        Private method to handle the zoom in action.
+</p>
+
+<a NAME="ViewManager.__zoomOut" ID="ViewManager.__zoomOut"></a>
+<h4>ViewManager.__zoomOut</h4>
+<b>__zoomOut</b>(<i></i>)
+<p>
+        Private method to handle the zoom out action.
+</p>
+
+<a NAME="ViewManager.__zoomReset" ID="ViewManager.__zoomReset"></a>
+<h4>ViewManager.__zoomReset</h4>
+<b>__zoomReset</b>(<i></i>)
+<p>
+        Private method to reset the zoom factor.
+</p>
+
+<a NAME="ViewManager.__zoomTo" ID="ViewManager.__zoomTo"></a>
+<h4>ViewManager.__zoomTo</h4>
+<b>__zoomTo</b>(<i>value</i>)
+<p>
+        Private slot to zoom to a given value.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+zoom value to be set
+</dd>
+</dl>
+<a NAME="ViewManager._addView" ID="ViewManager._addView"></a>
+<h4>ViewManager._addView</h4>
+<b>_addView</b>(<i>win, fn=None, noName="", addNext=False, indexes=None</i>)
+<p>
+        Protected method to add a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (EditorAssembly)</dt>
+<dd>
+editor assembly to be added
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of this editor
+</dd>
+<dt><i>noName</i> (str)</dt>
+<dd>
+name to be used for an unnamed editor
+</dd>
+<dt><i>addNext</i> (bool)</dt>
+<dd>
+flag indicating to add the view next to the current
+            view
+</dd>
+<dt><i>indexes</i> (tuple of two int)</dt>
+<dd>
+of the editor, first the split view index, second the
+            index within the view
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager._checkActions" ID="ViewManager._checkActions"></a>
+<h4>ViewManager._checkActions</h4>
+<b>_checkActions</b>(<i>editor, setSb=True</i>)
+<p>
+        Protected slot to check some actions for their enable/disable status
+        and set the statusbar info.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window
+</dd>
+<dt><i>setSb</i> (bool)</dt>
+<dd>
+flag indicating an update of the status bar is wanted
+</dd>
+</dl>
+<a NAME="ViewManager._getOpenFileFilter" ID="ViewManager._getOpenFileFilter"></a>
+<h4>ViewManager._getOpenFileFilter</h4>
+<b>_getOpenFileFilter</b>(<i></i>)
+<p>
+        Protected method to return the active filename filter for a file open
+        dialog.
+</p>
+<p>
+        The appropriate filename filter is determined by file extension of
+        the currently active editor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the filename filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ViewManager._getOpenStartDir" ID="ViewManager._getOpenStartDir"></a>
+<h4>ViewManager._getOpenStartDir</h4>
+<b>_getOpenStartDir</b>(<i>forRemote=False</i>)
+<p>
+        Protected method to return the starting directory for a file open
+        dialog.
+</p>
+<p>
+        The appropriate starting directory is calculated
+        using the following search order, until a match is found:<br />
+            1: Directory of currently active editor<br />
+            2: Directory of currently active Project<br />
+            3: Directory defined as the workspace (only for local access)<br />
+            4: CWD
+</p>
+
+<dl>
+
+<dt><i>forRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to get the start directory for a remote
+            operation (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of directory to start
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ViewManager._initWindowActions" ID="ViewManager._initWindowActions"></a>
+<h4>ViewManager._initWindowActions</h4>
+<b>_initWindowActions</b>(<i></i>)
+<p>
+        Protected method to define the user interface actions for window
+        handling.
+</p>
+
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager._modificationStatusChanged" ID="ViewManager._modificationStatusChanged"></a>
+<h4>ViewManager._modificationStatusChanged</h4>
+<b>_modificationStatusChanged</b>(<i>m, editor</i>)
+<p>
+        Protected slot to handle the modificationStatusChanged signal.
+</p>
+
+<dl>
+
+<dt><i>m</i> (bool)</dt>
+<dd>
+flag indicating the modification status
+</dd>
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window changed
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager._removeAllViews" ID="ViewManager._removeAllViews"></a>
+<h4>ViewManager._removeAllViews</h4>
+<b>_removeAllViews</b>(<i></i>)
+<p>
+        Protected method to remove all views (i.e. windows).
+</p>
+
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager._removeView" ID="ViewManager._removeView"></a>
+<h4>ViewManager._removeView</h4>
+<b>_removeView</b>(<i>win</i>)
+<p>
+        Protected method to remove a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (EditorAssembly)</dt>
+<dd>
+editor window to be removed
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager._showView" ID="ViewManager._showView"></a>
+<h4>ViewManager._showView</h4>
+<b>_showView</b>(<i>win, fn=None</i>)
+<p>
+        Protected method to show a view (i.e. window).
+</p>
+
+<dl>
+
+<dt><i>win</i> (EditorAssembly)</dt>
+<dd>
+editor assembly to be shown
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of this editor
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager._syntaxErrorToggled" ID="ViewManager._syntaxErrorToggled"></a>
+<h4>ViewManager._syntaxErrorToggled</h4>
+<b>_syntaxErrorToggled</b>(<i>editor</i>)
+<p>
+        Protected slot to handle the syntaxerrorToggled signal.
+</p>
+<p>
+        It checks some syntax error actions and reemits the signal.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor that sent the signal
+</dd>
+</dl>
+<a NAME="ViewManager.activeWindow" ID="ViewManager.activeWindow"></a>
+<h4>ViewManager.activeWindow</h4>
+<b>activeWindow</b>(<i></i>)
+<p>
+        Public method to return the active (i.e. current) window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the active editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager.addSplit" ID="ViewManager.addSplit"></a>
+<h4>ViewManager.addSplit</h4>
+<b>addSplit</b>(<i></i>)
+<p>
+        Public method used to split the current view.
+</p>
+
+<a NAME="ViewManager.addToExtrasMenu" ID="ViewManager.addToExtrasMenu"></a>
+<h4>ViewManager.addToExtrasMenu</h4>
+<b>addToExtrasMenu</b>(<i>menu</i>)
+<p>
+        Public method to add some actions to the Extras menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to add actions to
+</dd>
+</dl>
+<a NAME="ViewManager.addToRecentList" ID="ViewManager.addToRecentList"></a>
+<h4>ViewManager.addToRecentList</h4>
+<b>addToRecentList</b>(<i>fn</i>)
+<p>
+        Public slot to add a filename to the list of recently opened files.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+name of the file to be added
+</dd>
+</dl>
+<a NAME="ViewManager.addWatchedFilePath" ID="ViewManager.addWatchedFilePath"></a>
+<h4>ViewManager.addWatchedFilePath</h4>
+<b>addWatchedFilePath</b>(<i>filePath</i>)
+<p>
+        Public method to add a file to the list of monitored files.
+</p>
+
+<dl>
+
+<dt><i>filePath</i> (str)</dt>
+<dd>
+path of the file to be added
+</dd>
+</dl>
+<a NAME="ViewManager.appFocusChanged" ID="ViewManager.appFocusChanged"></a>
+<h4>ViewManager.appFocusChanged</h4>
+<b>appFocusChanged</b>(<i>old, now</i>)
+<p>
+        Public method to handle the global change of focus.
+</p>
+
+<dl>
+
+<dt><i>old</i> (QWidget)</dt>
+<dd>
+reference to the widget loosing focus
+</dd>
+<dt><i>now</i> (QWidget)</dt>
+<dd>
+reference to the widget gaining focus
+</dd>
+</dl>
+<a NAME="ViewManager.canCascade" ID="ViewManager.canCascade"></a>
+<h4>ViewManager.canCascade</h4>
+<b>canCascade</b>(<i></i>)
+<p>
+        Public method to signal if cascading of managed windows is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating cascading of windows is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager.canSplit" ID="ViewManager.canSplit"></a>
+<h4>ViewManager.canSplit</h4>
+<b>canSplit</b>(<i></i>)
+<p>
+        Public method to signal if splitting of the view is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating splitting of the view is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.canTile" ID="ViewManager.canTile"></a>
+<h4>ViewManager.canTile</h4>
+<b>canTile</b>(<i></i>)
+<p>
+        Public method to signal if tiling of managed windows is available.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating tiling of windows is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager.cancelSharedEdit" ID="ViewManager.cancelSharedEdit"></a>
+<h4>ViewManager.cancelSharedEdit</h4>
+<b>cancelSharedEdit</b>(<i></i>)
+<p>
+        Public slot to cancel a shared edit session for the current editor.
+</p>
+
+<a NAME="ViewManager.cascade" ID="ViewManager.cascade"></a>
+<h4>ViewManager.cascade</h4>
+<b>cascade</b>(<i></i>)
+<p>
+        Public method to cascade the managed windows.
+</p>
+
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager.checkAllDirty" ID="ViewManager.checkAllDirty"></a>
+<h4>ViewManager.checkAllDirty</h4>
+<b>checkAllDirty</b>(<i></i>)
+<p>
+        Public method to check the dirty status of all editors.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful reset of all dirty flags
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.checkDirty" ID="ViewManager.checkDirty"></a>
+<h4>ViewManager.checkDirty</h4>
+<b>checkDirty</b>(<i>editor, autosave=False, closeIt=False</i>)
+<p>
+        Public method to check the dirty status and open a message window.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window to check
+</dd>
+<dt><i>autosave</i> (bool (optional))</dt>
+<dd>
+flag indicating that the file should be saved
+            automatically (defaults to False)
+</dd>
+<dt><i>closeIt</i> (bool (optional))</dt>
+<dd>
+flag indicating a check in order to close the editor
+            (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful reset of the dirty flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.checkFileDirty" ID="ViewManager.checkFileDirty"></a>
+<h4>ViewManager.checkFileDirty</h4>
+<b>checkFileDirty</b>(<i>fn</i>)
+<p>
+        Public method to check the dirty status of an editor given its file
+        name and open a message window.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name of editor to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful reset of the dirty flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.clearRecent" ID="ViewManager.clearRecent"></a>
+<h4>ViewManager.clearRecent</h4>
+<b>clearRecent</b>(<i></i>)
+<p>
+        Public method to clear the recent files menu.
+</p>
+
+<a NAME="ViewManager.cloneEditor" ID="ViewManager.cloneEditor"></a>
+<h4>ViewManager.cloneEditor</h4>
+<b>cloneEditor</b>(<i>caller, filetype, fn</i>)
+<p>
+        Public method to clone an editor displaying the given document.
+</p>
+
+<dl>
+
+<dt><i>caller</i> (Editor)</dt>
+<dd>
+reference to the editor calling this method
+</dd>
+<dt><i>filetype</i> (str)</dt>
+<dd>
+type of the source file
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of this view
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the new editor object and the new editor
+            assembly object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (Editor, EditorAssembly)
+</dd>
+</dl>
+<a NAME="ViewManager.closeAllWindows" ID="ViewManager.closeAllWindows"></a>
+<h4>ViewManager.closeAllWindows</h4>
+<b>closeAllWindows</b>(<i>ignoreDirty=False</i>)
+<p>
+        Public method to close all editor windows.
+</p>
+
+<dl>
+
+<dt><i>ignoreDirty</i> (bool)</dt>
+<dd>
+flag indicating to ignore the 'dirty' status
+</dd>
+</dl>
+<a NAME="ViewManager.closeCurrentWindow" ID="ViewManager.closeCurrentWindow"></a>
+<h4>ViewManager.closeCurrentWindow</h4>
+<b>closeCurrentWindow</b>(<i></i>)
+<p>
+        Public method to close the current window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.closeDeviceEditors" ID="ViewManager.closeDeviceEditors"></a>
+<h4>ViewManager.closeDeviceEditors</h4>
+<b>closeDeviceEditors</b>(<i></i>)
+<p>
+        Public slot to close all editors related to a MicroPython device.
+</p>
+
+<a NAME="ViewManager.closeEditor" ID="ViewManager.closeEditor"></a>
+<h4>ViewManager.closeEditor</h4>
+<b>closeEditor</b>(<i>editor, ignoreDirty=False</i>)
+<p>
+        Public method to close an editor window.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window to be closed
+</dd>
+<dt><i>ignoreDirty</i> (bool)</dt>
+<dd>
+flag indicating to ignore the 'dirty' status
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.closeEditorWindow" ID="ViewManager.closeEditorWindow"></a>
+<h4>ViewManager.closeEditorWindow</h4>
+<b>closeEditorWindow</b>(<i>editor</i>)
+<p>
+        Public method to close an arbitrary source editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor to be closed
+</dd>
+</dl>
+<a NAME="ViewManager.closeRemoteEditors" ID="ViewManager.closeRemoteEditors"></a>
+<h4>ViewManager.closeRemoteEditors</h4>
+<b>closeRemoteEditors</b>(<i></i>)
+<p>
+        Public slot to close all editors related to a connected eric-ide server.
+</p>
+
+<a NAME="ViewManager.closeViewManager" ID="ViewManager.closeViewManager"></a>
+<h4>ViewManager.closeViewManager</h4>
+<b>closeViewManager</b>(<i></i>)
+<p>
+        Public method to shutdown the viewmanager.
+</p>
+<p>
+        If it cannot close all editor windows, it aborts the shutdown process.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.closeWindow" ID="ViewManager.closeWindow"></a>
+<h4>ViewManager.closeWindow</h4>
+<b>closeWindow</b>(<i>fn, ignoreDirty=False</i>)
+<p>
+        Public method to close an arbitrary source editor.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name of the editor to be closed
+</dd>
+<dt><i>ignoreDirty</i> (bool)</dt>
+<dd>
+flag indicating to ignore the 'dirty' status
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.editorsCheckFocusInEnabled" ID="ViewManager.editorsCheckFocusInEnabled"></a>
+<h4>ViewManager.editorsCheckFocusInEnabled</h4>
+<b>editorsCheckFocusInEnabled</b>(<i></i>)
+<p>
+        Public method returning the flag indicating editors should perform
+        focus in checks.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating focus in checks should be performed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.enableEditorsCheckFocusIn" ID="ViewManager.enableEditorsCheckFocusIn"></a>
+<h4>ViewManager.enableEditorsCheckFocusIn</h4>
+<b>enableEditorsCheckFocusIn</b>(<i>enabled</i>)
+<p>
+        Public method to set a flag enabling the editors to perform focus in
+        checks.
+</p>
+
+<dl>
+
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating focus in checks should be performed
+</dd>
+</dl>
+<a NAME="ViewManager.eventFilter" ID="ViewManager.eventFilter"></a>
+<h4>ViewManager.eventFilter</h4>
+<b>eventFilter</b>(<i>qobject, event</i>)
+<p>
+        Public method called to filter an event.
+</p>
+
+<dl>
+
+<dt><i>qobject</i> (QObject)</dt>
+<dd>
+object, that generated the event
+</dd>
+<dt><i>event</i> (QEvent)</dt>
+<dd>
+the event, that was generated by object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if event was filtered out
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.exit" ID="ViewManager.exit"></a>
+<h4>ViewManager.exit</h4>
+<b>exit</b>(<i></i>)
+<p>
+        Public method to handle the debugged program terminating.
+</p>
+
+<a NAME="ViewManager.getAPIsManager" ID="ViewManager.getAPIsManager"></a>
+<h4>ViewManager.getAPIsManager</h4>
+<b>getAPIsManager</b>(<i></i>)
+<p>
+        Public method to get a reference to the APIs manager.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the APIs manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QScintilla.APIsManager
+</dd>
+</dl>
+<a NAME="ViewManager.getActions" ID="ViewManager.getActions"></a>
+<h4>ViewManager.getActions</h4>
+<b>getActions</b>(<i>actionSetType</i>)
+<p>
+        Public method to get a list of all actions.
+</p>
+
+<dl>
+
+<dt><i>actionSetType</i> (str)</dt>
+<dd>
+string denoting the action set to get.
+            It must be one of "edit", "file", "search", "view", "window",
+            "macro", "bookmark" or "spelling".
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of EricAction
+</dd>
+</dl>
+<a NAME="ViewManager.getActiveName" ID="ViewManager.getActiveName"></a>
+<h4>ViewManager.getActiveName</h4>
+<b>getActiveName</b>(<i></i>)
+<p>
+        Public method to retrieve the filename of the active window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+filename of active window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ViewManager.getEditor" ID="ViewManager.getEditor"></a>
+<h4>ViewManager.getEditor</h4>
+<b>getEditor</b>(<i>fn, filetype="", addNext=False, indexes=None</i>)
+<p>
+        Public method to return the editor displaying the given file.
+</p>
+<p>
+        If there is no editor with the given file, a new editor window is
+        created.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to look for
+</dd>
+<dt><i>filetype</i> (str)</dt>
+<dd>
+type of the source file
+</dd>
+<dt><i>addNext</i> (bool)</dt>
+<dd>
+flag indicating that if a new editor needs to be
+            created, it should be added next to the current editor
+</dd>
+<dt><i>indexes</i> (tuple of two int)</dt>
+<dd>
+tuple containing the indexes of the editor, first the split
+            view index, second the index within the view
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of two values giving a flag indicating a new window
+            creation and a reference to the editor displaying this file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, Editor)
+</dd>
+</dl>
+<a NAME="ViewManager.getMostRecent" ID="ViewManager.getMostRecent"></a>
+<h4>ViewManager.getMostRecent</h4>
+<b>getMostRecent</b>(<i></i>)
+<p>
+        Public method to get the most recently opened file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the most recently opened file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ViewManager.getNumber" ID="ViewManager.getNumber"></a>
+<h4>ViewManager.getNumber</h4>
+<b>getNumber</b>(<i></i>)
+<p>
+        Public method to get a number from the active window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected text of the active window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ViewManager.getOpenEditor" ID="ViewManager.getOpenEditor"></a>
+<h4>ViewManager.getOpenEditor</h4>
+<b>getOpenEditor</b>(<i>fn</i>)
+<p>
+        Public method to return the editor displaying the given file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to look for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+a reference to the editor displaying this file or None, if
+            no editor was found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor or None
+</dd>
+</dl>
+<a NAME="ViewManager.getOpenEditorCount" ID="ViewManager.getOpenEditorCount"></a>
+<h4>ViewManager.getOpenEditorCount</h4>
+<b>getOpenEditorCount</b>(<i>fn</i>)
+<p>
+        Public method to return the count of editors displaying the given file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to look for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+count of editors displaying this file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="ViewManager.getOpenEditorList" ID="ViewManager.getOpenEditorList"></a>
+<h4>ViewManager.getOpenEditorList</h4>
+<b>getOpenEditorList</b>(<i>fn</i>)
+<p>
+        Public method to return a list of all editors displaying the given file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to look for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of references to the editors displaying this file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of Editor
+</dd>
+</dl>
+<a NAME="ViewManager.getOpenEditors" ID="ViewManager.getOpenEditors"></a>
+<h4>ViewManager.getOpenEditors</h4>
+<b>getOpenEditors</b>(<i></i>)
+<p>
+        Public method to get references to all open editors.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of references to all open editors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of Editor
+</dd>
+</dl>
+<a NAME="ViewManager.getOpenEditorsCount" ID="ViewManager.getOpenEditorsCount"></a>
+<h4>ViewManager.getOpenEditorsCount</h4>
+<b>getOpenEditorsCount</b>(<i></i>)
+<p>
+        Public method to get the number of open editors.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of open editors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="ViewManager.getOpenEditorsForSession" ID="ViewManager.getOpenEditorsForSession"></a>
+<h4>ViewManager.getOpenEditorsForSession</h4>
+<b>getOpenEditorsForSession</b>(<i></i>)
+<p>
+        Public method to get a lists of all open editors.
+</p>
+<p>
+        The returned list contains one list per split view. If the view manager
+        cannot split the view, only one list of editors is returned.
+</p>
+<p>
+        Note: This method should be implemented by subclasses.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of list of editor references
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of list of Editor
+</dd>
+</dl>
+<a NAME="ViewManager.getOpenFilenames" ID="ViewManager.getOpenFilenames"></a>
+<h4>ViewManager.getOpenFilenames</h4>
+<b>getOpenFilenames</b>(<i></i>)
+<p>
+        Public method returning a list of the filenames of all editors.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all opened filenames
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="ViewManager.getSRHistory" ID="ViewManager.getSRHistory"></a>
+<h4>ViewManager.getSRHistory</h4>
+<b>getSRHistory</b>(<i>key</i>)
+<p>
+        Public method to get the search or replace history list.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+list to return (must be 'search' or 'replace')
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested history list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="ViewManager.getSplitOrientation" ID="ViewManager.getSplitOrientation"></a>
+<h4>ViewManager.getSplitOrientation</h4>
+<b>getSplitOrientation</b>(<i></i>)
+<p>
+        Public method to get the orientation of the split view.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+orientation of the split
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Qt.Orientation
+</dd>
+</dl>
+<a NAME="ViewManager.handleResetUI" ID="ViewManager.handleResetUI"></a>
+<h4>ViewManager.handleResetUI</h4>
+<b>handleResetUI</b>(<i></i>)
+<p>
+        Public slot to handle the resetUI signal.
+</p>
+
+<a NAME="ViewManager.hasDirtyEditor" ID="ViewManager.hasDirtyEditor"></a>
+<h4>ViewManager.hasDirtyEditor</h4>
+<b>hasDirtyEditor</b>(<i></i>)
+<p>
+        Public method to ask, if any of the open editors contains unsaved
+        changes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating at least one editor has unsaved changes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.initActions" ID="ViewManager.initActions"></a>
+<h4>ViewManager.initActions</h4>
+<b>initActions</b>(<i></i>)
+<p>
+        Public method defining the user interface actions.
+</p>
+
+<a NAME="ViewManager.initBookmarkMenu" ID="ViewManager.initBookmarkMenu"></a>
+<h4>ViewManager.initBookmarkMenu</h4>
+<b>initBookmarkMenu</b>(<i></i>)
+<p>
+        Public method to create the Bookmark menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="ViewManager.initBookmarkToolbar" ID="ViewManager.initBookmarkToolbar"></a>
+<h4>ViewManager.initBookmarkToolbar</h4>
+<b>initBookmarkToolbar</b>(<i>toolbarManager</i>)
+<p>
+        Public method to create the Bookmark toolbar.
+</p>
+
+<dl>
+
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="ViewManager.initEditMenu" ID="ViewManager.initEditMenu"></a>
+<h4>ViewManager.initEditMenu</h4>
+<b>initEditMenu</b>(<i></i>)
+<p>
+        Public method to create the Edit menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="ViewManager.initEditToolbar" ID="ViewManager.initEditToolbar"></a>
+<h4>ViewManager.initEditToolbar</h4>
+<b>initEditToolbar</b>(<i>toolbarManager</i>)
+<p>
+        Public method to create the Edit toolbar.
+</p>
+
+<dl>
+
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="ViewManager.initFileMenu" ID="ViewManager.initFileMenu"></a>
+<h4>ViewManager.initFileMenu</h4>
+<b>initFileMenu</b>(<i></i>)
+<p>
+        Public method to create the File menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="ViewManager.initFileToolbar" ID="ViewManager.initFileToolbar"></a>
+<h4>ViewManager.initFileToolbar</h4>
+<b>initFileToolbar</b>(<i>toolbarManager</i>)
+<p>
+        Public method to create the File toolbar.
+</p>
+
+<dl>
+
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="ViewManager.initMacroMenu" ID="ViewManager.initMacroMenu"></a>
+<h4>ViewManager.initMacroMenu</h4>
+<b>initMacroMenu</b>(<i></i>)
+<p>
+        Public method to create the Macro menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="ViewManager.initSearchMenu" ID="ViewManager.initSearchMenu"></a>
+<h4>ViewManager.initSearchMenu</h4>
+<b>initSearchMenu</b>(<i></i>)
+<p>
+        Public method to create the Search menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="ViewManager.initSearchToolbar" ID="ViewManager.initSearchToolbar"></a>
+<h4>ViewManager.initSearchToolbar</h4>
+<b>initSearchToolbar</b>(<i>toolbarManager</i>)
+<p>
+        Public method to create the Search toolbar.
+</p>
+
+<dl>
+
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+generated toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="ViewManager.initSpellingToolbar" ID="ViewManager.initSpellingToolbar"></a>
+<h4>ViewManager.initSpellingToolbar</h4>
+<b>initSpellingToolbar</b>(<i>toolbarManager</i>)
+<p>
+        Public method to create the Spelling toolbar.
+</p>
+
+<dl>
+
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="ViewManager.initViewMenu" ID="ViewManager.initViewMenu"></a>
+<h4>ViewManager.initViewMenu</h4>
+<b>initViewMenu</b>(<i></i>)
+<p>
+        Public method to create the View menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="ViewManager.initViewToolbar" ID="ViewManager.initViewToolbar"></a>
+<h4>ViewManager.initViewToolbar</h4>
+<b>initViewToolbar</b>(<i>toolbarManager</i>)
+<p>
+        Public method to create the View toolbar.
+</p>
+
+<dl>
+
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QToolBar
+</dd>
+</dl>
+<a NAME="ViewManager.insertNumber" ID="ViewManager.insertNumber"></a>
+<h4>ViewManager.insertNumber</h4>
+<b>insertNumber</b>(<i>txt</i>)
+<p>
+        Public slot to insert a number text into the active window.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be inserted
+</dd>
+</dl>
+<a NAME="ViewManager.insertSymbol" ID="ViewManager.insertSymbol"></a>
+<h4>ViewManager.insertSymbol</h4>
+<b>insertSymbol</b>(<i>txt</i>)
+<p>
+        Public slot to insert a symbol text into the active window.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be inserted
+</dd>
+</dl>
+<a NAME="ViewManager.isConnected" ID="ViewManager.isConnected"></a>
+<h4>ViewManager.isConnected</h4>
+<b>isConnected</b>(<i></i>)
+<p>
+        Public method to check the connection status of the IDE.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the connection status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.isEditorInfoSupported" ID="ViewManager.isEditorInfoSupported"></a>
+<h4>ViewManager.isEditorInfoSupported</h4>
+<b>isEditorInfoSupported</b>(<i>language</i>)
+<p>
+        Public method to check, if a language is supported by the
+        documentation viewer.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+editor programming language to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the support status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.mainWidget" ID="ViewManager.mainWidget"></a>
+<h4>ViewManager.mainWidget</h4>
+<b>mainWidget</b>(<i></i>)
+<p>
+        Public method to return a reference to the main Widget of a
+        specific view manager subclass.
+</p>
+
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager.newEditor" ID="ViewManager.newEditor"></a>
+<h4>ViewManager.newEditor</h4>
+<b>newEditor</b>(<i></i>)
+<p>
+        Public method to generate a new empty editor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the new editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor
+</dd>
+</dl>
+<a NAME="ViewManager.newEditorView" ID="ViewManager.newEditorView"></a>
+<h4>ViewManager.newEditorView</h4>
+<b>newEditorView</b>(<i>fn, caller, filetype="", indexes=None</i>)
+<p>
+        Public method to create a new editor displaying the given document.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of this view
+</dd>
+<dt><i>caller</i> (Editor)</dt>
+<dd>
+reference to the editor calling this method
+</dd>
+<dt><i>filetype</i> (str)</dt>
+<dd>
+type of the source file
+</dd>
+<dt><i>indexes</i> (tuple of two int)</dt>
+<dd>
+of the editor, first the split view index, second the
+            index within the view
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the new editor object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor
+</dd>
+</dl>
+<a NAME="ViewManager.newEditorWithText" ID="ViewManager.newEditorWithText"></a>
+<h4>ViewManager.newEditorWithText</h4>
+<b>newEditorWithText</b>(<i>text, language="", fileName=""</i>)
+<p>
+        Public method to generate a new editor with a given text and associated file
+        name.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text for the editor
+</dd>
+<dt><i>language</i> (str (optional))</dt>
+<dd>
+source language (defaults to "")
+</dd>
+<dt><i>fileName</i> (str (optional))</dt>
+<dd>
+associated file name (defaults to "")
+</dd>
+</dl>
+<a NAME="ViewManager.nextSplit" ID="ViewManager.nextSplit"></a>
+<h4>ViewManager.nextSplit</h4>
+<b>nextSplit</b>(<i></i>)
+<p>
+        Public slot used to move to the next split.
+</p>
+
+<a NAME="ViewManager.openFiles" ID="ViewManager.openFiles"></a>
+<h4>ViewManager.openFiles</h4>
+<b>openFiles</b>(<i>prog</i>)
+<p>
+        Public slot to open some files.
+</p>
+
+<dl>
+
+<dt><i>prog</i> (str)</dt>
+<dd>
+name of file to be opened
+</dd>
+</dl>
+<a NAME="ViewManager.openSourceFile" ID="ViewManager.openSourceFile"></a>
+<h4>ViewManager.openSourceFile</h4>
+<b>openSourceFile</b>(<i>fn, lineno=-1, filetype="", selStart=0, selEnd=0, pos=0, addNext=False, indexes=None, </i>)
+<p>
+        Public slot to display a file in an editor.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+name of file to be opened
+</dd>
+<dt><i>lineno</i> (int or list of int)</dt>
+<dd>
+line number to place the cursor at or list of line
+            numbers (cursor will be placed at the next line greater than
+            the current one)
+</dd>
+<dt><i>filetype</i> (str)</dt>
+<dd>
+type of the source file
+</dd>
+<dt><i>selStart</i> (int)</dt>
+<dd>
+start of an area to be selected
+</dd>
+<dt><i>selEnd</i> (int)</dt>
+<dd>
+end of an area to be selected
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position within the line to place the cursor at
+</dd>
+<dt><i>addNext</i> (bool)</dt>
+<dd>
+flag indicating to add the file next to the current
+            editor
+</dd>
+<dt><i>indexes</i> (tuple of two int)</dt>
+<dd>
+indexes of the editor, first the split view index, second the
+            index within the view
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the opened editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Editor
+</dd>
+</dl>
+<a NAME="ViewManager.openSourceFileLinePos" ID="ViewManager.openSourceFileLinePos"></a>
+<h4>ViewManager.openSourceFileLinePos</h4>
+<b>openSourceFileLinePos</b>(<i>fn, lineno, pos</i>)
+<p>
+        Public slot to display a file in an editor at a given line and position.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+name of file to be opened
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number to place the cursor at
+</dd>
+<dt><i>pos</i> (int)</dt>
+<dd>
+position within line to position cursor at
+</dd>
+</dl>
+<a NAME="ViewManager.preferencesChanged" ID="ViewManager.preferencesChanged"></a>
+<h4>ViewManager.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle the preferencesChanged signal.
+</p>
+<p>
+        This method performs the following actions
+            <ul>
+            <li>reread the colours for the syntax highlighting</li>
+            <li>reloads the already created API objetcs</li>
+            <li><b>Note</b>: changes in viewmanager type are activated
+              on an application restart.</li>
+            </ul>
+</p>
+
+<a NAME="ViewManager.prevSplit" ID="ViewManager.prevSplit"></a>
+<h4>ViewManager.prevSplit</h4>
+<b>prevSplit</b>(<i></i>)
+<p>
+        Public slot used to move to the previous split.
+</p>
+
+<a NAME="ViewManager.printCurrentEditor" ID="ViewManager.printCurrentEditor"></a>
+<h4>ViewManager.printCurrentEditor</h4>
+<b>printCurrentEditor</b>(<i></i>)
+<p>
+        Public slot to print the contents of the current editor.
+</p>
+
+<a NAME="ViewManager.printEditor" ID="ViewManager.printEditor"></a>
+<h4>ViewManager.printEditor</h4>
+<b>printEditor</b>(<i>editor</i>)
+<p>
+        Public slot to print an editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor to be printed
+</dd>
+</dl>
+<a NAME="ViewManager.printPreviewCurrentEditor" ID="ViewManager.printPreviewCurrentEditor"></a>
+<h4>ViewManager.printPreviewCurrentEditor</h4>
+<b>printPreviewCurrentEditor</b>(<i></i>)
+<p>
+        Public slot to show a print preview of the current editor.
+</p>
+
+<a NAME="ViewManager.printPreviewEditor" ID="ViewManager.printPreviewEditor"></a>
+<h4>ViewManager.printPreviewEditor</h4>
+<b>printPreviewEditor</b>(<i>editor</i>)
+<p>
+        Public slot to show a print preview of an editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor to be printed
+</dd>
+</dl>
+<a NAME="ViewManager.projectClosed" ID="ViewManager.projectClosed"></a>
+<h4>ViewManager.projectClosed</h4>
+<b>projectClosed</b>(<i></i>)
+<p>
+        Public slot to handle the projectClosed signal.
+</p>
+
+<a NAME="ViewManager.projectFileRenamed" ID="ViewManager.projectFileRenamed"></a>
+<h4>ViewManager.projectFileRenamed</h4>
+<b>projectFileRenamed</b>(<i>oldfn, newfn</i>)
+<p>
+        Public slot to handle the projectFileRenamed signal.
+</p>
+
+<dl>
+
+<dt><i>oldfn</i> (str)</dt>
+<dd>
+old filename of the file
+</dd>
+<dt><i>newfn</i> (str)</dt>
+<dd>
+new filename of the file
+</dd>
+</dl>
+<a NAME="ViewManager.projectLexerAssociationsChanged" ID="ViewManager.projectLexerAssociationsChanged"></a>
+<h4>ViewManager.projectLexerAssociationsChanged</h4>
+<b>projectLexerAssociationsChanged</b>(<i></i>)
+<p>
+        Public slot to handle changes of the project lexer associations.
+</p>
+
+<a NAME="ViewManager.projectOpened" ID="ViewManager.projectOpened"></a>
+<h4>ViewManager.projectOpened</h4>
+<b>projectOpened</b>(<i></i>)
+<p>
+        Public slot to handle the projectOpened signal.
+</p>
+
+<a NAME="ViewManager.receive" ID="ViewManager.receive"></a>
+<h4>ViewManager.receive</h4>
+<b>receive</b>(<i>projectHash, fileName, command</i>)
+<p>
+        Public slot to handle received editor commands.
+</p>
+
+<dl>
+
+<dt><i>projectHash</i> (str)</dt>
+<dd>
+hash of the project
+</dd>
+<dt><i>fileName</i> (str)</dt>
+<dd>
+project relative file name of the editor
+</dd>
+<dt><i>command</i> (str)</dt>
+<dd>
+command string
+</dd>
+</dl>
+<a NAME="ViewManager.remoteConnectionChanged" ID="ViewManager.remoteConnectionChanged"></a>
+<h4>ViewManager.remoteConnectionChanged</h4>
+<b>remoteConnectionChanged</b>(<i>connected</i>)
+<p>
+        Public slot handling a change of the connection state to an eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+flag indicating the connection state
+</dd>
+</dl>
+<a NAME="ViewManager.removeSplit" ID="ViewManager.removeSplit"></a>
+<h4>ViewManager.removeSplit</h4>
+<b>removeSplit</b>(<i>index=-1</i>)
+<p>
+        Public method used to remove the current split view or a split view
+        by index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the split to be removed (-1 means to
+            delete the current split)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful deletion
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.removeWatchedFilePath" ID="ViewManager.removeWatchedFilePath"></a>
+<h4>ViewManager.removeWatchedFilePath</h4>
+<b>removeWatchedFilePath</b>(<i>filePath</i>)
+<p>
+        Public method to remove a file from the list of monitored files.
+</p>
+
+<dl>
+
+<dt><i>filePath</i> (str)</dt>
+<dd>
+path of the file to be removed
+</dd>
+</dl>
+<a NAME="ViewManager.saveAllEditors" ID="ViewManager.saveAllEditors"></a>
+<h4>ViewManager.saveAllEditors</h4>
+<b>saveAllEditors</b>(<i></i>)
+<p>
+        Public slot to save the contents of all editors.
+</p>
+
+<a NAME="ViewManager.saveAsCurrentEditor" ID="ViewManager.saveAsCurrentEditor"></a>
+<h4>ViewManager.saveAsCurrentEditor</h4>
+<b>saveAsCurrentEditor</b>(<i></i>)
+<p>
+        Public slot to save the contents of the current editor to a new file.
+</p>
+
+<a NAME="ViewManager.saveAsEditorEd" ID="ViewManager.saveAsEditorEd"></a>
+<h4>ViewManager.saveAsEditorEd</h4>
+<b>saveAsEditorEd</b>(<i>ed</i>)
+<p>
+        Public slot to save the contents of an editor to a new file.
+</p>
+
+<dl>
+
+<dt><i>ed</i> (Editor)</dt>
+<dd>
+editor to be saved
+</dd>
+</dl>
+<a NAME="ViewManager.saveAsRemoteCurrentEditor" ID="ViewManager.saveAsRemoteCurrentEditor"></a>
+<h4>ViewManager.saveAsRemoteCurrentEditor</h4>
+<b>saveAsRemoteCurrentEditor</b>(<i></i>)
+<p>
+        Public slot to save the contents of the current editor to a new file on a
+        connected eric-ide server.
+</p>
+
+<a NAME="ViewManager.saveAsRemoteEditorEd" ID="ViewManager.saveAsRemoteEditorEd"></a>
+<h4>ViewManager.saveAsRemoteEditorEd</h4>
+<b>saveAsRemoteEditorEd</b>(<i>ed</i>)
+<p>
+        Public slot to save the contents of an editor to a new file on a
+        connected eric-ide server.
+</p>
+
+<dl>
+
+<dt><i>ed</i> (Editor)</dt>
+<dd>
+editor to be saved
+</dd>
+</dl>
+<a NAME="ViewManager.saveCopyCurrentEditor" ID="ViewManager.saveCopyCurrentEditor"></a>
+<h4>ViewManager.saveCopyCurrentEditor</h4>
+<b>saveCopyCurrentEditor</b>(<i></i>)
+<p>
+        Public slot to save the contents of the current editor to a new copy
+        of the file.
+</p>
+
+<a NAME="ViewManager.saveCopyEditorEd" ID="ViewManager.saveCopyEditorEd"></a>
+<h4>ViewManager.saveCopyEditorEd</h4>
+<b>saveCopyEditorEd</b>(<i>ed</i>)
+<p>
+        Public slot to save the contents of an editor to a new copy of
+        the file.
+</p>
+
+<dl>
+
+<dt><i>ed</i> (Editor)</dt>
+<dd>
+editor to be saved
+</dd>
+</dl>
+<a NAME="ViewManager.saveCurrentEditor" ID="ViewManager.saveCurrentEditor"></a>
+<h4>ViewManager.saveCurrentEditor</h4>
+<b>saveCurrentEditor</b>(<i></i>)
+<p>
+        Public slot to save the contents of the current editor.
+</p>
+
+<a NAME="ViewManager.saveEditor" ID="ViewManager.saveEditor"></a>
+<h4>ViewManager.saveEditor</h4>
+<b>saveEditor</b>(<i>fn</i>)
+<p>
+        Public method to save a named editor file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of editor to be saved
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.saveEditorEd" ID="ViewManager.saveEditorEd"></a>
+<h4>ViewManager.saveEditorEd</h4>
+<b>saveEditorEd</b>(<i>ed</i>)
+<p>
+        Public slot to save the contents of an editor.
+</p>
+
+<dl>
+
+<dt><i>ed</i> (Editor)</dt>
+<dd>
+editor to be saved
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ViewManager.saveEditorsList" ID="ViewManager.saveEditorsList"></a>
+<h4>ViewManager.saveEditorsList</h4>
+<b>saveEditorsList</b>(<i>editors</i>)
+<p>
+        Public slot to save a list of editors.
+</p>
+
+<dl>
+
+<dt><i>editors</i> (list of Editor)</dt>
+<dd>
+list of editors to be saved
+</dd>
+</dl>
+<a NAME="ViewManager.searchReplaceWidget" ID="ViewManager.searchReplaceWidget"></a>
+<h4>ViewManager.searchReplaceWidget</h4>
+<b>searchReplaceWidget</b>(<i></i>)
+<p>
+        Public method to get a reference to the search widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the search widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SearchReplaceSlidingWidget
+</dd>
+</dl>
+<a NAME="ViewManager.send" ID="ViewManager.send"></a>
+<h4>ViewManager.send</h4>
+<b>send</b>(<i>fileName, message</i>)
+<p>
+        Public method to send an editor command to remote editors.
+</p>
+
+<dl>
+
+<dt><i>fileName</i> (str)</dt>
+<dd>
+file name of the editor
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+command message to be sent
+</dd>
+</dl>
+<a NAME="ViewManager.sendSharedEdit" ID="ViewManager.sendSharedEdit"></a>
+<h4>ViewManager.sendSharedEdit</h4>
+<b>sendSharedEdit</b>(<i></i>)
+<p>
+        Public slot to end a shared edit session for the current editor and
+        send the changes.
+</p>
+
+<a NAME="ViewManager.setCooperationClient" ID="ViewManager.setCooperationClient"></a>
+<h4>ViewManager.setCooperationClient</h4>
+<b>setCooperationClient</b>(<i>client</i>)
+<p>
+        Public method to set a reference to the cooperation client.
+</p>
+
+<dl>
+
+<dt><i>client</i> (CooperationClient)</dt>
+<dd>
+reference to the cooperation client
+</dd>
+</dl>
+<a NAME="ViewManager.setEditorName" ID="ViewManager.setEditorName"></a>
+<h4>ViewManager.setEditorName</h4>
+<b>setEditorName</b>(<i>editor, newName</i>)
+<p>
+        Public method to change the displayed name of the editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window to be changed
+</dd>
+<dt><i>newName</i> (str)</dt>
+<dd>
+new name to be shown
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager.setFileLine" ID="ViewManager.setFileLine"></a>
+<h4>ViewManager.setFileLine</h4>
+<b>setFileLine</b>(<i>fn, line, error=False</i>)
+<p>
+        Public method to update the user interface when the current program
+        or line changes.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of editor to update
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number to highlight
+</dd>
+<dt><i>error</i> (bool)</dt>
+<dd>
+flag indicating an error highlight
+</dd>
+</dl>
+<a NAME="ViewManager.setReferences" ID="ViewManager.setReferences"></a>
+<h4>ViewManager.setReferences</h4>
+<b>setReferences</b>(<i>ui, dbs, remoteServerInterface</i>)
+<p>
+        Public method to set some references needed later on.
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main user interface
+</dd>
+<dt><i>dbs</i> (DebugServer)</dt>
+<dd>
+reference to the debug server object
+</dd>
+<dt><i>remoteServerInterface</i> (EricServerInterface)</dt>
+<dd>
+reference to the 'eric-ide' server interface
+</dd>
+</dl>
+<a NAME="ViewManager.setSbInfo" ID="ViewManager.setSbInfo"></a>
+<h4>ViewManager.setSbInfo</h4>
+<b>setSbInfo</b>(<i>sbLine, sbPos, sbWritable, sbEncoding, sbLanguage, sbEol, sbZoom</i>)
+<p>
+        Public method to transfer statusbar info from the user interface to
+        viewmanager.
+</p>
+
+<dl>
+
+<dt><i>sbLine</i> (QLabel)</dt>
+<dd>
+reference to the line number part of the statusbar
+</dd>
+<dt><i>sbPos</i> (QLabel)</dt>
+<dd>
+reference to the character position part of the statusbar
+</dd>
+<dt><i>sbWritable</i> (QLabel)</dt>
+<dd>
+reference to the writability indicator part of
+            the statusbar
+</dd>
+<dt><i>sbEncoding</i> (QLabel)</dt>
+<dd>
+reference to the encoding indicator part of the
+            statusbar
+</dd>
+<dt><i>sbLanguage</i> (QLabel)</dt>
+<dd>
+reference to the language indicator part of the
+            statusbar
+</dd>
+<dt><i>sbEol</i> (QLabel)</dt>
+<dd>
+reference to the eol indicator part of the statusbar
+</dd>
+<dt><i>sbZoom</i> (EricZoomWidget)</dt>
+<dd>
+reference to the zoom widget
+</dd>
+</dl>
+<a NAME="ViewManager.setSplitCount" ID="ViewManager.setSplitCount"></a>
+<h4>ViewManager.setSplitCount</h4>
+<b>setSplitCount</b>(<i>count</i>)
+<p>
+        Public method to set the number of split views.
+</p>
+
+<dl>
+
+<dt><i>count</i> (int)</dt>
+<dd>
+number of split views
+</dd>
+</dl>
+<a NAME="ViewManager.setSplitOrientation" ID="ViewManager.setSplitOrientation"></a>
+<h4>ViewManager.setSplitOrientation</h4>
+<b>setSplitOrientation</b>(<i>orientation</i>)
+<p>
+        Public method used to set the orientation of the split view.
+</p>
+
+<dl>
+
+<dt><i>orientation</i> (Qt.Orientation)</dt>
+<dd>
+orientation of the split
+</dd>
+</dl>
+<a NAME="ViewManager.shareConnected" ID="ViewManager.shareConnected"></a>
+<h4>ViewManager.shareConnected</h4>
+<b>shareConnected</b>(<i>connected</i>)
+<p>
+        Public slot to handle a change of the connected state.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+flag indicating the connected state
+</dd>
+</dl>
+<a NAME="ViewManager.shareEditor" ID="ViewManager.shareEditor"></a>
+<h4>ViewManager.shareEditor</h4>
+<b>shareEditor</b>(<i>share</i>)
+<p>
+        Public slot to set the shared status of the current editor.
+</p>
+
+<dl>
+
+<dt><i>share</i> (bool)</dt>
+<dd>
+flag indicating the share status
+</dd>
+</dl>
+<a NAME="ViewManager.showDebugSource" ID="ViewManager.showDebugSource"></a>
+<h4>ViewManager.showDebugSource</h4>
+<b>showDebugSource</b>(<i>fn, line</i>)
+<p>
+        Public method to open the given file and highlight the given line in
+        it.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of editor to update
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line number to highlight
+</dd>
+</dl>
+<a NAME="ViewManager.showEditorInfo" ID="ViewManager.showEditorInfo"></a>
+<h4>ViewManager.showEditorInfo</h4>
+<b>showEditorInfo</b>(<i>editor</i>)
+<p>
+        Public method to show some information for a given editor.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor to show information text for
+</dd>
+</dl>
+<a NAME="ViewManager.showReplaceWidget" ID="ViewManager.showReplaceWidget"></a>
+<h4>ViewManager.showReplaceWidget</h4>
+<b>showReplaceWidget</b>(<i></i>)
+<p>
+        Public method to show the replace widget.
+</p>
+
+<a NAME="ViewManager.showSearchWidget" ID="ViewManager.showSearchWidget"></a>
+<h4>ViewManager.showSearchWidget</h4>
+<b>showSearchWidget</b>(<i></i>)
+<p>
+        Public method to show the search widget.
+</p>
+
+<a NAME="ViewManager.showWindowMenu" ID="ViewManager.showWindowMenu"></a>
+<h4>ViewManager.showWindowMenu</h4>
+<b>showWindowMenu</b>(<i>windowMenu</i>)
+<p>
+        Public method to set up the viewmanager part of the Window menu.
+</p>
+
+<dl>
+
+<dt><i>windowMenu</i> (QMenu)</dt>
+<dd>
+reference to the window menu
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager.splitCount" ID="ViewManager.splitCount"></a>
+<h4>ViewManager.splitCount</h4>
+<b>splitCount</b>(<i></i>)
+<p>
+        Public method to get the number of split views.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of split views
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="ViewManager.startSharedEdit" ID="ViewManager.startSharedEdit"></a>
+<h4>ViewManager.startSharedEdit</h4>
+<b>startSharedEdit</b>(<i></i>)
+<p>
+        Public slot to start a shared edit session for the current editor.
+</p>
+
+<a NAME="ViewManager.textForFind" ID="ViewManager.textForFind"></a>
+<h4>ViewManager.textForFind</h4>
+<b>textForFind</b>(<i>getCurrentWord=True</i>)
+<p>
+        Public method to determine the selection or the current word for the
+        next find operation.
+</p>
+
+<dl>
+
+<dt><i>getCurrentWord</i> (bool)</dt>
+<dd>
+flag indicating to return the current word, if
+            no selected text was found
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+selection or current word
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ViewManager.tile" ID="ViewManager.tile"></a>
+<h4>ViewManager.tile</h4>
+<b>tile</b>(<i></i>)
+<p>
+        Public method to tile the managed windows.
+</p>
+
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+Not implemented
+</dd>
+</dl>
+<a NAME="ViewManager.unhighlight" ID="ViewManager.unhighlight"></a>
+<h4>ViewManager.unhighlight</h4>
+<b>unhighlight</b>(<i>current=False</i>)
+<p>
+        Public method to switch off all highlights or the highlight of
+        the current editor.
+</p>
+
+<dl>
+
+<dt><i>current</i> (bool)</dt>
+<dd>
+flag indicating only the current editor should be
+            unhighlighted
+</dd>
+</dl>
+<a NAME="ViewManager.zoomValueChanged" ID="ViewManager.zoomValueChanged"></a>
+<h4>ViewManager.zoomValueChanged</h4>
+<b>zoomValueChanged</b>(<i>value, zoomingWidget</i>)
+<p>
+        Public slot to handle changes of the zoom value.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+new zoom value
+</dd>
+<dt><i>zoomingWidget</i> (Editor or Shell)</dt>
+<dd>
+reference to the widget triggering the slot
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

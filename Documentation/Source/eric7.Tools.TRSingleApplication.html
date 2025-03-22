@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Tools.TRSingleApplication</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Tools.TRSingleApplication</h1>
+<p>
+Module implementing the single application server and client.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SAFile</td></tr>
+<tr><td>SALoadForm</td></tr>
+<tr><td>SALoadTranslation</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TRSingleApplicationClient">TRSingleApplicationClient</a></td>
+<td>Class implementing the single application client of the Translations Previewer.</td>
+</tr>
+<tr>
+<td><a href="#TRSingleApplicationServer">TRSingleApplicationServer</a></td>
+<td>Class implementing the single application server embedded within the Translations Previewer.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TRSingleApplicationClient" ID="TRSingleApplicationClient"></a>
+<h2>TRSingleApplicationClient</h2>
+<p>
+    Class implementing the single application client of the Translations
+    Previewer.
+</p>
+
+<h3>Derived from</h3>
+SingleApplicationClient
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TRSingleApplicationClient.__init__">TRSingleApplicationClient</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TRSingleApplicationClient.processArgs">processArgs</a></td>
+<td>Public method to process the command line args passed to the UI.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TRSingleApplicationClient.__init__" ID="TRSingleApplicationClient.__init__"></a>
+<h4>TRSingleApplicationClient (Constructor)</h4>
+<b>TRSingleApplicationClient</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="TRSingleApplicationClient.processArgs" ID="TRSingleApplicationClient.processArgs"></a>
+<h4>TRSingleApplicationClient.processArgs</h4>
+<b>processArgs</b>(<i>args</i>)
+<p>
+        Public method to process the command line args passed to the UI.
+</p>
+
+<dl>
+
+<dt><i>args</i> (argparse.Namespace)</dt>
+<dd>
+namespace object containing the parsed command line parameters
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TRSingleApplicationServer" ID="TRSingleApplicationServer"></a>
+<h2>TRSingleApplicationServer</h2>
+<p>
+    Class implementing the single application server embedded within the
+    Translations Previewer.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>loadForm(str)</dt>
+<dd>
+emitted to load a form file
+</dd>
+<dt>loadTranslation(str, bool)</dt>
+<dd>
+emitted to load a translation file
+</dd>
+</dl>
+<h3>Derived from</h3>
+SingleApplicationServer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TRSingleApplicationServer.__init__">TRSingleApplicationServer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TRSingleApplicationServer.__saLoadForm">__saLoadForm</a></td>
+<td>Private method used to handle the "Load Form" command.</td>
+</tr>
+<tr>
+<td><a href="#TRSingleApplicationServer.__saLoadTranslation">__saLoadTranslation</a></td>
+<td>Private method used to handle the "Load Translation" command.</td>
+</tr>
+<tr>
+<td><a href="#TRSingleApplicationServer.handleCommand">handleCommand</a></td>
+<td>Public slot to handle the command sent by the client.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TRSingleApplicationServer.__init__" ID="TRSingleApplicationServer.__init__"></a>
+<h4>TRSingleApplicationServer (Constructor)</h4>
+<b>TRSingleApplicationServer</b>(<i>parent</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="TRSingleApplicationServer.__saLoadForm" ID="TRSingleApplicationServer.__saLoadForm"></a>
+<h4>TRSingleApplicationServer.__saLoadForm</h4>
+<b>__saLoadForm</b>(<i>fnames</i>)
+<p>
+        Private method used to handle the "Load Form" command.
+</p>
+
+<dl>
+
+<dt><i>fnames</i> (list of str)</dt>
+<dd>
+filenames of the forms to be loaded
+</dd>
+</dl>
+<a NAME="TRSingleApplicationServer.__saLoadTranslation" ID="TRSingleApplicationServer.__saLoadTranslation"></a>
+<h4>TRSingleApplicationServer.__saLoadTranslation</h4>
+<b>__saLoadTranslation</b>(<i>fnames</i>)
+<p>
+        Private method used to handle the "Load Translation" command.
+</p>
+
+<dl>
+
+<dt><i>fnames</i> (list of str)</dt>
+<dd>
+filenames of the translations to be loaded
+</dd>
+</dl>
+<a NAME="TRSingleApplicationServer.handleCommand" ID="TRSingleApplicationServer.handleCommand"></a>
+<h4>TRSingleApplicationServer.handleCommand</h4>
+<b>handleCommand</b>(<i>command, arguments</i>)
+<p>
+        Public slot to handle the command sent by the client.
+</p>
+
+<dl>
+
+<dt><i>command</i> (str)</dt>
+<dd>
+command sent by the client
+</dd>
+<dt><i>arguments</i> (list of str)</dt>
+<dd>
+list of command arguments
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

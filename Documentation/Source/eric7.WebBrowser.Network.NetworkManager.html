@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Network.NetworkManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Network.NetworkManager</h1>
+<p>
+Module implementing a network manager class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SSL_AVAILABLE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#NetworkManager">NetworkManager</a></td>
+<td>Class implementing a network manager.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="NetworkManager" ID="NetworkManager"></a>
+<h2>NetworkManager</h2>
+<p>
+    Class implementing a network manager.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>changed()</dt>
+<dd>
+emitted to indicate a change
+</dd>
+</dl>
+<h3>Derived from</h3>
+QNetworkAccessManager
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NetworkManager.__init__">NetworkManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.__load">__load</a></td>
+<td>Private method to load the permanent SSL error exceptions.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.__save">__save</a></td>
+<td>Private slot to save the permanent SSL error exceptions.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.__showAuthenticationErrorPage">__showAuthenticationErrorPage</a></td>
+<td>Private method to show an authentication error page.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.__sslErrorHandlingSlot">__sslErrorHandlingSlot</a></td>
+<td>Private slot to handle SSL errors for a network reply.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.authentication">authentication</a></td>
+<td>Public slot to handle an authentication request.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.certificateError">certificateError</a></td>
+<td>Public method to handle SSL certificate errors.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.clearSslExceptions">clearSslExceptions</a></td>
+<td>Public method to clear the permanent SSL certificate error exceptions.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.createRequest">createRequest</a></td>
+<td>Public method to launch a network action.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.installUrlInterceptor">installUrlInterceptor</a></td>
+<td>Public method to install an URL interceptor.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.isInsecureHost">isInsecureHost</a></td>
+<td>Public method to check a host against the list of insecure hosts.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.languagesChanged">languagesChanged</a></td>
+<td>Public slot to (re-)load the list of accepted languages.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.proxyAuthentication">proxyAuthentication</a></td>
+<td>Public slot to handle a proxy authentication request.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.removeUrlInterceptor">removeUrlInterceptor</a></td>
+<td>Public method to remove an URL interceptor.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.showSslErrorExceptionsDialog">showSslErrorExceptionsDialog</a></td>
+<td>Public method to show the SSL error exceptions dialog.</td>
+</tr>
+<tr>
+<td><a href="#NetworkManager.shutdown">shutdown</a></td>
+<td>Public method to shut down the network manager.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NetworkManager.__init__" ID="NetworkManager.__init__"></a>
+<h4>NetworkManager (Constructor)</h4>
+<b>NetworkManager</b>(<i>engine, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>engine</i> (QHelpEngine)</dt>
+<dd>
+reference to the help engine
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="NetworkManager.__load" ID="NetworkManager.__load"></a>
+<h4>NetworkManager.__load</h4>
+<b>__load</b>(<i></i>)
+<p>
+        Private method to load the permanent SSL error exceptions.
+</p>
+
+<a NAME="NetworkManager.__save" ID="NetworkManager.__save"></a>
+<h4>NetworkManager.__save</h4>
+<b>__save</b>(<i></i>)
+<p>
+        Private slot to save the permanent SSL error exceptions.
+</p>
+
+<a NAME="NetworkManager.__showAuthenticationErrorPage" ID="NetworkManager.__showAuthenticationErrorPage"></a>
+<h4>NetworkManager.__showAuthenticationErrorPage</h4>
+<b>__showAuthenticationErrorPage</b>(<i>page, url</i>)
+<p>
+        Private method to show an authentication error page.
+</p>
+
+<dl>
+
+<dt><i>page</i> (QWebEnginePage)</dt>
+<dd>
+reference to the page
+</dd>
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+reference to the URL requesting authentication
+</dd>
+</dl>
+<a NAME="NetworkManager.__sslErrorHandlingSlot" ID="NetworkManager.__sslErrorHandlingSlot"></a>
+<h4>NetworkManager.__sslErrorHandlingSlot</h4>
+<b>__sslErrorHandlingSlot</b>(<i>reply, errors</i>)
+<p>
+        Private slot to handle SSL errors for a network reply.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+<dt><i>errors</i> (list of QSslError)</dt>
+<dd>
+list of SSL errors
+</dd>
+</dl>
+<a NAME="NetworkManager.authentication" ID="NetworkManager.authentication"></a>
+<h4>NetworkManager.authentication</h4>
+<b>authentication</b>(<i>url, auth, page=None</i>)
+<p>
+        Public slot to handle an authentication request.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL requesting authentication
+</dd>
+<dt><i>auth</i> (QAuthenticator)</dt>
+<dd>
+reference to the authenticator object
+</dd>
+<dt><i>page</i> (QWebEnginePage or None)</dt>
+<dd>
+reference to the web page
+</dd>
+</dl>
+<a NAME="NetworkManager.certificateError" ID="NetworkManager.certificateError"></a>
+<h4>NetworkManager.certificateError</h4>
+<b>certificateError</b>(<i>error, view</i>)
+<p>
+        Public method to handle SSL certificate errors.
+</p>
+
+<dl>
+
+<dt><i>error</i> (QWebEngineCertificateError)</dt>
+<dd>
+object containing the certificate error information
+</dd>
+<dt><i>view</i> (QWidget)</dt>
+<dd>
+reference to a view to be used as parent for the dialog
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore this error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="NetworkManager.clearSslExceptions" ID="NetworkManager.clearSslExceptions"></a>
+<h4>NetworkManager.clearSslExceptions</h4>
+<b>clearSslExceptions</b>(<i></i>)
+<p>
+        Public method to clear the permanent SSL certificate error exceptions.
+</p>
+
+<a NAME="NetworkManager.createRequest" ID="NetworkManager.createRequest"></a>
+<h4>NetworkManager.createRequest</h4>
+<b>createRequest</b>(<i>op, request, data</i>)
+<p>
+        Public method to launch a network action.
+</p>
+
+<dl>
+
+<dt><i>op</i> (QNetworkAccessManager.Operation)</dt>
+<dd>
+operation to be performed
+</dd>
+<dt><i>request</i> (QNetworkRequest)</dt>
+<dd>
+request to be operated on
+</dd>
+<dt><i>data</i> (QIODevice)</dt>
+<dd>
+reference to the data to be sent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QNetworkReply
+</dd>
+</dl>
+<a NAME="NetworkManager.installUrlInterceptor" ID="NetworkManager.installUrlInterceptor"></a>
+<h4>NetworkManager.installUrlInterceptor</h4>
+<b>installUrlInterceptor</b>(<i>interceptor</i>)
+<p>
+        Public method to install an URL interceptor.
+</p>
+
+<dl>
+
+<dt><i>interceptor</i> (UrlInterceptor)</dt>
+<dd>
+URL interceptor to be installed
+</dd>
+</dl>
+<a NAME="NetworkManager.isInsecureHost" ID="NetworkManager.isInsecureHost"></a>
+<h4>NetworkManager.isInsecureHost</h4>
+<b>isInsecureHost</b>(<i>host</i>)
+<p>
+        Public method to check a host against the list of insecure hosts.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+name of the host to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an insecure host
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="NetworkManager.languagesChanged" ID="NetworkManager.languagesChanged"></a>
+<h4>NetworkManager.languagesChanged</h4>
+<b>languagesChanged</b>(<i></i>)
+<p>
+        Public slot to (re-)load the list of accepted languages.
+</p>
+
+<a NAME="NetworkManager.preferencesChanged" ID="NetworkManager.preferencesChanged"></a>
+<h4>NetworkManager.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<a NAME="NetworkManager.proxyAuthentication" ID="NetworkManager.proxyAuthentication"></a>
+<h4>NetworkManager.proxyAuthentication</h4>
+<b>proxyAuthentication</b>(<i>_requestUrl, auth, _proxyHost</i>)
+<p>
+        Public slot to handle a proxy authentication request.
+</p>
+
+<dl>
+
+<dt><i>_requestUrl</i> (QUrl)</dt>
+<dd>
+requested URL (unused)
+</dd>
+<dt><i>auth</i> (QAuthenticator)</dt>
+<dd>
+reference to the authenticator object
+</dd>
+<dt><i>_proxyHost</i> (str)</dt>
+<dd>
+name of the proxy host (unused)
+</dd>
+</dl>
+<a NAME="NetworkManager.removeUrlInterceptor" ID="NetworkManager.removeUrlInterceptor"></a>
+<h4>NetworkManager.removeUrlInterceptor</h4>
+<b>removeUrlInterceptor</b>(<i>interceptor</i>)
+<p>
+        Public method to remove an URL interceptor.
+</p>
+
+<dl>
+
+<dt><i>interceptor</i> (UrlInterceptor)</dt>
+<dd>
+URL interceptor to be removed
+</dd>
+</dl>
+<a NAME="NetworkManager.showSslErrorExceptionsDialog" ID="NetworkManager.showSslErrorExceptionsDialog"></a>
+<h4>NetworkManager.showSslErrorExceptionsDialog</h4>
+<b>showSslErrorExceptionsDialog</b>(<i>parent=None</i>)
+<p>
+        Public method to show the SSL error exceptions dialog.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="NetworkManager.shutdown" ID="NetworkManager.shutdown"></a>
+<h4>NetworkManager.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to shut down the network manager.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

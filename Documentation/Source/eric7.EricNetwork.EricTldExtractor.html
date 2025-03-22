@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricNetwork.EricTldExtractor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricNetwork.EricTldExtractor</h1>
+<p>
+Module implementing the TLD Extractor.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_TLDExtractor</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricTldExtractor">EricTldExtractor</a></td>
+<td>Class implementing the TLD Extractor.</td>
+</tr>
+<tr>
+<td><a href="#EricTldHostParts">EricTldHostParts</a></td>
+<td>Class implementing the host parts helper.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#instance">instance</a></td>
+<td>Global function to get a reference to the TLD extractor and create it, if it hasn't been yet.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricTldExtractor" ID="EricTldExtractor"></a>
+<h2>EricTldExtractor</h2>
+<p>
+    Class implementing the TLD Extractor.
+</p>
+<p>
+    Note: The module function instance() should be used to get a reference
+    to a global object to avoid overhead.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricTldExtractor.__init__">EricTldExtractor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.__defaultDataSearchPaths">__defaultDataSearchPaths</a></td>
+<td>Private method to get the default search paths for the TLD data file.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.__domainHelper">__domainHelper</a></td>
+<td>Private method to get the domain name without TLD.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.__loadData">__loadData</a></td>
+<td>Private method to load the TLD data.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.__normalizedHost">__normalizedHost</a></td>
+<td>Private method to get the normalized host for a host address.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.__parseData">__parseData</a></td>
+<td>Private method to parse TLD data.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.__registrableDomainHelper">__registrableDomainHelper</a></td>
+<td>Private method to get the registrable domain (i.e.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.__subdomainHelper">__subdomainHelper</a></td>
+<td>Private method to get the subdomain of a host address (i.e.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.dataSearchPaths">dataSearchPaths</a></td>
+<td>Public method to get the search paths for the TLD data file.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.domain">domain</a></td>
+<td>Public method to get the domain for a host.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.getTldDownloadUrl">getTldDownloadUrl</a></td>
+<td>Public method to get the TLD data file download URL.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.isDataLoaded">isDataLoaded</a></td>
+<td>Public method to check, if the TLD data ia already loaded.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.registrableDomain">registrableDomain</a></td>
+<td>Public method to get the registrable domain for a host.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.setDataSearchPaths">setDataSearchPaths</a></td>
+<td>Public method to set the search paths for the TLD data file.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.splitParts">splitParts</a></td>
+<td>Public method to split a host address into its parts.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.subdomain">subdomain</a></td>
+<td>Public method to get the subdomain for a host.</td>
+</tr>
+<tr>
+<td><a href="#EricTldExtractor.tld">tld</a></td>
+<td>Public method to get the top level domain for a host.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricTldExtractor.__init__" ID="EricTldExtractor.__init__"></a>
+<h4>EricTldExtractor (Constructor)</h4>
+<b>EricTldExtractor</b>(<i>withPrivate=False, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>withPrivate</i> (bool)</dt>
+<dd>
+flag indicating to load private TLDs as well
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="EricTldExtractor.__defaultDataSearchPaths" ID="EricTldExtractor.__defaultDataSearchPaths"></a>
+<h4>EricTldExtractor.__defaultDataSearchPaths</h4>
+<b>__defaultDataSearchPaths</b>(<i></i>)
+<p>
+        Private method to get the default search paths for the TLD data file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+default search paths for the TLD data file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricTldExtractor.__domainHelper" ID="EricTldExtractor.__domainHelper"></a>
+<h4>EricTldExtractor.__domainHelper</h4>
+<b>__domainHelper</b>(<i>host, tldPart</i>)
+<p>
+        Private method to get the domain name without TLD.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host address
+</dd>
+<dt><i>tldPart</i> (str)</dt>
+<dd>
+TLD part of the host address
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+domain name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricTldExtractor.__loadData" ID="EricTldExtractor.__loadData"></a>
+<h4>EricTldExtractor.__loadData</h4>
+<b>__loadData</b>(<i></i>)
+<p>
+        Private method to load the TLD data.
+</p>
+
+<a NAME="EricTldExtractor.__normalizedHost" ID="EricTldExtractor.__normalizedHost"></a>
+<h4>EricTldExtractor.__normalizedHost</h4>
+<b>__normalizedHost</b>(<i>host</i>)
+<p>
+        Private method to get the normalized host for a host address.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host address to be normalized
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+normalized host address
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricTldExtractor.__parseData" ID="EricTldExtractor.__parseData"></a>
+<h4>EricTldExtractor.__parseData</h4>
+<b>__parseData</b>(<i>dataFile, loadPrivateDomains=False</i>)
+<p>
+        Private method to parse TLD data.
+</p>
+
+<dl>
+
+<dt><i>dataFile</i> (str)</dt>
+<dd>
+name of the file containing the TLD data
+</dd>
+<dt><i>loadPrivateDomains</i> (bool)</dt>
+<dd>
+flag indicating to load private domains
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricTldExtractor.__registrableDomainHelper" ID="EricTldExtractor.__registrableDomainHelper"></a>
+<h4>EricTldExtractor.__registrableDomainHelper</h4>
+<b>__registrableDomainHelper</b>(<i>domainPart, tldPart</i>)
+<p>
+        Private method to get the registrable domain (i.e. domain plus TLD).
+</p>
+
+<dl>
+
+<dt><i>domainPart</i> (str)</dt>
+<dd>
+domain part of a host address
+</dd>
+<dt><i>tldPart</i> (str)</dt>
+<dd>
+TLD part of a host address
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+registrable domain name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricTldExtractor.__subdomainHelper" ID="EricTldExtractor.__subdomainHelper"></a>
+<h4>EricTldExtractor.__subdomainHelper</h4>
+<b>__subdomainHelper</b>(<i>host, registrablePart</i>)
+<p>
+        Private method to get the subdomain of a host address (i.e. domain part
+        without the registrable domain name).
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host address
+</dd>
+<dt><i>registrablePart</i> (str)</dt>
+<dd>
+registrable domain part of the host address
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+subdomain name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricTldExtractor.dataSearchPaths" ID="EricTldExtractor.dataSearchPaths"></a>
+<h4>EricTldExtractor.dataSearchPaths</h4>
+<b>dataSearchPaths</b>(<i></i>)
+<p>
+        Public method to get the search paths for the TLD data file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+search paths for the TLD data file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricTldExtractor.domain" ID="EricTldExtractor.domain"></a>
+<h4>EricTldExtractor.domain</h4>
+<b>domain</b>(<i>host</i>)
+<p>
+        Public method to get the domain for a host.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host name to get the domain for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+domain for host
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricTldExtractor.getTldDownloadUrl" ID="EricTldExtractor.getTldDownloadUrl"></a>
+<h4>EricTldExtractor.getTldDownloadUrl</h4>
+<b>getTldDownloadUrl</b>(<i></i>)
+<p>
+        Public method to get the TLD data file download URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+download URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="EricTldExtractor.isDataLoaded" ID="EricTldExtractor.isDataLoaded"></a>
+<h4>EricTldExtractor.isDataLoaded</h4>
+<b>isDataLoaded</b>(<i></i>)
+<p>
+        Public method to check, if the TLD data ia already loaded.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating data is loaded
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricTldExtractor.registrableDomain" ID="EricTldExtractor.registrableDomain"></a>
+<h4>EricTldExtractor.registrableDomain</h4>
+<b>registrableDomain</b>(<i>host</i>)
+<p>
+        Public method to get the registrable domain for a host.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host name to get the registrable domain for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+registrable domain for host
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricTldExtractor.setDataSearchPaths" ID="EricTldExtractor.setDataSearchPaths"></a>
+<h4>EricTldExtractor.setDataSearchPaths</h4>
+<b>setDataSearchPaths</b>(<i>searchPaths=None</i>)
+<p>
+        Public method to set the search paths for the TLD data file.
+</p>
+
+<dl>
+
+<dt><i>searchPaths</i> (list of str)</dt>
+<dd>
+search paths for the TLD data file or None,
+            if the default search paths shall be set
+</dd>
+</dl>
+<a NAME="EricTldExtractor.splitParts" ID="EricTldExtractor.splitParts"></a>
+<h4>EricTldExtractor.splitParts</h4>
+<b>splitParts</b>(<i>host</i>)
+<p>
+        Public method to split a host address into its parts.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host address to be split
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+splitted host address
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricTldHostParts
+</dd>
+</dl>
+<a NAME="EricTldExtractor.subdomain" ID="EricTldExtractor.subdomain"></a>
+<h4>EricTldExtractor.subdomain</h4>
+<b>subdomain</b>(<i>host</i>)
+<p>
+        Public method to get the subdomain for a host.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host name to get the subdomain for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+subdomain for host
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricTldExtractor.tld" ID="EricTldExtractor.tld"></a>
+<h4>EricTldExtractor.tld</h4>
+<b>tld</b>(<i>host</i>)
+<p>
+        Public method to get the top level domain for a host.
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+host name to get TLD for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+TLD for host
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricTldHostParts" ID="EricTldHostParts"></a>
+<h2>EricTldHostParts</h2>
+<p>
+    Class implementing the host parts helper.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>domain</td></tr>
+<tr><td>host</td></tr>
+<tr><td>registrableDomain</td></tr>
+<tr><td>subdomain</td></tr>
+<tr><td>tld</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="instance" ID="instance"></a>
+<h2>instance</h2>
+<b>instance</b>(<i>withPrivate=False</i>)
+<p>
+    Global function to get a reference to the TLD extractor and create it, if
+    it hasn't been yet.
+</p>
+
+<dl>
+
+<dt><i>withPrivate</i> (bool)</dt>
+<dd>
+flag indicating to load private TLDs as well
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the zoom manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricTldExtractor
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

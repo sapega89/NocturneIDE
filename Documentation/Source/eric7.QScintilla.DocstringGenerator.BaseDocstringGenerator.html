@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.DocstringGenerator.BaseDocstringGenerator</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.DocstringGenerator.BaseDocstringGenerator</h1>
+<p>
+Module implementing a docstring generator base class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BaseDocstringGenerator">BaseDocstringGenerator</a></td>
+<td>Class implementing a docstring generator base class.</td>
+</tr>
+<tr>
+<td><a href="#DocstringMenuForEnterOnly">DocstringMenuForEnterOnly</a></td>
+<td>Class implementing a special menu reacting to the enter/return keys only.</td>
+</tr>
+<tr>
+<td><a href="#FunctionInfo">FunctionInfo</a></td>
+<td>Class implementing an object to store function information.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#getIndentStr">getIndentStr</a></td>
+<td>Function to get the indentation of a text.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BaseDocstringGenerator" ID="BaseDocstringGenerator"></a>
+<h2>BaseDocstringGenerator</h2>
+<p>
+    Class implementing a docstring generator base class.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BaseDocstringGenerator.__init__">BaseDocstringGenerator</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BaseDocstringGenerator._generateDocstringList">_generateDocstringList</a></td>
+<td>Protected method to generate type specific docstrings based on the extracted function information.</td>
+</tr>
+<tr>
+<td><a href="#BaseDocstringGenerator.getDocstringType">getDocstringType</a></td>
+<td>Public method to determine the docstring type to be generated.</td>
+</tr>
+<tr>
+<td><a href="#BaseDocstringGenerator.hasFunctionDefinition">hasFunctionDefinition</a></td>
+<td>Public method to test, if the cursor is right below a function definition.</td>
+</tr>
+<tr>
+<td><a href="#BaseDocstringGenerator.insertDocstring">insertDocstring</a></td>
+<td>Public method to insert a docstring for the function at the cursor position.</td>
+</tr>
+<tr>
+<td><a href="#BaseDocstringGenerator.insertDocstringFromShortcut">insertDocstringFromShortcut</a></td>
+<td>Public method to insert a docstring for the function at the cursor position initiated via a keyboard shortcut.</td>
+</tr>
+<tr>
+<td><a href="#BaseDocstringGenerator.isDocstringIntro">isDocstringIntro</a></td>
+<td>Public function to test, if the line up to the cursor position might be introducing a docstring.</td>
+</tr>
+<tr>
+<td><a href="#BaseDocstringGenerator.isFunctionStart">isFunctionStart</a></td>
+<td>Public method to test, if a text is the start of a function or method definition.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BaseDocstringGenerator.__init__" ID="BaseDocstringGenerator.__init__"></a>
+<h4>BaseDocstringGenerator (Constructor)</h4>
+<b>BaseDocstringGenerator</b>(<i>editor</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor widget
+</dd>
+</dl>
+<a NAME="BaseDocstringGenerator._generateDocstringList" ID="BaseDocstringGenerator._generateDocstringList"></a>
+<h4>BaseDocstringGenerator._generateDocstringList</h4>
+<b>_generateDocstringList</b>(<i>functionInfo, docstringType</i>)
+<p>
+        Protected method to generate type specific docstrings based on the
+        extracted function information.
+</p>
+
+<dl>
+
+<dt><i>functionInfo</i> (FunctionInfo)</dt>
+<dd>
+reference to the function info object
+</dd>
+<dt><i>docstringType</i> (str)</dt>
+<dd>
+kind of docstring to be generated
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of docstring lines
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDocstringGenerator.getDocstringType" ID="BaseDocstringGenerator.getDocstringType"></a>
+<h4>BaseDocstringGenerator.getDocstringType</h4>
+<b>getDocstringType</b>(<i></i>)
+<p>
+        Public method to determine the docstring type to be generated.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+docstring type (one of 'ericdoc', 'numpydoc', 'googledoc',
+            'sphinxdoc')
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDocstringGenerator.hasFunctionDefinition" ID="BaseDocstringGenerator.hasFunctionDefinition"></a>
+<h4>BaseDocstringGenerator.hasFunctionDefinition</h4>
+<b>hasFunctionDefinition</b>(<i>cursorPosition</i>)
+<p>
+        Public method to test, if the cursor is right below a function
+        definition.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+current cursor position (line and column) (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating cursor is right below a function definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDocstringGenerator.insertDocstring" ID="BaseDocstringGenerator.insertDocstring"></a>
+<h4>BaseDocstringGenerator.insertDocstring</h4>
+<b>insertDocstring</b>(<i>cursorPosition, fromStart=True</i>)
+<p>
+        Public method to insert a docstring for the function at the cursor
+        position.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+position of the cursor (line and index) (unused)
+</dd>
+<dt><i>fromStart</i> (bool)</dt>
+<dd>
+flag indicating that the editor text cursor is placed
+            on the line starting the function definition (unused)
+</dd>
+</dl>
+<a NAME="BaseDocstringGenerator.insertDocstringFromShortcut" ID="BaseDocstringGenerator.insertDocstringFromShortcut"></a>
+<h4>BaseDocstringGenerator.insertDocstringFromShortcut</h4>
+<b>insertDocstringFromShortcut</b>(<i>cursorPosition</i>)
+<p>
+        Public method to insert a docstring for the function at the cursor
+        position initiated via a keyboard shortcut.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+position of the cursor (line and index) (unused)
+</dd>
+</dl>
+<a NAME="BaseDocstringGenerator.isDocstringIntro" ID="BaseDocstringGenerator.isDocstringIntro"></a>
+<h4>BaseDocstringGenerator.isDocstringIntro</h4>
+<b>isDocstringIntro</b>(<i>cursorPosition</i>)
+<p>
+        Public function to test, if the line up to the cursor position might be
+        introducing a docstring.
+</p>
+
+<dl>
+
+<dt><i>cursorPosition</i> (tuple of (int, int))</dt>
+<dd>
+current cursor position (line and column) (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a potential start of a docstring
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDocstringGenerator.isFunctionStart" ID="BaseDocstringGenerator.isFunctionStart"></a>
+<h4>BaseDocstringGenerator.isFunctionStart</h4>
+<b>isFunctionStart</b>(<i>text</i>)
+<p>
+        Public method to test, if a text is the start of a function or method
+        definition.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+line of text to be tested (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the given text starts a function or
+            method definition (always False)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DocstringMenuForEnterOnly" ID="DocstringMenuForEnterOnly"></a>
+<h2>DocstringMenuForEnterOnly</h2>
+<p>
+    Class implementing a special menu reacting to the enter/return keys only.
+</p>
+<p>
+    If a keyboard input is not the "enter key", the menu is closed and the
+    input is inserted to the code editor.
+</p>
+
+<h3>Derived from</h3>
+QMenu
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DocstringMenuForEnterOnly.__init__">DocstringMenuForEnterOnly</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DocstringMenuForEnterOnly.keyPressEvent">keyPressEvent</a></td>
+<td>Protected method to handle key press events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DocstringMenuForEnterOnly.__init__" ID="DocstringMenuForEnterOnly.__init__"></a>
+<h4>DocstringMenuForEnterOnly (Constructor)</h4>
+<b>DocstringMenuForEnterOnly</b>(<i>editor</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor
+</dd>
+</dl>
+<a NAME="DocstringMenuForEnterOnly.keyPressEvent" ID="DocstringMenuForEnterOnly.keyPressEvent"></a>
+<h4>DocstringMenuForEnterOnly.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle key press events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key press event object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="FunctionInfo" ID="FunctionInfo"></a>
+<h2>FunctionInfo</h2>
+<p>
+    Class implementing an object to store function information.
+</p>
+<p>
+    Methods to extract the relevant information need to be implemented in
+    language specific subclasses.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FunctionInfo.__init__">FunctionInfo</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FunctionInfo.parseBody">parseBody</a></td>
+<td>Public method to parse the function body text.</td>
+</tr>
+<tr>
+<td><a href="#FunctionInfo.parseDefinition">parseDefinition</a></td>
+<td>Public method to parse the function definition text.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FunctionInfo.__init__" ID="FunctionInfo.__init__"></a>
+<h4>FunctionInfo (Constructor)</h4>
+<b>FunctionInfo</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="FunctionInfo.parseBody" ID="FunctionInfo.parseBody"></a>
+<h4>FunctionInfo.parseBody</h4>
+<b>parseBody</b>(<i>text</i>)
+<p>
+        Public method to parse the function body text.
+</p>
+<p>
+        Note: This method should be overwritten in subclasses.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+function body text
+</dd>
+</dl>
+<a NAME="FunctionInfo.parseDefinition" ID="FunctionInfo.parseDefinition"></a>
+<h4>FunctionInfo.parseDefinition</h4>
+<b>parseDefinition</b>(<i>text, quote, quoteReplace</i>)
+<p>
+        Public method to parse the function definition text.
+</p>
+<p>
+        Note: This method should be overwritten in subclasses.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text containing the function definition
+</dd>
+<dt><i>quote</i> (str)</dt>
+<dd>
+quote string to be replaced
+</dd>
+<dt><i>quoteReplace</i> (str)</dt>
+<dd>
+quote string to replace the original
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getIndentStr" ID="getIndentStr"></a>
+<h2>getIndentStr</h2>
+<b>getIndentStr</b>(<i>text</i>)
+<p>
+    Function to get the indentation of a text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to extract indentation from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+indentation string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

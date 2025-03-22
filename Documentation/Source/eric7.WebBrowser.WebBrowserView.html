@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.WebBrowserView</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.WebBrowserView</h1>
+<p>
+Module implementing the web browser using QWebEngineView.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserView">WebBrowserView</a></td>
+<td>Class implementing the web browser view widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#isCupsAvailable">isCupsAvailable</a></td>
+<td>Static method to test the availability of CUPS.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="WebBrowserView" ID="WebBrowserView"></a>
+<h2>WebBrowserView</h2>
+<p>
+    Class implementing the web browser view widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>backwardAvailable(bool)</dt>
+<dd>
+emitted after the current URL has changed
+</dd>
+<dt>faviconChanged()</dt>
+<dd>
+emitted to signal a changed web site icon
+</dd>
+<dt>forwardAvailable(bool)</dt>
+<dd>
+emitted after the current URL has changed
+</dd>
+<dt>highlighted(str)</dt>
+<dd>
+emitted, when the mouse hovers over a link
+</dd>
+<dt>safeBrowsingAbort()</dt>
+<dd>
+emitted to indicate an abort due to a safe
+        browsing event
+</dd>
+<dt>safeBrowsingBad(threatType, threatMessages)</dt>
+<dd>
+emitted to indicate a
+        malicious web site as determined by safe browsing
+</dd>
+<dt>search(QUrl)</dt>
+<dd>
+emitted, when a search is requested
+</dd>
+<dt>showMessage(str)</dt>
+<dd>
+emitted to show a message in the main window
+        status bar
+</dd>
+<dt>sourceChanged(QUrl)</dt>
+<dd>
+emitted after the current URL has changed
+</dd>
+<dt>zoomValueChanged(int)</dt>
+<dd>
+emitted to signal a change of the zoom value
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWebEngineView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ZoomLevelDefault</td></tr>
+<tr><td>ZoomLevels</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WebBrowserView.__init__">WebBrowserView</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__addBookmarkCallback">__addBookmarkCallback</a></td>
+<td>Private callback method of __addBookmark().</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__addSearchEngine">__addSearchEngine</a></td>
+<td>Private slot to add a new search engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__addSpeedDial">__addSpeedDial</a></td>
+<td>Private slot to add a new speed dial.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__adjustBookmark">__adjustBookmark</a></td>
+<td>Private slot to adjust the 'lastModified' value of bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__blockImage">__blockImage</a></td>
+<td>Private slot to add a block rule for an image URL.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__bookmarkLink">__bookmarkLink</a></td>
+<td>Private slot to bookmark a link via the context menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__checkForForm">__checkForForm</a></td>
+<td>Private method to check the given position for an open search form.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__checkForFormCallback">__checkForFormCallback</a></td>
+<td>Private method handling the __checkForForm result.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__configureSpeedDial">__configureSpeedDial</a></td>
+<td>Private slot to configure the speed dial.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__copyImage">__copyImage</a></td>
+<td>Private slot to copy an image to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__copyLink">__copyLink</a></td>
+<td>Private slot to copy a link to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__createContextMenu">__createContextMenu</a></td>
+<td>Private method to populate the context menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__createImageContextMenu">__createImageContextMenu</a></td>
+<td>Private method to populate the context menu for images.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__createLinkContextMenu">__createLinkContextMenu</a></td>
+<td>Private method to populate the context menu for URLs.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__createMediaContextMenu">__createMediaContextMenu</a></td>
+<td>Private method to populate the context menu for media elements.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__createNewPage">__createNewPage</a></td>
+<td>Private method to create a new page object.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__createPageContextMenu">__createPageContextMenu</a></td>
+<td>Private method to populate the basic context menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__createSelectedTextContextMenu">__createSelectedTextContextMenu</a></td>
+<td>Private method to populate the context menu for selected text.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__currentEngineChanged">__currentEngineChanged</a></td>
+<td>Private slot to track a change of the current search engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__downloadImage">__downloadImage</a></td>
+<td>Private slot to download an image and save it to disk.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__downloadLink">__downloadLink</a></td>
+<td>Private slot to download a link and save it to disk.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__downloadMedia">__downloadMedia</a></td>
+<td>Private slot to download a media and save it to disk.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__fileSystemAccessRequested">__fileSystemAccessRequested</a></td>
+<td>Private slot to handle file system access requests of the web page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__findTextFinished">__findTextFinished</a></td>
+<td>Private slot handling the findTextFinished signal of the web page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__getSavePageFileNameAndFormat">__getSavePageFileNameAndFormat</a></td>
+<td>Private method to get the file name to save the page to.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__iconLoaded">__iconLoaded</a></td>
+<td>Private slot handling the loaded web site icon.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__iconUrlChanged">__iconUrlChanged</a></td>
+<td>Private slot to handle the iconUrlChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__isUrlValid">__isUrlValid</a></td>
+<td>Private method to check a URL for validity.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__levelForZoom">__levelForZoom</a></td>
+<td>Private method determining the zoom level index given a zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__linkHovered">__linkHovered</a></td>
+<td>Private slot to handle the linkHovered signal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__loadFinished">__loadFinished</a></td>
+<td>Private method to handle the loadFinished signal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__loadProgress">__loadProgress</a></td>
+<td>Private method to handle the loadProgress signal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__loadStarted">__loadStarted</a></td>
+<td>Private method to handle the loadStarted signal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__muteMedia">__muteMedia</a></td>
+<td>Private slot to (un)mute the selected media.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__openLinkInNewPrivateWindow">__openLinkInNewPrivateWindow</a></td>
+<td>Private slot called by the context menu to open a link in a new private window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__openLinkInNewTab">__openLinkInNewTab</a></td>
+<td>Private method called by the context menu to open a link in a new tab.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__openLinkInNewWindow">__openLinkInNewWindow</a></td>
+<td>Private slot called by the context menu to open a link in a new window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__pauseMedia">__pauseMedia</a></td>
+<td>Private slot to pause or play the selected media.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__printPageFinished">__printPageFinished</a></td>
+<td>Private slot to handle the finishing of a print job.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__printPageToPdfFinished">__printPageToPdfFinished</a></td>
+<td>Private slot to handle the finishing of a PDF print job.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__printPreviewRequested">__printPreviewRequested</a></td>
+<td>Private slot to generate the print preview.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__quotaRequested">__quotaRequested</a></td>
+<td>Private slot to handle quota requests of the web page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__reloadAllSpeedDials">__reloadAllSpeedDials</a></td>
+<td>Private slot to reload all speed dials.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__renderPreview">__renderPreview</a></td>
+<td>Private slot to render a preview pixmap after the page was loaded.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__renderProcessTerminated">__renderProcessTerminated</a></td>
+<td>Private slot handling a crash of the web page render process.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__replaceMisspelledWord">__replaceMisspelledWord</a></td>
+<td>Private slot to replace a misspelled word under the context menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__resetSpeedDials">__resetSpeedDials</a></td>
+<td>Private slot to reset all speed dials to the default pages.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__searchDefaultRequested">__searchDefaultRequested</a></td>
+<td>Private slot to search for some text with the current search engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__searchImage">__searchImage</a></td>
+<td>Private slot to search for an image URL.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__searchRequested">__searchRequested</a></td>
+<td>Private slot to search for some text with a selected search engine.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__selectClientCertificate">__selectClientCertificate</a></td>
+<td>Private slot to handle the client certificate selection request.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__sendLink">__sendLink</a></td>
+<td>Private slot to send a link via email.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__setRwhvqt">__setRwhvqt</a></td>
+<td>Private slot to set widget that receives input events.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__setupPrinter">__setupPrinter</a></td>
+<td>Private method to create and initialize a QPrinter object.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show a context menu.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__showEventSlot">__showEventSlot</a></td>
+<td>Private slot to perform actions when the view is shown and the event loop is running.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__showTabCrashPage">__showTabCrashPage</a></td>
+<td>Private slot to show the tab crash page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__urlChanged">__urlChanged</a></td>
+<td>Private slot to handle the urlChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__virusTotal">__virusTotal</a></td>
+<td>Private slot to scan the selected URL with VirusTotal.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__webAuthUxRequestStateChanged">__webAuthUxRequestStateChanged</a></td>
+<td>Private slot to handle a change of state of the current WebAuth request.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__webAuthUxRequested">__webAuthUxRequested</a></td>
+<td>Private slot to handle WebAuth requests.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.__webInspector">__webInspector</a></td>
+<td>Private slot to show the web inspector window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView._gestureEvent">_gestureEvent</a></td>
+<td>Protected method handling gesture events.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView._keyPressEvent">_keyPressEvent</a></td>
+<td>Protected method called by a key press.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView._keyReleaseEvent">_keyReleaseEvent</a></td>
+<td>Protected method called by a key release.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView._mouseMoveEvent">_mouseMoveEvent</a></td>
+<td>Protected method to handle mouse move events.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView._mousePressEvent">_mousePressEvent</a></td>
+<td>Protected method called by a mouse press event.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView._mouseReleaseEvent">_mouseReleaseEvent</a></td>
+<td>Protected method called by a mouse release event.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView._wheelEvent">_wheelEvent</a></td>
+<td>Protected method to handle wheel events.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.activateSession">activateSession</a></td>
+<td>Public slot to activate a restored session.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.addBookmark">addBookmark</a></td>
+<td>Public slot to bookmark the current page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.backward">backward</a></td>
+<td>Public slot to move backwards in history.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.checkRSS">checkRSS</a></td>
+<td>Public method to check, if the loaded page contains feed links.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.clearHistory">clearHistory</a></td>
+<td>Public slot to clear the history.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.closeWebInspector">closeWebInspector</a></td>
+<td>Public slot to close the web inspector.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.copy">copy</a></td>
+<td>Public slot to copy the selected text.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.createWindow">createWindow</a></td>
+<td>Public method called, when a new window should be created.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.cut">cut</a></td>
+<td>Public slot to cut the selected text.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.documentTitle">documentTitle</a></td>
+<td>Public method to return the title of the loaded page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.dragEnterEvent">dragEnterEvent</a></td>
+<td>Protected method called by a drag enter event.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.dragMoveEvent">dragMoveEvent</a></td>
+<td>Protected method called by a drag move event.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.dropEvent">dropEvent</a></td>
+<td>Protected method called by a drop event.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.event">event</a></td>
+<td>Public method handling events.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.eventFilter">eventFilter</a></td>
+<td>Public method to process event for other objects.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.extractSessionMetaData">extractSessionMetaData</a></td>
+<td>Public method to extract some session meta data elements needed by the tab widget in case of deferred loading.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.findNextPrev">findNextPrev</a></td>
+<td>Public slot to find the next occurrence of a text.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.forward">forward</a></td>
+<td>Public slot to move forward in history.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.getPreview">getPreview</a></td>
+<td>Public method to get the preview pixmap.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.getRSS">getRSS</a></td>
+<td>Public method to get the extracted RSS feeds.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.getSafeBrowsingStatus">getSafeBrowsingStatus</a></td>
+<td>Public method to get the safe browsing status of the current page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.getSessionData">getSessionData</a></td>
+<td>Public method to populate the session data.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.hasRSS">hasRSS</a></td>
+<td>Public method to check, if the loaded page has RSS links.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.hasSelection">hasSelection</a></td>
+<td>Public method to determine, if there is some text selected.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.home">home</a></td>
+<td>Public slot to move to the first page loaded.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.icon">icon</a></td>
+<td>Public method to get the web site icon.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.inputWidget">inputWidget</a></td>
+<td>Public method to get a reference to the render widget.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.isBackwardAvailable">isBackwardAvailable</a></td>
+<td>Public method to determine, if a backwards move in history is possible.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.isForwardAvailable">isForwardAvailable</a></td>
+<td>Public method to determine, if a forward move in history is possible.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.isFullScreen">isFullScreen</a></td>
+<td>Public method to check, if full screen mode is active.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.isLoading">isLoading</a></td>
+<td>Public method to get the loading state.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.load">load</a></td>
+<td>Public method to load a web site.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.loadFromSessionData">loadFromSessionData</a></td>
+<td>Public method to load the session data.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.mainWindow">mainWindow</a></td>
+<td>Public method to get a reference to the main window.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.mapToViewport">mapToViewport</a></td>
+<td>Public method to map a position to the viewport.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.paste">paste</a></td>
+<td>Public slot to paste text from the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.preferencesChanged">preferencesChanged</a></td>
+<td>Public method to indicate a change of the settings.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.printPage">printPage</a></td>
+<td>Public slot to print the current page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.printPageToPdf">printPageToPdf</a></td>
+<td>Public slot to save the current page as a PDF file.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.printPreviewPage">printPreviewPage</a></td>
+<td>Public slot to create a print preview of the current page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.progress">progress</a></td>
+<td>Public method to get the load progress.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.redo">redo</a></td>
+<td>Public slot to redo the last edit action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.reload">reload</a></td>
+<td>Public slot to reload the current page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.reloadBypassingCache">reloadBypassingCache</a></td>
+<td>Public slot to reload the current page bypassing the cache.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.requestFullScreen">requestFullScreen</a></td>
+<td>Public method to request full screen mode.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.saveAs">saveAs</a></td>
+<td>Public method to save the current page to a file.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.selectAll">selectAll</a></td>
+<td>Public slot to select all text.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.setSource">setSource</a></td>
+<td>Public method used to set the source to be displayed.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.setZoomValue">setZoomValue</a></td>
+<td>Public method to set the zoom value.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.showEvent">showEvent</a></td>
+<td>Protected method to handle show events.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.source">source</a></td>
+<td>Public method to return the URL of the loaded page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.storeSessionData">storeSessionData</a></td>
+<td>Public method to store session data to be restored later on.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.tabWidget">tabWidget</a></td>
+<td>Public method to get a reference to the tab widget containing this view.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.title">title</a></td>
+<td>Public method to get the view title.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.undo">undo</a></td>
+<td>Public slot to undo the last edit action.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.unselect">unselect</a></td>
+<td>Public slot to clear the current selection.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.zoomIn">zoomIn</a></td>
+<td>Public slot to zoom into the page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.zoomOut">zoomOut</a></td>
+<td>Public slot to zoom out of the page.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.zoomReset">zoomReset</a></td>
+<td>Public method to reset the zoom factor.</td>
+</tr>
+<tr>
+<td><a href="#WebBrowserView.zoomValue">zoomValue</a></td>
+<td>Public method to get the current zoom value.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WebBrowserView.__init__" ID="WebBrowserView.__init__"></a>
+<h4>WebBrowserView (Constructor)</h4>
+<b>WebBrowserView</b>(<i>mainWindow, parent=None, name=""</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>mainWindow</i> (WebBrowserWindow)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this window
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this window
+</dd>
+</dl>
+<a NAME="WebBrowserView.__addBookmarkCallback" ID="WebBrowserView.__addBookmarkCallback"></a>
+<h4>WebBrowserView.__addBookmarkCallback</h4>
+<b>__addBookmarkCallback</b>(<i>res</i>)
+<p>
+        Private callback method of __addBookmark().
+</p>
+
+<dl>
+
+<dt><i>res</i> (list)</dt>
+<dd>
+reference to the result list containing all
+            meta attributes
+</dd>
+</dl>
+<a NAME="WebBrowserView.__addSearchEngine" ID="WebBrowserView.__addSearchEngine"></a>
+<h4>WebBrowserView.__addSearchEngine</h4>
+<b>__addSearchEngine</b>(<i></i>)
+<p>
+        Private slot to add a new search engine.
+</p>
+
+<a NAME="WebBrowserView.__addSpeedDial" ID="WebBrowserView.__addSpeedDial"></a>
+<h4>WebBrowserView.__addSpeedDial</h4>
+<b>__addSpeedDial</b>(<i></i>)
+<p>
+        Private slot to add a new speed dial.
+</p>
+
+<a NAME="WebBrowserView.__adjustBookmark" ID="WebBrowserView.__adjustBookmark"></a>
+<h4>WebBrowserView.__adjustBookmark</h4>
+<b>__adjustBookmark</b>(<i>lastModified</i>)
+<p>
+        Private slot to adjust the 'lastModified' value of bookmarks.
+</p>
+
+<dl>
+
+<dt><i>lastModified</i> (str)</dt>
+<dd>
+last modified value
+</dd>
+</dl>
+<a NAME="WebBrowserView.__blockImage" ID="WebBrowserView.__blockImage"></a>
+<h4>WebBrowserView.__blockImage</h4>
+<b>__blockImage</b>(<i>act</i>)
+<p>
+        Private slot to add a block rule for an image URL.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__bookmarkLink" ID="WebBrowserView.__bookmarkLink"></a>
+<h4>WebBrowserView.__bookmarkLink</h4>
+<b>__bookmarkLink</b>(<i>act</i>)
+<p>
+        Private slot to bookmark a link via the context menu.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__checkForForm" ID="WebBrowserView.__checkForForm"></a>
+<h4>WebBrowserView.__checkForForm</h4>
+<b>__checkForForm</b>(<i>act, pos</i>)
+<p>
+        Private method to check the given position for an open search form.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action to be populated upon success
+</dd>
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position to be tested
+</dd>
+</dl>
+<a NAME="WebBrowserView.__checkForFormCallback" ID="WebBrowserView.__checkForFormCallback"></a>
+<h4>WebBrowserView.__checkForFormCallback</h4>
+<b>__checkForFormCallback</b>(<i>res, act</i>)
+<p>
+        Private method handling the __checkForForm result.
+</p>
+
+<dl>
+
+<dt><i>res</i> (dict)</dt>
+<dd>
+result dictionary generated by JavaScript
+</dd>
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action to be populated upon success
+</dd>
+</dl>
+<a NAME="WebBrowserView.__configureSpeedDial" ID="WebBrowserView.__configureSpeedDial"></a>
+<h4>WebBrowserView.__configureSpeedDial</h4>
+<b>__configureSpeedDial</b>(<i></i>)
+<p>
+        Private slot to configure the speed dial.
+</p>
+
+<a NAME="WebBrowserView.__copyImage" ID="WebBrowserView.__copyImage"></a>
+<h4>WebBrowserView.__copyImage</h4>
+<b>__copyImage</b>(<i></i>)
+<p>
+        Private slot to copy an image to the clipboard.
+</p>
+
+<a NAME="WebBrowserView.__copyLink" ID="WebBrowserView.__copyLink"></a>
+<h4>WebBrowserView.__copyLink</h4>
+<b>__copyLink</b>(<i>act</i>)
+<p>
+        Private slot to copy a link to the clipboard.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__createContextMenu" ID="WebBrowserView.__createContextMenu"></a>
+<h4>WebBrowserView.__createContextMenu</h4>
+<b>__createContextMenu</b>(<i>menu, hitTest</i>)
+<p>
+        Private method to populate the context menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+<dt><i>hitTest</i> (WebHitTestResult)</dt>
+<dd>
+reference to the hit test object
+</dd>
+</dl>
+<a NAME="WebBrowserView.__createImageContextMenu" ID="WebBrowserView.__createImageContextMenu"></a>
+<h4>WebBrowserView.__createImageContextMenu</h4>
+<b>__createImageContextMenu</b>(<i>menu, hitTest</i>)
+<p>
+        Private method to populate the context menu for images.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+<dt><i>hitTest</i> (WebHitTestResult)</dt>
+<dd>
+reference to the hit test object
+</dd>
+</dl>
+<a NAME="WebBrowserView.__createLinkContextMenu" ID="WebBrowserView.__createLinkContextMenu"></a>
+<h4>WebBrowserView.__createLinkContextMenu</h4>
+<b>__createLinkContextMenu</b>(<i>menu, hitTest</i>)
+<p>
+        Private method to populate the context menu for URLs.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+<dt><i>hitTest</i> (WebHitTestResult)</dt>
+<dd>
+reference to the hit test object
+</dd>
+</dl>
+<a NAME="WebBrowserView.__createMediaContextMenu" ID="WebBrowserView.__createMediaContextMenu"></a>
+<h4>WebBrowserView.__createMediaContextMenu</h4>
+<b>__createMediaContextMenu</b>(<i>menu, hitTest</i>)
+<p>
+        Private method to populate the context menu for media elements.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+<dt><i>hitTest</i> (WebHitTestResult)</dt>
+<dd>
+reference to the hit test object
+</dd>
+</dl>
+<a NAME="WebBrowserView.__createNewPage" ID="WebBrowserView.__createNewPage"></a>
+<h4>WebBrowserView.__createNewPage</h4>
+<b>__createNewPage</b>(<i></i>)
+<p>
+        Private method to create a new page object.
+</p>
+
+<a NAME="WebBrowserView.__createPageContextMenu" ID="WebBrowserView.__createPageContextMenu"></a>
+<h4>WebBrowserView.__createPageContextMenu</h4>
+<b>__createPageContextMenu</b>(<i>menu</i>)
+<p>
+        Private method to populate the basic context menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+</dl>
+<a NAME="WebBrowserView.__createSelectedTextContextMenu" ID="WebBrowserView.__createSelectedTextContextMenu"></a>
+<h4>WebBrowserView.__createSelectedTextContextMenu</h4>
+<b>__createSelectedTextContextMenu</b>(<i>menu, _hitTest</i>)
+<p>
+        Private method to populate the context menu for selected text.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+<dt><i>_hitTest</i> (WebHitTestResult)</dt>
+<dd>
+reference to the hit test object (unused)
+</dd>
+</dl>
+<a NAME="WebBrowserView.__currentEngineChanged" ID="WebBrowserView.__currentEngineChanged"></a>
+<h4>WebBrowserView.__currentEngineChanged</h4>
+<b>__currentEngineChanged</b>(<i></i>)
+<p>
+        Private slot to track a change of the current search engine.
+</p>
+
+<a NAME="WebBrowserView.__downloadImage" ID="WebBrowserView.__downloadImage"></a>
+<h4>WebBrowserView.__downloadImage</h4>
+<b>__downloadImage</b>(<i></i>)
+<p>
+        Private slot to download an image and save it to disk.
+</p>
+
+<a NAME="WebBrowserView.__downloadLink" ID="WebBrowserView.__downloadLink"></a>
+<h4>WebBrowserView.__downloadLink</h4>
+<b>__downloadLink</b>(<i></i>)
+<p>
+        Private slot to download a link and save it to disk.
+</p>
+
+<a NAME="WebBrowserView.__downloadMedia" ID="WebBrowserView.__downloadMedia"></a>
+<h4>WebBrowserView.__downloadMedia</h4>
+<b>__downloadMedia</b>(<i></i>)
+<p>
+        Private slot to download a media and save it to disk.
+</p>
+
+<a NAME="WebBrowserView.__fileSystemAccessRequested" ID="WebBrowserView.__fileSystemAccessRequested"></a>
+<h4>WebBrowserView.__fileSystemAccessRequested</h4>
+<b>__fileSystemAccessRequested</b>(<i>accessRequest</i>)
+<p>
+            Private slot to handle file system access requests of the web page.
+</p>
+
+<dl>
+
+<dt><i>accessRequest</i> (QWebEngineFileSystemAccessRequest)</dt>
+<dd>
+reference to the file system access request object
+</dd>
+</dl>
+<a NAME="WebBrowserView.__findTextFinished" ID="WebBrowserView.__findTextFinished"></a>
+<h4>WebBrowserView.__findTextFinished</h4>
+<b>__findTextFinished</b>(<i>result</i>)
+<p>
+        Private slot handling the findTextFinished signal of the web page.
+</p>
+
+<dl>
+
+<dt><i>result</i> (QWebEngineFindTextResult)</dt>
+<dd>
+reference to the QWebEngineFindTextResult object of the
+            last search
+</dd>
+</dl>
+<a NAME="WebBrowserView.__getSavePageFileNameAndFormat" ID="WebBrowserView.__getSavePageFileNameAndFormat"></a>
+<h4>WebBrowserView.__getSavePageFileNameAndFormat</h4>
+<b>__getSavePageFileNameAndFormat</b>(<i></i>)
+<p>
+        Private method to get the file name to save the page to.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the file name to save to and the
+            save page format
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, QWebEngineDownloadRequest.SavePageFormat)
+</dd>
+</dl>
+<a NAME="WebBrowserView.__iconLoaded" ID="WebBrowserView.__iconLoaded"></a>
+<h4>WebBrowserView.__iconLoaded</h4>
+<b>__iconLoaded</b>(<i>icon</i>)
+<p>
+        Private slot handling the loaded web site icon.
+</p>
+
+<dl>
+
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+web site icon
+</dd>
+</dl>
+<a NAME="WebBrowserView.__iconUrlChanged" ID="WebBrowserView.__iconUrlChanged"></a>
+<h4>WebBrowserView.__iconUrlChanged</h4>
+<b>__iconUrlChanged</b>(<i>url</i>)
+<p>
+        Private slot to handle the iconUrlChanged signal.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to get web site icon from
+</dd>
+</dl>
+<a NAME="WebBrowserView.__isUrlValid" ID="WebBrowserView.__isUrlValid"></a>
+<h4>WebBrowserView.__isUrlValid</h4>
+<b>__isUrlValid</b>(<i>url</i>)
+<p>
+        Private method to check a URL for validity.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a valid URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.__levelForZoom" ID="WebBrowserView.__levelForZoom"></a>
+<h4>WebBrowserView.__levelForZoom</h4>
+<b>__levelForZoom</b>(<i>zoom</i>)
+<p>
+        Private method determining the zoom level index given a zoom factor.
+</p>
+
+<dl>
+
+<dt><i>zoom</i> (int)</dt>
+<dd>
+zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of zoom factor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="WebBrowserView.__linkHovered" ID="WebBrowserView.__linkHovered"></a>
+<h4>WebBrowserView.__linkHovered</h4>
+<b>__linkHovered</b>(<i>link</i>)
+<p>
+        Private slot to handle the linkHovered signal.
+</p>
+
+<dl>
+
+<dt><i>link</i> (str)</dt>
+<dd>
+the URL of the link
+</dd>
+</dl>
+<a NAME="WebBrowserView.__loadFinished" ID="WebBrowserView.__loadFinished"></a>
+<h4>WebBrowserView.__loadFinished</h4>
+<b>__loadFinished</b>(<i>ok</i>)
+<p>
+        Private method to handle the loadFinished signal.
+</p>
+
+<dl>
+
+<dt><i>ok</i> (bool)</dt>
+<dd>
+flag indicating the result
+</dd>
+</dl>
+<a NAME="WebBrowserView.__loadProgress" ID="WebBrowserView.__loadProgress"></a>
+<h4>WebBrowserView.__loadProgress</h4>
+<b>__loadProgress</b>(<i>progress</i>)
+<p>
+        Private method to handle the loadProgress signal.
+</p>
+
+<dl>
+
+<dt><i>progress</i> (int)</dt>
+<dd>
+progress value
+</dd>
+</dl>
+<a NAME="WebBrowserView.__loadStarted" ID="WebBrowserView.__loadStarted"></a>
+<h4>WebBrowserView.__loadStarted</h4>
+<b>__loadStarted</b>(<i></i>)
+<p>
+        Private method to handle the loadStarted signal.
+</p>
+
+<a NAME="WebBrowserView.__muteMedia" ID="WebBrowserView.__muteMedia"></a>
+<h4>WebBrowserView.__muteMedia</h4>
+<b>__muteMedia</b>(<i></i>)
+<p>
+        Private slot to (un)mute the selected media.
+</p>
+
+<a NAME="WebBrowserView.__openLinkInNewPrivateWindow" ID="WebBrowserView.__openLinkInNewPrivateWindow"></a>
+<h4>WebBrowserView.__openLinkInNewPrivateWindow</h4>
+<b>__openLinkInNewPrivateWindow</b>(<i>act</i>)
+<p>
+        Private slot called by the context menu to open a link in a new
+        private window.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__openLinkInNewTab" ID="WebBrowserView.__openLinkInNewTab"></a>
+<h4>WebBrowserView.__openLinkInNewTab</h4>
+<b>__openLinkInNewTab</b>(<i>act</i>)
+<p>
+        Private method called by the context menu to open a link in a new
+        tab.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__openLinkInNewWindow" ID="WebBrowserView.__openLinkInNewWindow"></a>
+<h4>WebBrowserView.__openLinkInNewWindow</h4>
+<b>__openLinkInNewWindow</b>(<i>act</i>)
+<p>
+        Private slot called by the context menu to open a link in a new
+        window.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__pauseMedia" ID="WebBrowserView.__pauseMedia"></a>
+<h4>WebBrowserView.__pauseMedia</h4>
+<b>__pauseMedia</b>(<i></i>)
+<p>
+        Private slot to pause or play the selected media.
+</p>
+
+<a NAME="WebBrowserView.__printPageFinished" ID="WebBrowserView.__printPageFinished"></a>
+<h4>WebBrowserView.__printPageFinished</h4>
+<b>__printPageFinished</b>(<i>success</i>)
+<p>
+        Private slot to handle the finishing of a print job.
+</p>
+
+<dl>
+
+<dt><i>success</i> (bool)</dt>
+<dd>
+flag indicating success (not used)
+</dd>
+</dl>
+<a NAME="WebBrowserView.__printPageToPdfFinished" ID="WebBrowserView.__printPageToPdfFinished"></a>
+<h4>WebBrowserView.__printPageToPdfFinished</h4>
+<b>__printPageToPdfFinished</b>(<i>filepath, success</i>)
+<p>
+        Private slot to handle the finishing of a PDF print job.
+</p>
+
+<dl>
+
+<dt><i>filepath</i> (str)</dt>
+<dd>
+path of the output PDF file
+</dd>
+<dt><i>success</i> (bool)</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<a NAME="WebBrowserView.__printPreviewRequested" ID="WebBrowserView.__printPreviewRequested"></a>
+<h4>WebBrowserView.__printPreviewRequested</h4>
+<b>__printPreviewRequested</b>(<i>printer</i>)
+<p>
+        Private slot to generate the print preview.
+</p>
+
+<dl>
+
+<dt><i>printer</i> (QPrinter)</dt>
+<dd>
+reference to the printer object
+</dd>
+</dl>
+<a NAME="WebBrowserView.__quotaRequested" ID="WebBrowserView.__quotaRequested"></a>
+<h4>WebBrowserView.__quotaRequested</h4>
+<b>__quotaRequested</b>(<i>quotaRequest</i>)
+<p>
+        Private slot to handle quota requests of the web page.
+</p>
+
+<dl>
+
+<dt><i>quotaRequest</i> (QWebEngineQuotaRequest)</dt>
+<dd>
+reference to the quota request object
+</dd>
+</dl>
+<a NAME="WebBrowserView.__reloadAllSpeedDials" ID="WebBrowserView.__reloadAllSpeedDials"></a>
+<h4>WebBrowserView.__reloadAllSpeedDials</h4>
+<b>__reloadAllSpeedDials</b>(<i></i>)
+<p>
+        Private slot to reload all speed dials.
+</p>
+
+<a NAME="WebBrowserView.__renderPreview" ID="WebBrowserView.__renderPreview"></a>
+<h4>WebBrowserView.__renderPreview</h4>
+<b>__renderPreview</b>(<i></i>)
+<p>
+        Private slot to render a preview pixmap after the page was loaded.
+</p>
+
+<a NAME="WebBrowserView.__renderProcessTerminated" ID="WebBrowserView.__renderProcessTerminated"></a>
+<h4>WebBrowserView.__renderProcessTerminated</h4>
+<b>__renderProcessTerminated</b>(<i>status, _exitCode</i>)
+<p>
+        Private slot handling a crash of the web page render process.
+</p>
+
+<dl>
+
+<dt><i>status</i> (QWebEnginePage.RenderProcessTerminationStatus)</dt>
+<dd>
+termination status
+</dd>
+<dt><i>_exitCode</i> (int)</dt>
+<dd>
+exit code of the process (unused)
+</dd>
+</dl>
+<a NAME="WebBrowserView.__replaceMisspelledWord" ID="WebBrowserView.__replaceMisspelledWord"></a>
+<h4>WebBrowserView.__replaceMisspelledWord</h4>
+<b>__replaceMisspelledWord</b>(<i>act</i>)
+<p>
+        Private slot to replace a misspelled word under the context menu.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__resetSpeedDials" ID="WebBrowserView.__resetSpeedDials"></a>
+<h4>WebBrowserView.__resetSpeedDials</h4>
+<b>__resetSpeedDials</b>(<i></i>)
+<p>
+        Private slot to reset all speed dials to the default pages.
+</p>
+
+<a NAME="WebBrowserView.__searchDefaultRequested" ID="WebBrowserView.__searchDefaultRequested"></a>
+<h4>WebBrowserView.__searchDefaultRequested</h4>
+<b>__searchDefaultRequested</b>(<i></i>)
+<p>
+        Private slot to search for some text with the current search engine.
+</p>
+
+<a NAME="WebBrowserView.__searchImage" ID="WebBrowserView.__searchImage"></a>
+<h4>WebBrowserView.__searchImage</h4>
+<b>__searchImage</b>(<i>act</i>)
+<p>
+        Private slot to search for an image URL.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__searchRequested" ID="WebBrowserView.__searchRequested"></a>
+<h4>WebBrowserView.__searchRequested</h4>
+<b>__searchRequested</b>(<i>act</i>)
+<p>
+        Private slot to search for some text with a selected search engine.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered this slot
+</dd>
+</dl>
+<a NAME="WebBrowserView.__selectClientCertificate" ID="WebBrowserView.__selectClientCertificate"></a>
+<h4>WebBrowserView.__selectClientCertificate</h4>
+<b>__selectClientCertificate</b>(<i>clientCertificateSelection</i>)
+<p>
+        Private slot to handle the client certificate selection request.
+</p>
+
+<dl>
+
+<dt><i>clientCertificateSelection</i> (QWebEngineClientCertificateSelection)</dt>
+<dd>
+list of client SSL certificates
+            found in system's client certificate store
+</dd>
+</dl>
+<a NAME="WebBrowserView.__sendLink" ID="WebBrowserView.__sendLink"></a>
+<h4>WebBrowserView.__sendLink</h4>
+<b>__sendLink</b>(<i>act</i>)
+<p>
+        Private slot to send a link via email.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__setRwhvqt" ID="WebBrowserView.__setRwhvqt"></a>
+<h4>WebBrowserView.__setRwhvqt</h4>
+<b>__setRwhvqt</b>(<i></i>)
+<p>
+        Private slot to set widget that receives input events.
+</p>
+
+<a NAME="WebBrowserView.__setupPrinter" ID="WebBrowserView.__setupPrinter"></a>
+<h4>WebBrowserView.__setupPrinter</h4>
+<b>__setupPrinter</b>(<i>filePath=None</i>)
+<p>
+        Private method to create and initialize a QPrinter object.
+</p>
+
+<dl>
+
+<dt><i>filePath</i> (str (optional))</dt>
+<dd>
+name of the output file for the printer (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+initialized QPrinter object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPrinter
+</dd>
+</dl>
+<a NAME="WebBrowserView.__showContextMenu" ID="WebBrowserView.__showContextMenu"></a>
+<h4>WebBrowserView.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show a context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position for the context menu
+</dd>
+</dl>
+<a NAME="WebBrowserView.__showEventSlot" ID="WebBrowserView.__showEventSlot"></a>
+<h4>WebBrowserView.__showEventSlot</h4>
+<b>__showEventSlot</b>(<i></i>)
+<p>
+        Private slot to perform actions when the view is shown and the event
+        loop is running.
+</p>
+
+<a NAME="WebBrowserView.__showTabCrashPage" ID="WebBrowserView.__showTabCrashPage"></a>
+<h4>WebBrowserView.__showTabCrashPage</h4>
+<b>__showTabCrashPage</b>(<i>status</i>)
+<p>
+        Private slot to show the tab crash page.
+</p>
+
+<dl>
+
+<dt><i>status</i> (QWebEnginePage.RenderProcessTerminationStatus)</dt>
+<dd>
+termination status
+</dd>
+</dl>
+<a NAME="WebBrowserView.__urlChanged" ID="WebBrowserView.__urlChanged"></a>
+<h4>WebBrowserView.__urlChanged</h4>
+<b>__urlChanged</b>(<i>url</i>)
+<p>
+        Private slot to handle the urlChanged signal.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+the new url
+</dd>
+</dl>
+<a NAME="WebBrowserView.__virusTotal" ID="WebBrowserView.__virusTotal"></a>
+<h4>WebBrowserView.__virusTotal</h4>
+<b>__virusTotal</b>(<i>act</i>)
+<p>
+        Private slot to scan the selected URL with VirusTotal.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered
+</dd>
+</dl>
+<a NAME="WebBrowserView.__webAuthUxRequestStateChanged" ID="WebBrowserView.__webAuthUxRequestStateChanged"></a>
+<h4>WebBrowserView.__webAuthUxRequestStateChanged</h4>
+<b>__webAuthUxRequestStateChanged</b>(<i>state</i>)
+<p>
+            Private slot to handle a change of state of the current WebAuth request.
+</p>
+
+<dl>
+
+<dt><i>state</i> (QWebEngineWebAuthUxRequest.WebAuthUxState)</dt>
+<dd>
+new state
+</dd>
+</dl>
+<a NAME="WebBrowserView.__webAuthUxRequested" ID="WebBrowserView.__webAuthUxRequested"></a>
+<h4>WebBrowserView.__webAuthUxRequested</h4>
+<b>__webAuthUxRequested</b>(<i>authUxRequest</i>)
+<p>
+            Private slot to handle WebAuth requests.
+</p>
+
+<dl>
+
+<dt><i>authUxRequest</i> (QWebEngineWebAuthUxRequest)</dt>
+<dd>
+reference to the WebAuth request object
+</dd>
+</dl>
+<a NAME="WebBrowserView.__webInspector" ID="WebBrowserView.__webInspector"></a>
+<h4>WebBrowserView.__webInspector</h4>
+<b>__webInspector</b>(<i></i>)
+<p>
+        Private slot to show the web inspector window.
+</p>
+
+<a NAME="WebBrowserView._gestureEvent" ID="WebBrowserView._gestureEvent"></a>
+<h4>WebBrowserView._gestureEvent</h4>
+<b>_gestureEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling gesture events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QGestureEvent)</dt>
+<dd>
+reference to the gesture event
+</dd>
+</dl>
+<a NAME="WebBrowserView._keyPressEvent" ID="WebBrowserView._keyPressEvent"></a>
+<h4>WebBrowserView._keyPressEvent</h4>
+<b>_keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a key press.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key event
+</dd>
+</dl>
+<a NAME="WebBrowserView._keyReleaseEvent" ID="WebBrowserView._keyReleaseEvent"></a>
+<h4>WebBrowserView._keyReleaseEvent</h4>
+<b>_keyReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a key release.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+reference to the key event
+</dd>
+</dl>
+<a NAME="WebBrowserView._mouseMoveEvent" ID="WebBrowserView._mouseMoveEvent"></a>
+<h4>WebBrowserView._mouseMoveEvent</h4>
+<b>_mouseMoveEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse move events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="WebBrowserView._mousePressEvent" ID="WebBrowserView._mousePressEvent"></a>
+<h4>WebBrowserView._mousePressEvent</h4>
+<b>_mousePressEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a mouse press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="WebBrowserView._mouseReleaseEvent" ID="WebBrowserView._mouseReleaseEvent"></a>
+<h4>WebBrowserView._mouseReleaseEvent</h4>
+<b>_mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a mouse release event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="WebBrowserView._wheelEvent" ID="WebBrowserView._wheelEvent"></a>
+<h4>WebBrowserView._wheelEvent</h4>
+<b>_wheelEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle wheel events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QWheelEvent)</dt>
+<dd>
+reference to the wheel event
+</dd>
+</dl>
+<a NAME="WebBrowserView.activateSession" ID="WebBrowserView.activateSession"></a>
+<h4>WebBrowserView.activateSession</h4>
+<b>activateSession</b>(<i></i>)
+<p>
+        Public slot to activate a restored session.
+</p>
+
+<a NAME="WebBrowserView.addBookmark" ID="WebBrowserView.addBookmark"></a>
+<h4>WebBrowserView.addBookmark</h4>
+<b>addBookmark</b>(<i></i>)
+<p>
+        Public slot to bookmark the current page.
+</p>
+
+<a NAME="WebBrowserView.backward" ID="WebBrowserView.backward"></a>
+<h4>WebBrowserView.backward</h4>
+<b>backward</b>(<i></i>)
+<p>
+        Public slot to move backwards in history.
+</p>
+
+<a NAME="WebBrowserView.checkRSS" ID="WebBrowserView.checkRSS"></a>
+<h4>WebBrowserView.checkRSS</h4>
+<b>checkRSS</b>(<i></i>)
+<p>
+        Public method to check, if the loaded page contains feed links.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of feed links
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.clearHistory" ID="WebBrowserView.clearHistory"></a>
+<h4>WebBrowserView.clearHistory</h4>
+<b>clearHistory</b>(<i></i>)
+<p>
+        Public slot to clear the history.
+</p>
+
+<a NAME="WebBrowserView.closeWebInspector" ID="WebBrowserView.closeWebInspector"></a>
+<h4>WebBrowserView.closeWebInspector</h4>
+<b>closeWebInspector</b>(<i></i>)
+<p>
+        Public slot to close the web inspector.
+</p>
+
+<a NAME="WebBrowserView.copy" ID="WebBrowserView.copy"></a>
+<h4>WebBrowserView.copy</h4>
+<b>copy</b>(<i></i>)
+<p>
+        Public slot to copy the selected text.
+</p>
+
+<a NAME="WebBrowserView.createWindow" ID="WebBrowserView.createWindow"></a>
+<h4>WebBrowserView.createWindow</h4>
+<b>createWindow</b>(<i>windowType</i>)
+<p>
+        Public method called, when a new window should be created.
+</p>
+
+<dl>
+
+<dt><i>windowType</i> (QWebEnginePage.WebWindowType)</dt>
+<dd>
+type of the requested window
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the created browser window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserView
+</dd>
+</dl>
+<a NAME="WebBrowserView.cut" ID="WebBrowserView.cut"></a>
+<h4>WebBrowserView.cut</h4>
+<b>cut</b>(<i></i>)
+<p>
+        Public slot to cut the selected text.
+</p>
+
+<a NAME="WebBrowserView.documentTitle" ID="WebBrowserView.documentTitle"></a>
+<h4>WebBrowserView.documentTitle</h4>
+<b>documentTitle</b>(<i></i>)
+<p>
+        Public method to return the title of the loaded page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+title
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="WebBrowserView.dragEnterEvent" ID="WebBrowserView.dragEnterEvent"></a>
+<h4>WebBrowserView.dragEnterEvent</h4>
+<b>dragEnterEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a drag enter event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QDragEnterEvent)</dt>
+<dd>
+reference to the drag enter event
+</dd>
+</dl>
+<a NAME="WebBrowserView.dragMoveEvent" ID="WebBrowserView.dragMoveEvent"></a>
+<h4>WebBrowserView.dragMoveEvent</h4>
+<b>dragMoveEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a drag move event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QDragMoveEvent)</dt>
+<dd>
+reference to the drag move event
+</dd>
+</dl>
+<a NAME="WebBrowserView.dropEvent" ID="WebBrowserView.dropEvent"></a>
+<h4>WebBrowserView.dropEvent</h4>
+<b>dropEvent</b>(<i>evt</i>)
+<p>
+        Protected method called by a drop event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QDropEvent)</dt>
+<dd>
+reference to the drop event
+</dd>
+</dl>
+<a NAME="WebBrowserView.event" ID="WebBrowserView.event"></a>
+<h4>WebBrowserView.event</h4>
+<b>event</b>(<i>evt</i>)
+<p>
+        Public method handling events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the event was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.eventFilter" ID="WebBrowserView.eventFilter"></a>
+<h4>WebBrowserView.eventFilter</h4>
+<b>eventFilter</b>(<i>obj, evt</i>)
+<p>
+        Public method to process event for other objects.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (QObject)</dt>
+<dd>
+reference to object to process events for
+</dd>
+<dt><i>evt</i> (QEvent)</dt>
+<dd>
+reference to event to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the event should be filtered out
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.extractSessionMetaData" ID="WebBrowserView.extractSessionMetaData"></a>
+<h4>WebBrowserView.extractSessionMetaData</h4>
+<b>extractSessionMetaData</b>(<i>sessionData</i>)
+<p>
+        Public method to extract some session meta data elements needed by the
+        tab widget in case of deferred loading.
+</p>
+
+<dl>
+
+<dt><i>sessionData</i> (dict)</dt>
+<dd>
+dictionary containing the session data as
+            generated by getSessionData()
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the title, URL and web icon
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str, QIcon)
+</dd>
+</dl>
+<a NAME="WebBrowserView.findNextPrev" ID="WebBrowserView.findNextPrev"></a>
+<h4>WebBrowserView.findNextPrev</h4>
+<b>findNextPrev</b>(<i>txt, case, backwards, callback</i>)
+<p>
+        Public slot to find the next occurrence of a text.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to search for
+</dd>
+<dt><i>case</i> (bool)</dt>
+<dd>
+flag indicating a case sensitive search
+</dd>
+<dt><i>backwards</i> (bool)</dt>
+<dd>
+flag indicating a backwards search
+</dd>
+<dt><i>callback</i> (function(bool) or None)</dt>
+<dd>
+reference to a function with a bool parameter
+</dd>
+</dl>
+<a NAME="WebBrowserView.forward" ID="WebBrowserView.forward"></a>
+<h4>WebBrowserView.forward</h4>
+<b>forward</b>(<i></i>)
+<p>
+        Public slot to move forward in history.
+</p>
+
+<a NAME="WebBrowserView.getPreview" ID="WebBrowserView.getPreview"></a>
+<h4>WebBrowserView.getPreview</h4>
+<b>getPreview</b>(<i></i>)
+<p>
+        Public method to get the preview pixmap.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+preview pixmap
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPixmap
+</dd>
+</dl>
+<a NAME="WebBrowserView.getRSS" ID="WebBrowserView.getRSS"></a>
+<h4>WebBrowserView.getRSS</h4>
+<b>getRSS</b>(<i></i>)
+<p>
+        Public method to get the extracted RSS feeds.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of RSS feeds
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [(str, str)]
+</dd>
+</dl>
+<a NAME="WebBrowserView.getSafeBrowsingStatus" ID="WebBrowserView.getSafeBrowsingStatus"></a>
+<h4>WebBrowserView.getSafeBrowsingStatus</h4>
+<b>getSafeBrowsingStatus</b>(<i></i>)
+<p>
+        Public method to get the safe browsing status of the current page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a safe site
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.getSessionData" ID="WebBrowserView.getSessionData"></a>
+<h4>WebBrowserView.getSessionData</h4>
+<b>getSessionData</b>(<i></i>)
+<p>
+        Public method to populate the session data.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the session data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="WebBrowserView.hasRSS" ID="WebBrowserView.hasRSS"></a>
+<h4>WebBrowserView.hasRSS</h4>
+<b>hasRSS</b>(<i></i>)
+<p>
+        Public method to check, if the loaded page has RSS links.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of RSS links
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.hasSelection" ID="WebBrowserView.hasSelection"></a>
+<h4>WebBrowserView.hasSelection</h4>
+<b>hasSelection</b>(<i></i>)
+<p>
+        Public method to determine, if there is some text selected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating text has been selected
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.home" ID="WebBrowserView.home"></a>
+<h4>WebBrowserView.home</h4>
+<b>home</b>(<i></i>)
+<p>
+        Public slot to move to the first page loaded.
+</p>
+
+<a NAME="WebBrowserView.icon" ID="WebBrowserView.icon"></a>
+<h4>WebBrowserView.icon</h4>
+<b>icon</b>(<i></i>)
+<p>
+        Public method to get the web site icon.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+web site icon
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<a NAME="WebBrowserView.inputWidget" ID="WebBrowserView.inputWidget"></a>
+<h4>WebBrowserView.inputWidget</h4>
+<b>inputWidget</b>(<i></i>)
+<p>
+        Public method to get a reference to the render widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the render widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<a NAME="WebBrowserView.isBackwardAvailable" ID="WebBrowserView.isBackwardAvailable"></a>
+<h4>WebBrowserView.isBackwardAvailable</h4>
+<b>isBackwardAvailable</b>(<i></i>)
+<p>
+        Public method to determine, if a backwards move in history is possible.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating move backwards is possible
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.isForwardAvailable" ID="WebBrowserView.isForwardAvailable"></a>
+<h4>WebBrowserView.isForwardAvailable</h4>
+<b>isForwardAvailable</b>(<i></i>)
+<p>
+        Public method to determine, if a forward move in history is possible.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating move forward is possible
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.isFullScreen" ID="WebBrowserView.isFullScreen"></a>
+<h4>WebBrowserView.isFullScreen</h4>
+<b>isFullScreen</b>(<i></i>)
+<p>
+        Public method to check, if full screen mode is active.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating full screen mode
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.isLoading" ID="WebBrowserView.isLoading"></a>
+<h4>WebBrowserView.isLoading</h4>
+<b>isLoading</b>(<i></i>)
+<p>
+        Public method to get the loading state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the loading state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WebBrowserView.load" ID="WebBrowserView.load"></a>
+<h4>WebBrowserView.load</h4>
+<b>load</b>(<i>url</i>)
+<p>
+        Public method to load a web site.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be loaded
+</dd>
+</dl>
+<a NAME="WebBrowserView.loadFromSessionData" ID="WebBrowserView.loadFromSessionData"></a>
+<h4>WebBrowserView.loadFromSessionData</h4>
+<b>loadFromSessionData</b>(<i>sessionData</i>)
+<p>
+        Public method to load the session data.
+</p>
+
+<dl>
+
+<dt><i>sessionData</i> (dict)</dt>
+<dd>
+dictionary containing the session data as
+            generated by getSessionData()
+</dd>
+</dl>
+<a NAME="WebBrowserView.mainWindow" ID="WebBrowserView.mainWindow"></a>
+<h4>WebBrowserView.mainWindow</h4>
+<b>mainWindow</b>(<i></i>)
+<p>
+        Public method to get a reference to the main window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the main window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserWindow
+</dd>
+</dl>
+<a NAME="WebBrowserView.mapToViewport" ID="WebBrowserView.mapToViewport"></a>
+<h4>WebBrowserView.mapToViewport</h4>
+<b>mapToViewport</b>(<i>pos</i>)
+<p>
+        Public method to map a position to the viewport.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position to be mapped
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+viewport position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPoint
+</dd>
+</dl>
+<a NAME="WebBrowserView.paste" ID="WebBrowserView.paste"></a>
+<h4>WebBrowserView.paste</h4>
+<b>paste</b>(<i></i>)
+<p>
+        Public slot to paste text from the clipboard.
+</p>
+
+<a NAME="WebBrowserView.preferencesChanged" ID="WebBrowserView.preferencesChanged"></a>
+<h4>WebBrowserView.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public method to indicate a change of the settings.
+</p>
+
+<a NAME="WebBrowserView.printPage" ID="WebBrowserView.printPage"></a>
+<h4>WebBrowserView.printPage</h4>
+<b>printPage</b>(<i></i>)
+<p>
+        Public slot to print the current page.
+</p>
+
+<a NAME="WebBrowserView.printPageToPdf" ID="WebBrowserView.printPageToPdf"></a>
+<h4>WebBrowserView.printPageToPdf</h4>
+<b>printPageToPdf</b>(<i></i>)
+<p>
+        Public slot to save the current page as a PDF file.
+</p>
+
+<a NAME="WebBrowserView.printPreviewPage" ID="WebBrowserView.printPreviewPage"></a>
+<h4>WebBrowserView.printPreviewPage</h4>
+<b>printPreviewPage</b>(<i></i>)
+<p>
+        Public slot to create a print preview of the current page.
+</p>
+
+<a NAME="WebBrowserView.progress" ID="WebBrowserView.progress"></a>
+<h4>WebBrowserView.progress</h4>
+<b>progress</b>(<i></i>)
+<p>
+        Public method to get the load progress.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+load progress
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="WebBrowserView.redo" ID="WebBrowserView.redo"></a>
+<h4>WebBrowserView.redo</h4>
+<b>redo</b>(<i></i>)
+<p>
+        Public slot to redo the last edit action.
+</p>
+
+<a NAME="WebBrowserView.reload" ID="WebBrowserView.reload"></a>
+<h4>WebBrowserView.reload</h4>
+<b>reload</b>(<i></i>)
+<p>
+        Public slot to reload the current page.
+</p>
+
+<a NAME="WebBrowserView.reloadBypassingCache" ID="WebBrowserView.reloadBypassingCache"></a>
+<h4>WebBrowserView.reloadBypassingCache</h4>
+<b>reloadBypassingCache</b>(<i></i>)
+<p>
+        Public slot to reload the current page bypassing the cache.
+</p>
+
+<a NAME="WebBrowserView.requestFullScreen" ID="WebBrowserView.requestFullScreen"></a>
+<h4>WebBrowserView.requestFullScreen</h4>
+<b>requestFullScreen</b>(<i>enable</i>)
+<p>
+        Public method to request full screen mode.
+</p>
+
+<dl>
+
+<dt><i>enable</i> (bool)</dt>
+<dd>
+flag indicating full screen mode on or off
+</dd>
+</dl>
+<a NAME="WebBrowserView.saveAs" ID="WebBrowserView.saveAs"></a>
+<h4>WebBrowserView.saveAs</h4>
+<b>saveAs</b>(<i></i>)
+<p>
+        Public method to save the current page to a file.
+</p>
+
+<a NAME="WebBrowserView.selectAll" ID="WebBrowserView.selectAll"></a>
+<h4>WebBrowserView.selectAll</h4>
+<b>selectAll</b>(<i></i>)
+<p>
+        Public slot to select all text.
+</p>
+
+<a NAME="WebBrowserView.setSource" ID="WebBrowserView.setSource"></a>
+<h4>WebBrowserView.setSource</h4>
+<b>setSource</b>(<i>name, newTab=False</i>)
+<p>
+        Public method used to set the source to be displayed.
+</p>
+
+<dl>
+
+<dt><i>name</i> (QUrl)</dt>
+<dd>
+filename to be shown
+</dd>
+<dt><i>newTab</i> (bool)</dt>
+<dd>
+flag indicating to open the URL in a new tab
+</dd>
+</dl>
+<a NAME="WebBrowserView.setZoomValue" ID="WebBrowserView.setZoomValue"></a>
+<h4>WebBrowserView.setZoomValue</h4>
+<b>setZoomValue</b>(<i>value, saveValue=True</i>)
+<p>
+        Public method to set the zoom value.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+zoom value
+</dd>
+<dt><i>saveValue</i> (bool)</dt>
+<dd>
+flag indicating to save the zoom value with the
+            zoom manager
+</dd>
+</dl>
+<a NAME="WebBrowserView.showEvent" ID="WebBrowserView.showEvent"></a>
+<h4>WebBrowserView.showEvent</h4>
+<b>showEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle show events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QShowEvent)</dt>
+<dd>
+reference to the show event object
+</dd>
+</dl>
+<a NAME="WebBrowserView.source" ID="WebBrowserView.source"></a>
+<h4>WebBrowserView.source</h4>
+<b>source</b>(<i></i>)
+<p>
+        Public method to return the URL of the loaded page.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+URL loaded in the help browser
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="WebBrowserView.storeSessionData" ID="WebBrowserView.storeSessionData"></a>
+<h4>WebBrowserView.storeSessionData</h4>
+<b>storeSessionData</b>(<i>data</i>)
+<p>
+        Public method to store session data to be restored later on.
+</p>
+
+<dl>
+
+<dt><i>data</i> (dict)</dt>
+<dd>
+dictionary with session data to be restored
+</dd>
+</dl>
+<a NAME="WebBrowserView.tabWidget" ID="WebBrowserView.tabWidget"></a>
+<h4>WebBrowserView.tabWidget</h4>
+<b>tabWidget</b>(<i></i>)
+<p>
+        Public method to get a reference to the tab widget containing this
+        view.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the tab widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+WebBrowserTabWidget
+</dd>
+</dl>
+<a NAME="WebBrowserView.title" ID="WebBrowserView.title"></a>
+<h4>WebBrowserView.title</h4>
+<b>title</b>(<i></i>)
+<p>
+        Public method to get the view title.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+view title
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="WebBrowserView.undo" ID="WebBrowserView.undo"></a>
+<h4>WebBrowserView.undo</h4>
+<b>undo</b>(<i></i>)
+<p>
+        Public slot to undo the last edit action.
+</p>
+
+<a NAME="WebBrowserView.unselect" ID="WebBrowserView.unselect"></a>
+<h4>WebBrowserView.unselect</h4>
+<b>unselect</b>(<i></i>)
+<p>
+        Public slot to clear the current selection.
+</p>
+
+<a NAME="WebBrowserView.zoomIn" ID="WebBrowserView.zoomIn"></a>
+<h4>WebBrowserView.zoomIn</h4>
+<b>zoomIn</b>(<i></i>)
+<p>
+        Public slot to zoom into the page.
+</p>
+
+<a NAME="WebBrowserView.zoomOut" ID="WebBrowserView.zoomOut"></a>
+<h4>WebBrowserView.zoomOut</h4>
+<b>zoomOut</b>(<i></i>)
+<p>
+        Public slot to zoom out of the page.
+</p>
+
+<a NAME="WebBrowserView.zoomReset" ID="WebBrowserView.zoomReset"></a>
+<h4>WebBrowserView.zoomReset</h4>
+<b>zoomReset</b>(<i></i>)
+<p>
+        Public method to reset the zoom factor.
+</p>
+
+<a NAME="WebBrowserView.zoomValue" ID="WebBrowserView.zoomValue"></a>
+<h4>WebBrowserView.zoomValue</h4>
+<b>zoomValue</b>(<i></i>)
+<p>
+        Public method to get the current zoom value.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+zoom value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isCupsAvailable" ID="isCupsAvailable"></a>
+<h2>isCupsAvailable</h2>
+<b>isCupsAvailable</b>(<i></i>)
+<p>
+    Static method to test the availability of CUPS.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of CUPS
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

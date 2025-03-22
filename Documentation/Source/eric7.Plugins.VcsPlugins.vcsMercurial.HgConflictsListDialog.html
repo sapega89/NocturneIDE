@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.HgConflictsListDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.HgConflictsListDialog</h1>
+<p>
+Module implementing a dialog to show a list of files which had or still have
+conflicts.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgConflictsListDialog">HgConflictsListDialog</a></td>
+<td>Class implementing a dialog to show a list of files which had or still have conflicts.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgConflictsListDialog" ID="HgConflictsListDialog"></a>
+<h2>HgConflictsListDialog</h2>
+<p>
+    Class implementing a dialog to show a list of files which had or still
+    have conflicts.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_HgConflictsListDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>FilenameRole</td></tr>
+<tr><td>StatusRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgConflictsListDialog.__init__">HgConflictsListDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.__generateItem">__generateItem</a></td>
+<td>Private method to generate a tag item in the tag list.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.__getEntries">__getEntries</a></td>
+<td>Private method to get the conflict entries.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.__processOutputLine">__processOutputLine</a></td>
+<td>Private method to process the lines of output.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the list columns.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.__showError">__showError</a></td>
+<td>Private slot to show some error.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.on_conflictsList_itemDoubleClicked">on_conflictsList_itemDoubleClicked</a></td>
+<td>Private slot to open the double clicked entry.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.on_conflictsList_itemSelectionChanged">on_conflictsList_itemSelectionChanged</a></td>
+<td>Private slot to handle a change of selected conflict entries.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.on_editButton_clicked">on_editButton_clicked</a></td>
+<td>Private slot to open the selected file in an editor.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.on_reMergeButton_clicked">on_reMergeButton_clicked</a></td>
+<td>Private slot to re-merge the selected entries.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the log.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.on_resolvedButton_clicked">on_resolvedButton_clicked</a></td>
+<td>Private slot to mark the selected entries as resolved.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.on_unresolvedButton_clicked">on_unresolvedButton_clicked</a></td>
+<td>Private slot to mark the selected entries as unresolved.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.show">show</a></td>
+<td>Public slot to show the dialog.</td>
+</tr>
+<tr>
+<td><a href="#HgConflictsListDialog.start">start</a></td>
+<td>Public slot to start the tags command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgConflictsListDialog.__init__" ID="HgConflictsListDialog.__init__"></a>
+<h4>HgConflictsListDialog (Constructor)</h4>
+<b>HgConflictsListDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="HgConflictsListDialog.__finish" ID="HgConflictsListDialog.__finish"></a>
+<h4>HgConflictsListDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="HgConflictsListDialog.__generateItem" ID="HgConflictsListDialog.__generateItem"></a>
+<h4>HgConflictsListDialog.__generateItem</h4>
+<b>__generateItem</b>(<i>status, name</i>)
+<p>
+        Private method to generate a tag item in the tag list.
+</p>
+
+<dl>
+
+<dt><i>status</i> (str)</dt>
+<dd>
+status of the file
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+</dl>
+<a NAME="HgConflictsListDialog.__getEntries" ID="HgConflictsListDialog.__getEntries"></a>
+<h4>HgConflictsListDialog.__getEntries</h4>
+<b>__getEntries</b>(<i></i>)
+<p>
+        Private method to get the conflict entries.
+</p>
+
+<a NAME="HgConflictsListDialog.__processOutputLine" ID="HgConflictsListDialog.__processOutputLine"></a>
+<h4>HgConflictsListDialog.__processOutputLine</h4>
+<b>__processOutputLine</b>(<i>line</i>)
+<p>
+        Private method to process the lines of output.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+output line to be processed
+</dd>
+</dl>
+<a NAME="HgConflictsListDialog.__resizeColumns" ID="HgConflictsListDialog.__resizeColumns"></a>
+<h4>HgConflictsListDialog.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the list columns.
+</p>
+
+<a NAME="HgConflictsListDialog.__resort" ID="HgConflictsListDialog.__resort"></a>
+<h4>HgConflictsListDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="HgConflictsListDialog.__showError" ID="HgConflictsListDialog.__showError"></a>
+<h4>HgConflictsListDialog.__showError</h4>
+<b>__showError</b>(<i>out</i>)
+<p>
+        Private slot to show some error.
+</p>
+
+<dl>
+
+<dt><i>out</i> (str)</dt>
+<dd>
+error to be shown
+</dd>
+</dl>
+<a NAME="HgConflictsListDialog.closeEvent" ID="HgConflictsListDialog.closeEvent"></a>
+<h4>HgConflictsListDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="HgConflictsListDialog.on_buttonBox_clicked" ID="HgConflictsListDialog.on_buttonBox_clicked"></a>
+<h4>HgConflictsListDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="HgConflictsListDialog.on_conflictsList_itemDoubleClicked" ID="HgConflictsListDialog.on_conflictsList_itemDoubleClicked"></a>
+<h4>HgConflictsListDialog.on_conflictsList_itemDoubleClicked</h4>
+<b>on_conflictsList_itemDoubleClicked</b>(<i>_item, _column</i>)
+<p>
+        Private slot to open the double clicked entry.
+</p>
+
+<dl>
+
+<dt><i>_item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the double clicked item (unused)
+</dd>
+<dt><i>_column</i> (int)</dt>
+<dd>
+column that was double clicked (unused)
+</dd>
+</dl>
+<a NAME="HgConflictsListDialog.on_conflictsList_itemSelectionChanged" ID="HgConflictsListDialog.on_conflictsList_itemSelectionChanged"></a>
+<h4>HgConflictsListDialog.on_conflictsList_itemSelectionChanged</h4>
+<b>on_conflictsList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of selected conflict entries.
+</p>
+
+<a NAME="HgConflictsListDialog.on_editButton_clicked" ID="HgConflictsListDialog.on_editButton_clicked"></a>
+<h4>HgConflictsListDialog.on_editButton_clicked</h4>
+<b>on_editButton_clicked</b>(<i></i>)
+<p>
+        Private slot to open the selected file in an editor.
+</p>
+
+<a NAME="HgConflictsListDialog.on_reMergeButton_clicked" ID="HgConflictsListDialog.on_reMergeButton_clicked"></a>
+<h4>HgConflictsListDialog.on_reMergeButton_clicked</h4>
+<b>on_reMergeButton_clicked</b>(<i></i>)
+<p>
+        Private slot to re-merge the selected entries.
+</p>
+
+<a NAME="HgConflictsListDialog.on_refreshButton_clicked" ID="HgConflictsListDialog.on_refreshButton_clicked"></a>
+<h4>HgConflictsListDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the log.
+</p>
+
+<a NAME="HgConflictsListDialog.on_resolvedButton_clicked" ID="HgConflictsListDialog.on_resolvedButton_clicked"></a>
+<h4>HgConflictsListDialog.on_resolvedButton_clicked</h4>
+<b>on_resolvedButton_clicked</b>(<i></i>)
+<p>
+        Private slot to mark the selected entries as resolved.
+</p>
+
+<a NAME="HgConflictsListDialog.on_unresolvedButton_clicked" ID="HgConflictsListDialog.on_unresolvedButton_clicked"></a>
+<h4>HgConflictsListDialog.on_unresolvedButton_clicked</h4>
+<b>on_unresolvedButton_clicked</b>(<i></i>)
+<p>
+        Private slot to mark the selected entries as unresolved.
+</p>
+
+<a NAME="HgConflictsListDialog.show" ID="HgConflictsListDialog.show"></a>
+<h4>HgConflictsListDialog.show</h4>
+<b>show</b>(<i></i>)
+<p>
+        Public slot to show the dialog.
+</p>
+
+<a NAME="HgConflictsListDialog.start" ID="HgConflictsListDialog.start"></a>
+<h4>HgConflictsListDialog.start</h4>
+<b>start</b>(<i></i>)
+<p>
+        Public slot to start the tags command.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

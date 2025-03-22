@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricModelMenu</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricModelMenu</h1>
+<p>
+Module implementing a menu populated from a QAbstractItemModel.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricModelMenu">EricModelMenu</a></td>
+<td>Class implementing a menu populated from a QAbstractItemModel.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricModelMenu" ID="EricModelMenu"></a>
+<h2>EricModelMenu</h2>
+<p>
+    Class implementing a menu populated from a QAbstractItemModel.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>activated(QModelIndex)</dt>
+<dd>
+emitted when an action has been triggered
+</dd>
+</dl>
+<h3>Derived from</h3>
+QMenu
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricModelMenu.__init__">EricModelMenu</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.__aboutToShow">__aboutToShow</a></td>
+<td>Private slot to show the menu.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.__actionTriggered">__actionTriggered</a></td>
+<td>Private slot to handle the triggering of an action.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.__makeAction">__makeAction</a></td>
+<td>Private method to create an action.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.clear">clear</a></td>
+<td>Public method to clear the menu.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.createBaseMenu">createBaseMenu</a></td>
+<td>Public method to get the menu that is used to populate sub menu's.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.createMenu">createMenu</a></td>
+<td>Public method to put all the children of a parent into a menu of a given length.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.dragEnterEvent">dragEnterEvent</a></td>
+<td>Protected method to handle drag enter events.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.dropEvent">dropEvent</a></td>
+<td>Protected method to handle drop events.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.firstSeparator">firstSeparator</a></td>
+<td>Public method to get the first separator.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.index">index</a></td>
+<td>Public method to get the index of an action.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.makeAction">makeAction</a></td>
+<td>Public method to create an action.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.maxRows">maxRows</a></td>
+<td>Public method to get the maximum number of entries to show.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.model">model</a></td>
+<td>Public method to get a reference to the model.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.mouseMoveEvent">mouseMoveEvent</a></td>
+<td>Protected method to handle mouse move events.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method handling mouse press events.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.mouseReleaseEvent">mouseReleaseEvent</a></td>
+<td>Protected method handling mouse release events.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.postPopulated">postPopulated</a></td>
+<td>Public method to add any actions after the tree.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.prePopulated">prePopulated</a></td>
+<td>Public method to add any actions before the tree.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.removeEntry">removeEntry</a></td>
+<td>Public method to remove a menu entry.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.resetFlags">resetFlags</a></td>
+<td>Public method to reset the saved internal state.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.rootIndex">rootIndex</a></td>
+<td>Public method to get the index of the root item.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.separatorRole">separatorRole</a></td>
+<td>Public method to get the role of the separator.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.setFirstSeparator">setFirstSeparator</a></td>
+<td>Public method to set the first separator.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.setMaxRows">setMaxRows</a></td>
+<td>Public method to set the maximum number of entries to show.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.setModel">setModel</a></td>
+<td>Public method to set the model for the menu.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.setRootIndex">setRootIndex</a></td>
+<td>Public method to set the index of the root item.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.setSeparatorRole">setSeparatorRole</a></td>
+<td>Public method to set the role of the separator.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.setStatusBarTextRole">setStatusBarTextRole</a></td>
+<td>Public method to set the role of the status bar text.</td>
+</tr>
+<tr>
+<td><a href="#EricModelMenu.statusBarTextRole">statusBarTextRole</a></td>
+<td>Public method to get the role of the status bar text.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricModelMenu.__init__" ID="EricModelMenu.__init__"></a>
+<h4>EricModelMenu (Constructor)</h4>
+<b>EricModelMenu</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="EricModelMenu.__aboutToShow" ID="EricModelMenu.__aboutToShow"></a>
+<h4>EricModelMenu.__aboutToShow</h4>
+<b>__aboutToShow</b>(<i></i>)
+<p>
+        Private slot to show the menu.
+</p>
+
+<a NAME="EricModelMenu.__actionTriggered" ID="EricModelMenu.__actionTriggered"></a>
+<h4>EricModelMenu.__actionTriggered</h4>
+<b>__actionTriggered</b>(<i>action</i>)
+<p>
+        Private slot to handle the triggering of an action.
+</p>
+
+<dl>
+
+<dt><i>action</i> (QAction)</dt>
+<dd>
+reference to the action that was triggered
+</dd>
+</dl>
+<a NAME="EricModelMenu.__makeAction" ID="EricModelMenu.__makeAction"></a>
+<h4>EricModelMenu.__makeAction</h4>
+<b>__makeAction</b>(<i>idx</i>)
+<p>
+        Private method to create an action.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+index of the item to create an action for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the created action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAction
+</dd>
+</dl>
+<a NAME="EricModelMenu.clear" ID="EricModelMenu.clear"></a>
+<h4>EricModelMenu.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to clear the menu.
+</p>
+
+<a NAME="EricModelMenu.createBaseMenu" ID="EricModelMenu.createBaseMenu"></a>
+<h4>EricModelMenu.createBaseMenu</h4>
+<b>createBaseMenu</b>(<i></i>)
+<p>
+        Public method to get the menu that is used to populate sub menu's.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricModelMenu
+</dd>
+</dl>
+<a NAME="EricModelMenu.createMenu" ID="EricModelMenu.createMenu"></a>
+<h4>EricModelMenu.createMenu</h4>
+<b>createMenu</b>(<i>parent, max_, parentMenu=None, menu=None</i>)
+<p>
+        Public method to put all the children of a parent into a menu of a
+        given length.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent item
+</dd>
+<dt><i>max_</i> (int)</dt>
+<dd>
+maximum number of entries
+</dd>
+<dt><i>parentMenu</i> (QMenu)</dt>
+<dd>
+reference to the parent menu
+</dd>
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+</dl>
+<a NAME="EricModelMenu.dragEnterEvent" ID="EricModelMenu.dragEnterEvent"></a>
+<h4>EricModelMenu.dragEnterEvent</h4>
+<b>dragEnterEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle drag enter events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QDragEnterEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<a NAME="EricModelMenu.dropEvent" ID="EricModelMenu.dropEvent"></a>
+<h4>EricModelMenu.dropEvent</h4>
+<b>dropEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle drop events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QDropEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<a NAME="EricModelMenu.firstSeparator" ID="EricModelMenu.firstSeparator"></a>
+<h4>EricModelMenu.firstSeparator</h4>
+<b>firstSeparator</b>(<i></i>)
+<p>
+        Public method to get the first separator.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+row number of the first separator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricModelMenu.index" ID="EricModelMenu.index"></a>
+<h4>EricModelMenu.index</h4>
+<b>index</b>(<i>action</i>)
+<p>
+        Public method to get the index of an action.
+</p>
+
+<dl>
+
+<dt><i>action</i> (QAction)</dt>
+<dd>
+reference to the action to get the index for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="EricModelMenu.makeAction" ID="EricModelMenu.makeAction"></a>
+<h4>EricModelMenu.makeAction</h4>
+<b>makeAction</b>(<i>icon, text, parent</i>)
+<p>
+        Public method to create an action.
+</p>
+
+<dl>
+
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+icon of the action
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text of the action
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the created action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAction
+</dd>
+</dl>
+<a NAME="EricModelMenu.maxRows" ID="EricModelMenu.maxRows"></a>
+<h4>EricModelMenu.maxRows</h4>
+<b>maxRows</b>(<i></i>)
+<p>
+        Public method to get the maximum number of entries to show.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+maximum number of entries to show
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricModelMenu.model" ID="EricModelMenu.model"></a>
+<h4>EricModelMenu.model</h4>
+<b>model</b>(<i></i>)
+<p>
+        Public method to get a reference to the model.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAbstractItemModel
+</dd>
+</dl>
+<a NAME="EricModelMenu.mouseMoveEvent" ID="EricModelMenu.mouseMoveEvent"></a>
+<h4>EricModelMenu.mouseMoveEvent</h4>
+<b>mouseMoveEvent</b>(<i>evt</i>)
+<p>
+        Protected method to handle mouse move events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the event
+</dd>
+</dl>
+<a NAME="EricModelMenu.mousePressEvent" ID="EricModelMenu.mousePressEvent"></a>
+<h4>EricModelMenu.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling mouse press events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the event object
+</dd>
+</dl>
+<a NAME="EricModelMenu.mouseReleaseEvent" ID="EricModelMenu.mouseReleaseEvent"></a>
+<h4>EricModelMenu.mouseReleaseEvent</h4>
+<b>mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling mouse release events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+reference to the event object
+</dd>
+</dl>
+<a NAME="EricModelMenu.postPopulated" ID="EricModelMenu.postPopulated"></a>
+<h4>EricModelMenu.postPopulated</h4>
+<b>postPopulated</b>(<i></i>)
+<p>
+        Public method to add any actions after the tree.
+</p>
+
+<a NAME="EricModelMenu.prePopulated" ID="EricModelMenu.prePopulated"></a>
+<h4>EricModelMenu.prePopulated</h4>
+<b>prePopulated</b>(<i></i>)
+<p>
+        Public method to add any actions before the tree.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if any actions were added
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricModelMenu.removeEntry" ID="EricModelMenu.removeEntry"></a>
+<h4>EricModelMenu.removeEntry</h4>
+<b>removeEntry</b>(<i>idx</i>)
+<p>
+        Public method to remove a menu entry.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+index of the entry to be removed
+</dd>
+</dl>
+<a NAME="EricModelMenu.resetFlags" ID="EricModelMenu.resetFlags"></a>
+<h4>EricModelMenu.resetFlags</h4>
+<b>resetFlags</b>(<i></i>)
+<p>
+        Public method to reset the saved internal state.
+</p>
+
+<a NAME="EricModelMenu.rootIndex" ID="EricModelMenu.rootIndex"></a>
+<h4>EricModelMenu.rootIndex</h4>
+<b>rootIndex</b>(<i></i>)
+<p>
+        Public method to get the index of the root item.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the root item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="EricModelMenu.separatorRole" ID="EricModelMenu.separatorRole"></a>
+<h4>EricModelMenu.separatorRole</h4>
+<b>separatorRole</b>(<i></i>)
+<p>
+        Public method to get the role of the separator.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+role of the separator
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricModelMenu.setFirstSeparator" ID="EricModelMenu.setFirstSeparator"></a>
+<h4>EricModelMenu.setFirstSeparator</h4>
+<b>setFirstSeparator</b>(<i>offset</i>)
+<p>
+        Public method to set the first separator.
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+row number of the first separator
+</dd>
+</dl>
+<a NAME="EricModelMenu.setMaxRows" ID="EricModelMenu.setMaxRows"></a>
+<h4>EricModelMenu.setMaxRows</h4>
+<b>setMaxRows</b>(<i>rows</i>)
+<p>
+        Public method to set the maximum number of entries to show.
+</p>
+
+<dl>
+
+<dt><i>rows</i> (int)</dt>
+<dd>
+maximum number of entries to show
+</dd>
+</dl>
+<a NAME="EricModelMenu.setModel" ID="EricModelMenu.setModel"></a>
+<h4>EricModelMenu.setModel</h4>
+<b>setModel</b>(<i>model</i>)
+<p>
+        Public method to set the model for the menu.
+</p>
+
+<dl>
+
+<dt><i>model</i> (QAbstractItemModel)</dt>
+<dd>
+reference to the model
+</dd>
+</dl>
+<a NAME="EricModelMenu.setRootIndex" ID="EricModelMenu.setRootIndex"></a>
+<h4>EricModelMenu.setRootIndex</h4>
+<b>setRootIndex</b>(<i>index</i>)
+<p>
+        Public method to set the index of the root item.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the root item
+</dd>
+</dl>
+<a NAME="EricModelMenu.setSeparatorRole" ID="EricModelMenu.setSeparatorRole"></a>
+<h4>EricModelMenu.setSeparatorRole</h4>
+<b>setSeparatorRole</b>(<i>role</i>)
+<p>
+        Public method to set the role of the separator.
+</p>
+
+<dl>
+
+<dt><i>role</i> (int)</dt>
+<dd>
+role of the separator
+</dd>
+</dl>
+<a NAME="EricModelMenu.setStatusBarTextRole" ID="EricModelMenu.setStatusBarTextRole"></a>
+<h4>EricModelMenu.setStatusBarTextRole</h4>
+<b>setStatusBarTextRole</b>(<i>role</i>)
+<p>
+        Public method to set the role of the status bar text.
+</p>
+
+<dl>
+
+<dt><i>role</i> (int)</dt>
+<dd>
+role of the status bar text
+</dd>
+</dl>
+<a NAME="EricModelMenu.statusBarTextRole" ID="EricModelMenu.statusBarTextRole"></a>
+<h4>EricModelMenu.statusBarTextRole</h4>
+<b>statusBarTextRole</b>(<i></i>)
+<p>
+        Public method to get the role of the status bar text.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+role of the status bar text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

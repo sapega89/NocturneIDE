@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.AdBlock.AdBlockSearchTree</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.AdBlock.AdBlockSearchTree</h1>
+<p>
+Module implementing the AdBlock search tree.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AdBlockSearchTree">AdBlockSearchTree</a></td>
+<td>Class implementing the AdBlock search tree.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSearchTreeNode">AdBlockSearchTreeNode</a></td>
+<td>Class implementing the AdBlock search tree node.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AdBlockSearchTree" ID="AdBlockSearchTree"></a>
+<h2>AdBlockSearchTree</h2>
+<p>
+    Class implementing the AdBlock search tree.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AdBlockSearchTree.__init__">AdBlockSearchTree</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSearchTree.__deleteNode">__deleteNode</a></td>
+<td>Private method to delete a search tree node.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSearchTree.__prefixSearch">__prefixSearch</a></td>
+<td>Private method to perform a prefix search.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSearchTree.add">add</a></td>
+<td>Public method to add a rule to the search tree.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSearchTree.clear">clear</a></td>
+<td>Public method to clear the search tree.</td>
+</tr>
+<tr>
+<td><a href="#AdBlockSearchTree.find">find</a></td>
+<td>Public method to find a matching rule.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AdBlockSearchTree.__init__" ID="AdBlockSearchTree.__init__"></a>
+<h4>AdBlockSearchTree (Constructor)</h4>
+<b>AdBlockSearchTree</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="AdBlockSearchTree.__deleteNode" ID="AdBlockSearchTree.__deleteNode"></a>
+<h4>AdBlockSearchTree.__deleteNode</h4>
+<b>__deleteNode</b>(<i>node</i>)
+<p>
+        Private method to delete a search tree node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (AdBlockSearchTreeNode)</dt>
+<dd>
+reference to the node to be deleted
+</dd>
+</dl>
+<a NAME="AdBlockSearchTree.__prefixSearch" ID="AdBlockSearchTree.__prefixSearch"></a>
+<h4>AdBlockSearchTree.__prefixSearch</h4>
+<b>__prefixSearch</b>(<i>request, domain, urlString, string, length</i>)
+<p>
+        Private method to perform a prefix search.
+</p>
+
+<dl>
+
+<dt><i>request</i> (QWebEngineUrlRequestInfo)</dt>
+<dd>
+URL request to be matched
+</dd>
+<dt><i>domain</i> (str)</dt>
+<dd>
+domain of the URL
+</dd>
+<dt><i>urlString</i> (str)</dt>
+<dd>
+requested URL as a lowercase string
+</dd>
+<dt><i>string</i> (str)</dt>
+<dd>
+prefix string to search for
+</dd>
+<dt><i>length</i> (int)</dt>
+<dd>
+length to be considered
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the matched rule
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockRule
+</dd>
+</dl>
+<a NAME="AdBlockSearchTree.add" ID="AdBlockSearchTree.add"></a>
+<h4>AdBlockSearchTree.add</h4>
+<b>add</b>(<i>rule</i>)
+<p>
+        Public method to add a rule to the search tree.
+</p>
+
+<dl>
+
+<dt><i>rule</i> (AdBlockRule)</dt>
+<dd>
+rule to be added
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful addition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AdBlockSearchTree.clear" ID="AdBlockSearchTree.clear"></a>
+<h4>AdBlockSearchTree.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to clear the search tree.
+</p>
+
+<a NAME="AdBlockSearchTree.find" ID="AdBlockSearchTree.find"></a>
+<h4>AdBlockSearchTree.find</h4>
+<b>find</b>(<i>request, domain, urlString</i>)
+<p>
+        Public method to find a matching rule.
+</p>
+
+<dl>
+
+<dt><i>request</i> (QWebEngineUrlRequestInfo)</dt>
+<dd>
+URL request to be matched
+</dd>
+<dt><i>domain</i> (str)</dt>
+<dd>
+domain of the URL
+</dd>
+<dt><i>urlString</i> (str)</dt>
+<dd>
+requested URL as a lowercase string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the matched rule
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AdBlockRule
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="AdBlockSearchTreeNode" ID="AdBlockSearchTreeNode"></a>
+<h2>AdBlockSearchTreeNode</h2>
+<p>
+    Class implementing the AdBlock search tree node.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>char</td></tr>
+<tr><td>children</td></tr>
+<tr><td>rule</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

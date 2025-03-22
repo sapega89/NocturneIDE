@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.RemoteServer.EricServerDebuggerRequestHandler</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.RemoteServer.EricServerDebuggerRequestHandler</h1>
+<p>
+Module implementing the debugger request handler of the eric-ide server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler">EricServerDebuggerRequestHandler</a></td>
+<td>Class implementing the debugger request handler of the eric-ide server.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricServerDebuggerRequestHandler" ID="EricServerDebuggerRequestHandler"></a>
+<h2>EricServerDebuggerRequestHandler</h2>
+<p>
+    Class implementing the debugger request handler of the eric-ide server.
+</p>
+
+<h3>Derived from</h3>
+EricServerBaseRequestHandler
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__init__">EricServerDebuggerRequestHandler</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__acceptDbgClientConnection">__acceptDbgClientConnection</a></td>
+<td>Private method to accept the connection on the listening debug server socket.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__clientSocketDisconnected">__clientSocketDisconnected</a></td>
+<td>Private method handling a socket disconnecting.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__lastClientExited">__lastClientExited</a></td>
+<td>Private method to handle exiting of the last debug client.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__mainClientExited">__mainClientExited</a></td>
+<td>Private method to handle exiting of the main debug client.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__prepareClientCommand">__prepareClientCommand</a></td>
+<td>Private method to prepare a command dictionary for the debug client.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__relayDebugClientCommand">__relayDebugClientCommand</a></td>
+<td>Private method to relay a debug client command to the client.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__serviceDbgClientConnection">__serviceDbgClientConnection</a></td>
+<td>Private method to service the debug client connection.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__shutdownSocket">__shutdownSocket</a></td>
+<td>Private method to shut down a socket.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__startClient">__startClient</a></td>
+<td>Private method to start a debug client process.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.__stopClient">__stopClient</a></td>
+<td>Private method to stop the current debug client process.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.initServerSocket">initServerSocket</a></td>
+<td>Public method to initialize the server socket listening for debug client connections.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.sendError">sendError</a></td>
+<td>Public method to send an error report to the IDE.</td>
+</tr>
+<tr>
+<td><a href="#EricServerDebuggerRequestHandler.shutdownClients">shutdownClients</a></td>
+<td>Public method to shut down all connected clients.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricServerDebuggerRequestHandler.__init__" ID="EricServerDebuggerRequestHandler.__init__"></a>
+<h4>EricServerDebuggerRequestHandler (Constructor)</h4>
+<b>EricServerDebuggerRequestHandler</b>(<i>server</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>server</i> (EricServer)</dt>
+<dd>
+reference to the eric-ide server object
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.__acceptDbgClientConnection" ID="EricServerDebuggerRequestHandler.__acceptDbgClientConnection"></a>
+<h4>EricServerDebuggerRequestHandler.__acceptDbgClientConnection</h4>
+<b>__acceptDbgClientConnection</b>(<i>sock</i>)
+<p>
+        Private method to accept the connection on the listening debug server socket.
+</p>
+
+<dl>
+
+<dt><i>sock</i> (socket.socket)</dt>
+<dd>
+reference to the listening socket
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.__clientSocketDisconnected" ID="EricServerDebuggerRequestHandler.__clientSocketDisconnected"></a>
+<h4>EricServerDebuggerRequestHandler.__clientSocketDisconnected</h4>
+<b>__clientSocketDisconnected</b>(<i>sock</i>)
+<p>
+        Private method handling a socket disconnecting.
+</p>
+
+<dl>
+
+<dt><i>sock</i> (socket.socket)</dt>
+<dd>
+reference to the disconnected socket
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.__lastClientExited" ID="EricServerDebuggerRequestHandler.__lastClientExited"></a>
+<h4>EricServerDebuggerRequestHandler.__lastClientExited</h4>
+<b>__lastClientExited</b>(<i></i>)
+<p>
+        Private method to handle exiting of the last debug client.
+</p>
+
+<a NAME="EricServerDebuggerRequestHandler.__mainClientExited" ID="EricServerDebuggerRequestHandler.__mainClientExited"></a>
+<h4>EricServerDebuggerRequestHandler.__mainClientExited</h4>
+<b>__mainClientExited</b>(<i></i>)
+<p>
+        Private method to handle exiting of the main debug client.
+</p>
+
+<a NAME="EricServerDebuggerRequestHandler.__prepareClientCommand" ID="EricServerDebuggerRequestHandler.__prepareClientCommand"></a>
+<h4>EricServerDebuggerRequestHandler.__prepareClientCommand</h4>
+<b>__prepareClientCommand</b>(<i>command, params</i>)
+<p>
+        Private method to prepare a command dictionary for the debug client.
+</p>
+
+<dl>
+
+<dt><i>command</i> (str)</dt>
+<dd>
+command to be sent
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the command parameters
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+completed command dictionary to be sent to the debug client
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.__relayDebugClientCommand" ID="EricServerDebuggerRequestHandler.__relayDebugClientCommand"></a>
+<h4>EricServerDebuggerRequestHandler.__relayDebugClientCommand</h4>
+<b>__relayDebugClientCommand</b>(<i>params</i>)
+<p>
+        Private method to relay a debug client command to the client.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.__serviceDbgClientConnection" ID="EricServerDebuggerRequestHandler.__serviceDbgClientConnection"></a>
+<h4>EricServerDebuggerRequestHandler.__serviceDbgClientConnection</h4>
+<b>__serviceDbgClientConnection</b>(<i>key</i>)
+<p>
+        Private method to service the debug client connection.
+</p>
+
+<dl>
+
+<dt><i>key</i> (selectors.SelectorKey)</dt>
+<dd>
+reference to the SelectorKey object associated with the connection
+            to be serviced
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.__shutdownSocket" ID="EricServerDebuggerRequestHandler.__shutdownSocket"></a>
+<h4>EricServerDebuggerRequestHandler.__shutdownSocket</h4>
+<b>__shutdownSocket</b>(<i>debuggerId, sock</i>)
+<p>
+        Private method to shut down a socket.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger the socket belongs to
+</dd>
+<dt><i>sock</i> (socket.socket)</dt>
+<dd>
+reference to the socket
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.__startClient" ID="EricServerDebuggerRequestHandler.__startClient"></a>
+<h4>EricServerDebuggerRequestHandler.__startClient</h4>
+<b>__startClient</b>(<i>params</i>)
+<p>
+        Private method to start a debug client process.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.__stopClient" ID="EricServerDebuggerRequestHandler.__stopClient"></a>
+<h4>EricServerDebuggerRequestHandler.__stopClient</h4>
+<b>__stopClient</b>(<i>params</i>)
+<p>
+        Private method to stop the current debug client process.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the request data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the reply data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.initServerSocket" ID="EricServerDebuggerRequestHandler.initServerSocket"></a>
+<h4>EricServerDebuggerRequestHandler.initServerSocket</h4>
+<b>initServerSocket</b>(<i></i>)
+<p>
+        Public method to initialize the server socket listening for debug client
+        connections.
+</p>
+
+<a NAME="EricServerDebuggerRequestHandler.sendError" ID="EricServerDebuggerRequestHandler.sendError"></a>
+<h4>EricServerDebuggerRequestHandler.sendError</h4>
+<b>sendError</b>(<i>request, reqestUuid="", errorMessage=None</i>)
+<p>
+        Public method to send an error report to the IDE.
+</p>
+
+<dl>
+
+<dt><i>request</i> (str)</dt>
+<dd>
+request name
+</dd>
+<dt><i>reqestUuid</i> (str)</dt>
+<dd>
+UUID of the associated request as sent by the eric IDE
+            (defaults to "", i.e. no UUID received)
+</dd>
+<dt><i>errorMessage</i> (str (optional))</dt>
+<dd>
+error message to be sent back (defaults to None)
+</dd>
+</dl>
+<a NAME="EricServerDebuggerRequestHandler.shutdownClients" ID="EricServerDebuggerRequestHandler.shutdownClients"></a>
+<h4>EricServerDebuggerRequestHandler.shutdownClients</h4>
+<b>shutdownClients</b>(<i></i>)
+<p>
+        Public method to shut down all connected clients.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

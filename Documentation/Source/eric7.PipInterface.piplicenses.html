@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.PipInterface.piplicenses</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.PipInterface.piplicenses</h1>
+<p>
+pip-licenses
+</p>
+<p>
+MIT License
+</p>
+<p>
+Copyright (c) 2018 raimon
+</p>
+<p>
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+</p>
+<p>
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+</p>
+<p>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>DEFAULT_OUTPUT_FIELDS</td></tr>
+<tr><td>FIELDS_TO_METADATA_KEYS</td></tr>
+<tr><td>FIELD_NAMES</td></tr>
+<tr><td>LICENSE_UNKNOWN</td></tr>
+<tr><td>MAP_DEST_TO_ENUM</td></tr>
+<tr><td>METADATA_KEYS</td></tr>
+<tr><td>PATTERN_DELIMITER</td></tr>
+<tr><td>SUMMARY_FIELD_NAMES</td></tr>
+<tr><td>SUMMARY_OUTPUT_FIELDS</td></tr>
+<tr><td>SYSTEM_PACKAGES</td></tr>
+<tr><td>__pkgname__</td></tr>
+<tr><td>__summary__</td></tr>
+<tr><td>__version__</td></tr>
+<tr><td>importlib_metadata</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CompatibleArgumentParser">CompatibleArgumentParser</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#CustomHelpFormatter">CustomHelpFormatter</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#CustomNamespace">CustomNamespace</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#FromArg">FromArg</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#NoValueEnum">NoValueEnum</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#OrderArg">OrderArg</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#SelectAction">SelectAction</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#case_insensitive_partial_match_set_diff">case_insensitive_partial_match_set_diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#case_insensitive_partial_match_set_intersect">case_insensitive_partial_match_set_intersect</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#case_insensitive_set_diff">case_insensitive_set_diff</a></td>
+<td>Same as set.difference() but case-insensitive</td>
+</tr>
+<tr>
+<td><a href="#case_insensitive_set_intersect">case_insensitive_set_intersect</a></td>
+<td>Same as set.intersection() but case-insensitive</td>
+</tr>
+<tr>
+<td><a href="#choices_from_enum">choices_from_enum</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#create_licenses_list">create_licenses_list</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#create_output_string">create_output_string</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#create_parser">create_parser</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#create_summary_list">create_summary_list</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#enum_key_to_value">enum_key_to_value</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#extract_homepage">extract_homepage</a></td>
+<td>Extracts the homepage attribute from the package metadata.</td>
+</tr>
+<tr>
+<td><a href="#filter_string">filter_string</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#find_license_from_classifier">find_license_from_classifier</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#get_output_fields">get_output_fields</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#get_packages">get_packages</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#get_pkg_included_file">get_pkg_included_file</a></td>
+<td>Attempt to find the package's included file on disk and return the tuple (included_file_path, included_file_contents).</td>
+</tr>
+<tr>
+<td><a href="#get_pkg_info">get_pkg_info</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#get_python_sys_path">get_python_sys_path</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#get_value_from_enum">get_value_from_enum</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#main">main</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#normalize_pkg_name">normalize_pkg_name</a></td>
+<td>Return normalized name according to PEP specification</td>
+</tr>
+<tr>
+<td><a href="#select_license_by_source">select_license_by_source</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#value_to_enum_key">value_to_enum_key</a></td>
+<td></td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CompatibleArgumentParser" ID="CompatibleArgumentParser"></a>
+<h2>CompatibleArgumentParser</h2>
+
+<h3>Derived from</h3>
+argparse.ArgumentParser
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CompatibleArgumentParser._verify_args">_verify_args</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#CompatibleArgumentParser.parse_args">parse_args</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CompatibleArgumentParser._verify_args" ID="CompatibleArgumentParser._verify_args"></a>
+<h4>CompatibleArgumentParser._verify_args</h4>
+<b>_verify_args</b>(<i>args: CustomNamespace</i>)
+
+<a NAME="CompatibleArgumentParser.parse_args" ID="CompatibleArgumentParser.parse_args"></a>
+<h4>CompatibleArgumentParser.parse_args</h4>
+<b>parse_args</b>(<i>args: None | Sequence[str] = None, namespace: None | CustomNamespace = None, </i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="CustomHelpFormatter" ID="CustomHelpFormatter"></a>
+<h2>CustomHelpFormatter</h2>
+
+<h3>Derived from</h3>
+argparse.HelpFormatter
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CustomHelpFormatter.__init__">CustomHelpFormatter</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#CustomHelpFormatter._expand_help">_expand_help</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#CustomHelpFormatter._format_action">_format_action</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#CustomHelpFormatter._split_lines">_split_lines</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CustomHelpFormatter.__init__" ID="CustomHelpFormatter.__init__"></a>
+<h4>CustomHelpFormatter (Constructor)</h4>
+<b>CustomHelpFormatter</b>(<i>prog: str, indent_increment: int = 2, max_help_position: int = 24, width: Optional[int] = None, </i>)
+
+<a NAME="CustomHelpFormatter._expand_help" ID="CustomHelpFormatter._expand_help"></a>
+<h4>CustomHelpFormatter._expand_help</h4>
+<b>_expand_help</b>(<i>action: argparse.Action</i>)
+
+<a NAME="CustomHelpFormatter._format_action" ID="CustomHelpFormatter._format_action"></a>
+<h4>CustomHelpFormatter._format_action</h4>
+<b>_format_action</b>(<i>action: argparse.Action</i>)
+
+<a NAME="CustomHelpFormatter._split_lines" ID="CustomHelpFormatter._split_lines"></a>
+<h4>CustomHelpFormatter._split_lines</h4>
+<b>_split_lines</b>(<i>text: str, width: int</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="CustomNamespace" ID="CustomNamespace"></a>
+<h2>CustomNamespace</h2>
+
+<h3>Derived from</h3>
+argparse.Namespace
+<h3>Class Attributes</h3>
+<table>
+<tr><td>allow_only</td></tr>
+<tr><td>fail_on</td></tr>
+<tr><td>filter_code_page</td></tr>
+<tr><td>filter_strings</td></tr>
+<tr><td>from_</td></tr>
+<tr><td>ignore_packages</td></tr>
+<tr><td>no_license_path</td></tr>
+<tr><td>order</td></tr>
+<tr><td>output_file</td></tr>
+<tr><td>packages</td></tr>
+<tr><td>partial_match</td></tr>
+<tr><td>summary</td></tr>
+<tr><td>with_authors</td></tr>
+<tr><td>with_description</td></tr>
+<tr><td>with_license_file</td></tr>
+<tr><td>with_notice_file</td></tr>
+<tr><td>with_system</td></tr>
+<tr><td>with_urls</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="FromArg" ID="FromArg"></a>
+<h2>FromArg</h2>
+
+<h3>Derived from</h3>
+NoValueEnum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ALL</td></tr>
+<tr><td>CLASSIFIER</td></tr>
+<tr><td>META</td></tr>
+<tr><td>MIXED</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="NoValueEnum" ID="NoValueEnum"></a>
+<h2>NoValueEnum</h2>
+
+<h3>Derived from</h3>
+Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NoValueEnum.__repr__">__repr__</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NoValueEnum.__repr__" ID="NoValueEnum.__repr__"></a>
+<h4>NoValueEnum.__repr__</h4>
+<b>__repr__</b>(<i></i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="OrderArg" ID="OrderArg"></a>
+<h2>OrderArg</h2>
+
+<h3>Derived from</h3>
+NoValueEnum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AUTHOR</td></tr>
+<tr><td>COUNT</td></tr>
+<tr><td>LICENSE</td></tr>
+<tr><td>MAINTAINER</td></tr>
+<tr><td>NAME</td></tr>
+<tr><td>URL</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="SelectAction" ID="SelectAction"></a>
+<h2>SelectAction</h2>
+
+<h3>Derived from</h3>
+argparse.Action
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SelectAction.__call__">__call__</a></td>
+<td></td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SelectAction.__call__" ID="SelectAction.__call__"></a>
+<h4>SelectAction.__call__</h4>
+<b>__call__</b>(<i>parser: argparse.ArgumentParser, namespace: argparse.Namespace, values: str, option_string: Optional[str] = None, </i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="case_insensitive_partial_match_set_diff" ID="case_insensitive_partial_match_set_diff"></a>
+<h2>case_insensitive_partial_match_set_diff</h2>
+<b>case_insensitive_partial_match_set_diff</b>(<i>set_a, set_b</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="case_insensitive_partial_match_set_intersect" ID="case_insensitive_partial_match_set_intersect"></a>
+<h2>case_insensitive_partial_match_set_intersect</h2>
+<b>case_insensitive_partial_match_set_intersect</b>(<i>set_a, set_b</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="case_insensitive_set_diff" ID="case_insensitive_set_diff"></a>
+<h2>case_insensitive_set_diff</h2>
+<b>case_insensitive_set_diff</b>(<i>set_a, set_b</i>)
+<p>
+Same as set.difference() but case-insensitive
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="case_insensitive_set_intersect" ID="case_insensitive_set_intersect"></a>
+<h2>case_insensitive_set_intersect</h2>
+<b>case_insensitive_set_intersect</b>(<i>set_a, set_b</i>)
+<p>
+Same as set.intersection() but case-insensitive
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="choices_from_enum" ID="choices_from_enum"></a>
+<h2>choices_from_enum</h2>
+<b>choices_from_enum</b>(<i>enum_cls: Type[NoValueEnum]</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="create_licenses_list" ID="create_licenses_list"></a>
+<h2>create_licenses_list</h2>
+<b>create_licenses_list</b>(<i>args: "CustomNamespace", output_fields=DEFAULT_OUTPUT_FIELDS</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="create_output_string" ID="create_output_string"></a>
+<h2>create_output_string</h2>
+<b>create_output_string</b>(<i>args: "CustomNamespace"</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="create_parser" ID="create_parser"></a>
+<h2>create_parser</h2>
+<b>create_parser</b>(<i></i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="create_summary_list" ID="create_summary_list"></a>
+<h2>create_summary_list</h2>
+<b>create_summary_list</b>(<i>args: "CustomNamespace"</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="enum_key_to_value" ID="enum_key_to_value"></a>
+<h2>enum_key_to_value</h2>
+<b>enum_key_to_value</b>(<i>enum_key: Enum</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="extract_homepage" ID="extract_homepage"></a>
+<h2>extract_homepage</h2>
+<b>extract_homepage</b>(<i>metadata: Message</i>)
+<p>
+Extracts the homepage attribute from the package metadata.
+</p>
+<p>
+    Not all python packages have defined a home-page attribute.
+    As a fallback, the `Project-URL` metadata can be used.
+    The python core metadata supports multiple (free text) values for
+    the `Project-URL` field that are comma separated.
+</p>
+<p>
+    Args:
+        metadata: The package metadata to extract the homepage from.
+</p>
+<p>
+    Returns:
+        The home page if applicable, None otherwise.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="filter_string" ID="filter_string"></a>
+<h2>filter_string</h2>
+<b>filter_string</b>(<i>item: str</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="find_license_from_classifier" ID="find_license_from_classifier"></a>
+<h2>find_license_from_classifier</h2>
+<b>find_license_from_classifier</b>(<i>classifiers: list[str]</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_output_fields" ID="get_output_fields"></a>
+<h2>get_output_fields</h2>
+<b>get_output_fields</b>(<i>args: CustomNamespace</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_packages" ID="get_packages"></a>
+<h2>get_packages</h2>
+<b>get_packages</b>(<i>args: CustomNamespace, </i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_pkg_included_file" ID="get_pkg_included_file"></a>
+<h2>get_pkg_included_file</h2>
+<b>get_pkg_included_file</b>(<i>pkg, file_names_rgx: str</i>)
+<p>
+        Attempt to find the package's included file on disk and return the
+        tuple (included_file_path, included_file_contents).
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_pkg_info" ID="get_pkg_info"></a>
+<h2>get_pkg_info</h2>
+<b>get_pkg_info</b>(<i>pkg</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_python_sys_path" ID="get_python_sys_path"></a>
+<h2>get_python_sys_path</h2>
+<b>get_python_sys_path</b>(<i>executable: str</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_value_from_enum" ID="get_value_from_enum"></a>
+<h2>get_value_from_enum</h2>
+<b>get_value_from_enum</b>(<i>enum_cls: Type[NoValueEnum], value: str</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="main" ID="main"></a>
+<h2>main</h2>
+<b>main</b>(<i></i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="normalize_pkg_name" ID="normalize_pkg_name"></a>
+<h2>normalize_pkg_name</h2>
+<b>normalize_pkg_name</b>(<i>pkg_name: str</i>)
+<p>
+Return normalized name according to PEP specification
+</p>
+<p>
+    See here: https://peps.python.org/pep-0503/#normalized-names
+</p>
+<p>
+    Args:
+        pkg_name: Package name it is extracted from the package metadata
+                  or specified in the CLI
+</p>
+<p>
+    Returns:
+        normalized packege name
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="select_license_by_source" ID="select_license_by_source"></a>
+<h2>select_license_by_source</h2>
+<b>select_license_by_source</b>(<i>from_source: FromArg, license_classifier: list[str], license_meta: str</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="value_to_enum_key" ID="value_to_enum_key"></a>
+<h2>value_to_enum_key</h2>
+<b>value_to_enum_key</b>(<i>value: str</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Complexity.ComplexityChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Complexity.ComplexityChecker</h1>
+<p>
+Module implementing a checker for code complexity.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ComplexityChecker">ComplexityChecker</a></td>
+<td>Class implementing a checker for code complexity.</td>
+</tr>
+<tr>
+<td><a href="#LineComplexityVisitor">LineComplexityVisitor</a></td>
+<td>Class calculating the number of AST nodes per line of code and the median nodes/line score.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ComplexityChecker" ID="ComplexityChecker"></a>
+<h2>ComplexityChecker</h2>
+<p>
+    Class implementing a checker for code complexity.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Codes</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ComplexityChecker.__init__">ComplexityChecker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ComplexityChecker.__checkLineComplexity">__checkLineComplexity</a></td>
+<td>Private method to check the complexity of a single line of code and the median line complexity of the source code.</td>
+</tr>
+<tr>
+<td><a href="#ComplexityChecker.__checkMcCabeComplexity">__checkMcCabeComplexity</a></td>
+<td>Private method to check the McCabe code complexity.</td>
+</tr>
+<tr>
+<td><a href="#ComplexityChecker.__error">__error</a></td>
+<td>Private method to record an issue.</td>
+</tr>
+<tr>
+<td><a href="#ComplexityChecker.__ignoreCode">__ignoreCode</a></td>
+<td>Private method to check if the message code should be ignored.</td>
+</tr>
+<tr>
+<td><a href="#ComplexityChecker.run">run</a></td>
+<td>Public method to check the given source for code complexity.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ComplexityChecker.__init__" ID="ComplexityChecker.__init__"></a>
+<h4>ComplexityChecker (Constructor)</h4>
+<b>ComplexityChecker</b>(<i>source, filename, tree, select, ignore, args</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str)</dt>
+<dd>
+source code to be checked
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>tree</i> (ast.Module)</dt>
+<dd>
+AST tree of the source code
+</dd>
+<dt><i>select</i> (list of str)</dt>
+<dd>
+list of selected codes
+</dd>
+<dt><i>ignore</i> (list of str)</dt>
+<dd>
+list of codes to be ignored
+</dd>
+<dt><i>args</i> (dict)</dt>
+<dd>
+dictionary of arguments for the miscellaneous checks
+</dd>
+</dl>
+<a NAME="ComplexityChecker.__checkLineComplexity" ID="ComplexityChecker.__checkLineComplexity"></a>
+<h4>ComplexityChecker.__checkLineComplexity</h4>
+<b>__checkLineComplexity</b>(<i></i>)
+<p>
+        Private method to check the complexity of a single line of code and
+        the median line complexity of the source code.
+</p>
+<p>
+        Complexity is defined as the number of AST nodes produced by a line
+        of code.
+</p>
+
+<a NAME="ComplexityChecker.__checkMcCabeComplexity" ID="ComplexityChecker.__checkMcCabeComplexity"></a>
+<h4>ComplexityChecker.__checkMcCabeComplexity</h4>
+<b>__checkMcCabeComplexity</b>(<i></i>)
+<p>
+        Private method to check the McCabe code complexity.
+</p>
+
+<a NAME="ComplexityChecker.__error" ID="ComplexityChecker.__error"></a>
+<h4>ComplexityChecker.__error</h4>
+<b>__error</b>(<i>lineNumber, offset, code, *args</i>)
+<p>
+        Private method to record an issue.
+</p>
+
+<dl>
+
+<dt><i>lineNumber</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+position within line of the issue
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+message code
+</dd>
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments for the message
+</dd>
+</dl>
+<a NAME="ComplexityChecker.__ignoreCode" ID="ComplexityChecker.__ignoreCode"></a>
+<h4>ComplexityChecker.__ignoreCode</h4>
+<b>__ignoreCode</b>(<i>code</i>)
+<p>
+        Private method to check if the message code should be ignored.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+message code to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore the given code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ComplexityChecker.run" ID="ComplexityChecker.run"></a>
+<h4>ComplexityChecker.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method to check the given source for code complexity.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="LineComplexityVisitor" ID="LineComplexityVisitor"></a>
+<h2>LineComplexityVisitor</h2>
+<p>
+    Class calculating the number of AST nodes per line of code
+    and the median nodes/line score.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#LineComplexityVisitor.__init__">LineComplexityVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#LineComplexityVisitor.score">score</a></td>
+<td>Public method to calculate the median.</td>
+</tr>
+<tr>
+<td><a href="#LineComplexityVisitor.sortedList">sortedList</a></td>
+<td>Public method to get a sorted list of (line, nodes) tuples.</td>
+</tr>
+<tr>
+<td><a href="#LineComplexityVisitor.visit">visit</a></td>
+<td>Public method to recursively visit all the nodes and add up the instructions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="LineComplexityVisitor.__init__" ID="LineComplexityVisitor.__init__"></a>
+<h4>LineComplexityVisitor (Constructor)</h4>
+<b>LineComplexityVisitor</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="LineComplexityVisitor.score" ID="LineComplexityVisitor.score"></a>
+<h4>LineComplexityVisitor.score</h4>
+<b>score</b>(<i></i>)
+<p>
+        Public method to calculate the median.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+median line complexity value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+float
+</dd>
+</dl>
+<a NAME="LineComplexityVisitor.sortedList" ID="LineComplexityVisitor.sortedList"></a>
+<h4>LineComplexityVisitor.sortedList</h4>
+<b>sortedList</b>(<i></i>)
+<p>
+        Public method to get a sorted list of (line, nodes) tuples.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+sorted list of (line, nodes) tuples
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (int,int)
+</dd>
+</dl>
+<a NAME="LineComplexityVisitor.visit" ID="LineComplexityVisitor.visit"></a>
+<h4>LineComplexityVisitor.visit</h4>
+<b>visit</b>(<i>node</i>)
+<p>
+        Public method to recursively visit all the nodes and add up the
+        instructions.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+reference to the node
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.ProjectBrowserHelper</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.ProjectBrowserHelper</h1>
+<p>
+Module implementing the VCS project browser helper for Git.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GitProjectBrowserHelper">GitProjectBrowserHelper</a></td>
+<td>Class implementing the VCS project browser helper for Git.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GitProjectBrowserHelper" ID="GitProjectBrowserHelper"></a>
+<h2>GitProjectBrowserHelper</h2>
+<p>
+    Class implementing the VCS project browser helper for Git.
+</p>
+
+<h3>Derived from</h3>
+VcsProjectBrowserHelper
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__init__">GitProjectBrowserHelper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitBlame">__GitBlame</a></td>
+<td>Private slot called by the context menu to show the annotations of a file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitBlameSkip">__GitBlameSkip</a></td>
+<td>Private slot called by the context menu to show the annotations of a file with a project specific skip list.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitBlameSkipListFile">__GitBlameSkipListFile</a></td>
+<td>Private method to create an empty 'git blame' skip list file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitConfigure">__GitConfigure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitCopy">__GitCopy</a></td>
+<td>Private slot called by the context menu to copy the selected file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitExtendedDiff">__GitExtendedDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file to the repository.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitForget">__GitForget</a></td>
+<td>Private slot called by the context menu to remove the selected file from the Git repository leaving a copy in the project directory.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitMove">__GitMove</a></td>
+<td>Private slot called by the context menu to move the selected file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitRevert">__GitRevert</a></td>
+<td>Private slot to revert changes of the working area.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitSbsDiff">__GitSbsDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file to the repository side-by-side.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitSbsExtendedDiff">__GitSbsExtendedDiff</a></td>
+<td>Private slot called by the context menu to show the difference of a file to the repository side-by-side.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__GitUnstage">__GitUnstage</a></td>
+<td>Private slot to unstage changes.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.__skipListFileName">__skipListFileName</a></td>
+<td>Private method to generate the file name for a 'git blame' skip list file.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper._addVCSMenu">_addVCSMenu</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper._addVCSMenuBack">_addVCSMenuBack</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper._addVCSMenuDir">_addVCSMenuDir</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper._addVCSMenuDirMulti">_addVCSMenuDirMulti</a></td>
+<td>Protected method used to add the VCS menu to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper._addVCSMenuMulti">_addVCSMenuMulti</a></td>
+<td>Protected method used to add the VCS menu for multi selection to all project browsers.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.showContextMenu">showContextMenu</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.showContextMenuDir">showContextMenuDir</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.showContextMenuDirMulti">showContextMenuDirMulti</a></td>
+<td>Public slot called before the context menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#GitProjectBrowserHelper.showContextMenuMulti">showContextMenuMulti</a></td>
+<td>Public slot called before the context menu (multiple selections) is shown.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GitProjectBrowserHelper.__init__" ID="GitProjectBrowserHelper.__init__"></a>
+<h4>GitProjectBrowserHelper (Constructor)</h4>
+<b>GitProjectBrowserHelper</b>(<i>vcsObject, browserObject, projectObject, isTranslationsBrowser, parent=None, name=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcsObject</i> (Git)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>browserObject</i> (ProjectBaseBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>projectObject</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>isTranslationsBrowser</i> (bool)</dt>
+<dd>
+flag indicating, the helper is requested
+            for the translations browser (this needs some special treatment)
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper.__GitBlame" ID="GitProjectBrowserHelper.__GitBlame"></a>
+<h4>GitProjectBrowserHelper.__GitBlame</h4>
+<b>__GitBlame</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the annotations of a
+        file.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitBlameSkip" ID="GitProjectBrowserHelper.__GitBlameSkip"></a>
+<h4>GitProjectBrowserHelper.__GitBlameSkip</h4>
+<b>__GitBlameSkip</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the annotations of a
+        file with a project specific skip list.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitBlameSkipListFile" ID="GitProjectBrowserHelper.__GitBlameSkipListFile"></a>
+<h4>GitProjectBrowserHelper.__GitBlameSkipListFile</h4>
+<b>__GitBlameSkipListFile</b>(<i></i>)
+<p>
+        Private method to create an empty 'git blame' skip list file.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitConfigure" ID="GitProjectBrowserHelper.__GitConfigure"></a>
+<h4>GitProjectBrowserHelper.__GitConfigure</h4>
+<b>__GitConfigure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitCopy" ID="GitProjectBrowserHelper.__GitCopy"></a>
+<h4>GitProjectBrowserHelper.__GitCopy</h4>
+<b>__GitCopy</b>(<i></i>)
+<p>
+        Private slot called by the context menu to copy the selected file.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitExtendedDiff" ID="GitProjectBrowserHelper.__GitExtendedDiff"></a>
+<h4>GitProjectBrowserHelper.__GitExtendedDiff</h4>
+<b>__GitExtendedDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file to the repository.
+</p>
+<p>
+        This gives the chance to enter the revisions to compare.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitForget" ID="GitProjectBrowserHelper.__GitForget"></a>
+<h4>GitProjectBrowserHelper.__GitForget</h4>
+<b>__GitForget</b>(<i></i>)
+<p>
+        Private slot called by the context menu to remove the selected file
+        from the Git repository leaving a copy in the project directory.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitMove" ID="GitProjectBrowserHelper.__GitMove"></a>
+<h4>GitProjectBrowserHelper.__GitMove</h4>
+<b>__GitMove</b>(<i></i>)
+<p>
+        Private slot called by the context menu to move the selected file.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitRevert" ID="GitProjectBrowserHelper.__GitRevert"></a>
+<h4>GitProjectBrowserHelper.__GitRevert</h4>
+<b>__GitRevert</b>(<i></i>)
+<p>
+        Private slot to revert changes of the working area.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitSbsDiff" ID="GitProjectBrowserHelper.__GitSbsDiff"></a>
+<h4>GitProjectBrowserHelper.__GitSbsDiff</h4>
+<b>__GitSbsDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file to the repository side-by-side.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitSbsExtendedDiff" ID="GitProjectBrowserHelper.__GitSbsExtendedDiff"></a>
+<h4>GitProjectBrowserHelper.__GitSbsExtendedDiff</h4>
+<b>__GitSbsExtendedDiff</b>(<i></i>)
+<p>
+        Private slot called by the context menu to show the difference of a
+        file to the repository side-by-side.
+</p>
+<p>
+        It allows the selection of revisions to compare.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__GitUnstage" ID="GitProjectBrowserHelper.__GitUnstage"></a>
+<h4>GitProjectBrowserHelper.__GitUnstage</h4>
+<b>__GitUnstage</b>(<i></i>)
+<p>
+        Private slot to unstage changes.
+</p>
+
+<a NAME="GitProjectBrowserHelper.__skipListFileName" ID="GitProjectBrowserHelper.__skipListFileName"></a>
+<h4>GitProjectBrowserHelper.__skipListFileName</h4>
+<b>__skipListFileName</b>(<i></i>)
+<p>
+        Private method to generate the file name for a 'git blame' skip list file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the skip list file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper._addVCSMenu" ID="GitProjectBrowserHelper._addVCSMenu"></a>
+<h4>GitProjectBrowserHelper._addVCSMenu</h4>
+<b>_addVCSMenu</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper._addVCSMenuBack" ID="GitProjectBrowserHelper._addVCSMenuBack"></a>
+<h4>GitProjectBrowserHelper._addVCSMenuBack</h4>
+<b>_addVCSMenuBack</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper._addVCSMenuDir" ID="GitProjectBrowserHelper._addVCSMenuDir"></a>
+<h4>GitProjectBrowserHelper._addVCSMenuDir</h4>
+<b>_addVCSMenuDir</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper._addVCSMenuDirMulti" ID="GitProjectBrowserHelper._addVCSMenuDirMulti"></a>
+<h4>GitProjectBrowserHelper._addVCSMenuDirMulti</h4>
+<b>_addVCSMenuDirMulti</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu to all project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper._addVCSMenuMulti" ID="GitProjectBrowserHelper._addVCSMenuMulti"></a>
+<h4>GitProjectBrowserHelper._addVCSMenuMulti</h4>
+<b>_addVCSMenuMulti</b>(<i>mainMenu</i>)
+<p>
+        Protected method used to add the VCS menu for multi selection to all
+        project browsers.
+</p>
+
+<dl>
+
+<dt><i>mainMenu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be amended
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper.showContextMenu" ID="GitProjectBrowserHelper.showContextMenu"></a>
+<h4>GitProjectBrowserHelper.showContextMenu</h4>
+<b>showContextMenu</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the file status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper.showContextMenuDir" ID="GitProjectBrowserHelper.showContextMenuDir"></a>
+<h4>GitProjectBrowserHelper.showContextMenuDir</h4>
+<b>showContextMenuDir</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper.showContextMenuDirMulti" ID="GitProjectBrowserHelper.showContextMenuDirMulti"></a>
+<h4>GitProjectBrowserHelper.showContextMenuDirMulti</h4>
+<b>showContextMenuDirMulti</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu is shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the directory status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<a NAME="GitProjectBrowserHelper.showContextMenuMulti" ID="GitProjectBrowserHelper.showContextMenuMulti"></a>
+<h4>GitProjectBrowserHelper.showContextMenuMulti</h4>
+<b>showContextMenuMulti</b>(<i>_menu, standardItems</i>)
+<p>
+        Public slot called before the context menu (multiple selections) is
+        shown.
+</p>
+<p>
+        It enables/disables the VCS menu entries depending on the overall
+        VCS status and the files status.
+</p>
+
+<dl>
+
+<dt><i>_menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be shown (unused)
+</dd>
+<dt><i>standardItems</i> (list of QAction)</dt>
+<dd>
+array of standard items that need
+            activation/deactivation depending on the overall VCS status
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

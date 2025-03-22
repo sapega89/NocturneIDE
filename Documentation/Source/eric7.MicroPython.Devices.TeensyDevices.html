@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.Devices.TeensyDevices</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.Devices.TeensyDevices</h1>
+<p>
+Module implementing the device interface class for Teensy boards with MicroPython.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TeensyDevice">TeensyDevice</a></td>
+<td>Class implementing the device for Teensy boards with MicroPython.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createDevice">createDevice</a></td>
+<td>Function to instantiate a MicroPython device object.</td>
+</tr>
+<tr>
+<td><a href="#showTeensyFlashInstructions">showTeensyFlashInstructions</a></td>
+<td>Slot to show a message box with instruction to flash the Teensy.</td>
+</tr>
+<tr>
+<td><a href="#startTeensyLoader">startTeensyLoader</a></td>
+<td>Slot to start the 'Teensy Loader' application.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TeensyDevice" ID="TeensyDevice"></a>
+<h2>TeensyDevice</h2>
+<p>
+    Class implementing the device for Teensy boards with MicroPython.
+</p>
+
+<h3>Derived from</h3>
+BaseDevice
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TeensyDevice.__init__">TeensyDevice</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.__createTeensyMenu">__createTeensyMenu</a></td>
+<td>Private method to create the microbit submenu.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.__firmwareVersionResponse">__firmwareVersionResponse</a></td>
+<td>Private slot handling the response of the latest version request.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.__resetDevice">__resetDevice</a></td>
+<td>Private slot to reset the connected device.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.__showFirmwareVersions">__showFirmwareVersions</a></td>
+<td>Private slot to show the firmware version of the connected device and the available firmware version.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice._getSetTimeCode">_getSetTimeCode</a></td>
+<td>Protected method to get the device code to set the time.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.addDeviceMenuEntries">addDeviceMenuEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.canRunScript">canRunScript</a></td>
+<td>Public method to determine, if a script can be executed.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.canStartFileManager">canStartFileManager</a></td>
+<td>Public method to determine, if a File Manager can be started.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.canStartPlotter">canStartPlotter</a></td>
+<td>Public method to determine, if a Plotter can be started.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.canStartRepl">canStartRepl</a></td>
+<td>Public method to determine, if a REPL can be started.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.deviceName">deviceName</a></td>
+<td>Public method to get the name of the device.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.forceInterrupt">forceInterrupt</a></td>
+<td>Public method to determine the need for an interrupt when opening the serial connection.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.getDocumentationUrl">getDocumentationUrl</a></td>
+<td>Public method to get the device documentation URL.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.getFirmwareUrl">getFirmwareUrl</a></td>
+<td>Public method to get the device firmware download URL.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.runScript">runScript</a></td>
+<td>Public method to run the given Python script.</td>
+</tr>
+<tr>
+<td><a href="#TeensyDevice.setButtons">setButtons</a></td>
+<td>Public method to enable the supported action buttons.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TeensyDevice.__init__" ID="TeensyDevice.__init__"></a>
+<h4>TeensyDevice (Constructor)</h4>
+<b>TeensyDevice</b>(<i>microPythonWidget, deviceType, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="TeensyDevice.__createTeensyMenu" ID="TeensyDevice.__createTeensyMenu"></a>
+<h4>TeensyDevice.__createTeensyMenu</h4>
+<b>__createTeensyMenu</b>(<i></i>)
+<p>
+        Private method to create the microbit submenu.
+</p>
+
+<a NAME="TeensyDevice.__firmwareVersionResponse" ID="TeensyDevice.__firmwareVersionResponse"></a>
+<h4>TeensyDevice.__firmwareVersionResponse</h4>
+<b>__firmwareVersionResponse</b>(<i>reply</i>)
+<p>
+        Private slot handling the response of the latest version request.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+</dl>
+<a NAME="TeensyDevice.__resetDevice" ID="TeensyDevice.__resetDevice"></a>
+<h4>TeensyDevice.__resetDevice</h4>
+<b>__resetDevice</b>(<i></i>)
+<p>
+        Private slot to reset the connected device.
+</p>
+
+<a NAME="TeensyDevice.__showFirmwareVersions" ID="TeensyDevice.__showFirmwareVersions"></a>
+<h4>TeensyDevice.__showFirmwareVersions</h4>
+<b>__showFirmwareVersions</b>(<i></i>)
+<p>
+        Private slot to show the firmware version of the connected device and the
+        available firmware version.
+</p>
+
+<a NAME="TeensyDevice._getSetTimeCode" ID="TeensyDevice._getSetTimeCode"></a>
+<h4>TeensyDevice._getSetTimeCode</h4>
+<b>_getSetTimeCode</b>(<i></i>)
+<p>
+        Protected method to get the device code to set the time.
+</p>
+<p>
+        Note: This method must be implemented in the various device specific
+        subclasses.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+code to be executed on the connected device to set the time
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TeensyDevice.addDeviceMenuEntries" ID="TeensyDevice.addDeviceMenuEntries"></a>
+<h4>TeensyDevice.addDeviceMenuEntries</h4>
+<b>addDeviceMenuEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="TeensyDevice.canRunScript" ID="TeensyDevice.canRunScript"></a>
+<h4>TeensyDevice.canRunScript</h4>
+<b>canRunScript</b>(<i></i>)
+<p>
+        Public method to determine, if a script can be executed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="TeensyDevice.canStartFileManager" ID="TeensyDevice.canStartFileManager"></a>
+<h4>TeensyDevice.canStartFileManager</h4>
+<b>canStartFileManager</b>(<i></i>)
+<p>
+        Public method to determine, if a File Manager can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            File Manager and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="TeensyDevice.canStartPlotter" ID="TeensyDevice.canStartPlotter"></a>
+<h4>TeensyDevice.canStartPlotter</h4>
+<b>canStartPlotter</b>(<i></i>)
+<p>
+        Public method to determine, if a Plotter can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="TeensyDevice.canStartRepl" ID="TeensyDevice.canStartRepl"></a>
+<h4>TeensyDevice.canStartRepl</h4>
+<b>canStartRepl</b>(<i></i>)
+<p>
+        Public method to determine, if a REPL can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a REPL
+            and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="TeensyDevice.deviceName" ID="TeensyDevice.deviceName"></a>
+<h4>TeensyDevice.deviceName</h4>
+<b>deviceName</b>(<i></i>)
+<p>
+        Public method to get the name of the device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TeensyDevice.forceInterrupt" ID="TeensyDevice.forceInterrupt"></a>
+<h4>TeensyDevice.forceInterrupt</h4>
+<b>forceInterrupt</b>(<i></i>)
+<p>
+        Public method to determine the need for an interrupt when opening the
+        serial connection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an interrupt is needed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TeensyDevice.getDocumentationUrl" ID="TeensyDevice.getDocumentationUrl"></a>
+<h4>TeensyDevice.getDocumentationUrl</h4>
+<b>getDocumentationUrl</b>(<i></i>)
+<p>
+        Public method to get the device documentation URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+documentation URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TeensyDevice.getFirmwareUrl" ID="TeensyDevice.getFirmwareUrl"></a>
+<h4>TeensyDevice.getFirmwareUrl</h4>
+<b>getFirmwareUrl</b>(<i></i>)
+<p>
+        Public method to get the device firmware download URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+firmware download URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TeensyDevice.runScript" ID="TeensyDevice.runScript"></a>
+<h4>TeensyDevice.runScript</h4>
+<b>runScript</b>(<i>script</i>)
+<p>
+        Public method to run the given Python script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (str)</dt>
+<dd>
+script to be executed
+</dd>
+</dl>
+<a NAME="TeensyDevice.setButtons" ID="TeensyDevice.setButtons"></a>
+<h4>TeensyDevice.setButtons</h4>
+<b>setButtons</b>(<i></i>)
+<p>
+        Public method to enable the supported action buttons.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createDevice" ID="createDevice"></a>
+<h2>createDevice</h2>
+<b>createDevice</b>(<i>microPythonWidget, deviceType, _vid, _pid, _boardName, _serialNumber</i>)
+<p>
+    Function to instantiate a MicroPython device object.
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>_vid</i> (int)</dt>
+<dd>
+vendor ID (unused)
+</dd>
+<dt><i>_pid</i> (int)</dt>
+<dd>
+product ID (unused)
+</dd>
+<dt><i>_boardName</i> (str)</dt>
+<dd>
+name of the board (unused)
+</dd>
+<dt><i>_serialNumber</i> (str)</dt>
+<dd>
+serial number of the board (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated device object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+PyBoardDevice
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="showTeensyFlashInstructions" ID="showTeensyFlashInstructions"></a>
+<h2>showTeensyFlashInstructions</h2>
+<b>showTeensyFlashInstructions</b>(<i></i>)
+<p>
+    Slot to show a message box with instruction to flash the Teensy.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="startTeensyLoader" ID="startTeensyLoader"></a>
+<h2>startTeensyLoader</h2>
+<b>startTeensyLoader</b>(<i></i>)
+<p>
+    Slot to start the 'Teensy Loader' application.
+</p>
+<p>
+    Note: The application must be accessible via the application search path.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

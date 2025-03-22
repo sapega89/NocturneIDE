@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Utilities.ClassBrowsers.__init__</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Utilities.ClassBrowsers.__init__</h1>
+<p>
+Package implementing class browsers for various languages.
+</p>
+<p>
+Currently it offers class browser support for the following
+programming languages.
+</p>
+<p>
+<ul>
+<li>CORBA IDL</li>
+<li>JavaScript</li>
+<li>ProtoBuf</li>
+<li>Python 3</li>
+<li>Ruby</li>
+</ul>
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>ClassBrowserRegistry</td></tr>
+<tr><td>PTL_SOURCE</td></tr>
+<tr><td>PY_SOURCE</td></tr>
+<tr><td>RB_SOURCE</td></tr>
+<tr><td>UNKNOWN_SOURCE</td></tr>
+<tr><td>__extensions</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#determineSourceType">determineSourceType</a></td>
+<td>Function to determine the type of a source file given its name.</td>
+</tr>
+<tr>
+<td><a href="#find_module">find_module</a></td>
+<td>Function to extend the Python module finding mechanism.</td>
+</tr>
+<tr>
+<td><a href="#getClassBrowserModule">getClassBrowserModule</a></td>
+<td>Function to import a class browser module.</td>
+</tr>
+<tr>
+<td><a href="#getIcon">getIcon</a></td>
+<td>Function to get an icon name for the given file (only for class browsers provided via plugins).</td>
+</tr>
+<tr>
+<td><a href="#isSupportedType">isSupportedType</a></td>
+<td>Function to check, if the given file extension indicates a supported file type.</td>
+</tr>
+<tr>
+<td><a href="#readmodule">readmodule</a></td>
+<td>Function to read a source file and return a dictionary of classes, functions, modules, etc.</td>
+</tr>
+<tr>
+<td><a href="#registerClassBrowser">registerClassBrowser</a></td>
+<td>Function to register a class browser type.</td>
+</tr>
+<tr>
+<td><a href="#scan">scan</a></td>
+<td>Function to scan the given source text.</td>
+</tr>
+<tr>
+<td><a href="#unregisterClassBrowser">unregisterClassBrowser</a></td>
+<td>Function to unregister a class browser type.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="determineSourceType" ID="determineSourceType"></a>
+<h2>determineSourceType</h2>
+<b>determineSourceType</b>(<i>name, isPyFile=False</i>)
+<p>
+    Function to determine the type of a source file given its name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file name or module name
+</dd>
+<dt><i>isPyFile</i> (bool (optional))</dt>
+<dd>
+flag indicating a Python file (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+source file type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="find_module" ID="find_module"></a>
+<h2>find_module</h2>
+<b>find_module</b>(<i>name, path, isPyFile=False</i>)
+<p>
+    Function to extend the Python module finding mechanism.
+</p>
+<p>
+    This function searches for files in the given list of paths. If the
+    file name doesn't have an extension or an extension of .py, the normal
+    Python search implemented in the imp module is used. For all other
+    supported files only the paths list is searched.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file name or module name to search for
+</dd>
+<dt><i>path</i> (list of str)</dt>
+<dd>
+search paths
+</dd>
+<dt><i>isPyFile</i> (bool)</dt>
+<dd>
+flag indicating a Python file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of the open file, pathname and description. Description
+        is a tuple of file suffix, file mode and file type)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ImportError</b>:</dt>
+<dd>
+The file or module wasn't found.
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getClassBrowserModule" ID="getClassBrowserModule"></a>
+<h2>getClassBrowserModule</h2>
+<b>getClassBrowserModule</b>(<i>moduleType</i>)
+<p>
+    Function to import a class browser module.
+</p>
+
+<dl>
+
+<dt><i>moduleType</i> (str)</dt>
+<dd>
+type of class browser to load
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the imported class browser module
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+module
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getIcon" ID="getIcon"></a>
+<h2>getIcon</h2>
+<b>getIcon</b>(<i>filename</i>)
+<p>
+    Function to get an icon name for the given file (only for class browsers provided
+    via plugins).
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+icon name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isSupportedType" ID="isSupportedType"></a>
+<h2>isSupportedType</h2>
+<b>isSupportedType</b>(<i>fileext</i>)
+<p>
+    Function to check, if the given file extension indicates a supported file type.
+</p>
+
+<dl>
+
+<dt><i>fileext</i> (str)</dt>
+<dd>
+file extension
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a supported file type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="readmodule" ID="readmodule"></a>
+<h2>readmodule</h2>
+<b>readmodule</b>(<i>module, searchPath=None, isPyFile=False</i>)
+<p>
+    Function to read a source file and return a dictionary of classes, functions,
+    modules, etc. .
+</p>
+<p>
+    The real work of parsing the source file is delegated to the individual
+    file parsers.
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>searchPath</i> (list of str)</dt>
+<dd>
+list of paths the file should be searched in
+</dd>
+<dt><i>isPyFile</i> (bool)</dt>
+<dd>
+flag indicating a Python file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the resulting dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="registerClassBrowser" ID="registerClassBrowser"></a>
+<h2>registerClassBrowser</h2>
+<b>registerClassBrowser</b>(<i>name, readModuleFunc, scanFunc, iconFunc, extensions</i>)
+<p>
+    Function to register a class browser type.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the class browser
+</dd>
+<dt><i>readModuleFunc</i> (function)</dt>
+<dd>
+function to read and parse a file returning  a dictionary
+        with the parsing result
+</dd>
+<dt><i>scanFunc</i> (function)</dt>
+<dd>
+function to scan a given source text returning  a dictionary with
+        the parsing result
+</dd>
+<dt><i>iconFunc</i> (function)</dt>
+<dd>
+function returning an icon name for the supported files
+</dd>
+<dt><i>extensions</i> (list of str)</dt>
+<dd>
+list of associated file extensions
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>KeyError</b>:</dt>
+<dd>
+raised if the class browser to be registered is already
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="scan" ID="scan"></a>
+<h2>scan</h2>
+<b>scan</b>(<i>src, filename, module, isPyFile=False</i>)
+<p>
+    Function to scan the given source text.
+</p>
+
+<dl>
+
+<dt><i>src</i> (str)</dt>
+<dd>
+source text to be scanned
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+file name associated with the source text
+</dd>
+<dt><i>module</i> (str)</dt>
+<dd>
+module name associated with the source text
+</dd>
+<dt><i>isPyFile</i> (bool)</dt>
+<dd>
+flag indicating a Python file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the extracted data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="unregisterClassBrowser" ID="unregisterClassBrowser"></a>
+<h2>unregisterClassBrowser</h2>
+<b>unregisterClassBrowser</b>(<i>name</i>)
+<p>
+    Function to unregister a class browser type.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the class browser
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

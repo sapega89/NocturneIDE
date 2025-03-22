@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.OpenSearch.OpenSearchManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.OpenSearch.OpenSearchManager</h1>
+<p>
+Module implementing a manager for open search engines.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#OpenSearchManager">OpenSearchManager</a></td>
+<td>Class implementing a manager for open search engines.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="OpenSearchManager" ID="OpenSearchManager"></a>
+<h2>OpenSearchManager</h2>
+<p>
+    Class implementing a manager for open search engines.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>changed()</dt>
+<dd>
+emitted to indicate a change
+</dd>
+<dt>currentEngineChanged()</dt>
+<dd>
+emitted to indicate a change of
+            the current search engine
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#OpenSearchManager.__init__">OpenSearchManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.__addEngineByEngine">__addEngineByEngine</a></td>
+<td>Private method to add a new search engine given a reference to an engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.__addEngineByFile">__addEngineByFile</a></td>
+<td>Private method to add a new search engine given a filename.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.__addEngineByUrl">__addEngineByUrl</a></td>
+<td>Private method to add a new search engine given its URL.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.__confirmAddition">__confirmAddition</a></td>
+<td>Private method to confirm the addition of a new search engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.__engineFromUrlAvailable">__engineFromUrlAvailable</a></td>
+<td>Private slot to add a search engine from the net.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.addEngine">addEngine</a></td>
+<td>Public method to add a new search engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.addEngineFromForm">addEngineFromForm</a></td>
+<td>Public method to add a new search engine from a form.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.allEnginesNames">allEnginesNames</a></td>
+<td>Public method to get a list of all engine names.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.close">close</a></td>
+<td>Public method to close the open search engines manager.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.convertKeywordSearchToUrl">convertKeywordSearchToUrl</a></td>
+<td>Public method to get the search URL for a keyword search.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.currentEngine">currentEngine</a></td>
+<td>Public method to get a reference to the current engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.currentEngineName">currentEngineName</a></td>
+<td>Public method to get the name of the current search engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.engine">engine</a></td>
+<td>Public method to get a reference to the named engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.engineExists">engineExists</a></td>
+<td>Public method to check, if an engine exists.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.engineForKeyword">engineForKeyword</a></td>
+<td>Public method to get the engine for a keyword.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.enginesChanged">enginesChanged</a></td>
+<td>Public slot to tell the search engine manager, that something has changed.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.enginesCount">enginesCount</a></td>
+<td>Public method to get the number of available engines.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.enginesDirectory">enginesDirectory</a></td>
+<td>Public method to determine the directory containing the search engine descriptions.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.generateEngineFileName">generateEngineFileName</a></td>
+<td>Public method to generate a valid engine file name.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.keywordsForEngine">keywordsForEngine</a></td>
+<td>Public method to get the keywords for a given engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.load">load</a></td>
+<td>Public method to load the search engines configuration.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.loadDirectory">loadDirectory</a></td>
+<td>Public method to load the search engine definitions from files.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.removeEngine">removeEngine</a></td>
+<td>Public method to remove an engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.restoreDefaults">restoreDefaults</a></td>
+<td>Public method to restore the default search engines.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.save">save</a></td>
+<td>Public method to save the search engines configuration.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.saveDirectory">saveDirectory</a></td>
+<td>Public method to save the search engine definitions to files.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.setCurrentEngine">setCurrentEngine</a></td>
+<td>Public method to set the current engine.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.setCurrentEngineName">setCurrentEngineName</a></td>
+<td>Public method to set the current engine by name.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.setEngineForKeyword">setEngineForKeyword</a></td>
+<td>Public method to set the engine for a keyword.</td>
+</tr>
+<tr>
+<td><a href="#OpenSearchManager.setKeywordsForEngine">setKeywordsForEngine</a></td>
+<td>Public method to set the keywords for an engine.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="OpenSearchManager.__init__" ID="OpenSearchManager.__init__"></a>
+<h4>OpenSearchManager (Constructor)</h4>
+<b>OpenSearchManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="OpenSearchManager.__addEngineByEngine" ID="OpenSearchManager.__addEngineByEngine"></a>
+<h4>OpenSearchManager.__addEngineByEngine</h4>
+<b>__addEngineByEngine</b>(<i>engine</i>)
+<p>
+        Private method to add a new search engine given a reference to an
+        engine.
+</p>
+
+<dl>
+
+<dt><i>engine</i> (OpenSearchEngine)</dt>
+<dd>
+reference to an engine object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchManager.__addEngineByFile" ID="OpenSearchManager.__addEngineByFile"></a>
+<h4>OpenSearchManager.__addEngineByFile</h4>
+<b>__addEngineByFile</b>(<i>filename</i>)
+<p>
+        Private method to add a new search engine given a filename.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of a file containing the engine definition
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchManager.__addEngineByUrl" ID="OpenSearchManager.__addEngineByUrl"></a>
+<h4>OpenSearchManager.__addEngineByUrl</h4>
+<b>__addEngineByUrl</b>(<i>url</i>)
+<p>
+        Private method to add a new search engine given its URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of the engine definition file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchManager.__confirmAddition" ID="OpenSearchManager.__confirmAddition"></a>
+<h4>OpenSearchManager.__confirmAddition</h4>
+<b>__confirmAddition</b>(<i>engine</i>)
+<p>
+        Private method to confirm the addition of a new search engine.
+</p>
+
+<dl>
+
+<dt><i>engine</i> (OpenSearchEngine)</dt>
+<dd>
+reference to the engine to be added
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the engine shall be added
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchManager.__engineFromUrlAvailable" ID="OpenSearchManager.__engineFromUrlAvailable"></a>
+<h4>OpenSearchManager.__engineFromUrlAvailable</h4>
+<b>__engineFromUrlAvailable</b>(<i>reply</i>)
+<p>
+        Private slot to add a search engine from the net.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply
+</dd>
+</dl>
+<a NAME="OpenSearchManager.addEngine" ID="OpenSearchManager.addEngine"></a>
+<h4>OpenSearchManager.addEngine</h4>
+<b>addEngine</b>(<i>engine</i>)
+<p>
+        Public method to add a new search engine.
+</p>
+
+<dl>
+
+<dt><i>engine</i> (str)</dt>
+<dd>
+URL of the engine definition file (QUrl) or
+            name of a file containing the engine definition
+            or reference to an engine object (OpenSearchEngine)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchManager.addEngineFromForm" ID="OpenSearchManager.addEngineFromForm"></a>
+<h4>OpenSearchManager.addEngineFromForm</h4>
+<b>addEngineFromForm</b>(<i>res, view</i>)
+<p>
+        Public method to add a new search engine from a form.
+</p>
+
+<dl>
+
+<dt><i>res</i> (dict or None)</dt>
+<dd>
+result of the JavaScript run on by
+            WebBrowserView.__addSearchEngine()
+</dd>
+<dt><i>view</i> (WebBrowserView)</dt>
+<dd>
+reference to the web browser view
+</dd>
+</dl>
+<a NAME="OpenSearchManager.allEnginesNames" ID="OpenSearchManager.allEnginesNames"></a>
+<h4>OpenSearchManager.allEnginesNames</h4>
+<b>allEnginesNames</b>(<i></i>)
+<p>
+        Public method to get a list of all engine names.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+sorted list of all engine names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="OpenSearchManager.close" ID="OpenSearchManager.close"></a>
+<h4>OpenSearchManager.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public method to close the open search engines manager.
+</p>
+
+<a NAME="OpenSearchManager.convertKeywordSearchToUrl" ID="OpenSearchManager.convertKeywordSearchToUrl"></a>
+<h4>OpenSearchManager.convertKeywordSearchToUrl</h4>
+<b>convertKeywordSearchToUrl</b>(<i>keywordSearch</i>)
+<p>
+        Public method to get the search URL for a keyword search.
+</p>
+
+<dl>
+
+<dt><i>keywordSearch</i> (str)</dt>
+<dd>
+search string for keyword search
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+search URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="OpenSearchManager.currentEngine" ID="OpenSearchManager.currentEngine"></a>
+<h4>OpenSearchManager.currentEngine</h4>
+<b>currentEngine</b>(<i></i>)
+<p>
+        Public method to get a reference to the current engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+OpenSearchEngine
+</dd>
+</dl>
+<a NAME="OpenSearchManager.currentEngineName" ID="OpenSearchManager.currentEngineName"></a>
+<h4>OpenSearchManager.currentEngineName</h4>
+<b>currentEngineName</b>(<i></i>)
+<p>
+        Public method to get the name of the current search engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the current search engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchManager.engine" ID="OpenSearchManager.engine"></a>
+<h4>OpenSearchManager.engine</h4>
+<b>engine</b>(<i>name</i>)
+<p>
+        Public method to get a reference to the named engine.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+OpenSearchEngine
+</dd>
+</dl>
+<a NAME="OpenSearchManager.engineExists" ID="OpenSearchManager.engineExists"></a>
+<h4>OpenSearchManager.engineExists</h4>
+<b>engineExists</b>(<i>name</i>)
+<p>
+        Public method to check, if an engine exists.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an existing engine
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchManager.engineForKeyword" ID="OpenSearchManager.engineForKeyword"></a>
+<h4>OpenSearchManager.engineForKeyword</h4>
+<b>engineForKeyword</b>(<i>keyword</i>)
+<p>
+        Public method to get the engine for a keyword.
+</p>
+
+<dl>
+
+<dt><i>keyword</i> (str)</dt>
+<dd>
+keyword to get engine for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the search engine object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+OpenSearchEngine
+</dd>
+</dl>
+<a NAME="OpenSearchManager.enginesChanged" ID="OpenSearchManager.enginesChanged"></a>
+<h4>OpenSearchManager.enginesChanged</h4>
+<b>enginesChanged</b>(<i></i>)
+<p>
+        Public slot to tell the search engine manager, that something has
+        changed.
+</p>
+
+<a NAME="OpenSearchManager.enginesCount" ID="OpenSearchManager.enginesCount"></a>
+<h4>OpenSearchManager.enginesCount</h4>
+<b>enginesCount</b>(<i></i>)
+<p>
+        Public method to get the number of available engines.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of engines
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="OpenSearchManager.enginesDirectory" ID="OpenSearchManager.enginesDirectory"></a>
+<h4>OpenSearchManager.enginesDirectory</h4>
+<b>enginesDirectory</b>(<i></i>)
+<p>
+        Public method to determine the directory containing the search engine
+        descriptions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+directory name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchManager.generateEngineFileName" ID="OpenSearchManager.generateEngineFileName"></a>
+<h4>OpenSearchManager.generateEngineFileName</h4>
+<b>generateEngineFileName</b>(<i>engineName</i>)
+<p>
+        Public method to generate a valid engine file name.
+</p>
+
+<dl>
+
+<dt><i>engineName</i> (str)</dt>
+<dd>
+name of the engine
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+valid engine file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="OpenSearchManager.keywordsForEngine" ID="OpenSearchManager.keywordsForEngine"></a>
+<h4>OpenSearchManager.keywordsForEngine</h4>
+<b>keywordsForEngine</b>(<i>engine</i>)
+<p>
+        Public method to get the keywords for a given engine.
+</p>
+
+<dl>
+
+<dt><i>engine</i> (OpenSearchEngine)</dt>
+<dd>
+reference to the search engine object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of keywords
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="OpenSearchManager.load" ID="OpenSearchManager.load"></a>
+<h4>OpenSearchManager.load</h4>
+<b>load</b>(<i></i>)
+<p>
+        Public method to load the search engines configuration.
+</p>
+
+<a NAME="OpenSearchManager.loadDirectory" ID="OpenSearchManager.loadDirectory"></a>
+<h4>OpenSearchManager.loadDirectory</h4>
+<b>loadDirectory</b>(<i>dirName</i>)
+<p>
+        Public method to load the search engine definitions from files.
+</p>
+
+<dl>
+
+<dt><i>dirName</i> (str)</dt>
+<dd>
+name of the directory to load the files from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="OpenSearchManager.removeEngine" ID="OpenSearchManager.removeEngine"></a>
+<h4>OpenSearchManager.removeEngine</h4>
+<b>removeEngine</b>(<i>name</i>)
+<p>
+        Public method to remove an engine.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the engine
+</dd>
+</dl>
+<a NAME="OpenSearchManager.restoreDefaults" ID="OpenSearchManager.restoreDefaults"></a>
+<h4>OpenSearchManager.restoreDefaults</h4>
+<b>restoreDefaults</b>(<i></i>)
+<p>
+        Public method to restore the default search engines.
+</p>
+
+<a NAME="OpenSearchManager.save" ID="OpenSearchManager.save"></a>
+<h4>OpenSearchManager.save</h4>
+<b>save</b>(<i></i>)
+<p>
+        Public method to save the search engines configuration.
+</p>
+
+<a NAME="OpenSearchManager.saveDirectory" ID="OpenSearchManager.saveDirectory"></a>
+<h4>OpenSearchManager.saveDirectory</h4>
+<b>saveDirectory</b>(<i>dirName</i>)
+<p>
+        Public method to save the search engine definitions to files.
+</p>
+
+<dl>
+
+<dt><i>dirName</i> (str)</dt>
+<dd>
+name of the directory to write the files to
+</dd>
+</dl>
+<a NAME="OpenSearchManager.setCurrentEngine" ID="OpenSearchManager.setCurrentEngine"></a>
+<h4>OpenSearchManager.setCurrentEngine</h4>
+<b>setCurrentEngine</b>(<i>engine</i>)
+<p>
+        Public method to set the current engine.
+</p>
+
+<dl>
+
+<dt><i>engine</i> (OpenSearchEngine)</dt>
+<dd>
+reference to the new current engine
+</dd>
+</dl>
+<a NAME="OpenSearchManager.setCurrentEngineName" ID="OpenSearchManager.setCurrentEngineName"></a>
+<h4>OpenSearchManager.setCurrentEngineName</h4>
+<b>setCurrentEngineName</b>(<i>name</i>)
+<p>
+        Public method to set the current engine by name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the new current engine
+</dd>
+</dl>
+<a NAME="OpenSearchManager.setEngineForKeyword" ID="OpenSearchManager.setEngineForKeyword"></a>
+<h4>OpenSearchManager.setEngineForKeyword</h4>
+<b>setEngineForKeyword</b>(<i>keyword, engine</i>)
+<p>
+        Public method to set the engine for a keyword.
+</p>
+
+<dl>
+
+<dt><i>keyword</i> (str)</dt>
+<dd>
+keyword to get engine for
+</dd>
+<dt><i>engine</i> (OpenSearchEngine)</dt>
+<dd>
+reference to the search engine object or None to
+            remove the keyword
+</dd>
+</dl>
+<a NAME="OpenSearchManager.setKeywordsForEngine" ID="OpenSearchManager.setKeywordsForEngine"></a>
+<h4>OpenSearchManager.setKeywordsForEngine</h4>
+<b>setKeywordsForEngine</b>(<i>engine, keywords</i>)
+<p>
+        Public method to set the keywords for an engine.
+</p>
+
+<dl>
+
+<dt><i>engine</i> (OpenSearchEngine)</dt>
+<dd>
+reference to the search engine object
+</dd>
+<dt><i>keywords</i> (list of str)</dt>
+<dd>
+list of keywords
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

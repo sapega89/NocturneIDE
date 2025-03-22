@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Graphics.UMLClassDiagramBuilder</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Graphics.UMLClassDiagramBuilder</h1>
+<p>
+Module implementing a dialog showing a UML like class diagram.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#UMLClassDiagramBuilder">UMLClassDiagramBuilder</a></td>
+<td>Class implementing a builder for UML like class diagrams.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="UMLClassDiagramBuilder" ID="UMLClassDiagramBuilder"></a>
+<h2>UMLClassDiagramBuilder</h2>
+<p>
+    Class implementing a builder for UML like class diagrams.
+</p>
+
+<h3>Derived from</h3>
+UMLDiagramBuilder
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.__init__">UMLClassDiagramBuilder</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.__addExternalClass">__addExternalClass</a></td>
+<td>Private method to add a class defined outside the module.</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.__addLocalClass">__addLocalClass</a></td>
+<td>Private method to add a class defined in the module.</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.__arrangeClasses">__arrangeClasses</a></td>
+<td>Private method to arrange the shapes on the canvas.</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.__createAssociations">__createAssociations</a></td>
+<td>Private method to generate the associations between the class shapes.</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.__getCurrentShape">__getCurrentShape</a></td>
+<td>Private method to get the named shape.</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.buildDiagram">buildDiagram</a></td>
+<td>Public method to build the class shapes of the class diagram.</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.fromDict">fromDict</a></td>
+<td>Public method to populate the class with data persisted by 'toDict()'.</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.initialize">initialize</a></td>
+<td>Public method to initialize the object.</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.parsePersistenceData">parsePersistenceData</a></td>
+<td>Public method to parse persisted data.</td>
+</tr>
+<tr>
+<td><a href="#UMLClassDiagramBuilder.toDict">toDict</a></td>
+<td>Public method to collect data to be persisted.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="UMLClassDiagramBuilder.__init__" ID="UMLClassDiagramBuilder.__init__"></a>
+<h4>UMLClassDiagramBuilder (Constructor)</h4>
+<b>UMLClassDiagramBuilder</b>(<i>dialog, view, project, file, noAttrs=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>dialog</i> (UMLDialog)</dt>
+<dd>
+reference to the UML dialog
+</dd>
+<dt><i>view</i> (UMLGraphicsView)</dt>
+<dd>
+reference to the view object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>file</i> (str)</dt>
+<dd>
+file name of a python module to be shown
+</dd>
+<dt><i>noAttrs</i> (bool)</dt>
+<dd>
+flag indicating, that no attributes should be shown
+</dd>
+</dl>
+<a NAME="UMLClassDiagramBuilder.__addExternalClass" ID="UMLClassDiagramBuilder.__addExternalClass"></a>
+<h4>UMLClassDiagramBuilder.__addExternalClass</h4>
+<b>__addExternalClass</b>(<i>_class, x, y</i>)
+<p>
+        Private method to add a class defined outside the module.
+</p>
+<p>
+        If the canvas is too small to take the shape, it
+        is enlarged.
+</p>
+
+<dl>
+
+<dt><i>_class</i> (ModuleParser.Class)</dt>
+<dd>
+class to be shown
+</dd>
+<dt><i>x</i> (float)</dt>
+<dd>
+x-coordinate
+</dd>
+<dt><i>y</i> (float)</dt>
+<dd>
+y-coordinate
+</dd>
+</dl>
+<a NAME="UMLClassDiagramBuilder.__addLocalClass" ID="UMLClassDiagramBuilder.__addLocalClass"></a>
+<h4>UMLClassDiagramBuilder.__addLocalClass</h4>
+<b>__addLocalClass</b>(<i>className, _class, x, y, isRbModule=False</i>)
+<p>
+        Private method to add a class defined in the module.
+</p>
+
+<dl>
+
+<dt><i>className</i> (str)</dt>
+<dd>
+name of the class to be as a dictionary key
+</dd>
+<dt><i>_class</i> (ModuleParser.Class)</dt>
+<dd>
+class to be shown
+</dd>
+<dt><i>x</i> (float)</dt>
+<dd>
+x-coordinate
+</dd>
+<dt><i>y</i> (float)</dt>
+<dd>
+y-coordinate
+</dd>
+<dt><i>isRbModule</i> (bool)</dt>
+<dd>
+flag indicating a Ruby module
+</dd>
+</dl>
+<a NAME="UMLClassDiagramBuilder.__arrangeClasses" ID="UMLClassDiagramBuilder.__arrangeClasses"></a>
+<h4>UMLClassDiagramBuilder.__arrangeClasses</h4>
+<b>__arrangeClasses</b>(<i>nodes, routes, whiteSpaceFactor=1.2</i>)
+<p>
+        Private method to arrange the shapes on the canvas.
+</p>
+<p>
+        The algorithm is borrowed from Boa Constructor.
+</p>
+
+<dl>
+
+<dt><i>nodes</i> (list of str)</dt>
+<dd>
+list of nodes to arrange
+</dd>
+<dt><i>routes</i> (list of tuple of (str, str))</dt>
+<dd>
+list of routes
+</dd>
+<dt><i>whiteSpaceFactor</i> (float)</dt>
+<dd>
+factor to increase whitespace between
+            items
+</dd>
+</dl>
+<a NAME="UMLClassDiagramBuilder.__createAssociations" ID="UMLClassDiagramBuilder.__createAssociations"></a>
+<h4>UMLClassDiagramBuilder.__createAssociations</h4>
+<b>__createAssociations</b>(<i>routes</i>)
+<p>
+        Private method to generate the associations between the class shapes.
+</p>
+
+<dl>
+
+<dt><i>routes</i> (list of tuple of (str, str))</dt>
+<dd>
+list of relationsships
+</dd>
+</dl>
+<a NAME="UMLClassDiagramBuilder.__getCurrentShape" ID="UMLClassDiagramBuilder.__getCurrentShape"></a>
+<h4>UMLClassDiagramBuilder.__getCurrentShape</h4>
+<b>__getCurrentShape</b>(<i>name</i>)
+<p>
+        Private method to get the named shape.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the shape
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+shape
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QGraphicsItem
+</dd>
+</dl>
+<a NAME="UMLClassDiagramBuilder.buildDiagram" ID="UMLClassDiagramBuilder.buildDiagram"></a>
+<h4>UMLClassDiagramBuilder.buildDiagram</h4>
+<b>buildDiagram</b>(<i></i>)
+<p>
+        Public method to build the class shapes of the class diagram.
+</p>
+<p>
+        The algorithm is borrowed from Boa Constructor.
+</p>
+
+<a NAME="UMLClassDiagramBuilder.fromDict" ID="UMLClassDiagramBuilder.fromDict"></a>
+<h4>UMLClassDiagramBuilder.fromDict</h4>
+<b>fromDict</b>(<i>_version, data</i>)
+<p>
+        Public method to populate the class with data persisted by 'toDict()'.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>data</i> (dict)</dt>
+<dd>
+dictionary containing the persisted data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an info
+            message in case the diagram belongs to a different project
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="UMLClassDiagramBuilder.initialize" ID="UMLClassDiagramBuilder.initialize"></a>
+<h4>UMLClassDiagramBuilder.initialize</h4>
+<b>initialize</b>(<i></i>)
+<p>
+        Public method to initialize the object.
+</p>
+
+<a NAME="UMLClassDiagramBuilder.parsePersistenceData" ID="UMLClassDiagramBuilder.parsePersistenceData"></a>
+<h4>UMLClassDiagramBuilder.parsePersistenceData</h4>
+<b>parsePersistenceData</b>(<i>_version, data</i>)
+<p>
+        Public method to parse persisted data.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>data</i> (str)</dt>
+<dd>
+persisted data to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UMLClassDiagramBuilder.toDict" ID="UMLClassDiagramBuilder.toDict"></a>
+<h4>UMLClassDiagramBuilder.toDict</h4>
+<b>toDict</b>(<i></i>)
+<p>
+        Public method to collect data to be persisted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing data to be persisted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

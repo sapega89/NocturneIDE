@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Annotations.AnnotationsFunctionVisitor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Annotations.AnnotationsFunctionVisitor</h1>
+<p>
+Module implementing a node visitor for function type annotations.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>AST_ARG_TYPES</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Argument">Argument</a></td>
+<td>Class representing a function argument.</td>
+</tr>
+<tr>
+<td><a href="#Function">Function</a></td>
+<td>Class representing a function.</td>
+</tr>
+<tr>
+<td><a href="#FunctionVisitor">FunctionVisitor</a></td>
+<td>Class implementing a node visitor to check function annotations.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor">ReturnVisitor</a></td>
+<td>Class implementing a node visitor to check the return statements of a function node.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Argument" ID="Argument"></a>
+<h2>Argument</h2>
+<p>
+    Class representing a function argument.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#Argument.fromNode">fromNode</a></td>
+<td>Class method to create an Argument object based on the given node.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Argument.__init__">Argument</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr>
+<td><a href="#Argument._isAnnotatedAny">_isAnnotatedAny</a></td>
+<td>Static method to check if the provided expression node is annotated with 'typing.Any'.</td>
+</tr>
+</table>
+
+
+<a NAME="Argument.fromNode" ID="Argument.fromNode"></a>
+<h4>Argument.fromNode (class method)</h4>
+<b>fromNode</b>(<i>node, annotationTypeName</i>)
+<p>
+        Class method to create an Argument object based on the given node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.arguments)</dt>
+<dd>
+reference to the node to be converted
+</dd>
+<dt><i>annotationTypeName</i> (str)</dt>
+<dd>
+name of the annotation type
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+Argument object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Argument
+</dd>
+</dl>
+<a NAME="Argument.__init__" ID="Argument.__init__"></a>
+<h4>Argument (Constructor)</h4>
+<b>Argument</b>(<i>argname, lineno, col_offset, annotationType, hasTypeAnnotation=False, hasTypeComment=False, isDynamicallyTyped=False, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>argname</i> (str)</dt>
+<dd>
+name of the argument
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number
+</dd>
+<dt><i>col_offset</i> (int)</dt>
+<dd>
+column number
+</dd>
+<dt><i>annotationType</i> (AnnotationType)</dt>
+<dd>
+type of annotation
+</dd>
+<dt><i>hasTypeAnnotation</i> (bool (optional))</dt>
+<dd>
+flag indicating the presence of a type
+            annotation (defaults to False)
+</dd>
+<dt><i>hasTypeComment</i> (bool (optional))</dt>
+<dd>
+flag indicating the presence of a type comment
+            (defaults to False)
+</dd>
+<dt><i>isDynamicallyTyped</i> (bool (optional))</dt>
+<dd>
+flag indicating dynamic typing (defaults to False)
+</dd>
+</dl>
+<a NAME="Argument._isAnnotatedAny" ID="Argument._isAnnotatedAny"></a>
+<h4>Argument._isAnnotatedAny (static)</h4>
+<b>_isAnnotatedAny</b>(<i></i>)
+<p>
+        Static method to check if the provided expression node is annotated with
+        'typing.Any'.
+</p>
+<p>
+        Support is provided for the following patterns:
+            * 'from typing import Any; foo: Any'
+            * 'import typing; foo: typing.Any'
+            * 'import typing as <alias>; foo: <alias>.Any'
+</p>
+
+<dl>
+
+<dt><i>argExpr</i> (ast.expr or str)</dt>
+<dd>
+DESCRIPTION
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an annotation with 'typing.Any'
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Function" ID="Function"></a>
+<h2>Function</h2>
+<p>
+    Class representing a function.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#Function.fromNode">fromNode</a></td>
+<td>Class method to create a Function object from ast.FunctionDef or ast.AsyncFunctionDef nodes.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Function.__init__">Function</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Function.__decoratorChecker">__decoratorChecker</a></td>
+<td>Private method to check the provided decorator for a match against the provided set of check names.</td>
+</tr>
+<tr>
+<td><a href="#Function.getAnnotatedArguments">getAnnotatedArguments</a></td>
+<td>Public method to get list of arguments with type annotations.</td>
+</tr>
+<tr>
+<td><a href="#Function.getMissedAnnotations">getMissedAnnotations</a></td>
+<td>Public method to provide a list of arguments with missing type annotations.</td>
+</tr>
+<tr>
+<td><a href="#Function.hasDecorator">hasDecorator</a></td>
+<td>Public method to check whether the function node is decorated by any of the provided decorators.</td>
+</tr>
+<tr>
+<td><a href="#Function.isDynamicallyTyped">isDynamicallyTyped</a></td>
+<td>Public method to check, if a function definition is dynamically typed (i.e.</td>
+</tr>
+<tr>
+<td><a href="#Function.isFullyAnnotated">isFullyAnnotated</a></td>
+<td>Public method to check, if the function definition is fully type annotated.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr>
+<td><a href="#Function._singleLineColonSeeker">_singleLineColonSeeker</a></td>
+<td>Static method to find the line & column indices of a single line function definition.</td>
+</tr>
+<tr>
+<td><a href="#Function.colonSeeker">colonSeeker</a></td>
+<td>Static method to find the line & column indices of the function definition's closing colon.</td>
+</tr>
+<tr>
+<td><a href="#Function.getClassDecoratorType">getClassDecoratorType</a></td>
+<td>Static method to get the class method's decorator type from its function node.</td>
+</tr>
+<tr>
+<td><a href="#Function.getFunctionType">getFunctionType</a></td>
+<td>Static method to determine the function's FunctionType from its name.</td>
+</tr>
+</table>
+
+
+<a NAME="Function.fromNode" ID="Function.fromNode"></a>
+<h4>Function.fromNode (class method)</h4>
+<b>fromNode</b>(<i>node, lines, **kwargs</i>)
+<p>
+        Class method to create a Function object from ast.FunctionDef or
+        ast.AsyncFunctionDef nodes.
+</p>
+<p>
+        Accept the source code, as a list of strings, in order to get the
+        column where the function definition ends.
+</p>
+<p>
+        With exceptions, input kwargs are passed straight through to Function's
+        __init__. The following kwargs will be overridden:
+          * function_type
+          * class_decorator_type
+          * args
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the function definition node
+</dd>
+<dt><i>lines</i> (list of str)</dt>
+<dd>
+list of source code lines
+</dd>
+<dt><i>**kwargs=</i> (dict)</dt>
+<dd>
+keyword arguments
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+created Function object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Function
+</dd>
+</dl>
+<a NAME="Function.__init__" ID="Function.__init__"></a>
+<h4>Function (Constructor)</h4>
+<b>Function</b>(<i>name, lineno, col_offset, functionType=FunctionType.PUBLIC, isClassMethod=False, classDecoratorType=None, isReturnAnnotated=False, hasTypeComment=False, hasOnlyNoneReturns=True, isNested=False, decoratorList=None, args=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the function
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number
+</dd>
+<dt><i>col_offset</i> (int)</dt>
+<dd>
+column number
+</dd>
+<dt><i>functionType</i> (FunctionType (optional))</dt>
+<dd>
+type of the function (defaults to
+            FunctionType.PUBLIC)
+</dd>
+<dt><i>isClassMethod</i> (bool (optional))</dt>
+<dd>
+flag indicating a class method (defaults to False)
+</dd>
+<dt><i>classDecoratorType</i> (ClassDecoratorType or None (optional))</dt>
+<dd>
+type of a function decorator
+            (defaults to None)
+</dd>
+<dt><i>isReturnAnnotated</i> (bool (optional))</dt>
+<dd>
+flag indicating the presence of a return
+            type annotation (defaults to False)
+</dd>
+<dt><i>hasTypeComment</i> (bool (optional))</dt>
+<dd>
+flag indicating the presence of a type comment
+            (defaults to False)
+</dd>
+<dt><i>hasOnlyNoneReturns</i> (bool (optional))</dt>
+<dd>
+flag indicating only None return values
+            (defaults to True)
+</dd>
+<dt><i>isNested</i> (bool (optional))</dt>
+<dd>
+flag indicating a nested function (defaults to False)
+</dd>
+<dt><i>decoratorList</i> (list of ast.Attribute, ast.Call or ast.Name (optional))</dt>
+<dd>
+list of decorator nodes (defaults to None)
+</dd>
+<dt><i>args</i> (list of Argument (optional))</dt>
+<dd>
+list of arguments (defaults to None)
+</dd>
+</dl>
+<a NAME="Function.__decoratorChecker" ID="Function.__decoratorChecker"></a>
+<h4>Function.__decoratorChecker</h4>
+<b>__decoratorChecker</b>(<i>decorator, checkDecorators</i>)
+<p>
+        Private method to check the provided decorator for a match against the
+        provided set of check names.
+</p>
+<p>
+        Decorators are assumed to be of the following form:
+            * `a.name` or `a.name()`
+            * `name` or `name()`
+</p>
+<p>
+        Note: Deeper imports (e.g. `a.b.name`) are not explicitly supported.
+</p>
+
+<dl>
+
+<dt><i>decorator</i> (ast.Attribute, ast.Call or ast.Name)</dt>
+<dd>
+decorator node to check
+</dd>
+<dt><i>checkDecorators</i> (set of str)</dt>
+<dd>
+set of decorators to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of any decorators
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Function.getAnnotatedArguments" ID="Function.getAnnotatedArguments"></a>
+<h4>Function.getAnnotatedArguments</h4>
+<b>getAnnotatedArguments</b>(<i></i>)
+<p>
+        Public method to get list of arguments with type annotations.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of arguments with type annotations.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of Argument
+</dd>
+</dl>
+<a NAME="Function.getMissedAnnotations" ID="Function.getMissedAnnotations"></a>
+<h4>Function.getMissedAnnotations</h4>
+<b>getMissedAnnotations</b>(<i></i>)
+<p>
+        Public method to provide a list of arguments with missing type
+        annotations.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of arguments with missing type annotations
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of Argument
+</dd>
+</dl>
+<a NAME="Function.hasDecorator" ID="Function.hasDecorator"></a>
+<h4>Function.hasDecorator</h4>
+<b>hasDecorator</b>(<i>checkDecorators</i>)
+<p>
+        Public method to check whether the function node is decorated by any of
+        the provided decorators.
+</p>
+<p>
+        Decorator matching is done against the provided `checkDecorators` set.
+        Decorators are assumed to be either a module attribute (e.g.
+        `@typing.overload`) or name (e.g. `@overload`). For the case of a
+        module attribute, only the attribute is checked against
+        `overload_decorators`.
+</p>
+<p>
+        Note: Deeper decorator imports (e.g. `a.b.overload`) are not explicitly
+        supported.
+</p>
+
+<dl>
+
+<dt><i>checkDecorators</i> (set of str)</dt>
+<dd>
+set of decorators to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of any decorators
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Function.isDynamicallyTyped" ID="Function.isDynamicallyTyped"></a>
+<h4>Function.isDynamicallyTyped</h4>
+<b>isDynamicallyTyped</b>(<i></i>)
+<p>
+        Public method to check, if a function definition is dynamically typed
+        (i.e. completely lacking hints).
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a dynamically typed function definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Function.isFullyAnnotated" ID="Function.isFullyAnnotated"></a>
+<h4>Function.isFullyAnnotated</h4>
+<b>isFullyAnnotated</b>(<i></i>)
+<p>
+        Public method to check, if the function definition is fully type
+        annotated.
+</p>
+<p>
+        Note: self.args will always include an Argument object for return.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a fully annotated function definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Function._singleLineColonSeeker" ID="Function._singleLineColonSeeker"></a>
+<h4>Function._singleLineColonSeeker (static)</h4>
+<b>_singleLineColonSeeker</b>(<i>line</i>)
+<p>
+        Static method to find the line & column indices of a single line
+        function definition.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the function definition node
+</dd>
+<dt><i>line</i> (str)</dt>
+<dd>
+source code line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+line and column offset of the colon
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="Function.colonSeeker" ID="Function.colonSeeker"></a>
+<h4>Function.colonSeeker (static)</h4>
+<b>colonSeeker</b>(<i>lines</i>)
+<p>
+        Static method to find the line & column indices of the function
+        definition's closing colon.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the function definition node
+</dd>
+<dt><i>lines</i> (list of str)</dt>
+<dd>
+list of source code lines
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+line and column offset of the colon
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<a NAME="Function.getClassDecoratorType" ID="Function.getClassDecoratorType"></a>
+<h4>Function.getClassDecoratorType (static)</h4>
+<b>getClassDecoratorType</b>(<i></i>)
+<p>
+        Static method to get the class method's decorator type from its
+        function node.
+</p>
+<p>
+        Only @classmethod and @staticmethod decorators are identified; all
+        other decorators are ignored
+</p>
+<p>
+        If @classmethod or @staticmethod decorators are not present, this
+        function will return None.
+</p>
+
+<dl>
+
+<dt><i>functionNode</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the function definition node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+class decorator type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ClassDecoratorType or None
+</dd>
+</dl>
+<a NAME="Function.getFunctionType" ID="Function.getFunctionType"></a>
+<h4>Function.getFunctionType (static)</h4>
+<b>getFunctionType</b>(<i></i>)
+<p>
+        Static method to determine the function's FunctionType from its name.
+</p>
+<p>
+        MethodType is determined by the following priority:
+          1. Special: function name prefixed & suffixed by "__"
+          2. Private: function name prefixed by "__"
+          3. Protected: function name prefixed by "_"
+          4. Public: everything else
+</p>
+
+<dl>
+
+<dt><i>functionName</i> (str)</dt>
+<dd>
+function name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+type of function
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+FunctionType
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="FunctionVisitor" ID="FunctionVisitor"></a>
+<h2>FunctionVisitor</h2>
+<p>
+    Class implementing a node visitor to check function annotations.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AstFuncTypes</td></tr>
+<tr><td>visit_AsyncFunctionDef</td></tr>
+<tr><td>visit_ClassDef</td></tr>
+<tr><td>visit_FunctionDef</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#FunctionVisitor.__init__">FunctionVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#FunctionVisitor.switchContext">switchContext</a></td>
+<td>Public method implementing a context switcher as a generic function visitor in order to track function context.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="FunctionVisitor.__init__" ID="FunctionVisitor.__init__"></a>
+<h4>FunctionVisitor (Constructor)</h4>
+<b>FunctionVisitor</b>(<i>lines</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>lines</i> (list of str)</dt>
+<dd>
+source code lines of the function
+</dd>
+</dl>
+<a NAME="FunctionVisitor.switchContext" ID="FunctionVisitor.switchContext"></a>
+<h4>FunctionVisitor.switchContext</h4>
+<b>switchContext</b>(<i>node</i>)
+<p>
+        Public method implementing a context switcher as a generic function
+        visitor in order to track function context.
+</p>
+<p>
+        Without keeping track of context, it's challenging to reliably
+        differentiate class methods from "regular" functions, especially in the
+        case of nested classes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the function definition node to be analyzed
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ReturnVisitor" ID="ReturnVisitor"></a>
+<h2>ReturnVisitor</h2>
+<p>
+    Class implementing a node visitor to check the return statements of a
+    function node.
+</p>
+<p>
+    If the function node being visited has an explicit return statement of
+    anything other than `None`, the `instance.hasOnlyNoneReturns` flag will
+    be set to `False`.
+</p>
+<p>
+    If the function node being visited has no return statement, or contains
+    only return statement(s) that explicitly return `None`, the
+    `instance.hasOnlyNoneReturns` flag will be set to `True`.
+</p>
+<p>
+    Due to the generic visiting being done, we need to keep track of the
+    context in which a non-`None` return node is found. These functions are
+    added to a set that is checked to see whether nor not the parent node is
+    present.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>visit_AsyncFunctionDef</td></tr>
+<tr><td>visit_FunctionDef</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ReturnVisitor.__init__">ReturnVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.hasOnlyNoneReturns">hasOnlyNoneReturns</a></td>
+<td>Public method indicating, that the parent node isn't in the visited nodes that don't return `None`.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.switchContext">switchContext</a></td>
+<td>Public method implementing a context switcher as a generic function visitor in order to track function context.</td>
+</tr>
+<tr>
+<td><a href="#ReturnVisitor.visit_Return">visit_Return</a></td>
+<td>Public method to check each Return node to see if it returns anything other than `None`.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ReturnVisitor.__init__" ID="ReturnVisitor.__init__"></a>
+<h4>ReturnVisitor (Constructor)</h4>
+<b>ReturnVisitor</b>(<i>parentNode</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parentNode</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the function definition node to be
+            analyzed
+</dd>
+</dl>
+<a NAME="ReturnVisitor.hasOnlyNoneReturns" ID="ReturnVisitor.hasOnlyNoneReturns"></a>
+<h4>ReturnVisitor.hasOnlyNoneReturns</h4>
+<b>hasOnlyNoneReturns</b>(<i></i>)
+<p>
+        Public method indicating, that the parent node isn't in the visited
+        nodes that don't return `None`.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the parent node isn't in the visited
+            nodes that don't return `None`
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ReturnVisitor.switchContext" ID="ReturnVisitor.switchContext"></a>
+<h4>ReturnVisitor.switchContext</h4>
+<b>switchContext</b>(<i>node</i>)
+<p>
+        Public method implementing a context switcher as a generic function
+        visitor in order to track function context.
+</p>
+<p>
+        Without keeping track of context, it's challenging to reliably
+        differentiate class methods from "regular" functions, especially in the
+        case of nested classes.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AsyncFunctionDef or ast.FunctionDef)</dt>
+<dd>
+reference to the function definition node to be analyzed
+</dd>
+</dl>
+<a NAME="ReturnVisitor.visit_Return" ID="ReturnVisitor.visit_Return"></a>
+<h4>ReturnVisitor.visit_Return</h4>
+<b>visit_Return</b>(<i>node</i>)
+<p>
+        Public method to check each Return node to see if it returns anything
+        other than `None`.
+</p>
+<p>
+        If the node being visited returns anything other than `None`, its
+        parent context is added to the set of non-returning child nodes of
+        the parent node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Return)</dt>
+<dd>
+reference to the AST Return node
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

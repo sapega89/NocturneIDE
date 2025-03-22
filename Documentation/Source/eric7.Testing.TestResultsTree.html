@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Testing.TestResultsTree</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Testing.TestResultsTree</h1>
+<p>
+Module implementing a tree view and associated model to show the test result
+data.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>TopLevelId</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TestResultsFilterModel">TestResultsFilterModel</a></td>
+<td>Class implementing a filter model to filter the test results by status.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel">TestResultsModel</a></td>
+<td>Class implementing the item model containing the test data.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView">TestResultsTreeView</a></td>
+<td>Class implementing a tree view to show the test result data.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TestResultsFilterModel" ID="TestResultsFilterModel"></a>
+<h2>TestResultsFilterModel</h2>
+<p>
+    Class implementing a filter model to filter the test results by status.
+</p>
+
+<h3>Derived from</h3>
+QSortFilterProxyModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TestResultsFilterModel.__init__">TestResultsFilterModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TestResultsFilterModel.filterAcceptsRow">filterAcceptsRow</a></td>
+<td>Public method to determine, if the row is acceptable.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsFilterModel.setStatusFilterString">setStatusFilterString</a></td>
+<td>Public method to set the status filter string.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TestResultsFilterModel.__init__" ID="TestResultsFilterModel.__init__"></a>
+<h4>TestResultsFilterModel (Constructor)</h4>
+<b>TestResultsFilterModel</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="TestResultsFilterModel.filterAcceptsRow" ID="TestResultsFilterModel.filterAcceptsRow"></a>
+<h4>TestResultsFilterModel.filterAcceptsRow</h4>
+<b>filterAcceptsRow</b>(<i>sourceRow, sourceParent</i>)
+<p>
+        Public method to determine, if the row is acceptable.
+</p>
+
+<dl>
+
+<dt><i>sourceRow</i> (int)</dt>
+<dd>
+row number in the source model
+</dd>
+<dt><i>sourceParent</i> (QModelIndex)</dt>
+<dd>
+index of the source item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating acceptance
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TestResultsFilterModel.setStatusFilterString" ID="TestResultsFilterModel.setStatusFilterString"></a>
+<h4>TestResultsFilterModel.setStatusFilterString</h4>
+<b>setStatusFilterString</b>(<i>filterString</i>)
+<p>
+        Public method to set the status filter string.
+</p>
+
+<dl>
+
+<dt><i>filterString</i> (str)</dt>
+<dd>
+status filter string
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TestResultsModel" ID="TestResultsModel"></a>
+<h2>TestResultsModel</h2>
+<p>
+    Class implementing the item model containing the test data.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>summary(str)</dt>
+<dd>
+emitted whenever the model data changes. The element
+        is a summary of the test results of the model.
+</dd>
+</dl>
+<h3>Derived from</h3>
+QAbstractItemModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DurationColumn</td></tr>
+<tr><td>Headers</td></tr>
+<tr><td>MessageColumn</td></tr>
+<tr><td>NameColumn</td></tr>
+<tr><td>StatusColumn</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TestResultsModel.__init__">TestResultsModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.__summary">__summary</a></td>
+<td>Private method to generate a test results summary text.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.addTestResults">addTestResults</a></td>
+<td>Public method to add test results to the ones already managed by the model.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.clear">clear</a></td>
+<td>Public method to clear the model data.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.columnCount">columnCount</a></td>
+<td>Public method to get the number of columns.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.data">data</a></td>
+<td>Public method to get the data for the various columns and roles.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.durationKey">durationKey</a></td>
+<td>Function to generate a key for duration sorting</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.getFailedTests">getFailedTests</a></td>
+<td>Public method to extract the test ids of all failed tests.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.getStatusFilterList">getStatusFilterList</a></td>
+<td>Public method to get a list of the unique test result status.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.getTestResults">getTestResults</a></td>
+<td>Public method to get the list of test results managed by the model.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.headerData">headerData</a></td>
+<td>Public method to get the header string for the various sections.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.index">index</a></td>
+<td>Public method to generate an index for the given row and column to identify the item.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.parent">parent</a></td>
+<td>Public method to get the parent of the item pointed to by index.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.rowCount">rowCount</a></td>
+<td>Public method to get the number of row for a given parent index.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.setTestResults">setTestResults</a></td>
+<td>Public method to set the list of test results of the model.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.sort">sort</a></td>
+<td>Public method to sort the model data by column in order.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsModel.updateTestResults">updateTestResults</a></td>
+<td>Public method to update the data of managed test result items.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TestResultsModel.__init__" ID="TestResultsModel.__init__"></a>
+<h4>TestResultsModel (Constructor)</h4>
+<b>TestResultsModel</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="TestResultsModel.__summary" ID="TestResultsModel.__summary"></a>
+<h4>TestResultsModel.__summary</h4>
+<b>__summary</b>(<i></i>)
+<p>
+        Private method to generate a test results summary text.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+test results summary text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TestResultsModel.addTestResults" ID="TestResultsModel.addTestResults"></a>
+<h4>TestResultsModel.addTestResults</h4>
+<b>addTestResults</b>(<i>testResults</i>)
+<p>
+        Public method to add test results to the ones already managed by the
+        model.
+</p>
+
+<dl>
+
+<dt><i>testResults</i> (list of TestResult)</dt>
+<dd>
+test results to be added to the model
+</dd>
+</dl>
+<a NAME="TestResultsModel.clear" ID="TestResultsModel.clear"></a>
+<h4>TestResultsModel.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to clear the model data.
+</p>
+
+<a NAME="TestResultsModel.columnCount" ID="TestResultsModel.columnCount"></a>
+<h4>TestResultsModel.columnCount</h4>
+<b>columnCount</b>(<i>parent=None</i>)
+<p>
+        Public method to get the number of columns.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex (optional))</dt>
+<dd>
+index of the parent item (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of columns
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="TestResultsModel.data" ID="TestResultsModel.data"></a>
+<h4>TestResultsModel.data</h4>
+<b>data</b>(<i>index, role</i>)
+<p>
+        Public method to get the data for the various columns and roles.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the data to be returned
+</dd>
+<dt><i>role</i> (Qt.ItemDataRole)</dt>
+<dd>
+role designating the data to return
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested data item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="TestResultsModel.durationKey" ID="TestResultsModel.durationKey"></a>
+<h4>TestResultsModel.durationKey</h4>
+<b>durationKey</b>(<i></i>)
+<p>
+            Function to generate a key for duration sorting
+</p>
+
+<dl>
+
+<dt><i>result</i> (TestResult)</dt>
+<dd>
+result object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sort key
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+float
+</dd>
+</dl>
+<a NAME="TestResultsModel.getFailedTests" ID="TestResultsModel.getFailedTests"></a>
+<h4>TestResultsModel.getFailedTests</h4>
+<b>getFailedTests</b>(<i></i>)
+<p>
+        Public method to extract the test ids of all failed tests.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+test ids of all failed tests
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="TestResultsModel.getStatusFilterList" ID="TestResultsModel.getStatusFilterList"></a>
+<h4>TestResultsModel.getStatusFilterList</h4>
+<b>getStatusFilterList</b>(<i></i>)
+<p>
+        Public method to get a list of the unique test result status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+test result status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+set of str
+</dd>
+</dl>
+<a NAME="TestResultsModel.getTestResults" ID="TestResultsModel.getTestResults"></a>
+<h4>TestResultsModel.getTestResults</h4>
+<b>getTestResults</b>(<i></i>)
+<p>
+        Public method to get the list of test results managed by the model.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of test results managed by the model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of TestResult
+</dd>
+</dl>
+<a NAME="TestResultsModel.headerData" ID="TestResultsModel.headerData"></a>
+<h4>TestResultsModel.headerData</h4>
+<b>headerData</b>(<i>section, orientation, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method to get the header string for the various sections.
+</p>
+
+<dl>
+
+<dt><i>section</i> (int)</dt>
+<dd>
+section number
+</dd>
+<dt><i>orientation</i> (Qt.Orientation)</dt>
+<dd>
+orientation of the header
+</dd>
+<dt><i>role</i> (Qt.ItemDataRole (optional))</dt>
+<dd>
+data role (defaults to Qt.ItemDataRole.DisplayRole)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+header string of the section
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TestResultsModel.index" ID="TestResultsModel.index"></a>
+<h4>TestResultsModel.index</h4>
+<b>index</b>(<i>row, column, parent=None</i>)
+<p>
+        Public method to generate an index for the given row and column to
+        identify the item.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row for the index
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column for the index
+</dd>
+<dt><i>parent</i> (QModelIndex (optional))</dt>
+<dd>
+index of the parent item (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index for the item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="TestResultsModel.parent" ID="TestResultsModel.parent"></a>
+<h4>TestResultsModel.parent</h4>
+<b>parent</b>(<i>index</i>)
+<p>
+        Public method to get the parent of the item pointed to by index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the parent item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="TestResultsModel.rowCount" ID="TestResultsModel.rowCount"></a>
+<h4>TestResultsModel.rowCount</h4>
+<b>rowCount</b>(<i>parent=None</i>)
+<p>
+        Public method to get the number of row for a given parent index.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex (optional))</dt>
+<dd>
+index of the parent item (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of rows
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="TestResultsModel.setTestResults" ID="TestResultsModel.setTestResults"></a>
+<h4>TestResultsModel.setTestResults</h4>
+<b>setTestResults</b>(<i>testResults</i>)
+<p>
+        Public method to set the list of test results of the model.
+</p>
+
+<dl>
+
+<dt><i>testResults</i> (list of TestResult)</dt>
+<dd>
+test results to be managed by the model
+</dd>
+</dl>
+<a NAME="TestResultsModel.sort" ID="TestResultsModel.sort"></a>
+<h4>TestResultsModel.sort</h4>
+<b>sort</b>(<i>column, order</i>)
+<p>
+        Public method to sort the model data by column in order.
+</p>
+
+<dl>
+
+<dt><i>column</i> (int)</dt>
+<dd>
+sort column number
+</dd>
+<dt><i>order</i> (Qt.SortOrder)</dt>
+<dd>
+sort order
+</dd>
+</dl>
+<a NAME="TestResultsModel.updateTestResults" ID="TestResultsModel.updateTestResults"></a>
+<h4>TestResultsModel.updateTestResults</h4>
+<b>updateTestResults</b>(<i>testResults</i>)
+<p>
+        Public method to update the data of managed test result items.
+</p>
+
+<dl>
+
+<dt><i>testResults</i> (list of TestResult)</dt>
+<dd>
+test results to be updated
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TestResultsTreeView" ID="TestResultsTreeView"></a>
+<h2>TestResultsTreeView</h2>
+<p>
+    Class implementing a tree view to show the test result data.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>goto(str, int)</dt>
+<dd>
+emitted to go to the position given by file name
+        and line number
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTreeView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TestResultsTreeView.__init__">TestResultsTreeView</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.__canonicalIndex">__canonicalIndex</a></td>
+<td>Private method to create the canonical index for a given index.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.__createBackgroundContextMenu">__createBackgroundContextMenu</a></td>
+<td>Private method to create a context menu for the background.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.__createContextMenu">__createContextMenu</a></td>
+<td>Private method to create a context menu for the item pointed to by the given index.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.__gotoTestDefinition">__gotoTestDefinition</a></td>
+<td>Private slot to show the test definition.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.dataChanged">dataChanged</a></td>
+<td>Public method called when the model data has changed.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.reset">reset</a></td>
+<td>Public method to reset the internal state of the view.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.resizeColumns">resizeColumns</a></td>
+<td>Public method to resize the columns to their contents.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.rowsInserted">rowsInserted</a></td>
+<td>Public method called when rows are inserted.</td>
+</tr>
+<tr>
+<td><a href="#TestResultsTreeView.spanFirstColumn">spanFirstColumn</a></td>
+<td>Public method to make the first column span the row for second level items.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TestResultsTreeView.__init__" ID="TestResultsTreeView.__init__"></a>
+<h4>TestResultsTreeView (Constructor)</h4>
+<b>TestResultsTreeView</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="TestResultsTreeView.__canonicalIndex" ID="TestResultsTreeView.__canonicalIndex"></a>
+<h4>TestResultsTreeView.__canonicalIndex</h4>
+<b>__canonicalIndex</b>(<i>index</i>)
+<p>
+        Private method to create the canonical index for a given index.
+</p>
+<p>
+        The canonical index is the index of the first column of the test
+        result entry (i.e. the top-level item). If the index is invalid,
+        None is returned.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index to determine the canonical index for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of the firt column of the associated top-level item index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="TestResultsTreeView.__createBackgroundContextMenu" ID="TestResultsTreeView.__createBackgroundContextMenu"></a>
+<h4>TestResultsTreeView.__createBackgroundContextMenu</h4>
+<b>__createBackgroundContextMenu</b>(<i></i>)
+<p>
+        Private method to create a context menu for the background.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+created context menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="TestResultsTreeView.__createContextMenu" ID="TestResultsTreeView.__createContextMenu"></a>
+<h4>TestResultsTreeView.__createContextMenu</h4>
+<b>__createContextMenu</b>(<i>index</i>)
+<p>
+        Private method to create a context menu for the item pointed to by the
+        given index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+created context menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="TestResultsTreeView.__gotoTestDefinition" ID="TestResultsTreeView.__gotoTestDefinition"></a>
+<h4>TestResultsTreeView.__gotoTestDefinition</h4>
+<b>__gotoTestDefinition</b>(<i>index</i>)
+<p>
+        Private slot to show the test definition.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index for the double-clicked item
+</dd>
+</dl>
+<a NAME="TestResultsTreeView.__showContextMenu" ID="TestResultsTreeView.__showContextMenu"></a>
+<h4>TestResultsTreeView.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+relative position for the context menu
+</dd>
+</dl>
+<a NAME="TestResultsTreeView.dataChanged" ID="TestResultsTreeView.dataChanged"></a>
+<h4>TestResultsTreeView.dataChanged</h4>
+<b>dataChanged</b>(<i>topLeft, bottomRight, roles=None</i>)
+<p>
+        Public method called when the model data has changed.
+</p>
+
+<dl>
+
+<dt><i>topLeft</i> (QModelIndex)</dt>
+<dd>
+index of the top left element
+</dd>
+<dt><i>bottomRight</i> (QModelIndex)</dt>
+<dd>
+index of the bottom right element
+</dd>
+<dt><i>roles</i> (list of Qt.ItemDataRole (optional))</dt>
+<dd>
+list of roles changed (defaults to None)
+</dd>
+</dl>
+<a NAME="TestResultsTreeView.reset" ID="TestResultsTreeView.reset"></a>
+<h4>TestResultsTreeView.reset</h4>
+<b>reset</b>(<i></i>)
+<p>
+        Public method to reset the internal state of the view.
+</p>
+
+<a NAME="TestResultsTreeView.resizeColumns" ID="TestResultsTreeView.resizeColumns"></a>
+<h4>TestResultsTreeView.resizeColumns</h4>
+<b>resizeColumns</b>(<i></i>)
+<p>
+        Public method to resize the columns to their contents.
+</p>
+
+<a NAME="TestResultsTreeView.rowsInserted" ID="TestResultsTreeView.rowsInserted"></a>
+<h4>TestResultsTreeView.rowsInserted</h4>
+<b>rowsInserted</b>(<i>parent, startRow, endRow</i>)
+<p>
+        Public method called when rows are inserted.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+model index of the parent item
+</dd>
+<dt><i>startRow</i> (int)</dt>
+<dd>
+first row been inserted
+</dd>
+<dt><i>endRow</i> (int)</dt>
+<dd>
+last row been inserted
+</dd>
+</dl>
+<a NAME="TestResultsTreeView.spanFirstColumn" ID="TestResultsTreeView.spanFirstColumn"></a>
+<h4>TestResultsTreeView.spanFirstColumn</h4>
+<b>spanFirstColumn</b>(<i>startRow, endRow</i>)
+<p>
+        Public method to make the first column span the row for second level
+        items.
+</p>
+<p>
+        These items contain the test results.
+</p>
+
+<dl>
+
+<dt><i>startRow</i> (QModelIndex)</dt>
+<dd>
+index of the first row to span
+</dd>
+<dt><i>endRow</i> (QModelIndex)</dt>
+<dd>
+index of the last row (including) to span
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

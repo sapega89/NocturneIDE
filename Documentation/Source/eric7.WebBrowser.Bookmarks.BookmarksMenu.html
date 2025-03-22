@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Bookmarks.BookmarksMenu</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Bookmarks.BookmarksMenu</h1>
+<p>
+Module implementing the bookmarks menu.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BookmarksMenu">BookmarksMenu</a></td>
+<td>Class implementing the bookmarks menu base class.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenuBarMenu">BookmarksMenuBarMenu</a></td>
+<td>Class implementing a dynamically populated menu for bookmarks.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BookmarksMenu" ID="BookmarksMenu"></a>
+<h2>BookmarksMenu</h2>
+<p>
+    Class implementing the bookmarks menu base class.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>newTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL with the given title in a
+        new tab
+</dd>
+<dt>newWindow(QUrl, str)</dt>
+<dd>
+emitted to open a URL with the given title in
+        a new window
+</dd>
+<dt>openUrl(QUrl, str)</dt>
+<dd>
+emitted to open a URL with the given title in
+        the current tab
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricModelMenu
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BookmarksMenu.__init__">BookmarksMenu</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.__activated">__activated</a></td>
+<td>Private slot handling the activated signal.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.__contextMenuRequested">__contextMenuRequested</a></td>
+<td>Private slot to handle the context menu request.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.__edit">__edit</a></td>
+<td>Private slot to edit a bookmarks properties.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.__openBookmark">__openBookmark</a></td>
+<td>Private slot to open a bookmark in the current browser tab.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.__openBookmarkInNewTab">__openBookmarkInNewTab</a></td>
+<td>Private slot to open a bookmark in a new browser tab.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.__openBookmarkInNewWindow">__openBookmarkInNewWindow</a></td>
+<td>Private slot to open a bookmark in a new window.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.__openBookmarkInPrivateWindow">__openBookmarkInPrivateWindow</a></td>
+<td>Private slot to open a bookmark in a new private window.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.__removeBookmark">__removeBookmark</a></td>
+<td>Private slot to remove a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.__updateVisitCount">__updateVisitCount</a></td>
+<td>Private method to update the visit count of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.createBaseMenu">createBaseMenu</a></td>
+<td>Public method to get the menu that is used to populate sub menu's.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.openAll">openAll</a></td>
+<td>Public slot to open all the menu's items.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenu.postPopulated">postPopulated</a></td>
+<td>Public method to add any actions after the tree.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BookmarksMenu.__init__" ID="BookmarksMenu.__init__"></a>
+<h4>BookmarksMenu (Constructor)</h4>
+<b>BookmarksMenu</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="BookmarksMenu.__activated" ID="BookmarksMenu.__activated"></a>
+<h4>BookmarksMenu.__activated</h4>
+<b>__activated</b>(<i>idx</i>)
+<p>
+        Private slot handling the activated signal.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+index of the activated item
+</dd>
+</dl>
+<a NAME="BookmarksMenu.__contextMenuRequested" ID="BookmarksMenu.__contextMenuRequested"></a>
+<h4>BookmarksMenu.__contextMenuRequested</h4>
+<b>__contextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to handle the context menu request.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the context menu shall be shown
+</dd>
+</dl>
+<a NAME="BookmarksMenu.__edit" ID="BookmarksMenu.__edit"></a>
+<h4>BookmarksMenu.__edit</h4>
+<b>__edit</b>(<i>act</i>)
+<p>
+        Private slot to edit a bookmarks properties.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksMenu.__openBookmark" ID="BookmarksMenu.__openBookmark"></a>
+<h4>BookmarksMenu.__openBookmark</h4>
+<b>__openBookmark</b>(<i>act</i>)
+<p>
+        Private slot to open a bookmark in the current browser tab.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksMenu.__openBookmarkInNewTab" ID="BookmarksMenu.__openBookmarkInNewTab"></a>
+<h4>BookmarksMenu.__openBookmarkInNewTab</h4>
+<b>__openBookmarkInNewTab</b>(<i>act</i>)
+<p>
+        Private slot to open a bookmark in a new browser tab.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksMenu.__openBookmarkInNewWindow" ID="BookmarksMenu.__openBookmarkInNewWindow"></a>
+<h4>BookmarksMenu.__openBookmarkInNewWindow</h4>
+<b>__openBookmarkInNewWindow</b>(<i>act</i>)
+<p>
+        Private slot to open a bookmark in a new window.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksMenu.__openBookmarkInPrivateWindow" ID="BookmarksMenu.__openBookmarkInPrivateWindow"></a>
+<h4>BookmarksMenu.__openBookmarkInPrivateWindow</h4>
+<b>__openBookmarkInPrivateWindow</b>(<i>act</i>)
+<p>
+        Private slot to open a bookmark in a new private window.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksMenu.__removeBookmark" ID="BookmarksMenu.__removeBookmark"></a>
+<h4>BookmarksMenu.__removeBookmark</h4>
+<b>__removeBookmark</b>(<i>act</i>)
+<p>
+        Private slot to remove a bookmark.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the triggering action
+</dd>
+</dl>
+<a NAME="BookmarksMenu.__updateVisitCount" ID="BookmarksMenu.__updateVisitCount"></a>
+<h4>BookmarksMenu.__updateVisitCount</h4>
+<b>__updateVisitCount</b>(<i>idx</i>)
+<p>
+        Private method to update the visit count of a bookmark.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+index of the bookmark item
+</dd>
+</dl>
+<a NAME="BookmarksMenu.createBaseMenu" ID="BookmarksMenu.createBaseMenu"></a>
+<h4>BookmarksMenu.createBaseMenu</h4>
+<b>createBaseMenu</b>(<i></i>)
+<p>
+        Public method to get the menu that is used to populate sub menu's.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BookmarksMenu
+</dd>
+</dl>
+<a NAME="BookmarksMenu.openAll" ID="BookmarksMenu.openAll"></a>
+<h4>BookmarksMenu.openAll</h4>
+<b>openAll</b>(<i>act</i>)
+<p>
+        Public slot to open all the menu's items.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action object
+</dd>
+</dl>
+<a NAME="BookmarksMenu.postPopulated" ID="BookmarksMenu.postPopulated"></a>
+<h4>BookmarksMenu.postPopulated</h4>
+<b>postPopulated</b>(<i></i>)
+<p>
+        Public method to add any actions after the tree.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="BookmarksMenuBarMenu" ID="BookmarksMenuBarMenu"></a>
+<h2>BookmarksMenuBarMenu</h2>
+<p>
+    Class implementing a dynamically populated menu for bookmarks.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>openUrl(QUrl, str)</dt>
+<dd>
+emitted to open a URL with the given title in
+        the current tab
+</dd>
+</dl>
+<h3>Derived from</h3>
+BookmarksMenu
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BookmarksMenuBarMenu.__init__">BookmarksMenuBarMenu</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenuBarMenu.__defaultBookmarkTriggered">__defaultBookmarkTriggered</a></td>
+<td>Private slot handling the default bookmark menu entries.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenuBarMenu.postPopulated">postPopulated</a></td>
+<td>Public method to add any actions after the tree.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenuBarMenu.prePopulated">prePopulated</a></td>
+<td>Public method to add any actions before the tree.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksMenuBarMenu.setInitialActions">setInitialActions</a></td>
+<td>Public method to set the list of actions that should appear first in the menu.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BookmarksMenuBarMenu.__init__" ID="BookmarksMenuBarMenu.__init__"></a>
+<h4>BookmarksMenuBarMenu (Constructor)</h4>
+<b>BookmarksMenuBarMenu</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="BookmarksMenuBarMenu.__defaultBookmarkTriggered" ID="BookmarksMenuBarMenu.__defaultBookmarkTriggered"></a>
+<h4>BookmarksMenuBarMenu.__defaultBookmarkTriggered</h4>
+<b>__defaultBookmarkTriggered</b>(<i>act</i>)
+<p>
+        Private slot handling the default bookmark menu entries.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action object
+</dd>
+</dl>
+<a NAME="BookmarksMenuBarMenu.postPopulated" ID="BookmarksMenuBarMenu.postPopulated"></a>
+<h4>BookmarksMenuBarMenu.postPopulated</h4>
+<b>postPopulated</b>(<i></i>)
+<p>
+        Public method to add any actions after the tree.
+</p>
+
+<a NAME="BookmarksMenuBarMenu.prePopulated" ID="BookmarksMenuBarMenu.prePopulated"></a>
+<h4>BookmarksMenuBarMenu.prePopulated</h4>
+<b>prePopulated</b>(<i></i>)
+<p>
+        Public method to add any actions before the tree.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if any actions were added
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BookmarksMenuBarMenu.setInitialActions" ID="BookmarksMenuBarMenu.setInitialActions"></a>
+<h4>BookmarksMenuBarMenu.setInitialActions</h4>
+<b>setInitialActions</b>(<i>actions</i>)
+<p>
+        Public method to set the list of actions that should appear first in
+        the menu.
+</p>
+
+<dl>
+
+<dt><i>actions</i> (list of QAction)</dt>
+<dd>
+list of initial actions
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

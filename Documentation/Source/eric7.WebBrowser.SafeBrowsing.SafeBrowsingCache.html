@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.SafeBrowsing.SafeBrowsingCache</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.SafeBrowsing.SafeBrowsingCache</h1>
+<p>
+Module implementing a cache for Google Safe Browsing.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingCache">SafeBrowsingCache</a></td>
+<td>Class implementing a cache for Google Safe Browsing.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SafeBrowsingCache" ID="SafeBrowsingCache"></a>
+<h2>SafeBrowsingCache</h2>
+<p>
+    Class implementing a cache for Google Safe Browsing.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>create_full_hash_cue_idx</td></tr>
+<tr><td>create_full_hash_expires_idx</td></tr>
+<tr><td>create_full_hash_value_idx</td></tr>
+<tr><td>create_full_hashes_stmt</td></tr>
+<tr><td>create_hash_prefix_stmt</td></tr>
+<tr><td>create_threat_list_stmt</td></tr>
+<tr><td>drop_full_hash_cue_idx</td></tr>
+<tr><td>drop_full_hash_expires_idx</td></tr>
+<tr><td>drop_full_hash_value_idx</td></tr>
+<tr><td>drop_full_hashes_stmt</td></tr>
+<tr><td>drop_hash_prefix_stmt</td></tr>
+<tr><td>drop_threat_list_stmt</td></tr>
+<tr><td>maxProcessEventsTime</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SafeBrowsingCache.__init__">SafeBrowsingCache</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.__openCacheDb">__openCacheDb</a></td>
+<td>Private method to open the cache database.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.addThreatList">addThreatList</a></td>
+<td>Public method to add a threat list to the cache.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.cleanupFullHashes">cleanupFullHashes</a></td>
+<td>Public method to clean up full hash entries expired more than the given time.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.close">close</a></td>
+<td>Public method to close the database.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.deleteHashPrefixList">deleteHashPrefixList</a></td>
+<td>Public method to delete hash prefixes for a given threat list.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.deleteThreatList">deleteThreatList</a></td>
+<td>Public method to delete a threat list from the cache.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.getHashPrefixValuesToRemove">getHashPrefixValuesToRemove</a></td>
+<td>Public method to get the hash prefix values to be removed from the cache.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.getThreatLists">getThreatLists</a></td>
+<td>Public method to get the available threat lists.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.hashPrefixListChecksum">hashPrefixListChecksum</a></td>
+<td>Public method to calculate the SHA256 checksum for an alphabetically sorted concatenated list of hash prefixes.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.lookupFullHashes">lookupFullHashes</a></td>
+<td>Public method to get a list of threat lists and expiration flag for the given hashes if a hash is on the block list.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.lookupHashPrefix">lookupHashPrefix</a></td>
+<td>Public method to look up hash prefixes in the local cache.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.populateHashPrefixList">populateHashPrefixList</a></td>
+<td>Public method to populate the hash prefixes for a threat list.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.prepareCacheDb">prepareCacheDb</a></td>
+<td>Public method to prepare the cache database.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.removeHashPrefixIndices">removeHashPrefixIndices</a></td>
+<td>Public method to remove hash prefixes from the cache.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.storeFullHash">storeFullHash</a></td>
+<td>Public method to store full hash data in the cache database.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.updateHashPrefixExpiration">updateHashPrefixExpiration</a></td>
+<td>Public method to update the hash prefix expiration time.</td>
+</tr>
+<tr>
+<td><a href="#SafeBrowsingCache.updateThreatListClientState">updateThreatListClientState</a></td>
+<td>Public method to update the client state of a threat list.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SafeBrowsingCache.__init__" ID="SafeBrowsingCache.__init__"></a>
+<h4>SafeBrowsingCache (Constructor)</h4>
+<b>SafeBrowsingCache</b>(<i>dbPath, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>dbPath</i> (str)</dt>
+<dd>
+path to store the cache DB into
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.__openCacheDb" ID="SafeBrowsingCache.__openCacheDb"></a>
+<h4>SafeBrowsingCache.__openCacheDb</h4>
+<b>__openCacheDb</b>(<i></i>)
+<p>
+        Private method to open the cache database.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the open state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.addThreatList" ID="SafeBrowsingCache.addThreatList"></a>
+<h4>SafeBrowsingCache.addThreatList</h4>
+<b>addThreatList</b>(<i>threatList</i>)
+<p>
+        Public method to add a threat list to the cache.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list to be added
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.cleanupFullHashes" ID="SafeBrowsingCache.cleanupFullHashes"></a>
+<h4>SafeBrowsingCache.cleanupFullHashes</h4>
+<b>cleanupFullHashes</b>(<i>keepExpiredFor=43200</i>)
+<p>
+        Public method to clean up full hash entries expired more than the
+        given time.
+</p>
+
+<dl>
+
+<dt><i>keepExpiredFor</i> (int or float)</dt>
+<dd>
+time period in seconds of entries to be expired
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.close" ID="SafeBrowsingCache.close"></a>
+<h4>SafeBrowsingCache.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public method to close the database.
+</p>
+
+<a NAME="SafeBrowsingCache.deleteHashPrefixList" ID="SafeBrowsingCache.deleteHashPrefixList"></a>
+<h4>SafeBrowsingCache.deleteHashPrefixList</h4>
+<b>deleteHashPrefixList</b>(<i>threatList</i>)
+<p>
+        Public method to delete hash prefixes for a given threat list.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list info object
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.deleteThreatList" ID="SafeBrowsingCache.deleteThreatList"></a>
+<h4>SafeBrowsingCache.deleteThreatList</h4>
+<b>deleteThreatList</b>(<i>threatList</i>)
+<p>
+        Public method to delete a threat list from the cache.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list to be deleted
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.getHashPrefixValuesToRemove" ID="SafeBrowsingCache.getHashPrefixValuesToRemove"></a>
+<h4>SafeBrowsingCache.getHashPrefixValuesToRemove</h4>
+<b>getHashPrefixValuesToRemove</b>(<i>threatList, indexes</i>)
+<p>
+        Public method to get the hash prefix values to be removed from the
+        cache.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list to remove prefixes from
+</dd>
+<dt><i>indexes</i> (list of int)</dt>
+<dd>
+list of indexes of prefixes to be removed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of hash prefixes to be removed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of bytes
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.getThreatLists" ID="SafeBrowsingCache.getThreatLists"></a>
+<h4>SafeBrowsingCache.getThreatLists</h4>
+<b>getThreatLists</b>(<i></i>)
+<p>
+        Public method to get the available threat lists.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of available threat lists
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (ThreatList, str)
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.hashPrefixListChecksum" ID="SafeBrowsingCache.hashPrefixListChecksum"></a>
+<h4>SafeBrowsingCache.hashPrefixListChecksum</h4>
+<b>hashPrefixListChecksum</b>(<i>threatList</i>)
+<p>
+        Public method to calculate the SHA256 checksum for an alphabetically
+        sorted concatenated list of hash prefixes.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list to calculate checksum for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+SHA256 checksum
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.lookupFullHashes" ID="SafeBrowsingCache.lookupFullHashes"></a>
+<h4>SafeBrowsingCache.lookupFullHashes</h4>
+<b>lookupFullHashes</b>(<i>hashValues</i>)
+<p>
+        Public method to get a list of threat lists and expiration flag
+        for the given hashes if a hash is on the block list.
+</p>
+
+<dl>
+
+<dt><i>hashValues</i> (list of bytes)</dt>
+<dd>
+list of hash values to look up
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the threat list info and the
+            expiration flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (ThreatList, bool)
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.lookupHashPrefix" ID="SafeBrowsingCache.lookupHashPrefix"></a>
+<h4>SafeBrowsingCache.lookupHashPrefix</h4>
+<b>lookupHashPrefix</b>(<i>prefixes</i>)
+<p>
+        Public method to look up hash prefixes in the local cache.
+</p>
+
+<dl>
+
+<dt><i>prefixes</i> (list of bytes)</dt>
+<dd>
+list of hash prefixes to look up
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the threat list, full hash and
+            negative cache expiration flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (ThreatList, bytes, bool)
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.populateHashPrefixList" ID="SafeBrowsingCache.populateHashPrefixList"></a>
+<h4>SafeBrowsingCache.populateHashPrefixList</h4>
+<b>populateHashPrefixList</b>(<i>threatList, prefixes</i>)
+<p>
+        Public method to populate the hash prefixes for a threat list.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list of the hash prefixes
+</dd>
+<dt><i>prefixes</i> (HashPrefixList)</dt>
+<dd>
+list of hash prefixes to be inserted
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.prepareCacheDb" ID="SafeBrowsingCache.prepareCacheDb"></a>
+<h4>SafeBrowsingCache.prepareCacheDb</h4>
+<b>prepareCacheDb</b>(<i></i>)
+<p>
+        Public method to prepare the cache database.
+</p>
+
+<a NAME="SafeBrowsingCache.removeHashPrefixIndices" ID="SafeBrowsingCache.removeHashPrefixIndices"></a>
+<h4>SafeBrowsingCache.removeHashPrefixIndices</h4>
+<b>removeHashPrefixIndices</b>(<i>threatList, indexes</i>)
+<p>
+        Public method to remove hash prefixes from the cache.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list to delete hash prefixes of
+</dd>
+<dt><i>indexes</i> (list of int)</dt>
+<dd>
+list of indexes of prefixes to be removed
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.storeFullHash" ID="SafeBrowsingCache.storeFullHash"></a>
+<h4>SafeBrowsingCache.storeFullHash</h4>
+<b>storeFullHash</b>(<i>threatList, hashValue, cacheDuration, malwareThreatType</i>)
+<p>
+        Public method to store full hash data in the cache database.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list info object
+</dd>
+<dt><i>hashValue</i> (bytes)</dt>
+<dd>
+hash to be stored
+</dd>
+<dt><i>cacheDuration</i> (int or float)</dt>
+<dd>
+duration the data should remain in the cache
+</dd>
+<dt><i>malwareThreatType</i> (str)</dt>
+<dd>
+threat type of the malware
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.updateHashPrefixExpiration" ID="SafeBrowsingCache.updateHashPrefixExpiration"></a>
+<h4>SafeBrowsingCache.updateHashPrefixExpiration</h4>
+<b>updateHashPrefixExpiration</b>(<i>threatList, hashPrefix, negativeCacheDuration</i>)
+<p>
+        Public method to update the hash prefix expiration time.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list info object
+</dd>
+<dt><i>hashPrefix</i> (bytes)</dt>
+<dd>
+hash prefix
+</dd>
+<dt><i>negativeCacheDuration</i> (int or float)</dt>
+<dd>
+time in seconds the entry should remain
+            in the cache
+</dd>
+</dl>
+<a NAME="SafeBrowsingCache.updateThreatListClientState" ID="SafeBrowsingCache.updateThreatListClientState"></a>
+<h4>SafeBrowsingCache.updateThreatListClientState</h4>
+<b>updateThreatListClientState</b>(<i>threatList, clientState</i>)
+<p>
+        Public method to update the client state of a threat list.
+</p>
+
+<dl>
+
+<dt><i>threatList</i> (ThreatList)</dt>
+<dd>
+threat list to update the client state for
+</dd>
+<dt><i>clientState</i> (str)</dt>
+<dd>
+new client state
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

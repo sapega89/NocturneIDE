@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.History.HistoryFilterModel</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.History.HistoryFilterModel</h1>
+<p>
+Module implementing the history filter model.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HistoryData">HistoryData</a></td>
+<td>Class storing some history data.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel">HistoryFilterModel</a></td>
+<td>Class implementing the history filter model.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HistoryData" ID="HistoryData"></a>
+<h2>HistoryData</h2>
+<p>
+    Class storing some history data.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryData.__init__">HistoryData</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryData.__eq__">__eq__</a></td>
+<td>Special method implementing equality.</td>
+</tr>
+<tr>
+<td><a href="#HistoryData.__lt__">__lt__</a></td>
+<td>Special method determining less relation.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryData.__init__" ID="HistoryData.__init__"></a>
+<h4>HistoryData (Constructor)</h4>
+<b>HistoryData</b>(<i>offset, frequency=0</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>offset</i> (int)</dt>
+<dd>
+tail offset
+</dd>
+<dt><i>frequency</i> (int)</dt>
+<dd>
+frequency
+</dd>
+</dl>
+<a NAME="HistoryData.__eq__" ID="HistoryData.__eq__"></a>
+<h4>HistoryData.__eq__</h4>
+<b>__eq__</b>(<i>other</i>)
+<p>
+        Special method implementing equality.
+</p>
+
+<dl>
+
+<dt><i>other</i> (HistoryData)</dt>
+<dd>
+reference to the object to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating equality
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryData.__lt__" ID="HistoryData.__lt__"></a>
+<h4>HistoryData.__lt__</h4>
+<b>__lt__</b>(<i>other</i>)
+<p>
+        Special method determining less relation.
+</p>
+<p>
+        Note: Like the actual history entries the index mapping is sorted in
+        reverse order by offset
+</p>
+
+<dl>
+
+<dt><i>other</i> (HistoryEntry)</dt>
+<dd>
+reference to the history data object to compare against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating less
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HistoryFilterModel" ID="HistoryFilterModel"></a>
+<h2>HistoryFilterModel</h2>
+<p>
+    Class implementing the history filter model.
+</p>
+
+<h3>Derived from</h3>
+QAbstractProxyModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>FrequencyRole</td></tr>
+<tr><td>MaxRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryFilterModel.__init__">HistoryFilterModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.__frequencyScore">__frequencyScore</a></td>
+<td>Private method to calculate the frequency score.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.__load">__load</a></td>
+<td>Private method to load the model data.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.__sourceDataChanged">__sourceDataChanged</a></td>
+<td>Private slot to handle the change of data of the source model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.__sourceReset">__sourceReset</a></td>
+<td>Private slot to handle a reset of the source model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.__sourceRowsInserted">__sourceRowsInserted</a></td>
+<td>Private slot to handle the insertion of data in the source model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.__sourceRowsRemoved">__sourceRowsRemoved</a></td>
+<td>Private slot to handle the removal of data in the source model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.columnCount">columnCount</a></td>
+<td>Public method to get the number of columns.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.data">data</a></td>
+<td>Public method to get data from the model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.headerData">headerData</a></td>
+<td>Public method to get the header data.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.historyContains">historyContains</a></td>
+<td>Public method to check the history for an entry.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.historyLocation">historyLocation</a></td>
+<td>Public method to get the row number of an entry in the source model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.index">index</a></td>
+<td>Public method to create an index.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.mapFromSource">mapFromSource</a></td>
+<td>Public method to map an index to the proxy model index.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.mapToSource">mapToSource</a></td>
+<td>Public method to map an index to the source model index.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.parent">parent</a></td>
+<td>Public method to get the parent index.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.recalculateFrequencies">recalculateFrequencies</a></td>
+<td>Public method to recalculate the frequencies.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.removeRows">removeRows</a></td>
+<td>Public method to remove entries from the model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.rowCount">rowCount</a></td>
+<td>Public method to determine the number of rows.</td>
+</tr>
+<tr>
+<td><a href="#HistoryFilterModel.setSourceModel">setSourceModel</a></td>
+<td>Public method to set the source model.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryFilterModel.__init__" ID="HistoryFilterModel.__init__"></a>
+<h4>HistoryFilterModel (Constructor)</h4>
+<b>HistoryFilterModel</b>(<i>sourceModel, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>sourceModel</i> (QAbstractItemModel)</dt>
+<dd>
+reference to the source model
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.__frequencyScore" ID="HistoryFilterModel.__frequencyScore"></a>
+<h4>HistoryFilterModel.__frequencyScore</h4>
+<b>__frequencyScore</b>(<i>sourceIndex</i>)
+<p>
+        Private method to calculate the frequency score.
+</p>
+
+<dl>
+
+<dt><i>sourceIndex</i> (QModelIndex)</dt>
+<dd>
+index of the source model
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+frequency score
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.__load" ID="HistoryFilterModel.__load"></a>
+<h4>HistoryFilterModel.__load</h4>
+<b>__load</b>(<i></i>)
+<p>
+        Private method to load the model data.
+</p>
+
+<a NAME="HistoryFilterModel.__sourceDataChanged" ID="HistoryFilterModel.__sourceDataChanged"></a>
+<h4>HistoryFilterModel.__sourceDataChanged</h4>
+<b>__sourceDataChanged</b>(<i>topLeft, bottomRight</i>)
+<p>
+        Private slot to handle the change of data of the source model.
+</p>
+
+<dl>
+
+<dt><i>topLeft</i> (QModelIndex)</dt>
+<dd>
+index of top left data element
+</dd>
+<dt><i>bottomRight</i> (QModelIndex)</dt>
+<dd>
+index of bottom right data element
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.__sourceReset" ID="HistoryFilterModel.__sourceReset"></a>
+<h4>HistoryFilterModel.__sourceReset</h4>
+<b>__sourceReset</b>(<i></i>)
+<p>
+        Private slot to handle a reset of the source model.
+</p>
+
+<a NAME="HistoryFilterModel.__sourceRowsInserted" ID="HistoryFilterModel.__sourceRowsInserted"></a>
+<h4>HistoryFilterModel.__sourceRowsInserted</h4>
+<b>__sourceRowsInserted</b>(<i>parent, start, end</i>)
+<p>
+        Private slot to handle the insertion of data in the source model.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+reference to the parent index
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start row
+</dd>
+<dt><i>end</i> (int)</dt>
+<dd>
+end row
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.__sourceRowsRemoved" ID="HistoryFilterModel.__sourceRowsRemoved"></a>
+<h4>HistoryFilterModel.__sourceRowsRemoved</h4>
+<b>__sourceRowsRemoved</b>(<i>parent, start, end</i>)
+<p>
+        Private slot to handle the removal of data in the source model.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+reference to the parent index
+</dd>
+<dt><i>start</i> (int)</dt>
+<dd>
+start row
+</dd>
+<dt><i>end</i> (int)</dt>
+<dd>
+end row
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.columnCount" ID="HistoryFilterModel.columnCount"></a>
+<h4>HistoryFilterModel.columnCount</h4>
+<b>columnCount</b>(<i>parent=None</i>)
+<p>
+        Public method to get the number of columns.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of parent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of columns
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.data" ID="HistoryFilterModel.data"></a>
+<h4>HistoryFilterModel.data</h4>
+<b>data</b>(<i>index, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method to get data from the model.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of history entry to get data for
+</dd>
+<dt><i>role</i> (int)</dt>
+<dd>
+data role
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+history entry data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.headerData" ID="HistoryFilterModel.headerData"></a>
+<h4>HistoryFilterModel.headerData</h4>
+<b>headerData</b>(<i>section, orientation, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method to get the header data.
+</p>
+
+<dl>
+
+<dt><i>section</i> (int)</dt>
+<dd>
+section number
+</dd>
+<dt><i>orientation</i> (Qt.Orientation)</dt>
+<dd>
+header orientation
+</dd>
+<dt><i>role</i> (Qt.ItemDataRole)</dt>
+<dd>
+data role
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+header data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.historyContains" ID="HistoryFilterModel.historyContains"></a>
+<h4>HistoryFilterModel.historyContains</h4>
+<b>historyContains</b>(<i>url</i>)
+<p>
+        Public method to check the history for an entry.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.historyLocation" ID="HistoryFilterModel.historyLocation"></a>
+<h4>HistoryFilterModel.historyLocation</h4>
+<b>historyLocation</b>(<i>url</i>)
+<p>
+        Public method to get the row number of an entry in the source model.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+row number in the source model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.index" ID="HistoryFilterModel.index"></a>
+<h4>HistoryFilterModel.index</h4>
+<b>index</b>(<i>row, column, parent=None</i>)
+<p>
+        Public method to create an index.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row number for the index
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column number for the index
+</dd>
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.mapFromSource" ID="HistoryFilterModel.mapFromSource"></a>
+<h4>HistoryFilterModel.mapFromSource</h4>
+<b>mapFromSource</b>(<i>sourceIndex</i>)
+<p>
+        Public method to map an index to the proxy model index.
+</p>
+
+<dl>
+
+<dt><i>sourceIndex</i> (QModelIndex)</dt>
+<dd>
+reference to a source model index
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+proxy model index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.mapToSource" ID="HistoryFilterModel.mapToSource"></a>
+<h4>HistoryFilterModel.mapToSource</h4>
+<b>mapToSource</b>(<i>proxyIndex</i>)
+<p>
+        Public method to map an index to the source model index.
+</p>
+
+<dl>
+
+<dt><i>proxyIndex</i> (QModelIndex)</dt>
+<dd>
+reference to a proxy model index
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+source model index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.parent" ID="HistoryFilterModel.parent"></a>
+<h4>HistoryFilterModel.parent</h4>
+<b>parent</b>(<i>_index</i>)
+<p>
+        Public method to get the parent index.
+</p>
+
+<dl>
+
+<dt><i>_index</i> (QModelIndex)</dt>
+<dd>
+index of item to get parent (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of parent
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.recalculateFrequencies" ID="HistoryFilterModel.recalculateFrequencies"></a>
+<h4>HistoryFilterModel.recalculateFrequencies</h4>
+<b>recalculateFrequencies</b>(<i></i>)
+<p>
+        Public method to recalculate the frequencies.
+</p>
+
+<a NAME="HistoryFilterModel.removeRows" ID="HistoryFilterModel.removeRows"></a>
+<h4>HistoryFilterModel.removeRows</h4>
+<b>removeRows</b>(<i>row, count, parent=None</i>)
+<p>
+        Public method to remove entries from the model.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row of the first entry to remove
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+number of entries to remove
+</dd>
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent entry
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful removal
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.rowCount" ID="HistoryFilterModel.rowCount"></a>
+<h4>HistoryFilterModel.rowCount</h4>
+<b>rowCount</b>(<i>parent=None</i>)
+<p>
+        Public method to determine the number of rows.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of parent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of rows
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HistoryFilterModel.setSourceModel" ID="HistoryFilterModel.setSourceModel"></a>
+<h4>HistoryFilterModel.setSourceModel</h4>
+<b>setSourceModel</b>(<i>sourceModel</i>)
+<p>
+        Public method to set the source model.
+</p>
+
+<dl>
+
+<dt><i>sourceModel</i> (QAbstractItemModel)</dt>
+<dd>
+reference to the source model
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

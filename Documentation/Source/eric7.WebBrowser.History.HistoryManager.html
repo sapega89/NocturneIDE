@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.History.HistoryManager</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.History.HistoryManager</h1>
+<p>
+Module implementing the history manager.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>HISTORY_VERSIONS</td></tr>
+<tr><td>HISTORY_VERSION_42</td></tr>
+<tr><td>HISTORY_VERSION_60</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HistoryEntry">HistoryEntry</a></td>
+<td>Class implementing a history entry.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager">HistoryManager</a></td>
+<td>Class implementing the history manager.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HistoryEntry" ID="HistoryEntry"></a>
+<h2>HistoryEntry</h2>
+<p>
+    Class implementing a history entry.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryEntry.__init__">HistoryEntry</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryEntry.__eq__">__eq__</a></td>
+<td>Special method determining equality.</td>
+</tr>
+<tr>
+<td><a href="#HistoryEntry.__lt__">__lt__</a></td>
+<td>Special method determining less relation.</td>
+</tr>
+<tr>
+<td><a href="#HistoryEntry.isValid">isValid</a></td>
+<td>Public method to determine validity.</td>
+</tr>
+<tr>
+<td><a href="#HistoryEntry.userTitle">userTitle</a></td>
+<td>Public method to get the title of the history entry.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryEntry.__init__" ID="HistoryEntry.__init__"></a>
+<h4>HistoryEntry (Constructor)</h4>
+<b>HistoryEntry</b>(<i>url=None, dateTime=None, title=None, visitCount=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL of the history entry
+</dd>
+<dt><i>dateTime</i> (QDateTime)</dt>
+<dd>
+date and time this entry was created
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title string for the history entry
+</dd>
+<dt><i>visitCount</i> (int)</dt>
+<dd>
+number of visits of this URL
+</dd>
+</dl>
+<a NAME="HistoryEntry.__eq__" ID="HistoryEntry.__eq__"></a>
+<h4>HistoryEntry.__eq__</h4>
+<b>__eq__</b>(<i>other</i>)
+<p>
+        Special method determining equality.
+</p>
+
+<dl>
+
+<dt><i>other</i> (HistoryEntry)</dt>
+<dd>
+reference to the history entry to compare against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating equality
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryEntry.__lt__" ID="HistoryEntry.__lt__"></a>
+<h4>HistoryEntry.__lt__</h4>
+<b>__lt__</b>(<i>other</i>)
+<p>
+        Special method determining less relation.
+</p>
+<p>
+        Note: History is sorted in reverse order by date and time
+</p>
+
+<dl>
+
+<dt><i>other</i> (HistoryEntry)</dt>
+<dd>
+reference to the history entry to compare against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating less
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryEntry.isValid" ID="HistoryEntry.isValid"></a>
+<h4>HistoryEntry.isValid</h4>
+<b>isValid</b>(<i></i>)
+<p>
+        Public method to determine validity.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating validity
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryEntry.userTitle" ID="HistoryEntry.userTitle"></a>
+<h4>HistoryEntry.userTitle</h4>
+<b>userTitle</b>(<i></i>)
+<p>
+        Public method to get the title of the history entry.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+title of the entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HistoryManager" ID="HistoryManager"></a>
+<h2>HistoryManager</h2>
+<p>
+    Class implementing the history manager.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>entryAdded(HistoryEntry)</dt>
+<dd>
+emitted after a history entry has been
+        added
+</dd>
+<dt>entryRemoved(HistoryEntry)</dt>
+<dd>
+emitted after a history entry has been
+        removed
+</dd>
+<dt>entryUpdated(int)</dt>
+<dd>
+emitted after a history entry has been updated
+</dd>
+<dt>historyCleared()</dt>
+<dd>
+emitted after the history has been cleared
+</dd>
+<dt>historyReset()</dt>
+<dd>
+emitted after the history has been reset
+</dd>
+<dt>historySaved()</dt>
+<dd>
+emitted after the history was saved
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryManager.__init__">HistoryManager</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.__checkForExpired">__checkForExpired</a></td>
+<td>Private slot to check entries for expiration.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.__cleanUrl">__cleanUrl</a></td>
+<td>Private method to generate a clean URL usable for the history entry.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.__cleanUrlStr">__cleanUrlStr</a></td>
+<td>Private method to generate a clean URL usable for the history entry.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.__findFirstHistoryEntry">__findFirstHistoryEntry</a></td>
+<td>Private method to find the first entry for the given URL.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.__load">__load</a></td>
+<td>Private method to load the saved history entries from disk.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.__refreshFrequencies">__refreshFrequencies</a></td>
+<td>Private slot to recalculate the refresh frequencies.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.__startFrequencyTimer">__startFrequencyTimer</a></td>
+<td>Private method to start the timer to recalculate the frequencies.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.__updateVisitCount">__updateVisitCount</a></td>
+<td>Private method to update the visit count for all entries of the given URL.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.addHistoryEntry">addHistoryEntry</a></td>
+<td>Public method to add a history entry.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.clear">clear</a></td>
+<td>Public slot to clear the complete history.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.close">close</a></td>
+<td>Public method to close the history manager.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.daysToExpire">daysToExpire</a></td>
+<td>Public method to get the days for entry expiration.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.getFileName">getFileName</a></td>
+<td>Public method to get the file name of the history file.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.history">history</a></td>
+<td>Public method to return the history.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.historyFilterModel">historyFilterModel</a></td>
+<td>Public method to get a reference to the history filter model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.historyModel">historyModel</a></td>
+<td>Public method to get a reference to the history model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.historyTreeModel">historyTreeModel</a></td>
+<td>Public method to get a reference to the history tree model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.preferencesChanged">preferencesChanged</a></td>
+<td>Public method to indicate a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.reload">reload</a></td>
+<td>Public method to reload the history.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.removeHistoryEntry">removeHistoryEntry</a></td>
+<td>Public method to remove a history entry.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.save">save</a></td>
+<td>Public slot to save the history entries to disk.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.setDaysToExpire">setDaysToExpire</a></td>
+<td>Public method to set the days for entry expiration.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.setHistory">setHistory</a></td>
+<td>Public method to set a new history.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.siteVisitsCount">siteVisitsCount</a></td>
+<td>Public method to get the visit count for a web site using the given scheme.</td>
+</tr>
+<tr>
+<td><a href="#HistoryManager.updateHistoryEntry">updateHistoryEntry</a></td>
+<td>Public method to update a history entry.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryManager.__init__" ID="HistoryManager.__init__"></a>
+<h4>HistoryManager (Constructor)</h4>
+<b>HistoryManager</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="HistoryManager.__checkForExpired" ID="HistoryManager.__checkForExpired"></a>
+<h4>HistoryManager.__checkForExpired</h4>
+<b>__checkForExpired</b>(<i></i>)
+<p>
+        Private slot to check entries for expiration.
+</p>
+
+<a NAME="HistoryManager.__cleanUrl" ID="HistoryManager.__cleanUrl"></a>
+<h4>HistoryManager.__cleanUrl</h4>
+<b>__cleanUrl</b>(<i>url</i>)
+<p>
+        Private method to generate a clean URL usable for the history entry.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+original URL
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+cleaned URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QUrl
+</dd>
+</dl>
+<a NAME="HistoryManager.__cleanUrlStr" ID="HistoryManager.__cleanUrlStr"></a>
+<h4>HistoryManager.__cleanUrlStr</h4>
+<b>__cleanUrlStr</b>(<i>url</i>)
+<p>
+        Private method to generate a clean URL usable for the history entry.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+original URL
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+cleaned URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HistoryManager.__findFirstHistoryEntry" ID="HistoryManager.__findFirstHistoryEntry"></a>
+<h4>HistoryManager.__findFirstHistoryEntry</h4>
+<b>__findFirstHistoryEntry</b>(<i>url</i>)
+<p>
+        Private method to find the first entry for the given URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+first entry for the given URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HistoryEntry
+</dd>
+</dl>
+<a NAME="HistoryManager.__load" ID="HistoryManager.__load"></a>
+<h4>HistoryManager.__load</h4>
+<b>__load</b>(<i></i>)
+<p>
+        Private method to load the saved history entries from disk.
+</p>
+
+<a NAME="HistoryManager.__refreshFrequencies" ID="HistoryManager.__refreshFrequencies"></a>
+<h4>HistoryManager.__refreshFrequencies</h4>
+<b>__refreshFrequencies</b>(<i></i>)
+<p>
+        Private slot to recalculate the refresh frequencies.
+</p>
+
+<a NAME="HistoryManager.__startFrequencyTimer" ID="HistoryManager.__startFrequencyTimer"></a>
+<h4>HistoryManager.__startFrequencyTimer</h4>
+<b>__startFrequencyTimer</b>(<i></i>)
+<p>
+        Private method to start the timer to recalculate the frequencies.
+</p>
+
+<a NAME="HistoryManager.__updateVisitCount" ID="HistoryManager.__updateVisitCount"></a>
+<h4>HistoryManager.__updateVisitCount</h4>
+<b>__updateVisitCount</b>(<i>url, count</i>)
+<p>
+        Private method to update the visit count for all entries of the
+        given URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL to be updated
+</dd>
+<dt><i>count</i> (int)</dt>
+<dd>
+new visit count
+</dd>
+</dl>
+<a NAME="HistoryManager.addHistoryEntry" ID="HistoryManager.addHistoryEntry"></a>
+<h4>HistoryManager.addHistoryEntry</h4>
+<b>addHistoryEntry</b>(<i>view</i>)
+<p>
+        Public method to add a history entry.
+</p>
+
+<dl>
+
+<dt><i>view</i> (WebBrowserView)</dt>
+<dd>
+reference to the view to add an entry for
+</dd>
+</dl>
+<a NAME="HistoryManager.clear" ID="HistoryManager.clear"></a>
+<h4>HistoryManager.clear</h4>
+<b>clear</b>(<i>period=0</i>)
+<p>
+        Public slot to clear the complete history.
+</p>
+
+<dl>
+
+<dt><i>period</i> (int)</dt>
+<dd>
+history period in milliseconds to be cleared
+</dd>
+</dl>
+<a NAME="HistoryManager.close" ID="HistoryManager.close"></a>
+<h4>HistoryManager.close</h4>
+<b>close</b>(<i></i>)
+<p>
+        Public method to close the history manager.
+</p>
+
+<a NAME="HistoryManager.daysToExpire" ID="HistoryManager.daysToExpire"></a>
+<h4>HistoryManager.daysToExpire</h4>
+<b>daysToExpire</b>(<i></i>)
+<p>
+        Public method to get the days for entry expiration.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+days for entry expiration
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HistoryManager.getFileName" ID="HistoryManager.getFileName"></a>
+<h4>HistoryManager.getFileName</h4>
+<b>getFileName</b>(<i></i>)
+<p>
+        Public method to get the file name of the history file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the history file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HistoryManager.history" ID="HistoryManager.history"></a>
+<h4>HistoryManager.history</h4>
+<b>history</b>(<i></i>)
+<p>
+        Public method to return the history.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the list of history entries
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of HistoryEntry
+</dd>
+</dl>
+<a NAME="HistoryManager.historyFilterModel" ID="HistoryManager.historyFilterModel"></a>
+<h4>HistoryManager.historyFilterModel</h4>
+<b>historyFilterModel</b>(<i></i>)
+<p>
+        Public method to get a reference to the history filter model.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the history filter model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HistoryFilterModel
+</dd>
+</dl>
+<a NAME="HistoryManager.historyModel" ID="HistoryManager.historyModel"></a>
+<h4>HistoryManager.historyModel</h4>
+<b>historyModel</b>(<i></i>)
+<p>
+        Public method to get a reference to the history model.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the history model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HistoryModel
+</dd>
+</dl>
+<a NAME="HistoryManager.historyTreeModel" ID="HistoryManager.historyTreeModel"></a>
+<h4>HistoryManager.historyTreeModel</h4>
+<b>historyTreeModel</b>(<i></i>)
+<p>
+        Public method to get a reference to the history tree model.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the history tree model
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HistoryTreeModel
+</dd>
+</dl>
+<a NAME="HistoryManager.preferencesChanged" ID="HistoryManager.preferencesChanged"></a>
+<h4>HistoryManager.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public method to indicate a change of preferences.
+</p>
+
+<a NAME="HistoryManager.reload" ID="HistoryManager.reload"></a>
+<h4>HistoryManager.reload</h4>
+<b>reload</b>(<i></i>)
+<p>
+        Public method to reload the history.
+</p>
+
+<a NAME="HistoryManager.removeHistoryEntry" ID="HistoryManager.removeHistoryEntry"></a>
+<h4>HistoryManager.removeHistoryEntry</h4>
+<b>removeHistoryEntry</b>(<i>url, title=""</i>)
+<p>
+        Public method to remove a history entry.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL of the entry to remove
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the entry to remove
+</dd>
+</dl>
+<a NAME="HistoryManager.save" ID="HistoryManager.save"></a>
+<h4>HistoryManager.save</h4>
+<b>save</b>(<i></i>)
+<p>
+        Public slot to save the history entries to disk.
+</p>
+
+<a NAME="HistoryManager.setDaysToExpire" ID="HistoryManager.setDaysToExpire"></a>
+<h4>HistoryManager.setDaysToExpire</h4>
+<b>setDaysToExpire</b>(<i>limit</i>)
+<p>
+        Public method to set the days for entry expiration.
+</p>
+
+<dl>
+
+<dt><i>limit</i> (int)</dt>
+<dd>
+days for entry expiration
+</dd>
+</dl>
+<a NAME="HistoryManager.setHistory" ID="HistoryManager.setHistory"></a>
+<h4>HistoryManager.setHistory</h4>
+<b>setHistory</b>(<i>history, loadedAndSorted=False</i>)
+<p>
+        Public method to set a new history.
+</p>
+
+<dl>
+
+<dt><i>history</i> (list of HistoryEntry)</dt>
+<dd>
+reference to the list of history entries to be set
+</dd>
+<dt><i>loadedAndSorted</i> (bool)</dt>
+<dd>
+flag indicating that the list is sorted
+</dd>
+</dl>
+<a NAME="HistoryManager.siteVisitsCount" ID="HistoryManager.siteVisitsCount"></a>
+<h4>HistoryManager.siteVisitsCount</h4>
+<b>siteVisitsCount</b>(<i>scheme, host</i>)
+<p>
+        Public method to get the visit count for a web site using the given
+        scheme.
+</p>
+
+<dl>
+
+<dt><i>scheme</i> (str)</dt>
+<dd>
+scheme to look for
+</dd>
+<dt><i>host</i> (str)</dt>
+<dd>
+host to look for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of visits to this site
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HistoryManager.updateHistoryEntry" ID="HistoryManager.updateHistoryEntry"></a>
+<h4>HistoryManager.updateHistoryEntry</h4>
+<b>updateHistoryEntry</b>(<i>url, title</i>)
+<p>
+        Public method to update a history entry.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+URL of the entry to update
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+title of the entry to update
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

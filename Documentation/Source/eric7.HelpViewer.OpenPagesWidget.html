@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.HelpViewer.OpenPagesWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.HelpViewer.OpenPagesWidget</h1>
+<p>
+Module implementing a widget showing the list of open pages.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#OpenPagesWidget">OpenPagesWidget</a></td>
+<td>Class implementing a widget showing the list of open pages.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="OpenPagesWidget" ID="OpenPagesWidget"></a>
+<h2>OpenPagesWidget</h2>
+<p>
+    Class implementing a widget showing the list of open pages.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>currentPageChanged(index)</dt>
+<dd>
+emitted to signal a change of the current
+        page index
+</dd>
+</dl>
+<h3>Derived from</h3>
+QListWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#OpenPagesWidget.__init__">OpenPagesWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__contextMenuClose">__contextMenuClose</a></td>
+<td>Private slot to close a page via the context menu.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__contextMenuCloseAll">__contextMenuCloseAll</a></td>
+<td>Private slot to close all pages via the context menu.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__contextMenuCloseOthers">__contextMenuCloseOthers</a></td>
+<td>Private slot to close all other pages via the context menu.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__contextMenuCopyUrlToClipboard">__contextMenuCopyUrlToClipboard</a></td>
+<td>Private slot to copy the URL to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__currentPageChanged">__currentPageChanged</a></td>
+<td>Private slot to handle a change of the shown page.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__currentRowChanged">__currentRowChanged</a></td>
+<td>Private slot handling a change of the current row.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__initContextMenu">__initContextMenu</a></td>
+<td>Private method to initialize the context menu.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__removeViewer">__removeViewer</a></td>
+<td>Private method to remove a viewer page.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to handle the customContextMenuRequested signal of the viewlist.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.__viewerTitleChanged">__viewerTitleChanged</a></td>
+<td>Private method to handle the change of a viewer title.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.addPage">addPage</a></td>
+<td>Public method to add a viewer page to our list.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.closeAllPages">closeAllPages</a></td>
+<td>Public slot to close all pages.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.closeCurrentPage">closeCurrentPage</a></td>
+<td>Public slot to close the current page.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.closeOtherPages">closeOtherPages</a></td>
+<td>Public slot to close all other pages.</td>
+</tr>
+<tr>
+<td><a href="#OpenPagesWidget.insertPage">insertPage</a></td>
+<td>Public method to insert a viewer page into our list.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="OpenPagesWidget.__init__" ID="OpenPagesWidget.__init__"></a>
+<h4>OpenPagesWidget (Constructor)</h4>
+<b>OpenPagesWidget</b>(<i>stack, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>stack</i> (QStackedWidget)</dt>
+<dd>
+reference to the stack widget containing the open
+            help pages
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="OpenPagesWidget.__contextMenuClose" ID="OpenPagesWidget.__contextMenuClose"></a>
+<h4>OpenPagesWidget.__contextMenuClose</h4>
+<b>__contextMenuClose</b>(<i></i>)
+<p>
+        Private slot to close a page via the context menu.
+</p>
+
+<a NAME="OpenPagesWidget.__contextMenuCloseAll" ID="OpenPagesWidget.__contextMenuCloseAll"></a>
+<h4>OpenPagesWidget.__contextMenuCloseAll</h4>
+<b>__contextMenuCloseAll</b>(<i></i>)
+<p>
+        Private slot to close all pages via the context menu.
+</p>
+
+<a NAME="OpenPagesWidget.__contextMenuCloseOthers" ID="OpenPagesWidget.__contextMenuCloseOthers"></a>
+<h4>OpenPagesWidget.__contextMenuCloseOthers</h4>
+<b>__contextMenuCloseOthers</b>(<i></i>)
+<p>
+        Private slot to close all other pages via the context menu.
+</p>
+
+<a NAME="OpenPagesWidget.__contextMenuCopyUrlToClipboard" ID="OpenPagesWidget.__contextMenuCopyUrlToClipboard"></a>
+<h4>OpenPagesWidget.__contextMenuCopyUrlToClipboard</h4>
+<b>__contextMenuCopyUrlToClipboard</b>(<i></i>)
+<p>
+        Private slot to copy the URL to the clipboard.
+</p>
+
+<a NAME="OpenPagesWidget.__currentPageChanged" ID="OpenPagesWidget.__currentPageChanged"></a>
+<h4>OpenPagesWidget.__currentPageChanged</h4>
+<b>__currentPageChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle a change of the shown page.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the current page
+</dd>
+</dl>
+<a NAME="OpenPagesWidget.__currentRowChanged" ID="OpenPagesWidget.__currentRowChanged"></a>
+<h4>OpenPagesWidget.__currentRowChanged</h4>
+<b>__currentRowChanged</b>(<i>row</i>)
+<p>
+        Private slot handling a change of the current row.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+current row
+</dd>
+</dl>
+<a NAME="OpenPagesWidget.__initContextMenu" ID="OpenPagesWidget.__initContextMenu"></a>
+<h4>OpenPagesWidget.__initContextMenu</h4>
+<b>__initContextMenu</b>(<i></i>)
+<p>
+        Private method to initialize the context menu.
+</p>
+
+<a NAME="OpenPagesWidget.__removeViewer" ID="OpenPagesWidget.__removeViewer"></a>
+<h4>OpenPagesWidget.__removeViewer</h4>
+<b>__removeViewer</b>(<i>row</i>)
+<p>
+        Private method to remove a viewer page.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row associated with the viewer
+</dd>
+</dl>
+<a NAME="OpenPagesWidget.__showContextMenu" ID="OpenPagesWidget.__showContextMenu"></a>
+<h4>OpenPagesWidget.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>point</i>)
+<p>
+        Private slot to handle the customContextMenuRequested signal of
+        the viewlist.
+</p>
+
+<dl>
+
+<dt><i>point</i> (QPoint)</dt>
+<dd>
+position to open the menu at
+</dd>
+</dl>
+<a NAME="OpenPagesWidget.__viewerTitleChanged" ID="OpenPagesWidget.__viewerTitleChanged"></a>
+<h4>OpenPagesWidget.__viewerTitleChanged</h4>
+<b>__viewerTitleChanged</b>(<i>viewer</i>)
+<p>
+        Private method to handle the change of a viewer title.
+</p>
+
+<dl>
+
+<dt><i>viewer</i> (HelpViewerImpl)</dt>
+<dd>
+reference to the viewer that change title
+</dd>
+</dl>
+<a NAME="OpenPagesWidget.addPage" ID="OpenPagesWidget.addPage"></a>
+<h4>OpenPagesWidget.addPage</h4>
+<b>addPage</b>(<i>viewer, background=False</i>)
+<p>
+        Public method to add a viewer page to our list.
+</p>
+
+<dl>
+
+<dt><i>viewer</i> (HelpViewerImpl)</dt>
+<dd>
+reference to the viewer object
+</dd>
+<dt><i>background</i> (bool (optional))</dt>
+<dd>
+flag indicating to not change the current page
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="OpenPagesWidget.closeAllPages" ID="OpenPagesWidget.closeAllPages"></a>
+<h4>OpenPagesWidget.closeAllPages</h4>
+<b>closeAllPages</b>(<i></i>)
+<p>
+        Public slot to close all pages.
+</p>
+
+<a NAME="OpenPagesWidget.closeCurrentPage" ID="OpenPagesWidget.closeCurrentPage"></a>
+<h4>OpenPagesWidget.closeCurrentPage</h4>
+<b>closeCurrentPage</b>(<i></i>)
+<p>
+        Public slot to close the current page.
+</p>
+
+<a NAME="OpenPagesWidget.closeOtherPages" ID="OpenPagesWidget.closeOtherPages"></a>
+<h4>OpenPagesWidget.closeOtherPages</h4>
+<b>closeOtherPages</b>(<i></i>)
+<p>
+        Public slot to close all other pages.
+</p>
+
+<a NAME="OpenPagesWidget.insertPage" ID="OpenPagesWidget.insertPage"></a>
+<h4>OpenPagesWidget.insertPage</h4>
+<b>insertPage</b>(<i>index, viewer, background=False</i>)
+<p>
+        Public method to insert a viewer page into our list.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index to insert at
+</dd>
+<dt><i>viewer</i> (HelpViewerImpl)</dt>
+<dd>
+reference to the viewer object
+</dd>
+<dt><i>background</i> (bool (optional))</dt>
+<dd>
+flag indicating to not change the current page
+            (defaults to False)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

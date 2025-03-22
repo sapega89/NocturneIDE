@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.UiExtensionPlugins.Translator.TranslatorWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.UiExtensionPlugins.Translator.TranslatorWidget</h1>
+<p>
+Module implementing the translator widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>MULTIMEDIA_AVAILABLE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#TranslatorWidget">TranslatorWidget</a></td>
+<td>Class implementing the translator widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="TranslatorWidget" ID="TranslatorWidget"></a>
+<h2>TranslatorWidget</h2>
+<p>
+    Class implementing the translator widget.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_TranslatorWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TranslatorWidget.__init__">TranslatorWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__availableTranslationsLoaded">__availableTranslationsLoaded</a></td>
+<td>Private slot to handle the availability of translations.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__engineComboBoxCurrentIndexChanged">__engineComboBoxCurrentIndexChanged</a></td>
+<td>Private slot to handle the selection of a translation service.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__ensureTranslationEngineReady">__ensureTranslationEngineReady</a></td>
+<td>Private slot to ensure, that the currently selected translation engine is ready.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__mediaPlayerError">__mediaPlayerError</a></td>
+<td>Private slot to handle errors during playback of the data.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__mediaPlayerPlaybackStateChanged">__mediaPlayerPlaybackStateChanged</a></td>
+<td>Private slot handling changes of the media player state.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__originalLanguage">__originalLanguage</a></td>
+<td>Private method to return the code of the selected original language.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__pronounce">__pronounce</a></td>
+<td>Private method to pronounce the given text.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__translate">__translate</a></td>
+<td>Private method to translate the given text.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__translationLanguage">__translationLanguage</a></td>
+<td>Private method to return the code of the selected translation language.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__updateClearButton">__updateClearButton</a></td>
+<td>Private slot to set the state of the clear button.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__updateEngines">__updateEngines</a></td>
+<td>Private slot to update the engines combo box.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__updateLanguages">__updateLanguages</a></td>
+<td>Private slot to update the language combo boxes.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__updatePronounceButtons">__updatePronounceButtons</a></td>
+<td>Private slot to set the state of the pronounce buttons.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.__updateTranslateButton">__updateTranslateButton</a></td>
+<td>Private slot to set the state of the translate button.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_clearButton_clicked">on_clearButton_clicked</a></td>
+<td>Private slot to clear the text fields.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_origEdit_textChanged">on_origEdit_textChanged</a></td>
+<td>Private slot to handle changes of the original text.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_origLanguageComboBox_currentIndexChanged">on_origLanguageComboBox_currentIndexChanged</a></td>
+<td>Private slot to handle the selection of the original language.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_preferencesButton_clicked">on_preferencesButton_clicked</a></td>
+<td>Private slot to open the Translator configuration page.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_pronounceOrigButton_clicked">on_pronounceOrigButton_clicked</a></td>
+<td>Private slot to pronounce the original text.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_pronounceTransButton_clicked">on_pronounceTransButton_clicked</a></td>
+<td>Private slot to pronounce the translated text.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_swapButton_clicked">on_swapButton_clicked</a></td>
+<td>Private slot to swap the languages.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_transEdit_textChanged">on_transEdit_textChanged</a></td>
+<td>Private slot to handle changes of the translation text.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_transLanguageComboBox_currentIndexChanged">on_transLanguageComboBox_currentIndexChanged</a></td>
+<td>Private slot to handle the selection of the translation language.</td>
+</tr>
+<tr>
+<td><a href="#TranslatorWidget.on_translateButton_clicked">on_translateButton_clicked</a></td>
+<td>Private slot to translate the entered text.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TranslatorWidget.__init__" ID="TranslatorWidget.__init__"></a>
+<h4>TranslatorWidget (Constructor)</h4>
+<b>TranslatorWidget</b>(<i>plugin, translator, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>plugin</i> (TranslatorPlugin)</dt>
+<dd>
+reference to the plugin object
+</dd>
+<dt><i>translator</i> (Translator)</dt>
+<dd>
+reference to the translator object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="TranslatorWidget.__availableTranslationsLoaded" ID="TranslatorWidget.__availableTranslationsLoaded"></a>
+<h4>TranslatorWidget.__availableTranslationsLoaded</h4>
+<b>__availableTranslationsLoaded</b>(<i></i>)
+<p>
+        Private slot to handle the availability of translations.
+</p>
+
+<a NAME="TranslatorWidget.__engineComboBoxCurrentIndexChanged" ID="TranslatorWidget.__engineComboBoxCurrentIndexChanged"></a>
+<h4>TranslatorWidget.__engineComboBoxCurrentIndexChanged</h4>
+<b>__engineComboBoxCurrentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of a translation service.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+current index
+</dd>
+</dl>
+<a NAME="TranslatorWidget.__ensureTranslationEngineReady" ID="TranslatorWidget.__ensureTranslationEngineReady"></a>
+<h4>TranslatorWidget.__ensureTranslationEngineReady</h4>
+<b>__ensureTranslationEngineReady</b>(<i></i>)
+<p>
+        Private slot to ensure, that the currently selected translation engine
+        is ready.
+</p>
+
+<a NAME="TranslatorWidget.__mediaPlayerError" ID="TranslatorWidget.__mediaPlayerError"></a>
+<h4>TranslatorWidget.__mediaPlayerError</h4>
+<b>__mediaPlayerError</b>(<i>error, errorString</i>)
+<p>
+        Private slot to handle errors during playback of the data.
+</p>
+
+<dl>
+
+<dt><i>error</i> (QMediaPlayer.Error)</dt>
+<dd>
+media player error condition
+</dd>
+<dt><i>errorString</i> (str)</dt>
+<dd>
+string representation for the error
+</dd>
+</dl>
+<a NAME="TranslatorWidget.__mediaPlayerPlaybackStateChanged" ID="TranslatorWidget.__mediaPlayerPlaybackStateChanged"></a>
+<h4>TranslatorWidget.__mediaPlayerPlaybackStateChanged</h4>
+<b>__mediaPlayerPlaybackStateChanged</b>(<i>state</i>)
+<p>
+        Private slot handling changes of the media player state.
+</p>
+
+<dl>
+
+<dt><i>state</i> (QMediaPlayer.PlaybackState)</dt>
+<dd>
+media player state
+</dd>
+</dl>
+<a NAME="TranslatorWidget.__originalLanguage" ID="TranslatorWidget.__originalLanguage"></a>
+<h4>TranslatorWidget.__originalLanguage</h4>
+<b>__originalLanguage</b>(<i></i>)
+<p>
+        Private method to return the code of the selected original language.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+code of the original language
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TranslatorWidget.__pronounce" ID="TranslatorWidget.__pronounce"></a>
+<h4>TranslatorWidget.__pronounce</h4>
+<b>__pronounce</b>(<i>text, language</i>)
+<p>
+        Private method to pronounce the given text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be pronounced
+</dd>
+<dt><i>language</i> (str)</dt>
+<dd>
+language code of the text
+</dd>
+</dl>
+<a NAME="TranslatorWidget.__translate" ID="TranslatorWidget.__translate"></a>
+<h4>TranslatorWidget.__translate</h4>
+<b>__translate</b>(<i>text, originalLanguage, translationLanguage</i>)
+<p>
+        Private method to translate the given text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be translated
+</dd>
+<dt><i>originalLanguage</i> (str)</dt>
+<dd>
+language code of the original
+</dd>
+<dt><i>translationLanguage</i> (str)</dt>
+<dd>
+language code of the translation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of translated text and flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, bool)
+</dd>
+</dl>
+<a NAME="TranslatorWidget.__translationLanguage" ID="TranslatorWidget.__translationLanguage"></a>
+<h4>TranslatorWidget.__translationLanguage</h4>
+<b>__translationLanguage</b>(<i></i>)
+<p>
+        Private method to return the code of the selected translation language.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+code of the translation language
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TranslatorWidget.__updateClearButton" ID="TranslatorWidget.__updateClearButton"></a>
+<h4>TranslatorWidget.__updateClearButton</h4>
+<b>__updateClearButton</b>(<i></i>)
+<p>
+        Private slot to set the state of the clear button.
+</p>
+
+<a NAME="TranslatorWidget.__updateEngines" ID="TranslatorWidget.__updateEngines"></a>
+<h4>TranslatorWidget.__updateEngines</h4>
+<b>__updateEngines</b>(<i></i>)
+<p>
+        Private slot to update the engines combo box.
+</p>
+
+<a NAME="TranslatorWidget.__updateLanguages" ID="TranslatorWidget.__updateLanguages"></a>
+<h4>TranslatorWidget.__updateLanguages</h4>
+<b>__updateLanguages</b>(<i></i>)
+<p>
+        Private slot to update the language combo boxes.
+</p>
+
+<a NAME="TranslatorWidget.__updatePronounceButtons" ID="TranslatorWidget.__updatePronounceButtons"></a>
+<h4>TranslatorWidget.__updatePronounceButtons</h4>
+<b>__updatePronounceButtons</b>(<i></i>)
+<p>
+        Private slot to set the state of the pronounce buttons.
+</p>
+
+<a NAME="TranslatorWidget.__updateTranslateButton" ID="TranslatorWidget.__updateTranslateButton"></a>
+<h4>TranslatorWidget.__updateTranslateButton</h4>
+<b>__updateTranslateButton</b>(<i></i>)
+<p>
+        Private slot to set the state of the translate button.
+</p>
+
+<a NAME="TranslatorWidget.on_clearButton_clicked" ID="TranslatorWidget.on_clearButton_clicked"></a>
+<h4>TranslatorWidget.on_clearButton_clicked</h4>
+<b>on_clearButton_clicked</b>(<i></i>)
+<p>
+        Private slot to clear the text fields.
+</p>
+
+<a NAME="TranslatorWidget.on_origEdit_textChanged" ID="TranslatorWidget.on_origEdit_textChanged"></a>
+<h4>TranslatorWidget.on_origEdit_textChanged</h4>
+<b>on_origEdit_textChanged</b>(<i></i>)
+<p>
+        Private slot to handle changes of the original text.
+</p>
+
+<a NAME="TranslatorWidget.on_origLanguageComboBox_currentIndexChanged" ID="TranslatorWidget.on_origLanguageComboBox_currentIndexChanged"></a>
+<h4>TranslatorWidget.on_origLanguageComboBox_currentIndexChanged</h4>
+<b>on_origLanguageComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of the original language.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+current index
+</dd>
+</dl>
+<a NAME="TranslatorWidget.on_preferencesButton_clicked" ID="TranslatorWidget.on_preferencesButton_clicked"></a>
+<h4>TranslatorWidget.on_preferencesButton_clicked</h4>
+<b>on_preferencesButton_clicked</b>(<i></i>)
+<p>
+        Private slot to open the Translator configuration page.
+</p>
+
+<a NAME="TranslatorWidget.on_pronounceOrigButton_clicked" ID="TranslatorWidget.on_pronounceOrigButton_clicked"></a>
+<h4>TranslatorWidget.on_pronounceOrigButton_clicked</h4>
+<b>on_pronounceOrigButton_clicked</b>(<i></i>)
+<p>
+        Private slot to pronounce the original text.
+</p>
+
+<a NAME="TranslatorWidget.on_pronounceTransButton_clicked" ID="TranslatorWidget.on_pronounceTransButton_clicked"></a>
+<h4>TranslatorWidget.on_pronounceTransButton_clicked</h4>
+<b>on_pronounceTransButton_clicked</b>(<i></i>)
+<p>
+        Private slot to pronounce the translated text.
+</p>
+
+<a NAME="TranslatorWidget.on_swapButton_clicked" ID="TranslatorWidget.on_swapButton_clicked"></a>
+<h4>TranslatorWidget.on_swapButton_clicked</h4>
+<b>on_swapButton_clicked</b>(<i></i>)
+<p>
+        Private slot to swap the languages.
+</p>
+
+<a NAME="TranslatorWidget.on_transEdit_textChanged" ID="TranslatorWidget.on_transEdit_textChanged"></a>
+<h4>TranslatorWidget.on_transEdit_textChanged</h4>
+<b>on_transEdit_textChanged</b>(<i></i>)
+<p>
+        Private slot to handle changes of the translation text.
+</p>
+
+<a NAME="TranslatorWidget.on_transLanguageComboBox_currentIndexChanged" ID="TranslatorWidget.on_transLanguageComboBox_currentIndexChanged"></a>
+<h4>TranslatorWidget.on_transLanguageComboBox_currentIndexChanged</h4>
+<b>on_transLanguageComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of the translation language.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+current index
+</dd>
+</dl>
+<a NAME="TranslatorWidget.on_translateButton_clicked" ID="TranslatorWidget.on_translateButton_clicked"></a>
+<h4>TranslatorWidget.on_translateButton_clicked</h4>
+<b>on_translateButton_clicked</b>(<i></i>)
+<p>
+        Private slot to translate the entered text.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

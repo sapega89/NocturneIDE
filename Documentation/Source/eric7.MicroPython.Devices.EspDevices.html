@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.Devices.EspDevices</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.Devices.EspDevices</h1>
+<p>
+Module implementing the device interface class for ESP32 and ESP8266 based
+boards.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EspDevice">EspDevice</a></td>
+<td>Class implementing the device for ESP32 and ESP8266 based boards.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createDevice">createDevice</a></td>
+<td>Function to instantiate a MicroPython device object.</td>
+</tr>
+<tr>
+<td><a href="#eraseFlash">eraseFlash</a></td>
+<td>Slot to erase the device flash memory.</td>
+</tr>
+<tr>
+<td><a href="#flashAddonFirmware">flashAddonFirmware</a></td>
+<td>Slot to flash some additional firmware images.</td>
+</tr>
+<tr>
+<td><a href="#flashPythonFirmware">flashPythonFirmware</a></td>
+<td>Slot to flash a MicroPython firmware to the device.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EspDevice" ID="EspDevice"></a>
+<h2>EspDevice</h2>
+<p>
+    Class implementing the device for ESP32 and ESP8266 based boards.
+</p>
+
+<h3>Derived from</h3>
+BaseDevice
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EspDevice.__init__">EspDevice</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__backupFlash">__backupFlash</a></td>
+<td>Private slot to backup the currently flashed firmware.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__createCpyDevice">__createCpyDevice</a></td>
+<td>Private method to create a CircuitPython device interface.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__createEsp32Submenu">__createEsp32Submenu</a></td>
+<td>Private method to create the ESP32 submenu.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__eraseFlash">__eraseFlash</a></td>
+<td>Private slot to erase the device flash memory.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__firmwareVersionResponse">__firmwareVersionResponse</a></td>
+<td>Private slot handling the response of the latest version request.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__flashAddons">__flashAddons</a></td>
+<td>Private slot to flash some additional firmware images.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__flashMicroPython">__flashMicroPython</a></td>
+<td>Private slot to flash a MicroPython firmware to the device.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__installEspTool">__installEspTool</a></td>
+<td>Private slot to install the esptool package via pip.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__resetCountry">__resetCountry</a></td>
+<td>Private slot to reset the country of the connected ESP32 device.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__resetDevice">__resetDevice</a></td>
+<td>Private slot to reset the connected device.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__restoreFlash">__restoreFlash</a></td>
+<td>Private slot to restore a previously saved firmware.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__setCountry">__setCountry</a></td>
+<td>Private slot to configure the country of the connected ESP32 device.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__showChipID">__showChipID</a></td>
+<td>Private slot to show the ID of the ESP chip.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__showFirmwareVersions">__showFirmwareVersions</a></td>
+<td>Private slot to show the firmware version of the connected device and the available firmware version.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__showFlashID">__showFlashID</a></td>
+<td>Private slot to show the ID of the ESP flash chip.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__showMACAddress">__showMACAddress</a></td>
+<td>Private slot to show the MAC address of the ESP chip.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.__showSecurityInfo">__showSecurityInfo</a></td>
+<td>Private slot to show some security related information of the ESP chip.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice._getSetTimeCode">_getSetTimeCode</a></td>
+<td>Protected method to get the device code to set the time.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.activateBluetoothInterface">activateBluetoothInterface</a></td>
+<td>Public method to activate the Bluetooth interface.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.addDeviceMenuEntries">addDeviceMenuEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.addDeviceWifiEntries">addDeviceWifiEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.canRunScript">canRunScript</a></td>
+<td>Public method to determine, if a script can be executed.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.canStartFileManager">canStartFileManager</a></td>
+<td>Public method to determine, if a File Manager can be started.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.canStartPlotter">canStartPlotter</a></td>
+<td>Public method to determine, if a Plotter can be started.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.canStartRepl">canStartRepl</a></td>
+<td>Public method to determine, if a REPL can be started.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.checkInternet">checkInternet</a></td>
+<td>Public method to check, if the internet can be reached.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.connectWifi">connectWifi</a></td>
+<td>Public method to connect a device to a WiFi network.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.deactivateBluetoothInterface">deactivateBluetoothInterface</a></td>
+<td>Public method to deactivate the Bluetooth interface.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.deactivateInterface">deactivateInterface</a></td>
+<td>Public method to deactivate a given WiFi interface of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.deviceName">deviceName</a></td>
+<td>Public method to get the name of the device.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.disableWebrepl">disableWebrepl</a></td>
+<td>Public method to write the given WebREPL password to the connected device and modify the start script to start the WebREPL server.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.disconnectWifi">disconnectWifi</a></td>
+<td>Public method to disconnect a device from the WiFi network.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.enableWebrepl">enableWebrepl</a></td>
+<td>Public method to write the given WebREPL password to the connected device and modify the start script to start the WebREPL server.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.forceInterrupt">forceInterrupt</a></td>
+<td>Public method to determine the need for an interrupt when opening the serial connection.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.getBluetoothStatus">getBluetoothStatus</a></td>
+<td>Public method to get Bluetooth status data of the connected board.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.getConnectedClients">getConnectedClients</a></td>
+<td>Public method to get a list of connected clients.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.getDeviceScan">getDeviceScan</a></td>
+<td>Public method to perform a Bluetooth device scan.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.getDocumentationUrl">getDocumentationUrl</a></td>
+<td>Public method to get the device documentation URL.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.getFirmwareUrl">getFirmwareUrl</a></td>
+<td>Public method to get the device firmware download URL.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.getWifiData">getWifiData</a></td>
+<td>Public method to get data related to the current WiFi status.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.hasBluetooth">hasBluetooth</a></td>
+<td>Public method to check the availability of Bluetooth.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.hasFlashMenuEntry">hasFlashMenuEntry</a></td>
+<td>Public method to check, if the device has its own flash menu entry.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.hasNetworkTime">hasNetworkTime</a></td>
+<td>Public method to check the availability of network time functions.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.hasWifi">hasWifi</a></td>
+<td>Public method to check the availability of WiFi.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.hasWifiCountry">hasWifiCountry</a></td>
+<td>Public method to check, if the device has support to set the WiFi country.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.isWifiApConnected">isWifiApConnected</a></td>
+<td>Public method to check the WiFi connection status as access point.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.isWifiClientConnected">isWifiClientConnected</a></td>
+<td>Public method to check the WiFi connection status as client.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.removeCredentials">removeCredentials</a></td>
+<td>Public method to remove the saved credentials from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.runScript">runScript</a></td>
+<td>Public method to run the given Python script.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.scanNetworks">scanNetworks</a></td>
+<td>Public method to scan for available WiFi networks.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.setButtons">setButtons</a></td>
+<td>Public method to enable the supported action buttons.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.setConnected">setConnected</a></td>
+<td>Public method to set the connection state.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.setNetworkTime">setNetworkTime</a></td>
+<td>Public method to set the time to the network time retrieved from an NTP server.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.startAccessPoint">startAccessPoint</a></td>
+<td>Public method to start the access point interface.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.stopAccessPoint">stopAccessPoint</a></td>
+<td>Public method to stop the access point interface.</td>
+</tr>
+<tr>
+<td><a href="#EspDevice.writeCredentials">writeCredentials</a></td>
+<td>Public method to write the given credentials to the connected device and modify the start script to connect automatically.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EspDevice.__init__" ID="EspDevice.__init__"></a>
+<h4>EspDevice (Constructor)</h4>
+<b>EspDevice</b>(<i>microPythonWidget, deviceType, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="EspDevice.__backupFlash" ID="EspDevice.__backupFlash"></a>
+<h4>EspDevice.__backupFlash</h4>
+<b>__backupFlash</b>(<i></i>)
+<p>
+        Private slot to backup the currently flashed firmware.
+</p>
+
+<a NAME="EspDevice.__createCpyDevice" ID="EspDevice.__createCpyDevice"></a>
+<h4>EspDevice.__createCpyDevice</h4>
+<b>__createCpyDevice</b>(<i></i>)
+<p>
+        Private method to create a CircuitPython device interface.
+</p>
+
+<a NAME="EspDevice.__createEsp32Submenu" ID="EspDevice.__createEsp32Submenu"></a>
+<h4>EspDevice.__createEsp32Submenu</h4>
+<b>__createEsp32Submenu</b>(<i></i>)
+<p>
+        Private method to create the ESP32 submenu.
+</p>
+
+<a NAME="EspDevice.__eraseFlash" ID="EspDevice.__eraseFlash"></a>
+<h4>EspDevice.__eraseFlash</h4>
+<b>__eraseFlash</b>(<i></i>)
+<p>
+        Private slot to erase the device flash memory.
+</p>
+
+<a NAME="EspDevice.__firmwareVersionResponse" ID="EspDevice.__firmwareVersionResponse"></a>
+<h4>EspDevice.__firmwareVersionResponse</h4>
+<b>__firmwareVersionResponse</b>(<i>reply</i>)
+<p>
+        Private slot handling the response of the latest version request.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+</dl>
+<a NAME="EspDevice.__flashAddons" ID="EspDevice.__flashAddons"></a>
+<h4>EspDevice.__flashAddons</h4>
+<b>__flashAddons</b>(<i></i>)
+<p>
+        Private slot to flash some additional firmware images.
+</p>
+
+<a NAME="EspDevice.__flashMicroPython" ID="EspDevice.__flashMicroPython"></a>
+<h4>EspDevice.__flashMicroPython</h4>
+<b>__flashMicroPython</b>(<i></i>)
+<p>
+        Private slot to flash a MicroPython firmware to the device.
+</p>
+
+<a NAME="EspDevice.__installEspTool" ID="EspDevice.__installEspTool"></a>
+<h4>EspDevice.__installEspTool</h4>
+<b>__installEspTool</b>(<i></i>)
+<p>
+        Private slot to install the esptool package via pip.
+</p>
+
+<a NAME="EspDevice.__resetCountry" ID="EspDevice.__resetCountry"></a>
+<h4>EspDevice.__resetCountry</h4>
+<b>__resetCountry</b>(<i></i>)
+<p>
+        Private slot to reset the country of the connected ESP32 device.
+</p>
+<p>
+        The country is the two-letter ISO 3166-1 Alpha-2 country code. This method
+        resets it to the default code 'XX' representing the "worldwide" region.
+</p>
+
+<a NAME="EspDevice.__resetDevice" ID="EspDevice.__resetDevice"></a>
+<h4>EspDevice.__resetDevice</h4>
+<b>__resetDevice</b>(<i></i>)
+<p>
+        Private slot to reset the connected device.
+</p>
+
+<a NAME="EspDevice.__restoreFlash" ID="EspDevice.__restoreFlash"></a>
+<h4>EspDevice.__restoreFlash</h4>
+<b>__restoreFlash</b>(<i></i>)
+<p>
+        Private slot to restore a previously saved firmware.
+</p>
+
+<a NAME="EspDevice.__setCountry" ID="EspDevice.__setCountry"></a>
+<h4>EspDevice.__setCountry</h4>
+<b>__setCountry</b>(<i></i>)
+<p>
+        Private slot to configure the country of the connected ESP32 device.
+</p>
+<p>
+        The country is the two-letter ISO 3166-1 Alpha-2 country code.
+</p>
+
+<a NAME="EspDevice.__showChipID" ID="EspDevice.__showChipID"></a>
+<h4>EspDevice.__showChipID</h4>
+<b>__showChipID</b>(<i></i>)
+<p>
+        Private slot to show the ID of the ESP chip.
+</p>
+
+<a NAME="EspDevice.__showFirmwareVersions" ID="EspDevice.__showFirmwareVersions"></a>
+<h4>EspDevice.__showFirmwareVersions</h4>
+<b>__showFirmwareVersions</b>(<i></i>)
+<p>
+        Private slot to show the firmware version of the connected device and the
+        available firmware version.
+</p>
+
+<a NAME="EspDevice.__showFlashID" ID="EspDevice.__showFlashID"></a>
+<h4>EspDevice.__showFlashID</h4>
+<b>__showFlashID</b>(<i></i>)
+<p>
+        Private slot to show the ID of the ESP flash chip.
+</p>
+
+<a NAME="EspDevice.__showMACAddress" ID="EspDevice.__showMACAddress"></a>
+<h4>EspDevice.__showMACAddress</h4>
+<b>__showMACAddress</b>(<i></i>)
+<p>
+        Private slot to show the MAC address of the ESP chip.
+</p>
+
+<a NAME="EspDevice.__showSecurityInfo" ID="EspDevice.__showSecurityInfo"></a>
+<h4>EspDevice.__showSecurityInfo</h4>
+<b>__showSecurityInfo</b>(<i></i>)
+<p>
+        Private slot to show some security related information of the ESP chip.
+</p>
+
+<a NAME="EspDevice._getSetTimeCode" ID="EspDevice._getSetTimeCode"></a>
+<h4>EspDevice._getSetTimeCode</h4>
+<b>_getSetTimeCode</b>(<i></i>)
+<p>
+        Protected method to get the device code to set the time.
+</p>
+<p>
+        Note: This method must be implemented in the various device specific
+        subclasses.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+code to be executed on the connected device to set the time
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EspDevice.activateBluetoothInterface" ID="EspDevice.activateBluetoothInterface"></a>
+<h4>EspDevice.activateBluetoothInterface</h4>
+<b>activateBluetoothInterface</b>(<i></i>)
+<p>
+        Public method to activate the Bluetooth interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the new state of the Bluetooth interface
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="EspDevice.addDeviceMenuEntries" ID="EspDevice.addDeviceMenuEntries"></a>
+<h4>EspDevice.addDeviceMenuEntries</h4>
+<b>addDeviceMenuEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="EspDevice.addDeviceWifiEntries" ID="EspDevice.addDeviceWifiEntries"></a>
+<h4>EspDevice.addDeviceWifiEntries</h4>
+<b>addDeviceWifiEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="EspDevice.canRunScript" ID="EspDevice.canRunScript"></a>
+<h4>EspDevice.canRunScript</h4>
+<b>canRunScript</b>(<i></i>)
+<p>
+        Public method to determine, if a script can be executed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.canStartFileManager" ID="EspDevice.canStartFileManager"></a>
+<h4>EspDevice.canStartFileManager</h4>
+<b>canStartFileManager</b>(<i></i>)
+<p>
+        Public method to determine, if a File Manager can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            File Manager and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.canStartPlotter" ID="EspDevice.canStartPlotter"></a>
+<h4>EspDevice.canStartPlotter</h4>
+<b>canStartPlotter</b>(<i></i>)
+<p>
+        Public method to determine, if a Plotter can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.canStartRepl" ID="EspDevice.canStartRepl"></a>
+<h4>EspDevice.canStartRepl</h4>
+<b>canStartRepl</b>(<i></i>)
+<p>
+        Public method to determine, if a REPL can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a REPL
+            and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.checkInternet" ID="EspDevice.checkInternet"></a>
+<h4>EspDevice.checkInternet</h4>
+<b>checkInternet</b>(<i></i>)
+<p>
+        Public method to check, if the internet can be reached.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating reachability and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.connectWifi" ID="EspDevice.connectWifi"></a>
+<h4>EspDevice.connectWifi</h4>
+<b>connectWifi</b>(<i>ssid, password, hostname</i>)
+<p>
+        Public method to connect a device to a WiFi network.
+</p>
+
+<dl>
+
+<dt><i>ssid</i> (str)</dt>
+<dd>
+name (SSID) of the WiFi network
+</dd>
+<dt><i>password</i> (str)</dt>
+<dd>
+password needed to connect
+</dd>
+<dt><i>hostname</i> (str)</dt>
+<dd>
+host name of the device
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the connection status and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.deactivateBluetoothInterface" ID="EspDevice.deactivateBluetoothInterface"></a>
+<h4>EspDevice.deactivateBluetoothInterface</h4>
+<b>deactivateBluetoothInterface</b>(<i></i>)
+<p>
+        Public method to deactivate the Bluetooth interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the new state of the Bluetooth interface
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="EspDevice.deactivateInterface" ID="EspDevice.deactivateInterface"></a>
+<h4>EspDevice.deactivateInterface</h4>
+<b>deactivateInterface</b>(<i>interface</i>)
+<p>
+        Public method to deactivate a given WiFi interface of the connected device.
+</p>
+
+<dl>
+
+<dt><i>interface</i> (str)</dt>
+<dd>
+designation of the interface to be deactivated (one of 'AP'
+            or 'STA')
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containg a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate a wrong value for the interface type
+</dd>
+</dl>
+<a NAME="EspDevice.deviceName" ID="EspDevice.deviceName"></a>
+<h4>EspDevice.deviceName</h4>
+<b>deviceName</b>(<i></i>)
+<p>
+        Public method to get the name of the device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EspDevice.disableWebrepl" ID="EspDevice.disableWebrepl"></a>
+<h4>EspDevice.disableWebrepl</h4>
+<b>disableWebrepl</b>(<i></i>)
+<p>
+        Public method to write the given WebREPL password to the connected device and
+        modify the start script to start the WebREPL server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.disconnectWifi" ID="EspDevice.disconnectWifi"></a>
+<h4>EspDevice.disconnectWifi</h4>
+<b>disconnectWifi</b>(<i></i>)
+<p>
+        Public method to disconnect a device from the WiFi network.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.enableWebrepl" ID="EspDevice.enableWebrepl"></a>
+<h4>EspDevice.enableWebrepl</h4>
+<b>enableWebrepl</b>(<i>password</i>)
+<p>
+        Public method to write the given WebREPL password to the connected device and
+        modify the start script to start the WebREPL server.
+</p>
+
+<dl>
+
+<dt><i>password</i> (str)</dt>
+<dd>
+password needed to authenticate
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.forceInterrupt" ID="EspDevice.forceInterrupt"></a>
+<h4>EspDevice.forceInterrupt</h4>
+<b>forceInterrupt</b>(<i></i>)
+<p>
+        Public method to determine the need for an interrupt when opening the
+        serial connection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an interrupt is needed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EspDevice.getBluetoothStatus" ID="EspDevice.getBluetoothStatus"></a>
+<h4>EspDevice.getBluetoothStatus</h4>
+<b>getBluetoothStatus</b>(<i></i>)
+<p>
+        Public method to get Bluetooth status data of the connected board.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the translated status data label and
+            the associated value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="EspDevice.getConnectedClients" ID="EspDevice.getConnectedClients"></a>
+<h4>EspDevice.getConnectedClients</h4>
+<b>getConnectedClients</b>(<i></i>)
+<p>
+        Public method to get a list of connected clients.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a tuple containing a list of tuples containing the client MAC-Address
+            and the RSSI (if supported and available) and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of ([(bytes, int)], str)
+</dd>
+</dl>
+<a NAME="EspDevice.getDeviceScan" ID="EspDevice.getDeviceScan"></a>
+<h4>EspDevice.getDeviceScan</h4>
+<b>getDeviceScan</b>(<i>timeout=10</i>)
+<p>
+        Public method to perform a Bluetooth device scan.
+</p>
+
+<dl>
+
+<dt><i>timeout</i> (int (optional))</dt>
+<dd>
+duration of the device scan in seconds (defaults
+            to 10)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a dictionary with the scan results and
+            an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (dict, str)
+</dd>
+</dl>
+<a NAME="EspDevice.getDocumentationUrl" ID="EspDevice.getDocumentationUrl"></a>
+<h4>EspDevice.getDocumentationUrl</h4>
+<b>getDocumentationUrl</b>(<i></i>)
+<p>
+        Public method to get the device documentation URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+documentation URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EspDevice.getFirmwareUrl" ID="EspDevice.getFirmwareUrl"></a>
+<h4>EspDevice.getFirmwareUrl</h4>
+<b>getFirmwareUrl</b>(<i></i>)
+<p>
+        Public method to get the device firmware download URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+firmware download URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EspDevice.getWifiData" ID="EspDevice.getWifiData"></a>
+<h4>EspDevice.getWifiData</h4>
+<b>getWifiData</b>(<i></i>)
+<p>
+        Public method to get data related to the current WiFi status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of three dictionaries containing the WiFi status data
+            for the WiFi client, access point and overall data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (dict, dict, dict)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="EspDevice.hasBluetooth" ID="EspDevice.hasBluetooth"></a>
+<h4>EspDevice.hasBluetooth</h4>
+<b>hasBluetooth</b>(<i></i>)
+<p>
+        Public method to check the availability of Bluetooth.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of Bluetooth
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="EspDevice.hasFlashMenuEntry" ID="EspDevice.hasFlashMenuEntry"></a>
+<h4>EspDevice.hasFlashMenuEntry</h4>
+<b>hasFlashMenuEntry</b>(<i></i>)
+<p>
+        Public method to check, if the device has its own flash menu entry.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a specific flash menu entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EspDevice.hasNetworkTime" ID="EspDevice.hasNetworkTime"></a>
+<h4>EspDevice.hasNetworkTime</h4>
+<b>hasNetworkTime</b>(<i></i>)
+<p>
+        Public method to check the availability of network time functions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of network time functions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="EspDevice.hasWifi" ID="EspDevice.hasWifi"></a>
+<h4>EspDevice.hasWifi</h4>
+<b>hasWifi</b>(<i></i>)
+<p>
+        Public method to check the availability of WiFi.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating the availability of WiFi
+            and the WiFi type (esp32)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.hasWifiCountry" ID="EspDevice.hasWifiCountry"></a>
+<h4>EspDevice.hasWifiCountry</h4>
+<b>hasWifiCountry</b>(<i></i>)
+<p>
+        Public method to check, if the device has support to set the WiFi country.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the support of WiFi country
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EspDevice.isWifiApConnected" ID="EspDevice.isWifiApConnected"></a>
+<h4>EspDevice.isWifiApConnected</h4>
+<b>isWifiApConnected</b>(<i></i>)
+<p>
+        Public method to check the WiFi connection status as access point.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the WiFi connection status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EspDevice.isWifiClientConnected" ID="EspDevice.isWifiClientConnected"></a>
+<h4>EspDevice.isWifiClientConnected</h4>
+<b>isWifiClientConnected</b>(<i></i>)
+<p>
+        Public method to check the WiFi connection status as client.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the WiFi connection status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EspDevice.removeCredentials" ID="EspDevice.removeCredentials"></a>
+<h4>EspDevice.removeCredentials</h4>
+<b>removeCredentials</b>(<i></i>)
+<p>
+        Public method to remove the saved credentials from the connected device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.runScript" ID="EspDevice.runScript"></a>
+<h4>EspDevice.runScript</h4>
+<b>runScript</b>(<i>script</i>)
+<p>
+        Public method to run the given Python script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (str)</dt>
+<dd>
+script to be executed
+</dd>
+</dl>
+<a NAME="EspDevice.scanNetworks" ID="EspDevice.scanNetworks"></a>
+<h4>EspDevice.scanNetworks</h4>
+<b>scanNetworks</b>(<i></i>)
+<p>
+        Public method to scan for available WiFi networks.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the list of available networks as a tuple of 'Name',
+            'MAC-Address', 'channel', 'RSSI' and 'security' and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of tuple of (str, str, int, int, str), str)
+</dd>
+</dl>
+<a NAME="EspDevice.setButtons" ID="EspDevice.setButtons"></a>
+<h4>EspDevice.setButtons</h4>
+<b>setButtons</b>(<i></i>)
+<p>
+        Public method to enable the supported action buttons.
+</p>
+
+<a NAME="EspDevice.setConnected" ID="EspDevice.setConnected"></a>
+<h4>EspDevice.setConnected</h4>
+<b>setConnected</b>(<i>connected</i>)
+<p>
+        Public method to set the connection state.
+</p>
+<p>
+        Note: This method can be overwritten to perform actions upon connect
+        or disconnect of the device.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+connection state
+</dd>
+</dl>
+<a NAME="EspDevice.setNetworkTime" ID="EspDevice.setNetworkTime"></a>
+<h4>EspDevice.setNetworkTime</h4>
+<b>setNetworkTime</b>(<i>server="0.pool.ntp.org", tzOffset=0, timeout=10</i>)
+<p>
+        Public method to set the time to the network time retrieved from an
+        NTP server.
+</p>
+
+<dl>
+
+<dt><i>server</i> (str (optional))</dt>
+<dd>
+name of the NTP server to get the network time from
+            (defaults to "0.pool.ntp.org")
+</dd>
+<dt><i>tzOffset</i> (int (optional))</dt>
+<dd>
+offset with respect to UTC (defaults to 0)
+</dd>
+<dt><i>timeout</i> (int)</dt>
+<dd>
+maximum time to wait for a server response in seconds
+            (defaults to 10)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.startAccessPoint" ID="EspDevice.startAccessPoint"></a>
+<h4>EspDevice.startAccessPoint</h4>
+<b>startAccessPoint</b>(<i>ssid, security=None, password=None, hostname=None, ifconfig=None, </i>)
+<p>
+        Public method to start the access point interface.
+</p>
+
+<dl>
+
+<dt><i>ssid</i> (str)</dt>
+<dd>
+SSID of the access point
+</dd>
+<dt><i>security</i> (int (optional))</dt>
+<dd>
+security method (defaults to None)
+</dd>
+<dt><i>password</i> (str (optional))</dt>
+<dd>
+password (defaults to None)
+</dd>
+<dt><i>hostname</i> (str (optional))</dt>
+<dd>
+host name of the device (defaults to None)
+</dd>
+<dt><i>ifconfig</i> (tuple of (str, str, str, str))</dt>
+<dd>
+IPv4 configuration for the access point if not default
+            (IPv4 address, netmask, gateway address, DNS server address)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.stopAccessPoint" ID="EspDevice.stopAccessPoint"></a>
+<h4>EspDevice.stopAccessPoint</h4>
+<b>stopAccessPoint</b>(<i></i>)
+<p>
+        Public method to stop the access point interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containg a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="EspDevice.writeCredentials" ID="EspDevice.writeCredentials"></a>
+<h4>EspDevice.writeCredentials</h4>
+<b>writeCredentials</b>(<i>ssid, password, hostname, country</i>)
+<p>
+        Public method to write the given credentials to the connected device and modify
+        the start script to connect automatically.
+</p>
+
+<dl>
+
+<dt><i>ssid</i> (str)</dt>
+<dd>
+SSID of the network to connect to
+</dd>
+<dt><i>password</i> (str)</dt>
+<dd>
+password needed to authenticate
+</dd>
+<dt><i>hostname</i> (str)</dt>
+<dd>
+host name of the device
+</dd>
+<dt><i>country</i> (str)</dt>
+<dd>
+WiFi country code
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createDevice" ID="createDevice"></a>
+<h2>createDevice</h2>
+<b>createDevice</b>(<i>microPythonWidget, deviceType, _vid, _pid, _boardName, _serialNumber</i>)
+<p>
+    Function to instantiate a MicroPython device object.
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>_vid</i> (int)</dt>
+<dd>
+vendor ID (unused)
+</dd>
+<dt><i>_pid</i> (int)</dt>
+<dd>
+product ID (unused)
+</dd>
+<dt><i>_boardName</i> (str)</dt>
+<dd>
+name of the board (unused)
+</dd>
+<dt><i>_serialNumber</i> (str)</dt>
+<dd>
+serial number of the board (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated device object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EspDevice
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="eraseFlash" ID="eraseFlash"></a>
+<h2>eraseFlash</h2>
+<b>eraseFlash</b>(<i>port, parent=None</i>)
+<p>
+    Slot to erase the device flash memory.
+</p>
+
+<dl>
+
+<dt><i>port</i> (str)</dt>
+<dd>
+name of the serial port device to be used
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="flashAddonFirmware" ID="flashAddonFirmware"></a>
+<h2>flashAddonFirmware</h2>
+<b>flashAddonFirmware</b>(<i>port, parent=None</i>)
+<p>
+    Slot to flash some additional firmware images.
+</p>
+
+<dl>
+
+<dt><i>port</i> (str)</dt>
+<dd>
+name of the serial port device to be used
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="flashPythonFirmware" ID="flashPythonFirmware"></a>
+<h2>flashPythonFirmware</h2>
+<b>flashPythonFirmware</b>(<i>port, parent=None</i>)
+<p>
+    Slot to flash a MicroPython firmware to the device.
+</p>
+
+<dl>
+
+<dt><i>port</i> (str)</dt>
+<dd>
+name of the serial port device to be used
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

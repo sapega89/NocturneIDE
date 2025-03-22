@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.RemoteServer.EricServer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.RemoteServer.EricServer</h1>
+<p>
+Module implementing the eric remote server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricServer">EricServer</a></td>
+<td>Class implementing the eric remote server.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricServer" ID="EricServer"></a>
+<h2>EricServer</h2>
+<p>
+    Class implementing the eric remote server.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricServer.__init__">EricServer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__acceptIdeConnection">__acceptIdeConnection</a></td>
+<td>Private method to accept the connection on the listening IDE server socket.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__closeIdeConnection">__closeIdeConnection</a></td>
+<td>Private method to close the connection to an eric-ide.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__handleEchoRequest">__handleEchoRequest</a></td>
+<td>Private method to handle an 'Echo' request.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__handleRequest">__handleRequest</a></td>
+<td>Private method handling or dispatching the received requests.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__handleServerRequest">__handleServerRequest</a></td>
+<td>Private method to handle a 'Server' request.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__initializeIdeSocket">__initializeIdeSocket</a></td>
+<td>Private method to initialize and register the eric-ide server socket.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__receiveBytes">__receiveBytes</a></td>
+<td>Private method to receive the given length of bytes.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__receiveJson">__receiveJson</a></td>
+<td>Private method to receive a JSON encoded command and data from the server.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__registerInternalHandlers">__registerInternalHandlers</a></td>
+<td>Private method to register request handler categories of this class.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__serviceIdeConnection">__serviceIdeConnection</a></td>
+<td>Private method to service the eric-ide connection.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__shutdown">__shutdown</a></td>
+<td>Private method to shut down the server.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.__unregisterIdeSocket">__unregisterIdeSocket</a></td>
+<td>Private method to unregister the eric-ide server socket because only one connection is allowed.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.getSelector">getSelector</a></td>
+<td>Public method to get a reference to the selector object.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.isSocketClosed">isSocketClosed</a></td>
+<td>Public method to check, if a given socket is closed.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.receiveJsonCommand">receiveJsonCommand</a></td>
+<td>Public method to receive a JSON encoded command and data.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.registerRequestHandler">registerRequestHandler</a></td>
+<td>Public method to register a request handler method for the given request category.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.run">run</a></td>
+<td>Public method implementing the remote server main loop.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.sendJson">sendJson</a></td>
+<td>Public method to send a single refactoring command to the server.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.sendJsonCommand">sendJsonCommand</a></td>
+<td>Public method to send a JSON encoded command/response via a given socket.</td>
+</tr>
+<tr>
+<td><a href="#EricServer.unregisterRequestHandler">unregisterRequestHandler</a></td>
+<td>Public method to unregister a handler for the given request category.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricServer.__init__" ID="EricServer.__init__"></a>
+<h4>EricServer (Constructor)</h4>
+<b>EricServer</b>(<i>port=42024, useIPv6=False, clientId=""</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>port</i> (int (optional))</dt>
+<dd>
+port to listen on (defaults to 42024)
+</dd>
+<dt><i>useIPv6</i> (bool (optional))</dt>
+<dd>
+flag indicating to use IPv6 protocol (defaults to False)
+</dd>
+<dt><i>clientId</i> (str (optional))</dt>
+<dd>
+ID string used to check each received message for being
+            sent by a valid eric IDE (defaults to "")
+</dd>
+</dl>
+<a NAME="EricServer.__acceptIdeConnection" ID="EricServer.__acceptIdeConnection"></a>
+<h4>EricServer.__acceptIdeConnection</h4>
+<b>__acceptIdeConnection</b>(<i>sock</i>)
+<p>
+        Private method to accept the connection on the listening IDE server socket.
+</p>
+
+<dl>
+
+<dt><i>sock</i> (socket.socket)</dt>
+<dd>
+reference to the listening socket
+</dd>
+</dl>
+<a NAME="EricServer.__closeIdeConnection" ID="EricServer.__closeIdeConnection"></a>
+<h4>EricServer.__closeIdeConnection</h4>
+<b>__closeIdeConnection</b>(<i>shutdown=False</i>)
+<p>
+        Private method to close the connection to an eric-ide.
+</p>
+
+<dl>
+
+<dt><i>shutdown</i> (bool)</dt>
+<dd>
+flag indicating a shutdown process
+</dd>
+</dl>
+<a NAME="EricServer.__handleEchoRequest" ID="EricServer.__handleEchoRequest"></a>
+<h4>EricServer.__handleEchoRequest</h4>
+<b>__handleEchoRequest</b>(<i>request, params, reqestUuid</i>)
+<p>
+        Private method to handle an 'Echo' request.
+</p>
+
+<dl>
+
+<dt><i>request</i> (str)</dt>
+<dd>
+request name
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+request parameters
+</dd>
+<dt><i>reqestUuid</i> (str)</dt>
+<dd>
+UUID of the associated request as sent by the eric IDE
+            (defaults to "", i.e. no UUID received)
+</dd>
+</dl>
+<a NAME="EricServer.__handleRequest" ID="EricServer.__handleRequest"></a>
+<h4>EricServer.__handleRequest</h4>
+<b>__handleRequest</b>(<i>category, request, params, reqestUuid</i>)
+<p>
+        Private method handling or dispatching the received requests.
+</p>
+
+<dl>
+
+<dt><i>category</i> (EricRequestCategory)</dt>
+<dd>
+category of the request
+</dd>
+<dt><i>request</i> (str)</dt>
+<dd>
+request name
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+request parameters
+</dd>
+<dt><i>reqestUuid</i> (str)</dt>
+<dd>
+UUID of the associated request as sent by the eric IDE
+</dd>
+</dl>
+<a NAME="EricServer.__handleServerRequest" ID="EricServer.__handleServerRequest"></a>
+<h4>EricServer.__handleServerRequest</h4>
+<b>__handleServerRequest</b>(<i>request, params, reqestUuid</i>)
+<p>
+        Private method to handle a 'Server' request.
+</p>
+
+<dl>
+
+<dt><i>request</i> (str)</dt>
+<dd>
+request name
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+request parameters
+</dd>
+<dt><i>reqestUuid</i> (str)</dt>
+<dd>
+UUID of the associated request as sent by the eric IDE
+            (defaults to "", i.e. no UUID received)
+</dd>
+</dl>
+<a NAME="EricServer.__initializeIdeSocket" ID="EricServer.__initializeIdeSocket"></a>
+<h4>EricServer.__initializeIdeSocket</h4>
+<b>__initializeIdeSocket</b>(<i></i>)
+<p>
+        Private method to initialize and register the eric-ide server socket.
+</p>
+
+<a NAME="EricServer.__receiveBytes" ID="EricServer.__receiveBytes"></a>
+<h4>EricServer.__receiveBytes</h4>
+<b>__receiveBytes</b>(<i>length, sock</i>)
+<p>
+        Private method to receive the given length of bytes.
+</p>
+
+<dl>
+
+<dt><i>length</i> (int)</dt>
+<dd>
+bytes to receive
+</dd>
+<dt><i>sock</i> (socket.socket)</dt>
+<dd>
+reference to the socket to receive the data from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+received bytes or None if connection closed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="EricServer.__receiveJson" ID="EricServer.__receiveJson"></a>
+<h4>EricServer.__receiveJson</h4>
+<b>__receiveJson</b>(<i></i>)
+<p>
+        Private method to receive a JSON encoded command and data from the
+        server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the received service category, the command,
+            a dictionary containing the associated data and the UUID of the
+            request
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, str, dict, str)
+</dd>
+</dl>
+<a NAME="EricServer.__registerInternalHandlers" ID="EricServer.__registerInternalHandlers"></a>
+<h4>EricServer.__registerInternalHandlers</h4>
+<b>__registerInternalHandlers</b>(<i></i>)
+<p>
+        Private method to register request handler categories of this class.
+</p>
+
+<a NAME="EricServer.__serviceIdeConnection" ID="EricServer.__serviceIdeConnection"></a>
+<h4>EricServer.__serviceIdeConnection</h4>
+<b>__serviceIdeConnection</b>(<i>key</i>)
+<p>
+        Private method to service the eric-ide connection.
+</p>
+
+<dl>
+
+<dt><i>key</i> (selectors.SelectorKey)</dt>
+<dd>
+reference to the SelectorKey object associated with the connection
+            to be serviced
+</dd>
+</dl>
+<a NAME="EricServer.__shutdown" ID="EricServer.__shutdown"></a>
+<h4>EricServer.__shutdown</h4>
+<b>__shutdown</b>(<i></i>)
+<p>
+        Private method to shut down the server.
+</p>
+
+<a NAME="EricServer.__unregisterIdeSocket" ID="EricServer.__unregisterIdeSocket"></a>
+<h4>EricServer.__unregisterIdeSocket</h4>
+<b>__unregisterIdeSocket</b>(<i></i>)
+<p>
+        Private method to unregister the eric-ide server socket because only one
+        connection is allowed.
+</p>
+
+<a NAME="EricServer.getSelector" ID="EricServer.getSelector"></a>
+<h4>EricServer.getSelector</h4>
+<b>getSelector</b>(<i></i>)
+<p>
+        Public method to get a reference to the selector object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the selector object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+selectors.BaseSelector
+</dd>
+</dl>
+<a NAME="EricServer.isSocketClosed" ID="EricServer.isSocketClosed"></a>
+<h4>EricServer.isSocketClosed</h4>
+<b>isSocketClosed</b>(<i>sock</i>)
+<p>
+        Public method to check, if a given socket is closed.
+</p>
+
+<dl>
+
+<dt><i>sock</i> (socket.socket)</dt>
+<dd>
+reference to the socket to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a closed state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServer.receiveJsonCommand" ID="EricServer.receiveJsonCommand"></a>
+<h4>EricServer.receiveJsonCommand</h4>
+<b>receiveJsonCommand</b>(<i>sock</i>)
+<p>
+        Public method to receive a JSON encoded command and data.
+</p>
+
+<dl>
+
+<dt><i>sock</i> (socket.socket)</dt>
+<dd>
+reference to the socket to receive the data from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the JSON command data or None to signal
+            an issue while receiving data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="EricServer.registerRequestHandler" ID="EricServer.registerRequestHandler"></a>
+<h4>EricServer.registerRequestHandler</h4>
+<b>registerRequestHandler</b>(<i>requestCategory, handler</i>)
+<p>
+        Public method to register a request handler method for the given request
+        category.
+</p>
+
+<dl>
+
+<dt><i>requestCategory</i> (EricRequestCategory or int (>= EricRequestCategory.UserCategory))</dt>
+<dd>
+request category to be registered
+</dd>
+<dt><i>handler</i> (function(request:str, params:dict, requestUuid:str))</dt>
+<dd>
+reference to the handler method. This handler must accept
+            the parameters 'request', 'params', and 'requestUuid'
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to signal a request category collision
+</dd>
+</dl>
+<a NAME="EricServer.run" ID="EricServer.run"></a>
+<h4>EricServer.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method implementing the remote server main loop.
+</p>
+<p>
+        Exiting the inner loop, that receives and dispatches the requests, will
+        cause the server to stop and exit. The main loop handles these requests.
+        <ul>
+        <li>exit - exit the handler loop and wait for the next connection</li>
+        <li>shutdown - exit the handler loop and perform a clean shutdown</li>
+        </ul>
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a clean shutdown
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServer.sendJson" ID="EricServer.sendJson"></a>
+<h4>EricServer.sendJson</h4>
+<b>sendJson</b>(<i>category, reply, params, reqestUuid=""</i>)
+<p>
+        Public method to send a single refactoring command to the server.
+</p>
+
+<dl>
+
+<dt><i>category</i> (EricRequestCategory)</dt>
+<dd>
+service category
+</dd>
+<dt><i>reply</i> (str)</dt>
+<dd>
+reply name to be sent
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary of named parameters for the request
+</dd>
+<dt><i>reqestUuid</i> (str)</dt>
+<dd>
+UUID of the associated request as sent by the eric IDE
+            (defaults to "", i.e. no UUID received)
+</dd>
+</dl>
+<a NAME="EricServer.sendJsonCommand" ID="EricServer.sendJsonCommand"></a>
+<h4>EricServer.sendJsonCommand</h4>
+<b>sendJsonCommand</b>(<i>jsonCommand, sock</i>)
+<p>
+        Public method to send a JSON encoded command/response via a given socket.
+</p>
+
+<dl>
+
+<dt><i>jsonCommand</i> (dict or str)</dt>
+<dd>
+dictionary containing the command data or a JSON encoded
+            command string
+</dd>
+<dt><i>sock</i> (socket.socket)</dt>
+<dd>
+reference to the socket to send the data to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful transmission
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServer.unregisterRequestHandler" ID="EricServer.unregisterRequestHandler"></a>
+<h4>EricServer.unregisterRequestHandler</h4>
+<b>unregisterRequestHandler</b>(<i>requestCategory, ignoreError=False</i>)
+<p>
+        Public method to unregister a handler for the given request category.
+</p>
+<p>
+        Note: This method will raise a KeyError exception in case the request
+        category has not been registered and ignoreError is False (the default).
+</p>
+
+<dl>
+
+<dt><i>requestCategory</i> (EricRequestCategory or int (>= EricRequestCategory.UserCategory))</dt>
+<dd>
+request category to be unregistered
+</dd>
+<dt><i>ignoreError</i> (bool (optional))</dt>
+<dd>
+flag indicating to ignore errors (defaults to False)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.Devices.MicrobitDevices</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.Devices.MicrobitDevices</h1>
+<p>
+Module implementing the device interface class for BBC micro:bit and
+Calliope mini boards.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicrobitDevice">MicrobitDevice</a></td>
+<td>Class implementing the device for BBC micro:bit and Calliope mini boards.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createDevice">createDevice</a></td>
+<td>Function to instantiate a MicroPython device object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicrobitDevice" ID="MicrobitDevice"></a>
+<h2>MicrobitDevice</h2>
+<p>
+    Class implementing the device for BBC micro:bit and Calliope mini boards.
+</p>
+
+<h3>Derived from</h3>
+BaseDevice
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicrobitDevice.__init__">MicrobitDevice</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.__createMicrobitMenu">__createMicrobitMenu</a></td>
+<td>Private method to create the microbit submenu.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.__firmwareVersionResponse">__firmwareVersionResponse</a></td>
+<td>Private slot handling the response of the latest version request.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.__flashMicroPython">__flashMicroPython</a></td>
+<td>Private slot to flash MicroPython or the DAPLink firmware to the device.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.__isCalliope">__isCalliope</a></td>
+<td>Private method to check, if the device is a Calliope mini.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.__isMicroBitV1">__isMicroBitV1</a></td>
+<td>Private method to check, if the device is a BBC micro:bit v1.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.__isMicroBitV2">__isMicroBitV2</a></td>
+<td>Private method to check, if the device is a BBC micro:bit v2.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.__resetDevice">__resetDevice</a></td>
+<td>Private slot to reset the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.__saveMain">__saveMain</a></td>
+<td>Private slot to copy the current script as 'main.py' onto the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.__showFirmwareVersions">__showFirmwareVersions</a></td>
+<td>Private slot to show the firmware version of the connected device and the available firmware version.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice._getSetTimeCode">_getSetTimeCode</a></td>
+<td>Protected method to get the device code to set the time.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.activateBluetoothInterface">activateBluetoothInterface</a></td>
+<td>Public method to activate the Bluetooth interface.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.addDeviceMenuEntries">addDeviceMenuEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.canRunScript">canRunScript</a></td>
+<td>Public method to determine, if a script can be executed.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.canStartFileManager">canStartFileManager</a></td>
+<td>Public method to determine, if a File Manager can be started.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.canStartPlotter">canStartPlotter</a></td>
+<td>Public method to determine, if a Plotter can be started.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.canStartRepl">canStartRepl</a></td>
+<td>Public method to determine, if a REPL can be started.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.deactivateBluetoothInterface">deactivateBluetoothInterface</a></td>
+<td>Public method to deactivate the Bluetooth interface.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.deviceName">deviceName</a></td>
+<td>Public method to get the name of the device.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.forceInterrupt">forceInterrupt</a></td>
+<td>Public method to determine the need for an interrupt when opening the serial connection.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.getBluetoothStatus">getBluetoothStatus</a></td>
+<td>Public method to get Bluetooth status data of the connected board.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.getDeviceScan">getDeviceScan</a></td>
+<td>Public method to perform a Bluetooth device scan.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.getDocumentationUrl">getDocumentationUrl</a></td>
+<td>Public method to get the device documentation URL.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.getDownloadMenuEntries">getDownloadMenuEntries</a></td>
+<td>Public method to retrieve the entries for the downloads menu.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.hasBluetooth">hasBluetooth</a></td>
+<td>Public method to check the availability of Bluetooth.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.hasFlashMenuEntry">hasFlashMenuEntry</a></td>
+<td>Public method to check, if the device has its own flash menu entry.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.hasTimeCommands">hasTimeCommands</a></td>
+<td>Public method to check, if the device supports time commands.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.lls">lls</a></td>
+<td>Public method to get a long directory listing of the connected device including meta data.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.ls">ls</a></td>
+<td>Public method to get a directory listing of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.pwd">pwd</a></td>
+<td>Public method to get the current directory of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.runScript">runScript</a></td>
+<td>Public method to run the given Python script.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.setButtons">setButtons</a></td>
+<td>Public method to enable the supported action buttons.</td>
+</tr>
+<tr>
+<td><a href="#MicrobitDevice.setConnected">setConnected</a></td>
+<td>Public method to set the connection state.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicrobitDevice.__init__" ID="MicrobitDevice.__init__"></a>
+<h4>MicrobitDevice (Constructor)</h4>
+<b>MicrobitDevice</b>(<i>microPythonWidget, deviceType, serialNumber, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+type of the device
+</dd>
+<dt><i>serialNumber</i> (str)</dt>
+<dd>
+serial number of the board
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="MicrobitDevice.__createMicrobitMenu" ID="MicrobitDevice.__createMicrobitMenu"></a>
+<h4>MicrobitDevice.__createMicrobitMenu</h4>
+<b>__createMicrobitMenu</b>(<i></i>)
+<p>
+        Private method to create the microbit submenu.
+</p>
+
+<a NAME="MicrobitDevice.__firmwareVersionResponse" ID="MicrobitDevice.__firmwareVersionResponse"></a>
+<h4>MicrobitDevice.__firmwareVersionResponse</h4>
+<b>__firmwareVersionResponse</b>(<i>reply</i>)
+<p>
+        Private slot handling the response of the latest version request.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+</dl>
+<a NAME="MicrobitDevice.__flashMicroPython" ID="MicrobitDevice.__flashMicroPython"></a>
+<h4>MicrobitDevice.__flashMicroPython</h4>
+<b>__flashMicroPython</b>(<i>firmware=False</i>)
+<p>
+        Private slot to flash MicroPython or the DAPLink firmware to the
+        device.
+</p>
+
+<dl>
+
+<dt><i>firmware</i> (bool)</dt>
+<dd>
+flag indicating to flash the DAPLink firmware
+</dd>
+</dl>
+<a NAME="MicrobitDevice.__isCalliope" ID="MicrobitDevice.__isCalliope"></a>
+<h4>MicrobitDevice.__isCalliope</h4>
+<b>__isCalliope</b>(<i></i>)
+<p>
+        Private method to check, if the device is a Calliope mini.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a Calliope mini
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicrobitDevice.__isMicroBitV1" ID="MicrobitDevice.__isMicroBitV1"></a>
+<h4>MicrobitDevice.__isMicroBitV1</h4>
+<b>__isMicroBitV1</b>(<i></i>)
+<p>
+        Private method to check, if the device is a BBC micro:bit v1.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+falg indicating a BBC micro:bit v1
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicrobitDevice.__isMicroBitV2" ID="MicrobitDevice.__isMicroBitV2"></a>
+<h4>MicrobitDevice.__isMicroBitV2</h4>
+<b>__isMicroBitV2</b>(<i></i>)
+<p>
+        Private method to check, if the device is a BBC micro:bit v2.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+falg indicating a BBC micro:bit v2
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicrobitDevice.__resetDevice" ID="MicrobitDevice.__resetDevice"></a>
+<h4>MicrobitDevice.__resetDevice</h4>
+<b>__resetDevice</b>(<i></i>)
+<p>
+        Private slot to reset the connected device.
+</p>
+
+<a NAME="MicrobitDevice.__saveMain" ID="MicrobitDevice.__saveMain"></a>
+<h4>MicrobitDevice.__saveMain</h4>
+<b>__saveMain</b>(<i></i>)
+<p>
+        Private slot to copy the current script as 'main.py' onto the
+        connected device.
+</p>
+
+<a NAME="MicrobitDevice.__showFirmwareVersions" ID="MicrobitDevice.__showFirmwareVersions"></a>
+<h4>MicrobitDevice.__showFirmwareVersions</h4>
+<b>__showFirmwareVersions</b>(<i></i>)
+<p>
+        Private slot to show the firmware version of the connected device and the
+        available firmware version.
+</p>
+
+<a NAME="MicrobitDevice._getSetTimeCode" ID="MicrobitDevice._getSetTimeCode"></a>
+<h4>MicrobitDevice._getSetTimeCode</h4>
+<b>_getSetTimeCode</b>(<i></i>)
+<p>
+        Protected method to get the device code to set the time.
+</p>
+<p>
+        Note: This method must be implemented in the various device specific
+        subclasses.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+code to be executed on the connected device to set the time
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MicrobitDevice.activateBluetoothInterface" ID="MicrobitDevice.activateBluetoothInterface"></a>
+<h4>MicrobitDevice.activateBluetoothInterface</h4>
+<b>activateBluetoothInterface</b>(<i></i>)
+<p>
+        Public method to activate the Bluetooth interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the new state of the Bluetooth interface
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="MicrobitDevice.addDeviceMenuEntries" ID="MicrobitDevice.addDeviceMenuEntries"></a>
+<h4>MicrobitDevice.addDeviceMenuEntries</h4>
+<b>addDeviceMenuEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="MicrobitDevice.canRunScript" ID="MicrobitDevice.canRunScript"></a>
+<h4>MicrobitDevice.canRunScript</h4>
+<b>canRunScript</b>(<i></i>)
+<p>
+        Public method to determine, if a script can be executed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="MicrobitDevice.canStartFileManager" ID="MicrobitDevice.canStartFileManager"></a>
+<h4>MicrobitDevice.canStartFileManager</h4>
+<b>canStartFileManager</b>(<i></i>)
+<p>
+        Public method to determine, if a File Manager can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            File Manager and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="MicrobitDevice.canStartPlotter" ID="MicrobitDevice.canStartPlotter"></a>
+<h4>MicrobitDevice.canStartPlotter</h4>
+<b>canStartPlotter</b>(<i></i>)
+<p>
+        Public method to determine, if a Plotter can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="MicrobitDevice.canStartRepl" ID="MicrobitDevice.canStartRepl"></a>
+<h4>MicrobitDevice.canStartRepl</h4>
+<b>canStartRepl</b>(<i></i>)
+<p>
+        Public method to determine, if a REPL can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a REPL
+            and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="MicrobitDevice.deactivateBluetoothInterface" ID="MicrobitDevice.deactivateBluetoothInterface"></a>
+<h4>MicrobitDevice.deactivateBluetoothInterface</h4>
+<b>deactivateBluetoothInterface</b>(<i></i>)
+<p>
+        Public method to deactivate the Bluetooth interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the new state of the Bluetooth interface
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="MicrobitDevice.deviceName" ID="MicrobitDevice.deviceName"></a>
+<h4>MicrobitDevice.deviceName</h4>
+<b>deviceName</b>(<i></i>)
+<p>
+        Public method to get the name of the device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MicrobitDevice.forceInterrupt" ID="MicrobitDevice.forceInterrupt"></a>
+<h4>MicrobitDevice.forceInterrupt</h4>
+<b>forceInterrupt</b>(<i></i>)
+<p>
+        Public method to determine the need for an interrupt when opening the
+        serial connection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an interrupt is needed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicrobitDevice.getBluetoothStatus" ID="MicrobitDevice.getBluetoothStatus"></a>
+<h4>MicrobitDevice.getBluetoothStatus</h4>
+<b>getBluetoothStatus</b>(<i></i>)
+<p>
+        Public method to get Bluetooth status data of the connected board.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the translated status data label and
+            the associated value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="MicrobitDevice.getDeviceScan" ID="MicrobitDevice.getDeviceScan"></a>
+<h4>MicrobitDevice.getDeviceScan</h4>
+<b>getDeviceScan</b>(<i>timeout=10</i>)
+<p>
+        Public method to perform a Bluetooth device scan.
+</p>
+
+<dl>
+
+<dt><i>timeout</i> (int (optional))</dt>
+<dd>
+duration of the device scan in seconds (defaults
+            to 10)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a dictionary with the scan results and
+            an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (dict, str)
+</dd>
+</dl>
+<a NAME="MicrobitDevice.getDocumentationUrl" ID="MicrobitDevice.getDocumentationUrl"></a>
+<h4>MicrobitDevice.getDocumentationUrl</h4>
+<b>getDocumentationUrl</b>(<i></i>)
+<p>
+        Public method to get the device documentation URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+documentation URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MicrobitDevice.getDownloadMenuEntries" ID="MicrobitDevice.getDownloadMenuEntries"></a>
+<h4>MicrobitDevice.getDownloadMenuEntries</h4>
+<b>getDownloadMenuEntries</b>(<i></i>)
+<p>
+        Public method to retrieve the entries for the downloads menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples with menu text and URL to be opened for each
+            entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (str, str)
+</dd>
+</dl>
+<a NAME="MicrobitDevice.hasBluetooth" ID="MicrobitDevice.hasBluetooth"></a>
+<h4>MicrobitDevice.hasBluetooth</h4>
+<b>hasBluetooth</b>(<i></i>)
+<p>
+        Public method to check the availability of Bluetooth.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of Bluetooth
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="MicrobitDevice.hasFlashMenuEntry" ID="MicrobitDevice.hasFlashMenuEntry"></a>
+<h4>MicrobitDevice.hasFlashMenuEntry</h4>
+<b>hasFlashMenuEntry</b>(<i></i>)
+<p>
+        Public method to check, if the device has its own flash menu entry.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a specific flash menu entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicrobitDevice.hasTimeCommands" ID="MicrobitDevice.hasTimeCommands"></a>
+<h4>MicrobitDevice.hasTimeCommands</h4>
+<b>hasTimeCommands</b>(<i></i>)
+<p>
+        Public method to check, if the device supports time commands.
+</p>
+<p>
+        The default returns True.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating support for time commands
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicrobitDevice.lls" ID="MicrobitDevice.lls"></a>
+<h4>MicrobitDevice.lls</h4>
+<b>lls</b>(<i>dirname="", fullstat=False, showHidden=False</i>)
+<p>
+        Public method to get a long directory listing of the connected device
+        including meta data.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to be listed
+</dd>
+<dt><i>fullstat</i> (bool)</dt>
+<dd>
+flag indicating to return the full stat() tuple
+</dd>
+<dt><i>showHidden</i> (bool)</dt>
+<dd>
+flag indicating to show hidden files as well
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing the directory listing with tuple entries of
+            the name and and a tuple of mode, size and time (if fullstat is
+            false) or the complete stat() tuple. 'None' is returned in case the
+            directory doesn't exist.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, tuple)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="MicrobitDevice.ls" ID="MicrobitDevice.ls"></a>
+<h4>MicrobitDevice.ls</h4>
+<b>ls</b>(<i>dirname=""</i>)
+<p>
+        Public method to get a directory listing of the connected device.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to be listed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containg the directory listing
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="MicrobitDevice.pwd" ID="MicrobitDevice.pwd"></a>
+<h4>MicrobitDevice.pwd</h4>
+<b>pwd</b>(<i></i>)
+<p>
+        Public method to get the current directory of the connected device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MicrobitDevice.runScript" ID="MicrobitDevice.runScript"></a>
+<h4>MicrobitDevice.runScript</h4>
+<b>runScript</b>(<i>script</i>)
+<p>
+        Public method to run the given Python script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (str)</dt>
+<dd>
+script to be executed
+</dd>
+</dl>
+<a NAME="MicrobitDevice.setButtons" ID="MicrobitDevice.setButtons"></a>
+<h4>MicrobitDevice.setButtons</h4>
+<b>setButtons</b>(<i></i>)
+<p>
+        Public method to enable the supported action buttons.
+</p>
+
+<a NAME="MicrobitDevice.setConnected" ID="MicrobitDevice.setConnected"></a>
+<h4>MicrobitDevice.setConnected</h4>
+<b>setConnected</b>(<i>connected</i>)
+<p>
+        Public method to set the connection state.
+</p>
+<p>
+        Note: This method can be overwritten to perform actions upon connect
+        or disconnect of the device.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+connection state
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createDevice" ID="createDevice"></a>
+<h2>createDevice</h2>
+<b>createDevice</b>(<i>microPythonWidget, deviceType, _vid, _pid, _boardName, serialNumber</i>)
+<p>
+    Function to instantiate a MicroPython device object.
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>_vid</i> (int)</dt>
+<dd>
+vendor ID (unused)
+</dd>
+<dt><i>_pid</i> (int)</dt>
+<dd>
+product ID (unused)
+</dd>
+<dt><i>_boardName</i> (str)</dt>
+<dd>
+name of the board (unused)
+</dd>
+<dt><i>serialNumber</i> (str)</dt>
+<dd>
+serial number of the board
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated device object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+MicrobitDevice
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

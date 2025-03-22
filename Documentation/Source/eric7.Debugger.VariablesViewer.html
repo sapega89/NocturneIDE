@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.VariablesViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.VariablesViewer</h1>
+<p>
+Module implementing the variables viewer view based on QTreeView.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SORT_ROLE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#VariableItem">VariableItem</a></td>
+<td>Class implementing the data structure for all variable items.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel">VariablesModel</a></td>
+<td>Class implementing the data model for QTreeView.</td>
+</tr>
+<tr>
+<td><a href="#VariablesProxyModel">VariablesProxyModel</a></td>
+<td>Class for handling the sort operations.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer">VariablesViewer</a></td>
+<td>Class implementing the variables viewer view.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="VariableItem" ID="VariableItem"></a>
+<h2>VariableItem</h2>
+<p>
+    Class implementing the data structure for all variable items.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>noOfItemsStr</td></tr>
+<tr><td>rx_nonprintable</td></tr>
+<tr><td>unsized</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VariableItem.__init__">VariableItem</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VariableItem.__getName">__getName</a></td>
+<td>Private method to extract the variable name.</td>
+</tr>
+<tr>
+<td><a href="#VariableItem.__getValue">__getValue</a></td>
+<td>Private method to process the variables value.</td>
+</tr>
+<tr>
+<td><a href="#VariableItem.absolutCount">absolutCount</a></td>
+<td>Public property to get the total number of children.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VariableItem.__init__" ID="VariableItem.__init__"></a>
+<h4>VariableItem (Constructor)</h4>
+<b>VariableItem</b>(<i>parent, dvar, indicator, dtype, hasChildren, length, dvalue</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (VariableItem)</dt>
+<dd>
+reference to the parent item
+</dd>
+<dt><i>dvar</i> (str)</dt>
+<dd>
+variable name
+</dd>
+<dt><i>indicator</i> (str)</dt>
+<dd>
+type indicator appended to the name
+</dd>
+<dt><i>dtype</i> (str)</dt>
+<dd>
+type string
+</dd>
+<dt><i>hasChildren</i> (bool)</dt>
+<dd>
+indicator for children
+</dd>
+<dt><i>length</i> (int)</dt>
+<dd>
+length of the array or string (-1 if uninitialized
+            numpy.ndarray)
+</dd>
+<dt><i>dvalue</i> (str)</dt>
+<dd>
+value string
+</dd>
+</dl>
+<a NAME="VariableItem.__getName" ID="VariableItem.__getName"></a>
+<h4>VariableItem.__getName</h4>
+<b>__getName</b>(<i>dvar</i>)
+<p>
+        Private method to extract the variable name.
+</p>
+
+<dl>
+
+<dt><i>dvar</i> (str)</dt>
+<dd>
+name of variable maybe with ID
+</dd>
+</dl>
+<a NAME="VariableItem.__getValue" ID="VariableItem.__getValue"></a>
+<h4>VariableItem.__getValue</h4>
+<b>__getValue</b>(<i>dtype, dvalue, indicator, length</i>)
+<p>
+        Private method to process the variables value.
+</p>
+<p>
+        Define and limit value, set tooltip text. If type is known to have
+        children, the corresponding flag is set.
+</p>
+
+<dl>
+
+<dt><i>dtype</i> (str)</dt>
+<dd>
+type string
+</dd>
+<dt><i>dvalue</i> (str)</dt>
+<dd>
+value of variable encoded as utf-8
+</dd>
+<dt><i>indicator</i> (str)</dt>
+<dd>
+type indicator appended to the name
+</dd>
+<dt><i>length</i> (int or str)</dt>
+<dd>
+length of the array or string (-1 if uninitialized
+            numpy.ndarray)
+</dd>
+</dl>
+<a NAME="VariableItem.absolutCount" ID="VariableItem.absolutCount"></a>
+<h4>VariableItem.absolutCount</h4>
+<b>absolutCount</b>(<i></i>)
+<p>
+        Public property to get the total number of children.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+total number of children
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="VariablesModel" ID="VariablesModel"></a>
+<h2>VariablesModel</h2>
+<p>
+    Class implementing the data model for QTreeView.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>expand</dt>
+<dd>
+trigger QTreeView to expand given index
+</dd>
+</dl>
+<h3>Derived from</h3>
+QAbstractItemModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VariablesModel.__init__">VariablesModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.__buildTreePath">__buildTreePath</a></td>
+<td>Private method to build up a path from the root to parent.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.__cleanupParentList">__cleanupParentList</a></td>
+<td>Private method to remove items which are left over at the end of the child list.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.__findPendingItem">__findPendingItem</a></td>
+<td>Private method to find the next item to request data from debugger.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.__findVariable">__findVariable</a></td>
+<td>Private method to get to the given variable.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.clear">clear</a></td>
+<td>Public method to clear the complete data model.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.columnCount">columnCount</a></td>
+<td>Public method to get the column count.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.data">data</a></td>
+<td>Public method get the role data of item.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.flags">flags</a></td>
+<td>Public method to get the item flags.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.getMore">getMore</a></td>
+<td>Public method to fetch the next variable from debugger.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot to handle the preferencesChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.hasChildren">hasChildren</a></td>
+<td>Public method to get a flag if parent has children.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.headerData">headerData</a></td>
+<td>Public method get the header names.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.index">index</a></td>
+<td>Public method to get the index of item at row:column of parent.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.parent">parent</a></td>
+<td>Public method to get the parent of the given child.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.resetModifiedMarker">resetModifiedMarker</a></td>
+<td>Public method to remove the modified marker from changed items.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.rowCount">rowCount</a></td>
+<td>Public method to get the row count.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.setExpanded">setExpanded</a></td>
+<td>Public method to set the expanded state of item.</td>
+</tr>
+<tr>
+<td><a href="#VariablesModel.showVariables">showVariables</a></td>
+<td>Public method to update the data model of variable in pathlist.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VariablesModel.__init__" ID="VariablesModel.__init__"></a>
+<h4>VariablesModel (Constructor)</h4>
+<b>VariablesModel</b>(<i>treeView, globalScope</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>treeView</i> (VariablesViewer)</dt>
+<dd>
+QTreeView showing the data
+</dd>
+<dt><i>globalScope</i> (bool)</dt>
+<dd>
+flag indicating global (True) or local (False)
+            variables
+</dd>
+</dl>
+<a NAME="VariablesModel.__buildTreePath" ID="VariablesModel.__buildTreePath"></a>
+<h4>VariablesModel.__buildTreePath</h4>
+<b>__buildTreePath</b>(<i>parent</i>)
+<p>
+        Private method to build up a path from the root to parent.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (VariableItem)</dt>
+<dd>
+item to build the path for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of names denoting the path from the root
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of str
+</dd>
+</dl>
+<a NAME="VariablesModel.__cleanupParentList" ID="VariablesModel.__cleanupParentList"></a>
+<h4>VariablesModel.__cleanupParentList</h4>
+<b>__cleanupParentList</b>(<i>parent, parentIdx</i>)
+<p>
+        Private method to remove items which are left over at the end of the
+        child list.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (VariableItem)</dt>
+<dd>
+to clean up
+</dd>
+<dt><i>parentIdx</i> (QModelIndex)</dt>
+<dd>
+the parent index as QModelIndex
+</dd>
+</dl>
+<a NAME="VariablesModel.__findPendingItem" ID="VariablesModel.__findPendingItem"></a>
+<h4>VariablesModel.__findPendingItem</h4>
+<b>__findPendingItem</b>(<i>parent=None, pathlist=()</i>)
+<p>
+        Private method to find the next item to request data from debugger.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (VariableItem)</dt>
+<dd>
+the model parent
+</dd>
+<dt><i>pathlist</i> (list of str)</dt>
+<dd>
+full path to the variable
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+next item index to request data from debugger
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="VariablesModel.__findVariable" ID="VariablesModel.__findVariable"></a>
+<h4>VariablesModel.__findVariable</h4>
+<b>__findVariable</b>(<i>pathlist</i>)
+<p>
+        Private method to get to the given variable.
+</p>
+
+<dl>
+
+<dt><i>pathlist</i> (list of str)</dt>
+<dd>
+full path to the variable
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the found variable or None if it doesn't exist
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+VariableItem or None
+</dd>
+</dl>
+<a NAME="VariablesModel.clear" ID="VariablesModel.clear"></a>
+<h4>VariablesModel.clear</h4>
+<b>clear</b>(<i>reset=False</i>)
+<p>
+        Public method to clear the complete data model.
+</p>
+
+<dl>
+
+<dt><i>reset</i> (bool)</dt>
+<dd>
+flag to clear the expanded keys also
+</dd>
+</dl>
+<a NAME="VariablesModel.columnCount" ID="VariablesModel.columnCount"></a>
+<h4>VariablesModel.columnCount</h4>
+<b>columnCount</b>(<i>parent=None</i>)
+<p>
+        Public method to get the column count.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex (optional))</dt>
+<dd>
+the model parent (defaults to None) (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of columns
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="VariablesModel.data" ID="VariablesModel.data"></a>
+<h4>VariablesModel.data</h4>
+<b>data</b>(<i>index, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method get the role data of item.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+the model index
+</dd>
+<dt><i>role</i> (QtCore.Qt.ItemDataRole)</dt>
+<dd>
+the requested data role
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+role data of item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="VariablesModel.flags" ID="VariablesModel.flags"></a>
+<h4>VariablesModel.flags</h4>
+<b>flags</b>(<i>index</i>)
+<p>
+        Public method to get the item flags.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+of item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+item flags
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QtCore.Qt.ItemFlag
+</dd>
+</dl>
+<a NAME="VariablesModel.getMore" ID="VariablesModel.getMore"></a>
+<h4>VariablesModel.getMore</h4>
+<b>getMore</b>(<i></i>)
+<p>
+        Public method to fetch the next variable from debugger.
+</p>
+
+<a NAME="VariablesModel.handlePreferencesChanged" ID="VariablesModel.handlePreferencesChanged"></a>
+<h4>VariablesModel.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle the preferencesChanged signal.
+</p>
+
+<a NAME="VariablesModel.hasChildren" ID="VariablesModel.hasChildren"></a>
+<h4>VariablesModel.hasChildren</h4>
+<b>hasChildren</b>(<i>parent=None</i>)
+<p>
+        Public method to get a flag if parent has children.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex (optional))</dt>
+<dd>
+the model parent (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating parent has children
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VariablesModel.headerData" ID="VariablesModel.headerData"></a>
+<h4>VariablesModel.headerData</h4>
+<b>headerData</b>(<i>section, orientation, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method get the header names.
+</p>
+
+<dl>
+
+<dt><i>section</i> (int)</dt>
+<dd>
+the header section (row/column)
+</dd>
+<dt><i>orientation</i> (QtCore.Qt.Orientation)</dt>
+<dd>
+the header's orientation
+</dd>
+<dt><i>role</i> (QtCore.Qt.ItemDataRole)</dt>
+<dd>
+the requested data role
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+header name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str or None
+</dd>
+</dl>
+<a NAME="VariablesModel.index" ID="VariablesModel.index"></a>
+<h4>VariablesModel.index</h4>
+<b>index</b>(<i>row, column, parent=None</i>)
+<p>
+        Public method to get the index of item at row:column of parent.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+number of rows
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+number of columns
+</dd>
+<dt><i>parent</i> (QModelIndex (optional))</dt>
+<dd>
+the model parent (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+new model index for child
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="VariablesModel.parent" ID="VariablesModel.parent"></a>
+<h4>VariablesModel.parent</h4>
+<b>parent</b>(<i>child</i>)
+<p>
+        Public method to get the parent of the given child.
+</p>
+
+<dl>
+
+<dt><i>child</i> (QModelIndex)</dt>
+<dd>
+the model child node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+new model index for parent
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="VariablesModel.resetModifiedMarker" ID="VariablesModel.resetModifiedMarker"></a>
+<h4>VariablesModel.resetModifiedMarker</h4>
+<b>resetModifiedMarker</b>(<i>parentIdx=None, pathlist=None</i>)
+<p>
+        Public method to remove the modified marker from changed items.
+</p>
+
+<dl>
+
+<dt><i>parentIdx</i> (QModelIndex (optional))</dt>
+<dd>
+item to reset marker (defaults to None)
+</dd>
+<dt><i>pathlist</i> (list of str (optional))</dt>
+<dd>
+full path to the variable (defaults to None)
+</dd>
+</dl>
+<a NAME="VariablesModel.rowCount" ID="VariablesModel.rowCount"></a>
+<h4>VariablesModel.rowCount</h4>
+<b>rowCount</b>(<i>parent=None</i>)
+<p>
+        Public method to get the row count.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex (optional))</dt>
+<dd>
+the model parent (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of rows
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="VariablesModel.setExpanded" ID="VariablesModel.setExpanded"></a>
+<h4>VariablesModel.setExpanded</h4>
+<b>setExpanded</b>(<i>index, state</i>)
+<p>
+        Public method to set the expanded state of item.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+item to change expanded state
+</dd>
+<dt><i>state</i> (bool)</dt>
+<dd>
+state of the item
+</dd>
+</dl>
+<a NAME="VariablesModel.showVariables" ID="VariablesModel.showVariables"></a>
+<h4>VariablesModel.showVariables</h4>
+<b>showVariables</b>(<i>vlist, frmnr, pathlist=None</i>)
+<p>
+        Public method to update the data model of variable in pathlist.
+</p>
+
+<dl>
+
+<dt><i>vlist</i> (list of str)</dt>
+<dd>
+the list of variables to be displayed. Each
+                list entry is a tuple of six values.
+                <ul>
+                <li>the variable name (str)</li>
+                <li>list, tuple, dict or set indicator (str)</li>
+                <li>the variables type (str)</li>
+                <li>a flag indicating the presence of children (bool)</li>
+                <li>the length of the array or string (int)</li>
+                <li>the variables value (str)</li>
+                </ul>
+</dd>
+<dt><i>frmnr</i> (int)</dt>
+<dd>
+frame number (0 is the current frame)
+</dd>
+<dt><i>pathlist</i> (list of str)</dt>
+<dd>
+full path to the variable
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="VariablesProxyModel" ID="VariablesProxyModel"></a>
+<h2>VariablesProxyModel</h2>
+<p>
+    Class for handling the sort operations.
+</p>
+
+<h3>Derived from</h3>
+QSortFilterProxyModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VariablesProxyModel.__init__">VariablesProxyModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VariablesProxyModel.hasChildren">hasChildren</a></td>
+<td>Public method to get a flag if parent has children.</td>
+</tr>
+<tr>
+<td><a href="#VariablesProxyModel.setExpanded">setExpanded</a></td>
+<td>Public slot to get a flag if parent has children.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VariablesProxyModel.__init__" ID="VariablesProxyModel.__init__"></a>
+<h4>VariablesProxyModel (Constructor)</h4>
+<b>VariablesProxyModel</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+the parent model index
+</dd>
+</dl>
+<a NAME="VariablesProxyModel.hasChildren" ID="VariablesProxyModel.hasChildren"></a>
+<h4>VariablesProxyModel.hasChildren</h4>
+<b>hasChildren</b>(<i>parent</i>)
+<p>
+        Public method to get a flag if parent has children.
+</p>
+<p>
+        The given model index has to be transformed to the underlying source
+        model to get the correct result.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+the model parent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag if parent has children
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="VariablesProxyModel.setExpanded" ID="VariablesProxyModel.setExpanded"></a>
+<h4>VariablesProxyModel.setExpanded</h4>
+<b>setExpanded</b>(<i>index, state</i>)
+<p>
+        Public slot to get a flag if parent has children.
+</p>
+<p>
+        The given model index has to be transformed to the underlying source
+        model to get the correct result.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+item to change expanded state
+</dd>
+<dt><i>state</i> (bool)</dt>
+<dd>
+state of the item
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="VariablesViewer" ID="VariablesViewer"></a>
+<h2>VariablesViewer</h2>
+<p>
+    Class implementing the variables viewer view.
+</p>
+<p>
+    This view is used to display the variables of the program being
+    debugged in a tree. Compound types will be shown with
+    their main entry first. Once the subtree has been expanded, the
+    individual entries will be shown. Double clicking an entry will
+    expand or collapse the item, if it has children and the double click
+    was performed on the first column of the tree, otherwise it'll
+    popup a dialog showing the variables parameters in a more readable
+    form. This is especially useful for lengthy strings.
+</p>
+<p>
+    This view has two modes for displaying the global and the local
+    variables.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>preferencesChanged()</dt>
+<dd>
+to inform model about new background colours
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTreeView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VariablesViewer.__init__">VariablesViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__collapseChildren">__collapseChildren</a></td>
+<td>Private slot to collapse all child items of current parent.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__configure">__configure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__configureFilter">__configureFilter</a></td>
+<td>Private method to open the variables filter dialog.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__createPopupMenus">__createPopupMenus</a></td>
+<td>Private method to generate the popup menus.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__expandChildren">__expandChildren</a></td>
+<td>Private slot to expand all child items of current parent.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__itemDoubleClicked">__itemDoubleClicked</a></td>
+<td>Private method called if an item was double clicked.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__mdlRequestExpand">__mdlRequestExpand</a></td>
+<td>Private method to inform the view about items to be expand.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__refreshView">__refreshView</a></td>
+<td>Private slot to refresh the view.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__showDetails">__showDetails</a></td>
+<td>Private slot to show details about the selected variable.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.__showVariableDetails">__showVariableDetails</a></td>
+<td>Private method to show details about a variable.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.clear">clear</a></td>
+<td>Public method to clear the viewer.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.handleResetUI">handleResetUI</a></td>
+<td>Public method to reset the VariablesViewer.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.resizeEvent">resizeEvent</a></td>
+<td>Protected slot informing about the widget size change.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.showVariable">showVariable</a></td>
+<td>Public method to show variables in a list.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.showVariables">showVariables</a></td>
+<td>Public method to show variables in a list.</td>
+</tr>
+<tr>
+<td><a href="#VariablesViewer.verticalScrollbarValueChanged">verticalScrollbarValueChanged</a></td>
+<td>Public slot informing about the scrollbar change.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VariablesViewer.__init__" ID="VariablesViewer.__init__"></a>
+<h4>VariablesViewer (Constructor)</h4>
+<b>VariablesViewer</b>(<i>viewer, globalScope, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>viewer</i> (DebugViewer)</dt>
+<dd>
+reference to the debug viewer object
+</dd>
+<dt><i>globalScope</i> (bool)</dt>
+<dd>
+flag indicating global (True) or local (False)
+            variables
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+the parent
+</dd>
+</dl>
+<a NAME="VariablesViewer.__collapseChildren" ID="VariablesViewer.__collapseChildren"></a>
+<h4>VariablesViewer.__collapseChildren</h4>
+<b>__collapseChildren</b>(<i></i>)
+<p>
+        Private slot to collapse all child items of current parent.
+</p>
+
+<a NAME="VariablesViewer.__configure" ID="VariablesViewer.__configure"></a>
+<h4>VariablesViewer.__configure</h4>
+<b>__configure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="VariablesViewer.__configureFilter" ID="VariablesViewer.__configureFilter"></a>
+<h4>VariablesViewer.__configureFilter</h4>
+<b>__configureFilter</b>(<i></i>)
+<p>
+        Private method to open the variables filter dialog.
+</p>
+
+<a NAME="VariablesViewer.__createPopupMenus" ID="VariablesViewer.__createPopupMenus"></a>
+<h4>VariablesViewer.__createPopupMenus</h4>
+<b>__createPopupMenus</b>(<i></i>)
+<p>
+        Private method to generate the popup menus.
+</p>
+
+<a NAME="VariablesViewer.__expandChildren" ID="VariablesViewer.__expandChildren"></a>
+<h4>VariablesViewer.__expandChildren</h4>
+<b>__expandChildren</b>(<i></i>)
+<p>
+        Private slot to expand all child items of current parent.
+</p>
+
+<a NAME="VariablesViewer.__itemDoubleClicked" ID="VariablesViewer.__itemDoubleClicked"></a>
+<h4>VariablesViewer.__itemDoubleClicked</h4>
+<b>__itemDoubleClicked</b>(<i>index</i>)
+<p>
+        Private method called if an item was double clicked.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+the double clicked item
+</dd>
+</dl>
+<a NAME="VariablesViewer.__mdlRequestExpand" ID="VariablesViewer.__mdlRequestExpand"></a>
+<h4>VariablesViewer.__mdlRequestExpand</h4>
+<b>__mdlRequestExpand</b>(<i>modelIndex</i>)
+<p>
+        Private method to inform the view about items to be expand.
+</p>
+
+<dl>
+
+<dt><i>modelIndex</i> (QModelIndex)</dt>
+<dd>
+the model index
+</dd>
+</dl>
+<a NAME="VariablesViewer.__refreshView" ID="VariablesViewer.__refreshView"></a>
+<h4>VariablesViewer.__refreshView</h4>
+<b>__refreshView</b>(<i></i>)
+<p>
+        Private slot to refresh the view.
+</p>
+
+<a NAME="VariablesViewer.__showContextMenu" ID="VariablesViewer.__showContextMenu"></a>
+<h4>VariablesViewer.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="VariablesViewer.__showDetails" ID="VariablesViewer.__showDetails"></a>
+<h4>VariablesViewer.__showDetails</h4>
+<b>__showDetails</b>(<i></i>)
+<p>
+        Private slot to show details about the selected variable.
+</p>
+
+<a NAME="VariablesViewer.__showVariableDetails" ID="VariablesViewer.__showVariableDetails"></a>
+<h4>VariablesViewer.__showVariableDetails</h4>
+<b>__showVariableDetails</b>(<i>index</i>)
+<p>
+        Private method to show details about a variable.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+reference to the variable item
+</dd>
+</dl>
+<a NAME="VariablesViewer.clear" ID="VariablesViewer.clear"></a>
+<h4>VariablesViewer.clear</h4>
+<b>clear</b>(<i></i>)
+<p>
+        Public method to clear the viewer.
+</p>
+
+<a NAME="VariablesViewer.handleResetUI" ID="VariablesViewer.handleResetUI"></a>
+<h4>VariablesViewer.handleResetUI</h4>
+<b>handleResetUI</b>(<i></i>)
+<p>
+        Public method to reset the VariablesViewer.
+</p>
+
+<a NAME="VariablesViewer.resizeEvent" ID="VariablesViewer.resizeEvent"></a>
+<h4>VariablesViewer.resizeEvent</h4>
+<b>resizeEvent</b>(<i>event</i>)
+<p>
+        Protected slot informing about the widget size change.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QResizeEvent)</dt>
+<dd>
+information
+</dd>
+</dl>
+<a NAME="VariablesViewer.showVariable" ID="VariablesViewer.showVariable"></a>
+<h4>VariablesViewer.showVariable</h4>
+<b>showVariable</b>(<i>vlist</i>)
+<p>
+        Public method to show variables in a list.
+</p>
+
+<dl>
+
+<dt><i>vlist</i> (list)</dt>
+<dd>
+the list of subitems to be displayed.
+                The first element gives the path of the
+                parent variable. Each other list entry is
+                a tuple of six values.
+                <ul>
+                <li>the variable name (str)</li>
+                <li>list, tuple, dict or set indicator (str)</li>
+                <li>the variables type (str)</li>
+                <li>a flag indicating the presence of children (bool)</li>
+                <li>the length of the array or string (int)</li>
+                <li>the variables value (str)</li>
+                </ul>
+</dd>
+</dl>
+<a NAME="VariablesViewer.showVariables" ID="VariablesViewer.showVariables"></a>
+<h4>VariablesViewer.showVariables</h4>
+<b>showVariables</b>(<i>vlist, frmnr</i>)
+<p>
+        Public method to show variables in a list.
+</p>
+
+<dl>
+
+<dt><i>vlist</i> (list)</dt>
+<dd>
+the list of variables to be displayed. Each
+                list entry is a tuple of six values.
+                <ul>
+                <li>the variable name (str)</li>
+                <li>list, tuple, dict or set indicator (str)</li>
+                <li>the variables type (str)</li>
+                <li>a flag indicating the presence of children (bool)</li>
+                <li>the length of the array or string (int)</li>
+                <li>the variables value (str)</li>
+                </ul>
+</dd>
+<dt><i>frmnr</i> (int)</dt>
+<dd>
+frame number (0 is the current frame)
+</dd>
+</dl>
+<a NAME="VariablesViewer.verticalScrollbarValueChanged" ID="VariablesViewer.verticalScrollbarValueChanged"></a>
+<h4>VariablesViewer.verticalScrollbarValueChanged</h4>
+<b>verticalScrollbarValueChanged</b>(<i>value</i>)
+<p>
+        Public slot informing about the scrollbar change.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+current value of the vertical scrollbar
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

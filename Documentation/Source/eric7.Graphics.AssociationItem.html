@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Graphics.AssociationItem</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Graphics.AssociationItem</h1>
+<p>
+Module implementing a graphics item for an association between two items.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AssociationItem">AssociationItem</a></td>
+<td>Class implementing a graphics item for an association between two items.</td>
+</tr>
+<tr>
+<td><a href="#AssociationPointRegion">AssociationPointRegion</a></td>
+<td>Class defining the regions for an association end point.</td>
+</tr>
+<tr>
+<td><a href="#AssociationType">AssociationType</a></td>
+<td>Class defining the association types.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AssociationItem" ID="AssociationItem"></a>
+<h2>AssociationItem</h2>
+<p>
+    Class implementing a graphics item for an association between two items.
+</p>
+<p>
+    The association is drawn as an arrow starting at the first items and
+    ending at the second.
+</p>
+
+<h3>Derived from</h3>
+EricArrowItem
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#AssociationItem.fromDict">fromDict</a></td>
+<td>Class method to create an association item from persisted data.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.parseAssociationItemDataString">parseAssociationItemDataString</a></td>
+<td>Class method to parse the given persistence data.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AssociationItem.__init__">AssociationItem</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.__calculateEndingPoints_center">__calculateEndingPoints_center</a></td>
+<td>Private method to calculate the ending points of the association item.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.__calculateEndingPoints_rectangle">__calculateEndingPoints_rectangle</a></td>
+<td>Private method to calculate the ending points of the association item.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.__calculateEndingPoints_topToBottom">__calculateEndingPoints_topToBottom</a></td>
+<td>Private method to calculate the ending points of the association item.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.__findIntersection">__findIntersection</a></td>
+<td>Private method to calculate the intersection point of two lines.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.__findPointRegion">__findPointRegion</a></td>
+<td>Private method to find out, which region of rectangle rect contains the point (PosX, PosY) and returns the region number.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.__findRectIntersectionPoint">__findRectIntersectionPoint</a></td>
+<td>Private method to find the intersection point of a line with a rectangle.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.__mapRectFromItem">__mapRectFromItem</a></td>
+<td>Private method to map item's rectangle to this item's coordinate system.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.__updateEndPoint">__updateEndPoint</a></td>
+<td>Private method to update an endpoint.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.toDict">toDict</a></td>
+<td>Public method to collect data to be persisted.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.unassociate">unassociate</a></td>
+<td>Public method to unassociate from the widgets.</td>
+</tr>
+<tr>
+<td><a href="#AssociationItem.widgetMoved">widgetMoved</a></td>
+<td>Public method to recalculate the association after a widget was moved.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AssociationItem.fromDict" ID="AssociationItem.fromDict"></a>
+<h4>AssociationItem.fromDict (class method)</h4>
+<b>fromDict</b>(<i>data, umlItems, colors=None</i>)
+<p>
+        Class method to create an association item from persisted data.
+</p>
+
+<dl>
+
+<dt><i>data</i> (dict)</dt>
+<dd>
+dictionary containing the persisted data as generated
+            by toDict()
+</dd>
+<dt><i>umlItems</i> (list of UMLItem)</dt>
+<dd>
+list of UML items
+</dd>
+<dt><i>colors</i> (tuple of (QColor, QColor))</dt>
+<dd>
+tuple containing the foreground and background colors
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+created association item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AssociationItem
+</dd>
+</dl>
+<a NAME="AssociationItem.parseAssociationItemDataString" ID="AssociationItem.parseAssociationItemDataString"></a>
+<h4>AssociationItem.parseAssociationItemDataString (class method)</h4>
+<b>parseAssociationItemDataString</b>(<i>data</i>)
+<p>
+        Class method to parse the given persistence data.
+</p>
+
+<dl>
+
+<dt><i>data</i> (str)</dt>
+<dd>
+persisted data to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with the IDs of the source and destination items,
+            the association type and a flag indicating to associate from top
+            to bottom
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, int, bool)
+</dd>
+</dl>
+<a NAME="AssociationItem.__init__" ID="AssociationItem.__init__"></a>
+<h4>AssociationItem (Constructor)</h4>
+<b>AssociationItem</b>(<i>itemA, itemB, assocType=AssociationType.NORMAL, topToBottom=False, colors=None, parent=None, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>itemA</i> (UMLItem)</dt>
+<dd>
+first widget of the association
+</dd>
+<dt><i>itemB</i> (UMLItem)</dt>
+<dd>
+second widget of the association
+</dd>
+<dt><i>assocType</i> (AssociationType)</dt>
+<dd>
+type of the association
+</dd>
+<dt><i>topToBottom</i> (bool)</dt>
+<dd>
+flag indicating to draw the association
+            from item A top to item B bottom
+</dd>
+<dt><i>colors</i> (tuple of (QColor, QColor))</dt>
+<dd>
+tuple containing the foreground and background colors
+</dd>
+<dt><i>parent</i> (QGraphicsItem)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="AssociationItem.__calculateEndingPoints_center" ID="AssociationItem.__calculateEndingPoints_center"></a>
+<h4>AssociationItem.__calculateEndingPoints_center</h4>
+<b>__calculateEndingPoints_center</b>(<i></i>)
+<p>
+        Private method to calculate the ending points of the association item.
+</p>
+<p>
+        The ending points are calculated from the centers of the
+        two associated items.
+</p>
+
+<a NAME="AssociationItem.__calculateEndingPoints_rectangle" ID="AssociationItem.__calculateEndingPoints_rectangle"></a>
+<h4>AssociationItem.__calculateEndingPoints_rectangle</h4>
+<b>__calculateEndingPoints_rectangle</b>(<i></i>)
+<p>
+        Private method to calculate the ending points of the association item.
+</p>
+<p>
+        The ending points are calculated by the following method.
+</p>
+<p>
+        For each item the diagram is divided in four Regions by its diagonals
+        as indicated below
+        <pre>
+            +------------------------------+
+            |        \  Region 2  /        |
+            |         \          /         |
+            |          |--------|          |
+            |          | \    / |          |
+            |          |  \  /  |          |
+            |          |   \/   |          |
+            | Region 1 |   /\   | Region 3 |
+            |          |  /  \  |          |
+            |          | /    \ |          |
+            |          |--------|          |
+            |         /          \         |
+            |        /  Region 4  \        |
+            +------------------------------+
+        </pre>
+</p>
+<p>
+        Each diagonal is defined by two corners of the bounding rectangle.
+</p>
+<p>
+        To calculate the start point  we have to find out in which
+        region (defined by itemA's diagonals) is itemB's TopLeft corner
+        (lets call it region M). After that the start point will be
+        the middle point of rectangle's side contained in region M.
+</p>
+<p>
+        To calculate the end point we repeat the above but in the opposite
+        direction (from itemB to itemA)
+</p>
+
+<a NAME="AssociationItem.__calculateEndingPoints_topToBottom" ID="AssociationItem.__calculateEndingPoints_topToBottom"></a>
+<h4>AssociationItem.__calculateEndingPoints_topToBottom</h4>
+<b>__calculateEndingPoints_topToBottom</b>(<i></i>)
+<p>
+        Private method to calculate the ending points of the association item.
+</p>
+<p>
+        The ending points are calculated from the top center of the lower item
+        to the bottom center of the upper item.
+</p>
+
+<a NAME="AssociationItem.__findIntersection" ID="AssociationItem.__findIntersection"></a>
+<h4>AssociationItem.__findIntersection</h4>
+<b>__findIntersection</b>(<i>p1, p2, p3, p4</i>)
+<p>
+        Private method to calculate the intersection point of two lines.
+</p>
+<p>
+        The first line is determined by the points p1 and p2, the second
+        line by p3 and p4. If the intersection point is not contained in
+        the segment p1p2, then it returns (-1.0, -1.0).
+</p>
+<p>
+        For the function's internal calculations remember:<br />
+        QT coordinates start with the point (0,0) as the topleft corner
+        and x-values increase from left to right and y-values increase
+        from top to bottom; it means the visible area is quadrant I in
+        the regular XY coordinate system
+</p>
+<p>
+        <pre>
+            Quadrant II     |   Quadrant I
+           -----------------|-----------------
+            Quadrant III    |   Quadrant IV
+        </pre>
+</p>
+<p>
+        In order for the linear function calculations to work in this method
+        we must switch x and y values (x values become y values and viceversa)
+</p>
+
+<dl>
+
+<dt><i>p1</i> (QPointF)</dt>
+<dd>
+first point of first line
+</dd>
+<dt><i>p2</i> (QPointF)</dt>
+<dd>
+second point of first line
+</dd>
+<dt><i>p3</i> (QPointF)</dt>
+<dd>
+first point of second line
+</dd>
+<dt><i>p4</i> (QPointF)</dt>
+<dd>
+second point of second line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the intersection point
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPointF
+</dd>
+</dl>
+<a NAME="AssociationItem.__findPointRegion" ID="AssociationItem.__findPointRegion"></a>
+<h4>AssociationItem.__findPointRegion</h4>
+<b>__findPointRegion</b>(<i>rect, posX, posY</i>)
+<p>
+        Private method to find out, which region of rectangle rect contains
+        the point (PosX, PosY) and returns the region number.
+</p>
+
+<dl>
+
+<dt><i>rect</i> (QRectF)</dt>
+<dd>
+rectangle to calculate the region for
+</dd>
+<dt><i>posX</i> (float)</dt>
+<dd>
+x position of point
+</dd>
+<dt><i>posY</i> (float)</dt>
+<dd>
+y position of point
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the calculated region number<br />
+            West = Region 1<br />
+            North = Region 2<br />
+            East = Region 3<br />
+            South = Region 4<br />
+            NorthWest = On diagonal 2 between Region 1 and 2<br />
+            NorthEast = On diagonal 1 between Region 2 and 3<br />
+            SouthEast = On diagonal 2 between Region 3 and 4<br />
+            SouthWest = On diagonal 1 between Region4 and 1<br />
+            Center = On diagonal 1 and On diagonal 2 (the center)<br />
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AssociationPointRegion
+</dd>
+</dl>
+<a NAME="AssociationItem.__findRectIntersectionPoint" ID="AssociationItem.__findRectIntersectionPoint"></a>
+<h4>AssociationItem.__findRectIntersectionPoint</h4>
+<b>__findRectIntersectionPoint</b>(<i>item, p1, p2</i>)
+<p>
+        Private method to find the intersection point of a line with a
+        rectangle.
+</p>
+
+<dl>
+
+<dt><i>item</i> (UMLItem)</dt>
+<dd>
+item to check against
+</dd>
+<dt><i>p1</i> (QPointF)</dt>
+<dd>
+first point of the line
+</dd>
+<dt><i>p2</i> (QPointF)</dt>
+<dd>
+second point of the line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the intersection point
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QPointF
+</dd>
+</dl>
+<a NAME="AssociationItem.__mapRectFromItem" ID="AssociationItem.__mapRectFromItem"></a>
+<h4>AssociationItem.__mapRectFromItem</h4>
+<b>__mapRectFromItem</b>(<i>item</i>)
+<p>
+        Private method to map item's rectangle to this item's coordinate
+        system.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QGraphicsRectItem)</dt>
+<dd>
+reference to the item to be mapped
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+item's rectangle in local coordinates
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QRectF
+</dd>
+</dl>
+<a NAME="AssociationItem.__updateEndPoint" ID="AssociationItem.__updateEndPoint"></a>
+<h4>AssociationItem.__updateEndPoint</h4>
+<b>__updateEndPoint</b>(<i>region, isWidgetA</i>)
+<p>
+        Private method to update an endpoint.
+</p>
+
+<dl>
+
+<dt><i>region</i> (AssociationPointRegion)</dt>
+<dd>
+the region for the endpoint
+</dd>
+<dt><i>isWidgetA</i> (bool)</dt>
+<dd>
+flag indicating update for itemA is done
+</dd>
+</dl>
+<a NAME="AssociationItem.toDict" ID="AssociationItem.toDict"></a>
+<h4>AssociationItem.toDict</h4>
+<b>toDict</b>(<i></i>)
+<p>
+        Public method to collect data to be persisted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing data to be persisted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="AssociationItem.unassociate" ID="AssociationItem.unassociate"></a>
+<h4>AssociationItem.unassociate</h4>
+<b>unassociate</b>(<i></i>)
+<p>
+        Public method to unassociate from the widgets.
+</p>
+
+<a NAME="AssociationItem.widgetMoved" ID="AssociationItem.widgetMoved"></a>
+<h4>AssociationItem.widgetMoved</h4>
+<b>widgetMoved</b>(<i></i>)
+<p>
+        Public method to recalculate the association after a widget was moved.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="AssociationPointRegion" ID="AssociationPointRegion"></a>
+<h2>AssociationPointRegion</h2>
+<p>
+    Class defining the regions for an association end point.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>CENTER</td></tr>
+<tr><td>EAST</td></tr>
+<tr><td>NORTH</td></tr>
+<tr><td>NORTH_EAST</td></tr>
+<tr><td>NORTH_WEST</td></tr>
+<tr><td>NO_REGION</td></tr>
+<tr><td>SOUTH</td></tr>
+<tr><td>SOUTH_EAST</td></tr>
+<tr><td>SOUTH_WEST</td></tr>
+<tr><td>WEST</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="AssociationType" ID="AssociationType"></a>
+<h2>AssociationType</h2>
+<p>
+    Class defining the association types.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>GENERALISATION</td></tr>
+<tr><td>IMPORTS</td></tr>
+<tr><td>NORMAL</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

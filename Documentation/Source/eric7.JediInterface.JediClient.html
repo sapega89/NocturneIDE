@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.JediInterface.JediClient</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.JediInterface.JediClient</h1>
+<p>
+Module implementing the Jedi client of eric7.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SuppressedException</td></tr>
+<tr><td>client</td></tr>
+<tr><td>modulePath</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#JediClient">JediClient</a></td>
+<td>Class implementing the Jedi client of eric7.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="JediClient" ID="JediClient"></a>
+<h2>JediClient</h2>
+<p>
+    Class implementing the Jedi client of eric7.
+</p>
+
+<h3>Derived from</h3>
+EricJsonClient
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#JediClient.__init__">JediClient</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__applyRefactoring">__applyRefactoring</a></td>
+<td>Private method to apply a refactoring.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__cancelRefactoring">__cancelRefactoring</a></td>
+<td>Private method to cancel a refactoring.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__closeProject">__closeProject</a></td>
+<td>Private method to save a jedi project's data.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__completionFullName">__completionFullName</a></td>
+<td>Private method to extract the full completion name.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__completionType">__completionType</a></td>
+<td>Private method to assemble the completion type depending on the visibility indicated by the completion name.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__extractFunction">__extractFunction</a></td>
+<td>Private method to extract an expression to a new function.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__extractParameters">__extractParameters</a></td>
+<td>Private method to extract the call parameter descriptions.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__extractVariable">__extractVariable</a></td>
+<td>Private method to extract a statement to a new variable.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__getAssignment">__getAssignment</a></td>
+<td>Private method to get the place a parameter is defined.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__getCallTips">__getCallTips</a></td>
+<td>Private method to calculate possible calltips.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__getCompletions">__getCompletions</a></td>
+<td>Private method to calculate possible completions.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__getDocumentation">__getDocumentation</a></td>
+<td>Private method to get some source code documentation.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__getHoverHelp">__getHoverHelp</a></td>
+<td>Private method to get some source code documentation.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__getReferences">__getReferences</a></td>
+<td>Private method to get the places a parameter is referenced.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__handleError">__handleError</a></td>
+<td>Private method to process an error.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__inlineVariable">__inlineVariable</a></td>
+<td>Private method to inline a variable statement.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__openProject">__openProject</a></td>
+<td>Private method to create a jedi project and load its saved data.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.__renameVariable">__renameVariable</a></td>
+<td>Private method to rename the variable under the cursor.</td>
+</tr>
+<tr>
+<td><a href="#JediClient.handleCall">handleCall</a></td>
+<td>Public method to handle a method call from the server.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="JediClient.__init__" ID="JediClient.__init__"></a>
+<h4>JediClient (Constructor)</h4>
+<b>JediClient</b>(<i>host, port, idString</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+ip address the background service is listening
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+port of the background service
+</dd>
+<dt><i>idString</i> (str)</dt>
+<dd>
+assigned client id to be sent back to the server in
+            order to identify the connection
+</dd>
+</dl>
+<a NAME="JediClient.__applyRefactoring" ID="JediClient.__applyRefactoring"></a>
+<h4>JediClient.__applyRefactoring</h4>
+<b>__applyRefactoring</b>(<i>params</i>)
+<p>
+        Private method to apply a refactoring.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__cancelRefactoring" ID="JediClient.__cancelRefactoring"></a>
+<h4>JediClient.__cancelRefactoring</h4>
+<b>__cancelRefactoring</b>(<i>params</i>)
+<p>
+        Private method to cancel a refactoring.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__closeProject" ID="JediClient.__closeProject"></a>
+<h4>JediClient.__closeProject</h4>
+<b>__closeProject</b>(<i>_params</i>)
+<p>
+        Private method to save a jedi project's data.
+</p>
+
+<dl>
+
+<dt><i>_params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters (unused)
+</dd>
+</dl>
+<a NAME="JediClient.__completionFullName" ID="JediClient.__completionFullName"></a>
+<h4>JediClient.__completionFullName</h4>
+<b>__completionFullName</b>(<i>completion</i>)
+<p>
+        Private method to extract the full completion name.
+</p>
+
+<dl>
+
+<dt><i>completion</i> (jedi.api.classes.Completion)</dt>
+<dd>
+reference to the completion object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+full completion name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="JediClient.__completionType" ID="JediClient.__completionType"></a>
+<h4>JediClient.__completionType</h4>
+<b>__completionType</b>(<i>completion</i>)
+<p>
+        Private method to assemble the completion type depending on the
+        visibility indicated by the completion name.
+</p>
+
+<dl>
+
+<dt><i>completion</i> (jedi.api.classes.Completion)</dt>
+<dd>
+reference to the completion object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified completion type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="JediClient.__extractFunction" ID="JediClient.__extractFunction"></a>
+<h4>JediClient.__extractFunction</h4>
+<b>__extractFunction</b>(<i>params</i>)
+<p>
+        Private method to extract an expression to a new function.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__extractParameters" ID="JediClient.__extractParameters"></a>
+<h4>JediClient.__extractParameters</h4>
+<b>__extractParameters</b>(<i>signature</i>)
+<p>
+        Private method to extract the call parameter descriptions.
+</p>
+
+<dl>
+
+<dt><i>signature</i> (object)</dt>
+<dd>
+a jedi signature object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+a string with comma seperated parameter names and default
+            values
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="JediClient.__extractVariable" ID="JediClient.__extractVariable"></a>
+<h4>JediClient.__extractVariable</h4>
+<b>__extractVariable</b>(<i>params</i>)
+<p>
+        Private method to extract a statement to a new variable.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__getAssignment" ID="JediClient.__getAssignment"></a>
+<h4>JediClient.__getAssignment</h4>
+<b>__getAssignment</b>(<i>params</i>)
+<p>
+        Private method to get the place a parameter is defined.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__getCallTips" ID="JediClient.__getCallTips"></a>
+<h4>JediClient.__getCallTips</h4>
+<b>__getCallTips</b>(<i>params</i>)
+<p>
+        Private method to calculate possible calltips.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__getCompletions" ID="JediClient.__getCompletions"></a>
+<h4>JediClient.__getCompletions</h4>
+<b>__getCompletions</b>(<i>params</i>)
+<p>
+        Private method to calculate possible completions.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__getDocumentation" ID="JediClient.__getDocumentation"></a>
+<h4>JediClient.__getDocumentation</h4>
+<b>__getDocumentation</b>(<i>params</i>)
+<p>
+        Private method to get some source code documentation.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__getHoverHelp" ID="JediClient.__getHoverHelp"></a>
+<h4>JediClient.__getHoverHelp</h4>
+<b>__getHoverHelp</b>(<i>params</i>)
+<p>
+        Private method to get some source code documentation.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__getReferences" ID="JediClient.__getReferences"></a>
+<h4>JediClient.__getReferences</h4>
+<b>__getReferences</b>(<i>params</i>)
+<p>
+        Private method to get the places a parameter is referenced.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__handleError" ID="JediClient.__handleError"></a>
+<h4>JediClient.__handleError</h4>
+<b>__handleError</b>(<i>err</i>)
+<p>
+        Private method to process an error.
+</p>
+
+<dl>
+
+<dt><i>err</i> (Exception or Warning)</dt>
+<dd>
+exception object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the error information
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="JediClient.__inlineVariable" ID="JediClient.__inlineVariable"></a>
+<h4>JediClient.__inlineVariable</h4>
+<b>__inlineVariable</b>(<i>params</i>)
+<p>
+        Private method to inline a variable statement.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__openProject" ID="JediClient.__openProject"></a>
+<h4>JediClient.__openProject</h4>
+<b>__openProject</b>(<i>params</i>)
+<p>
+        Private method to create a jedi project and load its saved data.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.__renameVariable" ID="JediClient.__renameVariable"></a>
+<h4>JediClient.__renameVariable</h4>
+<b>__renameVariable</b>(<i>params</i>)
+<p>
+        Private method to rename the variable under the cursor.
+</p>
+
+<dl>
+
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary containing the method parameters
+</dd>
+</dl>
+<a NAME="JediClient.handleCall" ID="JediClient.handleCall"></a>
+<h4>JediClient.handleCall</h4>
+<b>handleCall</b>(<i>method, params</i>)
+<p>
+        Public method to handle a method call from the server.
+</p>
+
+<dl>
+
+<dt><i>method</i> (str)</dt>
+<dd>
+requested method name
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary with method specific parameters
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

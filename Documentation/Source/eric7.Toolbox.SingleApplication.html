@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Toolbox.SingleApplication</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Toolbox.SingleApplication</h1>
+<p>
+Module implementing the single application server and client.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SingleApplicationClient">SingleApplicationClient</a></td>
+<td>Class implementing the single application client base class.</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationServer">SingleApplicationServer</a></td>
+<td>Class implementing the single application server base class.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SingleApplicationClient" ID="SingleApplicationClient"></a>
+<h2>SingleApplicationClient</h2>
+<p>
+    Class implementing the single application client base class.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SingleApplicationClient.__init__">SingleApplicationClient</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationClient.connect">connect</a></td>
+<td>Public method to connect the single application client to its server.</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationClient.disconnect">disconnect</a></td>
+<td>Public method to disconnect from the Single Appliocation server.</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationClient.errstr">errstr</a></td>
+<td>Public method to return a meaningful error string for the last error.</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationClient.processArgs">processArgs</a></td>
+<td>Public method to process the command line arguments passed to the UI.</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationClient.sendCommand">sendCommand</a></td>
+<td>Public method to send the command to the application server.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SingleApplicationClient.__init__" ID="SingleApplicationClient.__init__"></a>
+<h4>SingleApplicationClient (Constructor)</h4>
+<b>SingleApplicationClient</b>(<i>name</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the local server to connect to
+</dd>
+</dl>
+<a NAME="SingleApplicationClient.connect" ID="SingleApplicationClient.connect"></a>
+<h4>SingleApplicationClient.connect</h4>
+<b>connect</b>(<i>timeout=10000</i>)
+<p>
+        Public method to connect the single application client to its server.
+</p>
+
+<dl>
+
+<dt><i>timeout</i> (int)</dt>
+<dd>
+connection timeout value in milliseconds
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value indicating success or an error number. Value is one of:
+            <table>
+                <tr><td>0</td><td>No application is running</td></tr>
+                <tr><td>1</td><td>Application is already running</td></tr>
+            </table>
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SingleApplicationClient.disconnect" ID="SingleApplicationClient.disconnect"></a>
+<h4>SingleApplicationClient.disconnect</h4>
+<b>disconnect</b>(<i></i>)
+<p>
+        Public method to disconnect from the Single Appliocation server.
+</p>
+
+<a NAME="SingleApplicationClient.errstr" ID="SingleApplicationClient.errstr"></a>
+<h4>SingleApplicationClient.errstr</h4>
+<b>errstr</b>(<i></i>)
+<p>
+        Public method to return a meaningful error string for the last error.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+error string for the last error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SingleApplicationClient.processArgs" ID="SingleApplicationClient.processArgs"></a>
+<h4>SingleApplicationClient.processArgs</h4>
+<b>processArgs</b>(<i>args</i>)
+<p>
+        Public method to process the command line arguments passed to the UI.
+</p>
+<p>
+        <b>Note</b>: This method must be overridden by subclasses.
+</p>
+
+<dl>
+
+<dt><i>args</i> (argparse.Namespace)</dt>
+<dd>
+namespace object containing the parsed command line parameters
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+raised to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="SingleApplicationClient.sendCommand" ID="SingleApplicationClient.sendCommand"></a>
+<h4>SingleApplicationClient.sendCommand</h4>
+<b>sendCommand</b>(<i>command, arguments</i>)
+<p>
+        Public method to send the command to the application server.
+</p>
+
+<dl>
+
+<dt><i>command</i> (str)</dt>
+<dd>
+command to be sent to the server
+</dd>
+<dt><i>arguments</i> (list of str)</dt>
+<dd>
+list of command arguments
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="SingleApplicationServer" ID="SingleApplicationServer"></a>
+<h2>SingleApplicationServer</h2>
+<p>
+    Class implementing the single application server base class.
+</p>
+
+<h3>Derived from</h3>
+QLocalServer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SingleApplicationServer.__init__">SingleApplicationServer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationServer.__disconnected">__disconnected</a></td>
+<td>Private method to handle the closure of the socket.</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationServer.__newConnection">__newConnection</a></td>
+<td>Private slot to handle a new connection.</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationServer.__receiveJson">__receiveJson</a></td>
+<td>Private method to receive the data from the client.</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationServer.handleCommand">handleCommand</a></td>
+<td>Public slot to handle the command sent by the client.</td>
+</tr>
+<tr>
+<td><a href="#SingleApplicationServer.shutdown">shutdown</a></td>
+<td>Public method used to shut down the server.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SingleApplicationServer.__init__" ID="SingleApplicationServer.__init__"></a>
+<h4>SingleApplicationServer (Constructor)</h4>
+<b>SingleApplicationServer</b>(<i>name</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name this server is listening to
+</dd>
+</dl>
+<a NAME="SingleApplicationServer.__disconnected" ID="SingleApplicationServer.__disconnected"></a>
+<h4>SingleApplicationServer.__disconnected</h4>
+<b>__disconnected</b>(<i></i>)
+<p>
+        Private method to handle the closure of the socket.
+</p>
+
+<a NAME="SingleApplicationServer.__newConnection" ID="SingleApplicationServer.__newConnection"></a>
+<h4>SingleApplicationServer.__newConnection</h4>
+<b>__newConnection</b>(<i></i>)
+<p>
+        Private slot to handle a new connection.
+</p>
+
+<a NAME="SingleApplicationServer.__receiveJson" ID="SingleApplicationServer.__receiveJson"></a>
+<h4>SingleApplicationServer.__receiveJson</h4>
+<b>__receiveJson</b>(<i></i>)
+<p>
+        Private method to receive the data from the client.
+</p>
+
+<a NAME="SingleApplicationServer.handleCommand" ID="SingleApplicationServer.handleCommand"></a>
+<h4>SingleApplicationServer.handleCommand</h4>
+<b>handleCommand</b>(<i>command, arguments</i>)
+<p>
+        Public slot to handle the command sent by the client.
+</p>
+<p>
+        <b>Note</b>: This method must be overridden by subclasses.
+</p>
+
+<dl>
+
+<dt><i>command</i> (str)</dt>
+<dd>
+command sent by the client
+</dd>
+<dt><i>arguments</i> (list of str)</dt>
+<dd>
+list of command arguments
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>NotImplementedError</b>:</dt>
+<dd>
+raised to indicate that this method must be
+            implemented by a subclass
+</dd>
+</dl>
+<a NAME="SingleApplicationServer.shutdown" ID="SingleApplicationServer.shutdown"></a>
+<h4>SingleApplicationServer.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method used to shut down the server.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

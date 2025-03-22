@@ -1,0 +1,3182 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Preferences.__init__</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Preferences.__init__</h1>
+<p>
+Package implementing the preferences interface.
+</p>
+<p>
+The preferences interface consists of a class, which defines the default
+values for all configuration items and stores the actual values. These
+values are read and written to the eric7 preferences file by module
+functions. The data is stored in a file in a subdirectory of the users home
+directory. The individual configuration data is accessed by accessor functions
+defined on the module level. The module is simply imported wherever it is
+needed with the statement 'from eric7 import Preferences'. Do not use
+'from eric7.Preferences import *' to import it.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>QWebEngineSettings</td></tr>
+<tr><td>_Migrations</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Prefs">Prefs</a></td>
+<td>A class to hold all configuration items for the application.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#convertPasswords">convertPasswords</a></td>
+<td>Module function to convert all passwords.</td>
+</tr>
+<tr>
+<td><a href="#exportPreferences">exportPreferences</a></td>
+<td>Module function to export the current preferences.</td>
+</tr>
+<tr>
+<td><a href="#getConda">getConda</a></td>
+<td>Module function to retrieve the conda related settings.</td>
+</tr>
+<tr>
+<td><a href="#getCooperation">getCooperation</a></td>
+<td>Module function to retrieve the various Cooperation settings.</td>
+</tr>
+<tr>
+<td><a href="#getDebugger">getDebugger</a></td>
+<td>Module function to retrieve the debugger settings.</td>
+</tr>
+<tr>
+<td><a href="#getDiffColour">getDiffColour</a></td>
+<td>Module function to retrieve the colours for the diff highlighter.</td>
+</tr>
+<tr>
+<td><a href="#getDocuViewer">getDocuViewer</a></td>
+<td>Module function to retrieve the Code Documentation Viewer related settings.</td>
+</tr>
+<tr>
+<td><a href="#getEditor">getEditor</a></td>
+<td>Module function to retrieve the various editor settings.</td>
+</tr>
+<tr>
+<td><a href="#getEditorAPI">getEditorAPI</a></td>
+<td>Module function to retrieve the various lists of API files.</td>
+</tr>
+<tr>
+<td><a href="#getEditorColour">getEditorColour</a></td>
+<td>Module function to retrieve the various editor marker colours.</td>
+</tr>
+<tr>
+<td><a href="#getEditorExporter">getEditorExporter</a></td>
+<td>Module function to retrieve the various editor exporters settings.</td>
+</tr>
+<tr>
+<td><a href="#getEditorKeywords">getEditorKeywords</a></td>
+<td>Module function to retrieve the various lists of language keywords.</td>
+</tr>
+<tr>
+<td><a href="#getEditorLexerAssoc">getEditorLexerAssoc</a></td>
+<td>Module function to retrieve a lexer association.</td>
+</tr>
+<tr>
+<td><a href="#getEditorLexerAssocs">getEditorLexerAssocs</a></td>
+<td>Module function to retrieve all lexer associations.</td>
+</tr>
+<tr>
+<td><a href="#getEditorOtherFonts">getEditorOtherFonts</a></td>
+<td>Module function to retrieve the various editor fonts except the lexer fonts.</td>
+</tr>
+<tr>
+<td><a href="#getEditorTyping">getEditorTyping</a></td>
+<td>Module function to retrieve the various editor typing settings.</td>
+</tr>
+<tr>
+<td><a href="#getEricServer">getEricServer</a></td>
+<td>Module function to retrieve the eric-ide server interface related settings.</td>
+</tr>
+<tr>
+<td><a href="#getFlakes">getFlakes</a></td>
+<td>Module function to retrieve the pyflakes related settings.</td>
+</tr>
+<tr>
+<td><a href="#getGeometry">getGeometry</a></td>
+<td>Module function to retrieve the display geometry.</td>
+</tr>
+<tr>
+<td><a href="#getGraphics">getGraphics</a></td>
+<td>Module function to retrieve the Graphics related settings.</td>
+</tr>
+<tr>
+<td><a href="#getHelp">getHelp</a></td>
+<td>Module function to retrieve the various help settings.</td>
+</tr>
+<tr>
+<td><a href="#getHexEditor">getHexEditor</a></td>
+<td>Module function to retrieve the Hex Editor related settings.</td>
+</tr>
+<tr>
+<td><a href="#getIconEditor">getIconEditor</a></td>
+<td>Module function to retrieve the Icon Editor related settings.</td>
+</tr>
+<tr>
+<td><a href="#getIcons">getIcons</a></td>
+<td>Module function to retrieve the various Icons settings.</td>
+</tr>
+<tr>
+<td><a href="#getIrc">getIrc</a></td>
+<td>Module function to retrieve the IRC related settings.</td>
+</tr>
+<tr>
+<td><a href="#getJedi">getJedi</a></td>
+<td>Function to retrieve the Jedi Assistant related settings.</td>
+</tr>
+<tr>
+<td><a href="#getMicroPython">getMicroPython</a></td>
+<td>Module function to retrieve the MicroPython related settings.</td>
+</tr>
+<tr>
+<td><a href="#getMultiProject">getMultiProject</a></td>
+<td>Module function to retrieve the various project handling settings.</td>
+</tr>
+<tr>
+<td><a href="#getPdfViewer">getPdfViewer</a></td>
+<td>Module function to retrieve the PDF Viewer related settings.</td>
+</tr>
+<tr>
+<td><a href="#getPip">getPip</a></td>
+<td>Module function to retrieve the pip related settings.</td>
+</tr>
+<tr>
+<td><a href="#getPluginManager">getPluginManager</a></td>
+<td>Module function to retrieve the plugin manager related settings.</td>
+</tr>
+<tr>
+<td><a href="#getPrinter">getPrinter</a></td>
+<td>Module function to retrieve the various printer settings.</td>
+</tr>
+<tr>
+<td><a href="#getProject">getProject</a></td>
+<td>Module function to retrieve the various project handling settings.</td>
+</tr>
+<tr>
+<td><a href="#getProjectBrowserColour">getProjectBrowserColour</a></td>
+<td>Module function to retrieve the various project browser colours.</td>
+</tr>
+<tr>
+<td><a href="#getProjectBrowsers">getProjectBrowsers</a></td>
+<td>Function to retrieve the enabled project browsers per project type.</td>
+</tr>
+<tr>
+<td><a href="#getPython">getPython</a></td>
+<td>Module function to retrieve the Python settings.</td>
+</tr>
+<tr>
+<td><a href="#getQt">getQt</a></td>
+<td>Module function to retrieve the various Qt settings.</td>
+</tr>
+<tr>
+<td><a href="#getQtDocDir">getQtDocDir</a></td>
+<td>Module function to retrieve the Qt5DocDir/Qt6DocDir setting.</td>
+</tr>
+<tr>
+<td><a href="#getQtTranslationsDir">getQtTranslationsDir</a></td>
+<td>Module function to retrieve the Qt6TranslationsDir setting depending on the current Qt version.</td>
+</tr>
+<tr>
+<td><a href="#getSettings">getSettings</a></td>
+<td>Function to get a reference to the settings object.</td>
+</tr>
+<tr>
+<td><a href="#getShell">getShell</a></td>
+<td>Module function to retrieve the various shell settings.</td>
+</tr>
+<tr>
+<td><a href="#getSystem">getSystem</a></td>
+<td>Module function to retrieve the various system settings.</td>
+</tr>
+<tr>
+<td><a href="#getTasks">getTasks</a></td>
+<td>Module function to retrieve the Tasks related settings.</td>
+</tr>
+<tr>
+<td><a href="#getTemplates">getTemplates</a></td>
+<td>Module function to retrieve the Templates related settings.</td>
+</tr>
+<tr>
+<td><a href="#getTrayStarter">getTrayStarter</a></td>
+<td>Module function to retrieve the tray starter related settings.</td>
+</tr>
+<tr>
+<td><a href="#getUI">getUI</a></td>
+<td>Module function to retrieve the various UI settings.</td>
+</tr>
+<tr>
+<td><a href="#getUILanguage">getUILanguage</a></td>
+<td>Module function to retrieve the language for the user interface.</td>
+</tr>
+<tr>
+<td><a href="#getUser">getUser</a></td>
+<td>Module function to retrieve the various user settings.</td>
+</tr>
+<tr>
+<td><a href="#getVCS">getVCS</a></td>
+<td>Module function to retrieve the VCS related settings.</td>
+</tr>
+<tr>
+<td><a href="#getVarFilters">getVarFilters</a></td>
+<td>Module function to retrieve the variables filter settings.</td>
+</tr>
+<tr>
+<td><a href="#getViewManager">getViewManager</a></td>
+<td>Module function to retrieve the selected viewmanager type.</td>
+</tr>
+<tr>
+<td><a href="#getWebBrowser">getWebBrowser</a></td>
+<td>Module function to retrieve the various web browser settings.</td>
+</tr>
+<tr>
+<td><a href="#importPreferences">importPreferences</a></td>
+<td>Module function to from eric7 import Preferences from a file previously saved by the export function.</td>
+</tr>
+<tr>
+<td><a href="#initPreferences">initPreferences</a></td>
+<td>Function to initialize the central configuration store.</td>
+</tr>
+<tr>
+<td><a href="#initRecentSettings">initRecentSettings</a></td>
+<td>Module function to initialize the central configuration store for recently opened files and projects.</td>
+</tr>
+<tr>
+<td><a href="#isConfigured">isConfigured</a></td>
+<td>Module function to check, if the the application has been configured.</td>
+</tr>
+<tr>
+<td><a href="#readToolGroups">readToolGroups</a></td>
+<td>Module function to read the tool groups configuration.</td>
+</tr>
+<tr>
+<td><a href="#removeProjectBrowsers">removeProjectBrowsers</a></td>
+<td>Function to remove the browsers list of the given project type.</td>
+</tr>
+<tr>
+<td><a href="#resetLayout">resetLayout</a></td>
+<td>Module function to set a flag not storing the current layout.</td>
+</tr>
+<tr>
+<td><a href="#saveResetLayout">saveResetLayout</a></td>
+<td>Module function to save the reset layout.</td>
+</tr>
+<tr>
+<td><a href="#saveToolGroups">saveToolGroups</a></td>
+<td>Module function to write the tool groups configuration.</td>
+</tr>
+<tr>
+<td><a href="#setConda">setConda</a></td>
+<td>Module function to store the conda related settings.</td>
+</tr>
+<tr>
+<td><a href="#setConfigured">setConfigured</a></td>
+<td>Function to set the configured flag.</td>
+</tr>
+<tr>
+<td><a href="#setCooperation">setCooperation</a></td>
+<td>Module function to store the various Cooperation settings.</td>
+</tr>
+<tr>
+<td><a href="#setDebugger">setDebugger</a></td>
+<td>Module function to store the debugger settings.</td>
+</tr>
+<tr>
+<td><a href="#setDiffColour">setDiffColour</a></td>
+<td>Module function to store the diff highlighter colours.</td>
+</tr>
+<tr>
+<td><a href="#setDocuViewer">setDocuViewer</a></td>
+<td>Module function to store the Code Documentation Viewer related settings.</td>
+</tr>
+<tr>
+<td><a href="#setEditor">setEditor</a></td>
+<td>Module function to store the various editor settings.</td>
+</tr>
+<tr>
+<td><a href="#setEditorAPI">setEditorAPI</a></td>
+<td>Module function to store the various lists of API files.</td>
+</tr>
+<tr>
+<td><a href="#setEditorColour">setEditorColour</a></td>
+<td>Module function to store the various editor marker colours.</td>
+</tr>
+<tr>
+<td><a href="#setEditorExporter">setEditorExporter</a></td>
+<td>Module function to store the various editor exporters settings.</td>
+</tr>
+<tr>
+<td><a href="#setEditorKeywords">setEditorKeywords</a></td>
+<td>Module function to store the various lists of language keywords.</td>
+</tr>
+<tr>
+<td><a href="#setEditorLexerAssocs">setEditorLexerAssocs</a></td>
+<td>Module function to retrieve all lexer associations.</td>
+</tr>
+<tr>
+<td><a href="#setEditorOtherFonts">setEditorOtherFonts</a></td>
+<td>Module function to store the various editor fonts except the lexer fonts.</td>
+</tr>
+<tr>
+<td><a href="#setEditorTyping">setEditorTyping</a></td>
+<td>Module function to store the various editor typing settings.</td>
+</tr>
+<tr>
+<td><a href="#setEricServer">setEricServer</a></td>
+<td>Module function to store the eric-ide server interface related settings.</td>
+</tr>
+<tr>
+<td><a href="#setFlakes">setFlakes</a></td>
+<td>Module function to store the pyflakes related settings.</td>
+</tr>
+<tr>
+<td><a href="#setGeometry">setGeometry</a></td>
+<td>Module function to store the display geometry.</td>
+</tr>
+<tr>
+<td><a href="#setGraphics">setGraphics</a></td>
+<td>Module function to store the Graphics related settings.</td>
+</tr>
+<tr>
+<td><a href="#setHelp">setHelp</a></td>
+<td>Module function to store the various help settings.</td>
+</tr>
+<tr>
+<td><a href="#setHexEditor">setHexEditor</a></td>
+<td>Module function to store the Hex Editor related settings.</td>
+</tr>
+<tr>
+<td><a href="#setIconEditor">setIconEditor</a></td>
+<td>Module function to store the Icon Editor related settings.</td>
+</tr>
+<tr>
+<td><a href="#setIcons">setIcons</a></td>
+<td>Module function to store the various Icons settings.</td>
+</tr>
+<tr>
+<td><a href="#setIrc">setIrc</a></td>
+<td>Module function to store the IRC related settings.</td>
+</tr>
+<tr>
+<td><a href="#setJedi">setJedi</a></td>
+<td>Public method to store the various refactoring settings.</td>
+</tr>
+<tr>
+<td><a href="#setMicroPython">setMicroPython</a></td>
+<td>Module function to store the MicroPython settings.</td>
+</tr>
+<tr>
+<td><a href="#setMultiProject">setMultiProject</a></td>
+<td>Module function to store the various project handling settings.</td>
+</tr>
+<tr>
+<td><a href="#setPdfViewer">setPdfViewer</a></td>
+<td>Module function to store the PDF Viewer related settings.</td>
+</tr>
+<tr>
+<td><a href="#setPip">setPip</a></td>
+<td>Module function to store the pip related settings.</td>
+</tr>
+<tr>
+<td><a href="#setPluginManager">setPluginManager</a></td>
+<td>Module function to store the plugin manager related settings.</td>
+</tr>
+<tr>
+<td><a href="#setPrinter">setPrinter</a></td>
+<td>Module function to store the various printer settings.</td>
+</tr>
+<tr>
+<td><a href="#setProject">setProject</a></td>
+<td>Module function to store the various project handling settings.</td>
+</tr>
+<tr>
+<td><a href="#setProjectBrowserColour">setProjectBrowserColour</a></td>
+<td>Module function to store the various project browser colours.</td>
+</tr>
+<tr>
+<td><a href="#setProjectBrowsers">setProjectBrowsers</a></td>
+<td>Function to store the enabled project browsers per project type.</td>
+</tr>
+<tr>
+<td><a href="#setProjectBrowsersDefault">setProjectBrowsersDefault</a></td>
+<td>Function to store the given project browser list to the list of defaults.</td>
+</tr>
+<tr>
+<td><a href="#setPython">setPython</a></td>
+<td>Module function to store the Python settings.</td>
+</tr>
+<tr>
+<td><a href="#setQt">setQt</a></td>
+<td>Module function to store the various Qt settings.</td>
+</tr>
+<tr>
+<td><a href="#setShell">setShell</a></td>
+<td>Module function to store the various shell settings.</td>
+</tr>
+<tr>
+<td><a href="#setSystem">setSystem</a></td>
+<td>Module function to store the various system settings.</td>
+</tr>
+<tr>
+<td><a href="#setTasks">setTasks</a></td>
+<td>Module function to store the Tasks related settings.</td>
+</tr>
+<tr>
+<td><a href="#setTemplates">setTemplates</a></td>
+<td>Module function to store the Templates related settings.</td>
+</tr>
+<tr>
+<td><a href="#setTrayStarter">setTrayStarter</a></td>
+<td>Module function to store the tray starter related settings.</td>
+</tr>
+<tr>
+<td><a href="#setUI">setUI</a></td>
+<td>Module function to store the various UI settings.</td>
+</tr>
+<tr>
+<td><a href="#setUILanguage">setUILanguage</a></td>
+<td>Module function to store the language for the user interface.</td>
+</tr>
+<tr>
+<td><a href="#setUser">setUser</a></td>
+<td>Module function to store the various user settings.</td>
+</tr>
+<tr>
+<td><a href="#setVCS">setVCS</a></td>
+<td>Module function to store the VCS related settings.</td>
+</tr>
+<tr>
+<td><a href="#setVarFilters">setVarFilters</a></td>
+<td>Module function to store the variables filter settings.</td>
+</tr>
+<tr>
+<td><a href="#setViewManager">setViewManager</a></td>
+<td>Module function to store the selected viewmanager type.</td>
+</tr>
+<tr>
+<td><a href="#setWebBrowser">setWebBrowser</a></td>
+<td>Module function to store the various web browser settings.</td>
+</tr>
+<tr>
+<td><a href="#shouldResetLayout">shouldResetLayout</a></td>
+<td>Module function to indicate a reset of the layout.</td>
+</tr>
+<tr>
+<td><a href="#syncPreferences">syncPreferences</a></td>
+<td>Module function to sync the preferences to disk.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Prefs" ID="Prefs"></a>
+<h2>Prefs</h2>
+<p>
+    A class to hold all configuration items for the application.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>condaDefaults</td></tr>
+<tr><td>cooperationDefaults</td></tr>
+<tr><td>debuggerDefaults</td></tr>
+<tr><td>diffColourDefaults</td></tr>
+<tr><td>docuViewerDefaults</td></tr>
+<tr><td>editorColourDefaults</td></tr>
+<tr><td>editorDefaults</td></tr>
+<tr><td>editorExporterDefaults</td></tr>
+<tr><td>editorOtherFontsDefaults</td></tr>
+<tr><td>editorTypingDefaults</td></tr>
+<tr><td>ericServerDefaults</td></tr>
+<tr><td>geometryDefaults</td></tr>
+<tr><td>graphicsDefaults</td></tr>
+<tr><td>helpDefaults</td></tr>
+<tr><td>hexEditorDefaults</td></tr>
+<tr><td>iconEditorDefaults</td></tr>
+<tr><td>iconsDefaults</td></tr>
+<tr><td>ircDefaults</td></tr>
+<tr><td>jediDefaults</td></tr>
+<tr><td>microPythonDefaults</td></tr>
+<tr><td>multiProjectDefaults</td></tr>
+<tr><td>pdfViewerDefaults</td></tr>
+<tr><td>pipDefaults</td></tr>
+<tr><td>pluginManagerDefaults</td></tr>
+<tr><td>printerDefaults</td></tr>
+<tr><td>projectBrowserColourDefaults</td></tr>
+<tr><td>projectBrowsersDefaults</td></tr>
+<tr><td>projectDefaults</td></tr>
+<tr><td>pyflakesDefaults</td></tr>
+<tr><td>pythonDefaults</td></tr>
+<tr><td>qtDefaults</td></tr>
+<tr><td>resetLayout</td></tr>
+<tr><td>shellDefaults</td></tr>
+<tr><td>sysDefaults</td></tr>
+<tr><td>tasksDefaults</td></tr>
+<tr><td>templatesDefaults</td></tr>
+<tr><td>trayStarterDefaults</td></tr>
+<tr><td>uiDefaults</td></tr>
+<tr><td>userDefaults</td></tr>
+<tr><td>varDefaults</td></tr>
+<tr><td>vcsDefaults</td></tr>
+<tr><td>webBrowserDefaults</td></tr>
+<tr><td>webEngineSettingsIntitialized</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#Prefs.initWebEngineSettingsDefaults">initWebEngineSettingsDefaults</a></td>
+<td>Class method to initialize the web engine settings related defaults.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Prefs.initWebEngineSettingsDefaults" ID="Prefs.initWebEngineSettingsDefaults"></a>
+<h4>Prefs.initWebEngineSettingsDefaults (class method)</h4>
+<b>initWebEngineSettingsDefaults</b>(<i></i>)
+<p>
+        Class method to initialize the web engine settings related defaults.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="convertPasswords" ID="convertPasswords"></a>
+<h2>convertPasswords</h2>
+<b>convertPasswords</b>(<i>oldPassword, newPassword</i>)
+<p>
+    Module function to convert all passwords.
+</p>
+
+<dl>
+
+<dt><i>oldPassword</i> (str)</dt>
+<dd>
+current password
+</dd>
+<dt><i>newPassword</i> (str)</dt>
+<dd>
+new password
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="exportPreferences" ID="exportPreferences"></a>
+<h2>exportPreferences</h2>
+<b>exportPreferences</b>(<i></i>)
+<p>
+    Module function to export the current preferences.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getConda" ID="getConda"></a>
+<h2>getConda</h2>
+<b>getConda</b>(<i>key</i>)
+<p>
+    Module function to retrieve the conda related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested conda value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getCooperation" ID="getCooperation"></a>
+<h2>getCooperation</h2>
+<b>getCooperation</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various Cooperation settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested UI setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getDebugger" ID="getDebugger"></a>
+<h2>getDebugger</h2>
+<b>getDebugger</b>(<i>key</i>)
+<p>
+    Module function to retrieve the debugger settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested debugger setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getDiffColour" ID="getDiffColour"></a>
+<h2>getDiffColour</h2>
+<b>getDiffColour</b>(<i>key</i>)
+<p>
+    Module function to retrieve the colours for the diff highlighter.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested diff colour
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getDocuViewer" ID="getDocuViewer"></a>
+<h2>getDocuViewer</h2>
+<b>getDocuViewer</b>(<i>key</i>)
+<p>
+    Module function to retrieve the Code Documentation Viewer related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested Code Documentation Viewer value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEditor" ID="getEditor"></a>
+<h2>getEditor</h2>
+<b>getEditor</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various editor settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested editor setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEditorAPI" ID="getEditorAPI"></a>
+<h2>getEditorAPI</h2>
+<b>getEditorAPI</b>(<i>language, projectType=""</i>)
+<p>
+    Module function to retrieve the various lists of API files.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language of the API list
+</dd>
+<dt><i>projectType</i> (str)</dt>
+<dd>
+project type of the API list
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested list of API files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEditorColour" ID="getEditorColour"></a>
+<h2>getEditorColour</h2>
+<b>getEditorColour</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various editor marker colours.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested editor colour
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEditorExporter" ID="getEditorExporter"></a>
+<h2>getEditorExporter</h2>
+<b>getEditorExporter</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various editor exporters settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested editor setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEditorKeywords" ID="getEditorKeywords"></a>
+<h2>getEditorKeywords</h2>
+<b>getEditorKeywords</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various lists of language keywords.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested list of language keywords
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEditorLexerAssoc" ID="getEditorLexerAssoc"></a>
+<h2>getEditorLexerAssoc</h2>
+<b>getEditorLexerAssoc</b>(<i>filename</i>)
+<p>
+    Module function to retrieve a lexer association.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+filename used to determine the associated lexer language
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested lexer language
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEditorLexerAssocs" ID="getEditorLexerAssocs"></a>
+<h2>getEditorLexerAssocs</h2>
+<b>getEditorLexerAssocs</b>(<i></i>)
+<p>
+    Module function to retrieve all lexer associations.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a reference to the list of lexer associations
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEditorOtherFonts" ID="getEditorOtherFonts"></a>
+<h2>getEditorOtherFonts</h2>
+<b>getEditorOtherFonts</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various editor fonts except the lexer
+    fonts.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested editor font
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QFont
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEditorTyping" ID="getEditorTyping"></a>
+<h2>getEditorTyping</h2>
+<b>getEditorTyping</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various editor typing settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested editor setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getEricServer" ID="getEricServer"></a>
+<h2>getEricServer</h2>
+<b>getEricServer</b>(<i>key</i>)
+<p>
+    Module function to retrieve the eric-ide server interface related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getFlakes" ID="getFlakes"></a>
+<h2>getFlakes</h2>
+<b>getFlakes</b>(<i>key</i>)
+<p>
+    Module function to retrieve the pyflakes related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getGeometry" ID="getGeometry"></a>
+<h2>getGeometry</h2>
+<b>getGeometry</b>(<i>key</i>)
+<p>
+    Module function to retrieve the display geometry.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested geometry setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getGraphics" ID="getGraphics"></a>
+<h2>getGraphics</h2>
+<b>getGraphics</b>(<i>key</i>)
+<p>
+    Module function to retrieve the Graphics related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getHelp" ID="getHelp"></a>
+<h2>getHelp</h2>
+<b>getHelp</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various help settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested help setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getHexEditor" ID="getHexEditor"></a>
+<h2>getHexEditor</h2>
+<b>getHexEditor</b>(<i>key</i>)
+<p>
+    Module function to retrieve the Hex Editor related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getIconEditor" ID="getIconEditor"></a>
+<h2>getIconEditor</h2>
+<b>getIconEditor</b>(<i>key</i>)
+<p>
+    Module function to retrieve the Icon Editor related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getIcons" ID="getIcons"></a>
+<h2>getIcons</h2>
+<b>getIcons</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various Icons settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested Icons setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getIrc" ID="getIrc"></a>
+<h2>getIrc</h2>
+<b>getIrc</b>(<i>key</i>)
+<p>
+    Module function to retrieve the IRC related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getJedi" ID="getJedi"></a>
+<h2>getJedi</h2>
+<b>getJedi</b>(<i>key</i>)
+<p>
+    Function to retrieve the Jedi Assistant related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested jedi assistant setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getMicroPython" ID="getMicroPython"></a>
+<h2>getMicroPython</h2>
+<b>getMicroPython</b>(<i>key</i>)
+<p>
+    Module function to retrieve the MicroPython related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested MicroPython value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getMultiProject" ID="getMultiProject"></a>
+<h2>getMultiProject</h2>
+<b>getMultiProject</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various project handling settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested project setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getPdfViewer" ID="getPdfViewer"></a>
+<h2>getPdfViewer</h2>
+<b>getPdfViewer</b>(<i>key</i>)
+<p>
+    Module function to retrieve the PDF Viewer related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getPip" ID="getPip"></a>
+<h2>getPip</h2>
+<b>getPip</b>(<i>key</i>)
+<p>
+    Module function to retrieve the pip related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested pip value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getPluginManager" ID="getPluginManager"></a>
+<h2>getPluginManager</h2>
+<b>getPluginManager</b>(<i>key</i>)
+<p>
+    Module function to retrieve the plugin manager related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getPrinter" ID="getPrinter"></a>
+<h2>getPrinter</h2>
+<b>getPrinter</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various printer settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested printer setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getProject" ID="getProject"></a>
+<h2>getProject</h2>
+<b>getProject</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various project handling settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested project setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getProjectBrowserColour" ID="getProjectBrowserColour"></a>
+<h2>getProjectBrowserColour</h2>
+<b>getProjectBrowserColour</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various project browser colours.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested project browser colour
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getProjectBrowsers" ID="getProjectBrowsers"></a>
+<h2>getProjectBrowsers</h2>
+<b>getProjectBrowsers</b>(<i>key</i>)
+<p>
+    Function to retrieve the enabled project browsers per project type.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+project type
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of enabled project browsers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getPython" ID="getPython"></a>
+<h2>getPython</h2>
+<b>getPython</b>(<i>key</i>)
+<p>
+    Module function to retrieve the Python settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested debugger setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getQt" ID="getQt"></a>
+<h2>getQt</h2>
+<b>getQt</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various Qt settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested Qt setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getQtDocDir" ID="getQtDocDir"></a>
+<h2>getQtDocDir</h2>
+<b>getQtDocDir</b>(<i>version</i>)
+<p>
+    Module function to retrieve the Qt5DocDir/Qt6DocDir setting.
+</p>
+
+<dl>
+
+<dt><i>version</i> (int)</dt>
+<dd>
+Qt version to get documentation directory for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested Qt5DocDir/Qt6DocDir setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getQtTranslationsDir" ID="getQtTranslationsDir"></a>
+<h2>getQtTranslationsDir</h2>
+<b>getQtTranslationsDir</b>(<i></i>)
+<p>
+    Module function to retrieve the Qt6TranslationsDir
+    setting depending on the current Qt version.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getSettings" ID="getSettings"></a>
+<h2>getSettings</h2>
+<b>getSettings</b>(<i></i>)
+<p>
+    Function to get a reference to the settings object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the settings object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QSettings
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getShell" ID="getShell"></a>
+<h2>getShell</h2>
+<b>getShell</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various shell settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested shell setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getSystem" ID="getSystem"></a>
+<h2>getSystem</h2>
+<b>getSystem</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various system settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested system setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getTasks" ID="getTasks"></a>
+<h2>getTasks</h2>
+<b>getTasks</b>(<i>key</i>)
+<p>
+    Module function to retrieve the Tasks related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getTemplates" ID="getTemplates"></a>
+<h2>getTemplates</h2>
+<b>getTemplates</b>(<i>key</i>)
+<p>
+    Module function to retrieve the Templates related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getTrayStarter" ID="getTrayStarter"></a>
+<h2>getTrayStarter</h2>
+<b>getTrayStarter</b>(<i>key</i>)
+<p>
+    Module function to retrieve the tray starter related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getUI" ID="getUI"></a>
+<h2>getUI</h2>
+<b>getUI</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various UI settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested UI setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getUILanguage" ID="getUILanguage"></a>
+<h2>getUILanguage</h2>
+<b>getUILanguage</b>(<i></i>)
+<p>
+    Module function to retrieve the language for the user interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the language for the UI
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getUser" ID="getUser"></a>
+<h2>getUser</h2>
+<b>getUser</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various user settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getVCS" ID="getVCS"></a>
+<h2>getVCS</h2>
+<b>getVCS</b>(<i>key</i>)
+<p>
+    Module function to retrieve the VCS related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested user setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getVarFilters" ID="getVarFilters"></a>
+<h2>getVarFilters</h2>
+<b>getVarFilters</b>(<i></i>)
+<p>
+    Module function to retrieve the variables filter settings.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a tuple defining the variables filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list, list)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getViewManager" ID="getViewManager"></a>
+<h2>getViewManager</h2>
+<b>getViewManager</b>(<i></i>)
+<p>
+    Module function to retrieve the selected viewmanager type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the viewmanager type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getWebBrowser" ID="getWebBrowser"></a>
+<h2>getWebBrowser</h2>
+<b>getWebBrowser</b>(<i>key</i>)
+<p>
+    Module function to retrieve the various web browser settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested help setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="importPreferences" ID="importPreferences"></a>
+<h2>importPreferences</h2>
+<b>importPreferences</b>(<i></i>)
+<p>
+    Module function to from eric7 import Preferences from a file previously saved by
+    the export function.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="initPreferences" ID="initPreferences"></a>
+<h2>initPreferences</h2>
+<b>initPreferences</b>(<i>withMigration=False</i>)
+<p>
+    Function to initialize the central configuration store.
+</p>
+
+<dl>
+
+<dt><i>withMigration</i> (bool (optional))</dt>
+<dd>
+flag indicating to migrate old keys to new ones
+        (defaults to False)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="initRecentSettings" ID="initRecentSettings"></a>
+<h2>initRecentSettings</h2>
+<b>initRecentSettings</b>(<i></i>)
+<p>
+    Module function to initialize the central configuration store for recently
+    opened files and projects.
+</p>
+<p>
+    This function is called once upon import of the module.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isConfigured" ID="isConfigured"></a>
+<h2>isConfigured</h2>
+<b>isConfigured</b>(<i></i>)
+<p>
+    Module function to check, if the the application has been configured.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the configured status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="readToolGroups" ID="readToolGroups"></a>
+<h2>readToolGroups</h2>
+<b>readToolGroups</b>(<i></i>)
+<p>
+    Module function to read the tool groups configuration.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples defing the tool groups
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="removeProjectBrowsers" ID="removeProjectBrowsers"></a>
+<h2>removeProjectBrowsers</h2>
+<b>removeProjectBrowsers</b>(<i>key</i>)
+<p>
+    Function to remove the browsers list of the given project type.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+project type
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="resetLayout" ID="resetLayout"></a>
+<h2>resetLayout</h2>
+<b>resetLayout</b>(<i></i>)
+<p>
+    Module function to set a flag not storing the current layout.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="saveResetLayout" ID="saveResetLayout"></a>
+<h2>saveResetLayout</h2>
+<b>saveResetLayout</b>(<i></i>)
+<p>
+    Module function to save the reset layout.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="saveToolGroups" ID="saveToolGroups"></a>
+<h2>saveToolGroups</h2>
+<b>saveToolGroups</b>(<i>toolGroups, currentGroup</i>)
+<p>
+    Module function to write the tool groups configuration.
+</p>
+
+<dl>
+
+<dt><i>toolGroups</i> (list)</dt>
+<dd>
+reference to the list of tool groups
+</dd>
+<dt><i>currentGroup</i> (int)</dt>
+<dd>
+index of the currently selected tool group
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setConda" ID="setConda"></a>
+<h2>setConda</h2>
+<b>setConda</b>(<i>key, value</i>)
+<p>
+    Module function to store the conda related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setConfigured" ID="setConfigured"></a>
+<h2>setConfigured</h2>
+<b>setConfigured</b>(<i></i>)
+<p>
+    Function to set the configured flag.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setCooperation" ID="setCooperation"></a>
+<h2>setCooperation</h2>
+<b>setCooperation</b>(<i>key, value</i>)
+<p>
+    Module function to store the various Cooperation settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setDebugger" ID="setDebugger"></a>
+<h2>setDebugger</h2>
+<b>setDebugger</b>(<i>key, value</i>)
+<p>
+    Module function to store the debugger settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setDiffColour" ID="setDiffColour"></a>
+<h2>setDiffColour</h2>
+<b>setDiffColour</b>(<i>key, value</i>)
+<p>
+    Module function to store the diff highlighter colours.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the colour to be set
+</dd>
+<dt><i>value</i> (QColor)</dt>
+<dd>
+the colour to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setDocuViewer" ID="setDocuViewer"></a>
+<h2>setDocuViewer</h2>
+<b>setDocuViewer</b>(<i>key, value</i>)
+<p>
+    Module function to store the Code Documentation Viewer related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setEditor" ID="setEditor"></a>
+<h2>setEditor</h2>
+<b>setEditor</b>(<i>key, value</i>)
+<p>
+    Module function to store the various editor settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setEditorAPI" ID="setEditorAPI"></a>
+<h2>setEditorAPI</h2>
+<b>setEditorAPI</b>(<i>language, projectType, apilist</i>)
+<p>
+    Module function to store the various lists of API files.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language of the API list
+</dd>
+<dt><i>projectType</i> (str)</dt>
+<dd>
+project type of the API list
+</dd>
+<dt><i>apilist</i> (list of str)</dt>
+<dd>
+list of API files
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setEditorColour" ID="setEditorColour"></a>
+<h2>setEditorColour</h2>
+<b>setEditorColour</b>(<i>key, value</i>)
+<p>
+    Module function to store the various editor marker colours.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the colour to be set
+</dd>
+<dt><i>value</i> (QColor)</dt>
+<dd>
+the colour to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setEditorExporter" ID="setEditorExporter"></a>
+<h2>setEditorExporter</h2>
+<b>setEditorExporter</b>(<i>key, value</i>)
+<p>
+    Module function to store the various editor exporters settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setEditorKeywords" ID="setEditorKeywords"></a>
+<h2>setEditorKeywords</h2>
+<b>setEditorKeywords</b>(<i>key, keywordsLists</i>)
+<p>
+    Module function to store the various lists of language keywords.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the api to be set
+</dd>
+<dt><i>keywordsLists</i> (list of str)</dt>
+<dd>
+the list of language keywords
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setEditorLexerAssocs" ID="setEditorLexerAssocs"></a>
+<h2>setEditorLexerAssocs</h2>
+<b>setEditorLexerAssocs</b>(<i>assocs</i>)
+<p>
+    Module function to retrieve all lexer associations.
+</p>
+
+<dl>
+
+<dt><i>assocs</i> (dict)</dt>
+<dd>
+dictionary of lexer associations to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setEditorOtherFonts" ID="setEditorOtherFonts"></a>
+<h2>setEditorOtherFonts</h2>
+<b>setEditorOtherFonts</b>(<i>key, font</i>)
+<p>
+    Module function to store the various editor fonts except the lexer fonts.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the font to be set
+</dd>
+<dt><i>font</i> (QFont)</dt>
+<dd>
+the font to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setEditorTyping" ID="setEditorTyping"></a>
+<h2>setEditorTyping</h2>
+<b>setEditorTyping</b>(<i>key, value</i>)
+<p>
+    Module function to store the various editor typing settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setEricServer" ID="setEricServer"></a>
+<h2>setEricServer</h2>
+<b>setEricServer</b>(<i>key, value</i>)
+<p>
+    Module function to store the eric-ide server interface related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setFlakes" ID="setFlakes"></a>
+<h2>setFlakes</h2>
+<b>setFlakes</b>(<i>key, value</i>)
+<p>
+    Module function to store the pyflakes related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setGeometry" ID="setGeometry"></a>
+<h2>setGeometry</h2>
+<b>setGeometry</b>(<i>key, value</i>)
+<p>
+    Module function to store the display geometry.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the geometry to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setGraphics" ID="setGraphics"></a>
+<h2>setGraphics</h2>
+<b>setGraphics</b>(<i>key, value</i>)
+<p>
+    Module function to store the Graphics related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setHelp" ID="setHelp"></a>
+<h2>setHelp</h2>
+<b>setHelp</b>(<i>key, value</i>)
+<p>
+    Module function to store the various help settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setHexEditor" ID="setHexEditor"></a>
+<h2>setHexEditor</h2>
+<b>setHexEditor</b>(<i>key, value</i>)
+<p>
+    Module function to store the Hex Editor related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setIconEditor" ID="setIconEditor"></a>
+<h2>setIconEditor</h2>
+<b>setIconEditor</b>(<i>key, value</i>)
+<p>
+    Module function to store the Icon Editor related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setIcons" ID="setIcons"></a>
+<h2>setIcons</h2>
+<b>setIcons</b>(<i>key, value</i>)
+<p>
+    Module function to store the various Icons settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setIrc" ID="setIrc"></a>
+<h2>setIrc</h2>
+<b>setIrc</b>(<i>key, value</i>)
+<p>
+    Module function to store the IRC related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setJedi" ID="setJedi"></a>
+<h2>setJedi</h2>
+<b>setJedi</b>(<i>key, value</i>)
+<p>
+    Public method to store the various refactoring settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setMicroPython" ID="setMicroPython"></a>
+<h2>setMicroPython</h2>
+<b>setMicroPython</b>(<i>key, value</i>)
+<p>
+    Module function to store the MicroPython settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setMultiProject" ID="setMultiProject"></a>
+<h2>setMultiProject</h2>
+<b>setMultiProject</b>(<i>key, value</i>)
+<p>
+    Module function to store the various project handling settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setPdfViewer" ID="setPdfViewer"></a>
+<h2>setPdfViewer</h2>
+<b>setPdfViewer</b>(<i>key, value</i>)
+<p>
+    Module function to store the PDF Viewer related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setPip" ID="setPip"></a>
+<h2>setPip</h2>
+<b>setPip</b>(<i>key, value</i>)
+<p>
+    Module function to store the pip related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setPluginManager" ID="setPluginManager"></a>
+<h2>setPluginManager</h2>
+<b>setPluginManager</b>(<i>key, value</i>)
+<p>
+    Module function to store the plugin manager related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setPrinter" ID="setPrinter"></a>
+<h2>setPrinter</h2>
+<b>setPrinter</b>(<i>key, value</i>)
+<p>
+    Module function to store the various printer settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setProject" ID="setProject"></a>
+<h2>setProject</h2>
+<b>setProject</b>(<i>key, value</i>)
+<p>
+    Module function to store the various project handling settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setProjectBrowserColour" ID="setProjectBrowserColour"></a>
+<h2>setProjectBrowserColour</h2>
+<b>setProjectBrowserColour</b>(<i>key, value</i>)
+<p>
+    Module function to store the various project browser colours.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the colour to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the colour to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setProjectBrowsers" ID="setProjectBrowsers"></a>
+<h2>setProjectBrowsers</h2>
+<b>setProjectBrowsers</b>(<i>key, value</i>)
+<p>
+    Function to store the enabled project browsers per project type.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+project type
+</dd>
+<dt><i>value</i> (list of str)</dt>
+<dd>
+list of enabled project browsers
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setProjectBrowsersDefault" ID="setProjectBrowsersDefault"></a>
+<h2>setProjectBrowsersDefault</h2>
+<b>setProjectBrowsersDefault</b>(<i>projectType, browsersList</i>)
+<p>
+    Function to store the given project browser list to the list of defaults.
+</p>
+
+<dl>
+
+<dt><i>projectType</i> (str)</dt>
+<dd>
+project type
+</dd>
+<dt><i>browsersList</i> (list of str or tuple of str)</dt>
+<dd>
+default list of browsers for the project type
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setPython" ID="setPython"></a>
+<h2>setPython</h2>
+<b>setPython</b>(<i>key, value</i>)
+<p>
+    Module function to store the Python settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setQt" ID="setQt"></a>
+<h2>setQt</h2>
+<b>setQt</b>(<i>key, value</i>)
+<p>
+    Module function to store the various Qt settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setShell" ID="setShell"></a>
+<h2>setShell</h2>
+<b>setShell</b>(<i>key, value</i>)
+<p>
+    Module function to store the various shell settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setSystem" ID="setSystem"></a>
+<h2>setSystem</h2>
+<b>setSystem</b>(<i>key, value</i>)
+<p>
+    Module function to store the various system settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setTasks" ID="setTasks"></a>
+<h2>setTasks</h2>
+<b>setTasks</b>(<i>key, value</i>)
+<p>
+    Module function to store the Tasks related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setTemplates" ID="setTemplates"></a>
+<h2>setTemplates</h2>
+<b>setTemplates</b>(<i>key, value</i>)
+<p>
+    Module function to store the Templates related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setTrayStarter" ID="setTrayStarter"></a>
+<h2>setTrayStarter</h2>
+<b>setTrayStarter</b>(<i>key, value</i>)
+<p>
+    Module function to store the tray starter related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setUI" ID="setUI"></a>
+<h2>setUI</h2>
+<b>setUI</b>(<i>key, value</i>)
+<p>
+    Module function to store the various UI settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setUILanguage" ID="setUILanguage"></a>
+<h2>setUILanguage</h2>
+<b>setUILanguage</b>(<i>lang</i>)
+<p>
+    Module function to store the language for the user interface.
+</p>
+
+<dl>
+
+<dt><i>lang</i> (str)</dt>
+<dd>
+the language
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setUser" ID="setUser"></a>
+<h2>setUser</h2>
+<b>setUser</b>(<i>key, value</i>)
+<p>
+    Module function to store the various user settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setVCS" ID="setVCS"></a>
+<h2>setVCS</h2>
+<b>setVCS</b>(<i>key, value</i>)
+<p>
+    Module function to store the VCS related settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setVarFilters" ID="setVarFilters"></a>
+<h2>setVarFilters</h2>
+<b>setVarFilters</b>(<i>filters</i>)
+<p>
+    Module function to store the variables filter settings.
+</p>
+
+<dl>
+
+<dt><i>filters</i> (list)</dt>
+<dd>
+variable filters to set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setViewManager" ID="setViewManager"></a>
+<h2>setViewManager</h2>
+<b>setViewManager</b>(<i>vm</i>)
+<p>
+    Module function to store the selected viewmanager type.
+</p>
+
+<dl>
+
+<dt><i>vm</i> (str)</dt>
+<dd>
+the viewmanager type
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="setWebBrowser" ID="setWebBrowser"></a>
+<h2>setWebBrowser</h2>
+<b>setWebBrowser</b>(<i>key, value</i>)
+<p>
+    Module function to store the various web browser settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="shouldResetLayout" ID="shouldResetLayout"></a>
+<h2>shouldResetLayout</h2>
+<b>shouldResetLayout</b>(<i></i>)
+<p>
+    Module function to indicate a reset of the layout.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a reset of the layout
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="syncPreferences" ID="syncPreferences"></a>
+<h2>syncPreferences</h2>
+<b>syncPreferences</b>(<i></i>)
+<p>
+    Module function to sync the preferences to disk.
+</p>
+<p>
+    In addition to syncing, the central configuration store is reinitialized
+    as well.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

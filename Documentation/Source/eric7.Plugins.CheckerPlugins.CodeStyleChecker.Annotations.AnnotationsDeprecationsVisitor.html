@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Annotations.AnnotationsDeprecationsVisitor</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Annotations.AnnotationsDeprecationsVisitor</h1>
+<p>
+Module implementing a node visitor for checking the use of deprecated 'typing' symbols.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AnnotationsDeprecationsVisitor">AnnotationsDeprecationsVisitor</a></td>
+<td>Class implementing a node visitor for checking the use of deprecated 'typing' symbols.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureImportVisitor">AnnotationsFutureImportVisitor</a></td>
+<td>Class implementing a node visitor to dtermine, if the annotations __future__ import is present.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AnnotationsDeprecationsVisitor" ID="AnnotationsDeprecationsVisitor"></a>
+<h2>AnnotationsDeprecationsVisitor</h2>
+<p>
+    Class implementing a node visitor for checking the use of deprecated 'typing'
+    symbols.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>NameReplacements</td></tr>
+<tr><td>visit_AsyncFunctionDef</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AnnotationsDeprecationsVisitor.__init__">AnnotationsDeprecationsVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsDeprecationsVisitor.__checkDeprecation">__checkDeprecation</a></td>
+<td>Private method to check, if the given name is deprecated.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsDeprecationsVisitor.getIssues">getIssues</a></td>
+<td>Public method to get the list of detected issues.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsDeprecationsVisitor.visit_AnnAssign">visit_AnnAssign</a></td>
+<td>Public method to handle an ast.AnnAssign node.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsDeprecationsVisitor.visit_Attribute">visit_Attribute</a></td>
+<td>Public method to handle an ast.Attribute node.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsDeprecationsVisitor.visit_FunctionDef">visit_FunctionDef</a></td>
+<td>Public method to handle an ast.FunctionDef or ast.AsyncFunctionDef node.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsDeprecationsVisitor.visit_Import">visit_Import</a></td>
+<td>Public method to handle an ast.Import node.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsDeprecationsVisitor.visit_ImportFrom">visit_ImportFrom</a></td>
+<td>Public method to handle an ast.ImportFrom node.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AnnotationsDeprecationsVisitor.__init__" ID="AnnotationsDeprecationsVisitor.__init__"></a>
+<h4>AnnotationsDeprecationsVisitor (Constructor)</h4>
+<b>AnnotationsDeprecationsVisitor</b>(<i>exemptedList</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>exemptedList</i> (list of str)</dt>
+<dd>
+list of typing symbols exempted from checking
+</dd>
+</dl>
+<a NAME="AnnotationsDeprecationsVisitor.__checkDeprecation" ID="AnnotationsDeprecationsVisitor.__checkDeprecation"></a>
+<h4>AnnotationsDeprecationsVisitor.__checkDeprecation</h4>
+<b>__checkDeprecation</b>(<i>node, name</i>)
+<p>
+        Private method to check, if the given name is deprecated.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ImportFrom, ast.Attribute)</dt>
+<dd>
+reference to the node
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name to be checked
+</dd>
+</dl>
+<a NAME="AnnotationsDeprecationsVisitor.getIssues" ID="AnnotationsDeprecationsVisitor.getIssues"></a>
+<h4>AnnotationsDeprecationsVisitor.getIssues</h4>
+<b>getIssues</b>(<i></i>)
+<p>
+        Public method to get the list of detected issues.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of detected issues consisting of a tuple of a reference to the node
+            and a tuple containing the used name and the suggested replacement
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (ast.AST, (str, str))
+</dd>
+</dl>
+<a NAME="AnnotationsDeprecationsVisitor.visit_AnnAssign" ID="AnnotationsDeprecationsVisitor.visit_AnnAssign"></a>
+<h4>AnnotationsDeprecationsVisitor.visit_AnnAssign</h4>
+<b>visit_AnnAssign</b>(<i>node</i>)
+<p>
+        Public method to handle an ast.AnnAssign node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AnnAssign)</dt>
+<dd>
+reference to the node to be handled
+</dd>
+</dl>
+<a NAME="AnnotationsDeprecationsVisitor.visit_Attribute" ID="AnnotationsDeprecationsVisitor.visit_Attribute"></a>
+<h4>AnnotationsDeprecationsVisitor.visit_Attribute</h4>
+<b>visit_Attribute</b>(<i>node</i>)
+<p>
+        Public method to handle an ast.Attribute node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Attribute)</dt>
+<dd>
+reference to the node to be handled
+</dd>
+</dl>
+<a NAME="AnnotationsDeprecationsVisitor.visit_FunctionDef" ID="AnnotationsDeprecationsVisitor.visit_FunctionDef"></a>
+<h4>AnnotationsDeprecationsVisitor.visit_FunctionDef</h4>
+<b>visit_FunctionDef</b>(<i>node</i>)
+<p>
+        Public method to handle an ast.FunctionDef or ast.AsyncFunctionDef node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef or ast.AsyncFunctionDef)</dt>
+<dd>
+reference to the node to be handled
+</dd>
+</dl>
+<a NAME="AnnotationsDeprecationsVisitor.visit_Import" ID="AnnotationsDeprecationsVisitor.visit_Import"></a>
+<h4>AnnotationsDeprecationsVisitor.visit_Import</h4>
+<b>visit_Import</b>(<i>node</i>)
+<p>
+        Public method to handle an ast.Import node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Import)</dt>
+<dd>
+reference to the node to be handled
+</dd>
+</dl>
+<a NAME="AnnotationsDeprecationsVisitor.visit_ImportFrom" ID="AnnotationsDeprecationsVisitor.visit_ImportFrom"></a>
+<h4>AnnotationsDeprecationsVisitor.visit_ImportFrom</h4>
+<b>visit_ImportFrom</b>(<i>node</i>)
+<p>
+        Public method to handle an ast.ImportFrom node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ImportFrom)</dt>
+<dd>
+reference to the node to be handled
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="AnnotationsFutureImportVisitor" ID="AnnotationsFutureImportVisitor"></a>
+<h2>AnnotationsFutureImportVisitor</h2>
+<p>
+    Class implementing a node visitor to dtermine, if the annotations __future__
+    import is present.
+</p>
+<p>
+    This class is used to determine usage of annotations for Python 3.8.
+</p>
+
+<h3>Derived from</h3>
+ast.NodeVisitor
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#AnnotationsFutureImportVisitor.__init__">AnnotationsFutureImportVisitor</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureImportVisitor.futureImportPresent">futureImportPresent</a></td>
+<td>Public method to check, if a 'from __future__ import annotations' statement exists.</td>
+</tr>
+<tr>
+<td><a href="#AnnotationsFutureImportVisitor.visit_ImportFrom">visit_ImportFrom</a></td>
+<td>Public method to handle an ast.ImportFrom node.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="AnnotationsFutureImportVisitor.__init__" ID="AnnotationsFutureImportVisitor.__init__"></a>
+<h4>AnnotationsFutureImportVisitor (Constructor)</h4>
+<b>AnnotationsFutureImportVisitor</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="AnnotationsFutureImportVisitor.futureImportPresent" ID="AnnotationsFutureImportVisitor.futureImportPresent"></a>
+<h4>AnnotationsFutureImportVisitor.futureImportPresent</h4>
+<b>futureImportPresent</b>(<i></i>)
+<p>
+        Public method to check, if a 'from __future__ import annotations' statement
+        exists.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of the import statement
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="AnnotationsFutureImportVisitor.visit_ImportFrom" ID="AnnotationsFutureImportVisitor.visit_ImportFrom"></a>
+<h4>AnnotationsFutureImportVisitor.visit_ImportFrom</h4>
+<b>visit_ImportFrom</b>(<i>node</i>)
+<p>
+        Public method to handle an ast.ImportFrom node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ImportFrom)</dt>
+<dd>
+reference to the node to be handled
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

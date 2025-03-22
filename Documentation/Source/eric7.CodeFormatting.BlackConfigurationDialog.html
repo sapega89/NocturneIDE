@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.CodeFormatting.BlackConfigurationDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.CodeFormatting.BlackConfigurationDialog</h1>
+<p>
+Module implementing a dialog to enter the parameters for a Black formatting run.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BlackConfigurationDialog">BlackConfigurationDialog</a></td>
+<td>Class implementing a dialog to enter the parameters for a Black formatting run.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BlackConfigurationDialog" ID="BlackConfigurationDialog"></a>
+<h2>BlackConfigurationDialog</h2>
+<p>
+    Class implementing a dialog to enter the parameters for a Black formatting run.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_BlackConfigurationDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BlackConfigurationDialog.__init__">BlackConfigurationDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BlackConfigurationDialog.__createTomlSnippet">__createTomlSnippet</a></td>
+<td>Private slot to generate a TOML snippet of the current configuration.</td>
+</tr>
+<tr>
+<td><a href="#BlackConfigurationDialog.__getTargetList">__getTargetList</a></td>
+<td>Private method to get the list of checked target versions.</td>
+</tr>
+<tr>
+<td><a href="#BlackConfigurationDialog.__loadConfiguration">__loadConfiguration</a></td>
+<td>Private method to load the configuration section with data of the given dictionary.</td>
+</tr>
+<tr>
+<td><a href="#BlackConfigurationDialog.__populateTargetVersionsList">__populateTargetVersionsList</a></td>
+<td>Private method to populate the target versions list widget with checkable Python version entries.</td>
+</tr>
+<tr>
+<td><a href="#BlackConfigurationDialog.getConfiguration">getConfiguration</a></td>
+<td>Public method to get the current configuration parameters.</td>
+</tr>
+<tr>
+<td><a href="#BlackConfigurationDialog.on_excludeEdit_textChanged">on_excludeEdit_textChanged</a></td>
+<td>Private slot to enable the validate button depending on the exclude text.</td>
+</tr>
+<tr>
+<td><a href="#BlackConfigurationDialog.on_sourceComboBox_currentTextChanged">on_sourceComboBox_currentTextChanged</a></td>
+<td>Private slot to handle the selection of a configuration source.</td>
+</tr>
+<tr>
+<td><a href="#BlackConfigurationDialog.on_validateButton_clicked">on_validateButton_clicked</a></td>
+<td>Private slot to validate the entered exclusion regular expression.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BlackConfigurationDialog.__init__" ID="BlackConfigurationDialog.__init__"></a>
+<h4>BlackConfigurationDialog (Constructor)</h4>
+<b>BlackConfigurationDialog</b>(<i>withProject=True, onlyProject=False, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>withProject</i> (bool (optional))</dt>
+<dd>
+flag indicating to look for project configurations
+            (defaults to True)
+</dd>
+<dt><i>onlyProject</i> (bool (optional))</dt>
+<dd>
+flag indicating to only look for project configurations
+            (defaults to False)
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="BlackConfigurationDialog.__createTomlSnippet" ID="BlackConfigurationDialog.__createTomlSnippet"></a>
+<h4>BlackConfigurationDialog.__createTomlSnippet</h4>
+<b>__createTomlSnippet</b>(<i></i>)
+<p>
+        Private slot to generate a TOML snippet of the current configuration.
+</p>
+<p>
+        Note: Only non-default values are included in this snippet.
+</p>
+<p>
+        The code snippet is copied to the clipboard and may be placed inside the
+        'pyproject.toml' file.
+</p>
+
+<a NAME="BlackConfigurationDialog.__getTargetList" ID="BlackConfigurationDialog.__getTargetList"></a>
+<h4>BlackConfigurationDialog.__getTargetList</h4>
+<b>__getTargetList</b>(<i></i>)
+<p>
+        Private method to get the list of checked target versions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of target versions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="BlackConfigurationDialog.__loadConfiguration" ID="BlackConfigurationDialog.__loadConfiguration"></a>
+<h4>BlackConfigurationDialog.__loadConfiguration</h4>
+<b>__loadConfiguration</b>(<i>configurationDict</i>)
+<p>
+        Private method to load the configuration section with data of the given
+        dictionary.
+</p>
+
+<dl>
+
+<dt><i>configurationDict</i> (dict)</dt>
+<dd>
+reference to the data to be loaded
+</dd>
+</dl>
+<a NAME="BlackConfigurationDialog.__populateTargetVersionsList" ID="BlackConfigurationDialog.__populateTargetVersionsList"></a>
+<h4>BlackConfigurationDialog.__populateTargetVersionsList</h4>
+<b>__populateTargetVersionsList</b>(<i></i>)
+<p>
+        Private method to populate the target versions list widget with checkable
+        Python version entries.
+</p>
+
+<a NAME="BlackConfigurationDialog.getConfiguration" ID="BlackConfigurationDialog.getConfiguration"></a>
+<h4>BlackConfigurationDialog.getConfiguration</h4>
+<b>getConfiguration</b>(<i>saveToProject=False</i>)
+<p>
+        Public method to get the current configuration parameters.
+</p>
+
+<dl>
+
+<dt><i>saveToProject</i> (bool (optional))</dt>
+<dd>
+flag indicating to save the configuration data in the
+            project file (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the configuration parameters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="BlackConfigurationDialog.on_excludeEdit_textChanged" ID="BlackConfigurationDialog.on_excludeEdit_textChanged"></a>
+<h4>BlackConfigurationDialog.on_excludeEdit_textChanged</h4>
+<b>on_excludeEdit_textChanged</b>(<i></i>)
+<p>
+        Private slot to enable the validate button depending on the exclude text.
+</p>
+
+<a NAME="BlackConfigurationDialog.on_sourceComboBox_currentTextChanged" ID="BlackConfigurationDialog.on_sourceComboBox_currentTextChanged"></a>
+<h4>BlackConfigurationDialog.on_sourceComboBox_currentTextChanged</h4>
+<b>on_sourceComboBox_currentTextChanged</b>(<i>selection</i>)
+<p>
+        Private slot to handle the selection of a configuration source.
+</p>
+
+<dl>
+
+<dt><i>selection</i> (str)</dt>
+<dd>
+text of the currently selected item
+</dd>
+</dl>
+<a NAME="BlackConfigurationDialog.on_validateButton_clicked" ID="BlackConfigurationDialog.on_validateButton_clicked"></a>
+<h4>BlackConfigurationDialog.on_validateButton_clicked</h4>
+<b>on_validateButton_clicked</b>(<i></i>)
+<p>
+        Private slot to validate the entered exclusion regular expression.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

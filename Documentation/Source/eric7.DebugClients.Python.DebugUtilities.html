@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.DebugUtilities</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.DebugUtilities</h1>
+<p>
+Module implementing utilities functions for the debug client.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>ArgInfo</td></tr>
+<tr><td>PYTHON_NAMES</td></tr>
+<tr><td>mod_dict</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_getfullargs">_getfullargs</a></td>
+<td>Protected function to get information about the arguments accepted by a code object.</td>
+</tr>
+<tr>
+<td><a href="#formatargvalues">formatargvalues</a></td>
+<td>Function to format an argument spec from the 4 values returned by getargvalues.</td>
+</tr>
+<tr>
+<td><a href="#getargvalues">getargvalues</a></td>
+<td>Function to get information about arguments passed into a particular frame.</td>
+</tr>
+<tr>
+<td><a href="#isExecutable">isExecutable</a></td>
+<td>Function to check, if the given program is executable.</td>
+</tr>
+<tr>
+<td><a href="#isPythonProgram">isPythonProgram</a></td>
+<td>Function to check, if the given program is a Python interpreter or program.</td>
+</tr>
+<tr>
+<td><a href="#isWindowsPlatform">isWindowsPlatform</a></td>
+<td>Function to check, if this is a Windows platform.</td>
+</tr>
+<tr>
+<td><a href="#patchArgumentStringWindows">patchArgumentStringWindows</a></td>
+<td>Function to patch an argument string for Windows.</td>
+</tr>
+<tr>
+<td><a href="#patchArguments">patchArguments</a></td>
+<td>Function to patch the arguments given to start a program in order to execute it in our debugger.</td>
+</tr>
+<tr>
+<td><a href="#prepareJsonCommand">prepareJsonCommand</a></td>
+<td>Function to prepare a single command or response for transmission to the IDE.</td>
+</tr>
+<tr>
+<td><a href="#quoteArgs">quoteArgs</a></td>
+<td>Function to quote the given list of arguments.</td>
+</tr>
+<tr>
+<td><a href="#removeQuotesFromArgs">removeQuotesFromArgs</a></td>
+<td>Function to remove quotes from the arguments list.</td>
+</tr>
+<tr>
+<td><a href="#startsWithShebang">startsWithShebang</a></td>
+<td>Function to check, if the given program start with a Shebang line.</td>
+</tr>
+<tr>
+<td><a href="#stringToArgumentsWindows">stringToArgumentsWindows</a></td>
+<td>Function to prepare a string of arguments for Windows platform.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="_getfullargs" ID="_getfullargs"></a>
+<h2>_getfullargs</h2>
+<b>_getfullargs</b>(<i>co</i>)
+<p>
+    Protected function to get information about the arguments accepted
+    by a code object.
+</p>
+
+<dl>
+
+<dt><i>co</i> (code)</dt>
+<dd>
+reference to a code object to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of four things, where 'args' and 'kwonlyargs' are lists of
+        argument names, and 'varargs' and 'varkw' are the names of the
+        * and ** arguments or None.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, list of str, list of str, list of str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>TypeError</b>:</dt>
+<dd>
+raised if the input parameter is not a code object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="formatargvalues" ID="formatargvalues"></a>
+<h2>formatargvalues</h2>
+<b>formatargvalues</b>(<i>args, varargs, varkw, localsDict, formatarg=str, formatvarargs=lambda name: "*" + name, formatvarkw=lambda name: "**" + name, formatvalue=lambda value: "=" + repr(value), </i>)
+<p>
+    Function to format an argument spec from the 4 values returned
+    by getargvalues.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list of str)</dt>
+<dd>
+list of argument names
+</dd>
+<dt><i>varargs</i> (str)</dt>
+<dd>
+name of the variable arguments
+</dd>
+<dt><i>varkw</i> (str)</dt>
+<dd>
+name of the keyword arguments
+</dd>
+<dt><i>localsDict</i> (dict)</dt>
+<dd>
+reference to the local variables dictionary
+</dd>
+<dt><i>formatarg</i> (func)</dt>
+<dd>
+argument formatting function
+</dd>
+<dt><i>formatvarargs</i> (func)</dt>
+<dd>
+variable arguments formatting function
+</dd>
+<dt><i>formatvarkw</i> (func)</dt>
+<dd>
+keyword arguments formatting function
+</dd>
+<dt><i>formatvalue</i> (func)</dt>
+<dd>
+value formating functtion
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+formatted call signature
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getargvalues" ID="getargvalues"></a>
+<h2>getargvalues</h2>
+<b>getargvalues</b>(<i>frame</i>)
+<p>
+    Function to get information about arguments passed into a
+    particular frame.
+</p>
+
+<dl>
+
+<dt><i>frame</i> (frame)</dt>
+<dd>
+reference to a frame object to be processed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of four things, where 'args' is a list of the argument names,
+        'varargs' and 'varkw' are the names of the * and ** arguments or None
+        and 'locals' is the locals dictionary of the given frame.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ArgInfo
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>TypeError</b>:</dt>
+<dd>
+raised if the input parameter is not a frame object
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isExecutable" ID="isExecutable"></a>
+<h2>isExecutable</h2>
+<b>isExecutable</b>(<i>program</i>)
+<p>
+    Function to check, if the given program is executable.
+</p>
+
+<dl>
+
+<dt><i>program</i> (str)</dt>
+<dd>
+program path to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an executable program
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isPythonProgram" ID="isPythonProgram"></a>
+<h2>isPythonProgram</h2>
+<b>isPythonProgram</b>(<i>program, withPath=False</i>)
+<p>
+    Function to check, if the given program is a Python interpreter or
+    program.
+</p>
+
+<dl>
+
+<dt><i>program</i> (str)</dt>
+<dd>
+program to be checked
+</dd>
+<dt><i>withPath</i> (bool (optional))</dt>
+<dd>
+flag indicating to search the program in the executable
+        search path (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a Python interpreter or program
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="isWindowsPlatform" ID="isWindowsPlatform"></a>
+<h2>isWindowsPlatform</h2>
+<b>isWindowsPlatform</b>(<i></i>)
+<p>
+    Function to check, if this is a Windows platform.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating Windows platform
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="patchArgumentStringWindows" ID="patchArgumentStringWindows"></a>
+<h2>patchArgumentStringWindows</h2>
+<b>patchArgumentStringWindows</b>(<i>debugClient, argStr</i>)
+<p>
+    Function to patch an argument string for Windows.
+</p>
+
+<dl>
+
+<dt><i>debugClient</i> (DebugClient)</dt>
+<dd>
+reference to the debug client object
+</dd>
+<dt><i>argStr</i> (str)</dt>
+<dd>
+argument string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+patched argument string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="patchArguments" ID="patchArguments"></a>
+<h2>patchArguments</h2>
+<b>patchArguments</b>(<i>debugClient, arguments, noRedirect=False, isPythonProg=False</i>)
+<p>
+    Function to patch the arguments given to start a program in order to
+    execute it in our debugger.
+</p>
+
+<dl>
+
+<dt><i>debugClient</i> (DebugClient)</dt>
+<dd>
+reference to the debug client object
+</dd>
+<dt><i>arguments</i> (list of str)</dt>
+<dd>
+list of program arguments
+</dd>
+<dt><i>noRedirect</i> (bool (optional))</dt>
+<dd>
+flag indicating to not redirect stdin and stdout
+        (defaults to False)
+</dd>
+<dt><i>isPythonProg</i> (bool (optional))</dt>
+<dd>
+flag indicating a Python script (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+modified argument list
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="prepareJsonCommand" ID="prepareJsonCommand"></a>
+<h2>prepareJsonCommand</h2>
+<b>prepareJsonCommand</b>(<i>method, params</i>)
+<p>
+    Function to prepare a single command or response for transmission to
+    the IDE.
+</p>
+
+<dl>
+
+<dt><i>method</i> (str)</dt>
+<dd>
+command or response name to be sent
+</dd>
+<dt><i>params</i> (dict)</dt>
+<dd>
+dictionary of named parameters for the command or response
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+prepared JSON command or response string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="quoteArgs" ID="quoteArgs"></a>
+<h2>quoteArgs</h2>
+<b>quoteArgs</b>(<i>args</i>)
+<p>
+    Function to quote the given list of arguments.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list of str)</dt>
+<dd>
+list of arguments to be quoted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of quoted arguments
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="removeQuotesFromArgs" ID="removeQuotesFromArgs"></a>
+<h2>removeQuotesFromArgs</h2>
+<b>removeQuotesFromArgs</b>(<i>args</i>)
+<p>
+    Function to remove quotes from the arguments list.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list of str)</dt>
+<dd>
+list of arguments
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of unquoted strings
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="startsWithShebang" ID="startsWithShebang"></a>
+<h2>startsWithShebang</h2>
+<b>startsWithShebang</b>(<i>program</i>)
+<p>
+    Function to check, if the given program start with a Shebang line.
+</p>
+
+<dl>
+
+<dt><i>program</i> (str)</dt>
+<dd>
+program path to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an existing and valid shebang line
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="stringToArgumentsWindows" ID="stringToArgumentsWindows"></a>
+<h2>stringToArgumentsWindows</h2>
+<b>stringToArgumentsWindows</b>(<i>args</i>)
+<p>
+    Function to prepare a string of arguments for Windows platform.
+</p>
+
+<dl>
+
+<dt><i>args</i> (str)</dt>
+<dd>
+list of command arguments
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of command arguments
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised to indicate an illegal arguments parsing
+        condition
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

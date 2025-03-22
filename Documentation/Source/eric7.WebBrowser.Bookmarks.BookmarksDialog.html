@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.Bookmarks.BookmarksDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.Bookmarks.BookmarksDialog</h1>
+<p>
+Module implementing a dialog to manage bookmarks.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BookmarksDialog">BookmarksDialog</a></td>
+<td>Class implementing a dialog to manage bookmarks.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BookmarksDialog" ID="BookmarksDialog"></a>
+<h2>BookmarksDialog</h2>
+<p>
+    Class implementing a dialog to manage bookmarks.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>newBackgroundTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new
+        background tab
+</dd>
+<dt>newTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new tab
+</dd>
+<dt>newWindow(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new window
+</dd>
+<dt>openUrl(QUrl, str)</dt>
+<dd>
+emitted to open a URL in the current tab
+</dd>
+</dl>
+<h3>Derived from</h3>
+QDialog, Ui_BookmarksDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BookmarksDialog.__init__">BookmarksDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__activated">__activated</a></td>
+<td>Private slot to handle the activation of an entry.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__customContextMenuRequested">__customContextMenuRequested</a></td>
+<td>Private slot to handle the context menu request for the bookmarks tree.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__edit">__edit</a></td>
+<td>Private slot to edit a bookmarks properties.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__editAddress">__editAddress</a></td>
+<td>Private slot to edit the address part of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__editName">__editName</a></td>
+<td>Private slot to edit the name part of a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__expandNodes">__expandNodes</a></td>
+<td>Private method to expand all child nodes of a node.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__newFolder">__newFolder</a></td>
+<td>Private slot to add a new bookmarks folder.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__openBookmark">__openBookmark</a></td>
+<td>Private method to open a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__openBookmarkInCurrentTab">__openBookmarkInCurrentTab</a></td>
+<td>Private slot to open a bookmark in the current browser tab.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__openBookmarkInNewBackgroundTab">__openBookmarkInNewBackgroundTab</a></td>
+<td>Private slot to open a bookmark in a new browser tab.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__openBookmarkInNewTab">__openBookmarkInNewTab</a></td>
+<td>Private slot to open a bookmark in a new browser tab.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__openBookmarkInNewWindow">__openBookmarkInNewWindow</a></td>
+<td>Private slot to open a bookmark in a new browser window.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__openBookmarkInPrivateWindow">__openBookmarkInPrivateWindow</a></td>
+<td>Private slot to open a bookmark in a new private browser window.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__saveExpandedNodes">__saveExpandedNodes</a></td>
+<td>Private method to save the child nodes of an expanded node.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.__shutdown">__shutdown</a></td>
+<td>Private method to perform shutdown actions for the dialog.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.closeEvent">closeEvent</a></td>
+<td>Protected method to handle the closing of the dialog.</td>
+</tr>
+<tr>
+<td><a href="#BookmarksDialog.reject">reject</a></td>
+<td>Public method called when the dialog is rejected.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BookmarksDialog.__init__" ID="BookmarksDialog.__init__"></a>
+<h4>BookmarksDialog (Constructor)</h4>
+<b>BookmarksDialog</b>(<i>parent=None, manager=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidge)</dt>
+<dd>
+reference to the parent widget
+</dd>
+<dt><i>manager</i> (BookmarksManager)</dt>
+<dd>
+reference to the bookmarks manager object
+</dd>
+</dl>
+<a NAME="BookmarksDialog.__activated" ID="BookmarksDialog.__activated"></a>
+<h4>BookmarksDialog.__activated</h4>
+<b>__activated</b>(<i>idx</i>)
+<p>
+        Private slot to handle the activation of an entry.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+reference to the entry index
+</dd>
+</dl>
+<a NAME="BookmarksDialog.__customContextMenuRequested" ID="BookmarksDialog.__customContextMenuRequested"></a>
+<h4>BookmarksDialog.__customContextMenuRequested</h4>
+<b>__customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to handle the context menu request for the bookmarks tree.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position the context menu was requested
+</dd>
+</dl>
+<a NAME="BookmarksDialog.__edit" ID="BookmarksDialog.__edit"></a>
+<h4>BookmarksDialog.__edit</h4>
+<b>__edit</b>(<i></i>)
+<p>
+        Private slot to edit a bookmarks properties.
+</p>
+
+<a NAME="BookmarksDialog.__editAddress" ID="BookmarksDialog.__editAddress"></a>
+<h4>BookmarksDialog.__editAddress</h4>
+<b>__editAddress</b>(<i></i>)
+<p>
+        Private slot to edit the address part of a bookmark.
+</p>
+
+<a NAME="BookmarksDialog.__editName" ID="BookmarksDialog.__editName"></a>
+<h4>BookmarksDialog.__editName</h4>
+<b>__editName</b>(<i></i>)
+<p>
+        Private slot to edit the name part of a bookmark.
+</p>
+
+<a NAME="BookmarksDialog.__expandNodes" ID="BookmarksDialog.__expandNodes"></a>
+<h4>BookmarksDialog.__expandNodes</h4>
+<b>__expandNodes</b>(<i>node</i>)
+<p>
+        Private method to expand all child nodes of a node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (BookmarkNode)</dt>
+<dd>
+reference to the bookmark node to expand
+</dd>
+</dl>
+<a NAME="BookmarksDialog.__newFolder" ID="BookmarksDialog.__newFolder"></a>
+<h4>BookmarksDialog.__newFolder</h4>
+<b>__newFolder</b>(<i></i>)
+<p>
+        Private slot to add a new bookmarks folder.
+</p>
+
+<a NAME="BookmarksDialog.__openBookmark" ID="BookmarksDialog.__openBookmark"></a>
+<h4>BookmarksDialog.__openBookmark</h4>
+<b>__openBookmark</b>(<i>newTab=False, newWindow=False, privateWindow=False, background=False</i>)
+<p>
+        Private method to open a bookmark.
+</p>
+
+<dl>
+
+<dt><i>newTab</i> (bool)</dt>
+<dd>
+flag indicating to open the bookmark in a new tab
+</dd>
+<dt><i>newWindow</i> (bool)</dt>
+<dd>
+flag indicating to open the bookmark in a new window
+</dd>
+<dt><i>privateWindow</i> (bool)</dt>
+<dd>
+flag indicating to open the bookmark in a new
+            private window
+</dd>
+<dt><i>background</i> (bool)</dt>
+<dd>
+flag indicating to open the bookmark in a new
+            background tab
+</dd>
+</dl>
+<a NAME="BookmarksDialog.__openBookmarkInCurrentTab" ID="BookmarksDialog.__openBookmarkInCurrentTab"></a>
+<h4>BookmarksDialog.__openBookmarkInCurrentTab</h4>
+<b>__openBookmarkInCurrentTab</b>(<i></i>)
+<p>
+        Private slot to open a bookmark in the current browser tab.
+</p>
+
+<a NAME="BookmarksDialog.__openBookmarkInNewBackgroundTab" ID="BookmarksDialog.__openBookmarkInNewBackgroundTab"></a>
+<h4>BookmarksDialog.__openBookmarkInNewBackgroundTab</h4>
+<b>__openBookmarkInNewBackgroundTab</b>(<i></i>)
+<p>
+        Private slot to open a bookmark in a new browser tab.
+</p>
+
+<a NAME="BookmarksDialog.__openBookmarkInNewTab" ID="BookmarksDialog.__openBookmarkInNewTab"></a>
+<h4>BookmarksDialog.__openBookmarkInNewTab</h4>
+<b>__openBookmarkInNewTab</b>(<i></i>)
+<p>
+        Private slot to open a bookmark in a new browser tab.
+</p>
+
+<a NAME="BookmarksDialog.__openBookmarkInNewWindow" ID="BookmarksDialog.__openBookmarkInNewWindow"></a>
+<h4>BookmarksDialog.__openBookmarkInNewWindow</h4>
+<b>__openBookmarkInNewWindow</b>(<i></i>)
+<p>
+        Private slot to open a bookmark in a new browser window.
+</p>
+
+<a NAME="BookmarksDialog.__openBookmarkInPrivateWindow" ID="BookmarksDialog.__openBookmarkInPrivateWindow"></a>
+<h4>BookmarksDialog.__openBookmarkInPrivateWindow</h4>
+<b>__openBookmarkInPrivateWindow</b>(<i></i>)
+<p>
+        Private slot to open a bookmark in a new private browser window.
+</p>
+
+<a NAME="BookmarksDialog.__saveExpandedNodes" ID="BookmarksDialog.__saveExpandedNodes"></a>
+<h4>BookmarksDialog.__saveExpandedNodes</h4>
+<b>__saveExpandedNodes</b>(<i>parent</i>)
+<p>
+        Private method to save the child nodes of an expanded node.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a change
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BookmarksDialog.__shutdown" ID="BookmarksDialog.__shutdown"></a>
+<h4>BookmarksDialog.__shutdown</h4>
+<b>__shutdown</b>(<i></i>)
+<p>
+        Private method to perform shutdown actions for the dialog.
+</p>
+
+<a NAME="BookmarksDialog.closeEvent" ID="BookmarksDialog.closeEvent"></a>
+<h4>BookmarksDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>_evt</i>)
+<p>
+        Protected method to handle the closing of the dialog.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the event object (unused)
+</dd>
+</dl>
+<a NAME="BookmarksDialog.reject" ID="BookmarksDialog.reject"></a>
+<h4>BookmarksDialog.reject</h4>
+<b>reject</b>(<i></i>)
+<p>
+        Public method called when the dialog is rejected.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

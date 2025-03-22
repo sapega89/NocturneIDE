@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.WatchPointModel</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.WatchPointModel</h1>
+<p>
+Module implementing the Watch expression model.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#WatchPointModel">WatchPointModel</a></td>
+<td>Class implementing a custom model for watch expressions.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="WatchPointModel" ID="WatchPointModel"></a>
+<h2>WatchPointModel</h2>
+<p>
+    Class implementing a custom model for watch expressions.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>dataAboutToBeChanged(QModelIndex, QModelIndex)</dt>
+<dd>
+emitted to indicate
+        a change of the data
+</dd>
+</dl>
+<h3>Derived from</h3>
+QAbstractItemModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Alignments</td></tr>
+<tr><td>ConditionColumn</td></tr>
+<tr><td>EnabledColumn</td></tr>
+<tr><td>Header</td></tr>
+<tr><td>IgnoreCountColumn</td></tr>
+<tr><td>SpecialColumn</td></tr>
+<tr><td>TemporaryColumn</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#WatchPointModel.__init__">WatchPointModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.addWatchPoint">addWatchPoint</a></td>
+<td>Public method to add a new watch expression to the list.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.addWatchPoints">addWatchPoints</a></td>
+<td>Public method to add multiple watch expressions to the list.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.columnCount">columnCount</a></td>
+<td>Public method to get the current column count.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.data">data</a></td>
+<td>Public method to get the requested data.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.deleteAll">deleteAll</a></td>
+<td>Public method to delete all watch expressions.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.deleteWatchPointByIndex">deleteWatchPointByIndex</a></td>
+<td>Public method to set the values of a watch expression given by index.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.deleteWatchPoints">deleteWatchPoints</a></td>
+<td>Public method to delete a list of watch expressions given by their indexes.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.flags">flags</a></td>
+<td>Public method to get item flags.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.getAllWatchpoints">getAllWatchpoints</a></td>
+<td>Public method to get the list of watchpoints.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.getWatchPointByIndex">getWatchPointByIndex</a></td>
+<td>Public method to get the values of a watch expression given by index.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.getWatchPointIndex">getWatchPointIndex</a></td>
+<td>Public method to get the index of a watch expression given by expression.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.hasChildren">hasChildren</a></td>
+<td>Public method to check for the presence of child items.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.headerData">headerData</a></td>
+<td>Public method to get header data.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.index">index</a></td>
+<td>Public method to create an index.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.parent">parent</a></td>
+<td>Public method to get the parent index.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.rowCount">rowCount</a></td>
+<td>Public method to get the current row count.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.setWatchPointByIndex">setWatchPointByIndex</a></td>
+<td>Public method to set the values of a watch expression given by index.</td>
+</tr>
+<tr>
+<td><a href="#WatchPointModel.setWatchPointEnabledByIndex">setWatchPointEnabledByIndex</a></td>
+<td>Public method to set the enabled state of a watch expression given by index.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="WatchPointModel.__init__" ID="WatchPointModel.__init__"></a>
+<h4>WatchPointModel (Constructor)</h4>
+<b>WatchPointModel</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="WatchPointModel.addWatchPoint" ID="WatchPointModel.addWatchPoint"></a>
+<h4>WatchPointModel.addWatchPoint</h4>
+<b>addWatchPoint</b>(<i>cond, special, properties</i>)
+<p>
+        Public method to add a new watch expression to the list.
+</p>
+
+<dl>
+
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>special</i> (str)</dt>
+<dd>
+special condition of the watch expression
+</dd>
+<dt><i>properties</i> (tuple of (bool, bool, int))</dt>
+<dd>
+properties of the watch expression
+            (tuple of temporary flag, enabled flag, ignore count)
+</dd>
+</dl>
+<a NAME="WatchPointModel.addWatchPoints" ID="WatchPointModel.addWatchPoints"></a>
+<h4>WatchPointModel.addWatchPoints</h4>
+<b>addWatchPoints</b>(<i>watchpoints</i>)
+<p>
+        Public method to add multiple watch expressions to the list.
+</p>
+
+<dl>
+
+<dt><i>watchpoints</i> (list of (str, str, bool, bool, int))</dt>
+<dd>
+list of watch expressions with expression, special
+            condition, temporary flag, enabled flag and ignore count each
+</dd>
+</dl>
+<a NAME="WatchPointModel.columnCount" ID="WatchPointModel.columnCount"></a>
+<h4>WatchPointModel.columnCount</h4>
+<b>columnCount</b>(<i>parent=None</i>)
+<p>
+        Public method to get the current column count.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent item (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+column count
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="WatchPointModel.data" ID="WatchPointModel.data"></a>
+<h4>WatchPointModel.data</h4>
+<b>data</b>(<i>index, role</i>)
+<p>
+        Public method to get the requested data.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the requested data
+</dd>
+<dt><i>role</i> (Qt.ItemDataRole)</dt>
+<dd>
+role of the requested data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="WatchPointModel.deleteAll" ID="WatchPointModel.deleteAll"></a>
+<h4>WatchPointModel.deleteAll</h4>
+<b>deleteAll</b>(<i></i>)
+<p>
+        Public method to delete all watch expressions.
+</p>
+
+<a NAME="WatchPointModel.deleteWatchPointByIndex" ID="WatchPointModel.deleteWatchPointByIndex"></a>
+<h4>WatchPointModel.deleteWatchPointByIndex</h4>
+<b>deleteWatchPointByIndex</b>(<i>index</i>)
+<p>
+        Public method to set the values of a watch expression given by index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the watch expression
+</dd>
+</dl>
+<a NAME="WatchPointModel.deleteWatchPoints" ID="WatchPointModel.deleteWatchPoints"></a>
+<h4>WatchPointModel.deleteWatchPoints</h4>
+<b>deleteWatchPoints</b>(<i>idxList</i>)
+<p>
+        Public method to delete a list of watch expressions given by their
+        indexes.
+</p>
+
+<dl>
+
+<dt><i>idxList</i> (list of QModelIndex)</dt>
+<dd>
+list of watch expression indexes
+</dd>
+</dl>
+<a NAME="WatchPointModel.flags" ID="WatchPointModel.flags"></a>
+<h4>WatchPointModel.flags</h4>
+<b>flags</b>(<i>index</i>)
+<p>
+        Public method to get item flags.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the requested flags
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+item flags for the given index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Qt.ItemFlags
+</dd>
+</dl>
+<a NAME="WatchPointModel.getAllWatchpoints" ID="WatchPointModel.getAllWatchpoints"></a>
+<h4>WatchPointModel.getAllWatchpoints</h4>
+<b>getAllWatchpoints</b>(<i></i>)
+<p>
+        Public method to get the list of watchpoints.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of watchpoints
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of list of [str, str, bool, bool, int]
+</dd>
+</dl>
+<a NAME="WatchPointModel.getWatchPointByIndex" ID="WatchPointModel.getWatchPointByIndex"></a>
+<h4>WatchPointModel.getWatchPointByIndex</h4>
+<b>getWatchPointByIndex</b>(<i>index</i>)
+<p>
+        Public method to get the values of a watch expression given by index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the watch expression
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+watch expression (tuple containing expression, special condition,
+            temporary flag, enabled flag, ignore count)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str, bool, bool, int)
+</dd>
+</dl>
+<a NAME="WatchPointModel.getWatchPointIndex" ID="WatchPointModel.getWatchPointIndex"></a>
+<h4>WatchPointModel.getWatchPointIndex</h4>
+<b>getWatchPointIndex</b>(<i>cond, special=""</i>)
+<p>
+        Public method to get the index of a watch expression given by
+        expression.
+</p>
+
+<dl>
+
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>special</i> (str)</dt>
+<dd>
+special condition of the watch expression
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="WatchPointModel.hasChildren" ID="WatchPointModel.hasChildren"></a>
+<h4>WatchPointModel.hasChildren</h4>
+<b>hasChildren</b>(<i>parent=None</i>)
+<p>
+        Public method to check for the presence of child items.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of parent item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the presence of child items
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="WatchPointModel.headerData" ID="WatchPointModel.headerData"></a>
+<h4>WatchPointModel.headerData</h4>
+<b>headerData</b>(<i>section, orientation, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method to get header data.
+</p>
+
+<dl>
+
+<dt><i>section</i> (int)</dt>
+<dd>
+section number of the requested header data
+</dd>
+<dt><i>orientation</i> (Qt.Orientation)</dt>
+<dd>
+orientation of the header
+</dd>
+<dt><i>role</i> (Qt.ItemDataRole)</dt>
+<dd>
+role of the requested data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+header data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="WatchPointModel.index" ID="WatchPointModel.index"></a>
+<h4>WatchPointModel.index</h4>
+<b>index</b>(<i>row, column, parent=None</i>)
+<p>
+        Public method to create an index.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row number for the index
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column number for the index
+</dd>
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="WatchPointModel.parent" ID="WatchPointModel.parent"></a>
+<h4>WatchPointModel.parent</h4>
+<b>parent</b>(<i>_index</i>)
+<p>
+        Public method to get the parent index.
+</p>
+
+<dl>
+
+<dt><i>_index</i> (QModelIndex)</dt>
+<dd>
+index of item to get parent (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of parent
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="WatchPointModel.rowCount" ID="WatchPointModel.rowCount"></a>
+<h4>WatchPointModel.rowCount</h4>
+<b>rowCount</b>(<i>parent=None</i>)
+<p>
+        Public method to get the current row count.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+row count
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="WatchPointModel.setWatchPointByIndex" ID="WatchPointModel.setWatchPointByIndex"></a>
+<h4>WatchPointModel.setWatchPointByIndex</h4>
+<b>setWatchPointByIndex</b>(<i>index, cond, special, properties</i>)
+<p>
+        Public method to set the values of a watch expression given by index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the watch expression
+</dd>
+<dt><i>cond</i> (str)</dt>
+<dd>
+expression of the watch expression
+</dd>
+<dt><i>special</i> (str)</dt>
+<dd>
+special condition of the watch expression
+</dd>
+<dt><i>properties</i> (tuple of (bool, bool, int))</dt>
+<dd>
+properties of the watch expression
+            (tuple of temporary flag, enabled flag, ignore count)
+</dd>
+</dl>
+<a NAME="WatchPointModel.setWatchPointEnabledByIndex" ID="WatchPointModel.setWatchPointEnabledByIndex"></a>
+<h4>WatchPointModel.setWatchPointEnabledByIndex</h4>
+<b>setWatchPointEnabledByIndex</b>(<i>index, enabled</i>)
+<p>
+        Public method to set the enabled state of a watch expression given by
+        index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of the watch expression
+</dd>
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag giving the enabled state
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

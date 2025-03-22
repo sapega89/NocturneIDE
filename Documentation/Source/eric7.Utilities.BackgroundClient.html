@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Utilities.BackgroundClient</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Utilities.BackgroundClient</h1>
+<p>
+Module implementing a Qt free version of a background client for the various
+checkers and other python interpreter dependent functions.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>backgroundClient</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BackgroundClient">BackgroundClient</a></td>
+<td>Class implementing the main part of the background client.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BackgroundClient" ID="BackgroundClient"></a>
+<h2>BackgroundClient</h2>
+<p>
+    Class implementing the main part of the background client.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BackgroundClient.__init__">BackgroundClient</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BackgroundClient.__cancelled">__cancelled</a></td>
+<td>Private method to check for a job cancellation.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundClient.__initClientService">__initClientService</a></td>
+<td>Private method to import the given module and register it as service.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundClient.__peek">__peek</a></td>
+<td>Private method to peek the given length of bytes.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundClient.__receive">__receive</a></td>
+<td>Private method to receive the given length of bytes.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundClient.__send">__send</a></td>
+<td>Private method to send a job response back to the BackgroundService server.</td>
+</tr>
+<tr>
+<td><a href="#BackgroundClient.run">run</a></td>
+<td>Public method implementing the main loop of the client.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BackgroundClient.__init__" ID="BackgroundClient.__init__"></a>
+<h4>BackgroundClient (Constructor)</h4>
+<b>BackgroundClient</b>(<i>host, port, maxProcs</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>host</i> (str)</dt>
+<dd>
+ip address the background service is listening
+</dd>
+<dt><i>port</i> (int)</dt>
+<dd>
+port of the background service
+</dd>
+<dt><i>maxProcs</i> (int)</dt>
+<dd>
+maximum number of CPUs (processes) to use
+            (0 = determined automatically)
+</dd>
+</dl>
+<a NAME="BackgroundClient.__cancelled" ID="BackgroundClient.__cancelled"></a>
+<h4>BackgroundClient.__cancelled</h4>
+<b>__cancelled</b>(<i></i>)
+<p>
+        Private method to check for a job cancellation.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a cancellation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BackgroundClient.__initClientService" ID="BackgroundClient.__initClientService"></a>
+<h4>BackgroundClient.__initClientService</h4>
+<b>__initClientService</b>(<i>fn, path, module</i>)
+<p>
+        Private method to import the given module and register it as service.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+service name to register
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+contains the path to the module
+</dd>
+<dt><i>module</i> (str)</dt>
+<dd>
+name to import
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+text result of the import action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BackgroundClient.__peek" ID="BackgroundClient.__peek"></a>
+<h4>BackgroundClient.__peek</h4>
+<b>__peek</b>(<i>length</i>)
+<p>
+        Private method to peek the given length of bytes.
+</p>
+
+<dl>
+
+<dt><i>length</i> (int)</dt>
+<dd>
+bytes to receive
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+received bytes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="BackgroundClient.__receive" ID="BackgroundClient.__receive"></a>
+<h4>BackgroundClient.__receive</h4>
+<b>__receive</b>(<i>length</i>)
+<p>
+        Private method to receive the given length of bytes.
+</p>
+
+<dl>
+
+<dt><i>length</i> (int)</dt>
+<dd>
+bytes to receive
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+received bytes or None if connection closed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="BackgroundClient.__send" ID="BackgroundClient.__send"></a>
+<h4>BackgroundClient.__send</h4>
+<b>__send</b>(<i>fx, fn, data</i>)
+<p>
+        Private method to send a job response back to the BackgroundService
+        server.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+remote function name to execute
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename for identification
+</dd>
+<dt><i>data</i> (any basic datatype)</dt>
+<dd>
+return value(s)
+</dd>
+</dl>
+<a NAME="BackgroundClient.run" ID="BackgroundClient.run"></a>
+<h4>BackgroundClient.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method implementing the main loop of the client.
+</p>
+
+<dl>
+
+<dt>Raises <b>RuntimeError</b>:</dt>
+<dd>
+raised if hashes don't match
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

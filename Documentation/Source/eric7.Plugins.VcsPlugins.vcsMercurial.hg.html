@@ -1,0 +1,2885 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.hg</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.hg</h1>
+<p>
+Module implementing the version control systems interface to Mercurial.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Hg">Hg</a></td>
+<td>Class implementing the version control systems interface to Mercurial.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Hg" ID="Hg"></a>
+<h2>Hg</h2>
+<p>
+    Class implementing the version control systems interface to Mercurial.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>activeExtensionsChanged()</dt>
+<dd>
+emitted when the list of active
+        extensions has changed
+</dd>
+<dt>committed()</dt>
+<dd>
+emitted after the commit action has completed
+</dd>
+<dt>iniFileChanged()</dt>
+<dd>
+emitted when a Mercurial/repo configuration file
+        has changed
+</dd>
+</dl>
+<h3>Derived from</h3>
+VersionControl
+<h3>Class Attributes</h3>
+<table>
+<tr><td>IgnoreFileName</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Hg.__init__">Hg</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Hg.__checkDefaults">__checkDefaults</a></td>
+<td>Private method to check, if the default and default-push URLs have been configured.</td>
+</tr>
+<tr>
+<td><a href="#Hg.__createClient">__createClient</a></td>
+<td>Private method to create a Mercurial command server client.</td>
+</tr>
+<tr>
+<td><a href="#Hg.__getExtensionsInfo">__getExtensionsInfo</a></td>
+<td>Private method to get the active extensions from Mercurial.</td>
+</tr>
+<tr>
+<td><a href="#Hg.__getInOutBookmarks">__getInOutBookmarks</a></td>
+<td>Private method to get the list of incoming or outgoing bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#Hg.__getMostRecentCommitMessage">__getMostRecentCommitMessage</a></td>
+<td>Private method to get the most recent commit message.</td>
+</tr>
+<tr>
+<td><a href="#Hg.__hgGetFileForRevision">__hgGetFileForRevision</a></td>
+<td>Private method to get a file for a specific revision from the repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.__hgGraftSubCommand">__hgGraftSubCommand</a></td>
+<td>Private method to perform a Mercurial graft subcommand.</td>
+</tr>
+<tr>
+<td><a href="#Hg.__iniFileChanged">__iniFileChanged</a></td>
+<td>Private slot to handle a change of the Mercurial configuration file.</td>
+</tr>
+<tr>
+<td><a href="#Hg.__monitorRepoConfigFiles">__monitorRepoConfigFiles</a></td>
+<td>Private slot to add some repository configuration files to the list of monitored files.</td>
+</tr>
+<tr>
+<td><a href="#Hg.__vcsCommit_Step2">__vcsCommit_Step2</a></td>
+<td>Private slot performing the second step of the commit action.</td>
+</tr>
+<tr>
+<td><a href="#Hg._createStatusMonitorThread">_createStatusMonitorThread</a></td>
+<td>Protected method to create an instance of the VCS status monitor thread.</td>
+</tr>
+<tr>
+<td><a href="#Hg.canCommitMerge">canCommitMerge</a></td>
+<td>Public method to check, if the working directory is an uncommitted merge.</td>
+</tr>
+<tr>
+<td><a href="#Hg.canPull">canPull</a></td>
+<td>Public method to check, if pull is possible.</td>
+</tr>
+<tr>
+<td><a href="#Hg.canPush">canPush</a></td>
+<td>Public method to check, if push is possible.</td>
+</tr>
+<tr>
+<td><a href="#Hg.clearStatusCache">clearStatusCache</a></td>
+<td>Public method to clear the status cache.</td>
+</tr>
+<tr>
+<td><a href="#Hg.getBuiltinObject">getBuiltinObject</a></td>
+<td>Public method to get a reference to a builtins object.</td>
+</tr>
+<tr>
+<td><a href="#Hg.getClient">getClient</a></td>
+<td>Public method to get a reference to the command server interface.</td>
+</tr>
+<tr>
+<td><a href="#Hg.getEncoding">getEncoding</a></td>
+<td>Public method to get the encoding to be used by Mercurial.</td>
+</tr>
+<tr>
+<td><a href="#Hg.getExtensionObject">getExtensionObject</a></td>
+<td>Public method to get a reference to an extension object.</td>
+</tr>
+<tr>
+<td><a href="#Hg.getHgSubPath">getHgSubPath</a></td>
+<td>Public method to get the path to the .hgsub file containing the definitions of sub-repositories.</td>
+</tr>
+<tr>
+<td><a href="#Hg.getPlugin">getPlugin</a></td>
+<td>Public method to get a reference to the plugin object.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hasSubrepositories">hasSubrepositories</a></td>
+<td>Public method to check, if the project might have sub-repositories.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgAbortMerge">hgAbortMerge</a></td>
+<td>Public method to abort an uncommitted merge.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgAddSubrepository">hgAddSubrepository</a></td>
+<td>Public method to add a sub-repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgAnnotate">hgAnnotate</a></td>
+<td>Public method to show the output of the hg annotate command.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgArchive">hgArchive</a></td>
+<td>Public method to create an unversioned archive from the repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBackout">hgBackout</a></td>
+<td>Public method used to backout an earlier changeset from the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBisect">hgBisect</a></td>
+<td>Public method to perform bisect commands.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBookmarkDefine">hgBookmarkDefine</a></td>
+<td>Public method to define a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBookmarkDelete">hgBookmarkDelete</a></td>
+<td>Public method to delete a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBookmarkIncoming">hgBookmarkIncoming</a></td>
+<td>Public method to show a list of incoming bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBookmarkMove">hgBookmarkMove</a></td>
+<td>Public method to move a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBookmarkOutgoing">hgBookmarkOutgoing</a></td>
+<td>Public method to show a list of outgoing bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBookmarkPull">hgBookmarkPull</a></td>
+<td>Public method to pull a bookmark from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBookmarkPush">hgBookmarkPush</a></td>
+<td>Public method to push a bookmark to a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBookmarkRename">hgBookmarkRename</a></td>
+<td>Public method to rename a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBranch">hgBranch</a></td>
+<td>Public method used to create a branch in the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgBundle">hgBundle</a></td>
+<td>Public method to create a changegroup file.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgConflicts">hgConflicts</a></td>
+<td>Public method used to show a list of files containing conflicts.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgCopy">hgCopy</a></td>
+<td>Public method used to copy a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgCreateIgnoreFile">hgCreateIgnoreFile</a></td>
+<td>Public method to create the ignore file.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgDeleteBackups">hgDeleteBackups</a></td>
+<td>Public method to delete all backup bundles in the backup area.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgEditConfig">hgEditConfig</a></td>
+<td>Public method used to edit the repository configuration file.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgEditUserConfig">hgEditUserConfig</a></td>
+<td>Public method used to edit the user configuration file.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgExport">hgExport</a></td>
+<td>Public method to export patches to files.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgExtendedDiff">hgExtendedDiff</a></td>
+<td>Public method used to view the difference of a file/directory to the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgGetBookmarksList">hgGetBookmarksList</a></td>
+<td>Public method to get the list of bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgGetBranchesList">hgGetBranchesList</a></td>
+<td>Public method to get the list of branches.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgGetCurrentBranch">hgGetCurrentBranch</a></td>
+<td>Public method to get the current branch of the working directory.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgGetTagsList">hgGetTagsList</a></td>
+<td>Public method to get the list of tags.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgGraft">hgGraft</a></td>
+<td>Public method to copy changesets from another branch.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgGraftAbort">hgGraftAbort</a></td>
+<td>Public method to abort an interrupted copying session and perform a rollback.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgGraftContinue">hgGraftContinue</a></td>
+<td>Public method to continue copying changesets from another branch.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgGraftStop">hgGraftStop</a></td>
+<td>Public method to stop an interrupted copying session.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgIdentify">hgIdentify</a></td>
+<td>Public method to identify the current working directory.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgImport">hgImport</a></td>
+<td>Public method to import a patch file.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgIncoming">hgIncoming</a></td>
+<td>Public method used to view the log of incoming changes from the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgInfo">hgInfo</a></td>
+<td>Public method to show information about the heads of the repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgListBookmarks">hgListBookmarks</a></td>
+<td>Public method used to list the available bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgListTagBranch">hgListTagBranch</a></td>
+<td>Public method used to list the available tags or branches.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgNormalizeURL">hgNormalizeURL</a></td>
+<td>Public method to normalize a url for Mercurial.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgOutgoing">hgOutgoing</a></td>
+<td>Public method used to view the log of outgoing changes from the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgPhase">hgPhase</a></td>
+<td>Public method to change the phase of revisions.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgPreviewBundle">hgPreviewBundle</a></td>
+<td>Public method used to view the log of incoming changes from a changegroup file.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgPull">hgPull</a></td>
+<td>Public method used to pull changes from a remote Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgPush">hgPush</a></td>
+<td>Public method used to push changes to a remote Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgReMerge">hgReMerge</a></td>
+<td>Public method used to merge a URL/revision into the local project.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgRecover">hgRecover</a></td>
+<td>Public method to recover an interrupted transaction.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgRemoveSubrepositories">hgRemoveSubrepositories</a></td>
+<td>Public method to remove sub-repositories.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgRollback">hgRollback</a></td>
+<td>Public method used to rollback the last transaction.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgServe">hgServe</a></td>
+<td>Public method used to serve the project.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgShowBranch">hgShowBranch</a></td>
+<td>Public method used to show the current branch of the working directory.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgShowConfig">hgShowConfig</a></td>
+<td>Public method to show the combined configuration.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgShowPaths">hgShowPaths</a></td>
+<td>Public method to show the path aliases for remote repositories.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgSummary">hgSummary</a></td>
+<td>Public method used to show some summary information of the working directory state.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgUnbundle">hgUnbundle</a></td>
+<td>Public method to apply changegroup files.</td>
+</tr>
+<tr>
+<td><a href="#Hg.hgVerify">hgVerify</a></td>
+<td>Public method to verify the integrity of the repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.initCommand">initCommand</a></td>
+<td>Public method to initialize a command arguments list.</td>
+</tr>
+<tr>
+<td><a href="#Hg.isExtensionActive">isExtensionActive</a></td>
+<td>Public method to check, if an extension is active.</td>
+</tr>
+<tr>
+<td><a href="#Hg.stopClient">stopClient</a></td>
+<td>Public method to stop the command server client.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsAdd">vcsAdd</a></td>
+<td>Public method used to add a file/directory to the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsAddBinary">vcsAddBinary</a></td>
+<td>Public method used to add a file/directory in binary mode to the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsAddCommitMessage">vcsAddCommitMessage</a></td>
+<td>Public method to add a commit message to the list of saved messages.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsAddTree">vcsAddTree</a></td>
+<td>Public method to add a directory tree rooted at path to the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsAllRegisteredStates">vcsAllRegisteredStates</a></td>
+<td>Public method used to get the registered states of a number of files in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsCheckout">vcsCheckout</a></td>
+<td>Public method used to check the project out of a Mercurial repository (clone).</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsCleanup">vcsCleanup</a></td>
+<td>Public method used to cleanup the working directory.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsClearCommitMessages">vcsClearCommitMessages</a></td>
+<td>Public method to clear the list of saved messages.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsCommandLine">vcsCommandLine</a></td>
+<td>Public method used to execute arbitrary mercurial commands.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsCommit">vcsCommit</a></td>
+<td>Public method used to make the change of a file/directory permanent in the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsCommitMessages">vcsCommitMessages</a></td>
+<td>Public method to get the list of saved commit messages.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsConvertProject">vcsConvertProject</a></td>
+<td>Public method to convert an uncontrolled project to a version controlled project.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsDiff">vcsDiff</a></td>
+<td>Public method used to view the difference of a file/directory to the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsExists">vcsExists</a></td>
+<td>Public method used to test for the presence of the hg executable.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsExport">vcsExport</a></td>
+<td>Public method used to export a directory from the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsForget">vcsForget</a></td>
+<td>Public method used to remove a file from the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsGetProjectBrowserHelper">vcsGetProjectBrowserHelper</a></td>
+<td>Public method to instantiate a helper object for the different project browsers.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsGetProjectHelper">vcsGetProjectHelper</a></td>
+<td>Public method to instantiate a helper object for the project.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsImport">vcsImport</a></td>
+<td>Public method used to import the project into the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsInit">vcsInit</a></td>
+<td>Public method used to initialize the mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsInitConfig">vcsInitConfig</a></td>
+<td>Public method to initialize the VCS configuration.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsLogBrowser">vcsLogBrowser</a></td>
+<td>Public method used to browse the log of a file/directory from the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsMerge">vcsMerge</a></td>
+<td>Public method used to merge a URL/revision into the local project.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsMove">vcsMove</a></td>
+<td>Public method used to move a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsName">vcsName</a></td>
+<td>Public method returning the name of the vcs.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsNewProjectOptionsDialog">vcsNewProjectOptionsDialog</a></td>
+<td>Public method to get a dialog to enter repository info for getting a new project.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsOptionsDialog">vcsOptionsDialog</a></td>
+<td>Public method to get a dialog to enter repository info.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsRegisteredState">vcsRegisteredState</a></td>
+<td>Public method used to get the registered state of a file in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsRemove">vcsRemove</a></td>
+<td>Public method used to remove a file/directory from the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsRepositoryInfos">vcsRepositoryInfos</a></td>
+<td>Public method to retrieve information about the repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsResolved">vcsResolved</a></td>
+<td>Public method used to resolve conflicts of a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsRevert">vcsRevert</a></td>
+<td>Public method used to revert changes made to a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsSbsDiff">vcsSbsDiff</a></td>
+<td>Public method used to view the difference of a file to the Mercurial repository side-by-side.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsShutdown">vcsShutdown</a></td>
+<td>Public method used to shutdown the Mercurial interface.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsStatus">vcsStatus</a></td>
+<td>Public method used to view the status of files/directories in the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsSupportCommandOptions">vcsSupportCommandOptions</a></td>
+<td>Public method to signal the support of user settable command options.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsSwitch">vcsSwitch</a></td>
+<td>Public method used to switch a working directory to a different revision.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsTag">vcsTag</a></td>
+<td>Public method used to set/remove a tag in the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Hg.vcsUpdate">vcsUpdate</a></td>
+<td>Public method used to update a file/directory with the Mercurial repository.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Hg.__init__" ID="Hg.__init__"></a>
+<h4>Hg (Constructor)</h4>
+<b>Hg</b>(<i>plugin, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>plugin</i> (VcsMercurialPlugin)</dt>
+<dd>
+reference to the plugin object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="Hg.__checkDefaults" ID="Hg.__checkDefaults"></a>
+<h4>Hg.__checkDefaults</h4>
+<b>__checkDefaults</b>(<i></i>)
+<p>
+        Private method to check, if the default and default-push URLs
+        have been configured.
+</p>
+
+<a NAME="Hg.__createClient" ID="Hg.__createClient"></a>
+<h4>Hg.__createClient</h4>
+<b>__createClient</b>(<i>repodir=""</i>)
+<p>
+        Private method to create a Mercurial command server client.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+path of the local repository
+</dd>
+</dl>
+<a NAME="Hg.__getExtensionsInfo" ID="Hg.__getExtensionsInfo"></a>
+<h4>Hg.__getExtensionsInfo</h4>
+<b>__getExtensionsInfo</b>(<i></i>)
+<p>
+        Private method to get the active extensions from Mercurial.
+</p>
+
+<a NAME="Hg.__getInOutBookmarks" ID="Hg.__getInOutBookmarks"></a>
+<h4>Hg.__getInOutBookmarks</h4>
+<b>__getInOutBookmarks</b>(<i>incoming</i>)
+<p>
+        Private method to get the list of incoming or outgoing bookmarks.
+</p>
+
+<dl>
+
+<dt><i>incoming</i> (bool)</dt>
+<dd>
+flag indicating to get incoming bookmarks
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of bookmarks
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Hg.__getMostRecentCommitMessage" ID="Hg.__getMostRecentCommitMessage"></a>
+<h4>Hg.__getMostRecentCommitMessage</h4>
+<b>__getMostRecentCommitMessage</b>(<i></i>)
+<p>
+        Private method to get the most recent commit message.
+</p>
+<p>
+        Note: This message is extracted from the parent commit of the
+        working directory.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+most recent commit message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Hg.__hgGetFileForRevision" ID="Hg.__hgGetFileForRevision"></a>
+<h4>Hg.__hgGetFileForRevision</h4>
+<b>__hgGetFileForRevision</b>(<i>name, rev=""</i>)
+<p>
+        Private method to get a file for a specific revision from the
+        repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file name to get from the repository
+</dd>
+<dt><i>rev</i> (str)</dt>
+<dd>
+revision to retrieve
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+contents of the file (string) and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Hg.__hgGraftSubCommand" ID="Hg.__hgGraftSubCommand"></a>
+<h4>Hg.__hgGraftSubCommand</h4>
+<b>__hgGraftSubCommand</b>(<i>subcommand, title</i>)
+<p>
+        Private method to perform a Mercurial graft subcommand.
+</p>
+
+<dl>
+
+<dt><i>subcommand</i> (str)</dt>
+<dd>
+subcommand flag
+</dd>
+<dt><i>title</i> (str)</dt>
+<dd>
+tirle of the dialog
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.__iniFileChanged" ID="Hg.__iniFileChanged"></a>
+<h4>Hg.__iniFileChanged</h4>
+<b>__iniFileChanged</b>(<i>path</i>)
+<p>
+        Private slot to handle a change of the Mercurial configuration file.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+name of the changed file
+</dd>
+</dl>
+<a NAME="Hg.__monitorRepoConfigFiles" ID="Hg.__monitorRepoConfigFiles"></a>
+<h4>Hg.__monitorRepoConfigFiles</h4>
+<b>__monitorRepoConfigFiles</b>(<i>repodir</i>)
+<p>
+        Private slot to add some repository configuration files to the list of
+        monitored files.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+</dl>
+<a NAME="Hg.__vcsCommit_Step2" ID="Hg.__vcsCommit_Step2"></a>
+<h4>Hg.__vcsCommit_Step2</h4>
+<b>__vcsCommit_Step2</b>(<i></i>)
+<p>
+        Private slot performing the second step of the commit action.
+</p>
+
+<a NAME="Hg._createStatusMonitorThread" ID="Hg._createStatusMonitorThread"></a>
+<h4>Hg._createStatusMonitorThread</h4>
+<b>_createStatusMonitorThread</b>(<i>interval, project</i>)
+<p>
+        Protected method to create an instance of the VCS status monitor
+        thread.
+</p>
+
+<dl>
+
+<dt><i>interval</i> (int)</dt>
+<dd>
+check interval for the monitor thread in seconds
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the monitor thread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HgStatusMonitorThread
+</dd>
+</dl>
+<a NAME="Hg.canCommitMerge" ID="Hg.canCommitMerge"></a>
+<h4>Hg.canCommitMerge</h4>
+<b>canCommitMerge</b>(<i></i>)
+<p>
+        Public method to check, if the working directory is an uncommitted
+        merge.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating commit merge capability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.canPull" ID="Hg.canPull"></a>
+<h4>Hg.canPull</h4>
+<b>canPull</b>(<i></i>)
+<p>
+        Public method to check, if pull is possible.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating pull capability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.canPush" ID="Hg.canPush"></a>
+<h4>Hg.canPush</h4>
+<b>canPush</b>(<i></i>)
+<p>
+        Public method to check, if push is possible.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating push capability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.clearStatusCache" ID="Hg.clearStatusCache"></a>
+<h4>Hg.clearStatusCache</h4>
+<b>clearStatusCache</b>(<i></i>)
+<p>
+        Public method to clear the status cache.
+</p>
+
+<a NAME="Hg.getBuiltinObject" ID="Hg.getBuiltinObject"></a>
+<h4>Hg.getBuiltinObject</h4>
+<b>getBuiltinObject</b>(<i>builtinName</i>)
+<p>
+        Public method to get a reference to a builtins object.
+</p>
+
+<dl>
+
+<dt><i>builtinName</i> (str)</dt>
+<dd>
+name of the builtin
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the builtin object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.getClient" ID="Hg.getClient"></a>
+<h4>Hg.getClient</h4>
+<b>getClient</b>(<i></i>)
+<p>
+        Public method to get a reference to the command server interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the client
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HgClient
+</dd>
+</dl>
+<a NAME="Hg.getEncoding" ID="Hg.getEncoding"></a>
+<h4>Hg.getEncoding</h4>
+<b>getEncoding</b>(<i></i>)
+<p>
+        Public method to get the encoding to be used by Mercurial.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+encoding
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Hg.getExtensionObject" ID="Hg.getExtensionObject"></a>
+<h4>Hg.getExtensionObject</h4>
+<b>getExtensionObject</b>(<i>extensionName</i>)
+<p>
+        Public method to get a reference to an extension object.
+</p>
+
+<dl>
+
+<dt><i>extensionName</i> (str)</dt>
+<dd>
+name of the extension
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the extension object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.getHgSubPath" ID="Hg.getHgSubPath"></a>
+<h4>Hg.getHgSubPath</h4>
+<b>getHgSubPath</b>(<i></i>)
+<p>
+        Public method to get the path to the .hgsub file containing the
+        definitions of sub-repositories.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+full path of the .hgsub file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Hg.getPlugin" ID="Hg.getPlugin"></a>
+<h4>Hg.getPlugin</h4>
+<b>getPlugin</b>(<i></i>)
+<p>
+        Public method to get a reference to the plugin object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the plugin object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+VcsMercurialPlugin
+</dd>
+</dl>
+<a NAME="Hg.hasSubrepositories" ID="Hg.hasSubrepositories"></a>
+<h4>Hg.hasSubrepositories</h4>
+<b>hasSubrepositories</b>(<i></i>)
+<p>
+        Public method to check, if the project might have sub-repositories.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of sub-repositories
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgAbortMerge" ID="Hg.hgAbortMerge"></a>
+<h4>Hg.hgAbortMerge</h4>
+<b>hgAbortMerge</b>(<i></i>)
+<p>
+        Public method to abort an uncommitted merge.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the abortion contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgAddSubrepository" ID="Hg.hgAddSubrepository"></a>
+<h4>Hg.hgAddSubrepository</h4>
+<b>hgAddSubrepository</b>(<i></i>)
+<p>
+        Public method to add a sub-repository.
+</p>
+
+<a NAME="Hg.hgAnnotate" ID="Hg.hgAnnotate"></a>
+<h4>Hg.hgAnnotate</h4>
+<b>hgAnnotate</b>(<i>name, skiplist=""</i>)
+<p>
+        Public method to show the output of the hg annotate command.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file name to show the annotations for
+</dd>
+<dt><i>skiplist</i> (str)</dt>
+<dd>
+name of a skip list file
+</dd>
+</dl>
+<a NAME="Hg.hgArchive" ID="Hg.hgArchive"></a>
+<h4>Hg.hgArchive</h4>
+<b>hgArchive</b>(<i></i>)
+<p>
+        Public method to create an unversioned archive from the repository.
+</p>
+
+<a NAME="Hg.hgBackout" ID="Hg.hgBackout"></a>
+<h4>Hg.hgBackout</h4>
+<b>hgBackout</b>(<i></i>)
+<p>
+        Public method used to backout an earlier changeset from the Mercurial
+        repository.
+</p>
+
+<a NAME="Hg.hgBisect" ID="Hg.hgBisect"></a>
+<h4>Hg.hgBisect</h4>
+<b>hgBisect</b>(<i>subcommand</i>)
+<p>
+        Public method to perform bisect commands.
+</p>
+
+<dl>
+
+<dt><i>subcommand</i> (str)</dt>
+<dd>
+name of the subcommand (one of 'good', 'bad',
+            'skip' or 'reset')
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid bisect subcommand
+</dd>
+</dl>
+<a NAME="Hg.hgBookmarkDefine" ID="Hg.hgBookmarkDefine"></a>
+<h4>Hg.hgBookmarkDefine</h4>
+<b>hgBookmarkDefine</b>(<i>revision=None, bookmark=None</i>)
+<p>
+        Public method to define a bookmark.
+</p>
+
+<dl>
+
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision to set bookmark for
+</dd>
+<dt><i>bookmark</i> (str)</dt>
+<dd>
+name of the bookmark
+</dd>
+</dl>
+<a NAME="Hg.hgBookmarkDelete" ID="Hg.hgBookmarkDelete"></a>
+<h4>Hg.hgBookmarkDelete</h4>
+<b>hgBookmarkDelete</b>(<i>bookmark=None</i>)
+<p>
+        Public method to delete a bookmark.
+</p>
+
+<dl>
+
+<dt><i>bookmark</i> (str)</dt>
+<dd>
+name of the bookmark
+</dd>
+</dl>
+<a NAME="Hg.hgBookmarkIncoming" ID="Hg.hgBookmarkIncoming"></a>
+<h4>Hg.hgBookmarkIncoming</h4>
+<b>hgBookmarkIncoming</b>(<i></i>)
+<p>
+        Public method to show a list of incoming bookmarks.
+</p>
+
+<a NAME="Hg.hgBookmarkMove" ID="Hg.hgBookmarkMove"></a>
+<h4>Hg.hgBookmarkMove</h4>
+<b>hgBookmarkMove</b>(<i>revision=None, bookmark=None</i>)
+<p>
+        Public method to move a bookmark.
+</p>
+
+<dl>
+
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision to set bookmark for
+</dd>
+<dt><i>bookmark</i> (str)</dt>
+<dd>
+name of the bookmark
+</dd>
+</dl>
+<a NAME="Hg.hgBookmarkOutgoing" ID="Hg.hgBookmarkOutgoing"></a>
+<h4>Hg.hgBookmarkOutgoing</h4>
+<b>hgBookmarkOutgoing</b>(<i></i>)
+<p>
+        Public method to show a list of outgoing bookmarks.
+</p>
+
+<a NAME="Hg.hgBookmarkPull" ID="Hg.hgBookmarkPull"></a>
+<h4>Hg.hgBookmarkPull</h4>
+<b>hgBookmarkPull</b>(<i>current=False, bookmark=None</i>)
+<p>
+        Public method to pull a bookmark from a remote repository.
+</p>
+
+<dl>
+
+<dt><i>current</i> (bool)</dt>
+<dd>
+flag indicating to pull the current bookmark
+</dd>
+<dt><i>bookmark</i> (str)</dt>
+<dd>
+name of the bookmark
+</dd>
+</dl>
+<a NAME="Hg.hgBookmarkPush" ID="Hg.hgBookmarkPush"></a>
+<h4>Hg.hgBookmarkPush</h4>
+<b>hgBookmarkPush</b>(<i>current=False, bookmark=None, allBookmarks=False</i>)
+<p>
+        Public method to push a bookmark to a remote repository.
+</p>
+
+<dl>
+
+<dt><i>current</i> (bool)</dt>
+<dd>
+flag indicating to push the current bookmark
+</dd>
+<dt><i>bookmark</i> (str)</dt>
+<dd>
+name of the bookmark
+</dd>
+<dt><i>allBookmarks</i> (bool)</dt>
+<dd>
+flag indicating to push all bookmarks
+</dd>
+</dl>
+<a NAME="Hg.hgBookmarkRename" ID="Hg.hgBookmarkRename"></a>
+<h4>Hg.hgBookmarkRename</h4>
+<b>hgBookmarkRename</b>(<i>renameInfo=None</i>)
+<p>
+        Public method to rename a bookmark.
+</p>
+
+<dl>
+
+<dt><i>renameInfo</i> (tuple of str and str)</dt>
+<dd>
+old and new names of the bookmark
+</dd>
+</dl>
+<a NAME="Hg.hgBranch" ID="Hg.hgBranch"></a>
+<h4>Hg.hgBranch</h4>
+<b>hgBranch</b>(<i></i>)
+<p>
+        Public method used to create a branch in the Mercurial repository.
+</p>
+
+<a NAME="Hg.hgBundle" ID="Hg.hgBundle"></a>
+<h4>Hg.hgBundle</h4>
+<b>hgBundle</b>(<i>bundleData=None</i>)
+<p>
+        Public method to create a changegroup file.
+</p>
+
+<dl>
+
+<dt><i>bundleData</i> (dict)</dt>
+<dd>
+dictionary containing the bundle creation information
+</dd>
+</dl>
+<a NAME="Hg.hgConflicts" ID="Hg.hgConflicts"></a>
+<h4>Hg.hgConflicts</h4>
+<b>hgConflicts</b>(<i></i>)
+<p>
+        Public method used to show a list of files containing conflicts.
+</p>
+
+<a NAME="Hg.hgCopy" ID="Hg.hgCopy"></a>
+<h4>Hg.hgCopy</h4>
+<b>hgCopy</b>(<i>name, project</i>)
+<p>
+        Public method used to copy a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be copied
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgCreateIgnoreFile" ID="Hg.hgCreateIgnoreFile"></a>
+<h4>Hg.hgCreateIgnoreFile</h4>
+<b>hgCreateIgnoreFile</b>(<i>name, autoAdd=False</i>)
+<p>
+        Public method to create the ignore file.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name to create the ignore file in
+</dd>
+<dt><i>autoAdd</i> (bool)</dt>
+<dd>
+flag indicating to add it automatically
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgDeleteBackups" ID="Hg.hgDeleteBackups"></a>
+<h4>Hg.hgDeleteBackups</h4>
+<b>hgDeleteBackups</b>(<i></i>)
+<p>
+        Public method to delete all backup bundles in the backup area.
+</p>
+
+<a NAME="Hg.hgEditConfig" ID="Hg.hgEditConfig"></a>
+<h4>Hg.hgEditConfig</h4>
+<b>hgEditConfig</b>(<i>repoName=None, withLargefiles=True, largefilesData=None</i>)
+<p>
+        Public method used to edit the repository configuration file.
+</p>
+
+<dl>
+
+<dt><i>repoName</i> (str)</dt>
+<dd>
+directory name containing the repository
+</dd>
+<dt><i>withLargefiles</i> (bool)</dt>
+<dd>
+flag indicating to configure the largefiles
+            section
+</dd>
+<dt><i>largefilesData</i> (dict)</dt>
+<dd>
+dictionary with data for the largefiles
+            section of the data dialog
+</dd>
+</dl>
+<a NAME="Hg.hgEditUserConfig" ID="Hg.hgEditUserConfig"></a>
+<h4>Hg.hgEditUserConfig</h4>
+<b>hgEditUserConfig</b>(<i></i>)
+<p>
+        Public method used to edit the user configuration file.
+</p>
+
+<a NAME="Hg.hgExport" ID="Hg.hgExport"></a>
+<h4>Hg.hgExport</h4>
+<b>hgExport</b>(<i></i>)
+<p>
+        Public method to export patches to files.
+</p>
+
+<a NAME="Hg.hgExtendedDiff" ID="Hg.hgExtendedDiff"></a>
+<h4>Hg.hgExtendedDiff</h4>
+<b>hgExtendedDiff</b>(<i>name</i>)
+<p>
+        Public method used to view the difference of a file/directory to the
+        Mercurial repository.
+</p>
+<p>
+        If name is a directory and is the project directory, all project files
+        are saved first. If name is a file (or list of files), which is/are
+        being edited and has unsaved modification, they can be saved or the
+        operation may be aborted.
+</p>
+<p>
+        This method gives the chance to enter the revisions to be compared.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be diffed
+</dd>
+</dl>
+<a NAME="Hg.hgGetBookmarksList" ID="Hg.hgGetBookmarksList"></a>
+<h4>Hg.hgGetBookmarksList</h4>
+<b>hgGetBookmarksList</b>(<i></i>)
+<p>
+        Public method to get the list of bookmarks.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of bookmarks
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Hg.hgGetBranchesList" ID="Hg.hgGetBranchesList"></a>
+<h4>Hg.hgGetBranchesList</h4>
+<b>hgGetBranchesList</b>(<i>withState=False, withDefault=False</i>)
+<p>
+        Public method to get the list of branches.
+</p>
+
+<dl>
+
+<dt><i>withState</i> (bool (optional))</dt>
+<dd>
+flag indicating to include a state indication (defaults to
+            False)
+</dd>
+<dt><i>withDefault</i> (bool (optional))</dt>
+<dd>
+flag indicating to include the 'default' branch, if that
+            is present (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of branches with optional state indication ('' for an active
+            branch, 'C' for a closed branch or 'I' for an inactive branch)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str or list of tuple of (str, str)
+</dd>
+</dl>
+<a NAME="Hg.hgGetCurrentBranch" ID="Hg.hgGetCurrentBranch"></a>
+<h4>Hg.hgGetCurrentBranch</h4>
+<b>hgGetCurrentBranch</b>(<i></i>)
+<p>
+        Public method to get the current branch of the working directory.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the current branch
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Hg.hgGetTagsList" ID="Hg.hgGetTagsList"></a>
+<h4>Hg.hgGetTagsList</h4>
+<b>hgGetTagsList</b>(<i>withType=False</i>)
+<p>
+        Public method to get the list of tags.
+</p>
+
+<dl>
+
+<dt><i>withType</i> (bool)</dt>
+<dd>
+flag indicating to get the tag type as well
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tags or list of tuples of tag name and flag indicating
+            a local tag, if withType is True
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str or list of [(str, bool)]
+</dd>
+</dl>
+<a NAME="Hg.hgGraft" ID="Hg.hgGraft"></a>
+<h4>Hg.hgGraft</h4>
+<b>hgGraft</b>(<i>revs=None</i>)
+<p>
+        Public method to copy changesets from another branch.
+</p>
+
+<dl>
+
+<dt><i>revs</i> (list of str)</dt>
+<dd>
+list of revisions to show in the revisions pane
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgGraftAbort" ID="Hg.hgGraftAbort"></a>
+<h4>Hg.hgGraftAbort</h4>
+<b>hgGraftAbort</b>(<i></i>)
+<p>
+        Public method to abort an interrupted copying session and perform
+        a rollback.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgGraftContinue" ID="Hg.hgGraftContinue"></a>
+<h4>Hg.hgGraftContinue</h4>
+<b>hgGraftContinue</b>(<i></i>)
+<p>
+        Public method to continue copying changesets from another branch.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgGraftStop" ID="Hg.hgGraftStop"></a>
+<h4>Hg.hgGraftStop</h4>
+<b>hgGraftStop</b>(<i></i>)
+<p>
+        Public method to stop an interrupted copying session.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgIdentify" ID="Hg.hgIdentify"></a>
+<h4>Hg.hgIdentify</h4>
+<b>hgIdentify</b>(<i></i>)
+<p>
+        Public method to identify the current working directory.
+</p>
+
+<a NAME="Hg.hgImport" ID="Hg.hgImport"></a>
+<h4>Hg.hgImport</h4>
+<b>hgImport</b>(<i></i>)
+<p>
+        Public method to import a patch file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the import contained an add, a delete
+            or a change to the project file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgIncoming" ID="Hg.hgIncoming"></a>
+<h4>Hg.hgIncoming</h4>
+<b>hgIncoming</b>(<i></i>)
+<p>
+        Public method used to view the log of incoming changes from the
+        Mercurial repository.
+</p>
+
+<a NAME="Hg.hgInfo" ID="Hg.hgInfo"></a>
+<h4>Hg.hgInfo</h4>
+<b>hgInfo</b>(<i>mode="heads"</i>)
+<p>
+        Public method to show information about the heads of the repository.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (str)</dt>
+<dd>
+mode of the operation (one of 'heads', 'parents', 'tip')
+</dd>
+</dl>
+<a NAME="Hg.hgListBookmarks" ID="Hg.hgListBookmarks"></a>
+<h4>Hg.hgListBookmarks</h4>
+<b>hgListBookmarks</b>(<i></i>)
+<p>
+        Public method used to list the available bookmarks.
+</p>
+
+<a NAME="Hg.hgListTagBranch" ID="Hg.hgListTagBranch"></a>
+<h4>Hg.hgListTagBranch</h4>
+<b>hgListTagBranch</b>(<i>tags=True</i>)
+<p>
+        Public method used to list the available tags or branches.
+</p>
+
+<dl>
+
+<dt><i>tags</i> (bool)</dt>
+<dd>
+flag indicating listing of branches or tags
+            (False = branches, True = tags)
+</dd>
+</dl>
+<a NAME="Hg.hgNormalizeURL" ID="Hg.hgNormalizeURL"></a>
+<h4>Hg.hgNormalizeURL</h4>
+<b>hgNormalizeURL</b>(<i>url</i>)
+<p>
+        Public method to normalize a url for Mercurial.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+url string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+properly normalized url for mercurial
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Hg.hgOutgoing" ID="Hg.hgOutgoing"></a>
+<h4>Hg.hgOutgoing</h4>
+<b>hgOutgoing</b>(<i></i>)
+<p>
+        Public method used to view the log of outgoing changes from the
+        Mercurial repository.
+</p>
+
+<a NAME="Hg.hgPhase" ID="Hg.hgPhase"></a>
+<h4>Hg.hgPhase</h4>
+<b>hgPhase</b>(<i>data=None</i>)
+<p>
+        Public method to change the phase of revisions.
+</p>
+
+<dl>
+
+<dt><i>data</i> (tuple of (list of str, str, bool))</dt>
+<dd>
+tuple giving phase data (list of revisions, phase, flag
+            indicating a forced operation)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid phase
+</dd>
+</dl>
+<a NAME="Hg.hgPreviewBundle" ID="Hg.hgPreviewBundle"></a>
+<h4>Hg.hgPreviewBundle</h4>
+<b>hgPreviewBundle</b>(<i></i>)
+<p>
+        Public method used to view the log of incoming changes from a
+        changegroup file.
+</p>
+
+<a NAME="Hg.hgPull" ID="Hg.hgPull"></a>
+<h4>Hg.hgPull</h4>
+<b>hgPull</b>(<i>revisions=None, noupdate=False</i>)
+<p>
+        Public method used to pull changes from a remote Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>revisions</i> (list of str (optional))</dt>
+<dd>
+list of revisions to be pulled (defaults to None)
+</dd>
+<dt><i>noupdate</i> (bool (optional))</dt>
+<dd>
+flag indicate to not update the working directory (defaults
+            to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add
+            or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgPush" ID="Hg.hgPush"></a>
+<h4>Hg.hgPush</h4>
+<b>hgPush</b>(<i>force=False, newBranch=False, rev=None</i>)
+<p>
+        Public method used to push changes to a remote Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>force</i> (bool)</dt>
+<dd>
+flag indicating a forced push
+</dd>
+<dt><i>newBranch</i> (bool)</dt>
+<dd>
+flag indicating to push a new branch
+</dd>
+<dt><i>rev</i> (str)</dt>
+<dd>
+revision to be pushed (including all ancestors)
+</dd>
+</dl>
+<a NAME="Hg.hgReMerge" ID="Hg.hgReMerge"></a>
+<h4>Hg.hgReMerge</h4>
+<b>hgReMerge</b>(<i>name</i>)
+<p>
+        Public method used to merge a URL/revision into the local project.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be merged
+</dd>
+</dl>
+<a NAME="Hg.hgRecover" ID="Hg.hgRecover"></a>
+<h4>Hg.hgRecover</h4>
+<b>hgRecover</b>(<i></i>)
+<p>
+        Public method to recover an interrupted transaction.
+</p>
+
+<a NAME="Hg.hgRemoveSubrepositories" ID="Hg.hgRemoveSubrepositories"></a>
+<h4>Hg.hgRemoveSubrepositories</h4>
+<b>hgRemoveSubrepositories</b>(<i></i>)
+<p>
+        Public method to remove sub-repositories.
+</p>
+
+<a NAME="Hg.hgRollback" ID="Hg.hgRollback"></a>
+<h4>Hg.hgRollback</h4>
+<b>hgRollback</b>(<i></i>)
+<p>
+        Public method used to rollback the last transaction.
+</p>
+
+<a NAME="Hg.hgServe" ID="Hg.hgServe"></a>
+<h4>Hg.hgServe</h4>
+<b>hgServe</b>(<i>repoPath</i>)
+<p>
+        Public method used to serve the project.
+</p>
+
+<dl>
+
+<dt><i>repoPath</i> (str)</dt>
+<dd>
+directory containing the repository
+</dd>
+</dl>
+<a NAME="Hg.hgShowBranch" ID="Hg.hgShowBranch"></a>
+<h4>Hg.hgShowBranch</h4>
+<b>hgShowBranch</b>(<i></i>)
+<p>
+        Public method used to show the current branch of the working directory.
+</p>
+
+<a NAME="Hg.hgShowConfig" ID="Hg.hgShowConfig"></a>
+<h4>Hg.hgShowConfig</h4>
+<b>hgShowConfig</b>(<i></i>)
+<p>
+        Public method to show the combined configuration.
+</p>
+
+<a NAME="Hg.hgShowPaths" ID="Hg.hgShowPaths"></a>
+<h4>Hg.hgShowPaths</h4>
+<b>hgShowPaths</b>(<i></i>)
+<p>
+        Public method to show the path aliases for remote repositories.
+</p>
+
+<a NAME="Hg.hgSummary" ID="Hg.hgSummary"></a>
+<h4>Hg.hgSummary</h4>
+<b>hgSummary</b>(<i>mq=False, largefiles=False</i>)
+<p>
+        Public method used to show some summary information of the
+        working directory state.
+</p>
+
+<dl>
+
+<dt><i>mq</i> (bool)</dt>
+<dd>
+flag indicating to show the queue status as well
+</dd>
+<dt><i>largefiles</i> (bool)</dt>
+<dd>
+flag indicating to show the largefiles status as
+            well
+</dd>
+</dl>
+<a NAME="Hg.hgUnbundle" ID="Hg.hgUnbundle"></a>
+<h4>Hg.hgUnbundle</h4>
+<b>hgUnbundle</b>(<i>files=None</i>)
+<p>
+        Public method to apply changegroup files.
+</p>
+
+<dl>
+
+<dt><i>files</i> (list of str)</dt>
+<dd>
+list of bundle files to be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add
+            or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.hgVerify" ID="Hg.hgVerify"></a>
+<h4>Hg.hgVerify</h4>
+<b>hgVerify</b>(<i></i>)
+<p>
+        Public method to verify the integrity of the repository.
+</p>
+
+<a NAME="Hg.initCommand" ID="Hg.initCommand"></a>
+<h4>Hg.initCommand</h4>
+<b>initCommand</b>(<i>command</i>)
+<p>
+        Public method to initialize a command arguments list.
+</p>
+
+<dl>
+
+<dt><i>command</i> (str)</dt>
+<dd>
+command name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of command options
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Hg.isExtensionActive" ID="Hg.isExtensionActive"></a>
+<h4>Hg.isExtensionActive</h4>
+<b>isExtensionActive</b>(<i>extensionName</i>)
+<p>
+        Public method to check, if an extension is active.
+</p>
+
+<dl>
+
+<dt><i>extensionName</i> (str)</dt>
+<dd>
+name of the extension to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an active extension
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.stopClient" ID="Hg.stopClient"></a>
+<h4>Hg.stopClient</h4>
+<b>stopClient</b>(<i></i>)
+<p>
+        Public method to stop the command server client.
+</p>
+
+<a NAME="Hg.vcsAdd" ID="Hg.vcsAdd"></a>
+<h4>Hg.vcsAdd</h4>
+<b>vcsAdd</b>(<i>name, isDir=False, noDialog=False</i>)
+<p>
+        Public method used to add a file/directory to the Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be added
+</dd>
+<dt><i>isDir</i> (bool)</dt>
+<dd>
+flag indicating name is a directory (unused)
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<a NAME="Hg.vcsAddBinary" ID="Hg.vcsAddBinary"></a>
+<h4>Hg.vcsAddBinary</h4>
+<b>vcsAddBinary</b>(<i>name, isDir=False</i>)
+<p>
+        Public method used to add a file/directory in binary mode to the
+        Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be added
+</dd>
+<dt><i>isDir</i> (bool)</dt>
+<dd>
+flag indicating name is a directory
+</dd>
+</dl>
+<a NAME="Hg.vcsAddCommitMessage" ID="Hg.vcsAddCommitMessage"></a>
+<h4>Hg.vcsAddCommitMessage</h4>
+<b>vcsAddCommitMessage</b>(<i>message</i>)
+<p>
+        Public method to add a commit message to the list of saved messages.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be added
+</dd>
+</dl>
+<a NAME="Hg.vcsAddTree" ID="Hg.vcsAddTree"></a>
+<h4>Hg.vcsAddTree</h4>
+<b>vcsAddTree</b>(<i>path</i>)
+<p>
+        Public method to add a directory tree rooted at path to the Mercurial
+        repository.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str or list of str)</dt>
+<dd>
+root directory of the tree to be added
+</dd>
+</dl>
+<a NAME="Hg.vcsAllRegisteredStates" ID="Hg.vcsAllRegisteredStates"></a>
+<h4>Hg.vcsAllRegisteredStates</h4>
+<b>vcsAllRegisteredStates</b>(<i>names, dname, shortcut=True</i>)
+<p>
+        Public method used to get the registered states of a number of files
+        in the vcs.
+</p>
+<p>
+        <b>Note:</b> If a shortcut is to be taken, the code will only check,
+        if the named directory has been scanned already. If so, it is assumed,
+        that the states for all files have been populated by the previous run.
+</p>
+
+<dl>
+
+<dt><i>names</i> (dict)</dt>
+<dd>
+dictionary with all filenames to be checked as keys
+</dd>
+<dt><i>dname</i> (str)</dt>
+<dd>
+directory to check in
+</dd>
+<dt><i>shortcut</i> (bool)</dt>
+<dd>
+flag indicating a shortcut should be taken (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the received dictionary completed with the VCS state or None in
+            order to signal an error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="Hg.vcsCheckout" ID="Hg.vcsCheckout"></a>
+<h4>Hg.vcsCheckout</h4>
+<b>vcsCheckout</b>(<i>vcsDataDict, projectDir, noDialog=False</i>)
+<p>
+        Public method used to check the project out of a Mercurial repository
+        (clone).
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the checkout
+</dd>
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+project directory to create
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an execution without errors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.vcsCleanup" ID="Hg.vcsCleanup"></a>
+<h4>Hg.vcsCleanup</h4>
+<b>vcsCleanup</b>(<i>name</i>)
+<p>
+        Public method used to cleanup the working directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name to be cleaned up
+</dd>
+</dl>
+<a NAME="Hg.vcsClearCommitMessages" ID="Hg.vcsClearCommitMessages"></a>
+<h4>Hg.vcsClearCommitMessages</h4>
+<b>vcsClearCommitMessages</b>(<i></i>)
+<p>
+        Public method to clear the list of saved messages.
+</p>
+
+<a NAME="Hg.vcsCommandLine" ID="Hg.vcsCommandLine"></a>
+<h4>Hg.vcsCommandLine</h4>
+<b>vcsCommandLine</b>(<i>name</i>)
+<p>
+        Public method used to execute arbitrary mercurial commands.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name of the working directory
+</dd>
+</dl>
+<a NAME="Hg.vcsCommit" ID="Hg.vcsCommit"></a>
+<h4>Hg.vcsCommit</h4>
+<b>vcsCommit</b>(<i>name, message, noDialog=False, closeBranch=False, mq=False, merge=False</i>)
+<p>
+        Public method used to make the change of a file/directory permanent
+        in the Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name to be committed
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message for this operation
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+<dt><i>closeBranch</i> (bool)</dt>
+<dd>
+flag indicating a close branch commit
+</dd>
+<dt><i>mq</i> (bool)</dt>
+<dd>
+flag indicating a queue commit
+</dd>
+<dt><i>merge</i> (bool)</dt>
+<dd>
+flag indicating a merge commit
+</dd>
+</dl>
+<a NAME="Hg.vcsCommitMessages" ID="Hg.vcsCommitMessages"></a>
+<h4>Hg.vcsCommitMessages</h4>
+<b>vcsCommitMessages</b>(<i></i>)
+<p>
+        Public method to get the list of saved commit messages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of saved commit messages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Hg.vcsConvertProject" ID="Hg.vcsConvertProject"></a>
+<h4>Hg.vcsConvertProject</h4>
+<b>vcsConvertProject</b>(<i>vcsDataDict, project, addAll=True</i>)
+<p>
+        Public method to convert an uncontrolled project to a version
+        controlled project.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the conversion
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>addAll</i> (bool)</dt>
+<dd>
+flag indicating to add all files to the repository
+</dd>
+</dl>
+<a NAME="Hg.vcsDiff" ID="Hg.vcsDiff"></a>
+<h4>Hg.vcsDiff</h4>
+<b>vcsDiff</b>(<i>name</i>)
+<p>
+        Public method used to view the difference of a file/directory to the
+        Mercurial repository.
+</p>
+<p>
+        If name is a directory and is the project directory, all project files
+        are saved first. If name is a file (or list of files), which is/are
+        being edited and has unsaved modification, they can be saved or the
+        operation may be aborted.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be diffed
+</dd>
+</dl>
+<a NAME="Hg.vcsExists" ID="Hg.vcsExists"></a>
+<h4>Hg.vcsExists</h4>
+<b>vcsExists</b>(<i></i>)
+<p>
+        Public method used to test for the presence of the hg executable.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="Hg.vcsExport" ID="Hg.vcsExport"></a>
+<h4>Hg.vcsExport</h4>
+<b>vcsExport</b>(<i>vcsDataDict, projectDir</i>)
+<p>
+        Public method used to export a directory from the Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the checkout
+</dd>
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+project directory to create
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an execution without errors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.vcsForget" ID="Hg.vcsForget"></a>
+<h4>Hg.vcsForget</h4>
+<b>vcsForget</b>(<i>name</i>)
+<p>
+        Public method used to remove a file from the Mercurial repository.
+</p>
+<p>
+        This will not remove the file from the project directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name to be removed
+</dd>
+</dl>
+<a NAME="Hg.vcsGetProjectBrowserHelper" ID="Hg.vcsGetProjectBrowserHelper"></a>
+<h4>Hg.vcsGetProjectBrowserHelper</h4>
+<b>vcsGetProjectBrowserHelper</b>(<i>browser, project, isTranslationsBrowser=False</i>)
+<p>
+        Public method to instantiate a helper object for the different
+        project browsers.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (ProjectBaseBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>isTranslationsBrowser</i> (bool)</dt>
+<dd>
+flag indicating, the helper is requested
+            for the translations browser (this needs some special treatment)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the project browser helper object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HgProjectBrowserHelper
+</dd>
+</dl>
+<a NAME="Hg.vcsGetProjectHelper" ID="Hg.vcsGetProjectHelper"></a>
+<h4>Hg.vcsGetProjectHelper</h4>
+<b>vcsGetProjectHelper</b>(<i>project</i>)
+<p>
+        Public method to instantiate a helper object for the project.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the project helper object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HgProjectHelper
+</dd>
+</dl>
+<a NAME="Hg.vcsImport" ID="Hg.vcsImport"></a>
+<h4>Hg.vcsImport</h4>
+<b>vcsImport</b>(<i>vcsDataDict, projectDir, noDialog=False, addAll=True</i>)
+<p>
+        Public method used to import the project into the Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the import
+</dd>
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+project directory
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations (unused)
+</dd>
+<dt><i>addAll</i> (bool)</dt>
+<dd>
+flag indicating to add all files to the repository
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating an execution without errors
+            and a flag indicating the version controll status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, bool)
+</dd>
+</dl>
+<a NAME="Hg.vcsInit" ID="Hg.vcsInit"></a>
+<h4>Hg.vcsInit</h4>
+<b>vcsInit</b>(<i>_vcsDir, noDialog=False</i>)
+<p>
+        Public method used to initialize the mercurial repository.
+</p>
+<p>
+        The initialization is done, when a project is converted into a
+        Mercurial controlled project. Therefore we always return TRUE without
+        doing anything.
+</p>
+
+<dl>
+
+<dt><i>_vcsDir</i> (str)</dt>
+<dd>
+name of the VCS directory (unused)
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+always True
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.vcsInitConfig" ID="Hg.vcsInitConfig"></a>
+<h4>Hg.vcsInitConfig</h4>
+<b>vcsInitConfig</b>(<i>project</i>)
+<p>
+        Public method to initialize the VCS configuration.
+</p>
+<p>
+        This method ensures, that an ignore file exists.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project
+</dd>
+</dl>
+<a NAME="Hg.vcsLogBrowser" ID="Hg.vcsLogBrowser"></a>
+<h4>Hg.vcsLogBrowser</h4>
+<b>vcsLogBrowser</b>(<i>name=None, isFile=False</i>)
+<p>
+        Public method used to browse the log of a file/directory from the
+        Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to show the log of
+</dd>
+<dt><i>isFile</i> (bool)</dt>
+<dd>
+flag indicating log for a file is to be shown
+</dd>
+</dl>
+<a NAME="Hg.vcsMerge" ID="Hg.vcsMerge"></a>
+<h4>Hg.vcsMerge</h4>
+<b>vcsMerge</b>(<i>name, rev=""</i>)
+<p>
+        Public method used to merge a URL/revision into the local project.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be merged (unused)
+</dd>
+<dt><i>rev</i> (str)</dt>
+<dd>
+revision to merge with
+</dd>
+</dl>
+<a NAME="Hg.vcsMove" ID="Hg.vcsMove"></a>
+<h4>Hg.vcsMove</h4>
+<b>vcsMove</b>(<i>name, project, target=None, noDialog=False</i>)
+<p>
+        Public method used to move a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be moved
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>target</i> (str)</dt>
+<dd>
+new name of the file/directory
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successfull operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.vcsName" ID="Hg.vcsName"></a>
+<h4>Hg.vcsName</h4>
+<b>vcsName</b>(<i></i>)
+<p>
+        Public method returning the name of the vcs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+always 'Mercurial'
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Hg.vcsNewProjectOptionsDialog" ID="Hg.vcsNewProjectOptionsDialog"></a>
+<h4>Hg.vcsNewProjectOptionsDialog</h4>
+<b>vcsNewProjectOptionsDialog</b>(<i>parent=None</i>)
+<p>
+        Public method to get a dialog to enter repository info for getting a
+        new project.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated options dialog
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HgNewProjectOptionsDialog
+</dd>
+</dl>
+<a NAME="Hg.vcsOptionsDialog" ID="Hg.vcsOptionsDialog"></a>
+<h4>Hg.vcsOptionsDialog</h4>
+<b>vcsOptionsDialog</b>(<i>project, _archive, editable=False, parent=None</i>)
+<p>
+        Public method to get a dialog to enter repository info.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>_archive</i> (str)</dt>
+<dd>
+name of the project in the repository (unused)
+</dd>
+<dt><i>editable</i> (bool)</dt>
+<dd>
+flag indicating that the project name is editable (unused)
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated options dialog
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+HgOptionsDialog
+</dd>
+</dl>
+<a NAME="Hg.vcsRegisteredState" ID="Hg.vcsRegisteredState"></a>
+<h4>Hg.vcsRegisteredState</h4>
+<b>vcsRegisteredState</b>(<i>name</i>)
+<p>
+        Public method used to get the registered state of a file in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file or directory name to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+registered state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+VersionControlState
+</dd>
+</dl>
+<a NAME="Hg.vcsRemove" ID="Hg.vcsRemove"></a>
+<h4>Hg.vcsRemove</h4>
+<b>vcsRemove</b>(<i>name, project=False, noDialog=False</i>)
+<p>
+        Public method used to remove a file/directory from the Mercurial
+        repository.
+</p>
+<p>
+        The default operation is to remove the local copy as well.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name to be removed
+</dd>
+<dt><i>project</i> (bool)</dt>
+<dd>
+flag indicating deletion of a project tree (unused)
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successfull operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.vcsRepositoryInfos" ID="Hg.vcsRepositoryInfos"></a>
+<h4>Hg.vcsRepositoryInfos</h4>
+<b>vcsRepositoryInfos</b>(<i>_ppath</i>)
+<p>
+        Public method to retrieve information about the repository.
+</p>
+
+<dl>
+
+<dt><i>_ppath</i> (str)</dt>
+<dd>
+local path to get the repository infos (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string with ready formated info for display
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Hg.vcsResolved" ID="Hg.vcsResolved"></a>
+<h4>Hg.vcsResolved</h4>
+<b>vcsResolved</b>(<i>name, unresolve=False</i>)
+<p>
+        Public method used to resolve conflicts of a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be resolved
+</dd>
+<dt><i>unresolve</i> (bool)</dt>
+<dd>
+flag indicating to mark the file/directory as
+            unresolved
+</dd>
+</dl>
+<a NAME="Hg.vcsRevert" ID="Hg.vcsRevert"></a>
+<h4>Hg.vcsRevert</h4>
+<b>vcsRevert</b>(<i>name</i>)
+<p>
+        Public method used to revert changes made to a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be reverted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add
+            or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.vcsSbsDiff" ID="Hg.vcsSbsDiff"></a>
+<h4>Hg.vcsSbsDiff</h4>
+<b>vcsSbsDiff</b>(<i>name, extended=False, revisions=None</i>)
+<p>
+        Public method used to view the difference of a file to the Mercurial
+        repository side-by-side.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file name to be diffed
+</dd>
+<dt><i>extended</i> (bool)</dt>
+<dd>
+flag indicating the extended variant
+</dd>
+<dt><i>revisions</i> (tuple of (str, str))</dt>
+<dd>
+tuple of two revisions
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid name parameter
+</dd>
+</dl>
+<a NAME="Hg.vcsShutdown" ID="Hg.vcsShutdown"></a>
+<h4>Hg.vcsShutdown</h4>
+<b>vcsShutdown</b>(<i></i>)
+<p>
+        Public method used to shutdown the Mercurial interface.
+</p>
+
+<a NAME="Hg.vcsStatus" ID="Hg.vcsStatus"></a>
+<h4>Hg.vcsStatus</h4>
+<b>vcsStatus</b>(<i>name</i>)
+<p>
+        Public method used to view the status of files/directories in the
+        Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name(s) to show the status of
+</dd>
+</dl>
+<a NAME="Hg.vcsSupportCommandOptions" ID="Hg.vcsSupportCommandOptions"></a>
+<h4>Hg.vcsSupportCommandOptions</h4>
+<b>vcsSupportCommandOptions</b>(<i></i>)
+<p>
+        Public method to signal the support of user settable command options.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the support  of user settable command options
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.vcsSwitch" ID="Hg.vcsSwitch"></a>
+<h4>Hg.vcsSwitch</h4>
+<b>vcsSwitch</b>(<i>name</i>)
+<p>
+        Public method used to switch a working directory to a different
+        revision.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name to be switched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the switch contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.vcsTag" ID="Hg.vcsTag"></a>
+<h4>Hg.vcsTag</h4>
+<b>vcsTag</b>(<i>name=None, revision=None, tagName=None</i>)
+<p>
+        Public method used to set/remove a tag in the Mercurial repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to determine the repo root from (unused)
+</dd>
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision to set tag for
+</dd>
+<dt><i>tagName</i> (str)</dt>
+<dd>
+name of the tag
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a performed tag action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Hg.vcsUpdate" ID="Hg.vcsUpdate"></a>
+<h4>Hg.vcsUpdate</h4>
+<b>vcsUpdate</b>(<i>name=None, noDialog=False, revision=None</i>)
+<p>
+        Public method used to update a file/directory with the Mercurial
+        repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be updated (unused)
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision to update to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

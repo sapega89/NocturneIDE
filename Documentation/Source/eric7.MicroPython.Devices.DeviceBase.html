@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.Devices.DeviceBase</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.Devices.DeviceBase</h1>
+<p>
+Module implementing some utility functions and the MicroPythonDevice base
+class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#BaseDevice">BaseDevice</a></td>
+<td>Base class for the more specific MicroPython devices.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="BaseDevice" ID="BaseDevice"></a>
+<h2>BaseDevice</h2>
+<p>
+    Base class for the more specific MicroPython devices.
+</p>
+<p>
+    It includes a list of commands for general use on the various boards.
+    If a board needs special treatment, the command should be overwritten
+    in the board specific subclass. Commands are provided to perform operations
+    on the file system of a connected MicroPython device, for getting and setting
+    the time on the board and getting board related data.
+</p>
+<p>
+    Supported file system commands are:
+    <ul>
+    <li>cd: change directory</li>
+    <li>exists: test the existence of a file or directory on the device</li>
+    <li>fileSystemInfo: get information about the file system</li>
+    <li>get: get a file from the connected device</li>
+    <li>getData: read data of a file of the connected device</li>
+    <li>lls: directory listing with meta data</li>
+    <li>ls: directory listing</li>
+    <li>mkdir: create a new directory</li>
+    <li>put: copy a file to the connected device</li>
+    <li>putData: write data to a file of the connected device</li>
+    <li>pwd: get the current directory</li>
+    <li>rm: remove a file from the connected device</li>
+    <li>rmdir: remove an empty directory</li>
+    <li>rmrf: remove a file/directory recursively (like 'rm -rf' in bash)</li>
+    </ul>
+</p>
+<p>
+    Supported non file system commands are:
+    <ul>
+    <li>getBoardData: get information about the connected board</li>
+    <li>getDeviceData: get version info about MicroPython and some implementation
+        information</li>
+    <li>getModules: get a list of built-in modules</li>
+    <li>getTime: get the current time</li>
+    <li>showTime: show the current time of the connected device</li>
+    <li>syncTime: synchronize the time of the connected device</li>
+    <li>mipInstall: install a MicroPython package with 'mip'</li>
+    <li>upipInstall: install a MicroPython package with 'upip'</li>
+    <li>getLibPaths: get a list of library paths contained in sys.path</li>
+    </ul>
+</p>
+<p>
+    Supported WiFi commands are:
+    <ul>
+    <li>hasWifi: check, if the board has WiFi functionality</li>
+    <li>getWifiData: get WiFi status data</li>
+    <li>connectWifi: connect to a WiFi network</li>
+    <li>disconnectWifi: disconnect from a WiFi network</li>
+    <li>isWifiClientConnected: check the WiFi connection status as client</li>
+    <li>isWifiApConnected: check the WiFi connection status as access point</li>
+    <li>writeCredentials: save the WiFi credentials to the board and create
+        functionality to auto-connect at boot time</li>
+    <li>removeCredentials: remove the saved credentials</li>
+    <li>checkInternet: check, if internet access is possible</li>
+    <li>scanNetworks: scan for available WiFi networks</li>
+    <li>deactivateInterface: deactivate a WiFi interface</li>
+    <li>startAccessPoint: start an access point</li>
+    <li>stopAccessPoint: stop the access point</li>
+    <li>getConnectedClients: get a list of connected WiFi clients</li>
+    </ul>
+</p>
+<p>
+    Supported Bluetooth commands are:
+    <ul>
+    <li>hasBluetooth: check, if the board has Bluetooth functionality</li>
+    <li>getBluetoothStatus: get Bluetooth status data</li>
+    <li>activateBluetoothInterface: activate a Bluetooth interface</li>
+    <li>deactivateBluetoothInterface: deactivate a Bluetooth interface</li>
+    <li>getDeviceScan: scan for visible Bluetooth devices</li>
+    </ul>
+</p>
+<p>
+    Supported Ethernet commands are:
+    <ul>
+    <li>hasEthernet: check, if the board has Ethernet functionality</li>
+    <li>getEthernetStatus: get Ethernet status data</li>
+    <li>connectToLan: connect to an Ethernet network</li>
+    <li>disconnectFromLan: disconnect from an Ethernet network</li>
+    <li>isLanConnected: check the LAN connection status</li>
+    <li>checkInternetViaLan: check, if internet access via LAN is possible</li>
+    <li>deactivateEthernet: deactivate the Ethernet interface</li>
+    <li>writeLanAutoConnect: save IPv4 parameters to the board and create a script
+        to connect the board to the LAN</li>
+    <li>removeLanAutoConnect: remove the IPv4 parameters and script from the board</li>
+    </ul>
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BaseDevice.__init__">BaseDevice</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.__getDeviceData">__getDeviceData</a></td>
+<td>Private method to get some essential data for the connected board.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice._getSetTimeCode">_getSetTimeCode</a></td>
+<td>Protected method to get the device code to set the time.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice._shortError">_shortError</a></td>
+<td>Protected method to create a shortened error message.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.activateBluetoothInterface">activateBluetoothInterface</a></td>
+<td>Public method to activate the Bluetooth interface.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.addDeviceBluetoothEntries">addDeviceBluetoothEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.addDeviceEthernetEntries">addDeviceEthernetEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.addDeviceMenuEntries">addDeviceMenuEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.addDeviceWifiEntries">addDeviceWifiEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.bool2str">bool2str</a></td>
+<td>Public method to generate a yes/no string given a truth value.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.canRunScript">canRunScript</a></td>
+<td>Public method to determine, if a script can be executed.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.canStartFileManager">canStartFileManager</a></td>
+<td>Public method to determine, if a File Manager can be started.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.canStartPlotter">canStartPlotter</a></td>
+<td>Public method to determine, if a Plotter can be started.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.canStartRepl">canStartRepl</a></td>
+<td>Public method to determine, if a REPL can be started.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.cd">cd</a></td>
+<td>Public method to change the current directory on the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.checkDeviceData">checkDeviceData</a></td>
+<td>Public method to check the validity of the device data determined during connecting the device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.checkInternet">checkInternet</a></td>
+<td>Public method to check, if the internet can be reached.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.checkInternetViaLan">checkInternetViaLan</a></td>
+<td>Public method to check, if the internet can be reached (LAN variant).</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.connectToLan">connectToLan</a></td>
+<td>Public method to connect the connected device to the LAN.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.connectWifi">connectWifi</a></td>
+<td>Public method to connect a device to a WiFi network.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.deactivateBluetoothInterface">deactivateBluetoothInterface</a></td>
+<td>Public method to deactivate the Bluetooth interface.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.deactivateEthernet">deactivateEthernet</a></td>
+<td>Public method to deactivate the Ethernet interface of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.deactivateInterface">deactivateInterface</a></td>
+<td>Public method to deactivate a given WiFi interface of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.deviceName">deviceName</a></td>
+<td>Public method to get the name of the device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.disableWebrepl">disableWebrepl</a></td>
+<td>Public method to write the given WebREPL password to the connected device and modify the start script to start the WebREPL server.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.disconnectFromLan">disconnectFromLan</a></td>
+<td>Public method  to disconnect from the LAN.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.disconnectWifi">disconnectWifi</a></td>
+<td>Public method to disconnect a device from the WiFi network.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.downloadFirmware">downloadFirmware</a></td>
+<td>Public method to download the device firmware.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.enableWebrepl">enableWebrepl</a></td>
+<td>Public method to write the given WebREPL password to the connected device and modify the start script to start the WebREPL server.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.ensurePath">ensurePath</a></td>
+<td>Public method to ensure, that the given target path exists.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.executeCommands">executeCommands</a></td>
+<td>Public method to send commands to the connected device and return the result.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.exists">exists</a></td>
+<td>Public method to check the existence of a file or directory.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.fileSystemInfo">fileSystemInfo</a></td>
+<td>Public method to obtain information about the currently mounted file systems.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.forceInterrupt">forceInterrupt</a></td>
+<td>Public method to determine the need for an interrupt when opening the serial connection.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.get">get</a></td>
+<td>Public method to copy a file from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getBluetoothStatus">getBluetoothStatus</a></td>
+<td>Public method to get Bluetooth status data of the connected board.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getBoardInformation">getBoardInformation</a></td>
+<td>Public method to get some information data of the connected board.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getConnectedClients">getConnectedClients</a></td>
+<td>Public method to get a list of connected clients.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getData">getData</a></td>
+<td>Public method to read data from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getDeviceData">getDeviceData</a></td>
+<td>Public method to get a copy of the determined device data or part of them.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getDeviceScan">getDeviceScan</a></td>
+<td>Public method to perform a Bluetooth device scan.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getDeviceType">getDeviceType</a></td>
+<td>Public method to get the device type.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getDocumentationUrl">getDocumentationUrl</a></td>
+<td>Public method to get the device documentation URL.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getDownloadMenuEntries">getDownloadMenuEntries</a></td>
+<td>Public method to retrieve the entries for the downloads menu.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getEthernetStatus">getEthernetStatus</a></td>
+<td>Public method to get Ethernet status data of the connected board.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getFirmwareUrl">getFirmwareUrl</a></td>
+<td>Public method to get the device firmware download URL.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getLibPaths">getLibPaths</a></td>
+<td>Public method to get the list of library paths contained in 'sys.path'.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getModules">getModules</a></td>
+<td>Public method to show a list of modules built into the firmware.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getTime">getTime</a></td>
+<td>Public method to get the current time of the device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getWifiData">getWifiData</a></td>
+<td>Public method to get data related to the current WiFi status.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.getWorkspace">getWorkspace</a></td>
+<td>Public method to get the workspace directory.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.handleDataFlood">handleDataFlood</a></td>
+<td>Public slot handling a data floof from the device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasBluetooth">hasBluetooth</a></td>
+<td>Public method to check the availability of Bluetooth.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasCircuitPython">hasCircuitPython</a></td>
+<td>Public method to check, if the connected device is flashed with CircuitPython.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasDocumentationUrl">hasDocumentationUrl</a></td>
+<td>Public method to check, if the device has a configured documentation URL.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasEthernet">hasEthernet</a></td>
+<td>Public method to check the availability of Ethernet.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasFirmwareUrl">hasFirmwareUrl</a></td>
+<td>Public method to check, if the device has a configured firmware download URL.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasFlashMenuEntry">hasFlashMenuEntry</a></td>
+<td>Public method to check, if the device has its own flash menu entry.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasNetworkTime">hasNetworkTime</a></td>
+<td>Public method to check the availability of network time functions.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasTimeCommands">hasTimeCommands</a></td>
+<td>Public method to check, if the device supports time commands.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasWifi">hasWifi</a></td>
+<td>Public method to check the availability of WiFi.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.hasWifiCountry">hasWifiCountry</a></td>
+<td>Public method to check, if the device (potentially) has support to set the WiFi country.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.isLanConnected">isLanConnected</a></td>
+<td>Public method to check the LAN connection status.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.isNetworkConnected">isNetworkConnected</a></td>
+<td>Public method to check, if the network interface (WiFi or Ethernet) is connected.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.isWifiApConnected">isWifiApConnected</a></td>
+<td>Public method to check the WiFi connection status as access point.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.isWifiClientConnected">isWifiClientConnected</a></td>
+<td>Public method to check the WiFi connection status as client.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.lls">lls</a></td>
+<td>Public method to get a long directory listing of the connected device including meta data.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.ls">ls</a></td>
+<td>Public method to get a directory listing of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.mipInstall">mipInstall</a></td>
+<td>Public method to install packages using 'mip'.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.mkdir">mkdir</a></td>
+<td>Public method to create a new directory.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.put">put</a></td>
+<td>Public method to copy a local file to the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.putData">putData</a></td>
+<td>Public method to write the given data to the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.pwd">pwd</a></td>
+<td>Public method to get the current directory of the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.removeCredentials">removeCredentials</a></td>
+<td>Public method to remove the saved credentials from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.removeLanAutoConnect">removeLanAutoConnect</a></td>
+<td>Public method to remove the saved IPv4 parameters from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.rename">rename</a></td>
+<td>Public method to rename a file on the device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.rm">rm</a></td>
+<td>Public method to remove a file from the connected device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.rmdir">rmdir</a></td>
+<td>Public method to remove a directory.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.rmrf">rmrf</a></td>
+<td>Public method to remove a file or directory recursively.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.runScript">runScript</a></td>
+<td>Public method to run the given Python script.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.scanNetworks">scanNetworks</a></td>
+<td>Public method to scan for available WiFi networks.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.selectDeviceDirectory">selectDeviceDirectory</a></td>
+<td>Public method to select the device directory from a list of detected ones.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.sendCommands">sendCommands</a></td>
+<td>Public method to send a list of commands to the device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.setButtons">setButtons</a></td>
+<td>Public method to enable the supported action buttons.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.setConnected">setConnected</a></td>
+<td>Public method to set the connection state.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.setFileManager">setFileManager</a></td>
+<td>Public method to set the File Manager status and dependent status.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.setNetworkTime">setNetworkTime</a></td>
+<td>Public method to set the time to the network time retrieved from an NTP server.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.setPlotter">setPlotter</a></td>
+<td>Public method to set the Plotter status and dependent status.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.setRepl">setRepl</a></td>
+<td>Public method to set the REPL status and dependent status.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.setWorkspace">setWorkspace</a></td>
+<td>Public method to set the device workspace directory.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.startAccessPoint">startAccessPoint</a></td>
+<td>Public method to start the access point interface.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.stopAccessPoint">stopAccessPoint</a></td>
+<td>Public method to stop the access point interface.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.submitMode">submitMode</a></td>
+<td>Public method to get the submit mode of the device.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.supportsLocalFileAccess">supportsLocalFileAccess</a></td>
+<td>Public method to indicate file access via a local directory.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.syncTime">syncTime</a></td>
+<td>Public method to set the time of the connected device to the local computer's time.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.upipInstall">upipInstall</a></td>
+<td>Public method to install packages using 'upip'.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.writeCredentials">writeCredentials</a></td>
+<td>Public method to write the given credentials to the connected device and modify the start script to connect automatically.</td>
+</tr>
+<tr>
+<td><a href="#BaseDevice.writeLanAutoConnect">writeLanAutoConnect</a></td>
+<td>Public method to generate a script and associated configuration to connect the device to the LAN during boot time.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BaseDevice.__init__" ID="BaseDevice.__init__"></a>
+<h4>BaseDevice (Constructor)</h4>
+<b>BaseDevice</b>(<i>microPythonWidget, deviceType, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="BaseDevice.__getDeviceData" ID="BaseDevice.__getDeviceData"></a>
+<h4>BaseDevice.__getDeviceData</h4>
+<b>__getDeviceData</b>(<i></i>)
+<p>
+        Private method to get some essential data for the connected board.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the determined data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice._getSetTimeCode" ID="BaseDevice._getSetTimeCode"></a>
+<h4>BaseDevice._getSetTimeCode</h4>
+<b>_getSetTimeCode</b>(<i></i>)
+<p>
+        Protected method to get the device code to set the time.
+</p>
+<p>
+        Note: This method must be implemented in the various device specific
+        subclasses.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+code to be executed on the connected device to set the time
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDevice._shortError" ID="BaseDevice._shortError"></a>
+<h4>BaseDevice._shortError</h4>
+<b>_shortError</b>(<i>error</i>)
+<p>
+        Protected method to create a shortened error message.
+</p>
+
+<dl>
+
+<dt><i>error</i> (bytes)</dt>
+<dd>
+verbose error message
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+shortened error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDevice.activateBluetoothInterface" ID="BaseDevice.activateBluetoothInterface"></a>
+<h4>BaseDevice.activateBluetoothInterface</h4>
+<b>activateBluetoothInterface</b>(<i></i>)
+<p>
+        Public method to activate the Bluetooth interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the new state of the Bluetooth interface
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.addDeviceBluetoothEntries" ID="BaseDevice.addDeviceBluetoothEntries"></a>
+<h4>BaseDevice.addDeviceBluetoothEntries</h4>
+<b>addDeviceBluetoothEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="BaseDevice.addDeviceEthernetEntries" ID="BaseDevice.addDeviceEthernetEntries"></a>
+<h4>BaseDevice.addDeviceEthernetEntries</h4>
+<b>addDeviceEthernetEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="BaseDevice.addDeviceMenuEntries" ID="BaseDevice.addDeviceMenuEntries"></a>
+<h4>BaseDevice.addDeviceMenuEntries</h4>
+<b>addDeviceMenuEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="BaseDevice.addDeviceWifiEntries" ID="BaseDevice.addDeviceWifiEntries"></a>
+<h4>BaseDevice.addDeviceWifiEntries</h4>
+<b>addDeviceWifiEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="BaseDevice.bool2str" ID="BaseDevice.bool2str"></a>
+<h4>BaseDevice.bool2str</h4>
+<b>bool2str</b>(<i>val, capitalized=True</i>)
+<p>
+        Public method to generate a yes/no string given a truth value.
+</p>
+
+<dl>
+
+<dt><i>val</i> (bool)</dt>
+<dd>
+truth value to be converted
+</dd>
+<dt><i>capitalized</i> (bool)</dt>
+<dd>
+flag indicating a capitalized variant
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string with 'yes' or 'no'
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDevice.canRunScript" ID="BaseDevice.canRunScript"></a>
+<h4>BaseDevice.canRunScript</h4>
+<b>canRunScript</b>(<i></i>)
+<p>
+        Public method to determine, if a script can be executed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.canStartFileManager" ID="BaseDevice.canStartFileManager"></a>
+<h4>BaseDevice.canStartFileManager</h4>
+<b>canStartFileManager</b>(<i></i>)
+<p>
+        Public method to determine, if a File Manager can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            File Manager and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.canStartPlotter" ID="BaseDevice.canStartPlotter"></a>
+<h4>BaseDevice.canStartPlotter</h4>
+<b>canStartPlotter</b>(<i></i>)
+<p>
+        Public method to determine, if a Plotter can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.canStartRepl" ID="BaseDevice.canStartRepl"></a>
+<h4>BaseDevice.canStartRepl</h4>
+<b>canStartRepl</b>(<i></i>)
+<p>
+        Public method to determine, if a REPL can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a REPL
+            and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.cd" ID="BaseDevice.cd"></a>
+<h4>BaseDevice.cd</h4>
+<b>cd</b>(<i>dirname</i>)
+<p>
+        Public method to change the current directory on the connected device.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+directory to change to
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.checkDeviceData" ID="BaseDevice.checkDeviceData"></a>
+<h4>BaseDevice.checkDeviceData</h4>
+<b>checkDeviceData</b>(<i>quiet=True</i>)
+<p>
+        Public method to check the validity of the device data determined during
+        connecting the device.
+</p>
+
+<dl>
+
+<dt><i>quiet</i> (bool (optional))</dt>
+<dd>
+flag indicating to not show an info message, if the data is
+            not available (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating valid device data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.checkInternet" ID="BaseDevice.checkInternet"></a>
+<h4>BaseDevice.checkInternet</h4>
+<b>checkInternet</b>(<i></i>)
+<p>
+        Public method to check, if the internet can be reached.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating reachability and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.checkInternetViaLan" ID="BaseDevice.checkInternetViaLan"></a>
+<h4>BaseDevice.checkInternetViaLan</h4>
+<b>checkInternetViaLan</b>(<i></i>)
+<p>
+        Public method to check, if the internet can be reached (LAN variant).
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating reachability and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.connectToLan" ID="BaseDevice.connectToLan"></a>
+<h4>BaseDevice.connectToLan</h4>
+<b>connectToLan</b>(<i>config, hostname</i>)
+<p>
+        Public method to connect the connected device to the LAN.
+</p>
+
+<dl>
+
+<dt><i>config</i> (str or tuple of (str, str, str, str))</dt>
+<dd>
+configuration for the connection (either the string 'dhcp'
+            for a dynamic address or a tuple of four strings with the IPv4 parameters.
+            (unused)
+</dd>
+<dt><i>hostname</i> (str)</dt>
+<dd>
+host name of the device (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.connectWifi" ID="BaseDevice.connectWifi"></a>
+<h4>BaseDevice.connectWifi</h4>
+<b>connectWifi</b>(<i>ssid, password, hostname</i>)
+<p>
+        Public method to connect a device to a WiFi network.
+</p>
+
+<dl>
+
+<dt><i>ssid</i> (str)</dt>
+<dd>
+name (SSID) of the WiFi network (unused)
+</dd>
+<dt><i>password</i> (str)</dt>
+<dd>
+password needed to connect (unused)
+</dd>
+<dt><i>hostname</i> (str)</dt>
+<dd>
+host name of the device (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the connection status and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.deactivateBluetoothInterface" ID="BaseDevice.deactivateBluetoothInterface"></a>
+<h4>BaseDevice.deactivateBluetoothInterface</h4>
+<b>deactivateBluetoothInterface</b>(<i></i>)
+<p>
+        Public method to deactivate the Bluetooth interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the new state of the Bluetooth interface
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.deactivateEthernet" ID="BaseDevice.deactivateEthernet"></a>
+<h4>BaseDevice.deactivateEthernet</h4>
+<b>deactivateEthernet</b>(<i></i>)
+<p>
+        Public method to deactivate the Ethernet interface of the connected device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containg a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.deactivateInterface" ID="BaseDevice.deactivateInterface"></a>
+<h4>BaseDevice.deactivateInterface</h4>
+<b>deactivateInterface</b>(<i>interface</i>)
+<p>
+        Public method to deactivate a given WiFi interface of the connected device.
+</p>
+
+<dl>
+
+<dt><i>interface</i> (str)</dt>
+<dd>
+designation of the interface to be deactivated (one of 'AP'
+            or 'STA') (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containg a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.deviceName" ID="BaseDevice.deviceName"></a>
+<h4>BaseDevice.deviceName</h4>
+<b>deviceName</b>(<i></i>)
+<p>
+        Public method to get the name of the device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDevice.disableWebrepl" ID="BaseDevice.disableWebrepl"></a>
+<h4>BaseDevice.disableWebrepl</h4>
+<b>disableWebrepl</b>(<i></i>)
+<p>
+        Public method to write the given WebREPL password to the connected device and
+        modify the start script to start the WebREPL server.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.disconnectFromLan" ID="BaseDevice.disconnectFromLan"></a>
+<h4>BaseDevice.disconnectFromLan</h4>
+<b>disconnectFromLan</b>(<i></i>)
+<p>
+        Public method  to disconnect from the LAN.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.disconnectWifi" ID="BaseDevice.disconnectWifi"></a>
+<h4>BaseDevice.disconnectWifi</h4>
+<b>disconnectWifi</b>(<i></i>)
+<p>
+        Public method to disconnect a device from the WiFi network.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.downloadFirmware" ID="BaseDevice.downloadFirmware"></a>
+<h4>BaseDevice.downloadFirmware</h4>
+<b>downloadFirmware</b>(<i></i>)
+<p>
+        Public method to download the device firmware.
+</p>
+
+<a NAME="BaseDevice.enableWebrepl" ID="BaseDevice.enableWebrepl"></a>
+<h4>BaseDevice.enableWebrepl</h4>
+<b>enableWebrepl</b>(<i>password</i>)
+<p>
+        Public method to write the given WebREPL password to the connected device and
+        modify the start script to start the WebREPL server.
+</p>
+
+<dl>
+
+<dt><i>password</i> (str)</dt>
+<dd>
+password needed to authenticate (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.ensurePath" ID="BaseDevice.ensurePath"></a>
+<h4>BaseDevice.ensurePath</h4>
+<b>ensurePath</b>(<i>target</i>)
+<p>
+        Public method to ensure, that the given target path exists.
+</p>
+
+<dl>
+
+<dt><i>target</i> (str)</dt>
+<dd>
+target directory
+</dd>
+</dl>
+<a NAME="BaseDevice.executeCommands" ID="BaseDevice.executeCommands"></a>
+<h4>BaseDevice.executeCommands</h4>
+<b>executeCommands</b>(<i>commands, *, mode="raw", timeout=0</i>)
+<p>
+        Public method to send commands to the connected device and return the
+        result.
+</p>
+<p>
+        If no connected interface is available, empty results will be returned.
+</p>
+
+<dl>
+
+<dt><i>commands</i> (str or list of str)</dt>
+<dd>
+list of commands to be executed
+</dd>
+<dt><i>mode=</i> (str)</dt>
+<dd>
+submit mode to be used (one of 'raw' or 'paste') (defaults to
+            'raw')
+</dd>
+<dt><i>timeout=</i> (int (optional))</dt>
+<dd>
+per command timeout in milliseconds (0 for configured default)
+            (defaults to 0)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing stdout and stderr output of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bytes, bytes)
+</dd>
+</dl>
+<a NAME="BaseDevice.exists" ID="BaseDevice.exists"></a>
+<h4>BaseDevice.exists</h4>
+<b>exists</b>(<i>pathname</i>)
+<p>
+        Public method to check the existence of a file or directory.
+</p>
+
+<dl>
+
+<dt><i>pathname</i> (str)</dt>
+<dd>
+name of the path to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.fileSystemInfo" ID="BaseDevice.fileSystemInfo"></a>
+<h4>BaseDevice.fileSystemInfo</h4>
+<b>fileSystemInfo</b>(<i></i>)
+<p>
+        Public method to obtain information about the currently mounted file
+        systems.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of tuples containing the file system name, the total
+            size, the used size and the free size
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of tuples of (str, int, int, int)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.forceInterrupt" ID="BaseDevice.forceInterrupt"></a>
+<h4>BaseDevice.forceInterrupt</h4>
+<b>forceInterrupt</b>(<i></i>)
+<p>
+        Public method to determine the need for an interrupt when opening the
+        serial connection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an interrupt is needed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.get" ID="BaseDevice.get"></a>
+<h4>BaseDevice.get</h4>
+<b>get</b>(<i>deviceFileName, hostFileName=None</i>)
+<p>
+        Public method to copy a file from the connected device.
+</p>
+
+<dl>
+
+<dt><i>deviceFileName</i> (str)</dt>
+<dd>
+name of the file to copy
+</dd>
+<dt><i>hostFileName</i> (str)</dt>
+<dd>
+name of the file to copy to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.getBluetoothStatus" ID="BaseDevice.getBluetoothStatus"></a>
+<h4>BaseDevice.getBluetoothStatus</h4>
+<b>getBluetoothStatus</b>(<i></i>)
+<p>
+        Public method to get Bluetooth status data of the connected board.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the translated status data label and
+            the associated value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.getBoardInformation" ID="BaseDevice.getBoardInformation"></a>
+<h4>BaseDevice.getBoardInformation</h4>
+<b>getBoardInformation</b>(<i></i>)
+<p>
+        Public method to get some information data of the connected board.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the determined data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.getConnectedClients" ID="BaseDevice.getConnectedClients"></a>
+<h4>BaseDevice.getConnectedClients</h4>
+<b>getConnectedClients</b>(<i></i>)
+<p>
+        Public method to get a list of connected clients.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+a tuple containing a list of tuples containing the client MAC-Address
+            and the RSSI (if supported and available) and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of ([(bytes, int)], str)
+</dd>
+</dl>
+<a NAME="BaseDevice.getData" ID="BaseDevice.getData"></a>
+<h4>BaseDevice.getData</h4>
+<b>getData</b>(<i>deviceFileName</i>)
+<p>
+        Public method to read data from the connected device.
+</p>
+
+<dl>
+
+<dt><i>deviceFileName</i> (str)</dt>
+<dd>
+name of the file to read from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+data read from the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.getDeviceData" ID="BaseDevice.getDeviceData"></a>
+<h4>BaseDevice.getDeviceData</h4>
+<b>getDeviceData</b>(<i>key=None</i>)
+<p>
+        Public method to get a copy of the determined device data or part of them.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str or list of str (optional))</dt>
+<dd>
+name or a list of names of the data to get (None to get all data)
+            (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the essential device data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict or Any
+</dd>
+</dl>
+<a NAME="BaseDevice.getDeviceScan" ID="BaseDevice.getDeviceScan"></a>
+<h4>BaseDevice.getDeviceScan</h4>
+<b>getDeviceScan</b>(<i>timeout=10</i>)
+<p>
+        Public method to perform a Bluetooth device scan.
+</p>
+
+<dl>
+
+<dt><i>timeout</i> (int (optional))</dt>
+<dd>
+duration of the device scan in seconds (defaults
+            to 10) (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a dictionary with the scan results and
+            an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (dict, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.getDeviceType" ID="BaseDevice.getDeviceType"></a>
+<h4>BaseDevice.getDeviceType</h4>
+<b>getDeviceType</b>(<i></i>)
+<p>
+        Public method to get the device type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+type of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDevice.getDocumentationUrl" ID="BaseDevice.getDocumentationUrl"></a>
+<h4>BaseDevice.getDocumentationUrl</h4>
+<b>getDocumentationUrl</b>(<i></i>)
+<p>
+        Public method to get the device documentation URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+documentation URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDevice.getDownloadMenuEntries" ID="BaseDevice.getDownloadMenuEntries"></a>
+<h4>BaseDevice.getDownloadMenuEntries</h4>
+<b>getDownloadMenuEntries</b>(<i></i>)
+<p>
+        Public method to retrieve the entries for the downloads menu.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples with menu text and URL to be opened for each
+            entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (str, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.getEthernetStatus" ID="BaseDevice.getEthernetStatus"></a>
+<h4>BaseDevice.getEthernetStatus</h4>
+<b>getEthernetStatus</b>(<i></i>)
+<p>
+        Public method to get Ethernet status data of the connected board.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the translated status data label and
+            the associated value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuples of (str, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.getFirmwareUrl" ID="BaseDevice.getFirmwareUrl"></a>
+<h4>BaseDevice.getFirmwareUrl</h4>
+<b>getFirmwareUrl</b>(<i></i>)
+<p>
+        Public method to get the device firmware download URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+firmware download URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDevice.getLibPaths" ID="BaseDevice.getLibPaths"></a>
+<h4>BaseDevice.getLibPaths</h4>
+<b>getLibPaths</b>(<i></i>)
+<p>
+        Public method to get the list of library paths contained in 'sys.path'.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of library paths
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.getModules" ID="BaseDevice.getModules"></a>
+<h4>BaseDevice.getModules</h4>
+<b>getModules</b>(<i></i>)
+<p>
+        Public method to show a list of modules built into the firmware.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of builtin modules
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.getTime" ID="BaseDevice.getTime"></a>
+<h4>BaseDevice.getTime</h4>
+<b>getTime</b>(<i></i>)
+<p>
+        Public method to get the current time of the device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+time of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.getWifiData" ID="BaseDevice.getWifiData"></a>
+<h4>BaseDevice.getWifiData</h4>
+<b>getWifiData</b>(<i></i>)
+<p>
+        Public method to get data related to the current WiFi status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of three dictionaries containing the WiFi status data
+            for the WiFi client, access point and overall data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (dict, dict, dict)
+</dd>
+</dl>
+<a NAME="BaseDevice.getWorkspace" ID="BaseDevice.getWorkspace"></a>
+<h4>BaseDevice.getWorkspace</h4>
+<b>getWorkspace</b>(<i></i>)
+<p>
+        Public method to get the workspace directory.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+workspace directory used for saving files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDevice.handleDataFlood" ID="BaseDevice.handleDataFlood"></a>
+<h4>BaseDevice.handleDataFlood</h4>
+<b>handleDataFlood</b>(<i></i>)
+<p>
+        Public slot handling a data floof from the device.
+</p>
+
+<a NAME="BaseDevice.hasBluetooth" ID="BaseDevice.hasBluetooth"></a>
+<h4>BaseDevice.hasBluetooth</h4>
+<b>hasBluetooth</b>(<i></i>)
+<p>
+        Public method to check the availability of Bluetooth.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of Bluetooth
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.hasCircuitPython" ID="BaseDevice.hasCircuitPython"></a>
+<h4>BaseDevice.hasCircuitPython</h4>
+<b>hasCircuitPython</b>(<i></i>)
+<p>
+        Public method to check, if the connected device is flashed with CircuitPython.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating CircuitPython
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.hasDocumentationUrl" ID="BaseDevice.hasDocumentationUrl"></a>
+<h4>BaseDevice.hasDocumentationUrl</h4>
+<b>hasDocumentationUrl</b>(<i></i>)
+<p>
+        Public method to check, if the device has a configured documentation
+        URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a configured documentation URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.hasEthernet" ID="BaseDevice.hasEthernet"></a>
+<h4>BaseDevice.hasEthernet</h4>
+<b>hasEthernet</b>(<i></i>)
+<p>
+        Public method to check the availability of Ethernet.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating the availability of Ethernet
+            and the Ethernet type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.hasFirmwareUrl" ID="BaseDevice.hasFirmwareUrl"></a>
+<h4>BaseDevice.hasFirmwareUrl</h4>
+<b>hasFirmwareUrl</b>(<i></i>)
+<p>
+        Public method to check, if the device has a configured firmware
+        download URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a configured firmware download URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.hasFlashMenuEntry" ID="BaseDevice.hasFlashMenuEntry"></a>
+<h4>BaseDevice.hasFlashMenuEntry</h4>
+<b>hasFlashMenuEntry</b>(<i></i>)
+<p>
+        Public method to check, if the device has its own flash menu entry.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a specific flash menu entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.hasNetworkTime" ID="BaseDevice.hasNetworkTime"></a>
+<h4>BaseDevice.hasNetworkTime</h4>
+<b>hasNetworkTime</b>(<i></i>)
+<p>
+        Public method to check the availability of network time functions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of network time functions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.hasTimeCommands" ID="BaseDevice.hasTimeCommands"></a>
+<h4>BaseDevice.hasTimeCommands</h4>
+<b>hasTimeCommands</b>(<i></i>)
+<p>
+        Public method to check, if the device supports time commands.
+</p>
+<p>
+        The default returns True.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating support for time commands
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.hasWifi" ID="BaseDevice.hasWifi"></a>
+<h4>BaseDevice.hasWifi</h4>
+<b>hasWifi</b>(<i></i>)
+<p>
+        Public method to check the availability of WiFi.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating the availability of WiFi
+            and the WiFi type (picow or pimoroni)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.hasWifiCountry" ID="BaseDevice.hasWifiCountry"></a>
+<h4>BaseDevice.hasWifiCountry</h4>
+<b>hasWifiCountry</b>(<i></i>)
+<p>
+        Public method to check, if the device (potentially) has support to set the
+        WiFi country.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the support of WiFi country
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.isLanConnected" ID="BaseDevice.isLanConnected"></a>
+<h4>BaseDevice.isLanConnected</h4>
+<b>isLanConnected</b>(<i></i>)
+<p>
+        Public method to check the LAN connection status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the device is connected to the LAN
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.isNetworkConnected" ID="BaseDevice.isNetworkConnected"></a>
+<h4>BaseDevice.isNetworkConnected</h4>
+<b>isNetworkConnected</b>(<i></i>)
+<p>
+        Public method to check, if the network interface (WiFi or Ethernet) is
+        connected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the network connection state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.isWifiApConnected" ID="BaseDevice.isWifiApConnected"></a>
+<h4>BaseDevice.isWifiApConnected</h4>
+<b>isWifiApConnected</b>(<i></i>)
+<p>
+        Public method to check the WiFi connection status as access point.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the WiFi connection status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.isWifiClientConnected" ID="BaseDevice.isWifiClientConnected"></a>
+<h4>BaseDevice.isWifiClientConnected</h4>
+<b>isWifiClientConnected</b>(<i></i>)
+<p>
+        Public method to check the WiFi connection status as client.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the WiFi connection status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.lls" ID="BaseDevice.lls"></a>
+<h4>BaseDevice.lls</h4>
+<b>lls</b>(<i>dirname="", fullstat=False, showHidden=False</i>)
+<p>
+        Public method to get a long directory listing of the connected device
+        including meta data.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to be listed
+</dd>
+<dt><i>fullstat</i> (bool)</dt>
+<dd>
+flag indicating to return the full stat() tuple
+</dd>
+<dt><i>showHidden</i> (bool)</dt>
+<dd>
+flag indicating to show hidden files as well
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing the directory listing with tuple entries of
+            the name and and a tuple of mode, size and time (if fullstat is
+            false) or the complete stat() tuple. 'None' is returned in case the
+            directory doesn't exist.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, tuple)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.ls" ID="BaseDevice.ls"></a>
+<h4>BaseDevice.ls</h4>
+<b>ls</b>(<i>dirname=""</i>)
+<p>
+        Public method to get a directory listing of the connected device.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to be listed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containg the directory listing
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.mipInstall" ID="BaseDevice.mipInstall"></a>
+<h4>BaseDevice.mipInstall</h4>
+<b>mipInstall</b>(<i>package, index=None, target=None, version=None, mpy=True</i>)
+<p>
+        Public method to install packages using 'mip'.
+</p>
+
+<dl>
+
+<dt><i>package</i> (str)</dt>
+<dd>
+package name
+</dd>
+<dt><i>index</i> (str (optional))</dt>
+<dd>
+URL of the package index to be used (defaults to None)
+</dd>
+<dt><i>target</i> (str (optional))</dt>
+<dd>
+target directory on the device (defaults to None)
+</dd>
+<dt><i>version</i> (str (optional))</dt>
+<dd>
+package version (defaults to None)
+</dd>
+<dt><i>mpy</i> (bool (optional))</dt>
+<dd>
+flag indicating to install as '.mpy' file (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the command output and errors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.mkdir" ID="BaseDevice.mkdir"></a>
+<h4>BaseDevice.mkdir</h4>
+<b>mkdir</b>(<i>dirname</i>)
+<p>
+        Public method to create a new directory.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to create
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.put" ID="BaseDevice.put"></a>
+<h4>BaseDevice.put</h4>
+<b>put</b>(<i>hostFileName, deviceFileName=None</i>)
+<p>
+        Public method to copy a local file to the connected device.
+</p>
+
+<dl>
+
+<dt><i>hostFileName</i> (str)</dt>
+<dd>
+name of the file to be copied
+</dd>
+<dt><i>deviceFileName</i> (str)</dt>
+<dd>
+name of the file to copy to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.putData" ID="BaseDevice.putData"></a>
+<h4>BaseDevice.putData</h4>
+<b>putData</b>(<i>deviceFileName, content</i>)
+<p>
+        Public method to write the given data to the connected device.
+</p>
+
+<dl>
+
+<dt><i>deviceFileName</i> (str)</dt>
+<dd>
+name of the file to write to
+</dd>
+<dt><i>content</i> (bytes)</dt>
+<dd>
+data to write
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.pwd" ID="BaseDevice.pwd"></a>
+<h4>BaseDevice.pwd</h4>
+<b>pwd</b>(<i></i>)
+<p>
+        Public method to get the current directory of the connected device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.removeCredentials" ID="BaseDevice.removeCredentials"></a>
+<h4>BaseDevice.removeCredentials</h4>
+<b>removeCredentials</b>(<i></i>)
+<p>
+        Public method to remove the saved credentials from the connected device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.removeLanAutoConnect" ID="BaseDevice.removeLanAutoConnect"></a>
+<h4>BaseDevice.removeLanAutoConnect</h4>
+<b>removeLanAutoConnect</b>(<i></i>)
+<p>
+        Public method to remove the saved IPv4 parameters from the connected device.
+</p>
+<p>
+        Note: This disables the LAN auto-connect feature.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.rename" ID="BaseDevice.rename"></a>
+<h4>BaseDevice.rename</h4>
+<b>rename</b>(<i>oldname, newname</i>)
+<p>
+        Public method to rename a file on the device.
+</p>
+
+<dl>
+
+<dt><i>oldname</i> (str)</dt>
+<dd>
+current name of the file
+</dd>
+<dt><i>newname</i> (str)</dt>
+<dd>
+new name for the file
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.rm" ID="BaseDevice.rm"></a>
+<h4>BaseDevice.rm</h4>
+<b>rm</b>(<i>filename</i>)
+<p>
+        Public method to remove a file from the connected device.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to be removed
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.rmdir" ID="BaseDevice.rmdir"></a>
+<h4>BaseDevice.rmdir</h4>
+<b>rmdir</b>(<i>dirname</i>)
+<p>
+        Public method to remove a directory.
+</p>
+
+<dl>
+
+<dt><i>dirname</i> (str)</dt>
+<dd>
+name of the directory to be removed
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.rmrf" ID="BaseDevice.rmrf"></a>
+<h4>BaseDevice.rmrf</h4>
+<b>rmrf</b>(<i>name, recursive=False, force=False</i>)
+<p>
+        Public method to remove a file or directory recursively.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+of the file or directory to remove
+</dd>
+<dt><i>recursive</i> (bool)</dt>
+<dd>
+flag indicating a recursive deletion
+</dd>
+<dt><i>force</i> (bool)</dt>
+<dd>
+flag indicating to ignore errors
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.runScript" ID="BaseDevice.runScript"></a>
+<h4>BaseDevice.runScript</h4>
+<b>runScript</b>(<i>script</i>)
+<p>
+        Public method to run the given Python script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (str)</dt>
+<dd>
+script to be executed
+</dd>
+</dl>
+<a NAME="BaseDevice.scanNetworks" ID="BaseDevice.scanNetworks"></a>
+<h4>BaseDevice.scanNetworks</h4>
+<b>scanNetworks</b>(<i></i>)
+<p>
+        Public method to scan for available WiFi networks.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the list of available networks as a tuple of 'Name',
+            'MAC-Address', 'channel', 'RSSI' and 'security' and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of tuple of (str, str, int, int, str), str)
+</dd>
+</dl>
+<a NAME="BaseDevice.selectDeviceDirectory" ID="BaseDevice.selectDeviceDirectory"></a>
+<h4>BaseDevice.selectDeviceDirectory</h4>
+<b>selectDeviceDirectory</b>(<i>deviceDirectories</i>)
+<p>
+        Public method to select the device directory from a list of detected
+        ones.
+</p>
+
+<dl>
+
+<dt><i>deviceDirectories</i> (list of str)</dt>
+<dd>
+list of directories to select from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+selected directory or an empty string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="BaseDevice.sendCommands" ID="BaseDevice.sendCommands"></a>
+<h4>BaseDevice.sendCommands</h4>
+<b>sendCommands</b>(<i>commandsList</i>)
+<p>
+        Public method to send a list of commands to the device.
+</p>
+
+<dl>
+
+<dt><i>commandsList</i> (list of str)</dt>
+<dd>
+list of commands to be sent to the device
+</dd>
+</dl>
+<a NAME="BaseDevice.setButtons" ID="BaseDevice.setButtons"></a>
+<h4>BaseDevice.setButtons</h4>
+<b>setButtons</b>(<i></i>)
+<p>
+        Public method to enable the supported action buttons.
+</p>
+
+<a NAME="BaseDevice.setConnected" ID="BaseDevice.setConnected"></a>
+<h4>BaseDevice.setConnected</h4>
+<b>setConnected</b>(<i>connected</i>)
+<p>
+        Public method to set the connection state.
+</p>
+<p>
+        Note: This method can be overwritten to perform actions upon connect
+        or disconnect of the device.
+</p>
+
+<dl>
+
+<dt><i>connected</i> (bool)</dt>
+<dd>
+connection state
+</dd>
+</dl>
+<a NAME="BaseDevice.setFileManager" ID="BaseDevice.setFileManager"></a>
+<h4>BaseDevice.setFileManager</h4>
+<b>setFileManager</b>(<i>on</i>)
+<p>
+        Public method to set the File Manager status and dependent status.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the active status
+</dd>
+</dl>
+<a NAME="BaseDevice.setNetworkTime" ID="BaseDevice.setNetworkTime"></a>
+<h4>BaseDevice.setNetworkTime</h4>
+<b>setNetworkTime</b>(<i>server="pool.ntp.org", tzOffset=0, timeout=10</i>)
+<p>
+        Public method to set the time to the network time retrieved from an
+        NTP server.
+</p>
+
+<dl>
+
+<dt><i>server</i> (str (optional))</dt>
+<dd>
+name of the NTP server to get the network time from
+            (defaults to "0.pool.ntp.org") (unused)
+</dd>
+<dt><i>tzOffset</i> (int (optional))</dt>
+<dd>
+offset with respect to UTC (defaults to 0) (unused)
+</dd>
+<dt><i>timeout</i> (int)</dt>
+<dd>
+maximum time to wait for a server response in seconds
+            (defaults to 10) (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.setPlotter" ID="BaseDevice.setPlotter"></a>
+<h4>BaseDevice.setPlotter</h4>
+<b>setPlotter</b>(<i>on</i>)
+<p>
+        Public method to set the Plotter status and dependent status.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the active status
+</dd>
+</dl>
+<a NAME="BaseDevice.setRepl" ID="BaseDevice.setRepl"></a>
+<h4>BaseDevice.setRepl</h4>
+<b>setRepl</b>(<i>on</i>)
+<p>
+        Public method to set the REPL status and dependent status.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the active status
+</dd>
+</dl>
+<a NAME="BaseDevice.setWorkspace" ID="BaseDevice.setWorkspace"></a>
+<h4>BaseDevice.setWorkspace</h4>
+<b>setWorkspace</b>(<i>workspacePath</i>)
+<p>
+        Public method to set the device workspace directory.
+</p>
+
+<dl>
+
+<dt><i>workspacePath</i> (str)</dt>
+<dd>
+directory to be used for saving files
+</dd>
+</dl>
+<a NAME="BaseDevice.startAccessPoint" ID="BaseDevice.startAccessPoint"></a>
+<h4>BaseDevice.startAccessPoint</h4>
+<b>startAccessPoint</b>(<i>ssid, security=None, password=None, hostname=None, ifconfig=None, </i>)
+<p>
+        Public method to start the access point interface.
+</p>
+
+<dl>
+
+<dt><i>ssid</i> (str)</dt>
+<dd>
+SSID of the access point (unused)
+</dd>
+<dt><i>security</i> (int (optional))</dt>
+<dd>
+security method (defaults to None) (unused)
+</dd>
+<dt><i>password</i> (str (optional))</dt>
+<dd>
+password (defaults to None) (unused)
+</dd>
+<dt><i>hostname</i> (str (optional))</dt>
+<dd>
+host name of the device (defaults to None) (unused)
+</dd>
+<dt><i>ifconfig</i> (tuple of (str, str, str, str))</dt>
+<dd>
+IPv4 configuration for the access point if not default
+            (IPv4 address, netmask, gateway address, DNS server address) (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.stopAccessPoint" ID="BaseDevice.stopAccessPoint"></a>
+<h4>BaseDevice.stopAccessPoint</h4>
+<b>stopAccessPoint</b>(<i></i>)
+<p>
+        Public method to stop the access point interface.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containg a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.submitMode" ID="BaseDevice.submitMode"></a>
+<h4>BaseDevice.submitMode</h4>
+<b>submitMode</b>(<i></i>)
+<p>
+        Public method to get the submit mode of the device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+submit mode
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str (one of 'raw', 'paste')
+</dd>
+</dl>
+<a NAME="BaseDevice.supportsLocalFileAccess" ID="BaseDevice.supportsLocalFileAccess"></a>
+<h4>BaseDevice.supportsLocalFileAccess</h4>
+<b>supportsLocalFileAccess</b>(<i></i>)
+<p>
+        Public method to indicate file access via a local directory.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating file access via local directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="BaseDevice.syncTime" ID="BaseDevice.syncTime"></a>
+<h4>BaseDevice.syncTime</h4>
+<b>syncTime</b>(<i>_deviceType, hasCPy=False</i>)
+<p>
+        Public method to set the time of the connected device to the local
+        computer's time.
+</p>
+
+<dl>
+
+<dt><i>_deviceType</i> (str)</dt>
+<dd>
+type of board to sync time to (unused)
+</dd>
+<dt><i>hasCPy</i> (bool)</dt>
+<dd>
+flag indicating that the device has CircuitPython loadede
+            (defaults to False) (unused)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>OSError</b>:</dt>
+<dd>
+raised to indicate an issue with the device
+</dd>
+</dl>
+<a NAME="BaseDevice.upipInstall" ID="BaseDevice.upipInstall"></a>
+<h4>BaseDevice.upipInstall</h4>
+<b>upipInstall</b>(<i>packages</i>)
+<p>
+        Public method to install packages using 'upip'.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of package names
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the command output and errors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.writeCredentials" ID="BaseDevice.writeCredentials"></a>
+<h4>BaseDevice.writeCredentials</h4>
+<b>writeCredentials</b>(<i>ssid, password, hostname, country</i>)
+<p>
+        Public method to write the given credentials to the connected device and modify
+        the start script to connect automatically.
+</p>
+
+<dl>
+
+<dt><i>ssid</i> (str)</dt>
+<dd>
+SSID of the network to connect to (unused)
+</dd>
+<dt><i>password</i> (str)</dt>
+<dd>
+password needed to authenticate (unused)
+</dd>
+<dt><i>hostname</i> (str)</dt>
+<dd>
+host name of the device (unused)
+</dd>
+<dt><i>country</i> (str)</dt>
+<dd>
+WiFi country code (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="BaseDevice.writeLanAutoConnect" ID="BaseDevice.writeLanAutoConnect"></a>
+<h4>BaseDevice.writeLanAutoConnect</h4>
+<b>writeLanAutoConnect</b>(<i>config, hostname</i>)
+<p>
+        Public method to generate a script and associated configuration to connect the
+        device to the LAN during boot time.
+</p>
+
+<dl>
+
+<dt><i>config</i> (str or tuple of (str, str, str, str))</dt>
+<dd>
+configuration for the connection (either the string 'dhcp'
+            for a dynamic address or a tuple of four strings with the IPv4 parameters.
+            (unused)
+</dd>
+<dt><i>hostname</i> (str)</dt>
+<dd>
+host name of the device (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

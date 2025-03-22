@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Naming.NamingStyleChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Naming.NamingStyleChecker</h1>
+<p>
+Module implementing a checker for naming conventions.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#NamingStyleChecker">NamingStyleChecker</a></td>
+<td>Class implementing a checker for naming conventions.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="NamingStyleChecker" ID="NamingStyleChecker"></a>
+<h2>NamingStyleChecker</h2>
+<p>
+    Class implementing a checker for naming conventions.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Codes</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NamingStyleChecker.__init__">NamingStyleChecker</a></td>
+<td>Constructor (according to 'extended' pycodestyle.py API)</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__checkClassName">__checkClassName</a></td>
+<td>Private class to check the given node for class name conventions (N801, N818).</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__checkFunctionArgumentNames">__checkFunctionArgumentNames</a></td>
+<td>Private class to check the argument names of functions (N803, N804, N805, N806).</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__checkFunctionName">__checkFunctionName</a></td>
+<td>Private class to check the given node for function name conventions (N802, N809).</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__checkImportAs">__checkImportAs</a></td>
+<td>Private method to check that imports don't change the naming convention (N811, N812, N813, N814, N815).</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__checkModule">__checkModule</a></td>
+<td>Private method to check module naming conventions (N807, N808).</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__checkNameToBeAvoided">__checkNameToBeAvoided</a></td>
+<td>Private class to check the given node for a name to be avoided (N831).</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__checkVariableNames">__checkVariableNames</a></td>
+<td>Private method to check variable names in function, class and global scope (N821, N822, N823).</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__classVariableCheck">__classVariableCheck</a></td>
+<td>Private method to determine the error code for a variable in class scope.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__error">__error</a></td>
+<td>Private method to build the error information.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__extractNames">__extractNames</a></td>
+<td>Private method to extract the names from the target node.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__findGlobalDefs">__findGlobalDefs</a></td>
+<td>Private method amend a node with global definitions information.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__findVariableNameErrors">__findVariableNameErrors</a></td>
+<td>Private method to check, if there is a variable name error.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__functionVariableCheck">__functionVariableCheck</a></td>
+<td>Private method to determine the error code for a variable in class scope.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__getArgNames">__getArgNames</a></td>
+<td>Private method to get the argument names of a function node.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__getClassdef">__getClassdef</a></td>
+<td>Private method to extract the class definition.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__globalVariableCheck">__globalVariableCheck</a></td>
+<td>Private method to determine the error code for a variable in global scope.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__isMixedCase">__isMixedCase</a></td>
+<td>Private method to check, if the given name is mixed case.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__isNameToBeAvoided">__isNameToBeAvoided</a></td>
+<td>Private method to check, if the given name should be avoided.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__isNamedTupel">__isNamedTupel</a></td>
+<td>Private method to check, if a node is a named tuple.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__superClassNames">__superClassNames</a></td>
+<td>Private method to extract the names of all super classes.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__tagClassFunctions">__tagClassFunctions</a></td>
+<td>Private method to tag functions if they are methods, class methods or static methods.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__visitNode">__visitNode</a></td>
+<td>Private method to inspect the given AST node.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.__visitTree">__visitTree</a></td>
+<td>Private method to scan the given AST tree.</td>
+</tr>
+<tr>
+<td><a href="#NamingStyleChecker.run">run</a></td>
+<td>Public method run by the pycodestyle.py checker.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NamingStyleChecker.__init__" ID="NamingStyleChecker.__init__"></a>
+<h4>NamingStyleChecker (Constructor)</h4>
+<b>NamingStyleChecker</b>(<i>tree, filename, options</i>)
+<p>
+        Constructor (according to 'extended' pycodestyle.py API)
+</p>
+
+<dl>
+
+<dt><i>tree</i> (ast.AST)</dt>
+<dd>
+AST tree of the source file
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>options</i> (optparse.Option)</dt>
+<dd>
+options as parsed by pycodestyle.StyleGuide
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__checkClassName" ID="NamingStyleChecker.__checkClassName"></a>
+<h4>NamingStyleChecker.__checkClassName</h4>
+<b>__checkClassName</b>(<i>node, parents</i>)
+<p>
+        Private class to check the given node for class name
+        conventions (N801, N818).
+</p>
+<p>
+        Almost without exception, class names use the CapWords convention.
+        Classes for internal use have a leading underscore in addition.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.ClassDef)</dt>
+<dd>
+AST note to check
+</dd>
+<dt><i>parents</i> (list of ast.AST)</dt>
+<dd>
+list of parent nodes
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__checkFunctionArgumentNames" ID="NamingStyleChecker.__checkFunctionArgumentNames"></a>
+<h4>NamingStyleChecker.__checkFunctionArgumentNames</h4>
+<b>__checkFunctionArgumentNames</b>(<i>node, _parents</i>)
+<p>
+        Private class to check the argument names of functions
+        (N803, N804, N805, N806).
+</p>
+<p>
+        The argument names of a function should be lowercase, with words
+        separated by underscores. A class method should have 'cls' as the
+        first argument. A method should have 'self' as the first argument.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef or ast.AsynFunctionDef)</dt>
+<dd>
+AST note to check
+</dd>
+<dt><i>_parents</i> (list of ast.AST)</dt>
+<dd>
+list of parent nodes (unused)
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__checkFunctionName" ID="NamingStyleChecker.__checkFunctionName"></a>
+<h4>NamingStyleChecker.__checkFunctionName</h4>
+<b>__checkFunctionName</b>(<i>node, _parents</i>)
+<p>
+        Private class to check the given node for function name
+        conventions (N802, N809).
+</p>
+<p>
+        Function names should be lowercase, with words separated by underscores
+        as necessary to improve readability. Functions <b>not</b> being
+        methods '__' in front and back are not allowed. Mixed case is allowed
+        only in contexts where that's already the prevailing style
+        (e.g. threading.py), to retain backwards compatibility.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef or ast.AsynFunctionDef)</dt>
+<dd>
+AST note to check
+</dd>
+<dt><i>_parents</i> (list of ast.AST)</dt>
+<dd>
+list of parent nodes (unused)
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__checkImportAs" ID="NamingStyleChecker.__checkImportAs"></a>
+<h4>NamingStyleChecker.__checkImportAs</h4>
+<b>__checkImportAs</b>(<i>node, _parents</i>)
+<p>
+        Private method to check that imports don't change the
+        naming convention (N811, N812, N813, N814, N815).
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Import)</dt>
+<dd>
+AST node to check
+</dd>
+<dt><i>_parents</i> (list of ast.AST)</dt>
+<dd>
+list of parent nodes (unused)
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__checkModule" ID="NamingStyleChecker.__checkModule"></a>
+<h4>NamingStyleChecker.__checkModule</h4>
+<b>__checkModule</b>(<i>node, _parents</i>)
+<p>
+        Private method to check module naming conventions (N807, N808).
+</p>
+<p>
+        Module and package names should be lowercase.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+AST node to check
+</dd>
+<dt><i>_parents</i> (list of ast.AST)</dt>
+<dd>
+list of parent nodes (unused)
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__checkNameToBeAvoided" ID="NamingStyleChecker.__checkNameToBeAvoided"></a>
+<h4>NamingStyleChecker.__checkNameToBeAvoided</h4>
+<b>__checkNameToBeAvoided</b>(<i>node, _parents</i>)
+<p>
+        Private class to check the given node for a name to be avoided (N831).
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Ast)</dt>
+<dd>
+AST note to check
+</dd>
+<dt><i>_parents</i> (list of ast.AST)</dt>
+<dd>
+list of parent nodes (unused)
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__checkVariableNames" ID="NamingStyleChecker.__checkVariableNames"></a>
+<h4>NamingStyleChecker.__checkVariableNames</h4>
+<b>__checkVariableNames</b>(<i>node, parents</i>)
+<p>
+        Private method to check variable names in function, class and global scope
+        (N821, N822, N823).
+</p>
+<p>
+        Local variables in functions should be lowercase.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+AST note to check
+</dd>
+<dt><i>parents</i> (list of ast.AST)</dt>
+<dd>
+list of parent nodes
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__classVariableCheck" ID="NamingStyleChecker.__classVariableCheck"></a>
+<h4>NamingStyleChecker.__classVariableCheck</h4>
+<b>__classVariableCheck</b>(<i>name</i>)
+<p>
+        Private method to determine the error code for a variable in class scope.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+variable name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+error code or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str or None
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__error" ID="NamingStyleChecker.__error"></a>
+<h4>NamingStyleChecker.__error</h4>
+<b>__error</b>(<i>node, code</i>)
+<p>
+        Private method to build the error information.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+AST node to report an error for
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+error code to report
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__extractNames" ID="NamingStyleChecker.__extractNames"></a>
+<h4>NamingStyleChecker.__extractNames</h4>
+<b>__extractNames</b>(<i>assignmentTarget</i>)
+<p>
+        Private method to extract the names from the target node.
+</p>
+
+<dl>
+
+<dt><i>assignmentTarget</i> (ast.Name, ast.Tuple, ast.List or ast.ExceptHandler)</dt>
+<dd>
+target node of the assignment
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+name of the variable
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__findGlobalDefs" ID="NamingStyleChecker.__findGlobalDefs"></a>
+<h4>NamingStyleChecker.__findGlobalDefs</h4>
+<b>__findGlobalDefs</b>(<i>functionNode</i>)
+<p>
+        Private method amend a node with global definitions information.
+</p>
+
+<dl>
+
+<dt><i>functionNode</i> (ast.FunctionDef or ast.AsyncFunctionDef)</dt>
+<dd>
+AST tree node to amend
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__findVariableNameErrors" ID="NamingStyleChecker.__findVariableNameErrors"></a>
+<h4>NamingStyleChecker.__findVariableNameErrors</h4>
+<b>__findVariableNameErrors</b>(<i>assignmentTarget, parents</i>)
+<p>
+        Private method to check, if there is a variable name error.
+</p>
+
+<dl>
+
+<dt><i>assignmentTarget</i> (ast.Name, ast.Tuple, ast.List or ast.ExceptHandler)</dt>
+<dd>
+target node of the assignment
+</dd>
+<dt><i>parents</i> (ast.AST)</dt>
+<dd>
+list of parent nodes
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__functionVariableCheck" ID="NamingStyleChecker.__functionVariableCheck"></a>
+<h4>NamingStyleChecker.__functionVariableCheck</h4>
+<b>__functionVariableCheck</b>(<i>func, varName</i>)
+<p>
+        Private method to determine the error code for a variable in class scope.
+</p>
+
+<dl>
+
+<dt><i>func</i> (ast.FunctionDef or ast.AsyncFunctionDef)</dt>
+<dd>
+reference to the function definition node
+</dd>
+<dt><i>varName</i> (str)</dt>
+<dd>
+variable name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+error code or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str or None
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__getArgNames" ID="NamingStyleChecker.__getArgNames"></a>
+<h4>NamingStyleChecker.__getArgNames</h4>
+<b>__getArgNames</b>(<i>node</i>)
+<p>
+        Private method to get the argument names of a function node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.FunctionDef or ast.AsyncFunctionDef)</dt>
+<dd>
+AST node to extract arguments names from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of argument names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__getClassdef" ID="NamingStyleChecker.__getClassdef"></a>
+<h4>NamingStyleChecker.__getClassdef</h4>
+<b>__getClassdef</b>(<i>name, parents</i>)
+<p>
+        Private method to extract the class definition.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the class
+</dd>
+<dt><i>parents</i> (list of ast.AST)</dt>
+<dd>
+list of parent nodes
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+node containing the class definition
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.ClassDef
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__globalVariableCheck" ID="NamingStyleChecker.__globalVariableCheck"></a>
+<h4>NamingStyleChecker.__globalVariableCheck</h4>
+<b>__globalVariableCheck</b>(<i>name</i>)
+<p>
+        Private method to determine the error code for a variable in global scope.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+variable name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+error code or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str or None
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__isMixedCase" ID="NamingStyleChecker.__isMixedCase"></a>
+<h4>NamingStyleChecker.__isMixedCase</h4>
+<b>__isMixedCase</b>(<i>name</i>)
+<p>
+        Private method to check, if the given name is mixed case.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+variable name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating mixed case
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__isNameToBeAvoided" ID="NamingStyleChecker.__isNameToBeAvoided"></a>
+<h4>NamingStyleChecker.__isNameToBeAvoided</h4>
+<b>__isNameToBeAvoided</b>(<i>name</i>)
+<p>
+        Private method to check, if the given name should be avoided.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to avoid it
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__isNamedTupel" ID="NamingStyleChecker.__isNamedTupel"></a>
+<h4>NamingStyleChecker.__isNamedTupel</h4>
+<b>__isNamedTupel</b>(<i>nodeValue</i>)
+<p>
+        Private method to check, if a node is a named tuple.
+</p>
+
+<dl>
+
+<dt><i>nodeValue</i> (ast.AST)</dt>
+<dd>
+node to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a nemd tuple
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__superClassNames" ID="NamingStyleChecker.__superClassNames"></a>
+<h4>NamingStyleChecker.__superClassNames</h4>
+<b>__superClassNames</b>(<i>name, parents, names=None</i>)
+<p>
+        Private method to extract the names of all super classes.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the class
+</dd>
+<dt><i>parents</i> (list of ast.AST)</dt>
+<dd>
+list of parent nodes
+</dd>
+<dt><i>names</i> (set of str (optional))</dt>
+<dd>
+set of collected class names (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+set of class names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+set of str
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__tagClassFunctions" ID="NamingStyleChecker.__tagClassFunctions"></a>
+<h4>NamingStyleChecker.__tagClassFunctions</h4>
+<b>__tagClassFunctions</b>(<i>classNode</i>)
+<p>
+        Private method to tag functions if they are methods, class methods or
+        static methods.
+</p>
+
+<dl>
+
+<dt><i>classNode</i> (ast.ClassDef)</dt>
+<dd>
+AST tree node to tag
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__visitNode" ID="NamingStyleChecker.__visitNode"></a>
+<h4>NamingStyleChecker.__visitNode</h4>
+<b>__visitNode</b>(<i>node</i>)
+<p>
+        Private method to inspect the given AST node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+AST tree node to inspect
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.__visitTree" ID="NamingStyleChecker.__visitTree"></a>
+<h4>NamingStyleChecker.__visitTree</h4>
+<b>__visitTree</b>(<i>node</i>)
+<p>
+        Private method to scan the given AST tree.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+AST tree node to scan
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple giving line number, offset within line and error code
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, int, str)
+</dd>
+</dl>
+<a NAME="NamingStyleChecker.run" ID="NamingStyleChecker.run"></a>
+<h4>NamingStyleChecker.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method run by the pycodestyle.py checker.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple giving line number, offset within line, code and
+            checker function
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int, str, function)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

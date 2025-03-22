@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DataViews.CodeMetrics</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DataViews.CodeMetrics</h1>
+<p>
+Module implementing a simple Python code metrics analyzer.
+</p>
+
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+the tokenize module is too old
+</dd>
+</dl>
+<h3>Global Attributes</h3>
+<table>
+<tr><td>COMMENT</td></tr>
+<tr><td>DEDENT</td></tr>
+<tr><td>EMPTY</td></tr>
+<tr><td>INDENT</td></tr>
+<tr><td>KEYWORD</td></tr>
+<tr><td>NEWLINE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Parser">Parser</a></td>
+<td>Class used to parse the source code of a Python file.</td>
+</tr>
+<tr>
+<td><a href="#SourceStat">SourceStat</a></td>
+<td>Class used to calculate and store the source code statistics.</td>
+</tr>
+<tr>
+<td><a href="#Token">Token</a></td>
+<td>Class to store the token related info.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#analyze">analyze</a></td>
+<td>Module function used analyze the source of a Python file.</td>
+</tr>
+<tr>
+<td><a href="#summarize">summarize</a></td>
+<td>Module function used to collect overall statistics.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Parser" ID="Parser"></a>
+<h2>Parser</h2>
+<p>
+    Class used to parse the source code of a Python file.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Parser.__addToken">__addToken</a></td>
+<td>Private method used to add a token to our list of tokens.</td>
+</tr>
+<tr>
+<td><a href="#Parser.parse">parse</a></td>
+<td>Public method used to parse the source code.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Parser.__addToken" ID="Parser.__addToken"></a>
+<h4>Parser.__addToken</h4>
+<b>__addToken</b>(<i>toktype, toktext, srow, scol, line</i>)
+<p>
+        Private method used to add a token to our list of tokens.
+</p>
+
+<dl>
+
+<dt><i>toktype</i> (int)</dt>
+<dd>
+the type of the token
+</dd>
+<dt><i>toktext</i> (str)</dt>
+<dd>
+the text of the token
+</dd>
+<dt><i>srow</i> (int)</dt>
+<dd>
+starting row of the token
+</dd>
+<dt><i>scol</i> (int)</dt>
+<dd>
+starting column of the token
+</dd>
+<dt><i>line</i> (str)</dt>
+<dd>
+logical line the token was found
+</dd>
+</dl>
+<a NAME="Parser.parse" ID="Parser.parse"></a>
+<h4>Parser.parse</h4>
+<b>parse</b>(<i>text</i>)
+<p>
+        Public method used to parse the source code.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+source code as read from a Python source file
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="SourceStat" ID="SourceStat"></a>
+<h2>SourceStat</h2>
+<p>
+    Class used to calculate and store the source code statistics.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SourceStat.__init__">SourceStat</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SourceStat.dedent">dedent</a></td>
+<td>Public method used to decrement the indentation level.</td>
+</tr>
+<tr>
+<td><a href="#SourceStat.getCounter">getCounter</a></td>
+<td>Public method used to get a specific counter value.</td>
+</tr>
+<tr>
+<td><a href="#SourceStat.inc">inc</a></td>
+<td>Public method used to increment the value of a key.</td>
+</tr>
+<tr>
+<td><a href="#SourceStat.indent">indent</a></td>
+<td>Public method used to increment the indentation level.</td>
+</tr>
+<tr>
+<td><a href="#SourceStat.push">push</a></td>
+<td>Public method used to store an identifier.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SourceStat.__init__" ID="SourceStat.__init__"></a>
+<h4>SourceStat (Constructor)</h4>
+<b>SourceStat</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="SourceStat.dedent" ID="SourceStat.dedent"></a>
+<h4>SourceStat.dedent</h4>
+<b>dedent</b>(<i>tok</i>)
+<p>
+        Public method used to decrement the indentation level.
+</p>
+
+<dl>
+
+<dt><i>tok</i> (Token)</dt>
+<dd>
+the token to be processed
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid indentation level
+</dd>
+</dl>
+<a NAME="SourceStat.getCounter" ID="SourceStat.getCounter"></a>
+<h4>SourceStat.getCounter</h4>
+<b>getCounter</b>(<i>counterId, key</i>)
+<p>
+        Public method used to get a specific counter value.
+</p>
+
+<dl>
+
+<dt><i>counterId</i> (str)</dt>
+<dd>
+id of the counter
+</dd>
+<dt><i>key</i> (str)</dt>
+<dd>
+key of the value to be retrieved
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the value of the requested counter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SourceStat.inc" ID="SourceStat.inc"></a>
+<h4>SourceStat.inc</h4>
+<b>inc</b>(<i>key, value=1</i>)
+<p>
+        Public method used to increment the value of a key.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+key to be incremented
+</dd>
+<dt><i>value</i> (int)</dt>
+<dd>
+the increment
+</dd>
+</dl>
+<a NAME="SourceStat.indent" ID="SourceStat.indent"></a>
+<h4>SourceStat.indent</h4>
+<b>indent</b>(<i></i>)
+<p>
+        Public method used to increment the indentation level.
+</p>
+
+<a NAME="SourceStat.push" ID="SourceStat.push"></a>
+<h4>SourceStat.push</h4>
+<b>push</b>(<i>identifier, row</i>)
+<p>
+        Public method used to store an identifier.
+</p>
+
+<dl>
+
+<dt><i>identifier</i> (str)</dt>
+<dd>
+the identifier to be remembered
+</dd>
+<dt><i>row</i> (int)</dt>
+<dd>
+row, the identifier is defined in
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Token" ID="Token"></a>
+<h2>Token</h2>
+<p>
+    Class to store the token related info.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>col</td></tr>
+<tr><td>line</td></tr>
+<tr><td>row</td></tr>
+<tr><td>text</td></tr>
+<tr><td>type</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="analyze" ID="analyze"></a>
+<h2>analyze</h2>
+<b>analyze</b>(<i>filename, total</i>)
+<p>
+    Module function used analyze the source of a Python file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the Python file to be analyzed
+</dd>
+<dt><i>total</i> (dict)</dt>
+<dd>
+dictionary receiving the overall code statistics
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+a statistics object with the collected code statistics
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SourceStat
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="summarize" ID="summarize"></a>
+<h2>summarize</h2>
+<b>summarize</b>(<i>total, key, value</i>)
+<p>
+    Module function used to collect overall statistics.
+</p>
+
+<dl>
+
+<dt><i>total</i> (dict)</dt>
+<dd>
+dictionary of overall statistics
+</dd>
+<dt><i>key</i> (str)</dt>
+<dd>
+key to be summarized
+</dd>
+<dt><i>value</i> (int)</dt>
+<dd>
+value to be added to the overall statistics
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the value added to the overall statistics
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

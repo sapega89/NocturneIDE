@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.ProjectHelper</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.ProjectHelper</h1>
+<p>
+Module implementing the VCS project helper for Mercurial.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HgProjectHelper">HgProjectHelper</a></td>
+<td>Class implementing the VCS project helper for Mercurial.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HgProjectHelper" ID="HgProjectHelper"></a>
+<h2>HgProjectHelper</h2>
+<p>
+    Class implementing the VCS project helper for Mercurial.
+</p>
+
+<h3>Derived from</h3>
+VcsProjectHelper
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HgProjectHelper.__init__">HgProjectHelper</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__checkActions">__checkActions</a></td>
+<td>Private slot to set the enabled status of actions.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgAbortMerge">__hgAbortMerge</a></td>
+<td>Private slot used to abort an uncommitted merge.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgAddSubrepository">__hgAddSubrepository</a></td>
+<td>Private slot used to add a sub-repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgArchive">__hgArchive</a></td>
+<td>Private slot to create an unversioned archive from the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBackout">__hgBackout</a></td>
+<td>Private slot used to back out changes of a changeset.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBisectBad">__hgBisectBad</a></td>
+<td>Private slot used to execute the bisect --bad command.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBisectGood">__hgBisectGood</a></td>
+<td>Private slot used to execute the bisect --good command.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBisectReset">__hgBisectReset</a></td>
+<td>Private slot used to execute the bisect --reset command.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBisectSkip">__hgBisectSkip</a></td>
+<td>Private slot used to execute the bisect --skip command.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkDefine">__hgBookmarkDefine</a></td>
+<td>Private slot used to define a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkDelete">__hgBookmarkDelete</a></td>
+<td>Private slot used to delete a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkIncoming">__hgBookmarkIncoming</a></td>
+<td>Private slot used to show a list of incoming bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkMove">__hgBookmarkMove</a></td>
+<td>Private slot used to move a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkOutgoing">__hgBookmarkOutgoing</a></td>
+<td>Private slot used to show a list of outgoing bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkPull">__hgBookmarkPull</a></td>
+<td>Private slot used to pull a bookmark from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkPullCurrent">__hgBookmarkPullCurrent</a></td>
+<td>Private slot used to pull the current bookmark from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkPush">__hgBookmarkPush</a></td>
+<td>Private slot used to push a bookmark to a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkPushAll">__hgBookmarkPushAll</a></td>
+<td>Private slot to push all bookmarks to a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkPushCurrent">__hgBookmarkPushCurrent</a></td>
+<td>Private slot used to push the current bookmark to a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarkRename">__hgBookmarkRename</a></td>
+<td>Private slot used to rename a bookmark.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBookmarksList">__hgBookmarksList</a></td>
+<td>Private slot used to list the bookmarks.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBranch">__hgBranch</a></td>
+<td>Private slot used to create a new branch for the project.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBranchList">__hgBranchList</a></td>
+<td>Private slot used to list the branches of the project.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgBundle">__hgBundle</a></td>
+<td>Private slot used to create a changegroup file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgCloseBranch">__hgCloseBranch</a></td>
+<td>Private slot used to close the current branch of the local project.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgCommitMerge">__hgCommitMerge</a></td>
+<td>Private slot used to commit a merge.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgConfigure">__hgConfigure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgCreateIgnore">__hgCreateIgnore</a></td>
+<td>Private slot used to create a .hgignore file for the project.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgDeleteBackups">__hgDeleteBackups</a></td>
+<td>Private slot used to delete all backup bundles.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgEditRepoConfig">__hgEditRepoConfig</a></td>
+<td>Private slot used to edit the repository configuration file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgEditUserConfig">__hgEditUserConfig</a></td>
+<td>Private slot used to edit the user configuration file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgExport">__hgExport</a></td>
+<td>Private slot used to export revisions to patch files.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgExtendedDiff">__hgExtendedDiff</a></td>
+<td>Private slot used to perform a hg diff with the selection of revisions.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgGraft">__hgGraft</a></td>
+<td>Private slot used to copy changesets from another branch.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgGraftAbort">__hgGraftAbort</a></td>
+<td>Private slot used to abort an interrupted copying session and perform a rollback.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgGraftContinue">__hgGraftContinue</a></td>
+<td>Private slot used to continue the last copying session after conflicts were resolved.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgGraftStop">__hgGraftStop</a></td>
+<td>Private slot used to stop an interrupted copying session.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgHeads">__hgHeads</a></td>
+<td>Private slot used to show the heads of the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgIdentify">__hgIdentify</a></td>
+<td>Private slot used to identify the project directory.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgImport">__hgImport</a></td>
+<td>Private slot used to import a patch file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgIncoming">__hgIncoming</a></td>
+<td>Private slot used to show the log of changes coming into the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgOutgoing">__hgOutgoing</a></td>
+<td>Private slot used to show the log of changes going out of the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgParents">__hgParents</a></td>
+<td>Private slot used to show the parents of the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgPhase">__hgPhase</a></td>
+<td>Private slot used to change the phase of revisions.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgPreviewBundle">__hgPreviewBundle</a></td>
+<td>Private slot used to preview a changegroup file.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgPull">__hgPull</a></td>
+<td>Private slot used to pull changes from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgPush">__hgPush</a></td>
+<td>Private slot used to push changes to a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgPushForced">__hgPushForced</a></td>
+<td>Private slot used to push changes to a remote repository using the force option.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgPushNewBranch">__hgPushNewBranch</a></td>
+<td>Private slot to push a new named branch.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgReMerge">__hgReMerge</a></td>
+<td>Private slot used to list all files with conflicts.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgRecover">__hgRecover</a></td>
+<td>Private slot used to recover from an interrupted transaction.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgRemoveSubrepositories">__hgRemoveSubrepositories</a></td>
+<td>Private slot used to remove sub-repositories.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgResolved">__hgResolved</a></td>
+<td>Private slot used to mark conflicts of the local project as being resolved.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgRevert">__hgRevert</a></td>
+<td>Private slot used to revert changes made to the local project.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgRollback">__hgRollback</a></td>
+<td>Private slot used to rollback the last transaction.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgServe">__hgServe</a></td>
+<td>Private slot used to serve the project.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgShowBranch">__hgShowBranch</a></td>
+<td>Private slot used to show the current branch for the project.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgShowConfig">__hgShowConfig</a></td>
+<td>Private slot used to show the combined configuration.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgShowConflicts">__hgShowConflicts</a></td>
+<td>Private slot used to list all files with conflicts.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgShowPaths">__hgShowPaths</a></td>
+<td>Private slot used to show the aliases for remote repositories.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgSummary">__hgSummary</a></td>
+<td>Private slot to show a working directory summary.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgTagList">__hgTagList</a></td>
+<td>Private slot used to list the tags of the project.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgTip">__hgTip</a></td>
+<td>Private slot used to show the tip of the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgUnbundle">__hgUnbundle</a></td>
+<td>Private slot used to apply changegroup files.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgUnresolved">__hgUnresolved</a></td>
+<td>Private slot used to mark conflicts of the local project as being unresolved.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__hgVerify">__hgVerify</a></td>
+<td>Private slot used to verify the integrity of the repository.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.__showExtensionMenu">__showExtensionMenu</a></td>
+<td>Private slot showing the extensions menu.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.getActions">getActions</a></td>
+<td>Public method to get a list of all actions.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.getProject">getProject</a></td>
+<td>Public method to get a reference to the project object.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.initActions">initActions</a></td>
+<td>Public method to generate the action objects.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.initMenu">initMenu</a></td>
+<td>Public method to generate the VCS menu.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.initToolbar">initToolbar</a></td>
+<td>Public slot to initialize the VCS toolbar.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.removeToolbar">removeToolbar</a></td>
+<td>Public method to remove a toolbar created by initToolbar().</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.setObjects">setObjects</a></td>
+<td>Public method to set references to the vcs and project objects.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.showMenu">showMenu</a></td>
+<td>Public slot called before the vcs menu is shown.</td>
+</tr>
+<tr>
+<td><a href="#HgProjectHelper.shutdown">shutdown</a></td>
+<td>Public method to perform shutdown actions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HgProjectHelper.__init__" ID="HgProjectHelper.__init__"></a>
+<h4>HgProjectHelper (Constructor)</h4>
+<b>HgProjectHelper</b>(<i>vcsObject, projectObject, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcsObject</i> (Hg)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>projectObject</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="HgProjectHelper.__checkActions" ID="HgProjectHelper.__checkActions"></a>
+<h4>HgProjectHelper.__checkActions</h4>
+<b>__checkActions</b>(<i></i>)
+<p>
+        Private slot to set the enabled status of actions.
+</p>
+
+<a NAME="HgProjectHelper.__hgAbortMerge" ID="HgProjectHelper.__hgAbortMerge"></a>
+<h4>HgProjectHelper.__hgAbortMerge</h4>
+<b>__hgAbortMerge</b>(<i></i>)
+<p>
+        Private slot used to abort an uncommitted merge.
+</p>
+
+<a NAME="HgProjectHelper.__hgAddSubrepository" ID="HgProjectHelper.__hgAddSubrepository"></a>
+<h4>HgProjectHelper.__hgAddSubrepository</h4>
+<b>__hgAddSubrepository</b>(<i></i>)
+<p>
+        Private slot used to add a sub-repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgArchive" ID="HgProjectHelper.__hgArchive"></a>
+<h4>HgProjectHelper.__hgArchive</h4>
+<b>__hgArchive</b>(<i></i>)
+<p>
+        Private slot to create an unversioned archive from the repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgBackout" ID="HgProjectHelper.__hgBackout"></a>
+<h4>HgProjectHelper.__hgBackout</h4>
+<b>__hgBackout</b>(<i></i>)
+<p>
+        Private slot used to back out changes of a changeset.
+</p>
+
+<a NAME="HgProjectHelper.__hgBisectBad" ID="HgProjectHelper.__hgBisectBad"></a>
+<h4>HgProjectHelper.__hgBisectBad</h4>
+<b>__hgBisectBad</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect --bad command.
+</p>
+
+<a NAME="HgProjectHelper.__hgBisectGood" ID="HgProjectHelper.__hgBisectGood"></a>
+<h4>HgProjectHelper.__hgBisectGood</h4>
+<b>__hgBisectGood</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect --good command.
+</p>
+
+<a NAME="HgProjectHelper.__hgBisectReset" ID="HgProjectHelper.__hgBisectReset"></a>
+<h4>HgProjectHelper.__hgBisectReset</h4>
+<b>__hgBisectReset</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect --reset command.
+</p>
+
+<a NAME="HgProjectHelper.__hgBisectSkip" ID="HgProjectHelper.__hgBisectSkip"></a>
+<h4>HgProjectHelper.__hgBisectSkip</h4>
+<b>__hgBisectSkip</b>(<i></i>)
+<p>
+        Private slot used to execute the bisect --skip command.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkDefine" ID="HgProjectHelper.__hgBookmarkDefine"></a>
+<h4>HgProjectHelper.__hgBookmarkDefine</h4>
+<b>__hgBookmarkDefine</b>(<i></i>)
+<p>
+        Private slot used to define a bookmark.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkDelete" ID="HgProjectHelper.__hgBookmarkDelete"></a>
+<h4>HgProjectHelper.__hgBookmarkDelete</h4>
+<b>__hgBookmarkDelete</b>(<i></i>)
+<p>
+        Private slot used to delete a bookmark.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkIncoming" ID="HgProjectHelper.__hgBookmarkIncoming"></a>
+<h4>HgProjectHelper.__hgBookmarkIncoming</h4>
+<b>__hgBookmarkIncoming</b>(<i></i>)
+<p>
+        Private slot used to show a list of incoming bookmarks.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkMove" ID="HgProjectHelper.__hgBookmarkMove"></a>
+<h4>HgProjectHelper.__hgBookmarkMove</h4>
+<b>__hgBookmarkMove</b>(<i></i>)
+<p>
+        Private slot used to move a bookmark.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkOutgoing" ID="HgProjectHelper.__hgBookmarkOutgoing"></a>
+<h4>HgProjectHelper.__hgBookmarkOutgoing</h4>
+<b>__hgBookmarkOutgoing</b>(<i></i>)
+<p>
+        Private slot used to show a list of outgoing bookmarks.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkPull" ID="HgProjectHelper.__hgBookmarkPull"></a>
+<h4>HgProjectHelper.__hgBookmarkPull</h4>
+<b>__hgBookmarkPull</b>(<i></i>)
+<p>
+        Private slot used to pull a bookmark from a remote repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkPullCurrent" ID="HgProjectHelper.__hgBookmarkPullCurrent"></a>
+<h4>HgProjectHelper.__hgBookmarkPullCurrent</h4>
+<b>__hgBookmarkPullCurrent</b>(<i></i>)
+<p>
+        Private slot used to pull the current bookmark from a remote
+        repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkPush" ID="HgProjectHelper.__hgBookmarkPush"></a>
+<h4>HgProjectHelper.__hgBookmarkPush</h4>
+<b>__hgBookmarkPush</b>(<i></i>)
+<p>
+        Private slot used to push a bookmark to a remote repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkPushAll" ID="HgProjectHelper.__hgBookmarkPushAll"></a>
+<h4>HgProjectHelper.__hgBookmarkPushAll</h4>
+<b>__hgBookmarkPushAll</b>(<i></i>)
+<p>
+        Private slot to push all bookmarks to a remote repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkPushCurrent" ID="HgProjectHelper.__hgBookmarkPushCurrent"></a>
+<h4>HgProjectHelper.__hgBookmarkPushCurrent</h4>
+<b>__hgBookmarkPushCurrent</b>(<i></i>)
+<p>
+        Private slot used to push the current bookmark to a remote repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarkRename" ID="HgProjectHelper.__hgBookmarkRename"></a>
+<h4>HgProjectHelper.__hgBookmarkRename</h4>
+<b>__hgBookmarkRename</b>(<i></i>)
+<p>
+        Private slot used to rename a bookmark.
+</p>
+
+<a NAME="HgProjectHelper.__hgBookmarksList" ID="HgProjectHelper.__hgBookmarksList"></a>
+<h4>HgProjectHelper.__hgBookmarksList</h4>
+<b>__hgBookmarksList</b>(<i></i>)
+<p>
+        Private slot used to list the bookmarks.
+</p>
+
+<a NAME="HgProjectHelper.__hgBranch" ID="HgProjectHelper.__hgBranch"></a>
+<h4>HgProjectHelper.__hgBranch</h4>
+<b>__hgBranch</b>(<i></i>)
+<p>
+        Private slot used to create a new branch for the project.
+</p>
+
+<a NAME="HgProjectHelper.__hgBranchList" ID="HgProjectHelper.__hgBranchList"></a>
+<h4>HgProjectHelper.__hgBranchList</h4>
+<b>__hgBranchList</b>(<i></i>)
+<p>
+        Private slot used to list the branches of the project.
+</p>
+
+<a NAME="HgProjectHelper.__hgBundle" ID="HgProjectHelper.__hgBundle"></a>
+<h4>HgProjectHelper.__hgBundle</h4>
+<b>__hgBundle</b>(<i></i>)
+<p>
+        Private slot used to create a changegroup file.
+</p>
+
+<a NAME="HgProjectHelper.__hgCloseBranch" ID="HgProjectHelper.__hgCloseBranch"></a>
+<h4>HgProjectHelper.__hgCloseBranch</h4>
+<b>__hgCloseBranch</b>(<i></i>)
+<p>
+        Private slot used to close the current branch of the local project.
+</p>
+
+<a NAME="HgProjectHelper.__hgCommitMerge" ID="HgProjectHelper.__hgCommitMerge"></a>
+<h4>HgProjectHelper.__hgCommitMerge</h4>
+<b>__hgCommitMerge</b>(<i></i>)
+<p>
+        Private slot used to commit a merge.
+</p>
+
+<a NAME="HgProjectHelper.__hgConfigure" ID="HgProjectHelper.__hgConfigure"></a>
+<h4>HgProjectHelper.__hgConfigure</h4>
+<b>__hgConfigure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="HgProjectHelper.__hgCreateIgnore" ID="HgProjectHelper.__hgCreateIgnore"></a>
+<h4>HgProjectHelper.__hgCreateIgnore</h4>
+<b>__hgCreateIgnore</b>(<i></i>)
+<p>
+        Private slot used to create a .hgignore file for the project.
+</p>
+
+<a NAME="HgProjectHelper.__hgDeleteBackups" ID="HgProjectHelper.__hgDeleteBackups"></a>
+<h4>HgProjectHelper.__hgDeleteBackups</h4>
+<b>__hgDeleteBackups</b>(<i></i>)
+<p>
+        Private slot used to delete all backup bundles.
+</p>
+
+<a NAME="HgProjectHelper.__hgEditRepoConfig" ID="HgProjectHelper.__hgEditRepoConfig"></a>
+<h4>HgProjectHelper.__hgEditRepoConfig</h4>
+<b>__hgEditRepoConfig</b>(<i></i>)
+<p>
+        Private slot used to edit the repository configuration file.
+</p>
+
+<a NAME="HgProjectHelper.__hgEditUserConfig" ID="HgProjectHelper.__hgEditUserConfig"></a>
+<h4>HgProjectHelper.__hgEditUserConfig</h4>
+<b>__hgEditUserConfig</b>(<i></i>)
+<p>
+        Private slot used to edit the user configuration file.
+</p>
+
+<a NAME="HgProjectHelper.__hgExport" ID="HgProjectHelper.__hgExport"></a>
+<h4>HgProjectHelper.__hgExport</h4>
+<b>__hgExport</b>(<i></i>)
+<p>
+        Private slot used to export revisions to patch files.
+</p>
+
+<a NAME="HgProjectHelper.__hgExtendedDiff" ID="HgProjectHelper.__hgExtendedDiff"></a>
+<h4>HgProjectHelper.__hgExtendedDiff</h4>
+<b>__hgExtendedDiff</b>(<i></i>)
+<p>
+        Private slot used to perform a hg diff with the selection of revisions.
+</p>
+
+<a NAME="HgProjectHelper.__hgGraft" ID="HgProjectHelper.__hgGraft"></a>
+<h4>HgProjectHelper.__hgGraft</h4>
+<b>__hgGraft</b>(<i></i>)
+<p>
+        Private slot used to copy changesets from another branch.
+</p>
+
+<a NAME="HgProjectHelper.__hgGraftAbort" ID="HgProjectHelper.__hgGraftAbort"></a>
+<h4>HgProjectHelper.__hgGraftAbort</h4>
+<b>__hgGraftAbort</b>(<i></i>)
+<p>
+        Private slot used to abort an interrupted copying session and perform
+        a rollback.
+</p>
+
+<a NAME="HgProjectHelper.__hgGraftContinue" ID="HgProjectHelper.__hgGraftContinue"></a>
+<h4>HgProjectHelper.__hgGraftContinue</h4>
+<b>__hgGraftContinue</b>(<i></i>)
+<p>
+        Private slot used to continue the last copying session after conflicts
+        were resolved.
+</p>
+
+<a NAME="HgProjectHelper.__hgGraftStop" ID="HgProjectHelper.__hgGraftStop"></a>
+<h4>HgProjectHelper.__hgGraftStop</h4>
+<b>__hgGraftStop</b>(<i></i>)
+<p>
+        Private slot used to stop an interrupted copying session.
+</p>
+
+<a NAME="HgProjectHelper.__hgHeads" ID="HgProjectHelper.__hgHeads"></a>
+<h4>HgProjectHelper.__hgHeads</h4>
+<b>__hgHeads</b>(<i></i>)
+<p>
+        Private slot used to show the heads of the repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgIdentify" ID="HgProjectHelper.__hgIdentify"></a>
+<h4>HgProjectHelper.__hgIdentify</h4>
+<b>__hgIdentify</b>(<i></i>)
+<p>
+        Private slot used to identify the project directory.
+</p>
+
+<a NAME="HgProjectHelper.__hgImport" ID="HgProjectHelper.__hgImport"></a>
+<h4>HgProjectHelper.__hgImport</h4>
+<b>__hgImport</b>(<i></i>)
+<p>
+        Private slot used to import a patch file.
+</p>
+
+<a NAME="HgProjectHelper.__hgIncoming" ID="HgProjectHelper.__hgIncoming"></a>
+<h4>HgProjectHelper.__hgIncoming</h4>
+<b>__hgIncoming</b>(<i></i>)
+<p>
+        Private slot used to show the log of changes coming into the
+        repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgOutgoing" ID="HgProjectHelper.__hgOutgoing"></a>
+<h4>HgProjectHelper.__hgOutgoing</h4>
+<b>__hgOutgoing</b>(<i></i>)
+<p>
+        Private slot used to show the log of changes going out of the
+        repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgParents" ID="HgProjectHelper.__hgParents"></a>
+<h4>HgProjectHelper.__hgParents</h4>
+<b>__hgParents</b>(<i></i>)
+<p>
+        Private slot used to show the parents of the repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgPhase" ID="HgProjectHelper.__hgPhase"></a>
+<h4>HgProjectHelper.__hgPhase</h4>
+<b>__hgPhase</b>(<i></i>)
+<p>
+        Private slot used to change the phase of revisions.
+</p>
+
+<a NAME="HgProjectHelper.__hgPreviewBundle" ID="HgProjectHelper.__hgPreviewBundle"></a>
+<h4>HgProjectHelper.__hgPreviewBundle</h4>
+<b>__hgPreviewBundle</b>(<i></i>)
+<p>
+        Private slot used to preview a changegroup file.
+</p>
+
+<a NAME="HgProjectHelper.__hgPull" ID="HgProjectHelper.__hgPull"></a>
+<h4>HgProjectHelper.__hgPull</h4>
+<b>__hgPull</b>(<i></i>)
+<p>
+        Private slot used to pull changes from a remote repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgPush" ID="HgProjectHelper.__hgPush"></a>
+<h4>HgProjectHelper.__hgPush</h4>
+<b>__hgPush</b>(<i></i>)
+<p>
+        Private slot used to push changes to a remote repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgPushForced" ID="HgProjectHelper.__hgPushForced"></a>
+<h4>HgProjectHelper.__hgPushForced</h4>
+<b>__hgPushForced</b>(<i></i>)
+<p>
+        Private slot used to push changes to a remote repository using
+        the force option.
+</p>
+
+<a NAME="HgProjectHelper.__hgPushNewBranch" ID="HgProjectHelper.__hgPushNewBranch"></a>
+<h4>HgProjectHelper.__hgPushNewBranch</h4>
+<b>__hgPushNewBranch</b>(<i></i>)
+<p>
+        Private slot to push a new named branch.
+</p>
+
+<a NAME="HgProjectHelper.__hgReMerge" ID="HgProjectHelper.__hgReMerge"></a>
+<h4>HgProjectHelper.__hgReMerge</h4>
+<b>__hgReMerge</b>(<i></i>)
+<p>
+        Private slot used to list all files with conflicts.
+</p>
+
+<a NAME="HgProjectHelper.__hgRecover" ID="HgProjectHelper.__hgRecover"></a>
+<h4>HgProjectHelper.__hgRecover</h4>
+<b>__hgRecover</b>(<i></i>)
+<p>
+        Private slot used to recover from an interrupted transaction.
+</p>
+
+<a NAME="HgProjectHelper.__hgRemoveSubrepositories" ID="HgProjectHelper.__hgRemoveSubrepositories"></a>
+<h4>HgProjectHelper.__hgRemoveSubrepositories</h4>
+<b>__hgRemoveSubrepositories</b>(<i></i>)
+<p>
+        Private slot used to remove sub-repositories.
+</p>
+
+<a NAME="HgProjectHelper.__hgResolved" ID="HgProjectHelper.__hgResolved"></a>
+<h4>HgProjectHelper.__hgResolved</h4>
+<b>__hgResolved</b>(<i></i>)
+<p>
+        Private slot used to mark conflicts of the local project as being
+        resolved.
+</p>
+
+<a NAME="HgProjectHelper.__hgRevert" ID="HgProjectHelper.__hgRevert"></a>
+<h4>HgProjectHelper.__hgRevert</h4>
+<b>__hgRevert</b>(<i></i>)
+<p>
+        Private slot used to revert changes made to the local project.
+</p>
+
+<a NAME="HgProjectHelper.__hgRollback" ID="HgProjectHelper.__hgRollback"></a>
+<h4>HgProjectHelper.__hgRollback</h4>
+<b>__hgRollback</b>(<i></i>)
+<p>
+        Private slot used to rollback the last transaction.
+</p>
+
+<a NAME="HgProjectHelper.__hgServe" ID="HgProjectHelper.__hgServe"></a>
+<h4>HgProjectHelper.__hgServe</h4>
+<b>__hgServe</b>(<i></i>)
+<p>
+        Private slot used to serve the project.
+</p>
+
+<a NAME="HgProjectHelper.__hgShowBranch" ID="HgProjectHelper.__hgShowBranch"></a>
+<h4>HgProjectHelper.__hgShowBranch</h4>
+<b>__hgShowBranch</b>(<i></i>)
+<p>
+        Private slot used to show the current branch for the project.
+</p>
+
+<a NAME="HgProjectHelper.__hgShowConfig" ID="HgProjectHelper.__hgShowConfig"></a>
+<h4>HgProjectHelper.__hgShowConfig</h4>
+<b>__hgShowConfig</b>(<i></i>)
+<p>
+        Private slot used to show the combined configuration.
+</p>
+
+<a NAME="HgProjectHelper.__hgShowConflicts" ID="HgProjectHelper.__hgShowConflicts"></a>
+<h4>HgProjectHelper.__hgShowConflicts</h4>
+<b>__hgShowConflicts</b>(<i></i>)
+<p>
+        Private slot used to list all files with conflicts.
+</p>
+
+<a NAME="HgProjectHelper.__hgShowPaths" ID="HgProjectHelper.__hgShowPaths"></a>
+<h4>HgProjectHelper.__hgShowPaths</h4>
+<b>__hgShowPaths</b>(<i></i>)
+<p>
+        Private slot used to show the aliases for remote repositories.
+</p>
+
+<a NAME="HgProjectHelper.__hgSummary" ID="HgProjectHelper.__hgSummary"></a>
+<h4>HgProjectHelper.__hgSummary</h4>
+<b>__hgSummary</b>(<i></i>)
+<p>
+        Private slot to show a working directory summary.
+</p>
+
+<a NAME="HgProjectHelper.__hgTagList" ID="HgProjectHelper.__hgTagList"></a>
+<h4>HgProjectHelper.__hgTagList</h4>
+<b>__hgTagList</b>(<i></i>)
+<p>
+        Private slot used to list the tags of the project.
+</p>
+
+<a NAME="HgProjectHelper.__hgTip" ID="HgProjectHelper.__hgTip"></a>
+<h4>HgProjectHelper.__hgTip</h4>
+<b>__hgTip</b>(<i></i>)
+<p>
+        Private slot used to show the tip of the repository.
+</p>
+
+<a NAME="HgProjectHelper.__hgUnbundle" ID="HgProjectHelper.__hgUnbundle"></a>
+<h4>HgProjectHelper.__hgUnbundle</h4>
+<b>__hgUnbundle</b>(<i></i>)
+<p>
+        Private slot used to apply changegroup files.
+</p>
+
+<a NAME="HgProjectHelper.__hgUnresolved" ID="HgProjectHelper.__hgUnresolved"></a>
+<h4>HgProjectHelper.__hgUnresolved</h4>
+<b>__hgUnresolved</b>(<i></i>)
+<p>
+        Private slot used to mark conflicts of the local project as being
+        unresolved.
+</p>
+
+<a NAME="HgProjectHelper.__hgVerify" ID="HgProjectHelper.__hgVerify"></a>
+<h4>HgProjectHelper.__hgVerify</h4>
+<b>__hgVerify</b>(<i></i>)
+<p>
+        Private slot used to verify the integrity of the repository.
+</p>
+
+<a NAME="HgProjectHelper.__showExtensionMenu" ID="HgProjectHelper.__showExtensionMenu"></a>
+<h4>HgProjectHelper.__showExtensionMenu</h4>
+<b>__showExtensionMenu</b>(<i></i>)
+<p>
+        Private slot showing the extensions menu.
+</p>
+
+<a NAME="HgProjectHelper.getActions" ID="HgProjectHelper.getActions"></a>
+<h4>HgProjectHelper.getActions</h4>
+<b>getActions</b>(<i></i>)
+<p>
+        Public method to get a list of all actions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of EricAction
+</dd>
+</dl>
+<a NAME="HgProjectHelper.getProject" ID="HgProjectHelper.getProject"></a>
+<h4>HgProjectHelper.getProject</h4>
+<b>getProject</b>(<i></i>)
+<p>
+        Public method to get a reference to the project object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Project
+</dd>
+</dl>
+<a NAME="HgProjectHelper.initActions" ID="HgProjectHelper.initActions"></a>
+<h4>HgProjectHelper.initActions</h4>
+<b>initActions</b>(<i></i>)
+<p>
+        Public method to generate the action objects.
+</p>
+
+<a NAME="HgProjectHelper.initMenu" ID="HgProjectHelper.initMenu"></a>
+<h4>HgProjectHelper.initMenu</h4>
+<b>initMenu</b>(<i>menu</i>)
+<p>
+        Public method to generate the VCS menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+</dl>
+<a NAME="HgProjectHelper.initToolbar" ID="HgProjectHelper.initToolbar"></a>
+<h4>HgProjectHelper.initToolbar</h4>
+<b>initToolbar</b>(<i>ui, toolbarManager</i>)
+<p>
+        Public slot to initialize the VCS toolbar.
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<a NAME="HgProjectHelper.removeToolbar" ID="HgProjectHelper.removeToolbar"></a>
+<h4>HgProjectHelper.removeToolbar</h4>
+<b>removeToolbar</b>(<i>ui, toolbarManager</i>)
+<p>
+        Public method to remove a toolbar created by initToolbar().
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<a NAME="HgProjectHelper.setObjects" ID="HgProjectHelper.setObjects"></a>
+<h4>HgProjectHelper.setObjects</h4>
+<b>setObjects</b>(<i>vcsObject, projectObject</i>)
+<p>
+        Public method to set references to the vcs and project objects.
+</p>
+
+<dl>
+
+<dt><i>vcsObject</i> (Hg)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>projectObject</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="HgProjectHelper.showMenu" ID="HgProjectHelper.showMenu"></a>
+<h4>HgProjectHelper.showMenu</h4>
+<b>showMenu</b>(<i></i>)
+<p>
+        Public slot called before the vcs menu is shown.
+</p>
+
+<a NAME="HgProjectHelper.shutdown" ID="HgProjectHelper.shutdown"></a>
+<h4>HgProjectHelper.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to perform shutdown actions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.UiExtensionPlugins.Translator.TranslatorEngines.GoogleV1Engine</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.UiExtensionPlugins.Translator.TranslatorEngines.GoogleV1Engine</h1>
+<p>
+Module implementing the Google V1 translation engine.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#GoogleV1Engine">GoogleV1Engine</a></td>
+<td>Class implementing the translation engine for the old Google translation service.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createEngine">createEngine</a></td>
+<td>Function to instantiate a translator engine object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="GoogleV1Engine" ID="GoogleV1Engine"></a>
+<h2>GoogleV1Engine</h2>
+<p>
+    Class implementing the translation engine for the old Google
+    translation service.
+</p>
+
+<h3>Derived from</h3>
+TranslationEngine
+<h3>Class Attributes</h3>
+<table>
+<tr><td>TextToSpeechLimit</td></tr>
+<tr><td>TextToSpeechUrl</td></tr>
+<tr><td>TranslatorUrl</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#GoogleV1Engine.__init__">GoogleV1Engine</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#GoogleV1Engine.engineName">engineName</a></td>
+<td>Public method to return the name of the engine.</td>
+</tr>
+<tr>
+<td><a href="#GoogleV1Engine.getTextToSpeechData">getTextToSpeechData</a></td>
+<td>Public method to pronounce the given text.</td>
+</tr>
+<tr>
+<td><a href="#GoogleV1Engine.getTranslation">getTranslation</a></td>
+<td>Public method to translate the given text.</td>
+</tr>
+<tr>
+<td><a href="#GoogleV1Engine.hasTTS">hasTTS</a></td>
+<td>Public method indicating the Text-to-Speech capability.</td>
+</tr>
+<tr>
+<td><a href="#GoogleV1Engine.supportedLanguages">supportedLanguages</a></td>
+<td>Public method to get the supported languages.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="GoogleV1Engine.__init__" ID="GoogleV1Engine.__init__"></a>
+<h4>GoogleV1Engine (Constructor)</h4>
+<b>GoogleV1Engine</b>(<i>plugin, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>plugin</i> (TranslatorPlugin)</dt>
+<dd>
+reference to the plugin object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="GoogleV1Engine.engineName" ID="GoogleV1Engine.engineName"></a>
+<h4>GoogleV1Engine.engineName</h4>
+<b>engineName</b>(<i></i>)
+<p>
+        Public method to return the name of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+engine name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="GoogleV1Engine.getTextToSpeechData" ID="GoogleV1Engine.getTextToSpeechData"></a>
+<h4>GoogleV1Engine.getTextToSpeechData</h4>
+<b>getTextToSpeechData</b>(<i>requestObject, text, language</i>)
+<p>
+        Public method to pronounce the given text.
+</p>
+
+<dl>
+
+<dt><i>requestObject</i> (TranslatorRequest)</dt>
+<dd>
+reference to the request object
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be pronounced
+</dd>
+<dt><i>language</i> (str)</dt>
+<dd>
+language code of the text
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with pronounce data or error string and success flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (QByteArray or str, bool)
+</dd>
+</dl>
+<a NAME="GoogleV1Engine.getTranslation" ID="GoogleV1Engine.getTranslation"></a>
+<h4>GoogleV1Engine.getTranslation</h4>
+<b>getTranslation</b>(<i>requestObject, text, originalLanguage, translationLanguage</i>)
+<p>
+        Public method to translate the given text.
+</p>
+
+<dl>
+
+<dt><i>requestObject</i> (TranslatorRequest)</dt>
+<dd>
+reference to the request object
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be translated
+</dd>
+<dt><i>originalLanguage</i> (str)</dt>
+<dd>
+language code of the original
+</dd>
+<dt><i>translationLanguage</i> (str)</dt>
+<dd>
+language code of the translation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of translated text and flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, bool)
+</dd>
+</dl>
+<a NAME="GoogleV1Engine.hasTTS" ID="GoogleV1Engine.hasTTS"></a>
+<h4>GoogleV1Engine.hasTTS</h4>
+<b>hasTTS</b>(<i></i>)
+<p>
+        Public method indicating the Text-to-Speech capability.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the Text-to-Speech capability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="GoogleV1Engine.supportedLanguages" ID="GoogleV1Engine.supportedLanguages"></a>
+<h4>GoogleV1Engine.supportedLanguages</h4>
+<b>supportedLanguages</b>(<i></i>)
+<p>
+        Public method to get the supported languages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of supported language codes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createEngine" ID="createEngine"></a>
+<h2>createEngine</h2>
+<b>createEngine</b>(<i>plugin, parent=None</i>)
+<p>
+    Function to instantiate a translator engine object.
+</p>
+
+<dl>
+
+<dt><i>plugin</i> (TranslatorPlugin)</dt>
+<dd>
+reference to the plugin object
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated translator engine object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GoogleV1Engine
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

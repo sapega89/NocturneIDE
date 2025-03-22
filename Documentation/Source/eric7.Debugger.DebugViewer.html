@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Debugger.DebugViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Debugger.DebugViewer</h1>
+<p>
+Module implementing a widget containing various debug related views.
+</p>
+<p>
+The views avaliable are:
+<ul>
+  <li>selector showing all connected debugger backends with associated
+      threads</li>
+  <li>variables viewer for global variables for the selected debug client</li>
+  <li>variables viewer for local variables for the selected debug client</li>
+  <li>call stack viewer for the selected debug client</li>
+  <li>call trace viewer</li>
+  <li>viewer for breakpoints</li>
+  <li>viewer for watch expressions</li>
+  <li>viewer for exceptions</li>
+  <li>viewer for a code disassembly for an exception<li>
+</ul>
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#DebugViewer">DebugViewer</a></td>
+<td>Class implementing a widget containing various debug related views.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="DebugViewer" ID="DebugViewer"></a>
+<h2>DebugViewer</h2>
+<p>
+    Class implementing a widget containing various debug related views.
+</p>
+<p>
+    The individual tabs contain the interpreter shell (optional),
+    the filesystem browser (optional), the two variables viewers
+    (global and local), a breakpoint viewer, a watch expression viewer and
+    the exception logger. Additionally a list of all threads is shown.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>preferencesChanged()</dt>
+<dd>
+emitted to react on changed preferences
+</dd>
+<dt>sourceFile(string, int)</dt>
+<dd>
+emitted to open a source file at a line
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DebuggerStateRole</td></tr>
+<tr><td>StateIcon</td></tr>
+<tr><td>StateMessage</td></tr>
+<tr><td>ThreadIdRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DebugViewer.__init__">DebugViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__addThreadList">__addThreadList</a></td>
+<td>Private method to add the list of threads to a debugger entry.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__callStackFrameSelected">__callStackFrameSelected</a></td>
+<td>Private slot to handle the selection of a call stack entry of the call stack viewer.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__clearStackComboBox">__clearStackComboBox</a></td>
+<td>Private method to clear the given stack combo box.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__clientDebuggerId">__clientDebuggerId</a></td>
+<td>Private slot to receive the ID of a newly connected debugger backend.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__clientException">__clientException</a></td>
+<td>Private method to handle an exception of the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__clientExit">__clientExit</a></td>
+<td>Private method to handle the debugged program terminating.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__clientLine">__clientLine</a></td>
+<td>Private method to handle a change to the current line.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__clientSyntaxError">__clientSyntaxError</a></td>
+<td>Private method to handle a syntax error in the debugged program.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__debuggerSelected">__debuggerSelected</a></td>
+<td>Private slot to handle the selection of a debugger backend in the debuggers list.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__filterStringEdited">__filterStringEdited</a></td>
+<td>Private method to handle the editing of the a variables filter.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__frameSelected">__frameSelected</a></td>
+<td>Private slot to handle the selection of a new stack frame number.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__removeDebugger">__removeDebugger</a></td>
+<td>Private method to remove a debugger given its ID.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__setCurrentDebugger">__setCurrentDebugger</a></td>
+<td>Private method to set the current debugger based on the given ID.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__setDebuggerIconAndState">__setDebuggerIconAndState</a></td>
+<td>Private method to set the icon for a specific debugger ID.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__setThreadIconAndState">__setThreadIconAndState</a></td>
+<td>Private method to set the icon for a specific thread name and debugger ID.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.__showSource">__showSource</a></td>
+<td>Private slot to handle the source button press to show the selected file.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.clearCallTrace">clearCallTrace</a></td>
+<td>Public method to clear the recorded call trace.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.currentWidget">currentWidget</a></td>
+<td>Public method to get a reference to the current widget.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.getSelectedDebuggerId">getSelectedDebuggerId</a></td>
+<td>Public method to get the currently selected debugger ID.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.getSelectedDebuggerState">getSelectedDebuggerState</a></td>
+<td>Public method to get the currently selected debugger's state.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.handleClientStack">handleClientStack</a></td>
+<td>Public slot to show the call stack of the program being debugged.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.handleDebuggingStarted">handleDebuggingStarted</a></td>
+<td>Public slot to handle the start of a debugging session.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot to handle the preferencesChanged signal.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.handleResetUI">handleResetUI</a></td>
+<td>Public method to reset the viewer.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.initCallStackViewer">initCallStackViewer</a></td>
+<td>Public method to initialize the call stack viewer.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.isCallTraceEnabled">isCallTraceEnabled</a></td>
+<td>Public method to get the state of the call trace function.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.isOnlyDebugger">isOnlyDebugger</a></td>
+<td>Public method to test, if only one debugger is connected.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.refreshVariablesLists">refreshVariablesLists</a></td>
+<td>Public slot to refresh the local and global variables lists.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.setCallTraceToProjectMode">setCallTraceToProjectMode</a></td>
+<td>Public slot to set the call trace viewer to project mode.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.setCurrentWidget">setCurrentWidget</a></td>
+<td>Public slot to set the current page based on the given widget.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.setDebugger">setDebugger</a></td>
+<td>Public method to set a reference to the Debug UI.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.setGlobalsFilter">setGlobalsFilter</a></td>
+<td>Public slot to set the global variable filter.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.setLocalsFilter">setLocalsFilter</a></td>
+<td>Public slot to set the local variable filter.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.setVariablesFilter">setVariablesFilter</a></td>
+<td>Public slot to set the local variables filter.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.showVariable">showVariable</a></td>
+<td>Public method to show the variables in the respective window.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.showVariables">showVariables</a></td>
+<td>Public method to show the variables in the respective window.</td>
+</tr>
+<tr>
+<td><a href="#DebugViewer.showVariablesTab">showVariablesTab</a></td>
+<td>Public method to make a variables tab visible.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DebugViewer.__init__" ID="DebugViewer.__init__"></a>
+<h4>DebugViewer (Constructor)</h4>
+<b>DebugViewer</b>(<i>debugServer, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>debugServer</i> (DebugServer)</dt>
+<dd>
+reference to the debug server object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="DebugViewer.__addThreadList" ID="DebugViewer.__addThreadList"></a>
+<h4>DebugViewer.__addThreadList</h4>
+<b>__addThreadList</b>(<i>currentID, threadList, debuggerId</i>)
+<p>
+        Private method to add the list of threads to a debugger entry.
+</p>
+
+<dl>
+
+<dt><i>currentID</i> (int)</dt>
+<dd>
+id of the current thread
+</dd>
+<dt><i>threadList</i> (list of dict)</dt>
+<dd>
+list of dictionaries containing the thread data
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugViewer.__callStackFrameSelected" ID="DebugViewer.__callStackFrameSelected"></a>
+<h4>DebugViewer.__callStackFrameSelected</h4>
+<b>__callStackFrameSelected</b>(<i>frameNo</i>)
+<p>
+        Private slot to handle the selection of a call stack entry of the
+        call stack viewer.
+</p>
+
+<dl>
+
+<dt><i>frameNo</i> (int)</dt>
+<dd>
+frame number (index) of the selected entry
+</dd>
+</dl>
+<a NAME="DebugViewer.__clearStackComboBox" ID="DebugViewer.__clearStackComboBox"></a>
+<h4>DebugViewer.__clearStackComboBox</h4>
+<b>__clearStackComboBox</b>(<i>comboBox</i>)
+<p>
+        Private method to clear the given stack combo box.
+</p>
+
+<dl>
+
+<dt><i>comboBox</i> (QComboBox)</dt>
+<dd>
+reference to the combo box to be cleared
+</dd>
+</dl>
+<a NAME="DebugViewer.__clientDebuggerId" ID="DebugViewer.__clientDebuggerId"></a>
+<h4>DebugViewer.__clientDebuggerId</h4>
+<b>__clientDebuggerId</b>(<i>debuggerId</i>)
+<p>
+        Private slot to receive the ID of a newly connected debugger backend.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of a newly connected debugger backend
+</dd>
+</dl>
+<a NAME="DebugViewer.__clientException" ID="DebugViewer.__clientException"></a>
+<h4>DebugViewer.__clientException</h4>
+<b>__clientException</b>(<i>_exceptionType, _exceptionMessage, _stackTrace, debuggerId, threadName, </i>)
+<p>
+        Private method to handle an exception of the debugged program.
+</p>
+
+<dl>
+
+<dt><i>_exceptionType</i> (str)</dt>
+<dd>
+type of exception raised (unused)
+</dd>
+<dt><i>_exceptionMessage</i> ((str)</dt>
+<dd>
+message given by the exception (unused)
+</dd>
+<dt><i>_stackTrace</i> (list of str)</dt>
+<dd>
+list of stack entries (unused)
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread signaling the event
+</dd>
+</dl>
+<a NAME="DebugViewer.__clientExit" ID="DebugViewer.__clientExit"></a>
+<h4>DebugViewer.__clientExit</h4>
+<b>__clientExit</b>(<i>_program, _status, _message, _quiet, debuggerId</i>)
+<p>
+        Private method to handle the debugged program terminating.
+</p>
+
+<dl>
+
+<dt><i>_program</i> (str)</dt>
+<dd>
+name of the exited program (unused)
+</dd>
+<dt><i>_status</i> (int)</dt>
+<dd>
+exit code of the debugged program (unused)
+</dd>
+<dt><i>_message</i> (str)</dt>
+<dd>
+exit message of the debugged program (unused)
+</dd>
+<dt><i>_quiet</i> (bool)</dt>
+<dd>
+flag indicating to suppress exit info display (unused)
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugViewer.__clientLine" ID="DebugViewer.__clientLine"></a>
+<h4>DebugViewer.__clientLine</h4>
+<b>__clientLine</b>(<i>_fn, _line, debuggerId, threadName</i>)
+<p>
+        Private method to handle a change to the current line.
+</p>
+
+<dl>
+
+<dt><i>_fn</i> (str)</dt>
+<dd>
+filename (unused)
+</dd>
+<dt><i>_line</i> (int)</dt>
+<dd>
+linenumber (unused)
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread signaling the event
+</dd>
+</dl>
+<a NAME="DebugViewer.__clientSyntaxError" ID="DebugViewer.__clientSyntaxError"></a>
+<h4>DebugViewer.__clientSyntaxError</h4>
+<b>__clientSyntaxError</b>(<i>_message, _filename, _lineNo, _characterNo, debuggerId, threadName, </i>)
+<p>
+        Private method to handle a syntax error in the debugged program.
+</p>
+
+<dl>
+
+<dt><i>_message</i> (str)</dt>
+<dd>
+message of the syntax error (unused)
+</dd>
+<dt><i>_filename</i> (str)</dt>
+<dd>
+translated filename of the syntax error position (unused)
+</dd>
+<dt><i>_lineNo</i> (int)</dt>
+<dd>
+line number of the syntax error position (unused)
+</dd>
+<dt><i>_characterNo</i> (int)</dt>
+<dd>
+character number of the syntax error position (unused)
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread signaling the event
+</dd>
+</dl>
+<a NAME="DebugViewer.__debuggerSelected" ID="DebugViewer.__debuggerSelected"></a>
+<h4>DebugViewer.__debuggerSelected</h4>
+<b>__debuggerSelected</b>(<i>current, _previous</i>)
+<p>
+        Private slot to handle the selection of a debugger backend in the
+        debuggers list.
+</p>
+
+<dl>
+
+<dt><i>current</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the new current item
+</dd>
+<dt><i>_previous</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the previous current item (unused)
+</dd>
+</dl>
+<a NAME="DebugViewer.__filterStringEdited" ID="DebugViewer.__filterStringEdited"></a>
+<h4>DebugViewer.__filterStringEdited</h4>
+<b>__filterStringEdited</b>(<i>globalsFilter</i>)
+<p>
+        Private method to handle the editing of the a variables filter.
+</p>
+
+<dl>
+
+<dt><i>globalsFilter</i> (bool)</dt>
+<dd>
+flag indicating the globals filter was edited
+</dd>
+</dl>
+<a NAME="DebugViewer.__frameSelected" ID="DebugViewer.__frameSelected"></a>
+<h4>DebugViewer.__frameSelected</h4>
+<b>__frameSelected</b>(<i>frmnr</i>)
+<p>
+        Private slot to handle the selection of a new stack frame number.
+</p>
+
+<dl>
+
+<dt><i>frmnr</i> (int)</dt>
+<dd>
+frame number (0 is the current frame)
+</dd>
+</dl>
+<a NAME="DebugViewer.__removeDebugger" ID="DebugViewer.__removeDebugger"></a>
+<h4>DebugViewer.__removeDebugger</h4>
+<b>__removeDebugger</b>(<i>debuggerId</i>)
+<p>
+        Private method to remove a debugger given its ID.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger to be removed from the list
+</dd>
+</dl>
+<a NAME="DebugViewer.__setCurrentDebugger" ID="DebugViewer.__setCurrentDebugger"></a>
+<h4>DebugViewer.__setCurrentDebugger</h4>
+<b>__setCurrentDebugger</b>(<i>debuggerId</i>)
+<p>
+        Private method to set the current debugger based on the given ID.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger to set as current debugger
+</dd>
+</dl>
+<a NAME="DebugViewer.__setDebuggerIconAndState" ID="DebugViewer.__setDebuggerIconAndState"></a>
+<h4>DebugViewer.__setDebuggerIconAndState</h4>
+<b>__setDebuggerIconAndState</b>(<i>debuggerId, state</i>)
+<p>
+        Private method to set the icon for a specific debugger ID.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend (empty ID means the
+            currently selected one)
+</dd>
+<dt><i>state</i> (str)</dt>
+<dd>
+state of the debugger (broken, exception, running)
+</dd>
+</dl>
+<a NAME="DebugViewer.__setThreadIconAndState" ID="DebugViewer.__setThreadIconAndState"></a>
+<h4>DebugViewer.__setThreadIconAndState</h4>
+<b>__setThreadIconAndState</b>(<i>debuggerId, threadName, state</i>)
+<p>
+        Private method to set the icon for a specific thread name and
+        debugger ID.
+</p>
+
+<dl>
+
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend (empty ID means the
+            currently selected one)
+</dd>
+<dt><i>threadName</i> (str)</dt>
+<dd>
+name of the thread signaling the event
+</dd>
+<dt><i>state</i> (str)</dt>
+<dd>
+state of the debugger (broken, exception, running)
+</dd>
+</dl>
+<a NAME="DebugViewer.__showSource" ID="DebugViewer.__showSource"></a>
+<h4>DebugViewer.__showSource</h4>
+<b>__showSource</b>(<i></i>)
+<p>
+        Private slot to handle the source button press to show the selected
+        file.
+</p>
+
+<a NAME="DebugViewer.clearCallTrace" ID="DebugViewer.clearCallTrace"></a>
+<h4>DebugViewer.clearCallTrace</h4>
+<b>clearCallTrace</b>(<i></i>)
+<p>
+        Public method to clear the recorded call trace.
+</p>
+
+<a NAME="DebugViewer.currentWidget" ID="DebugViewer.currentWidget"></a>
+<h4>DebugViewer.currentWidget</h4>
+<b>currentWidget</b>(<i></i>)
+<p>
+        Public method to get a reference to the current widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<a NAME="DebugViewer.getSelectedDebuggerId" ID="DebugViewer.getSelectedDebuggerId"></a>
+<h4>DebugViewer.getSelectedDebuggerId</h4>
+<b>getSelectedDebuggerId</b>(<i></i>)
+<p>
+        Public method to get the currently selected debugger ID.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected debugger ID
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugViewer.getSelectedDebuggerState" ID="DebugViewer.getSelectedDebuggerState"></a>
+<h4>DebugViewer.getSelectedDebuggerState</h4>
+<b>getSelectedDebuggerState</b>(<i></i>)
+<p>
+        Public method to get the currently selected debugger's state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected debugger's state (broken, exception, running)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DebugViewer.handleClientStack" ID="DebugViewer.handleClientStack"></a>
+<h4>DebugViewer.handleClientStack</h4>
+<b>handleClientStack</b>(<i>stack, debuggerId</i>)
+<p>
+        Public slot to show the call stack of the program being debugged.
+</p>
+
+<dl>
+
+<dt><i>stack</i> (list of tuples of (str, str, str, str))</dt>
+<dd>
+list of tuples with call stack data (file name,
+            line number, function name, formatted argument/values list)
+</dd>
+<dt><i>debuggerId</i> (str)</dt>
+<dd>
+ID of the debugger backend
+</dd>
+</dl>
+<a NAME="DebugViewer.handleDebuggingStarted" ID="DebugViewer.handleDebuggingStarted"></a>
+<h4>DebugViewer.handleDebuggingStarted</h4>
+<b>handleDebuggingStarted</b>(<i></i>)
+<p>
+        Public slot to handle the start of a debugging session.
+</p>
+<p>
+        This slot sets the variables filter expressions.
+</p>
+
+<a NAME="DebugViewer.handlePreferencesChanged" ID="DebugViewer.handlePreferencesChanged"></a>
+<h4>DebugViewer.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle the preferencesChanged signal.
+</p>
+
+<a NAME="DebugViewer.handleResetUI" ID="DebugViewer.handleResetUI"></a>
+<h4>DebugViewer.handleResetUI</h4>
+<b>handleResetUI</b>(<i>fullReset</i>)
+<p>
+        Public method to reset the viewer.
+</p>
+
+<dl>
+
+<dt><i>fullReset</i> (bool)</dt>
+<dd>
+flag indicating a full reset is required
+</dd>
+</dl>
+<a NAME="DebugViewer.initCallStackViewer" ID="DebugViewer.initCallStackViewer"></a>
+<h4>DebugViewer.initCallStackViewer</h4>
+<b>initCallStackViewer</b>(<i>projectMode</i>)
+<p>
+        Public method to initialize the call stack viewer.
+</p>
+
+<dl>
+
+<dt><i>projectMode</i> (bool)</dt>
+<dd>
+flag indicating to enable the project mode
+</dd>
+</dl>
+<a NAME="DebugViewer.isCallTraceEnabled" ID="DebugViewer.isCallTraceEnabled"></a>
+<h4>DebugViewer.isCallTraceEnabled</h4>
+<b>isCallTraceEnabled</b>(<i></i>)
+<p>
+        Public method to get the state of the call trace function.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the state of the call trace function
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebugViewer.isOnlyDebugger" ID="DebugViewer.isOnlyDebugger"></a>
+<h4>DebugViewer.isOnlyDebugger</h4>
+<b>isOnlyDebugger</b>(<i></i>)
+<p>
+        Public method to test, if only one debugger is connected.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that only one debugger is connected
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DebugViewer.refreshVariablesLists" ID="DebugViewer.refreshVariablesLists"></a>
+<h4>DebugViewer.refreshVariablesLists</h4>
+<b>refreshVariablesLists</b>(<i></i>)
+<p>
+        Public slot to refresh the local and global variables lists.
+</p>
+
+<a NAME="DebugViewer.setCallTraceToProjectMode" ID="DebugViewer.setCallTraceToProjectMode"></a>
+<h4>DebugViewer.setCallTraceToProjectMode</h4>
+<b>setCallTraceToProjectMode</b>(<i>enabled</i>)
+<p>
+        Public slot to set the call trace viewer to project mode.
+</p>
+<p>
+        In project mode the call trace info is shown with project relative
+        path names.
+</p>
+
+<dl>
+
+<dt><i>enabled</i> (bool)</dt>
+<dd>
+flag indicating to enable the project mode
+</dd>
+</dl>
+<a NAME="DebugViewer.setCurrentWidget" ID="DebugViewer.setCurrentWidget"></a>
+<h4>DebugViewer.setCurrentWidget</h4>
+<b>setCurrentWidget</b>(<i>widget</i>)
+<p>
+        Public slot to set the current page based on the given widget.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget
+</dd>
+</dl>
+<a NAME="DebugViewer.setDebugger" ID="DebugViewer.setDebugger"></a>
+<h4>DebugViewer.setDebugger</h4>
+<b>setDebugger</b>(<i>debugUI</i>)
+<p>
+        Public method to set a reference to the Debug UI.
+</p>
+
+<dl>
+
+<dt><i>debugUI</i> (DebugUI)</dt>
+<dd>
+reference to the DebugUI object
+</dd>
+</dl>
+<a NAME="DebugViewer.setGlobalsFilter" ID="DebugViewer.setGlobalsFilter"></a>
+<h4>DebugViewer.setGlobalsFilter</h4>
+<b>setGlobalsFilter</b>(<i></i>)
+<p>
+        Public slot to set the global variable filter.
+</p>
+
+<a NAME="DebugViewer.setLocalsFilter" ID="DebugViewer.setLocalsFilter"></a>
+<h4>DebugViewer.setLocalsFilter</h4>
+<b>setLocalsFilter</b>(<i></i>)
+<p>
+        Public slot to set the local variable filter.
+</p>
+
+<a NAME="DebugViewer.setVariablesFilter" ID="DebugViewer.setVariablesFilter"></a>
+<h4>DebugViewer.setVariablesFilter</h4>
+<b>setVariablesFilter</b>(<i>globalsFilter, localsFilter</i>)
+<p>
+        Public slot to set the local variables filter.
+</p>
+
+<dl>
+
+<dt><i>globalsFilter</i> (list of str)</dt>
+<dd>
+filter list for global variable types
+</dd>
+<dt><i>localsFilter</i> (list of str)</dt>
+<dd>
+filter list for local variable types
+</dd>
+</dl>
+<a NAME="DebugViewer.showVariable" ID="DebugViewer.showVariable"></a>
+<h4>DebugViewer.showVariable</h4>
+<b>showVariable</b>(<i>vlist, showGlobals</i>)
+<p>
+        Public method to show the variables in the respective window.
+</p>
+
+<dl>
+
+<dt><i>vlist</i> (list)</dt>
+<dd>
+list of variables to display
+</dd>
+<dt><i>showGlobals</i> (bool)</dt>
+<dd>
+flag indicating global/local state
+</dd>
+</dl>
+<a NAME="DebugViewer.showVariables" ID="DebugViewer.showVariables"></a>
+<h4>DebugViewer.showVariables</h4>
+<b>showVariables</b>(<i>vlist, showGlobals</i>)
+<p>
+        Public method to show the variables in the respective window.
+</p>
+
+<dl>
+
+<dt><i>vlist</i> (list)</dt>
+<dd>
+list of variables to display
+</dd>
+<dt><i>showGlobals</i> (bool)</dt>
+<dd>
+flag indicating global/local state
+</dd>
+</dl>
+<a NAME="DebugViewer.showVariablesTab" ID="DebugViewer.showVariablesTab"></a>
+<h4>DebugViewer.showVariablesTab</h4>
+<b>showVariablesTab</b>(<i>showGlobals</i>)
+<p>
+        Public method to make a variables tab visible.
+</p>
+
+<dl>
+
+<dt><i>showGlobals</i> (bool)</dt>
+<dd>
+flag indicating global/local state
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.PipInterface.PipPackagesWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.PipInterface.PipPackagesWidget</h1>
+<p>
+Module implementing the pip packages management widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PipPackageInformationMode">PipPackageInformationMode</a></td>
+<td>Class defining the show information process modes.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget">PipPackagesWidget</a></td>
+<td>Class implementing the pip packages management widget.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PipPackageInformationMode" ID="PipPackageInformationMode"></a>
+<h2>PipPackageInformationMode</h2>
+<p>
+    Class defining the show information process modes.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Classifiers</td></tr>
+<tr><td>EntryPoints</td></tr>
+<tr><td>FilesList</td></tr>
+<tr><td>General</td></tr>
+<tr><td>UrlsList</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="PipPackagesWidget" ID="PipPackagesWidget"></a>
+<h2>PipPackagesWidget</h2>
+<p>
+    Class implementing the pip packages management widget.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_PipPackagesWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AvailableVersionColumn</td></tr>
+<tr><td>DepInstalledVersionColumn</td></tr>
+<tr><td>DepPackageColumn</td></tr>
+<tr><td>DepRequiredVersionColumn</td></tr>
+<tr><td>InstalledVersionColumn</td></tr>
+<tr><td>PackageColumn</td></tr>
+<tr><td>SearchVersionRole</td></tr>
+<tr><td>VulnerabilityColumn</td></tr>
+<tr><td>VulnerabilityRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PipPackagesWidget.__init__">PipPackagesWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__aboutToShowPipMenu">__aboutToShowPipMenu</a></td>
+<td>Private slot to set the action enabled status.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__addDependency">__addDependency</a></td>
+<td>Private method to add a dependency branch to a given parent.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__allPackageNames">__allPackageNames</a></td>
+<td>Private method to get a list of all package names.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__allUpdateableItems">__allUpdateableItems</a></td>
+<td>Private method to get a list of all items that can be updated.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__availablePipVersion">__availablePipVersion</a></td>
+<td>Private method to get the pip version of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__checkVulnerability">__checkVulnerability</a></td>
+<td>Private slot to update and show the vulnerability data (called from the menu).</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__clearVulnerabilityInfo">__clearVulnerabilityInfo</a></td>
+<td>Private slot to clear the vulnerability info.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__createSBOMFile">__createSBOMFile</a></td>
+<td>Private slot to create a "Software Bill Of Material" file.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__editConfiguration">__editConfiguration</a></td>
+<td>Private method to edit a configuration.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__editUserConfiguration">__editUserConfiguration</a></td>
+<td>Private slot to edit the user configuration.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__editVirtualenvConfiguration">__editVirtualenvConfiguration</a></td>
+<td>Private slot to edit the configuration of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__generateConstraints">__generateConstraints</a></td>
+<td>Private slot to generate the contents for a constraints file.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__generateRequirements">__generateRequirements</a></td>
+<td>Private slot to generate the contents for a requirements file.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__initPipMenu">__initPipMenu</a></td>
+<td>Private method to create the super menu and attach it to the super menu button.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__installLocalPackage">__installLocalPackage</a></td>
+<td>Private slot to install a package available on local storage.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__installPackages">__installPackages</a></td>
+<td>Private slot to install packages to be given by the user.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__installPip">__installPip</a></td>
+<td>Private slot to install pip into the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__installPipUser">__installPipUser</a></td>
+<td>Private slot to install pip into the user site for the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__installPyprojectDependencies">__installPyprojectDependencies</a></td>
+<td>Private slot to install packages as given in a 'pyproject.toml' file.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__installRequirements">__installRequirements</a></td>
+<td>Private slot to install packages as given in a requirements file.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__isPipAvailable">__isPipAvailable</a></td>
+<td>Private method to check, if the pip package is available for the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__pipConfigure">__pipConfigure</a></td>
+<td>Private slot to open the configuration page.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__populateEnvironments">__populateEnvironments</a></td>
+<td>Private method to get a list of environments and populate the selector.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__projectClosed">__projectClosed</a></td>
+<td>Private slot to handle the projectClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__projectOpened">__projectOpened</a></td>
+<td>Private slot to handle the projectOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__purgeCache">__purgeCache</a></td>
+<td>Private slot to empty the pip cache.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__refreshDependencyTree">__refreshDependencyTree</a></td>
+<td>Private method to refresh the dependency tree.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__refreshPackagesList">__refreshPackagesList</a></td>
+<td>Private method to refresh the packages list.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__reinstallPackages">__reinstallPackages</a></td>
+<td>Private slot to force a re-installation of the selected packages.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__removeCachedFiles">__removeCachedFiles</a></td>
+<td>Private slot to remove files from the pip cache.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__repairPip">__repairPip</a></td>
+<td>Private slot to repair the pip installation of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__selectedUpdateableItems">__selectedUpdateableItems</a></td>
+<td>Private method to get a list of selected items that can be updated.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__showCacheInfo">__showCacheInfo</a></td>
+<td>Private slot to show information about the cache.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__showCacheList">__showCacheList</a></td>
+<td>Private slot to show a list of cached files.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__showLicensesDialog">__showLicensesDialog</a></td>
+<td>Private slot to show a dialog with the licenses of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__showPackageDetails">__showPackageDetails</a></td>
+<td>Private method to populate the package details dialog.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__showPackageInformation">__showPackageInformation</a></td>
+<td>Private method to show information for a package.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__showVulnerabilityInformation">__showVulnerabilityInformation</a></td>
+<td>Private method to show the detected vulnerability data.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__uninstallPyprojectDependencies">__uninstallPyprojectDependencies</a></td>
+<td>Private slot to uninstall packages as given in a 'pyproject.toml' file.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__uninstallRequirements">__uninstallRequirements</a></td>
+<td>Private slot to uninstall packages as given in a requirements file.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__updateActionButtons">__updateActionButtons</a></td>
+<td>Private method to set the state of the action buttons.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__updateDepActionButtons">__updateDepActionButtons</a></td>
+<td>Private method to set the state of the dependency page action buttons.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__updateOutdatedInfo">__updateOutdatedInfo</a></td>
+<td>Private method to process the list of outdated packages.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__updateVulnerabilityData">__updateVulnerabilityData</a></td>
+<td>Private slot to update the shown vulnerability info.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.__updateVulnerabilityDbCache">__updateVulnerabilityDbCache</a></td>
+<td>Private slot to initiate an update of the local cache of the vulnerability database.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.executeInstallPackages">executeInstallPackages</a></td>
+<td>Public method to install the given list of packages.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.executeUninstallPackages">executeUninstallPackages</a></td>
+<td>Public method to uninstall the given list of packages.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.executeUpgradePackages">executeUpgradePackages</a></td>
+<td>Public method to execute the pip upgrade command.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.getPip">getPip</a></td>
+<td>Public method to get a reference to the pip interface object.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_cleanupButton_clicked">on_cleanupButton_clicked</a></td>
+<td>Private slot to cleanup the site-packages directory of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_dependenciesList_itemActivated">on_dependenciesList_itemActivated</a></td>
+<td>Private slot reacting on a package item of the dependency tree being activated.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_dependenciesList_itemPressed">on_dependenciesList_itemPressed</a></td>
+<td>Private slot reacting on a package item of the dependency tree being pressed.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_dependenciesList_itemSelectionChanged">on_dependenciesList_itemSelectionChanged</a></td>
+<td>Private slot reacting on a change of selected items of the dependency tree.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_dependencyRepairAllButton_clicked">on_dependencyRepairAllButton_clicked</a></td>
+<td>Private slot to repair all dependencies.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_dependencyRepairButton_clicked">on_dependencyRepairButton_clicked</a></td>
+<td>Private slot to repair all selected dependencies.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_environmentsComboBox_currentTextChanged">on_environmentsComboBox_currentTextChanged</a></td>
+<td>Private slot handling the selection of a Python environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_installedFilesCheckBox_clicked">on_installedFilesCheckBox_clicked</a></td>
+<td>Private slot to handle a change of the installed files information checkbox.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_localCheckBox_clicked">on_localCheckBox_clicked</a></td>
+<td>Private slot handling the switching of the local mode.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_localDepCheckBox_clicked">on_localDepCheckBox_clicked</a></td>
+<td>Private slot handling the switching of the local mode.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_notRequiredCheckBox_clicked">on_notRequiredCheckBox_clicked</a></td>
+<td>Private slot handling the switching of the 'not required' mode.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_packagesList_itemActivated">on_packagesList_itemActivated</a></td>
+<td>Private slot reacting on a package item being activated.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_packagesList_itemSelectionChanged">on_packagesList_itemSelectionChanged</a></td>
+<td>Private slot reacting on a change of selected items.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the display.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_refreshDependenciesButton_clicked">on_refreshDependenciesButton_clicked</a></td>
+<td>Private slot to refresh the dependency tree.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_requiresButton_toggled">on_requiresButton_toggled</a></td>
+<td>Private slot handling the selection of the view type.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_searchButton_clicked">on_searchButton_clicked</a></td>
+<td>Private slot to open a web browser for package searching.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_searchEdit_returnPressed">on_searchEdit_returnPressed</a></td>
+<td>Private slot to handle the press of the Return key in the search line edit.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_showDepPackageDetailsButton_clicked">on_showDepPackageDetailsButton_clicked</a></td>
+<td>Private slot to show information for the selected package of the dependency tree.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_showPackageDetailsButton_clicked">on_showPackageDetailsButton_clicked</a></td>
+<td>Private slot to show information for the selected package.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_uninstallButton_clicked">on_uninstallButton_clicked</a></td>
+<td>Private slot to remove selected packages of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_upgradeAllButton_clicked">on_upgradeAllButton_clicked</a></td>
+<td>Private slot to upgrade all packages of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_upgradeButton_clicked">on_upgradeButton_clicked</a></td>
+<td>Private slot to upgrade selected packages of the selected environment.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_userCheckBox_clicked">on_userCheckBox_clicked</a></td>
+<td>Private slot handling the switching of the 'user-site' mode.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_userDepCheckBox_clicked">on_userDepCheckBox_clicked</a></td>
+<td>Private slot handling the switching of the 'user-site' mode.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_verboseCheckBox_clicked">on_verboseCheckBox_clicked</a></td>
+<td>Private slot to handle a change of the verbose package information checkbox.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_viewToggleButton_toggled">on_viewToggleButton_toggled</a></td>
+<td>Private slot handling the view selection.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.on_vulnerabilityCheckBox_clicked">on_vulnerabilityCheckBox_clicked</a></td>
+<td>Private slot handling a change of the automatic vulnerability checks.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.preferencesChanged">preferencesChanged</a></td>
+<td>Public slot to handle a change of preferences.</td>
+</tr>
+<tr>
+<td><a href="#PipPackagesWidget.setVulnerabilityEnabled">setVulnerabilityEnabled</a></td>
+<td>Public slot to set the enabled state of the vulnerability checks.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PipPackagesWidget.__init__" ID="PipPackagesWidget.__init__"></a>
+<h4>PipPackagesWidget (Constructor)</h4>
+<b>PipPackagesWidget</b>(<i>pip, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>pip</i> (Pip)</dt>
+<dd>
+reference to the global pip interface
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__aboutToShowPipMenu" ID="PipPackagesWidget.__aboutToShowPipMenu"></a>
+<h4>PipPackagesWidget.__aboutToShowPipMenu</h4>
+<b>__aboutToShowPipMenu</b>(<i></i>)
+<p>
+        Private slot to set the action enabled status.
+</p>
+
+<a NAME="PipPackagesWidget.__addDependency" ID="PipPackagesWidget.__addDependency"></a>
+<h4>PipPackagesWidget.__addDependency</h4>
+<b>__addDependency</b>(<i>dependency, parent</i>)
+<p>
+        Private method to add a dependency branch to a given parent.
+</p>
+
+<dl>
+
+<dt><i>dependency</i> (dict)</dt>
+<dd>
+dependency to be added
+</dd>
+<dt><i>parent</i> (QTreeWidget or QTreeWidgetItem)</dt>
+<dd>
+reference to the parent item
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__allPackageNames" ID="PipPackagesWidget.__allPackageNames"></a>
+<h4>PipPackagesWidget.__allPackageNames</h4>
+<b>__allPackageNames</b>(<i></i>)
+<p>
+        Private method to get a list of all package names.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all package names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__allUpdateableItems" ID="PipPackagesWidget.__allUpdateableItems"></a>
+<h4>PipPackagesWidget.__allUpdateableItems</h4>
+<b>__allUpdateableItems</b>(<i></i>)
+<p>
+        Private method to get a list of all items that can be updated.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items that can be updated
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__availablePipVersion" ID="PipPackagesWidget.__availablePipVersion"></a>
+<h4>PipPackagesWidget.__availablePipVersion</h4>
+<b>__availablePipVersion</b>(<i></i>)
+<p>
+        Private method to get the pip version of the selected environment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the version number or tuple with all zeros
+            in case pip is not available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of int
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__checkVulnerability" ID="PipPackagesWidget.__checkVulnerability"></a>
+<h4>PipPackagesWidget.__checkVulnerability</h4>
+<b>__checkVulnerability</b>(<i></i>)
+<p>
+        Private slot to update and show the vulnerability data (called from the menu).
+</p>
+
+<a NAME="PipPackagesWidget.__clearVulnerabilityInfo" ID="PipPackagesWidget.__clearVulnerabilityInfo"></a>
+<h4>PipPackagesWidget.__clearVulnerabilityInfo</h4>
+<b>__clearVulnerabilityInfo</b>(<i></i>)
+<p>
+        Private slot to clear the vulnerability info.
+</p>
+
+<a NAME="PipPackagesWidget.__createSBOMFile" ID="PipPackagesWidget.__createSBOMFile"></a>
+<h4>PipPackagesWidget.__createSBOMFile</h4>
+<b>__createSBOMFile</b>(<i></i>)
+<p>
+        Private slot to create a "Software Bill Of Material" file.
+</p>
+
+<a NAME="PipPackagesWidget.__editConfiguration" ID="PipPackagesWidget.__editConfiguration"></a>
+<h4>PipPackagesWidget.__editConfiguration</h4>
+<b>__editConfiguration</b>(<i>venvName=""</i>)
+<p>
+        Private method to edit a configuration.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the environment to act upon
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__editUserConfiguration" ID="PipPackagesWidget.__editUserConfiguration"></a>
+<h4>PipPackagesWidget.__editUserConfiguration</h4>
+<b>__editUserConfiguration</b>(<i></i>)
+<p>
+        Private slot to edit the user configuration.
+</p>
+
+<a NAME="PipPackagesWidget.__editVirtualenvConfiguration" ID="PipPackagesWidget.__editVirtualenvConfiguration"></a>
+<h4>PipPackagesWidget.__editVirtualenvConfiguration</h4>
+<b>__editVirtualenvConfiguration</b>(<i></i>)
+<p>
+        Private slot to edit the configuration of the selected environment.
+</p>
+
+<a NAME="PipPackagesWidget.__generateConstraints" ID="PipPackagesWidget.__generateConstraints"></a>
+<h4>PipPackagesWidget.__generateConstraints</h4>
+<b>__generateConstraints</b>(<i></i>)
+<p>
+        Private slot to generate the contents for a constraints file.
+</p>
+
+<a NAME="PipPackagesWidget.__generateRequirements" ID="PipPackagesWidget.__generateRequirements"></a>
+<h4>PipPackagesWidget.__generateRequirements</h4>
+<b>__generateRequirements</b>(<i></i>)
+<p>
+        Private slot to generate the contents for a requirements file.
+</p>
+
+<a NAME="PipPackagesWidget.__initPipMenu" ID="PipPackagesWidget.__initPipMenu"></a>
+<h4>PipPackagesWidget.__initPipMenu</h4>
+<b>__initPipMenu</b>(<i></i>)
+<p>
+        Private method to create the super menu and attach it to the super
+        menu button.
+</p>
+
+<a NAME="PipPackagesWidget.__installLocalPackage" ID="PipPackagesWidget.__installLocalPackage"></a>
+<h4>PipPackagesWidget.__installLocalPackage</h4>
+<b>__installLocalPackage</b>(<i></i>)
+<p>
+        Private slot to install a package available on local storage.
+</p>
+
+<a NAME="PipPackagesWidget.__installPackages" ID="PipPackagesWidget.__installPackages"></a>
+<h4>PipPackagesWidget.__installPackages</h4>
+<b>__installPackages</b>(<i></i>)
+<p>
+        Private slot to install packages to be given by the user.
+</p>
+
+<a NAME="PipPackagesWidget.__installPip" ID="PipPackagesWidget.__installPip"></a>
+<h4>PipPackagesWidget.__installPip</h4>
+<b>__installPip</b>(<i></i>)
+<p>
+        Private slot to install pip into the selected environment.
+</p>
+
+<a NAME="PipPackagesWidget.__installPipUser" ID="PipPackagesWidget.__installPipUser"></a>
+<h4>PipPackagesWidget.__installPipUser</h4>
+<b>__installPipUser</b>(<i></i>)
+<p>
+        Private slot to install pip into the user site for the selected
+        environment.
+</p>
+
+<a NAME="PipPackagesWidget.__installPyprojectDependencies" ID="PipPackagesWidget.__installPyprojectDependencies"></a>
+<h4>PipPackagesWidget.__installPyprojectDependencies</h4>
+<b>__installPyprojectDependencies</b>(<i></i>)
+<p>
+        Private slot to install packages as given in a 'pyproject.toml' file.
+</p>
+
+<a NAME="PipPackagesWidget.__installRequirements" ID="PipPackagesWidget.__installRequirements"></a>
+<h4>PipPackagesWidget.__installRequirements</h4>
+<b>__installRequirements</b>(<i></i>)
+<p>
+        Private slot to install packages as given in a requirements file.
+</p>
+
+<a NAME="PipPackagesWidget.__isPipAvailable" ID="PipPackagesWidget.__isPipAvailable"></a>
+<h4>PipPackagesWidget.__isPipAvailable</h4>
+<b>__isPipAvailable</b>(<i></i>)
+<p>
+        Private method to check, if the pip package is available for the
+        selected environment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating availability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__pipConfigure" ID="PipPackagesWidget.__pipConfigure"></a>
+<h4>PipPackagesWidget.__pipConfigure</h4>
+<b>__pipConfigure</b>(<i></i>)
+<p>
+        Private slot to open the configuration page.
+</p>
+
+<a NAME="PipPackagesWidget.__populateEnvironments" ID="PipPackagesWidget.__populateEnvironments"></a>
+<h4>PipPackagesWidget.__populateEnvironments</h4>
+<b>__populateEnvironments</b>(<i></i>)
+<p>
+        Private method to get a list of environments and populate the selector.
+</p>
+
+<a NAME="PipPackagesWidget.__projectClosed" ID="PipPackagesWidget.__projectClosed"></a>
+<h4>PipPackagesWidget.__projectClosed</h4>
+<b>__projectClosed</b>(<i>shutdown</i>)
+<p>
+        Private slot to handle the projectClosed signal.
+</p>
+
+<dl>
+
+<dt><i>shutdown</i> (bool)</dt>
+<dd>
+flag indicating the IDE shutdown
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__projectOpened" ID="PipPackagesWidget.__projectOpened"></a>
+<h4>PipPackagesWidget.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to handle the projectOpened signal.
+</p>
+
+<a NAME="PipPackagesWidget.__purgeCache" ID="PipPackagesWidget.__purgeCache"></a>
+<h4>PipPackagesWidget.__purgeCache</h4>
+<b>__purgeCache</b>(<i></i>)
+<p>
+        Private slot to empty the pip cache.
+</p>
+
+<a NAME="PipPackagesWidget.__refreshDependencyTree" ID="PipPackagesWidget.__refreshDependencyTree"></a>
+<h4>PipPackagesWidget.__refreshDependencyTree</h4>
+<b>__refreshDependencyTree</b>(<i></i>)
+<p>
+        Private method to refresh the dependency tree.
+</p>
+
+<a NAME="PipPackagesWidget.__refreshPackagesList" ID="PipPackagesWidget.__refreshPackagesList"></a>
+<h4>PipPackagesWidget.__refreshPackagesList</h4>
+<b>__refreshPackagesList</b>(<i></i>)
+<p>
+        Private method to refresh the packages list.
+</p>
+
+<a NAME="PipPackagesWidget.__reinstallPackages" ID="PipPackagesWidget.__reinstallPackages"></a>
+<h4>PipPackagesWidget.__reinstallPackages</h4>
+<b>__reinstallPackages</b>(<i></i>)
+<p>
+        Private slot to force a re-installation of the selected packages.
+</p>
+
+<a NAME="PipPackagesWidget.__removeCachedFiles" ID="PipPackagesWidget.__removeCachedFiles"></a>
+<h4>PipPackagesWidget.__removeCachedFiles</h4>
+<b>__removeCachedFiles</b>(<i></i>)
+<p>
+        Private slot to remove files from the pip cache.
+</p>
+
+<a NAME="PipPackagesWidget.__repairPip" ID="PipPackagesWidget.__repairPip"></a>
+<h4>PipPackagesWidget.__repairPip</h4>
+<b>__repairPip</b>(<i></i>)
+<p>
+        Private slot to repair the pip installation of the selected
+        environment.
+</p>
+
+<a NAME="PipPackagesWidget.__selectedUpdateableItems" ID="PipPackagesWidget.__selectedUpdateableItems"></a>
+<h4>PipPackagesWidget.__selectedUpdateableItems</h4>
+<b>__selectedUpdateableItems</b>(<i></i>)
+<p>
+        Private method to get a list of selected items that can be updated.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of selected items that can be updated
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__showCacheInfo" ID="PipPackagesWidget.__showCacheInfo"></a>
+<h4>PipPackagesWidget.__showCacheInfo</h4>
+<b>__showCacheInfo</b>(<i></i>)
+<p>
+        Private slot to show information about the cache.
+</p>
+
+<a NAME="PipPackagesWidget.__showCacheList" ID="PipPackagesWidget.__showCacheList"></a>
+<h4>PipPackagesWidget.__showCacheList</h4>
+<b>__showCacheList</b>(<i></i>)
+<p>
+        Private slot to show a list of cached files.
+</p>
+
+<a NAME="PipPackagesWidget.__showLicensesDialog" ID="PipPackagesWidget.__showLicensesDialog"></a>
+<h4>PipPackagesWidget.__showLicensesDialog</h4>
+<b>__showLicensesDialog</b>(<i></i>)
+<p>
+        Private slot to show a dialog with the licenses of the selected
+        environment.
+</p>
+
+<a NAME="PipPackagesWidget.__showPackageDetails" ID="PipPackagesWidget.__showPackageDetails"></a>
+<h4>PipPackagesWidget.__showPackageDetails</h4>
+<b>__showPackageDetails</b>(<i>packageName, packageVersion, vulnerabilities=None, upgradable=False, installable=False, </i>)
+<p>
+        Private method to populate the package details dialog.
+</p>
+
+<dl>
+
+<dt><i>packageName</i> (str)</dt>
+<dd>
+name of the package to show details for
+</dd>
+<dt><i>packageVersion</i> (str)</dt>
+<dd>
+version of the package
+</dd>
+<dt><i>vulnerabilities</i> (list (optional))</dt>
+<dd>
+list of known vulnerabilities (defaults to None)
+</dd>
+<dt><i>upgradable</i> (bool (optional))</dt>
+<dd>
+flag indicating that the package may be upgraded
+            (defaults to False)
+</dd>
+<dt><i>installable</i> (bool (optional))</dt>
+<dd>
+flag indicating that the package may be installed
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__showPackageInformation" ID="PipPackagesWidget.__showPackageInformation"></a>
+<h4>PipPackagesWidget.__showPackageInformation</h4>
+<b>__showPackageInformation</b>(<i>packageName, infoWidget</i>)
+<p>
+        Private method to show information for a package.
+</p>
+
+<dl>
+
+<dt><i>packageName</i> (str)</dt>
+<dd>
+name of the package
+</dd>
+<dt><i>infoWidget</i> (QTreeWidget)</dt>
+<dd>
+reference to the widget to contain the information
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__showVulnerabilityInformation" ID="PipPackagesWidget.__showVulnerabilityInformation"></a>
+<h4>PipPackagesWidget.__showVulnerabilityInformation</h4>
+<b>__showVulnerabilityInformation</b>(<i>packageName, packageVersion, vulnerabilities</i>)
+<p>
+        Private method to show the detected vulnerability data.
+</p>
+
+<dl>
+
+<dt><i>packageName</i> (str)</dt>
+<dd>
+name of the package
+</dd>
+<dt><i>packageVersion</i> (str)</dt>
+<dd>
+installed version number
+</dd>
+<dt><i>vulnerabilities</i> (list of Vulnerability)</dt>
+<dd>
+list of vulnerabilities
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__uninstallPyprojectDependencies" ID="PipPackagesWidget.__uninstallPyprojectDependencies"></a>
+<h4>PipPackagesWidget.__uninstallPyprojectDependencies</h4>
+<b>__uninstallPyprojectDependencies</b>(<i></i>)
+<p>
+        Private slot to uninstall packages as given in a 'pyproject.toml' file.
+</p>
+
+<a NAME="PipPackagesWidget.__uninstallRequirements" ID="PipPackagesWidget.__uninstallRequirements"></a>
+<h4>PipPackagesWidget.__uninstallRequirements</h4>
+<b>__uninstallRequirements</b>(<i></i>)
+<p>
+        Private slot to uninstall packages as given in a requirements file.
+</p>
+
+<a NAME="PipPackagesWidget.__updateActionButtons" ID="PipPackagesWidget.__updateActionButtons"></a>
+<h4>PipPackagesWidget.__updateActionButtons</h4>
+<b>__updateActionButtons</b>(<i></i>)
+<p>
+        Private method to set the state of the action buttons.
+</p>
+
+<a NAME="PipPackagesWidget.__updateDepActionButtons" ID="PipPackagesWidget.__updateDepActionButtons"></a>
+<h4>PipPackagesWidget.__updateDepActionButtons</h4>
+<b>__updateDepActionButtons</b>(<i></i>)
+<p>
+        Private method to set the state of the dependency page action buttons.
+</p>
+
+<a NAME="PipPackagesWidget.__updateOutdatedInfo" ID="PipPackagesWidget.__updateOutdatedInfo"></a>
+<h4>PipPackagesWidget.__updateOutdatedInfo</h4>
+<b>__updateOutdatedInfo</b>(<i>outdatedPackages</i>)
+<p>
+        Private method to process the list of outdated packages.
+</p>
+
+<dl>
+
+<dt><i>outdatedPackages</i> (dict of [str: (str, str)])</dt>
+<dd>
+dictionary with the package name as key and
+            a tuple containing the installed and available version as the value
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__updateVulnerabilityData" ID="PipPackagesWidget.__updateVulnerabilityData"></a>
+<h4>PipPackagesWidget.__updateVulnerabilityData</h4>
+<b>__updateVulnerabilityData</b>(<i>clearFirst=True</i>)
+<p>
+        Private slot to update the shown vulnerability info.
+</p>
+
+<dl>
+
+<dt><i>clearFirst</i> (bool (optional))</dt>
+<dd>
+flag indicating to clear the vulnerability info first
+            (defaults to True)
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.__updateVulnerabilityDbCache" ID="PipPackagesWidget.__updateVulnerabilityDbCache"></a>
+<h4>PipPackagesWidget.__updateVulnerabilityDbCache</h4>
+<b>__updateVulnerabilityDbCache</b>(<i></i>)
+<p>
+        Private slot to initiate an update of the local cache of the
+        vulnerability database.
+</p>
+
+<a NAME="PipPackagesWidget.executeInstallPackages" ID="PipPackagesWidget.executeInstallPackages"></a>
+<h4>PipPackagesWidget.executeInstallPackages</h4>
+<b>executeInstallPackages</b>(<i>packages, userSite=False</i>)
+<p>
+        Public method to install the given list of packages.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of package names to be installed
+</dd>
+<dt><i>userSite</i> (bool)</dt>
+<dd>
+flag indicating to install to the user directory
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.executeUninstallPackages" ID="PipPackagesWidget.executeUninstallPackages"></a>
+<h4>PipPackagesWidget.executeUninstallPackages</h4>
+<b>executeUninstallPackages</b>(<i>packages</i>)
+<p>
+        Public method to uninstall the given list of packages.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of package names to be uninstalled
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.executeUpgradePackages" ID="PipPackagesWidget.executeUpgradePackages"></a>
+<h4>PipPackagesWidget.executeUpgradePackages</h4>
+<b>executeUpgradePackages</b>(<i>packages</i>)
+<p>
+        Public method to execute the pip upgrade command.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of package names to be upgraded
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.getPip" ID="PipPackagesWidget.getPip"></a>
+<h4>PipPackagesWidget.getPip</h4>
+<b>getPip</b>(<i></i>)
+<p>
+        Public method to get a reference to the pip interface object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the pip interface object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Pip
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.on_cleanupButton_clicked" ID="PipPackagesWidget.on_cleanupButton_clicked"></a>
+<h4>PipPackagesWidget.on_cleanupButton_clicked</h4>
+<b>on_cleanupButton_clicked</b>(<i></i>)
+<p>
+        Private slot to cleanup the site-packages directory of the selected
+        environment.
+</p>
+
+<a NAME="PipPackagesWidget.on_dependenciesList_itemActivated" ID="PipPackagesWidget.on_dependenciesList_itemActivated"></a>
+<h4>PipPackagesWidget.on_dependenciesList_itemActivated</h4>
+<b>on_dependenciesList_itemActivated</b>(<i>item, column</i>)
+<p>
+        Private slot reacting on a package item of the dependency tree being
+        activated.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+activated column
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.on_dependenciesList_itemPressed" ID="PipPackagesWidget.on_dependenciesList_itemPressed"></a>
+<h4>PipPackagesWidget.on_dependenciesList_itemPressed</h4>
+<b>on_dependenciesList_itemPressed</b>(<i>item, column</i>)
+<p>
+        Private slot reacting on a package item of the dependency tree being
+        pressed.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the pressed item
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+pressed column
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.on_dependenciesList_itemSelectionChanged" ID="PipPackagesWidget.on_dependenciesList_itemSelectionChanged"></a>
+<h4>PipPackagesWidget.on_dependenciesList_itemSelectionChanged</h4>
+<b>on_dependenciesList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot reacting on a change of selected items of the dependency
+        tree.
+</p>
+
+<a NAME="PipPackagesWidget.on_dependencyRepairAllButton_clicked" ID="PipPackagesWidget.on_dependencyRepairAllButton_clicked"></a>
+<h4>PipPackagesWidget.on_dependencyRepairAllButton_clicked</h4>
+<b>on_dependencyRepairAllButton_clicked</b>(<i></i>)
+<p>
+        Private slot to repair all dependencies.
+</p>
+
+<a NAME="PipPackagesWidget.on_dependencyRepairButton_clicked" ID="PipPackagesWidget.on_dependencyRepairButton_clicked"></a>
+<h4>PipPackagesWidget.on_dependencyRepairButton_clicked</h4>
+<b>on_dependencyRepairButton_clicked</b>(<i></i>)
+<p>
+        Private slot to repair all selected dependencies.
+</p>
+
+<a NAME="PipPackagesWidget.on_environmentsComboBox_currentTextChanged" ID="PipPackagesWidget.on_environmentsComboBox_currentTextChanged"></a>
+<h4>PipPackagesWidget.on_environmentsComboBox_currentTextChanged</h4>
+<b>on_environmentsComboBox_currentTextChanged</b>(<i>name</i>)
+<p>
+        Private slot handling the selection of a Python environment.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the selected Python environment
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.on_installedFilesCheckBox_clicked" ID="PipPackagesWidget.on_installedFilesCheckBox_clicked"></a>
+<h4>PipPackagesWidget.on_installedFilesCheckBox_clicked</h4>
+<b>on_installedFilesCheckBox_clicked</b>(<i>checked</i>)
+<p>
+        Private slot to handle a change of the installed files information
+        checkbox.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the checkbox
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.on_localCheckBox_clicked" ID="PipPackagesWidget.on_localCheckBox_clicked"></a>
+<h4>PipPackagesWidget.on_localCheckBox_clicked</h4>
+<b>on_localCheckBox_clicked</b>(<i></i>)
+<p>
+        Private slot handling the switching of the local mode.
+</p>
+
+<a NAME="PipPackagesWidget.on_localDepCheckBox_clicked" ID="PipPackagesWidget.on_localDepCheckBox_clicked"></a>
+<h4>PipPackagesWidget.on_localDepCheckBox_clicked</h4>
+<b>on_localDepCheckBox_clicked</b>(<i></i>)
+<p>
+        Private slot handling the switching of the local mode.
+</p>
+
+<a NAME="PipPackagesWidget.on_notRequiredCheckBox_clicked" ID="PipPackagesWidget.on_notRequiredCheckBox_clicked"></a>
+<h4>PipPackagesWidget.on_notRequiredCheckBox_clicked</h4>
+<b>on_notRequiredCheckBox_clicked</b>(<i></i>)
+<p>
+        Private slot handling the switching of the 'not required' mode.
+</p>
+
+<a NAME="PipPackagesWidget.on_packagesList_itemActivated" ID="PipPackagesWidget.on_packagesList_itemActivated"></a>
+<h4>PipPackagesWidget.on_packagesList_itemActivated</h4>
+<b>on_packagesList_itemActivated</b>(<i>item, column</i>)
+<p>
+        Private slot reacting on a package item being activated.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+activated column
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.on_packagesList_itemSelectionChanged" ID="PipPackagesWidget.on_packagesList_itemSelectionChanged"></a>
+<h4>PipPackagesWidget.on_packagesList_itemSelectionChanged</h4>
+<b>on_packagesList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot reacting on a change of selected items.
+</p>
+
+<a NAME="PipPackagesWidget.on_refreshButton_clicked" ID="PipPackagesWidget.on_refreshButton_clicked"></a>
+<h4>PipPackagesWidget.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the display.
+</p>
+
+<a NAME="PipPackagesWidget.on_refreshDependenciesButton_clicked" ID="PipPackagesWidget.on_refreshDependenciesButton_clicked"></a>
+<h4>PipPackagesWidget.on_refreshDependenciesButton_clicked</h4>
+<b>on_refreshDependenciesButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the dependency tree.
+</p>
+
+<a NAME="PipPackagesWidget.on_requiresButton_toggled" ID="PipPackagesWidget.on_requiresButton_toggled"></a>
+<h4>PipPackagesWidget.on_requiresButton_toggled</h4>
+<b>on_requiresButton_toggled</b>(<i>checked</i>)
+<p>
+        Private slot handling the selection of the view type.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the radio button (unused)
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.on_searchButton_clicked" ID="PipPackagesWidget.on_searchButton_clicked"></a>
+<h4>PipPackagesWidget.on_searchButton_clicked</h4>
+<b>on_searchButton_clicked</b>(<i></i>)
+<p>
+        Private slot to open a web browser for package searching.
+</p>
+
+<a NAME="PipPackagesWidget.on_searchEdit_returnPressed" ID="PipPackagesWidget.on_searchEdit_returnPressed"></a>
+<h4>PipPackagesWidget.on_searchEdit_returnPressed</h4>
+<b>on_searchEdit_returnPressed</b>(<i></i>)
+<p>
+        Private slot to handle the press of the Return key in the search line edit.
+</p>
+
+<a NAME="PipPackagesWidget.on_showDepPackageDetailsButton_clicked" ID="PipPackagesWidget.on_showDepPackageDetailsButton_clicked"></a>
+<h4>PipPackagesWidget.on_showDepPackageDetailsButton_clicked</h4>
+<b>on_showDepPackageDetailsButton_clicked</b>(<i></i>)
+<p>
+        Private slot to show information for the selected package of the
+        dependency tree.
+</p>
+
+<a NAME="PipPackagesWidget.on_showPackageDetailsButton_clicked" ID="PipPackagesWidget.on_showPackageDetailsButton_clicked"></a>
+<h4>PipPackagesWidget.on_showPackageDetailsButton_clicked</h4>
+<b>on_showPackageDetailsButton_clicked</b>(<i></i>)
+<p>
+        Private slot to show information for the selected package.
+</p>
+
+<a NAME="PipPackagesWidget.on_uninstallButton_clicked" ID="PipPackagesWidget.on_uninstallButton_clicked"></a>
+<h4>PipPackagesWidget.on_uninstallButton_clicked</h4>
+<b>on_uninstallButton_clicked</b>(<i></i>)
+<p>
+        Private slot to remove selected packages of the selected environment.
+</p>
+
+<a NAME="PipPackagesWidget.on_upgradeAllButton_clicked" ID="PipPackagesWidget.on_upgradeAllButton_clicked"></a>
+<h4>PipPackagesWidget.on_upgradeAllButton_clicked</h4>
+<b>on_upgradeAllButton_clicked</b>(<i></i>)
+<p>
+        Private slot to upgrade all packages of the selected environment.
+</p>
+
+<a NAME="PipPackagesWidget.on_upgradeButton_clicked" ID="PipPackagesWidget.on_upgradeButton_clicked"></a>
+<h4>PipPackagesWidget.on_upgradeButton_clicked</h4>
+<b>on_upgradeButton_clicked</b>(<i></i>)
+<p>
+        Private slot to upgrade selected packages of the selected environment.
+</p>
+
+<a NAME="PipPackagesWidget.on_userCheckBox_clicked" ID="PipPackagesWidget.on_userCheckBox_clicked"></a>
+<h4>PipPackagesWidget.on_userCheckBox_clicked</h4>
+<b>on_userCheckBox_clicked</b>(<i></i>)
+<p>
+        Private slot handling the switching of the 'user-site' mode.
+</p>
+
+<a NAME="PipPackagesWidget.on_userDepCheckBox_clicked" ID="PipPackagesWidget.on_userDepCheckBox_clicked"></a>
+<h4>PipPackagesWidget.on_userDepCheckBox_clicked</h4>
+<b>on_userDepCheckBox_clicked</b>(<i></i>)
+<p>
+        Private slot handling the switching of the 'user-site' mode.
+</p>
+
+<a NAME="PipPackagesWidget.on_verboseCheckBox_clicked" ID="PipPackagesWidget.on_verboseCheckBox_clicked"></a>
+<h4>PipPackagesWidget.on_verboseCheckBox_clicked</h4>
+<b>on_verboseCheckBox_clicked</b>(<i>checked</i>)
+<p>
+        Private slot to handle a change of the verbose package information
+        checkbox.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the checkbox
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.on_viewToggleButton_toggled" ID="PipPackagesWidget.on_viewToggleButton_toggled"></a>
+<h4>PipPackagesWidget.on_viewToggleButton_toggled</h4>
+<b>on_viewToggleButton_toggled</b>(<i>checked</i>)
+<p>
+        Private slot handling the view selection.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+state of the toggle button
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.on_vulnerabilityCheckBox_clicked" ID="PipPackagesWidget.on_vulnerabilityCheckBox_clicked"></a>
+<h4>PipPackagesWidget.on_vulnerabilityCheckBox_clicked</h4>
+<b>on_vulnerabilityCheckBox_clicked</b>(<i>checked</i>)
+<p>
+        Private slot handling a change of the automatic vulnerability checks.
+</p>
+
+<dl>
+
+<dt><i>checked</i> (bool)</dt>
+<dd>
+flag indicating the state of the check box
+</dd>
+</dl>
+<a NAME="PipPackagesWidget.preferencesChanged" ID="PipPackagesWidget.preferencesChanged"></a>
+<h4>PipPackagesWidget.preferencesChanged</h4>
+<b>preferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of preferences.
+</p>
+
+<a NAME="PipPackagesWidget.setVulnerabilityEnabled" ID="PipPackagesWidget.setVulnerabilityEnabled"></a>
+<h4>PipPackagesWidget.setVulnerabilityEnabled</h4>
+<b>setVulnerabilityEnabled</b>(<i>enable</i>)
+<p>
+        Public slot to set the enabled state of the vulnerability checks.
+</p>
+
+<dl>
+
+<dt><i>enable</i> (bool)</dt>
+<dd>
+vulnerability checks enabled state
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

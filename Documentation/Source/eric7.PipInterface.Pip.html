@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.PipInterface.Pip</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.PipInterface.Pip</h1>
+<p>
+Package implementing the pip GUI logic.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SSL_AVAILABLE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Pip">Pip</a></td>
+<td>Class implementing the pip GUI logic.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Pip" ID="Pip"></a>
+<h2>Pip</h2>
+<p>
+    Class implementing the pip GUI logic.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DefaultIndexUrlPypi</td></tr>
+<tr><td>DefaultIndexUrlSearch</td></tr>
+<tr><td>DefaultIndexUrlSimple</td></tr>
+<tr><td>DefaultPyPiUrl</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Pip.__init__">Pip</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Pip.__checkUpgradeEric">__checkUpgradeEric</a></td>
+<td>Private method to check, if an upgrade of the eric-ide package is attempted.</td>
+</tr>
+<tr>
+<td><a href="#Pip.__checkUpgradePyQt">__checkUpgradePyQt</a></td>
+<td>Private method to check, if an upgrade of PyQt packages is attempted.</td>
+</tr>
+<tr>
+<td><a href="#Pip.__extractOutdatedPackages">__extractOutdatedPackages</a></td>
+<td>Private method to extract the outdated packages list out of the process output.</td>
+</tr>
+<tr>
+<td><a href="#Pip.__filterUpgradePackages">__filterUpgradePackages</a></td>
+<td>Private method to filter out the packages that cannot be upgraded without stopping eric first.</td>
+</tr>
+<tr>
+<td><a href="#Pip.__outdatedFinished">__outdatedFinished</a></td>
+<td>Private method to handle the process finished signal.</td>
+</tr>
+<tr>
+<td><a href="#Pip.cacheList">cacheList</a></td>
+<td>Public method to list files contained in the pip cache.</td>
+</tr>
+<tr>
+<td><a href="#Pip.cachePurge">cachePurge</a></td>
+<td>Public method to remove all files from the pip cache.</td>
+</tr>
+<tr>
+<td><a href="#Pip.cacheRemove">cacheRemove</a></td>
+<td>Public method to remove files from the pip cache.</td>
+</tr>
+<tr>
+<td><a href="#Pip.checkPackagesOutdated">checkPackagesOutdated</a></td>
+<td>Public method to check, if groups of packages are outdated.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getDependencyTree">getDependencyTree</a></td>
+<td>Public method to get the dependency tree of installed packages.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getFrozenPackages">getFrozenPackages</a></td>
+<td>Public method to get the list of package specifiers to freeze them.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getIndexUrl">getIndexUrl</a></td>
+<td>Public method to get the index URL for PyPI.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getIndexUrlPypi">getIndexUrlPypi</a></td>
+<td>Public method to get the index URL for PyPI API calls.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getIndexUrlSearch">getIndexUrlSearch</a></td>
+<td>Public method to get the index URL for PyPI API calls.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getInstalledPackages">getInstalledPackages</a></td>
+<td>Public method to get the list of installed packages.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getLicenses">getLicenses</a></td>
+<td>Public method to get the licenses per package for a given environment.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getNetworkAccessManager">getNetworkAccessManager</a></td>
+<td>Public method to get a reference to the network access manager object.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getOutdatedPackages">getOutdatedPackages</a></td>
+<td>Public method to get the list of outdated packages.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getPackageDetails">getPackageDetails</a></td>
+<td>Public method to get package details using the PyPI JSON interface.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getPackageVersions">getPackageVersions</a></td>
+<td>Public method to get a list of versions available for the given package.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getProjectEnvironmentString">getProjectEnvironmentString</a></td>
+<td>Public method to get the string for the project environment.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getUserConfig">getUserConfig</a></td>
+<td>Public method to get the name of the user configuration file.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getVirtualenvConfig">getVirtualenvConfig</a></td>
+<td>Public method to get the name of the virtualenv configuration file.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getVirtualenvInterpreter">getVirtualenvInterpreter</a></td>
+<td>Public method to get the interpreter for a virtual environment.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getVirtualenvNames">getVirtualenvNames</a></td>
+<td>Public method to get a sorted list of virtual environment names.</td>
+</tr>
+<tr>
+<td><a href="#Pip.getVulnerabilityChecker">getVulnerabilityChecker</a></td>
+<td>Public method to get a reference to the vulnerability checker object.</td>
+</tr>
+<tr>
+<td><a href="#Pip.installEditableProject">installEditableProject</a></td>
+<td>Public method to install a project in development mode.</td>
+</tr>
+<tr>
+<td><a href="#Pip.installPackages">installPackages</a></td>
+<td>Public method to install the given list of packages.</td>
+</tr>
+<tr>
+<td><a href="#Pip.installPip">installPip</a></td>
+<td>Public method to install pip.</td>
+</tr>
+<tr>
+<td><a href="#Pip.installPyprojectDependencies">installPyprojectDependencies</a></td>
+<td>Public method to install the dependencies listed in a pyproject.toml file.</td>
+</tr>
+<tr>
+<td><a href="#Pip.installRequirements">installRequirements</a></td>
+<td>Public method to install packages as given in a requirements file.</td>
+</tr>
+<tr>
+<td><a href="#Pip.repairPip">repairPip</a></td>
+<td>Public method to repair the pip installation.</td>
+</tr>
+<tr>
+<td><a href="#Pip.runCleanup">runCleanup</a></td>
+<td>Public method to perform a cleanup run for a given environment.</td>
+</tr>
+<tr>
+<td><a href="#Pip.runProcess">runProcess</a></td>
+<td>Public method to execute the current pip with the given arguments.</td>
+</tr>
+<tr>
+<td><a href="#Pip.showCacheInfo">showCacheInfo</a></td>
+<td>Public method to show some information about the pip cache.</td>
+</tr>
+<tr>
+<td><a href="#Pip.shutdown">shutdown</a></td>
+<td>Public method to perform shutdown actions.</td>
+</tr>
+<tr>
+<td><a href="#Pip.uninstallPackages">uninstallPackages</a></td>
+<td>Public method to uninstall the given list of packages.</td>
+</tr>
+<tr>
+<td><a href="#Pip.uninstallPyprojectDependencies">uninstallPyprojectDependencies</a></td>
+<td>Public method to uninstall the dependencies listed in a pyproject.toml file.</td>
+</tr>
+<tr>
+<td><a href="#Pip.uninstallRequirements">uninstallRequirements</a></td>
+<td>Public method to uninstall packages as given in a requirements file.</td>
+</tr>
+<tr>
+<td><a href="#Pip.upgradePackages">upgradePackages</a></td>
+<td>Public method to upgrade the given list of packages.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Pip.__init__" ID="Pip.__init__"></a>
+<h4>Pip (Constructor)</h4>
+<b>Pip</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the user interface object
+</dd>
+</dl>
+<a NAME="Pip.__checkUpgradeEric" ID="Pip.__checkUpgradeEric"></a>
+<h4>Pip.__checkUpgradeEric</h4>
+<b>__checkUpgradeEric</b>(<i>packages</i>)
+<p>
+        Private method to check, if an upgrade of the eric-ide package is
+        attempted.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of packages to upgrade
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an eric-ide upgrade
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Pip.__checkUpgradePyQt" ID="Pip.__checkUpgradePyQt"></a>
+<h4>Pip.__checkUpgradePyQt</h4>
+<b>__checkUpgradePyQt</b>(<i>packages</i>)
+<p>
+        Private method to check, if an upgrade of PyQt packages is attempted.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of packages to upgrade
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a PyQt upgrade
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Pip.__extractOutdatedPackages" ID="Pip.__extractOutdatedPackages"></a>
+<h4>Pip.__extractOutdatedPackages</h4>
+<b>__extractOutdatedPackages</b>(<i>proc</i>)
+<p>
+        Private method to extract the outdated packages list out of the process output.
+</p>
+
+<dl>
+
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+reference to the process
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with the package name as key and a tuple containing the
+            installed and available version as the value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict of [str: (str, str)]
+</dd>
+</dl>
+<a NAME="Pip.__filterUpgradePackages" ID="Pip.__filterUpgradePackages"></a>
+<h4>Pip.__filterUpgradePackages</h4>
+<b>__filterUpgradePackages</b>(<i>packages</i>)
+<p>
+        Private method to filter out the packages that cannot be upgraded without
+        stopping eric first.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of packages to upgrade
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of packages that can be upgraded
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Pip.__outdatedFinished" ID="Pip.__outdatedFinished"></a>
+<h4>Pip.__outdatedFinished</h4>
+<b>__outdatedFinished</b>(<i>callback, proc, exitCode, exitStatus</i>)
+<p>
+        Private method to handle the process finished signal.
+</p>
+
+<dl>
+
+<dt><i>callback</i> (function)</dt>
+<dd>
+reference to the function to be called with the list of
+            outdated packages
+</dd>
+<dt><i>proc</i> (QProcess)</dt>
+<dd>
+reference to the process
+</dd>
+<dt><i>exitCode</i> (int)</dt>
+<dd>
+exit code of the process
+</dd>
+<dt><i>exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process
+</dd>
+</dl>
+<a NAME="Pip.cacheList" ID="Pip.cacheList"></a>
+<h4>Pip.cacheList</h4>
+<b>cacheList</b>(<i>venvName</i>)
+<p>
+        Public method to list files contained in the pip cache.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+</dl>
+<a NAME="Pip.cachePurge" ID="Pip.cachePurge"></a>
+<h4>Pip.cachePurge</h4>
+<b>cachePurge</b>(<i>venvName</i>)
+<p>
+        Public method to remove all files from the pip cache.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+</dl>
+<a NAME="Pip.cacheRemove" ID="Pip.cacheRemove"></a>
+<h4>Pip.cacheRemove</h4>
+<b>cacheRemove</b>(<i>venvName</i>)
+<p>
+        Public method to remove files from the pip cache.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+</dl>
+<a NAME="Pip.checkPackagesOutdated" ID="Pip.checkPackagesOutdated"></a>
+<h4>Pip.checkPackagesOutdated</h4>
+<b>checkPackagesOutdated</b>(<i>packageStarts, envName, interpreter=None</i>)
+<p>
+        Public method to check, if groups of packages are outdated.
+</p>
+
+<dl>
+
+<dt><i>packageStarts</i> (str)</dt>
+<dd>
+list of start strings for package names to be checked
+            (case insensitive)
+</dd>
+<dt><i>envName</i> (str)</dt>
+<dd>
+name of the environment to get the packages for
+</dd>
+<dt><i>interpreter</i> (str (optional))</dt>
+<dd>
+path of an interpreter executable. If this is not
+            None, it will override the given environment name (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the package name, installed version
+            and available version of outdated packages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str, str)
+</dd>
+</dl>
+<a NAME="Pip.getDependencyTree" ID="Pip.getDependencyTree"></a>
+<h4>Pip.getDependencyTree</h4>
+<b>getDependencyTree</b>(<i>envName, localPackages=True, usersite=False, reverse=False</i>)
+<p>
+        Public method to get the dependency tree of installed packages.
+</p>
+
+<dl>
+
+<dt><i>envName</i> (str)</dt>
+<dd>
+name of the environment to get the packages for
+</dd>
+<dt><i>localPackages</i> (bool)</dt>
+<dd>
+flag indicating to get the tree for local
+            packages only
+</dd>
+<dt><i>usersite</i> (bool)</dt>
+<dd>
+flag indicating to get the tree for packages
+            installed in user-site directory only
+</dd>
+<dt><i>reverse</i> (bool)</dt>
+<dd>
+flag indicating to get the dependency tree in
+            reverse order (i.e. list packages needed by other)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of nested dictionaries resembling the requested
+            dependency tree
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of dict
+</dd>
+</dl>
+<a NAME="Pip.getFrozenPackages" ID="Pip.getFrozenPackages"></a>
+<h4>Pip.getFrozenPackages</h4>
+<b>getFrozenPackages</b>(<i>envName, localPackages=True, usersite=False, requirement=None</i>)
+<p>
+        Public method to get the list of package specifiers to freeze them.
+</p>
+
+<dl>
+
+<dt><i>envName</i> (str)</dt>
+<dd>
+name of the environment to get the package specifiers
+            for
+</dd>
+<dt><i>localPackages</i> (bool)</dt>
+<dd>
+flag indicating to get package specifiers for
+            local packages only
+</dd>
+<dt><i>usersite</i> (bool)</dt>
+<dd>
+flag indicating to get package specifiers for packages
+            installed in user-site only
+</dd>
+<dt><i>requirement</i> (str)</dt>
+<dd>
+name of a requirements file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of package specifiers
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Pip.getIndexUrl" ID="Pip.getIndexUrl"></a>
+<h4>Pip.getIndexUrl</h4>
+<b>getIndexUrl</b>(<i></i>)
+<p>
+        Public method to get the index URL for PyPI.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+index URL for PyPI
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Pip.getIndexUrlPypi" ID="Pip.getIndexUrlPypi"></a>
+<h4>Pip.getIndexUrlPypi</h4>
+<b>getIndexUrlPypi</b>(<i></i>)
+<p>
+        Public method to get the index URL for PyPI API calls.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+index URL for XML RPC calls
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Pip.getIndexUrlSearch" ID="Pip.getIndexUrlSearch"></a>
+<h4>Pip.getIndexUrlSearch</h4>
+<b>getIndexUrlSearch</b>(<i></i>)
+<p>
+        Public method to get the index URL for PyPI API calls.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+index URL for XML RPC calls
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Pip.getInstalledPackages" ID="Pip.getInstalledPackages"></a>
+<h4>Pip.getInstalledPackages</h4>
+<b>getInstalledPackages</b>(<i>envName, localPackages=True, notRequired=False, usersite=False</i>)
+<p>
+        Public method to get the list of installed packages.
+</p>
+
+<dl>
+
+<dt><i>envName</i> (str)</dt>
+<dd>
+name of the environment to get the packages for
+</dd>
+<dt><i>localPackages</i> (bool)</dt>
+<dd>
+flag indicating to get local packages only
+</dd>
+<dt><i>notRequired</i> (bool)</dt>
+<dd>
+flag indicating to list packages that are not
+            dependencies of installed packages as well
+</dd>
+<dt><i>usersite</i> (bool)</dt>
+<dd>
+flag indicating to only list packages installed
+            in user-site
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples containing the package name and version
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (str, str)
+</dd>
+</dl>
+<a NAME="Pip.getLicenses" ID="Pip.getLicenses"></a>
+<h4>Pip.getLicenses</h4>
+<b>getLicenses</b>(<i>envName</i>)
+<p>
+        Public method to get the licenses per package for a given environment.
+</p>
+
+<dl>
+
+<dt><i>envName</i> (str)</dt>
+<dd>
+name of the environment to get the licenses for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of dictionaries containing the license and version per
+            package
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="Pip.getNetworkAccessManager" ID="Pip.getNetworkAccessManager"></a>
+<h4>Pip.getNetworkAccessManager</h4>
+<b>getNetworkAccessManager</b>(<i></i>)
+<p>
+        Public method to get a reference to the network access manager object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the network access manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QNetworkAccessManager
+</dd>
+</dl>
+<a NAME="Pip.getOutdatedPackages" ID="Pip.getOutdatedPackages"></a>
+<h4>Pip.getOutdatedPackages</h4>
+<b>getOutdatedPackages</b>(<i>envName, localPackages=True, notRequired=False, usersite=False, interpreter=None, callback=None, </i>)
+<p>
+        Public method to get the list of outdated packages.
+</p>
+
+<dl>
+
+<dt><i>envName</i> (str)</dt>
+<dd>
+name of the environment to get the packages for
+</dd>
+<dt><i>localPackages</i> (bool (optional))</dt>
+<dd>
+flag indicating to get local packages only
+            (defaults to False)
+</dd>
+<dt><i>notRequired</i> (bool (optional))</dt>
+<dd>
+flag indicating to list packages that are not
+            dependencies of installed packages as well (defaults to False)
+</dd>
+<dt><i>usersite</i> (bool (optional))</dt>
+<dd>
+flag indicating to only list packages installed
+            in user-site (defaults to False)
+</dd>
+<dt><i>interpreter</i> (str (optional))</dt>
+<dd>
+path of an interpreter executable. If this is not
+            None, it will override the given environment name (defaults to None)
+</dd>
+<dt><i>callback</i> (function)</dt>
+<dd>
+method accepting a list of tuples containing the
+            package name, installed version and available version
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with the package name as key and a tuple containing the
+            installed and available version as the value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict of [str: (str, str)]
+</dd>
+</dl>
+<a NAME="Pip.getPackageDetails" ID="Pip.getPackageDetails"></a>
+<h4>Pip.getPackageDetails</h4>
+<b>getPackageDetails</b>(<i>name, version</i>)
+<p>
+        Public method to get package details using the PyPI JSON interface.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+package name
+</dd>
+<dt><i>version</i> (str)</dt>
+<dd>
+package version
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing PyPI package data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="Pip.getPackageVersions" ID="Pip.getPackageVersions"></a>
+<h4>Pip.getPackageVersions</h4>
+<b>getPackageVersions</b>(<i>name</i>)
+<p>
+        Public method to get a list of versions available for the given
+        package.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+package name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of available versions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Pip.getProjectEnvironmentString" ID="Pip.getProjectEnvironmentString"></a>
+<h4>Pip.getProjectEnvironmentString</h4>
+<b>getProjectEnvironmentString</b>(<i></i>)
+<p>
+        Public method to get the string for the project environment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string for the project environment
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Pip.getUserConfig" ID="Pip.getUserConfig"></a>
+<h4>Pip.getUserConfig</h4>
+<b>getUserConfig</b>(<i></i>)
+<p>
+        Public method to get the name of the user configuration file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the user configuration file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Pip.getVirtualenvConfig" ID="Pip.getVirtualenvConfig"></a>
+<h4>Pip.getVirtualenvConfig</h4>
+<b>getVirtualenvConfig</b>(<i>venvName</i>)
+<p>
+        Public method to get the name of the virtualenv configuration file.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the environment to get config file path for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+path of the virtualenv configuration file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Pip.getVirtualenvInterpreter" ID="Pip.getVirtualenvInterpreter"></a>
+<h4>Pip.getVirtualenvInterpreter</h4>
+<b>getVirtualenvInterpreter</b>(<i>venvName</i>)
+<p>
+        Public method to get the interpreter for a virtual environment.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+logical name for the virtual environment
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+interpreter path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Pip.getVirtualenvNames" ID="Pip.getVirtualenvNames"></a>
+<h4>Pip.getVirtualenvNames</h4>
+<b>getVirtualenvNames</b>(<i>noRemote=False, noConda=False, noGlobals=False, noServer=False</i>)
+<p>
+        Public method to get a sorted list of virtual environment names.
+</p>
+
+<dl>
+
+<dt><i>noRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to exclude environments for remote
+            debugging (defaults to False)
+</dd>
+<dt><i>noConda</i> (bool (optional))</dt>
+<dd>
+flag indicating to exclude Conda environments (defaults to False)
+</dd>
+<dt><i>noGlobals</i> (bool (optional))</dt>
+<dd>
+flag indicating to exclude global environments
+            (defaults to False)
+</dd>
+<dt><i>noServer</i> (bool (optional))</dt>
+<dd>
+flag indicating to exclued eric-ide server environments
+            (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sorted list of virtual environment names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Pip.getVulnerabilityChecker" ID="Pip.getVulnerabilityChecker"></a>
+<h4>Pip.getVulnerabilityChecker</h4>
+<b>getVulnerabilityChecker</b>(<i></i>)
+<p>
+        Public method to get a reference to the vulnerability checker object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the vulnerability checker object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+PipVulnerabilityChecker
+</dd>
+</dl>
+<a NAME="Pip.installEditableProject" ID="Pip.installEditableProject"></a>
+<h4>Pip.installEditableProject</h4>
+<b>installEditableProject</b>(<i>interpreter, projectPath</i>)
+<p>
+        Public method to install a project in development mode.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for execution
+</dd>
+<dt><i>projectPath</i> (str)</dt>
+<dd>
+path of the project
+</dd>
+</dl>
+<a NAME="Pip.installPackages" ID="Pip.installPackages"></a>
+<h4>Pip.installPackages</h4>
+<b>installPackages</b>(<i>packages, venvName="", userSite=False, interpreter="", forceReinstall=False, </i>)
+<p>
+        Public method to install the given list of packages.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of packages to install
+</dd>
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+<dt><i>userSite</i> (bool)</dt>
+<dd>
+flag indicating an install to the user install
+            directory
+</dd>
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+interpreter to be used for execution
+</dd>
+<dt><i>forceReinstall</i> (bool)</dt>
+<dd>
+flag indicating to force a reinstall of
+            the packages
+</dd>
+</dl>
+<a NAME="Pip.installPip" ID="Pip.installPip"></a>
+<h4>Pip.installPip</h4>
+<b>installPip</b>(<i>venvName, userSite=False</i>)
+<p>
+        Public method to install pip.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the environment to install pip into
+</dd>
+<dt><i>userSite</i> (bool)</dt>
+<dd>
+flag indicating an install to the user install
+            directory
+</dd>
+</dl>
+<a NAME="Pip.installPyprojectDependencies" ID="Pip.installPyprojectDependencies"></a>
+<h4>Pip.installPyprojectDependencies</h4>
+<b>installPyprojectDependencies</b>(<i>venvName</i>)
+<p>
+        Public method to install the dependencies listed in a pyproject.toml file.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+</dl>
+<a NAME="Pip.installRequirements" ID="Pip.installRequirements"></a>
+<h4>Pip.installRequirements</h4>
+<b>installRequirements</b>(<i>venvName</i>)
+<p>
+        Public method to install packages as given in a requirements file.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+</dl>
+<a NAME="Pip.repairPip" ID="Pip.repairPip"></a>
+<h4>Pip.repairPip</h4>
+<b>repairPip</b>(<i>venvName</i>)
+<p>
+        Public method to repair the pip installation.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the environment to install pip into
+</dd>
+</dl>
+<a NAME="Pip.runCleanup" ID="Pip.runCleanup"></a>
+<h4>Pip.runCleanup</h4>
+<b>runCleanup</b>(<i>envName</i>)
+<p>
+        Public method to perform a cleanup run for a given environment.
+</p>
+
+<dl>
+
+<dt><i>envName</i> (str)</dt>
+<dd>
+name of the environment to get the licenses for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful removal. A missing environment
+            name or an undefined Python interpreter is treated as success
+            (i.e. nothing to do).
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Pip.runProcess" ID="Pip.runProcess"></a>
+<h4>Pip.runProcess</h4>
+<b>runProcess</b>(<i>args, interpreter</i>)
+<p>
+        Public method to execute the current pip with the given arguments.
+</p>
+<p>
+        The selected pip executable is called with the given arguments and
+        waited for its end.
+</p>
+
+<dl>
+
+<dt><i>args</i> (list of str)</dt>
+<dd>
+list of command line arguments
+</dd>
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+path of the Python interpreter to be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and the output
+            of the process
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="Pip.showCacheInfo" ID="Pip.showCacheInfo"></a>
+<h4>Pip.showCacheInfo</h4>
+<b>showCacheInfo</b>(<i>venvName</i>)
+<p>
+        Public method to show some information about the pip cache.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+</dl>
+<a NAME="Pip.shutdown" ID="Pip.shutdown"></a>
+<h4>Pip.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to perform shutdown actions.
+</p>
+
+<a NAME="Pip.uninstallPackages" ID="Pip.uninstallPackages"></a>
+<h4>Pip.uninstallPackages</h4>
+<b>uninstallPackages</b>(<i>packages, venvName</i>)
+<p>
+        Public method to uninstall the given list of packages.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of packages to uninstall
+</dd>
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful execution
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Pip.uninstallPyprojectDependencies" ID="Pip.uninstallPyprojectDependencies"></a>
+<h4>Pip.uninstallPyprojectDependencies</h4>
+<b>uninstallPyprojectDependencies</b>(<i>venvName</i>)
+<p>
+        Public method to uninstall the dependencies listed in a pyproject.toml file.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+</dl>
+<a NAME="Pip.uninstallRequirements" ID="Pip.uninstallRequirements"></a>
+<h4>Pip.uninstallRequirements</h4>
+<b>uninstallRequirements</b>(<i>venvName</i>)
+<p>
+        Public method to uninstall packages as given in a requirements file.
+</p>
+
+<dl>
+
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+</dl>
+<a NAME="Pip.upgradePackages" ID="Pip.upgradePackages"></a>
+<h4>Pip.upgradePackages</h4>
+<b>upgradePackages</b>(<i>packages, venvName, userSite=False</i>)
+<p>
+        Public method to upgrade the given list of packages.
+</p>
+
+<dl>
+
+<dt><i>packages</i> (list of str)</dt>
+<dd>
+list of packages to upgrade
+</dd>
+<dt><i>venvName</i> (str)</dt>
+<dd>
+name of the virtual environment to be used
+</dd>
+<dt><i>userSite</i> (bool)</dt>
+<dd>
+flag indicating an install to the user install
+            directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful execution
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DataViews.CodeMetricsDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DataViews.CodeMetricsDialog</h1>
+<p>
+Module implementing a code metrics dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CodeMetricsDialog">CodeMetricsDialog</a></td>
+<td>Class implementing a dialog to display the code metrics.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CodeMetricsDialog" ID="CodeMetricsDialog"></a>
+<h2>CodeMetricsDialog</h2>
+<p>
+    Class implementing a dialog to display the code metrics.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_CodeMetricsDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CodeMetricsDialog.__init__">CodeMetricsDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.__createResultItem">__createResultItem</a></td>
+<td>Private slot to create a new item in the result list.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.__createSummaryItem">__createSummaryItem</a></td>
+<td>Private slot to create a new item in the summary list.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.__finish">__finish</a></td>
+<td>Private slot called when the action finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.__getValues">__getValues</a></td>
+<td>Private method to extract the code metric values.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.__resizeResultColumns">__resizeResultColumns</a></td>
+<td>Private method to resize the list columns.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.__resizeSummaryColumns">__resizeSummaryColumns</a></td>
+<td>Private method to resize the list columns.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.__resultCollapse">__resultCollapse</a></td>
+<td>Private slot to collapse all entries of the resultlist.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.__resultExpand">__resultExpand</a></td>
+<td>Private slot to expand all entries of the resultlist.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu of the listview.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.closeEvent">closeEvent</a></td>
+<td>Protected method to handle the close event.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.on_startButton_clicked">on_startButton_clicked</a></td>
+<td>Private slot to start a code metrics run.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.prepare">prepare</a></td>
+<td>Public method to prepare the dialog with a list of filenames.</td>
+</tr>
+<tr>
+<td><a href="#CodeMetricsDialog.start">start</a></td>
+<td>Public slot to start the code metrics determination.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CodeMetricsDialog.__init__" ID="CodeMetricsDialog.__init__"></a>
+<h4>CodeMetricsDialog (Constructor)</h4>
+<b>CodeMetricsDialog</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="CodeMetricsDialog.__createResultItem" ID="CodeMetricsDialog.__createResultItem"></a>
+<h4>CodeMetricsDialog.__createResultItem</h4>
+<b>__createResultItem</b>(<i>parent, values</i>)
+<p>
+        Private slot to create a new item in the result list.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QTreeWidget or QTreeWidgetItem)</dt>
+<dd>
+parent of the new item
+</dd>
+<dt><i>values</i> (list of int)</dt>
+<dd>
+values to be displayed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="CodeMetricsDialog.__createSummaryItem" ID="CodeMetricsDialog.__createSummaryItem"></a>
+<h4>CodeMetricsDialog.__createSummaryItem</h4>
+<b>__createSummaryItem</b>(<i>col0, col1</i>)
+<p>
+        Private slot to create a new item in the summary list.
+</p>
+
+<dl>
+
+<dt><i>col0</i> (str)</dt>
+<dd>
+string for column 0
+</dd>
+<dt><i>col1</i> (str)</dt>
+<dd>
+string for column 1
+</dd>
+</dl>
+<a NAME="CodeMetricsDialog.__finish" ID="CodeMetricsDialog.__finish"></a>
+<h4>CodeMetricsDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the action finished or the user pressed the
+        button.
+</p>
+
+<a NAME="CodeMetricsDialog.__getValues" ID="CodeMetricsDialog.__getValues"></a>
+<h4>CodeMetricsDialog.__getValues</h4>
+<b>__getValues</b>(<i>loc, stats, identifier</i>)
+<p>
+        Private method to extract the code metric values.
+</p>
+
+<dl>
+
+<dt><i>loc</i> (QLocale)</dt>
+<dd>
+reference to the locale object
+</dd>
+<dt><i>stats</i> (SourceStat)</dt>
+<dd>
+reference to the code metric statistics object
+</dd>
+<dt><i>identifier</i> (str)</dt>
+<dd>
+identifier to get values for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of values suitable for display
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="CodeMetricsDialog.__resizeResultColumns" ID="CodeMetricsDialog.__resizeResultColumns"></a>
+<h4>CodeMetricsDialog.__resizeResultColumns</h4>
+<b>__resizeResultColumns</b>(<i></i>)
+<p>
+        Private method to resize the list columns.
+</p>
+
+<a NAME="CodeMetricsDialog.__resizeSummaryColumns" ID="CodeMetricsDialog.__resizeSummaryColumns"></a>
+<h4>CodeMetricsDialog.__resizeSummaryColumns</h4>
+<b>__resizeSummaryColumns</b>(<i></i>)
+<p>
+        Private method to resize the list columns.
+</p>
+
+<a NAME="CodeMetricsDialog.__resultCollapse" ID="CodeMetricsDialog.__resultCollapse"></a>
+<h4>CodeMetricsDialog.__resultCollapse</h4>
+<b>__resultCollapse</b>(<i></i>)
+<p>
+        Private slot to collapse all entries of the resultlist.
+</p>
+
+<a NAME="CodeMetricsDialog.__resultExpand" ID="CodeMetricsDialog.__resultExpand"></a>
+<h4>CodeMetricsDialog.__resultExpand</h4>
+<b>__resultExpand</b>(<i></i>)
+<p>
+        Private slot to expand all entries of the resultlist.
+</p>
+
+<a NAME="CodeMetricsDialog.__showContextMenu" ID="CodeMetricsDialog.__showContextMenu"></a>
+<h4>CodeMetricsDialog.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu of the listview.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="CodeMetricsDialog.closeEvent" ID="CodeMetricsDialog.closeEvent"></a>
+<h4>CodeMetricsDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>_evt</i>)
+<p>
+        Protected method to handle the close event.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the close event (unused)
+</dd>
+</dl>
+<a NAME="CodeMetricsDialog.on_buttonBox_clicked" ID="CodeMetricsDialog.on_buttonBox_clicked"></a>
+<h4>CodeMetricsDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="CodeMetricsDialog.on_startButton_clicked" ID="CodeMetricsDialog.on_startButton_clicked"></a>
+<h4>CodeMetricsDialog.on_startButton_clicked</h4>
+<b>on_startButton_clicked</b>(<i></i>)
+<p>
+        Private slot to start a code metrics run.
+</p>
+
+<a NAME="CodeMetricsDialog.prepare" ID="CodeMetricsDialog.prepare"></a>
+<h4>CodeMetricsDialog.prepare</h4>
+<b>prepare</b>(<i>fileList</i>)
+<p>
+        Public method to prepare the dialog with a list of filenames.
+</p>
+
+<dl>
+
+<dt><i>fileList</i> (list of str)</dt>
+<dd>
+list of filenames
+</dd>
+</dl>
+<a NAME="CodeMetricsDialog.start" ID="CodeMetricsDialog.start"></a>
+<h4>CodeMetricsDialog.start</h4>
+<b>start</b>(<i>fn</i>)
+<p>
+        Public slot to start the code metrics determination.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str or list of str)</dt>
+<dd>
+file or list of files or directory to show
+                the code metrics for
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

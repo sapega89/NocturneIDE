@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricSpellCheckedTextEdit</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricSpellCheckedTextEdit</h1>
+<p>
+Module implementing QTextEdit and QPlainTextEdit widgets with embedded spell
+checking.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>ENCHANT_AVAILABLE</td></tr>
+<tr><td>app</td></tr>
+<tr><td>dictPath</td></tr>
+<tr><td>spellEdit</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EnchantHighlighter">EnchantHighlighter</a></td>
+<td>Class implementing a QSyntaxHighlighter subclass that consults a pyEnchant dictionary to highlight misspelled words.</td>
+</tr>
+<tr>
+<td><a href="#EricSpellCheckedPlainTextEdit">EricSpellCheckedPlainTextEdit</a></td>
+<td>Class implementing a QPlainTextEdit with built-in spell checker.</td>
+</tr>
+<tr>
+<td><a href="#EricSpellCheckedTextEdit">EricSpellCheckedTextEdit</a></td>
+<td>Class implementing a QTextEdit with built-in spell checker.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin">SpellCheckMixin</a></td>
+<td>Class implementing the spell-check mixin for the widget classes.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin_1">SpellCheckMixin</a></td>
+<td>Class implementing the spell-check mixin for the widget classes.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EnchantHighlighter" ID="EnchantHighlighter"></a>
+<h2>EnchantHighlighter</h2>
+<p>
+        Class implementing a QSyntaxHighlighter subclass that consults a
+        pyEnchant dictionary to highlight misspelled words.
+</p>
+
+<h3>Derived from</h3>
+QSyntaxHighlighter
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ErrorFormat</td></tr>
+<tr><td>TokenFilters</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EnchantHighlighter.__init__">EnchantHighlighter</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EnchantHighlighter.chunkers">chunkers</a></td>
+<td>Public method to get the chunkers in use.</td>
+</tr>
+<tr>
+<td><a href="#EnchantHighlighter.dict">dict</a></td>
+<td>Public method to get the spelling dictionary in use.</td>
+</tr>
+<tr>
+<td><a href="#EnchantHighlighter.highlightBlock">highlightBlock</a></td>
+<td>Public method to apply the text highlight.</td>
+</tr>
+<tr>
+<td><a href="#EnchantHighlighter.setChunkers">setChunkers</a></td>
+<td>Public method to set the chunkers to be used.</td>
+</tr>
+<tr>
+<td><a href="#EnchantHighlighter.setDict">setDict</a></td>
+<td>Public method to set the spelling dictionary to be used.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EnchantHighlighter.__init__" ID="EnchantHighlighter.__init__"></a>
+<h4>EnchantHighlighter (Constructor)</h4>
+<b>EnchantHighlighter</b>(<i>*args, **kwargs</i>)
+<p>
+            Constructor
+</p>
+
+<dl>
+
+<dt><i>*args</i> (list)</dt>
+<dd>
+list of arguments for the QSyntaxHighlighter
+</dd>
+<dt><i>**kwargs=</i> (dict)</dt>
+<dd>
+dictionary of keyword arguments for the
+                QSyntaxHighlighter
+</dd>
+</dl>
+<a NAME="EnchantHighlighter.chunkers" ID="EnchantHighlighter.chunkers"></a>
+<h4>EnchantHighlighter.chunkers</h4>
+<b>chunkers</b>(<i></i>)
+<p>
+            Public method to get the chunkers in use.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of chunkers in use
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list
+</dd>
+</dl>
+<a NAME="EnchantHighlighter.dict" ID="EnchantHighlighter.dict"></a>
+<h4>EnchantHighlighter.dict</h4>
+<b>dict</b>(<i></i>)
+<p>
+            Public method to get the spelling dictionary in use.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+spelling dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+enchant.Dict
+</dd>
+</dl>
+<a NAME="EnchantHighlighter.highlightBlock" ID="EnchantHighlighter.highlightBlock"></a>
+<h4>EnchantHighlighter.highlightBlock</h4>
+<b>highlightBlock</b>(<i>text</i>)
+<p>
+            Public method to apply the text highlight.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be spell-checked
+</dd>
+</dl>
+<a NAME="EnchantHighlighter.setChunkers" ID="EnchantHighlighter.setChunkers"></a>
+<h4>EnchantHighlighter.setChunkers</h4>
+<b>setChunkers</b>(<i>chunkers</i>)
+<p>
+            Public method to set the chunkers to be used.
+</p>
+
+<dl>
+
+<dt><i>chunkers</i> (list)</dt>
+<dd>
+chunkers to be used
+</dd>
+</dl>
+<a NAME="EnchantHighlighter.setDict" ID="EnchantHighlighter.setDict"></a>
+<h4>EnchantHighlighter.setDict</h4>
+<b>setDict</b>(<i>spellDict</i>)
+<p>
+            Public method to set the spelling dictionary to be used.
+</p>
+
+<dl>
+
+<dt><i>spellDict</i> (enchant.Dict)</dt>
+<dd>
+spelling dictionary
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricSpellCheckedPlainTextEdit" ID="EricSpellCheckedPlainTextEdit"></a>
+<h2>EricSpellCheckedPlainTextEdit</h2>
+<p>
+    Class implementing a QPlainTextEdit with built-in spell checker.
+</p>
+
+<h3>Derived from</h3>
+QPlainTextEdit, SpellCheckMixin
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricSpellCheckedPlainTextEdit.__init__">EricSpellCheckedPlainTextEdit</a></td>
+<td>Constructor</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricSpellCheckedPlainTextEdit.__init__" ID="EricSpellCheckedPlainTextEdit.__init__"></a>
+<h4>EricSpellCheckedPlainTextEdit (Constructor)</h4>
+<b>EricSpellCheckedPlainTextEdit</b>(<i>*args, **kwargs</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>*args</i> (list)</dt>
+<dd>
+list of arguments for the QPlainTextEdit constructor.
+</dd>
+<dt><i>**kwargs=</i> (dict)</dt>
+<dd>
+dictionary of keyword arguments for the QSyntaxHighlighter
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricSpellCheckedTextEdit" ID="EricSpellCheckedTextEdit"></a>
+<h2>EricSpellCheckedTextEdit</h2>
+<p>
+    Class implementing a QTextEdit with built-in spell checker.
+</p>
+
+<h3>Derived from</h3>
+QTextEdit, SpellCheckMixin
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricSpellCheckedTextEdit.__init__">EricSpellCheckedTextEdit</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricSpellCheckedTextEdit.setAcceptRichText">setAcceptRichText</a></td>
+<td>Public method to set the text edit mode.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricSpellCheckedTextEdit.__init__" ID="EricSpellCheckedTextEdit.__init__"></a>
+<h4>EricSpellCheckedTextEdit (Constructor)</h4>
+<b>EricSpellCheckedTextEdit</b>(<i>*args, **kwargs</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>*args</i> (list)</dt>
+<dd>
+list of arguments for the QPlainTextEdit constructor.
+</dd>
+<dt><i>**kwargs=</i> (dict)</dt>
+<dd>
+dictionary of keyword arguments for the QSyntaxHighlighter
+</dd>
+</dl>
+<a NAME="EricSpellCheckedTextEdit.setAcceptRichText" ID="EricSpellCheckedTextEdit.setAcceptRichText"></a>
+<h4>EricSpellCheckedTextEdit.setAcceptRichText</h4>
+<b>setAcceptRichText</b>(<i>accept</i>)
+<p>
+        Public method to set the text edit mode.
+</p>
+
+<dl>
+
+<dt><i>accept</i> (bool)</dt>
+<dd>
+flag indicating to accept rich text
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="SpellCheckMixin" ID="SpellCheckMixin"></a>
+<h2>SpellCheckMixin</h2>
+<p>
+        Class implementing the spell-check mixin for the widget classes.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DefaultLanguage</td></tr>
+<tr><td>DefaultUserExceptionList</td></tr>
+<tr><td>DefaultUserWordList</td></tr>
+<tr><td>MaxSuggestions</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#SpellCheckMixin.setDefaultLanguage">setDefaultLanguage</a></td>
+<td>Class method to set the default spell-check language.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SpellCheckMixin.__init__">SpellCheckMixin</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__addRemoveEntry">__addRemoveEntry</a></td>
+<td>Private method to create a menu entry to remove the word at the menu position.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__addToUserDict">__addToUserDict</a></td>
+<td>Private method to add a word to the user word or exclude list.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__correctWord">__correctWord</a></td>
+<td>Private method to replace some misspelled text.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__createCorrectionsMenu">__createCorrectionsMenu</a></td>
+<td>Private method to create a menu for corrections of the selected word.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__createFormatsMenu">__createFormatsMenu</a></td>
+<td>Private method to create a menu for selecting the document format.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__createLanguagesMenu">__createLanguagesMenu</a></td>
+<td>Private method to create a menu for selecting the spell-check language.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__createSpellcheckContextMenu">__createSpellcheckContextMenu</a></td>
+<td>Private method to create the spell-check context menu.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__cursorForMisspelling">__cursorForMisspelling</a></td>
+<td>Private method to create a text cursor selecting the misspelled word.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__cursorForPosition">__cursorForPosition</a></td>
+<td>Private method to create a text cursor selecting the word at the given position.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__setFormat">__setFormat</a></td>
+<td>Private slot to set the selected document format.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__setLanguage">__setLanguage</a></td>
+<td>Private slot to set the selected language.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.__spellMenuTriggered">__spellMenuTriggered</a></td>
+<td>Private slot to handle a selection of the spell menu.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin._showContextMenu">_showContextMenu</a></td>
+<td>Protected slot to show a context menu.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.dict">dict</a></td>
+<td>Public method to get a reference to the dictionary in use.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.setDict">setDict</a></td>
+<td>Public method to set the dictionary to be used.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.setFormat">setFormat</a></td>
+<td>Public method to set the document format.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.setLanguage">setLanguage</a></td>
+<td>Public slot to set the spellchecker language.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin.setLanguageWithPWL">setLanguageWithPWL</a></td>
+<td>Public slot to set the spellchecker language and associated user word lists.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SpellCheckMixin.setDefaultLanguage" ID="SpellCheckMixin.setDefaultLanguage"></a>
+<h4>SpellCheckMixin.setDefaultLanguage (class method)</h4>
+<b>setDefaultLanguage</b>(<i>language, pwl=None, pel=None</i>)
+<p>
+            Class method to set the default spell-check language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language to be set as default
+</dd>
+<dt><i>pwl</i> (str)</dt>
+<dd>
+file name of the personal word list
+</dd>
+<dt><i>pel</i> (str)</dt>
+<dd>
+file name of the personal exclude list
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__init__" ID="SpellCheckMixin.__init__"></a>
+<h4>SpellCheckMixin (Constructor)</h4>
+<b>SpellCheckMixin</b>(<i></i>)
+<p>
+            Constructor
+</p>
+
+<a NAME="SpellCheckMixin.__addRemoveEntry" ID="SpellCheckMixin.__addRemoveEntry"></a>
+<h4>SpellCheckMixin.__addRemoveEntry</h4>
+<b>__addRemoveEntry</b>(<i>cursor, menu</i>)
+<p>
+            Private method to create a menu entry to remove the word at the
+            menu position.
+</p>
+
+<dl>
+
+<dt><i>cursor</i> (QTextCursor)</dt>
+<dd>
+reference to the text cursor for the misspelled word
+</dd>
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__addToUserDict" ID="SpellCheckMixin.__addToUserDict"></a>
+<h4>SpellCheckMixin.__addToUserDict</h4>
+<b>__addToUserDict</b>(<i>word, command</i>)
+<p>
+            Private method to add a word to the user word or exclude list.
+</p>
+
+<dl>
+
+<dt><i>word</i> (str)</dt>
+<dd>
+text to be added
+</dd>
+<dt><i>command</i> (str)</dt>
+<dd>
+command indicating the user dictionary type
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__correctWord" ID="SpellCheckMixin.__correctWord"></a>
+<h4>SpellCheckMixin.__correctWord</h4>
+<b>__correctWord</b>(<i>cursor, word</i>)
+<p>
+            Private method to replace some misspelled text.
+</p>
+
+<dl>
+
+<dt><i>cursor</i> (QTextCursor)</dt>
+<dd>
+reference to the text cursor for the misspelled word
+</dd>
+<dt><i>word</i> (str)</dt>
+<dd>
+replacement text
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__createCorrectionsMenu" ID="SpellCheckMixin.__createCorrectionsMenu"></a>
+<h4>SpellCheckMixin.__createCorrectionsMenu</h4>
+<b>__createCorrectionsMenu</b>(<i>cursor, parent=None</i>)
+<p>
+            Private method to create a menu for corrections of the selected
+            word.
+</p>
+
+<dl>
+
+<dt><i>cursor</i> (QTextCursor)</dt>
+<dd>
+reference to the text cursor
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+menu with corrections
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__createFormatsMenu" ID="SpellCheckMixin.__createFormatsMenu"></a>
+<h4>SpellCheckMixin.__createFormatsMenu</h4>
+<b>__createFormatsMenu</b>(<i>parent=None</i>)
+<p>
+            Private method to create a menu for selecting the document format.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+menu with document formats
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__createLanguagesMenu" ID="SpellCheckMixin.__createLanguagesMenu"></a>
+<h4>SpellCheckMixin.__createLanguagesMenu</h4>
+<b>__createLanguagesMenu</b>(<i>parent=None</i>)
+<p>
+            Private method to create a menu for selecting the spell-check
+            language.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+menu with spell-check languages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__createSpellcheckContextMenu" ID="SpellCheckMixin.__createSpellcheckContextMenu"></a>
+<h4>SpellCheckMixin.__createSpellcheckContextMenu</h4>
+<b>__createSpellcheckContextMenu</b>(<i>pos</i>)
+<p>
+            Private method to create the spell-check context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position of the mouse pointer
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+context menu with additional spell-check entries
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__cursorForMisspelling" ID="SpellCheckMixin.__cursorForMisspelling"></a>
+<h4>SpellCheckMixin.__cursorForMisspelling</h4>
+<b>__cursorForMisspelling</b>(<i>pos</i>)
+<p>
+            Private method to create a text cursor selecting the misspelled
+            word.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position of the misspelled word
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+text cursor for the misspelled word
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTextCursor
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__cursorForPosition" ID="SpellCheckMixin.__cursorForPosition"></a>
+<h4>SpellCheckMixin.__cursorForPosition</h4>
+<b>__cursorForPosition</b>(<i>pos</i>)
+<p>
+            Private method to create a text cursor selecting the word at the
+            given position.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position of the misspelled word
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+text cursor for the word
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTextCursor
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__setFormat" ID="SpellCheckMixin.__setFormat"></a>
+<h4>SpellCheckMixin.__setFormat</h4>
+<b>__setFormat</b>(<i>act</i>)
+<p>
+            Private slot to set the selected document format.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the selected action
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__setLanguage" ID="SpellCheckMixin.__setLanguage"></a>
+<h4>SpellCheckMixin.__setLanguage</h4>
+<b>__setLanguage</b>(<i>act</i>)
+<p>
+            Private slot to set the selected language.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the selected action
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.__spellMenuTriggered" ID="SpellCheckMixin.__spellMenuTriggered"></a>
+<h4>SpellCheckMixin.__spellMenuTriggered</h4>
+<b>__spellMenuTriggered</b>(<i>act</i>)
+<p>
+            Private slot to handle a selection of the spell menu.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the selected action
+</dd>
+</dl>
+<a NAME="SpellCheckMixin._showContextMenu" ID="SpellCheckMixin._showContextMenu"></a>
+<h4>SpellCheckMixin._showContextMenu</h4>
+<b>_showContextMenu</b>(<i>pos</i>)
+<p>
+            Protected slot to show a context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position for the context menu
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.dict" ID="SpellCheckMixin.dict"></a>
+<h4>SpellCheckMixin.dict</h4>
+<b>dict</b>(<i></i>)
+<p>
+            Public method to get a reference to the dictionary in use.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+enchant.Dict
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.setDict" ID="SpellCheckMixin.setDict"></a>
+<h4>SpellCheckMixin.setDict</h4>
+<b>setDict</b>(<i>spellDict</i>)
+<p>
+            Public method to set the dictionary to be used.
+</p>
+
+<dl>
+
+<dt><i>spellDict</i> (emchant.Dict)</dt>
+<dd>
+reference to the spell-check dictionary
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.setFormat" ID="SpellCheckMixin.setFormat"></a>
+<h4>SpellCheckMixin.setFormat</h4>
+<b>setFormat</b>(<i>formatName</i>)
+<p>
+            Public method to set the document format.
+</p>
+
+<dl>
+
+<dt><i>formatName</i> (str)</dt>
+<dd>
+name of the document format
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.setLanguage" ID="SpellCheckMixin.setLanguage"></a>
+<h4>SpellCheckMixin.setLanguage</h4>
+<b>setLanguage</b>(<i>language</i>)
+<p>
+            Public slot to set the spellchecker language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language to be set
+</dd>
+</dl>
+<a NAME="SpellCheckMixin.setLanguageWithPWL" ID="SpellCheckMixin.setLanguageWithPWL"></a>
+<h4>SpellCheckMixin.setLanguageWithPWL</h4>
+<b>setLanguageWithPWL</b>(<i>language, pwl, pel</i>)
+<p>
+            Public slot to set the spellchecker language and associated user
+            word lists.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language to be set
+</dd>
+<dt><i>pwl</i> (str)</dt>
+<dd>
+file name of the personal word list
+</dd>
+<dt><i>pel</i> (str)</dt>
+<dd>
+file name of the personal exclude list
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="SpellCheckMixin_1" ID="SpellCheckMixin_1"></a>
+<h2>SpellCheckMixin</h2>
+<p>
+        Class implementing the spell-check mixin for the widget classes.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr>
+<td><a href="#SpellCheckMixin_1.setDefaultLanguage">setDefaultLanguage</a></td>
+<td>Class method to set the default spell-check language.</td>
+</tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SpellCheckMixin_1.__init__">SpellCheckMixin</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin_1._showContextMenu">_showContextMenu</a></td>
+<td>Protected slot to show a context menu.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin_1.dict">dict</a></td>
+<td>Public method to get a reference to the dictionary in use.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin_1.setDict">setDict</a></td>
+<td>Public method to set the dictionary to be used.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin_1.setFormat">setFormat</a></td>
+<td>Public method to set the document format.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin_1.setLanguage">setLanguage</a></td>
+<td>Public slot to set the spellchecker language.</td>
+</tr>
+<tr>
+<td><a href="#SpellCheckMixin_1.setLanguageWithPWL">setLanguageWithPWL</a></td>
+<td>Public slot to set the spellchecker language and associated user word lists.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SpellCheckMixin_1.setDefaultLanguage" ID="SpellCheckMixin_1.setDefaultLanguage"></a>
+<h4>SpellCheckMixin.setDefaultLanguage (class method)</h4>
+<b>setDefaultLanguage</b>(<i>language, pwl=None, pel=None</i>)
+<p>
+            Class method to set the default spell-check language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language to be set as default
+</dd>
+<dt><i>pwl</i> (str)</dt>
+<dd>
+file name of the personal word list
+</dd>
+<dt><i>pel</i> (str)</dt>
+<dd>
+file name of the personal exclude list
+</dd>
+</dl>
+<a NAME="SpellCheckMixin_1.__init__" ID="SpellCheckMixin_1.__init__"></a>
+<h4>SpellCheckMixin (Constructor)</h4>
+<b>SpellCheckMixin</b>(<i></i>)
+<p>
+            Constructor
+</p>
+
+<a NAME="SpellCheckMixin_1._showContextMenu" ID="SpellCheckMixin_1._showContextMenu"></a>
+<h4>SpellCheckMixin._showContextMenu</h4>
+<b>_showContextMenu</b>(<i>pos</i>)
+<p>
+            Protected slot to show a context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+position for the context menu
+</dd>
+</dl>
+<a NAME="SpellCheckMixin_1.dict" ID="SpellCheckMixin_1.dict"></a>
+<h4>SpellCheckMixin.dict</h4>
+<b>dict</b>(<i></i>)
+<p>
+            Public method to get a reference to the dictionary in use.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the current dictionary
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+enchant.Dict
+</dd>
+</dl>
+<a NAME="SpellCheckMixin_1.setDict" ID="SpellCheckMixin_1.setDict"></a>
+<h4>SpellCheckMixin.setDict</h4>
+<b>setDict</b>(<i>spellDict</i>)
+<p>
+            Public method to set the dictionary to be used.
+</p>
+
+<dl>
+
+<dt><i>spellDict</i> (emchant.Dict)</dt>
+<dd>
+reference to the spell-check dictionary
+</dd>
+</dl>
+<a NAME="SpellCheckMixin_1.setFormat" ID="SpellCheckMixin_1.setFormat"></a>
+<h4>SpellCheckMixin.setFormat</h4>
+<b>setFormat</b>(<i>formatName</i>)
+<p>
+            Public method to set the document format.
+</p>
+
+<dl>
+
+<dt><i>formatName</i> (str)</dt>
+<dd>
+name of the document format
+</dd>
+</dl>
+<a NAME="SpellCheckMixin_1.setLanguage" ID="SpellCheckMixin_1.setLanguage"></a>
+<h4>SpellCheckMixin.setLanguage</h4>
+<b>setLanguage</b>(<i>language</i>)
+<p>
+            Public slot to set the spellchecker language.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language to be set
+</dd>
+</dl>
+<a NAME="SpellCheckMixin_1.setLanguageWithPWL" ID="SpellCheckMixin_1.setLanguageWithPWL"></a>
+<h4>SpellCheckMixin.setLanguageWithPWL</h4>
+<b>setLanguageWithPWL</b>(<i>language, pwl, pel</i>)
+<p>
+            Public slot to set the spellchecker language and associated user
+            word lists.
+</p>
+
+<dl>
+
+<dt><i>language</i> (str)</dt>
+<dd>
+language to be set
+</dd>
+<dt><i>pwl</i> (str)</dt>
+<dd>
+file name of the personal word list
+</dd>
+<dt><i>pel</i> (str)</dt>
+<dd>
+file name of the personal exclude list
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

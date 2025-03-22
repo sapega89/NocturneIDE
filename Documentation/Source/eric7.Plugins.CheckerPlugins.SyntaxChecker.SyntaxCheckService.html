@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.SyntaxChecker.SyntaxCheckService</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.SyntaxChecker.SyntaxCheckService</h1>
+<p>
+Module implementing an interface to add different languages to do a syntax
+check.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SyntaxCheckService">SyntaxCheckService</a></td>
+<td>Implement the syntax check service.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SyntaxCheckService" ID="SyntaxCheckService"></a>
+<h2>SyntaxCheckService</h2>
+<p>
+    Implement the syntax check service.
+</p>
+<p>
+    Plugins can add other languages to the syntax check by calling addLanguage
+    and support of an extra checker module on the client side which has to
+    connect directly to the background service.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>batchFinished()</dt>
+<dd>
+emitted when a syntax check batch is done
+</dd>
+<dt>error(str, str)</dt>
+<dd>
+emitted in case of an error
+</dd>
+<dt>syntaxChecked(str, dict)</dt>
+<dd>
+emitted when the syntax check was done for
+        one file
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SyntaxCheckService.__init__">SyntaxCheckService</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.__determineLanguage">__determineLanguage</a></td>
+<td>Private method to determine the language of the file.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.__serviceError">__serviceError</a></td>
+<td>Private slot handling service errors.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.addLanguage">addLanguage</a></td>
+<td>Public method to register a new language to the supported languages.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.batchJobDone">batchJobDone</a></td>
+<td>Public slot handling the completion of a batch job.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.cancelSyntaxBatchCheck">cancelSyntaxBatchCheck</a></td>
+<td>Public method to cancel all batch jobs.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.getExtensions">getExtensions</a></td>
+<td>Public method to return all supported file extensions for the syntax checker dialog.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.getLanguages">getLanguages</a></td>
+<td>Public method to return the supported language names.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.removeLanguage">removeLanguage</a></td>
+<td>Public method to remove the language from syntax check.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.serviceErrorJSON">serviceErrorJSON</a></td>
+<td>Public method handling service errors for JSON.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.serviceErrorJavaScript">serviceErrorJavaScript</a></td>
+<td>Public method handling service errors for JavaScript.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.serviceErrorPy3">serviceErrorPy3</a></td>
+<td>Public method handling service errors for Python 3.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.serviceErrorTOML">serviceErrorTOML</a></td>
+<td>Public method handling service errors for TOML.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.serviceErrorYAML">serviceErrorYAML</a></td>
+<td>Public method handling service errors for YAML.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.syntaxBatchCheck">syntaxBatchCheck</a></td>
+<td>Public method to prepare a syntax check on multiple source files.</td>
+</tr>
+<tr>
+<td><a href="#SyntaxCheckService.syntaxCheck">syntaxCheck</a></td>
+<td>Public method to prepare a syntax check of one source file.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SyntaxCheckService.__init__" ID="SyntaxCheckService.__init__"></a>
+<h4>SyntaxCheckService (Constructor)</h4>
+<b>SyntaxCheckService</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="SyntaxCheckService.__determineLanguage" ID="SyntaxCheckService.__determineLanguage"></a>
+<h4>SyntaxCheckService.__determineLanguage</h4>
+<b>__determineLanguage</b>(<i>filename, source</i>)
+<p>
+        Private method to determine the language of the file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+of the sourcefile
+</dd>
+<dt><i>source</i> (str)</dt>
+<dd>
+code of the file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+language of the file or None if not found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str or None
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.__serviceError" ID="SyntaxCheckService.__serviceError"></a>
+<h4>SyntaxCheckService.__serviceError</h4>
+<b>__serviceError</b>(<i>fn, msg</i>)
+<p>
+        Private slot handling service errors.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message text
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.addLanguage" ID="SyntaxCheckService.addLanguage"></a>
+<h4>SyntaxCheckService.addLanguage</h4>
+<b>addLanguage</b>(<i>lang, env, path, module, getArgs, getExt, callback, onError</i>)
+<p>
+        Public method to register a new language to the supported languages.
+</p>
+
+<dl>
+
+<dt><i>lang</i> (str)</dt>
+<dd>
+new language to check syntax
+</dd>
+<dt><i>env</i> (str)</dt>
+<dd>
+the environment in which the checker is implemented
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+full path to the module
+</dd>
+<dt><i>module</i> (str)</dt>
+<dd>
+name to import
+</dd>
+<dt><i>getArgs</i> (function)</dt>
+<dd>
+function to collect the required arguments to call the
+            syntax checker on client side
+</dd>
+<dt><i>getExt</i> (function)</dt>
+<dd>
+function that returns the supported file extensions of
+            the syntax checker
+</dd>
+<dt><i>callback</i> (function)</dt>
+<dd>
+function on service response
+</dd>
+<dt><i>onError</i> (function)</dt>
+<dd>
+callback function if client or service isn't available
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.batchJobDone" ID="SyntaxCheckService.batchJobDone"></a>
+<h4>SyntaxCheckService.batchJobDone</h4>
+<b>batchJobDone</b>(<i>fx, lang</i>)
+<p>
+        Public slot handling the completion of a batch job.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+service name
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.cancelSyntaxBatchCheck" ID="SyntaxCheckService.cancelSyntaxBatchCheck"></a>
+<h4>SyntaxCheckService.cancelSyntaxBatchCheck</h4>
+<b>cancelSyntaxBatchCheck</b>(<i></i>)
+<p>
+        Public method to cancel all batch jobs.
+</p>
+
+<a NAME="SyntaxCheckService.getExtensions" ID="SyntaxCheckService.getExtensions"></a>
+<h4>SyntaxCheckService.getExtensions</h4>
+<b>getExtensions</b>(<i></i>)
+<p>
+        Public method to return all supported file extensions for the
+        syntax checker dialog.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+set of all supported file extensions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+set of str
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.getLanguages" ID="SyntaxCheckService.getLanguages"></a>
+<h4>SyntaxCheckService.getLanguages</h4>
+<b>getLanguages</b>(<i></i>)
+<p>
+        Public method to return the supported language names.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of languanges supported
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.removeLanguage" ID="SyntaxCheckService.removeLanguage"></a>
+<h4>SyntaxCheckService.removeLanguage</h4>
+<b>removeLanguage</b>(<i>lang</i>)
+<p>
+        Public method to remove the language from syntax check.
+</p>
+
+<dl>
+
+<dt><i>lang</i> (str)</dt>
+<dd>
+language to remove
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.serviceErrorJSON" ID="SyntaxCheckService.serviceErrorJSON"></a>
+<h4>SyntaxCheckService.serviceErrorJSON</h4>
+<b>serviceErrorJSON</b>(<i>fx, lang, fn, msg</i>)
+<p>
+        Public method handling service errors for JSON.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+service name
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message text
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.serviceErrorJavaScript" ID="SyntaxCheckService.serviceErrorJavaScript"></a>
+<h4>SyntaxCheckService.serviceErrorJavaScript</h4>
+<b>serviceErrorJavaScript</b>(<i>fx, lang, fn, msg</i>)
+<p>
+        Public method handling service errors for JavaScript.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+service name
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message text
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.serviceErrorPy3" ID="SyntaxCheckService.serviceErrorPy3"></a>
+<h4>SyntaxCheckService.serviceErrorPy3</h4>
+<b>serviceErrorPy3</b>(<i>fx, lang, fn, msg</i>)
+<p>
+        Public method handling service errors for Python 3.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+service name
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message text
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.serviceErrorTOML" ID="SyntaxCheckService.serviceErrorTOML"></a>
+<h4>SyntaxCheckService.serviceErrorTOML</h4>
+<b>serviceErrorTOML</b>(<i>fx, lang, fn, msg</i>)
+<p>
+        Public method handling service errors for TOML.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+service name
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message text
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.serviceErrorYAML" ID="SyntaxCheckService.serviceErrorYAML"></a>
+<h4>SyntaxCheckService.serviceErrorYAML</h4>
+<b>serviceErrorYAML</b>(<i>fx, lang, fn, msg</i>)
+<p>
+        Public method handling service errors for YAML.
+</p>
+
+<dl>
+
+<dt><i>fx</i> (str)</dt>
+<dd>
+service name
+</dd>
+<dt><i>lang</i> (str)</dt>
+<dd>
+language
+</dd>
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message text
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.syntaxBatchCheck" ID="SyntaxCheckService.syntaxBatchCheck"></a>
+<h4>SyntaxCheckService.syntaxBatchCheck</h4>
+<b>syntaxBatchCheck</b>(<i>argumentsList</i>)
+<p>
+        Public method to prepare a syntax check on multiple source files.
+</p>
+
+<dl>
+
+<dt><i>argumentsList</i> (list of tuples of (str, str))</dt>
+<dd>
+list of argument tuples with each tuple
+            containing filename and source
+</dd>
+</dl>
+<a NAME="SyntaxCheckService.syntaxCheck" ID="SyntaxCheckService.syntaxCheck"></a>
+<h4>SyntaxCheckService.syntaxCheck</h4>
+<b>syntaxCheck</b>(<i>lang, filename, source, *args</i>)
+<p>
+        Public method to prepare a syntax check of one source file.
+</p>
+
+<dl>
+
+<dt><i>lang</i> (str or None)</dt>
+<dd>
+language of the file or None to determine by internal
+            algorithm
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+source filename
+</dd>
+<dt><i>source</i> (str)</dt>
+<dd>
+string containing the code to check
+</dd>
+<dt><i>args</i> (tuple)</dt>
+<dd>
+tuple containing additional positional arguments
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

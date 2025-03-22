@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.RemoteServerInterface.EricServerFileDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.RemoteServerInterface.EricServerFileDialog</h1>
+<p>
+Module implementing a file dialog showing the file system of the eric-ide server.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#AcceptMode">AcceptMode</a></td>
+<td>Class defining the dialog accept modes.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog">EricServerFileDialog</a></td>
+<td>Class implementing a file dialog showing the file system of the eric-ide server.</td>
+</tr>
+<tr>
+<td><a href="#FileMode">FileMode</a></td>
+<td>Class defining what the user may select in the file dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#getExistingDirectory">getExistingDirectory</a></td>
+<td>Module function to get the name of a directory.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileName">getOpenFileName</a></td>
+<td>Module function to get the name of a file for opening it.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileNameAndFilter">getOpenFileNameAndFilter</a></td>
+<td>Module function to get the name of a file for opening it and the selected file name filter.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileNames">getOpenFileNames</a></td>
+<td>Module function to get a list of names of files for opening.</td>
+</tr>
+<tr>
+<td><a href="#getOpenFileNamesAndFilter">getOpenFileNamesAndFilter</a></td>
+<td>Module function to get a list of names of files for opening and the selected file name filter.</td>
+</tr>
+<tr>
+<td><a href="#getSaveFileName">getSaveFileName</a></td>
+<td>Module function to get the name of a file for saving.</td>
+</tr>
+<tr>
+<td><a href="#getSaveFileNameAndFilter">getSaveFileNameAndFilter</a></td>
+<td>Module function to get the name of a file for saving and the selected file name filter.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="AcceptMode" ID="AcceptMode"></a>
+<h2>AcceptMode</h2>
+<p>
+    Class defining the dialog accept modes.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AcceptOpen</td></tr>
+<tr><td>AcceptSave</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricServerFileDialog" ID="EricServerFileDialog"></a>
+<h2>EricServerFileDialog</h2>
+<p>
+    Class implementing a file dialog showing the file system of the eric-ide server.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_EricServerFileDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>IsDirectoryRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricServerFileDialog.__init__">EricServerFileDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__addToHistory">__addToHistory</a></td>
+<td>Private method to add a directory to the history list.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__deleteItem">__deleteItem</a></td>
+<td>Private slot to delete the given file/directory  item.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__filterList">__filterList</a></td>
+<td>Private method to filter the files and directories list based on the given filters and whether hidden files/directories should be shown.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__getFullPath">__getFullPath</a></td>
+<td>Private method to get the full path for a given file or directory name.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__getNames">__getNames</a></td>
+<td>Private method to get the selected names list.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__isHidden">__isHidden</a></td>
+<td>Private method to check, if the given name is indicating a hidden file or directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__nameCompleterActivated">__nameCompleterActivated</a></td>
+<td>Private slot handling the activation of the completer.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__reload">__reload</a></td>
+<td>Private slot to reload the directory listing.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__renameItem">__renameItem</a></td>
+<td>Private slot to rename the given file/directory item.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__showHiddenToggled">__showHiddenToggled</a></td>
+<td>Private slot to handle toggling the display of hidden files/directories.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__updateHistoryButtons">__updateHistoryButtons</a></td>
+<td>Private method to update the enabled state of the back and forward buttons.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__updateOkButton">__updateOkButton</a></td>
+<td>Private slot to set the 'OK' button state, icon and label.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.__updateUpButton">__updateUpButton</a></td>
+<td>Private slot to update the enabled state of the 'Up' button.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.acceptMode">acceptMode</a></td>
+<td>Public method to get the accept mode of the dialog.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.fileMode">fileMode</a></td>
+<td>Public method to get the current file mode of the dialog.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_backButton_clicked">on_backButton_clicked</a></td>
+<td>Private slot to move back in history of visited directories.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_filterCombo_currentIndexChanged">on_filterCombo_currentIndexChanged</a></td>
+<td>Private slot handling the selection of a new file filter..</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_forwardButton_clicked">on_forwardButton_clicked</a></td>
+<td>Private slot to move forward in history of visited directories.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_listing_customContextMenuRequested">on_listing_customContextMenuRequested</a></td>
+<td>Private slot to show a context menu.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_listing_itemActivated">on_listing_itemActivated</a></td>
+<td>Private slot to handle the activation of an item in the list.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_listing_itemSelectionChanged">on_listing_itemSelectionChanged</a></td>
+<td>Private slot to handle the selection of listed items.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_nameEdit_textChanged">on_nameEdit_textChanged</a></td>
+<td>Private slot handling the editing of a file or directory name.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_newDirButton_clicked">on_newDirButton_clicked</a></td>
+<td>Private slot to create a new directory.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_okButton_clicked">on_okButton_clicked</a></td>
+<td>Private slot handling the press of the OK button.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.on_upButton_clicked">on_upButton_clicked</a></td>
+<td>Private slot to move up one level in the hierarchy.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.selectedFiles">selectedFiles</a></td>
+<td>Public method to get the selected files or the current viewport path.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.selectedNameFilter">selectedNameFilter</a></td>
+<td>Public method to get the selected name filter.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.setAcceptMode">setAcceptMode</a></td>
+<td>Public method to set the accept mode of the dialog.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.setDirectoriesOnly">setDirectoriesOnly</a></td>
+<td>Public method to set a flag to just show directories.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.setDirectory">setDirectory</a></td>
+<td>Public slot to set the current directory and populate the tree list.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.setFileMode">setFileMode</a></td>
+<td>Public method to set the file mode of the dialog.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.setNameFilter">setNameFilter</a></td>
+<td>Public method to set the current name filter.</td>
+</tr>
+<tr>
+<td><a href="#EricServerFileDialog.setNameFilters">setNameFilters</a></td>
+<td>Public method to set the list of file/directory name filters.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricServerFileDialog.__init__" ID="EricServerFileDialog.__init__"></a>
+<h4>EricServerFileDialog (Constructor)</h4>
+<b>EricServerFileDialog</b>(<i>parent=None, caption="", directory="", filter=""</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+dialog title (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+initial directory (defaults to "")
+</dd>
+<dt><i>filter</i> (str (optional))</dt>
+<dd>
+Qt file filter string (defaults to "")
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.__addToHistory" ID="EricServerFileDialog.__addToHistory"></a>
+<h4>EricServerFileDialog.__addToHistory</h4>
+<b>__addToHistory</b>(<i>entry</i>)
+<p>
+        Private method to add a directory to the history list.
+</p>
+
+<dl>
+
+<dt><i>entry</i> (str)</dt>
+<dd>
+name of the directory to be added
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.__deleteItem" ID="EricServerFileDialog.__deleteItem"></a>
+<h4>EricServerFileDialog.__deleteItem</h4>
+<b>__deleteItem</b>(<i>item</i>)
+<p>
+        Private slot to delete the given file/directory  item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to be deleted
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.__filterList" ID="EricServerFileDialog.__filterList"></a>
+<h4>EricServerFileDialog.__filterList</h4>
+<b>__filterList</b>(<i>filters</i>)
+<p>
+        Private method to filter the files and directories list based on the given
+        filters and whether hidden files/directories should be shown.
+</p>
+
+<dl>
+
+<dt><i>filters</i> (list of str)</dt>
+<dd>
+list of filter patterns (only applied to files
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.__getFullPath" ID="EricServerFileDialog.__getFullPath"></a>
+<h4>EricServerFileDialog.__getFullPath</h4>
+<b>__getFullPath</b>(<i>name</i>)
+<p>
+        Private method to get the full path for a given file or directory name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the file or directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+full path of the file or directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.__getNames" ID="EricServerFileDialog.__getNames"></a>
+<h4>EricServerFileDialog.__getNames</h4>
+<b>__getNames</b>(<i></i>)
+<p>
+        Private method to get the selected names list.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing the selected names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.__isHidden" ID="EricServerFileDialog.__isHidden"></a>
+<h4>EricServerFileDialog.__isHidden</h4>
+<b>__isHidden</b>(<i>name</i>)
+<p>
+        Private method to check, if the given name is indicating a hidden file or
+        directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the file or directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a hidden file or directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.__nameCompleterActivated" ID="EricServerFileDialog.__nameCompleterActivated"></a>
+<h4>EricServerFileDialog.__nameCompleterActivated</h4>
+<b>__nameCompleterActivated</b>(<i></i>)
+<p>
+        Private slot handling the activation of the completer.
+</p>
+
+<a NAME="EricServerFileDialog.__reload" ID="EricServerFileDialog.__reload"></a>
+<h4>EricServerFileDialog.__reload</h4>
+<b>__reload</b>(<i></i>)
+<p>
+        Private slot to reload the directory listing.
+</p>
+
+<a NAME="EricServerFileDialog.__renameItem" ID="EricServerFileDialog.__renameItem"></a>
+<h4>EricServerFileDialog.__renameItem</h4>
+<b>__renameItem</b>(<i>item</i>)
+<p>
+        Private slot to rename the given file/directory item.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to be renamed
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.__showHiddenToggled" ID="EricServerFileDialog.__showHiddenToggled"></a>
+<h4>EricServerFileDialog.__showHiddenToggled</h4>
+<b>__showHiddenToggled</b>(<i>on</i>)
+<p>
+        Private slot to handle toggling the display of hidden files/directories.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating to show hidden files and directories
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.__updateHistoryButtons" ID="EricServerFileDialog.__updateHistoryButtons"></a>
+<h4>EricServerFileDialog.__updateHistoryButtons</h4>
+<b>__updateHistoryButtons</b>(<i></i>)
+<p>
+        Private method to update the enabled state of the back and forward buttons.
+</p>
+
+<a NAME="EricServerFileDialog.__updateOkButton" ID="EricServerFileDialog.__updateOkButton"></a>
+<h4>EricServerFileDialog.__updateOkButton</h4>
+<b>__updateOkButton</b>(<i></i>)
+<p>
+        Private slot to set the 'OK' button state, icon and label.
+</p>
+
+<a NAME="EricServerFileDialog.__updateUpButton" ID="EricServerFileDialog.__updateUpButton"></a>
+<h4>EricServerFileDialog.__updateUpButton</h4>
+<b>__updateUpButton</b>(<i></i>)
+<p>
+        Private slot to update the enabled state of the 'Up' button.
+</p>
+
+<a NAME="EricServerFileDialog.acceptMode" ID="EricServerFileDialog.acceptMode"></a>
+<h4>EricServerFileDialog.acceptMode</h4>
+<b>acceptMode</b>(<i></i>)
+<p>
+        Public method to get the accept mode of the dialog.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+accept mode
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+AcceptMode
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.fileMode" ID="EricServerFileDialog.fileMode"></a>
+<h4>EricServerFileDialog.fileMode</h4>
+<b>fileMode</b>(<i></i>)
+<p>
+        Public method to get the current file mode of the dialog.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+file mode
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+FileMode
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.on_backButton_clicked" ID="EricServerFileDialog.on_backButton_clicked"></a>
+<h4>EricServerFileDialog.on_backButton_clicked</h4>
+<b>on_backButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move back in history of visited directories.
+</p>
+
+<a NAME="EricServerFileDialog.on_filterCombo_currentIndexChanged" ID="EricServerFileDialog.on_filterCombo_currentIndexChanged"></a>
+<h4>EricServerFileDialog.on_filterCombo_currentIndexChanged</h4>
+<b>on_filterCombo_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot handling the selection of a new file filter..
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.on_forwardButton_clicked" ID="EricServerFileDialog.on_forwardButton_clicked"></a>
+<h4>EricServerFileDialog.on_forwardButton_clicked</h4>
+<b>on_forwardButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move forward in history of visited directories.
+</p>
+
+<a NAME="EricServerFileDialog.on_listing_customContextMenuRequested" ID="EricServerFileDialog.on_listing_customContextMenuRequested"></a>
+<h4>EricServerFileDialog.on_listing_customContextMenuRequested</h4>
+<b>on_listing_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show a context menu.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+mouse pointer position to show the menu at
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.on_listing_itemActivated" ID="EricServerFileDialog.on_listing_itemActivated"></a>
+<h4>EricServerFileDialog.on_listing_itemActivated</h4>
+<b>on_listing_itemActivated</b>(<i>item, column</i>)
+<p>
+        Private slot to handle the activation of an item in the list.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column number (unused)
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.on_listing_itemSelectionChanged" ID="EricServerFileDialog.on_listing_itemSelectionChanged"></a>
+<h4>EricServerFileDialog.on_listing_itemSelectionChanged</h4>
+<b>on_listing_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to handle the selection of listed items.
+</p>
+
+<a NAME="EricServerFileDialog.on_nameEdit_textChanged" ID="EricServerFileDialog.on_nameEdit_textChanged"></a>
+<h4>EricServerFileDialog.on_nameEdit_textChanged</h4>
+<b>on_nameEdit_textChanged</b>(<i>name</i>)
+<p>
+        Private slot handling the editing of a file or directory name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+current text of the name edit
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.on_newDirButton_clicked" ID="EricServerFileDialog.on_newDirButton_clicked"></a>
+<h4>EricServerFileDialog.on_newDirButton_clicked</h4>
+<b>on_newDirButton_clicked</b>(<i></i>)
+<p>
+        Private slot to create a new directory.
+</p>
+
+<a NAME="EricServerFileDialog.on_okButton_clicked" ID="EricServerFileDialog.on_okButton_clicked"></a>
+<h4>EricServerFileDialog.on_okButton_clicked</h4>
+<b>on_okButton_clicked</b>(<i></i>)
+<p>
+        Private slot handling the press of the OK button.
+</p>
+
+<a NAME="EricServerFileDialog.on_upButton_clicked" ID="EricServerFileDialog.on_upButton_clicked"></a>
+<h4>EricServerFileDialog.on_upButton_clicked</h4>
+<b>on_upButton_clicked</b>(<i></i>)
+<p>
+        Private slot to move up one level in the hierarchy.
+</p>
+
+<a NAME="EricServerFileDialog.selectedFiles" ID="EricServerFileDialog.selectedFiles"></a>
+<h4>EricServerFileDialog.selectedFiles</h4>
+<b>selectedFiles</b>(<i></i>)
+<p>
+        Public method to get the selected files or the current viewport path.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected files or current viewport path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.selectedNameFilter" ID="EricServerFileDialog.selectedNameFilter"></a>
+<h4>EricServerFileDialog.selectedNameFilter</h4>
+<b>selectedNameFilter</b>(<i></i>)
+<p>
+        Public method to get the selected name filter.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+selected name filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.setAcceptMode" ID="EricServerFileDialog.setAcceptMode"></a>
+<h4>EricServerFileDialog.setAcceptMode</h4>
+<b>setAcceptMode</b>(<i>mode</i>)
+<p>
+        Public method to set the accept mode of the dialog.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (AcceptMode)</dt>
+<dd>
+accept mode
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.setDirectoriesOnly" ID="EricServerFileDialog.setDirectoriesOnly"></a>
+<h4>EricServerFileDialog.setDirectoriesOnly</h4>
+<b>setDirectoriesOnly</b>(<i>dirsOnly</i>)
+<p>
+        Public method to set a flag to just show directories.
+</p>
+
+<dl>
+
+<dt><i>dirsOnly</i> (bool)</dt>
+<dd>
+flag indicating to just show directories
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.setDirectory" ID="EricServerFileDialog.setDirectory"></a>
+<h4>EricServerFileDialog.setDirectory</h4>
+<b>setDirectory</b>(<i>directory</i>)
+<p>
+        Public slot to set the current directory and populate the tree list.
+</p>
+
+<dl>
+
+<dt><i>directory</i> (str)</dt>
+<dd>
+directory to be set as current. An empty directory sets the
+            server's current directory.
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.setFileMode" ID="EricServerFileDialog.setFileMode"></a>
+<h4>EricServerFileDialog.setFileMode</h4>
+<b>setFileMode</b>(<i>mode</i>)
+<p>
+        Public method to set the file mode of the dialog.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (FileMode)</dt>
+<dd>
+file mode
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.setNameFilter" ID="EricServerFileDialog.setNameFilter"></a>
+<h4>EricServerFileDialog.setNameFilter</h4>
+<b>setNameFilter</b>(<i>filter</i>)
+<p>
+        Public method to set the current name filter.
+</p>
+
+<dl>
+
+<dt><i>filter</i> (str)</dt>
+<dd>
+filter text to make current
+</dd>
+</dl>
+<a NAME="EricServerFileDialog.setNameFilters" ID="EricServerFileDialog.setNameFilters"></a>
+<h4>EricServerFileDialog.setNameFilters</h4>
+<b>setNameFilters</b>(<i>filters</i>)
+<p>
+        Public method to set the list of file/directory name filters.
+</p>
+
+<dl>
+
+<dt><i>filters</i> (list of str)</dt>
+<dd>
+list of filter expressions
+            ("filter_name (pattern1 ... patternN)")
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="FileMode" ID="FileMode"></a>
+<h2>FileMode</h2>
+<p>
+    Class defining what the user may select in the file dialog.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>AnyFile</td></tr>
+<tr><td>Directory</td></tr>
+<tr><td>ExistingFile</td></tr>
+<tr><td>ExistingFiles</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getExistingDirectory" ID="getExistingDirectory"></a>
+<h2>getExistingDirectory</h2>
+<b>getExistingDirectory</b>(<i>parent=None, caption="", directory="", dirsOnly=True, withRemote=True</i>)
+<p>
+    Module function to get the name of a directory.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>dirsOnly</i> (bool (optional))</dt>
+<dd>
+flag indicating to just show directories (defaults to True)
+</dd>
+<dt><i>withRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to create the file names with the remote
+        indicator (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of selected directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileName" ID="getOpenFileName"></a>
+<h2>getOpenFileName</h2>
+<b>getOpenFileName</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", withRemote=True, </i>)
+<p>
+    Module function to get the name of a file for opening it.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>withRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to create the file names with the remote
+        indicator (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of file to be opened
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileNameAndFilter" ID="getOpenFileNameAndFilter"></a>
+<h2>getOpenFileNameAndFilter</h2>
+<b>getOpenFileNameAndFilter</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", withRemote=True, </i>)
+<p>
+    Module function to get the name of a file for opening it and the selected
+    file name filter.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>withRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to create the file names with the remote
+        indicator (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the list of file names to be opened and the
+        selected file name filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileNames" ID="getOpenFileNames"></a>
+<h2>getOpenFileNames</h2>
+<b>getOpenFileNames</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", withRemote=True, </i>)
+<p>
+    Module function to get a list of names of files for opening.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>withRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to create the file names with the remote
+        indicator (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of file names to be opened
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getOpenFileNamesAndFilter" ID="getOpenFileNamesAndFilter"></a>
+<h2>getOpenFileNamesAndFilter</h2>
+<b>getOpenFileNamesAndFilter</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", withRemote=True, </i>)
+<p>
+    Module function to get a list of names of files for opening and the
+    selected file name filter.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>withRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to create the file names with the remote
+        indicator (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the list of file names to be opened and the
+        selected file name filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getSaveFileName" ID="getSaveFileName"></a>
+<h2>getSaveFileName</h2>
+<b>getSaveFileName</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", withRemote=True, </i>)
+<p>
+    Module function to get the name of a file for saving.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>withRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to create the file names with the remote
+        indicator (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of file to be saved
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getSaveFileNameAndFilter" ID="getSaveFileNameAndFilter"></a>
+<h2>getSaveFileNameAndFilter</h2>
+<b>getSaveFileNameAndFilter</b>(<i>parent=None, caption="", directory="", filterStr="", initialFilter="", withRemote=True, </i>)
+<p>
+    Module function to get the name of a file for saving and the selected file name
+    filter.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+parent widget of the dialog (defaults to None)
+</dd>
+<dt><i>caption</i> (str (optional))</dt>
+<dd>
+window title of the dialog (defaults to "")
+</dd>
+<dt><i>directory</i> (str (optional))</dt>
+<dd>
+working directory of the dialog (defaults to "")
+</dd>
+<dt><i>filterStr</i> (str (optional))</dt>
+<dd>
+filter string for the dialog (defaults to "")
+</dd>
+<dt><i>initialFilter</i> (str (optional))</dt>
+<dd>
+initial filter for the dialog (defaults to "")
+</dd>
+<dt><i>withRemote</i> (bool (optional))</dt>
+<dd>
+flag indicating to create the file names with the remote
+        indicator (defaults to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of file to be saved and selected filte
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

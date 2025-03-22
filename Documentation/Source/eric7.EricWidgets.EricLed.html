@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricLed</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricLed</h1>
+<p>
+Module implementing a LED widget.
+</p>
+<p>
+It was inspired by KLed.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricClickableLed">EricClickableLed</a></td>
+<td>Class implementing a clickable LED widget.</td>
+</tr>
+<tr>
+<td><a href="#EricLed">EricLed</a></td>
+<td>Class implementing a LED widget.</td>
+</tr>
+<tr>
+<td><a href="#EricLedType">EricLedType</a></td>
+<td>Class defining the LED types.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricClickableLed" ID="EricClickableLed"></a>
+<h2>EricClickableLed</h2>
+<p>
+    Class implementing a clickable LED widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>clicked(QPoint)</dt>
+<dd>
+emitted upon a click on the LED with the
+        left button
+</dd>
+<dt>middleClicked(QPoint)</dt>
+<dd>
+emitted upon a click on the LED with
+        the middle button or CTRL and left button
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricLed
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricClickableLed.__init__">EricClickableLed</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricClickableLed.mouseReleaseEvent">mouseReleaseEvent</a></td>
+<td>Protected method handling mouse release events.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricClickableLed.__init__" ID="EricClickableLed.__init__"></a>
+<h4>EricClickableLed (Constructor)</h4>
+<b>EricClickableLed</b>(<i>parent=None, color=None, shape=EricLedType.CIRCULAR, rectRatio=1</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to parent widget
+</dd>
+<dt><i>color</i> (QColor)</dt>
+<dd>
+color of the LED
+</dd>
+<dt><i>shape</i> (EricLedType)</dt>
+<dd>
+shape of the LED
+</dd>
+<dt><i>rectRatio</i> (float)</dt>
+<dd>
+ratio width to height, if shape is rectangular
+</dd>
+</dl>
+<a NAME="EricClickableLed.mouseReleaseEvent" ID="EricClickableLed.mouseReleaseEvent"></a>
+<h4>EricClickableLed.mouseReleaseEvent</h4>
+<b>mouseReleaseEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling mouse release events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QMouseEvent)</dt>
+<dd>
+mouse event
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricLed" ID="EricLed"></a>
+<h2>EricLed</h2>
+<p>
+    Class implementing a LED widget.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricLed.__init__">EricLed</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricLed.__getBestRoundSize">__getBestRoundSize</a></td>
+<td>Private method to calculate the width of the LED.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.__paintRectangular">__paintRectangular</a></td>
+<td>Private method to paint a rectangular raised LED.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.__paintRound">__paintRound</a></td>
+<td>Private method to paint a round raised LED.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.color">color</a></td>
+<td>Public method to return the LED color.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.darkFactor">darkFactor</a></td>
+<td>Public method to return the dark factor.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.isFramed">isFramed</a></td>
+<td>Public method to return the framed state.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.isOn">isOn</a></td>
+<td>Public method to return the LED state.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.minimumSizeHint">minimumSizeHint</a></td>
+<td>Public method to give a hint about our minimum size.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.off">off</a></td>
+<td>Public slot to set the LED to off.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.on">on</a></td>
+<td>Public slot to set the LED to on.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.paintEvent">paintEvent</a></td>
+<td>Protected slot handling the paint event.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.ratio">ratio</a></td>
+<td>Public method to return the LED rectangular ratio [= width / height].</td>
+</tr>
+<tr>
+<td><a href="#EricLed.setColor">setColor</a></td>
+<td>Public method to set the LED color.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.setDarkFactor">setDarkFactor</a></td>
+<td>Public method to set the dark factor.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.setFramed">setFramed</a></td>
+<td>Public slot to set the __framedLed attribute.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.setOn">setOn</a></td>
+<td>Public method to set the LED to on.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.setRatio">setRatio</a></td>
+<td>Public method to set the LED rectangular ratio (width / height).</td>
+</tr>
+<tr>
+<td><a href="#EricLed.setShape">setShape</a></td>
+<td>Public method to set the LED shape.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.shape">shape</a></td>
+<td>Public method to return the LED shape.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.sizeHint">sizeHint</a></td>
+<td>Public method to give a hint about our desired size.</td>
+</tr>
+<tr>
+<td><a href="#EricLed.toggle">toggle</a></td>
+<td>Public slot to toggle the LED state.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricLed.__init__" ID="EricLed.__init__"></a>
+<h4>EricLed (Constructor)</h4>
+<b>EricLed</b>(<i>parent=None, color=None, shape=EricLedType.CIRCULAR, rectRatio=1</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to parent widget
+</dd>
+<dt><i>color</i> (QColor)</dt>
+<dd>
+color of the LED
+</dd>
+<dt><i>shape</i> (EricLedType)</dt>
+<dd>
+shape of the LED
+</dd>
+<dt><i>rectRatio</i> (float)</dt>
+<dd>
+ratio width to height, if shape is rectangular
+</dd>
+</dl>
+<a NAME="EricLed.__getBestRoundSize" ID="EricLed.__getBestRoundSize"></a>
+<h4>EricLed.__getBestRoundSize</h4>
+<b>__getBestRoundSize</b>(<i></i>)
+<p>
+        Private method to calculate the width of the LED.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+new width of the LED
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricLed.__paintRectangular" ID="EricLed.__paintRectangular"></a>
+<h4>EricLed.__paintRectangular</h4>
+<b>__paintRectangular</b>(<i></i>)
+<p>
+        Private method to paint a rectangular raised LED.
+</p>
+
+<a NAME="EricLed.__paintRound" ID="EricLed.__paintRound"></a>
+<h4>EricLed.__paintRound</h4>
+<b>__paintRound</b>(<i></i>)
+<p>
+        Private method to paint a round raised LED.
+</p>
+
+<a NAME="EricLed.color" ID="EricLed.color"></a>
+<h4>EricLed.color</h4>
+<b>color</b>(<i></i>)
+<p>
+        Public method to return the LED color.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+color of the LED
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="EricLed.darkFactor" ID="EricLed.darkFactor"></a>
+<h4>EricLed.darkFactor</h4>
+<b>darkFactor</b>(<i></i>)
+<p>
+        Public method to return the dark factor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the current dark factor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricLed.isFramed" ID="EricLed.isFramed"></a>
+<h4>EricLed.isFramed</h4>
+<b>isFramed</b>(<i></i>)
+<p>
+        Public method to return the framed state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the current framed state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricLed.isOn" ID="EricLed.isOn"></a>
+<h4>EricLed.isOn</h4>
+<b>isOn</b>(<i></i>)
+<p>
+        Public method to return the LED state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the light state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricLed.minimumSizeHint" ID="EricLed.minimumSizeHint"></a>
+<h4>EricLed.minimumSizeHint</h4>
+<b>minimumSizeHint</b>(<i></i>)
+<p>
+        Public method to give a hint about our minimum size.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+size hint
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QSize
+</dd>
+</dl>
+<a NAME="EricLed.off" ID="EricLed.off"></a>
+<h4>EricLed.off</h4>
+<b>off</b>(<i></i>)
+<p>
+        Public slot to set the LED to off.
+</p>
+
+<a NAME="EricLed.on" ID="EricLed.on"></a>
+<h4>EricLed.on</h4>
+<b>on</b>(<i></i>)
+<p>
+        Public slot to set the LED to on.
+</p>
+
+<a NAME="EricLed.paintEvent" ID="EricLed.paintEvent"></a>
+<h4>EricLed.paintEvent</h4>
+<b>paintEvent</b>(<i>evt</i>)
+<p>
+        Protected slot handling the paint event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QPaintEvent)</dt>
+<dd>
+paint event object
+</dd>
+</dl>
+<a NAME="EricLed.ratio" ID="EricLed.ratio"></a>
+<h4>EricLed.ratio</h4>
+<b>ratio</b>(<i></i>)
+<p>
+        Public method to return the LED rectangular ratio [= width / height].
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+LED rectangular ratio
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+float
+</dd>
+</dl>
+<a NAME="EricLed.setColor" ID="EricLed.setColor"></a>
+<h4>EricLed.setColor</h4>
+<b>setColor</b>(<i>color</i>)
+<p>
+        Public method to set the LED color.
+</p>
+
+<dl>
+
+<dt><i>color</i> (QColor)</dt>
+<dd>
+color for the LED
+</dd>
+</dl>
+<a NAME="EricLed.setDarkFactor" ID="EricLed.setDarkFactor"></a>
+<h4>EricLed.setDarkFactor</h4>
+<b>setDarkFactor</b>(<i>darkfactor</i>)
+<p>
+        Public method to set the dark factor.
+</p>
+
+<dl>
+
+<dt><i>darkfactor</i> (int)</dt>
+<dd>
+value to set for the dark factor
+</dd>
+</dl>
+<a NAME="EricLed.setFramed" ID="EricLed.setFramed"></a>
+<h4>EricLed.setFramed</h4>
+<b>setFramed</b>(<i>framed</i>)
+<p>
+        Public slot to set the __framedLed attribute.
+</p>
+
+<dl>
+
+<dt><i>framed</i> (bool)</dt>
+<dd>
+flag indicating the framed state
+</dd>
+</dl>
+<a NAME="EricLed.setOn" ID="EricLed.setOn"></a>
+<h4>EricLed.setOn</h4>
+<b>setOn</b>(<i>state</i>)
+<p>
+        Public method to set the LED to on.
+</p>
+
+<dl>
+
+<dt><i>state</i> (bool)</dt>
+<dd>
+new state of the LED
+</dd>
+</dl>
+<a NAME="EricLed.setRatio" ID="EricLed.setRatio"></a>
+<h4>EricLed.setRatio</h4>
+<b>setRatio</b>(<i>ratio</i>)
+<p>
+        Public method to set the LED rectangular ratio (width / height).
+</p>
+
+<dl>
+
+<dt><i>ratio</i> (float)</dt>
+<dd>
+new LED rectangular ratio
+</dd>
+</dl>
+<a NAME="EricLed.setShape" ID="EricLed.setShape"></a>
+<h4>EricLed.setShape</h4>
+<b>setShape</b>(<i>shape</i>)
+<p>
+        Public method to set the LED shape.
+</p>
+
+<dl>
+
+<dt><i>shape</i> (EricLedType)</dt>
+<dd>
+new LED shape
+</dd>
+</dl>
+<a NAME="EricLed.shape" ID="EricLed.shape"></a>
+<h4>EricLed.shape</h4>
+<b>shape</b>(<i></i>)
+<p>
+        Public method to return the LED shape.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+LED shape
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricLedType
+</dd>
+</dl>
+<a NAME="EricLed.sizeHint" ID="EricLed.sizeHint"></a>
+<h4>EricLed.sizeHint</h4>
+<b>sizeHint</b>(<i></i>)
+<p>
+        Public method to give a hint about our desired size.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+size hint
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QSize
+</dd>
+</dl>
+<a NAME="EricLed.toggle" ID="EricLed.toggle"></a>
+<h4>EricLed.toggle</h4>
+<b>toggle</b>(<i></i>)
+<p>
+        Public slot to toggle the LED state.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="EricLedType" ID="EricLedType"></a>
+<h2>EricLedType</h2>
+<p>
+    Class defining the LED types.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>CIRCULAR</td></tr>
+<tr><td>RECTANGULAR</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

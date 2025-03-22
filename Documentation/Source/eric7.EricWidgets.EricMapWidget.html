@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricMapWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricMapWidget</h1>
+<p>
+Module implementing a base class for showing a document map.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricMapWidget">EricMapWidget</a></td>
+<td>Class implementing a base class for showing a document map.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricMapWidget" ID="EricMapWidget"></a>
+<h2>EricMapWidget</h2>
+<p>
+    Class implementing a base class for showing a document map.
+</p>
+
+<h3>Derived from</h3>
+QWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricMapWidget.__init__">EricMapWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.__generateSliderRange">__generateSliderRange</a></td>
+<td>Private method to generate the slider rectangle.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.__setSliderColor">__setSliderColor</a></td>
+<td>Private method to set the slider color depending upon the background color.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.__updateControllerViewportWidth">__updateControllerViewportWidth</a></td>
+<td>Private method to update the controller's viewport width.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget._paintIt">_paintIt</a></td>
+<td>Protected method for painting the widget's indicators.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.backgroundColor">backgroundColor</a></td>
+<td>Public method to get the background color.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.calculateGeometry">calculateGeometry</a></td>
+<td>Public method to recalculate the map widget's geometry.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.generateIndicatorRect">generateIndicatorRect</a></td>
+<td>Public method to generate an indicator rectangle.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.isEnabled">isEnabled</a></td>
+<td>Public method to check the enabled state.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.isOnRightSide">isOnRightSide</a></td>
+<td>Public method to test, if the map is shown on the right side of the controller widget.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.lineDimensions">lineDimensions</a></td>
+<td>Public method to get the line (indicator) dimensions.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.mouseMoveEvent">mouseMoveEvent</a></td>
+<td>Protected method to handle a mouse moves.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.mousePressEvent">mousePressEvent</a></td>
+<td>Protected method to handle a mouse button press.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.paintEvent">paintEvent</a></td>
+<td>Protected method to handle a paint event.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.position2Value">position2Value</a></td>
+<td>Public method to convert a position into a scrollbar value.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.scaleFactor">scaleFactor</a></td>
+<td>Public method to determine the scrollbar's scale factor.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.setBackgroundColor">setBackgroundColor</a></td>
+<td>Public method to set the widget background color.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.setController">setController</a></td>
+<td>Public method to set the map controller widget.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.setEnabled">setEnabled</a></td>
+<td>Public method to set the enabled state.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.setLineDimensions">setLineDimensions</a></td>
+<td>Public method to set the line (indicator) dimensions.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.setMapPosition">setMapPosition</a></td>
+<td>Public method to set, whether the map should be shown to the right or left of the controller widget.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.setWidth">setWidth</a></td>
+<td>Public method to set the widget width.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.sizeHint">sizeHint</a></td>
+<td>Public method to give an indication about the preferred size.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.value2Position">value2Position</a></td>
+<td>Public method to convert a scrollbar value into a position.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.wheelEvent">wheelEvent</a></td>
+<td>Protected slot handling mouse wheel events.</td>
+</tr>
+<tr>
+<td><a href="#EricMapWidget.width">width</a></td>
+<td>Public method to get the widget's width.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricMapWidget.__init__" ID="EricMapWidget.__init__"></a>
+<h4>EricMapWidget (Constructor)</h4>
+<b>EricMapWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="EricMapWidget.__generateSliderRange" ID="EricMapWidget.__generateSliderRange"></a>
+<h4>EricMapWidget.__generateSliderRange</h4>
+<b>__generateSliderRange</b>(<i>scrollbar</i>)
+<p>
+        Private method to generate the slider rectangle.
+</p>
+
+<dl>
+
+<dt><i>scrollbar</i> (QScrollBar)</dt>
+<dd>
+reference to the vertical scrollbar
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+slider rectangle
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QRect
+</dd>
+</dl>
+<a NAME="EricMapWidget.__setSliderColor" ID="EricMapWidget.__setSliderColor"></a>
+<h4>EricMapWidget.__setSliderColor</h4>
+<b>__setSliderColor</b>(<i></i>)
+<p>
+        Private method to set the slider color depending upon the background
+        color.
+</p>
+
+<a NAME="EricMapWidget.__updateControllerViewportWidth" ID="EricMapWidget.__updateControllerViewportWidth"></a>
+<h4>EricMapWidget.__updateControllerViewportWidth</h4>
+<b>__updateControllerViewportWidth</b>(<i></i>)
+<p>
+        Private method to update the controller's viewport width.
+</p>
+
+<a NAME="EricMapWidget._paintIt" ID="EricMapWidget._paintIt"></a>
+<h4>EricMapWidget._paintIt</h4>
+<b>_paintIt</b>(<i>painter</i>)
+<p>
+        Protected method for painting the widget's indicators.
+</p>
+<p>
+        Note: This method should be implemented by subclasses.
+</p>
+
+<dl>
+
+<dt><i>painter</i> (QPainter)</dt>
+<dd>
+reference to the painter object
+</dd>
+</dl>
+<a NAME="EricMapWidget.backgroundColor" ID="EricMapWidget.backgroundColor"></a>
+<h4>EricMapWidget.backgroundColor</h4>
+<b>backgroundColor</b>(<i></i>)
+<p>
+        Public method to get the background color.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+background color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="EricMapWidget.calculateGeometry" ID="EricMapWidget.calculateGeometry"></a>
+<h4>EricMapWidget.calculateGeometry</h4>
+<b>calculateGeometry</b>(<i></i>)
+<p>
+        Public method to recalculate the map widget's geometry.
+</p>
+
+<a NAME="EricMapWidget.generateIndicatorRect" ID="EricMapWidget.generateIndicatorRect"></a>
+<h4>EricMapWidget.generateIndicatorRect</h4>
+<b>generateIndicatorRect</b>(<i>position</i>)
+<p>
+        Public method to generate an indicator rectangle.
+</p>
+
+<dl>
+
+<dt><i>position</i> (int)</dt>
+<dd>
+indicator position
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+indicator rectangle
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QRect
+</dd>
+</dl>
+<a NAME="EricMapWidget.isEnabled" ID="EricMapWidget.isEnabled"></a>
+<h4>EricMapWidget.isEnabled</h4>
+<b>isEnabled</b>(<i></i>)
+<p>
+        Public method to check the enabled state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the enabled state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricMapWidget.isOnRightSide" ID="EricMapWidget.isOnRightSide"></a>
+<h4>EricMapWidget.isOnRightSide</h4>
+<b>isOnRightSide</b>(<i></i>)
+<p>
+        Public method to test, if the map is shown on the right side of the
+        controller widget.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the map is to the right of the controller
+            widget
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricMapWidget.lineDimensions" ID="EricMapWidget.lineDimensions"></a>
+<h4>EricMapWidget.lineDimensions</h4>
+<b>lineDimensions</b>(<i></i>)
+<p>
+        Public method to get the line (indicator) dimensions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple with border width (integer) and line height
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricMapWidget.mouseMoveEvent" ID="EricMapWidget.mouseMoveEvent"></a>
+<h4>EricMapWidget.mouseMoveEvent</h4>
+<b>mouseMoveEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle a mouse moves.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="EricMapWidget.mousePressEvent" ID="EricMapWidget.mousePressEvent"></a>
+<h4>EricMapWidget.mousePressEvent</h4>
+<b>mousePressEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle a mouse button press.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QMouseEvent)</dt>
+<dd>
+reference to the mouse event
+</dd>
+</dl>
+<a NAME="EricMapWidget.paintEvent" ID="EricMapWidget.paintEvent"></a>
+<h4>EricMapWidget.paintEvent</h4>
+<b>paintEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle a paint event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QPaintEvent)</dt>
+<dd>
+paint event
+</dd>
+</dl>
+<a NAME="EricMapWidget.position2Value" ID="EricMapWidget.position2Value"></a>
+<h4>EricMapWidget.position2Value</h4>
+<b>position2Value</b>(<i>position, slider=False</i>)
+<p>
+        Public method to convert a position into a scrollbar value.
+</p>
+
+<dl>
+
+<dt><i>position</i> (int)</dt>
+<dd>
+scrollbar position to convert
+</dd>
+<dt><i>slider</i> (bool)</dt>
+<dd>
+flag indicating to calculate the result for the slider
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+scrollbar value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricMapWidget.scaleFactor" ID="EricMapWidget.scaleFactor"></a>
+<h4>EricMapWidget.scaleFactor</h4>
+<b>scaleFactor</b>(<i>slider=False</i>)
+<p>
+        Public method to determine the scrollbar's scale factor.
+</p>
+
+<dl>
+
+<dt><i>slider</i> (bool)</dt>
+<dd>
+flag indicating to calculate the result for the slider
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+scale factor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+float
+</dd>
+</dl>
+<a NAME="EricMapWidget.setBackgroundColor" ID="EricMapWidget.setBackgroundColor"></a>
+<h4>EricMapWidget.setBackgroundColor</h4>
+<b>setBackgroundColor</b>(<i>color</i>)
+<p>
+        Public method to set the widget background color.
+</p>
+
+<dl>
+
+<dt><i>color</i> (QColor)</dt>
+<dd>
+color for the background
+</dd>
+</dl>
+<a NAME="EricMapWidget.setController" ID="EricMapWidget.setController"></a>
+<h4>EricMapWidget.setController</h4>
+<b>setController</b>(<i>controller</i>)
+<p>
+        Public method to set the map controller widget.
+</p>
+
+<dl>
+
+<dt><i>controller</i> (QAbstractScrollArea)</dt>
+<dd>
+map controller widget
+</dd>
+</dl>
+<a NAME="EricMapWidget.setEnabled" ID="EricMapWidget.setEnabled"></a>
+<h4>EricMapWidget.setEnabled</h4>
+<b>setEnabled</b>(<i>enable</i>)
+<p>
+        Public method to set the enabled state.
+</p>
+
+<dl>
+
+<dt><i>enable</i> (bool)</dt>
+<dd>
+flag indicating the enabled state
+</dd>
+</dl>
+<a NAME="EricMapWidget.setLineDimensions" ID="EricMapWidget.setLineDimensions"></a>
+<h4>EricMapWidget.setLineDimensions</h4>
+<b>setLineDimensions</b>(<i>border, height</i>)
+<p>
+        Public method to set the line (indicator) dimensions.
+</p>
+
+<dl>
+
+<dt><i>border</i> (int)</dt>
+<dd>
+border width on each side in x-direction
+</dd>
+<dt><i>height</i> (int)</dt>
+<dd>
+height of the line in pixels
+</dd>
+</dl>
+<a NAME="EricMapWidget.setMapPosition" ID="EricMapWidget.setMapPosition"></a>
+<h4>EricMapWidget.setMapPosition</h4>
+<b>setMapPosition</b>(<i>onRight</i>)
+<p>
+        Public method to set, whether the map should be shown to the right or
+        left of the controller widget.
+</p>
+
+<dl>
+
+<dt><i>onRight</i> (bool)</dt>
+<dd>
+flag indicating to show the map on the right side of
+            the controller widget
+</dd>
+</dl>
+<a NAME="EricMapWidget.setWidth" ID="EricMapWidget.setWidth"></a>
+<h4>EricMapWidget.setWidth</h4>
+<b>setWidth</b>(<i>width</i>)
+<p>
+        Public method to set the widget width.
+</p>
+
+<dl>
+
+<dt><i>width</i> (int)</dt>
+<dd>
+widget width
+</dd>
+</dl>
+<a NAME="EricMapWidget.sizeHint" ID="EricMapWidget.sizeHint"></a>
+<h4>EricMapWidget.sizeHint</h4>
+<b>sizeHint</b>(<i></i>)
+<p>
+        Public method to give an indication about the preferred size.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+preferred size
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QSize
+</dd>
+</dl>
+<a NAME="EricMapWidget.value2Position" ID="EricMapWidget.value2Position"></a>
+<h4>EricMapWidget.value2Position</h4>
+<b>value2Position</b>(<i>value, slider=False</i>)
+<p>
+        Public method to convert a scrollbar value into a position.
+</p>
+
+<dl>
+
+<dt><i>value</i> (int)</dt>
+<dd>
+value to convert
+</dd>
+<dt><i>slider</i> (bool)</dt>
+<dd>
+flag indicating to calculate the result for the slider
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+position
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="EricMapWidget.wheelEvent" ID="EricMapWidget.wheelEvent"></a>
+<h4>EricMapWidget.wheelEvent</h4>
+<b>wheelEvent</b>(<i>event</i>)
+<p>
+        Protected slot handling mouse wheel events.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QWheelEvent)</dt>
+<dd>
+reference to the wheel event
+</dd>
+</dl>
+<a NAME="EricMapWidget.width" ID="EricMapWidget.width"></a>
+<h4>EricMapWidget.width</h4>
+<b>width</b>(<i></i>)
+<p>
+        Public method to get the widget's width.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+widget width
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

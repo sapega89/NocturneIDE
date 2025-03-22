@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Utilities.__init__</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Utilities.__init__</h1>
+<p>
+Package implementing various functions/classes needed everywhere within eric.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_slashmap</td></tr>
+<tr><td>codingBytes_regexps</td></tr>
+<tr><td>coding_regexps</td></tr>
+<tr><td>supportedCodecs</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#CodingError">CodingError</a></td>
+<td>Class implementing an exception, which is raised, if a given coding is incorrect.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#__showwarning">__showwarning</a></td>
+<td>Module function to raise a SyntaxError for a SyntaxWarning.</td>
+</tr>
+<tr>
+<td><a href="#_percentReplacementFunc">_percentReplacementFunc</a></td>
+<td>Protected function called for replacing % codes.</td>
+</tr>
+<tr>
+<td><a href="#convertLineEnds">convertLineEnds</a></td>
+<td>Function to convert the end of line characters.</td>
+</tr>
+<tr>
+<td><a href="#decode">decode</a></td>
+<td>Function to decode some byte text into a string.</td>
+</tr>
+<tr>
+<td><a href="#decodeWithEncoding">decodeWithEncoding</a></td>
+<td>Function to decode some byte text into a string.</td>
+</tr>
+<tr>
+<td><a href="#encode">encode</a></td>
+<td>Function to encode text into a byte text.</td>
+</tr>
+<tr>
+<td><a href="#extractFlags">extractFlags</a></td>
+<td>Function to extract eric specific flags out of the given text.</td>
+</tr>
+<tr>
+<td><a href="#extractFlagsFromFile">extractFlagsFromFile</a></td>
+<td>Function to extract eric specific flags out of the given file.</td>
+</tr>
+<tr>
+<td><a href="#extractLineFlags">extractLineFlags</a></td>
+<td>Function to extract flags starting and ending with '__' from a line comment.</td>
+</tr>
+<tr>
+<td><a href="#filterAnsiSequences">filterAnsiSequences</a></td>
+<td>Function to filter out ANSI escape sequences (color only).</td>
+</tr>
+<tr>
+<td><a href="#generateDistroInfo">generateDistroInfo</a></td>
+<td>Module function to generate a string with distribution infos.</td>
+</tr>
+<tr>
+<td><a href="#generatePluginsVersionInfo">generatePluginsVersionInfo</a></td>
+<td>Module function to generate a string with plugins version infos.</td>
+</tr>
+<tr>
+<td><a href="#generateVersionInfo">generateVersionInfo</a></td>
+<td>Module function to generate a string with various version infos.</td>
+</tr>
+<tr>
+<td><a href="#getCoverageFileName">getCoverageFileName</a></td>
+<td>Function to build a file name for a coverage data file.</td>
+</tr>
+<tr>
+<td><a href="#getCoverageFileNames">getCoverageFileNames</a></td>
+<td>Function to build a list of coverage data file names.</td>
+</tr>
+<tr>
+<td><a href="#getPercentReplacement">getPercentReplacement</a></td>
+<td>Function to get the replacement for code.</td>
+</tr>
+<tr>
+<td><a href="#getPercentReplacementHelp">getPercentReplacementHelp</a></td>
+<td>Function to get the help text for the supported %-codes.</td>
+</tr>
+<tr>
+<td><a href="#getProfileFileName">getProfileFileName</a></td>
+<td>Function to build a file name for a profile data file.</td>
+</tr>
+<tr>
+<td><a href="#getProfileFileNames">getProfileFileNames</a></td>
+<td>Function to build a list of profile data file names.</td>
+</tr>
+<tr>
+<td><a href="#getSysPath">getSysPath</a></td>
+<td>Module function to get the Python path (sys.path) of a specific interpreter.</td>
+</tr>
+<tr>
+<td><a href="#getTestFileNames">getTestFileNames</a></td>
+<td>Function to build the potential file names of a test file.</td>
+</tr>
+<tr>
+<td><a href="#get_coding">get_coding</a></td>
+<td>Function to get the coding of a text.</td>
+</tr>
+<tr>
+<td><a href="#get_codingBytes">get_codingBytes</a></td>
+<td>Function to get the coding of a bytes text.</td>
+</tr>
+<tr>
+<td><a href="#linesep">linesep</a></td>
+<td>Function to return the line separator used by the editor.</td>
+</tr>
+<tr>
+<td><a href="#normalizeCode">normalizeCode</a></td>
+<td>Function to normalize the given code.</td>
+</tr>
+<tr>
+<td><a href="#parseOptionString">parseOptionString</a></td>
+<td>Function used to convert an option string into a list of options.</td>
+</tr>
+<tr>
+<td><a href="#readEncodedFile">readEncodedFile</a></td>
+<td>Function to read a file and decode its contents into proper text.</td>
+</tr>
+<tr>
+<td><a href="#readEncodedFileWithEncoding">readEncodedFileWithEncoding</a></td>
+<td>Function to read a file and decode its contents into proper text.</td>
+</tr>
+<tr>
+<td><a href="#readEncodedFileWithHash">readEncodedFileWithHash</a></td>
+<td>Function to read a file, calculate a hash value and decode its contents into proper text.</td>
+</tr>
+<tr>
+<td><a href="#rxIndex">rxIndex</a></td>
+<td>Function to get the index (start position) of a regular expression match within some text.</td>
+</tr>
+<tr>
+<td><a href="#slash">slash</a></td>
+<td>Function to convert an escaped string to a string containing escape codes.</td>
+</tr>
+<tr>
+<td><a href="#unslash">unslash</a></td>
+<td>Function to convert a string containing escape codes to an escaped string.</td>
+</tr>
+<tr>
+<td><a href="#writeEncodedFile">writeEncodedFile</a></td>
+<td>Function to write a file with properly encoded text.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="CodingError" ID="CodingError"></a>
+<h2>CodingError</h2>
+<p>
+    Class implementing an exception, which is raised, if a given coding is
+    incorrect.
+</p>
+
+<h3>Derived from</h3>
+Exception
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#CodingError.__init__">CodingError</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#CodingError.__repr__">__repr__</a></td>
+<td>Special method returning a representation of the exception.</td>
+</tr>
+<tr>
+<td><a href="#CodingError.__str__">__str__</a></td>
+<td>Special method returning a string representation of the exception.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="CodingError.__init__" ID="CodingError.__init__"></a>
+<h4>CodingError (Constructor)</h4>
+<b>CodingError</b>(<i>coding</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>coding</i> (str)</dt>
+<dd>
+coding to include in the message
+</dd>
+</dl>
+<a NAME="CodingError.__repr__" ID="CodingError.__repr__"></a>
+<h4>CodingError.__repr__</h4>
+<b>__repr__</b>(<i></i>)
+<p>
+        Special method returning a representation of the exception.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string representing the error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="CodingError.__str__" ID="CodingError.__str__"></a>
+<h4>CodingError.__str__</h4>
+<b>__str__</b>(<i></i>)
+<p>
+        Special method returning a string representation of the exception.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string representing the error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="__showwarning" ID="__showwarning"></a>
+<h2>__showwarning</h2>
+<b>__showwarning</b>(<i>message, category, filename, lineno, file=None, line=None</i>)
+<p>
+    Module function to raise a SyntaxError for a SyntaxWarning.
+</p>
+
+<dl>
+
+<dt><i>message</i> (Class)</dt>
+<dd>
+warning object
+</dd>
+<dt><i>category</i> (SyntaxWarning)</dt>
+<dd>
+type object of the warning
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file causing the warning
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number causing the warning
+</dd>
+<dt><i>file</i> (file)</dt>
+<dd>
+file to write the warning message to (unused)
+</dd>
+<dt><i>line</i> (int)</dt>
+<dd>
+line causing the warning (unused)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>err</b>:</dt>
+<dd>
+exception of type SyntaxError
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_percentReplacementFunc" ID="_percentReplacementFunc"></a>
+<h2>_percentReplacementFunc</h2>
+<b>_percentReplacementFunc</b>(<i>matchobj</i>)
+<p>
+    Protected function called for replacing % codes.
+</p>
+
+<dl>
+
+<dt><i>matchobj</i> (re.Match)</dt>
+<dd>
+match object for the code
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+replacement string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="convertLineEnds" ID="convertLineEnds"></a>
+<h2>convertLineEnds</h2>
+<b>convertLineEnds</b>(<i>text, eol</i>)
+<p>
+    Function to convert the end of line characters.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be converted
+</dd>
+<dt><i>eol</i> (str)</dt>
+<dd>
+new eol setting
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+text with converted eols
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="decode" ID="decode"></a>
+<h2>decode</h2>
+<b>decode</b>(<i>text</i>)
+<p>
+    Function to decode some byte text into a string.
+</p>
+
+<dl>
+
+<dt><i>text</i> (bytes)</dt>
+<dd>
+byte text to decode
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of decoded text and encoding
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="decodeWithEncoding" ID="decodeWithEncoding"></a>
+<h2>decodeWithEncoding</h2>
+<b>decodeWithEncoding</b>(<i>text, encoding</i>)
+<p>
+    Function to decode some byte text into a string.
+</p>
+
+<dl>
+
+<dt><i>text</i> (bytes)</dt>
+<dd>
+byte text to decode
+</dd>
+<dt><i>encoding</i> (str)</dt>
+<dd>
+encoding to be used to read the file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of decoded text and encoding
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="encode" ID="encode"></a>
+<h2>encode</h2>
+<b>encode</b>(<i>text, origEncoding, forcedEncoding=""</i>)
+<p>
+    Function to encode text into a byte text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be encoded
+</dd>
+<dt><i>origEncoding</i> (str)</dt>
+<dd>
+type of the original encoding
+</dd>
+<dt><i>forcedEncoding</i> (str)</dt>
+<dd>
+encoding to be used for writing, if no coding line
+        is present
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of encoded text and encoding used
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bytes, str)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>CodingError</b>:</dt>
+<dd>
+raised to indicate an invalid encoding
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="extractFlags" ID="extractFlags"></a>
+<h2>extractFlags</h2>
+<b>extractFlags</b>(<i>text</i>)
+<p>
+    Function to extract eric specific flags out of the given text.
+</p>
+<p>
+    Flags are contained in comments and are introduced by 'eflag:'.
+    The rest of the line is interpreted as 'key = value'. value is
+    analyzed for being an integer or float value. If that fails, it
+    is assumed to be a string. If a key does not contain a '='
+    character, it is assumed to be a boolean flag. Flags are expected
+    at the very end of a file. The search is ended, if a line without
+    the 'eflag:' marker is found.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be scanned
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary of string, boolean, complex, float and int
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="extractFlagsFromFile" ID="extractFlagsFromFile"></a>
+<h2>extractFlagsFromFile</h2>
+<b>extractFlagsFromFile</b>(<i>filename</i>)
+<p>
+    Function to extract eric specific flags out of the given file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to be scanned
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary of string, boolean, complex, float and int
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="extractLineFlags" ID="extractLineFlags"></a>
+<h2>extractLineFlags</h2>
+<b>extractLineFlags</b>(<i>line, startComment="</i>)
+<p>
+    Function to extract flags starting and ending with '__' from a line
+    comment.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+line to extract flags from
+</dd>
+<dt><i>startComment</i> (str)</dt>
+<dd>
+string identifying the start of the comment
+</dd>
+<dt><i>endComment</i> (str)</dt>
+<dd>
+string identifying the end of a comment
+</dd>
+<dt><i>flagsLine</i> (bool)</dt>
+<dd>
+flag indicating to check for a flags only line
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing the extracted flags
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="filterAnsiSequences" ID="filterAnsiSequences"></a>
+<h2>filterAnsiSequences</h2>
+<b>filterAnsiSequences</b>(<i>txt</i>)
+<p>
+    Function to filter out ANSI escape sequences (color only).
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be filtered
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+text without ANSI escape sequences
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="generateDistroInfo" ID="generateDistroInfo"></a>
+<h2>generateDistroInfo</h2>
+<b>generateDistroInfo</b>(<i>linesep="\n"</i>)
+<p>
+    Module function to generate a string with distribution infos.
+</p>
+
+<dl>
+
+<dt><i>linesep</i> (str)</dt>
+<dd>
+string to be used to separate lines
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string with distribution infos
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="generatePluginsVersionInfo" ID="generatePluginsVersionInfo"></a>
+<h2>generatePluginsVersionInfo</h2>
+<b>generatePluginsVersionInfo</b>(<i>linesep="\n"</i>)
+<p>
+    Module function to generate a string with plugins version infos.
+</p>
+
+<dl>
+
+<dt><i>linesep</i> (str)</dt>
+<dd>
+string to be used to separate lines
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string with plugins version infos
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="generateVersionInfo" ID="generateVersionInfo"></a>
+<h2>generateVersionInfo</h2>
+<b>generateVersionInfo</b>(<i>linesep="\n"</i>)
+<p>
+    Module function to generate a string with various version infos.
+</p>
+
+<dl>
+
+<dt><i>linesep</i> (str)</dt>
+<dd>
+string to be used to separate lines
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string with version infos
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getCoverageFileName" ID="getCoverageFileName"></a>
+<h2>getCoverageFileName</h2>
+<b>getCoverageFileName</b>(<i>fn, mustExist=True</i>)
+<p>
+    Function to build a file name for a coverage data file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name basis to be used for the coverage data file name
+</dd>
+<dt><i>mustExist</i> (bool (optional))</dt>
+<dd>
+flag indicating to check that the file exists (defaults
+        to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+coverage data file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getCoverageFileNames" ID="getCoverageFileNames"></a>
+<h2>getCoverageFileNames</h2>
+<b>getCoverageFileNames</b>(<i>fn</i>)
+<p>
+    Function to build a list of coverage data file names.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name basis to be used for the coverage data file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of existing coverage data files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getPercentReplacement" ID="getPercentReplacement"></a>
+<h2>getPercentReplacement</h2>
+<b>getPercentReplacement</b>(<i>code</i>)
+<p>
+    Function to get the replacement for code.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+code indicator
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+replacement string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getPercentReplacementHelp" ID="getPercentReplacementHelp"></a>
+<h2>getPercentReplacementHelp</h2>
+<b>getPercentReplacementHelp</b>(<i></i>)
+<p>
+    Function to get the help text for the supported %-codes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+help text
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getProfileFileName" ID="getProfileFileName"></a>
+<h2>getProfileFileName</h2>
+<b>getProfileFileName</b>(<i>fn, mustExist=True</i>)
+<p>
+    Function to build a file name for a profile data file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name basis to be used for the profile data file name
+</dd>
+<dt><i>mustExist</i> (bool (optional))</dt>
+<dd>
+flag indicating to check that the file exists (defaults
+        to True)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+profile data file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getProfileFileNames" ID="getProfileFileNames"></a>
+<h2>getProfileFileNames</h2>
+<b>getProfileFileNames</b>(<i>fn</i>)
+<p>
+    Function to build a list of profile data file names.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name basis to be used for the profile data file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of existing profile data files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getSysPath" ID="getSysPath"></a>
+<h2>getSysPath</h2>
+<b>getSysPath</b>(<i>interpreter</i>)
+<p>
+    Module function to get the Python path (sys.path) of a specific
+    interpreter.
+</p>
+
+<dl>
+
+<dt><i>interpreter</i> (str)</dt>
+<dd>
+Python interpreter executable to get sys.path for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing sys.path of the interpreter; an empty list
+        is returned, if the interpreter is the one used to run eric itself
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getTestFileNames" ID="getTestFileNames"></a>
+<h2>getTestFileNames</h2>
+<b>getTestFileNames</b>(<i>fn</i>)
+<p>
+    Function to build the potential file names of a test file.
+</p>
+<p>
+    The file names for the test file is built by prepending the string
+    "test" and "test_" to the file name passed into this function and
+    by appending the string "_test".
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+file name basis to be used for the test file names
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+file names of the corresponding test file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_coding" ID="get_coding"></a>
+<h2>get_coding</h2>
+<b>get_coding</b>(<i>text</i>)
+<p>
+    Function to get the coding of a text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to inspect
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+coding string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="get_codingBytes" ID="get_codingBytes"></a>
+<h2>get_codingBytes</h2>
+<b>get_codingBytes</b>(<i>text</i>)
+<p>
+    Function to get the coding of a bytes text.
+</p>
+
+<dl>
+
+<dt><i>text</i> (bytes)</dt>
+<dd>
+bytes text to inspect
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+coding string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="linesep" ID="linesep"></a>
+<h2>linesep</h2>
+<b>linesep</b>(<i></i>)
+<p>
+    Function to return the line separator used by the editor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+line separator used by the editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="normalizeCode" ID="normalizeCode"></a>
+<h2>normalizeCode</h2>
+<b>normalizeCode</b>(<i>codestring</i>)
+<p>
+    Function to normalize the given code.
+</p>
+
+<dl>
+
+<dt><i>codestring</i> (str)</dt>
+<dd>
+code to be normalized
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+normalized code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="parseOptionString" ID="parseOptionString"></a>
+<h2>parseOptionString</h2>
+<b>parseOptionString</b>(<i>s</i>)
+<p>
+    Function used to convert an option string into a list of options.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+option string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of options
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="readEncodedFile" ID="readEncodedFile"></a>
+<h2>readEncodedFile</h2>
+<b>readEncodedFile</b>(<i>filename</i>)
+<p>
+    Function to read a file and decode its contents into proper text.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of decoded text and encoding
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="readEncodedFileWithEncoding" ID="readEncodedFileWithEncoding"></a>
+<h2>readEncodedFileWithEncoding</h2>
+<b>readEncodedFileWithEncoding</b>(<i>filename, encoding</i>)
+<p>
+    Function to read a file and decode its contents into proper text.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to read
+</dd>
+<dt><i>encoding</i> (str)</dt>
+<dd>
+encoding to be used to read the file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of decoded text and encoding
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="readEncodedFileWithHash" ID="readEncodedFileWithHash"></a>
+<h2>readEncodedFileWithHash</h2>
+<b>readEncodedFileWithHash</b>(<i>filename</i>)
+<p>
+    Function to read a file, calculate a hash value and decode its contents
+    into proper text.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of decoded text, encoding and hash value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="rxIndex" ID="rxIndex"></a>
+<h2>rxIndex</h2>
+<b>rxIndex</b>(<i>rx, txt</i>)
+<p>
+    Function to get the index (start position) of a regular expression match
+    within some text.
+</p>
+
+<dl>
+
+<dt><i>rx</i> (re.Pattern)</dt>
+<dd>
+regular expression object as created by re.compile()
+</dd>
+<dt><i>txt</i> (str)</dt>
+<dd>
+text to be scanned
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+start position of the match or -1 indicating no match was found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="slash" ID="slash"></a>
+<h2>slash</h2>
+<b>slash</b>(<i>txt</i>)
+<p>
+    Function to convert an escaped string to a string containing escape codes.
+</p>
+<p>
+    Note: This is the reverse of 'unslash()'.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+string to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted string containing escaped escape codes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="unslash" ID="unslash"></a>
+<h2>unslash</h2>
+<b>unslash</b>(<i>txt</i>)
+<p>
+    Function to convert a string containing escape codes to an escaped string.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str)</dt>
+<dd>
+string to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted string containing escape codes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="writeEncodedFile" ID="writeEncodedFile"></a>
+<h2>writeEncodedFile</h2>
+<b>writeEncodedFile</b>(<i>filename, text, origEncoding, forcedEncoding=""</i>)
+<p>
+    Function to write a file with properly encoded text.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file to read
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be written
+</dd>
+<dt><i>origEncoding</i> (str)</dt>
+<dd>
+type of the original encoding
+</dd>
+<dt><i>forcedEncoding</i> (str)</dt>
+<dd>
+encoding to be used for writing, if no coding
+        line is present
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+encoding used for writing the file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

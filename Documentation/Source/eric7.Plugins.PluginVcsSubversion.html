@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.PluginVcsSubversion</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.PluginVcsSubversion</h1>
+<p>
+Module implementing the Subversion version control plugin.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>__header__</td></tr>
+<tr><td>error</td></tr>
+<tr><td>subversionCfgPluginObject</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#VcsSubversionPlugin">VcsSubversionPlugin</a></td>
+<td>Class implementing the Subversion version control plugin.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createConfigurationPage">createConfigurationPage</a></td>
+<td>Module function to create the configuration page.</td>
+</tr>
+<tr>
+<td><a href="#displayString">displayString</a></td>
+<td>Public function to get the display string.</td>
+</tr>
+<tr>
+<td><a href="#exeDisplayData">exeDisplayData</a></td>
+<td>Public method to support the display of some executable info.</td>
+</tr>
+<tr>
+<td><a href="#getConfigData">getConfigData</a></td>
+<td>Module function returning data as required by the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#getVcsSystemIndicator">getVcsSystemIndicator</a></td>
+<td>Public function to get the indicators for this version control system.</td>
+</tr>
+<tr>
+<td><a href="#prepareUninstall">prepareUninstall</a></td>
+<td>Module function to prepare for an uninstallation.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="VcsSubversionPlugin" ID="VcsSubversionPlugin"></a>
+<h2>VcsSubversionPlugin</h2>
+<p>
+    Class implementing the Subversion version control plugin.
+</p>
+
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#VcsSubversionPlugin.__init__">VcsSubversionPlugin</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.activate">activate</a></td>
+<td>Public method to activate this plugin.</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.deactivate">deactivate</a></td>
+<td>Public method to deactivate this plugin.</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.getConfigPath">getConfigPath</a></td>
+<td>Public method to get the filename of the config file.</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.getPreferences">getPreferences</a></td>
+<td>Public method to retrieve the various settings.</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.getProjectHelper">getProjectHelper</a></td>
+<td>Public method to get a reference to the project helper object.</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.getServersPath">getServersPath</a></td>
+<td>Public method to get the filename of the servers file.</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.initToolbar">initToolbar</a></td>
+<td>Public slot to initialize the VCS toolbar.</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.prepareUninstall">prepareUninstall</a></td>
+<td>Public method to prepare for an uninstallation.</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.prepareUnload">prepareUnload</a></td>
+<td>Public method to prepare for an unload.</td>
+</tr>
+<tr>
+<td><a href="#VcsSubversionPlugin.setPreferences">setPreferences</a></td>
+<td>Public method to store the various settings.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="VcsSubversionPlugin.__init__" ID="VcsSubversionPlugin.__init__"></a>
+<h4>VcsSubversionPlugin (Constructor)</h4>
+<b>VcsSubversionPlugin</b>(<i>ui</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the user interface object
+</dd>
+</dl>
+<a NAME="VcsSubversionPlugin.activate" ID="VcsSubversionPlugin.activate"></a>
+<h4>VcsSubversionPlugin.activate</h4>
+<b>activate</b>(<i></i>)
+<p>
+        Public method to activate this plugin.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of reference to instantiated viewmanager and
+            activation status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (Subversion, bool)
+</dd>
+</dl>
+<a NAME="VcsSubversionPlugin.deactivate" ID="VcsSubversionPlugin.deactivate"></a>
+<h4>VcsSubversionPlugin.deactivate</h4>
+<b>deactivate</b>(<i></i>)
+<p>
+        Public method to deactivate this plugin.
+</p>
+
+<a NAME="VcsSubversionPlugin.getConfigPath" ID="VcsSubversionPlugin.getConfigPath"></a>
+<h4>VcsSubversionPlugin.getConfigPath</h4>
+<b>getConfigPath</b>(<i></i>)
+<p>
+        Public method to get the filename of the config file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+filename of the config file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="VcsSubversionPlugin.getPreferences" ID="VcsSubversionPlugin.getPreferences"></a>
+<h4>VcsSubversionPlugin.getPreferences</h4>
+<b>getPreferences</b>(<i>key</i>)
+<p>
+        Public method to retrieve the various settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the value to get
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the requested setting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="VcsSubversionPlugin.getProjectHelper" ID="VcsSubversionPlugin.getProjectHelper"></a>
+<h4>VcsSubversionPlugin.getProjectHelper</h4>
+<b>getProjectHelper</b>(<i></i>)
+<p>
+        Public method to get a reference to the project helper object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the project helper object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SvnProjectHelper
+</dd>
+</dl>
+<a NAME="VcsSubversionPlugin.getServersPath" ID="VcsSubversionPlugin.getServersPath"></a>
+<h4>VcsSubversionPlugin.getServersPath</h4>
+<b>getServersPath</b>(<i></i>)
+<p>
+        Public method to get the filename of the servers file.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+filename of the servers file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="VcsSubversionPlugin.initToolbar" ID="VcsSubversionPlugin.initToolbar"></a>
+<h4>VcsSubversionPlugin.initToolbar</h4>
+<b>initToolbar</b>(<i>ui, toolbarManager</i>)
+<p>
+        Public slot to initialize the VCS toolbar.
+</p>
+
+<dl>
+
+<dt><i>ui</i> (UserInterface)</dt>
+<dd>
+reference to the main window
+</dd>
+<dt><i>toolbarManager</i> (EricToolBarManager)</dt>
+<dd>
+reference to a toolbar manager object
+</dd>
+</dl>
+<a NAME="VcsSubversionPlugin.prepareUninstall" ID="VcsSubversionPlugin.prepareUninstall"></a>
+<h4>VcsSubversionPlugin.prepareUninstall</h4>
+<b>prepareUninstall</b>(<i></i>)
+<p>
+        Public method to prepare for an uninstallation.
+</p>
+
+<a NAME="VcsSubversionPlugin.prepareUnload" ID="VcsSubversionPlugin.prepareUnload"></a>
+<h4>VcsSubversionPlugin.prepareUnload</h4>
+<b>prepareUnload</b>(<i></i>)
+<p>
+        Public method to prepare for an unload.
+</p>
+
+<a NAME="VcsSubversionPlugin.setPreferences" ID="VcsSubversionPlugin.setPreferences"></a>
+<h4>VcsSubversionPlugin.setPreferences</h4>
+<b>setPreferences</b>(<i>key, value</i>)
+<p>
+        Public method to store the various settings.
+</p>
+
+<dl>
+
+<dt><i>key</i> (str)</dt>
+<dd>
+the key of the setting to be set
+</dd>
+<dt><i>value</i> (Any)</dt>
+<dd>
+the value to be set
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createConfigurationPage" ID="createConfigurationPage"></a>
+<h2>createConfigurationPage</h2>
+<b>createConfigurationPage</b>(<i>_configDlg</i>)
+<p>
+    Module function to create the configuration page.
+</p>
+
+<dl>
+
+<dt><i>_configDlg</i> (QDialog)</dt>
+<dd>
+reference to the configuration dialog (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the configuration page
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+SubversionPage
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="displayString" ID="displayString"></a>
+<h2>displayString</h2>
+<b>displayString</b>(<i></i>)
+<p>
+    Public function to get the display string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+display string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="exeDisplayData" ID="exeDisplayData"></a>
+<h2>exeDisplayData</h2>
+<b>exeDisplayData</b>(<i></i>)
+<p>
+    Public method to support the display of some executable info.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the data to query the presence of
+        the executable
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getConfigData" ID="getConfigData"></a>
+<h2>getConfigData</h2>
+<b>getConfigData</b>(<i></i>)
+<p>
+    Module function returning data as required by the configuration dialog.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with key "zzz_subversionPage" containing the relevant
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+    data
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getVcsSystemIndicator" ID="getVcsSystemIndicator"></a>
+<h2>getVcsSystemIndicator</h2>
+<b>getVcsSystemIndicator</b>(<i></i>)
+<p>
+    Public function to get the indicators for this version control system.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary with indicator as key and a tuple with the vcs name
+        and vcs display string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="prepareUninstall" ID="prepareUninstall"></a>
+<h2>prepareUninstall</h2>
+<b>prepareUninstall</b>(<i></i>)
+<p>
+    Module function to prepare for an uninstallation.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Graphics.ApplicationDiagramBuilder</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Graphics.ApplicationDiagramBuilder</h1>
+<p>
+Module implementing a dialog showing an imports diagram of the application.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ApplicationDiagramBuilder">ApplicationDiagramBuilder</a></td>
+<td>Class implementing a builder for imports diagrams of the application.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ApplicationDiagramBuilder" ID="ApplicationDiagramBuilder"></a>
+<h2>ApplicationDiagramBuilder</h2>
+<p>
+    Class implementing a builder for imports diagrams of the application.
+</p>
+
+<h3>Derived from</h3>
+UMLDiagramBuilder
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.__init__">ApplicationDiagramBuilder</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.__addPackage">__addPackage</a></td>
+<td>Private method to add a package to the diagram.</td>
+</tr>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.__arrangeNodes">__arrangeNodes</a></td>
+<td>Private method to arrange the shapes on the canvas.</td>
+</tr>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.__buildModulesDict">__buildModulesDict</a></td>
+<td>Private method to build a dictionary of modules contained in the application.</td>
+</tr>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.__createAssociations">__createAssociations</a></td>
+<td>Private method to generate the associations between the module shapes.</td>
+</tr>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.__findApplicationRoot">__findApplicationRoot</a></td>
+<td>Private method to find the application root path.</td>
+</tr>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.buildDiagram">buildDiagram</a></td>
+<td>Public method to build the packages shapes of the diagram.</td>
+</tr>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.fromDict">fromDict</a></td>
+<td>Public method to populate the class with data persisted by 'toDict()'.</td>
+</tr>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.parsePersistenceData">parsePersistenceData</a></td>
+<td>Public method to parse persisted data.</td>
+</tr>
+<tr>
+<td><a href="#ApplicationDiagramBuilder.toDict">toDict</a></td>
+<td>Public method to collect data to be persisted.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ApplicationDiagramBuilder.__init__" ID="ApplicationDiagramBuilder.__init__"></a>
+<h4>ApplicationDiagramBuilder (Constructor)</h4>
+<b>ApplicationDiagramBuilder</b>(<i>dialog, view, project, noModules=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>dialog</i> (UMLDialog)</dt>
+<dd>
+reference to the UML dialog
+</dd>
+<dt><i>view</i> (UMLGraphicsView)</dt>
+<dd>
+reference to the view object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>noModules</i> (bool)</dt>
+<dd>
+flag indicating, that no module names should be
+            shown
+</dd>
+</dl>
+<a NAME="ApplicationDiagramBuilder.__addPackage" ID="ApplicationDiagramBuilder.__addPackage"></a>
+<h4>ApplicationDiagramBuilder.__addPackage</h4>
+<b>__addPackage</b>(<i>name, modules, x, y</i>)
+<p>
+        Private method to add a package to the diagram.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+package name to be shown
+</dd>
+<dt><i>modules</i> (list of str)</dt>
+<dd>
+list of module names contained in the package
+</dd>
+<dt><i>x</i> (float)</dt>
+<dd>
+x-coordinate
+</dd>
+<dt><i>y</i> (float)</dt>
+<dd>
+y-coordinate
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the package item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+PackageItem
+</dd>
+</dl>
+<a NAME="ApplicationDiagramBuilder.__arrangeNodes" ID="ApplicationDiagramBuilder.__arrangeNodes"></a>
+<h4>ApplicationDiagramBuilder.__arrangeNodes</h4>
+<b>__arrangeNodes</b>(<i>nodes, routes, whiteSpaceFactor=1.2</i>)
+<p>
+        Private method to arrange the shapes on the canvas.
+</p>
+<p>
+        The algorithm is borrowed from Boa Constructor.
+</p>
+
+<dl>
+
+<dt><i>nodes</i> (list of str)</dt>
+<dd>
+list of nodes to arrange
+</dd>
+<dt><i>routes</i> (list of tuple of (str, str))</dt>
+<dd>
+list of routes
+</dd>
+<dt><i>whiteSpaceFactor</i> (float)</dt>
+<dd>
+factor to increase whitespace between
+            items
+</dd>
+</dl>
+<a NAME="ApplicationDiagramBuilder.__buildModulesDict" ID="ApplicationDiagramBuilder.__buildModulesDict"></a>
+<h4>ApplicationDiagramBuilder.__buildModulesDict</h4>
+<b>__buildModulesDict</b>(<i></i>)
+<p>
+        Private method to build a dictionary of modules contained in the
+        application.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary of modules contained in the application
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="ApplicationDiagramBuilder.__createAssociations" ID="ApplicationDiagramBuilder.__createAssociations"></a>
+<h4>ApplicationDiagramBuilder.__createAssociations</h4>
+<b>__createAssociations</b>(<i>routes</i>)
+<p>
+        Private method to generate the associations between the module shapes.
+</p>
+
+<dl>
+
+<dt><i>routes</i> (list of tuple of (str, str))</dt>
+<dd>
+list of associations
+</dd>
+</dl>
+<a NAME="ApplicationDiagramBuilder.__findApplicationRoot" ID="ApplicationDiagramBuilder.__findApplicationRoot"></a>
+<h4>ApplicationDiagramBuilder.__findApplicationRoot</h4>
+<b>__findApplicationRoot</b>(<i></i>)
+<p>
+        Private method to find the application root path.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+application root path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="ApplicationDiagramBuilder.buildDiagram" ID="ApplicationDiagramBuilder.buildDiagram"></a>
+<h4>ApplicationDiagramBuilder.buildDiagram</h4>
+<b>buildDiagram</b>(<i></i>)
+<p>
+        Public method to build the packages shapes of the diagram.
+</p>
+
+<a NAME="ApplicationDiagramBuilder.fromDict" ID="ApplicationDiagramBuilder.fromDict"></a>
+<h4>ApplicationDiagramBuilder.fromDict</h4>
+<b>fromDict</b>(<i>_version, data</i>)
+<p>
+        Public method to populate the class with data persisted by 'toDict()'.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>data</i> (dict)</dt>
+<dd>
+dictionary containing the persisted data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an info
+            message in case the diagram belongs to a different project
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="ApplicationDiagramBuilder.parsePersistenceData" ID="ApplicationDiagramBuilder.parsePersistenceData"></a>
+<h4>ApplicationDiagramBuilder.parsePersistenceData</h4>
+<b>parsePersistenceData</b>(<i>_version, data</i>)
+<p>
+        Public method to parse persisted data.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>data</i> (str)</dt>
+<dd>
+persisted data to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="ApplicationDiagramBuilder.toDict" ID="ApplicationDiagramBuilder.toDict"></a>
+<h4>ApplicationDiagramBuilder.toDict</h4>
+<b>toDict</b>(<i></i>)
+<p>
+        Public method to collect data to be persisted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing data to be persisted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

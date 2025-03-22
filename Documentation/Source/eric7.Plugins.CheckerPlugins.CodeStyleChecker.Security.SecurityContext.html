@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.SecurityContext</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.SecurityContext</h1>
+<p>
+Module implementing a context class for security related checks.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SecurityContext">SecurityContext</a></td>
+<td>Class implementing a context class for security related checks.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SecurityContext" ID="SecurityContext"></a>
+<h2>SecurityContext</h2>
+<p>
+    Class implementing a context class for security related checks.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SecurityContext.__init__">SecurityContext</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.__getLiteralValue">__getLiteralValue</a></td>
+<td>Private method to turn AST literals into native Python types.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.__repr__">__repr__</a></td>
+<td>Special method to generate representation of object for printing or interactive use.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.bytesVal">bytesVal</a></td>
+<td>Public method to get the value of a standalone bytes object.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.callArgs">callArgs</a></td>
+<td>Public method to get a list of function args.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.callArgsCount">callArgsCount</a></td>
+<td>Public method to get the number of args a function call has.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.callFunctionName">callFunctionName</a></td>
+<td>Public method to get the name (not FQ) of a function call.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.callFunctionNameQual">callFunctionNameQual</a></td>
+<td>Public method to get the FQ name of a function call.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.callKeywords">callKeywords</a></td>
+<td>Public method to get a dictionary of keyword parameters.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.checkCallArgValue">checkCallArgValue</a></td>
+<td>Public method to check for a value of a named argument in a function call.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.fileData">fileData</a></td>
+<td>Public method to get the file contents.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.filename">filename</a></td>
+<td>Public method to get the file name.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.functionDefDefaultsQual">functionDefDefaultsQual</a></td>
+<td>Public method to get a list of fully qualified default values in a function def.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.getCallArgAtPosition">getCallArgAtPosition</a></td>
+<td>Public method to get a positional argument at the specified position (if it exists).</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.getCallArgValue">getCallArgValue</a></td>
+<td>Public method to get the value of a named argument in a function call.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.getLinenoForCallArg">getLinenoForCallArg</a></td>
+<td>Public method to get the line number for a specific named argument.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.getOffsetForCallArg">getOffsetForCallArg</a></td>
+<td>Public method to get the offset for a specific named argument.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.isModuleBeingImported">isModuleBeingImported</a></td>
+<td>Public method to check for the given module is currently being imported.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.isModuleImportedExact">isModuleImportedExact</a></td>
+<td>Public method to check if a given module has been imported; only exact matches.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.isModuleImportedLike">isModuleImportedLike</a></td>
+<td>Public method to check if a given module has been imported; given module exists.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.node">node</a></td>
+<td>Public method to get the raw AST node associated with the context.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.statement">statement</a></td>
+<td>Public method to get the raw AST for the current statement.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.stringVal">stringVal</a></td>
+<td>Public method to get the value of a standalone string object.</td>
+</tr>
+<tr>
+<td><a href="#SecurityContext.stringValAsEscapedBytes">stringValAsEscapedBytes</a></td>
+<td>Public method to get the escaped value of the object.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SecurityContext.__init__" ID="SecurityContext.__init__"></a>
+<h4>SecurityContext (Constructor)</h4>
+<b>SecurityContext</b>(<i>contextObject=None</i>)
+<p>
+        Constructor
+</p>
+<p>
+        Initialize the class with a context dictionary or an empty
+        dictionary.
+</p>
+
+<dl>
+
+<dt><i>contextObject</i> (dict)</dt>
+<dd>
+context dictionary to be used to populate the
+            class
+</dd>
+</dl>
+<a NAME="SecurityContext.__getLiteralValue" ID="SecurityContext.__getLiteralValue"></a>
+<h4>SecurityContext.__getLiteralValue</h4>
+<b>__getLiteralValue</b>(<i>literal</i>)
+<p>
+        Private method to turn AST literals into native Python types.
+</p>
+
+<dl>
+
+<dt><i>literal</i> (ast.AST)</dt>
+<dd>
+AST literal to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+converted Python object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="SecurityContext.__repr__" ID="SecurityContext.__repr__"></a>
+<h4>SecurityContext.__repr__</h4>
+<b>__repr__</b>(<i></i>)
+<p>
+        Special method to generate representation of object for printing or
+        interactive use.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+string representation of the object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SecurityContext.bytesVal" ID="SecurityContext.bytesVal"></a>
+<h4>SecurityContext.bytesVal</h4>
+<b>bytesVal</b>(<i></i>)
+<p>
+        Public method to get the value of a standalone bytes object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+value of a standalone bytes object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<a NAME="SecurityContext.callArgs" ID="SecurityContext.callArgs"></a>
+<h4>SecurityContext.callArgs</h4>
+<b>callArgs</b>(<i></i>)
+<p>
+        Public method to get a list of function args.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of function args
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list
+</dd>
+</dl>
+<a NAME="SecurityContext.callArgsCount" ID="SecurityContext.callArgsCount"></a>
+<h4>SecurityContext.callArgsCount</h4>
+<b>callArgsCount</b>(<i></i>)
+<p>
+        Public method to get the number of args a function call has.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of args a function call has
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SecurityContext.callFunctionName" ID="SecurityContext.callFunctionName"></a>
+<h4>SecurityContext.callFunctionName</h4>
+<b>callFunctionName</b>(<i></i>)
+<p>
+        Public method to get the name (not FQ) of a function call.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name (not FQ) of a function call
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SecurityContext.callFunctionNameQual" ID="SecurityContext.callFunctionNameQual"></a>
+<h4>SecurityContext.callFunctionNameQual</h4>
+<b>callFunctionNameQual</b>(<i></i>)
+<p>
+        Public method to get the FQ name of a function call.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+FQ name of a function call
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SecurityContext.callKeywords" ID="SecurityContext.callKeywords"></a>
+<h4>SecurityContext.callKeywords</h4>
+<b>callKeywords</b>(<i></i>)
+<p>
+        Public method to get a dictionary of keyword parameters.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary of keyword parameters
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="SecurityContext.checkCallArgValue" ID="SecurityContext.checkCallArgValue"></a>
+<h4>SecurityContext.checkCallArgValue</h4>
+<b>checkCallArgValue</b>(<i>argumentName, argumentValues=None</i>)
+<p>
+        Public method to check for a value of a named argument in a function
+        call.
+</p>
+
+<dl>
+
+<dt><i>argumentName</i> (str)</dt>
+<dd>
+name of the argument to be checked
+</dd>
+<dt><i>argumentValues</i> (Any or list of Any)</dt>
+<dd>
+value or list of values to test against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+True if argument found and matched, False if found and not
+            matched, None if argument not found at all
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool or None
+</dd>
+</dl>
+<a NAME="SecurityContext.fileData" ID="SecurityContext.fileData"></a>
+<h4>SecurityContext.fileData</h4>
+<b>fileData</b>(<i></i>)
+<p>
+        Public method to get the file contents.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+file contents
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SecurityContext.filename" ID="SecurityContext.filename"></a>
+<h4>SecurityContext.filename</h4>
+<b>filename</b>(<i></i>)
+<p>
+        Public method to get the file name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+file name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SecurityContext.functionDefDefaultsQual" ID="SecurityContext.functionDefDefaultsQual"></a>
+<h4>SecurityContext.functionDefDefaultsQual</h4>
+<b>functionDefDefaultsQual</b>(<i></i>)
+<p>
+        Public method to get a list of fully qualified default values in a
+        function def.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of fully qualified default values in a function def
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list
+</dd>
+</dl>
+<a NAME="SecurityContext.getCallArgAtPosition" ID="SecurityContext.getCallArgAtPosition"></a>
+<h4>SecurityContext.getCallArgAtPosition</h4>
+<b>getCallArgAtPosition</b>(<i>positionNum</i>)
+<p>
+        Public method to get a positional argument at the specified position
+        (if it exists).
+</p>
+
+<dl>
+
+<dt><i>positionNum</i> (int)</dt>
+<dd>
+index of the argument to get the value for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the argument at the specified position if it exists
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any or None
+</dd>
+</dl>
+<a NAME="SecurityContext.getCallArgValue" ID="SecurityContext.getCallArgValue"></a>
+<h4>SecurityContext.getCallArgValue</h4>
+<b>getCallArgValue</b>(<i>argumentName</i>)
+<p>
+        Public method to get the value of a named argument in a function call.
+</p>
+
+<dl>
+
+<dt><i>argumentName</i> (str)</dt>
+<dd>
+name of the argument to get the value for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the named argument
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="SecurityContext.getLinenoForCallArg" ID="SecurityContext.getLinenoForCallArg"></a>
+<h4>SecurityContext.getLinenoForCallArg</h4>
+<b>getLinenoForCallArg</b>(<i>argumentName</i>)
+<p>
+        Public method to get the line number for a specific named argument.
+</p>
+
+<dl>
+
+<dt><i>argumentName</i> (str)</dt>
+<dd>
+name of the argument to get the line number for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+line number of the found argument or -1
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SecurityContext.getOffsetForCallArg" ID="SecurityContext.getOffsetForCallArg"></a>
+<h4>SecurityContext.getOffsetForCallArg</h4>
+<b>getOffsetForCallArg</b>(<i>argumentName</i>)
+<p>
+        Public method to get the offset for a specific named argument.
+</p>
+
+<dl>
+
+<dt><i>argumentName</i> (str)</dt>
+<dd>
+name of the argument to get the column offset for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+offset of the found argument or -1
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="SecurityContext.isModuleBeingImported" ID="SecurityContext.isModuleBeingImported"></a>
+<h4>SecurityContext.isModuleBeingImported</h4>
+<b>isModuleBeingImported</b>(<i>module</i>)
+<p>
+        Public method to check for the given module is currently being
+        imported.
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+module name to look for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the given module was found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SecurityContext.isModuleImportedExact" ID="SecurityContext.isModuleImportedExact"></a>
+<h4>SecurityContext.isModuleImportedExact</h4>
+<b>isModuleImportedExact</b>(<i>module</i>)
+<p>
+        Public method to check if a given module has been imported; only exact
+        matches.
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+module name to look for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the given module was found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SecurityContext.isModuleImportedLike" ID="SecurityContext.isModuleImportedLike"></a>
+<h4>SecurityContext.isModuleImportedLike</h4>
+<b>isModuleImportedLike</b>(<i>module</i>)
+<p>
+        Public method to check if a given module has been imported; given
+        module exists.
+</p>
+
+<dl>
+
+<dt><i>module</i> (str)</dt>
+<dd>
+module name to look for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the given module was found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="SecurityContext.node" ID="SecurityContext.node"></a>
+<h4>SecurityContext.node</h4>
+<b>node</b>(<i></i>)
+<p>
+        Public method to get the raw AST node associated with the context.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+raw AST node associated with the context
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.AST
+</dd>
+</dl>
+<a NAME="SecurityContext.statement" ID="SecurityContext.statement"></a>
+<h4>SecurityContext.statement</h4>
+<b>statement</b>(<i></i>)
+<p>
+        Public method to get the raw AST for the current statement.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+raw AST for the current statement
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.AST
+</dd>
+</dl>
+<a NAME="SecurityContext.stringVal" ID="SecurityContext.stringVal"></a>
+<h4>SecurityContext.stringVal</h4>
+<b>stringVal</b>(<i></i>)
+<p>
+        Public method to get the value of a standalone string object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+value of a standalone string object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SecurityContext.stringValAsEscapedBytes" ID="SecurityContext.stringValAsEscapedBytes"></a>
+<h4>SecurityContext.stringValAsEscapedBytes</h4>
+<b>stringValAsEscapedBytes</b>(<i></i>)
+<p>
+        Public method to get the escaped value of the object.
+</p>
+<p>
+        Turn the value of a string or bytes object into a byte sequence with
+        unknown, control, and \\ characters escaped.
+</p>
+<p>
+        This function should be used when looking for a known sequence in a
+        potentially badly encoded string in the code.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+sequence of printable ascii bytes representing original string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

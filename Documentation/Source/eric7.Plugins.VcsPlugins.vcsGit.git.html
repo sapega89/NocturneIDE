@@ -1,0 +1,3403 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsGit.git</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsGit.git</h1>
+<p>
+Module implementing the version control systems interface to Git.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#Git">Git</a></td>
+<td>Class implementing the version control systems interface to Git.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="Git" ID="Git"></a>
+<h2>Git</h2>
+<p>
+    Class implementing the version control systems interface to Git.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>committed()</dt>
+<dd>
+emitted after the commit action has completed
+</dd>
+</dl>
+<h3>Derived from</h3>
+VersionControl
+<h3>Class Attributes</h3>
+<table>
+<tr><td>IgnoreFileName</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Git.__init__">Git</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Git.__gitGetFileForRevision">__gitGetFileForRevision</a></td>
+<td>Private method to get a file for a specific revision from the repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.__gitGetStashesList">__gitGetStashesList</a></td>
+<td>Private method to get a list of stash names.</td>
+</tr>
+<tr>
+<td><a href="#Git.__gitSubmodulesList">__gitSubmodulesList</a></td>
+<td>Private method to get the data of defined submodules.</td>
+</tr>
+<tr>
+<td><a href="#Git.__selectSubmodulePath">__selectSubmodulePath</a></td>
+<td>Private method to select a submodule path.</td>
+</tr>
+<tr>
+<td><a href="#Git.__selectSubmodulePaths">__selectSubmodulePaths</a></td>
+<td>Private method to select a list of submodule paths.</td>
+</tr>
+<tr>
+<td><a href="#Git.__vcsCommit_Step2">__vcsCommit_Step2</a></td>
+<td>Private slot performing the second step of the commit action.</td>
+</tr>
+<tr>
+<td><a href="#Git._createStatusMonitorThread">_createStatusMonitorThread</a></td>
+<td>Protected method to create an instance of the VCS status monitor thread.</td>
+</tr>
+<tr>
+<td><a href="#Git.clearStatusCache">clearStatusCache</a></td>
+<td>Public method to clear the status cache.</td>
+</tr>
+<tr>
+<td><a href="#Git.findRepoRoot">findRepoRoot</a></td>
+<td>Public method to find the repository root directory given a start.</td>
+</tr>
+<tr>
+<td><a href="#Git.getPlugin">getPlugin</a></td>
+<td>Public method to get a reference to the plugin object.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitAddRemote">gitAddRemote</a></td>
+<td>Public method to add a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitApply">gitApply</a></td>
+<td>Public method to apply a patch stored in a given file.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitApplyCheckPatches">gitApplyCheckPatches</a></td>
+<td>Public method to apply a list of patch files or check, if they would apply cleanly.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBisect">gitBisect</a></td>
+<td>Public method to perform bisect commands.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBisectCreateReplayFile">gitBisectCreateReplayFile</a></td>
+<td>Public method used to create a bisect replay file for the project.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBisectEditReplayFile">gitBisectEditReplayFile</a></td>
+<td>Public method used to edit a bisect replay file.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBisectLogBrowser">gitBisectLogBrowser</a></td>
+<td>Public method used to browse the bisect log of the project.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBisectReplay">gitBisectReplay</a></td>
+<td>Public method to replay a bisect session.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBlame">gitBlame</a></td>
+<td>Public method to show the output of the git blame command.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBranch">gitBranch</a></td>
+<td>Public method used to create, delete or move a branch in the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBundle">gitBundle</a></td>
+<td>Public method to create a bundle file.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBundleFetch">gitBundleFetch</a></td>
+<td>Public method to fetch a head of a bundle file into the local repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBundleListHeads">gitBundleListHeads</a></td>
+<td>Public method to list the heads contained in a bundle file.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitBundlePull">gitBundlePull</a></td>
+<td>Public method to pull a head of a bundle file into the local repository and working area.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitCancelMerge">gitCancelMerge</a></td>
+<td>Public method to cancel an uncommitted or failed merge.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitChangeRemoteCredentials">gitChangeRemoteCredentials</a></td>
+<td>Public method to change the user credentials of a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitChangeRemoteUrl">gitChangeRemoteUrl</a></td>
+<td>Public method to change the URL of a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitCherryPick">gitCherryPick</a></td>
+<td>Public method to cherry pick commits and apply them to the current branch.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitCherryPickAbort">gitCherryPickAbort</a></td>
+<td>Public method to cancel the last copying session and return to the previous state.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitCherryPickContinue">gitCherryPickContinue</a></td>
+<td>Public method to continue the last copying session after conflicts were resolved.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitCherryPickQuit">gitCherryPickQuit</a></td>
+<td>Public method to quit the current copying operation.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitCommitMerge">gitCommitMerge</a></td>
+<td>Public method to commit a failed merge.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitCopy">gitCopy</a></td>
+<td>Public method used to copy a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitCreateArchive">gitCreateArchive</a></td>
+<td>Public method to show some statistics of the local repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitCreateIgnoreFile">gitCreateIgnoreFile</a></td>
+<td>Public method to create the ignore file.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitDeleteRemoteBranch">gitDeleteRemoteBranch</a></td>
+<td>Public method to delete a branch from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitDescribe">gitDescribe</a></td>
+<td>Public method to find the most recent tag reachable from each commit.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitEditConfig">gitEditConfig</a></td>
+<td>Public method used to edit the repository configuration file.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitEditUserConfig">gitEditUserConfig</a></td>
+<td>Public method used to edit the user configuration file.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitExtendedDiff">gitExtendedDiff</a></td>
+<td>Public method used to view the difference of a file/directory to the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitFetch">gitFetch</a></td>
+<td>Public method to fetch changes from a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitGetArchiveFormats">gitGetArchiveFormats</a></td>
+<td>Public method to get a list of supported archive formats.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitGetBranchesList">gitGetBranchesList</a></td>
+<td>Public method to get the list of branches.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitGetBundleHeads">gitGetBundleHeads</a></td>
+<td>Public method to get a list of heads contained in a bundle file.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitGetCurrentBranch">gitGetCurrentBranch</a></td>
+<td>Public method used to show the current branch of the working directory.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitGetRemoteBranchesList">gitGetRemoteBranchesList</a></td>
+<td>Public method to get the list of a remote repository branches.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitGetRemoteUrl">gitGetRemoteUrl</a></td>
+<td>Public method to get the URL of a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitGetRemoteUrlsList">gitGetRemoteUrlsList</a></td>
+<td>Public method to get the list of remote repos and their URLs.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitGetRemotesList">gitGetRemotesList</a></td>
+<td>Public method to get the list of remote repos.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitGetTagsList">gitGetTagsList</a></td>
+<td>Public method to get the list of tags.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitHouseKeeping">gitHouseKeeping</a></td>
+<td>Public method to cleanup and optimize the local repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitListTagBranch">gitListTagBranch</a></td>
+<td>Public method used to list the available tags or branches.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitNormalizeURL">gitNormalizeURL</a></td>
+<td>Public method to normalize a url for Git.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitPruneRemote">gitPruneRemote</a></td>
+<td>Public method to prune stale remote-tracking branches.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitPull">gitPull</a></td>
+<td>Public method used to pull changes from a remote Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitPush">gitPush</a></td>
+<td>Public method used to push changes to a remote Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitReflogBrowser">gitReflogBrowser</a></td>
+<td>Public method used to browse the reflog of the project.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitRemoveRemote">gitRemoveRemote</a></td>
+<td>Public method to remove a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitRenameRemote">gitRenameRemote</a></td>
+<td>Public method to rename a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitShortlog">gitShortlog</a></td>
+<td>Public method to show a short log suitable for inclusion in release announcements.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitShowBranch">gitShowBranch</a></td>
+<td>Public method used to show the current branch of the working directory.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitShowConfig">gitShowConfig</a></td>
+<td>Public method to show the combined configuration.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitShowPatchesStatistics">gitShowPatchesStatistics</a></td>
+<td>Public method to show statistics for a set of patch files.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitShowRemote">gitShowRemote</a></td>
+<td>Public method to show information about a remote repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitShowRemotes">gitShowRemotes</a></td>
+<td>Public method to show available remote repositories.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitStashApply">gitStashApply</a></td>
+<td>Public method to apply a stash but keep it.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitStashBranch">gitStashBranch</a></td>
+<td>Public method to create a branch from a stash.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitStashBrowser">gitStashBrowser</a></td>
+<td>Public method used to browse the stashed changes.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitStashClear">gitStashClear</a></td>
+<td>Public method to delete all stashes.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitStashDrop">gitStashDrop</a></td>
+<td>Public method to delete a stash.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitStashPop">gitStashPop</a></td>
+<td>Public method to apply a stash and delete it.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitStashSave">gitStashSave</a></td>
+<td>Public method to save the current changes to a new stash.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitStashShowPatch">gitStashShowPatch</a></td>
+<td>Public method to show the contents of a stash.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitStatistics">gitStatistics</a></td>
+<td>Public method to show some statistics of the local repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitSubmoduleAdd">gitSubmoduleAdd</a></td>
+<td>Public method to add a submodule to the project.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitSubmoduleDeinit">gitSubmoduleDeinit</a></td>
+<td>Public method to unregister submodules.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitSubmoduleInit">gitSubmoduleInit</a></td>
+<td>Public method to initialize one or all submodules.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitSubmoduleList">gitSubmoduleList</a></td>
+<td>Public method to show a list of all submodules of the project.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitSubmoduleStatus">gitSubmoduleStatus</a></td>
+<td>Public method to show the status of the submodules.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitSubmoduleSummary">gitSubmoduleSummary</a></td>
+<td>Public method to show the status of the submodules.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitSubmoduleSync">gitSubmoduleSync</a></td>
+<td>Public method to synchronize submodules.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitSubmoduleUpdate">gitSubmoduleUpdate</a></td>
+<td>Public method to update submodules.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitSubmoduleUpdateWithOptions">gitSubmoduleUpdateWithOptions</a></td>
+<td>Public method to update submodules offering a dialog to select the update options.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitUnstage">gitUnstage</a></td>
+<td>Public method used to unstage a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitVerify">gitVerify</a></td>
+<td>Public method to verify the connectivity and validity of objects of the database.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitVerifyBundle">gitVerifyBundle</a></td>
+<td>Public method to verify a bundle file.</td>
+</tr>
+<tr>
+<td><a href="#Git.gitWorktreeManagement">gitWorktreeManagement</a></td>
+<td>Public method to show the worktree list/management dialog.</td>
+</tr>
+<tr>
+<td><a href="#Git.initCommand">initCommand</a></td>
+<td>Public method to initialize a command arguments list.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsAdd">vcsAdd</a></td>
+<td>Public method used to add a file/directory to the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsAddBinary">vcsAddBinary</a></td>
+<td>Public method used to add a file/directory in binary mode to the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsAddCommitMessage">vcsAddCommitMessage</a></td>
+<td>Public method to add a commit message to the list of saved messages.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsAddTree">vcsAddTree</a></td>
+<td>Public method to add a directory tree rooted at path to the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsAllRegisteredStates">vcsAllRegisteredStates</a></td>
+<td>Public method used to get the registered states of a number of files in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsCheckout">vcsCheckout</a></td>
+<td>Public method used to check the project out of a Git repository (clone).</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsCleanup">vcsCleanup</a></td>
+<td>Public method used to cleanup the working directory.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsClearCommitMessages">vcsClearCommitMessages</a></td>
+<td>Public method to clear the list of saved messages.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsCommandLine">vcsCommandLine</a></td>
+<td>Public method used to execute arbitrary Git commands.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsCommit">vcsCommit</a></td>
+<td>Public method used to make the change of a file/directory permanent in the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsCommitMessages">vcsCommitMessages</a></td>
+<td>Public method to get the list of saved commit messages.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsConvertProject">vcsConvertProject</a></td>
+<td>Public method to convert an uncontrolled project to a version controlled project.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsDiff">vcsDiff</a></td>
+<td>Public method used to view the difference of a file/directory to the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsExists">vcsExists</a></td>
+<td>Public method used to test for the presence of the git executable.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsExport">vcsExport</a></td>
+<td>Public method used to export a directory from the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsForget">vcsForget</a></td>
+<td>Public method used to remove a file from the Mercurial repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsGetProjectBrowserHelper">vcsGetProjectBrowserHelper</a></td>
+<td>Public method to instantiate a helper object for the different project browsers.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsGetProjectHelper">vcsGetProjectHelper</a></td>
+<td>Public method to instantiate a helper object for the project.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsImport">vcsImport</a></td>
+<td>Public method used to import the project into the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsInit">vcsInit</a></td>
+<td>Public method used to initialize the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsInitConfig">vcsInitConfig</a></td>
+<td>Public method to initialize the VCS configuration.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsLogBrowser">vcsLogBrowser</a></td>
+<td>Public method used to browse the log of a file/directory from the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsMerge">vcsMerge</a></td>
+<td>Public method used to merge a URL/revision into the local project.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsMove">vcsMove</a></td>
+<td>Public method used to move a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsName">vcsName</a></td>
+<td>Public method returning the name of the vcs.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsNewProjectOptionsDialog">vcsNewProjectOptionsDialog</a></td>
+<td>Public method to get a dialog to enter repository info for getting a new project.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsOptionsDialog">vcsOptionsDialog</a></td>
+<td>Public method to get a dialog to enter repository info.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsRegisteredState">vcsRegisteredState</a></td>
+<td>Public method used to get the registered state of a file in the vcs.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsRemove">vcsRemove</a></td>
+<td>Public method used to remove a file/directory from the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsRepositoryInfos">vcsRepositoryInfos</a></td>
+<td>Public method to retrieve information about the repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsRevert">vcsRevert</a></td>
+<td>Public method used to revert changes made to a file/directory.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsSbsDiff">vcsSbsDiff</a></td>
+<td>Public method used to view the difference of a file to the Git repository side-by-side.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsShutdown">vcsShutdown</a></td>
+<td>Public method used to shutdown the Git interface.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsStatus">vcsStatus</a></td>
+<td>Public method used to view the status of files/directories in the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsSupportCommandOptions">vcsSupportCommandOptions</a></td>
+<td>Public method to signal the support of user settable command options.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsSwitch">vcsSwitch</a></td>
+<td>Public method used to switch a working directory to a different revision.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsTag">vcsTag</a></td>
+<td>Public method used to set/remove a tag in the Git repository.</td>
+</tr>
+<tr>
+<td><a href="#Git.vcsUpdate">vcsUpdate</a></td>
+<td>Public method used to update a file/directory with the Git repository.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Git.__init__" ID="Git.__init__"></a>
+<h4>Git (Constructor)</h4>
+<b>Git</b>(<i>plugin, parent=None, name=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>plugin</i> (VcsGitPlugin)</dt>
+<dd>
+reference to the plugin object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of this object
+</dd>
+</dl>
+<a NAME="Git.__gitGetFileForRevision" ID="Git.__gitGetFileForRevision"></a>
+<h4>Git.__gitGetFileForRevision</h4>
+<b>__gitGetFileForRevision</b>(<i>name, rev=""</i>)
+<p>
+        Private method to get a file for a specific revision from the
+        repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file name to get from the repository
+</dd>
+<dt><i>rev</i> (str)</dt>
+<dd>
+revision to retrieve
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+contents of the file (string) and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Git.__gitGetStashesList" ID="Git.__gitGetStashesList"></a>
+<h4>Git.__gitGetStashesList</h4>
+<b>__gitGetStashesList</b>(<i>projectDir</i>)
+<p>
+        Private method to get a list of stash names.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of available stashes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Git.__gitSubmodulesList" ID="Git.__gitSubmodulesList"></a>
+<h4>Git.__gitSubmodulesList</h4>
+<b>__gitSubmodulesList</b>(<i>repodir</i>)
+<p>
+        Private method to get the data of defined submodules.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+name of the directory containing the repo subdirectory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of dictionaries with submodule name, path, URL and branch
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of dict
+</dd>
+</dl>
+<a NAME="Git.__selectSubmodulePath" ID="Git.__selectSubmodulePath"></a>
+<h4>Git.__selectSubmodulePath</h4>
+<b>__selectSubmodulePath</b>(<i>repodir</i>)
+<p>
+        Private method to select a submodule path.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+name of the directory containing the repo subdirectory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of selected submodule path and flag indicating
+            a cancellation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, bool)
+</dd>
+</dl>
+<a NAME="Git.__selectSubmodulePaths" ID="Git.__selectSubmodulePaths"></a>
+<h4>Git.__selectSubmodulePaths</h4>
+<b>__selectSubmodulePaths</b>(<i>repodir</i>)
+<p>
+        Private method to select a list of submodule paths.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+name of the directory containing the repo subdirectory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of selected submodule paths and flag indicating
+            a cancellation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, bool)
+</dd>
+</dl>
+<a NAME="Git.__vcsCommit_Step2" ID="Git.__vcsCommit_Step2"></a>
+<h4>Git.__vcsCommit_Step2</h4>
+<b>__vcsCommit_Step2</b>(<i></i>)
+<p>
+        Private slot performing the second step of the commit action.
+</p>
+
+<a NAME="Git._createStatusMonitorThread" ID="Git._createStatusMonitorThread"></a>
+<h4>Git._createStatusMonitorThread</h4>
+<b>_createStatusMonitorThread</b>(<i>interval, project</i>)
+<p>
+        Protected method to create an instance of the VCS status monitor
+        thread.
+</p>
+
+<dl>
+
+<dt><i>interval</i> (int)</dt>
+<dd>
+check interval for the monitor thread in seconds
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the monitor thread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GitStatusMonitorThread
+</dd>
+</dl>
+<a NAME="Git.clearStatusCache" ID="Git.clearStatusCache"></a>
+<h4>Git.clearStatusCache</h4>
+<b>clearStatusCache</b>(<i></i>)
+<p>
+        Public method to clear the status cache.
+</p>
+
+<a NAME="Git.findRepoRoot" ID="Git.findRepoRoot"></a>
+<h4>Git.findRepoRoot</h4>
+<b>findRepoRoot</b>(<i>start</i>)
+<p>
+        Public method to find the repository root directory given a start.
+</p>
+
+<dl>
+
+<dt><i>start</i> (str)</dt>
+<dd>
+start directory name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+directory name of the repository root or None, if it was not found
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str or None
+</dd>
+</dl>
+<a NAME="Git.getPlugin" ID="Git.getPlugin"></a>
+<h4>Git.getPlugin</h4>
+<b>getPlugin</b>(<i></i>)
+<p>
+        Public method to get a reference to the plugin object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the plugin object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+VcsGitPlugin
+</dd>
+</dl>
+<a NAME="Git.gitAddRemote" ID="Git.gitAddRemote"></a>
+<h4>Git.gitAddRemote</h4>
+<b>gitAddRemote</b>(<i>projectDir</i>)
+<p>
+        Public method to add a remote repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitApply" ID="Git.gitApply"></a>
+<h4>Git.gitApply</h4>
+<b>gitApply</b>(<i>repodir, patchFile, cached=False, reverse=False, noDialog=False</i>)
+<p>
+        Public method to apply a patch stored in a given file.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+<dt><i>patchFile</i> (str)</dt>
+<dd>
+name of the patch file
+</dd>
+<dt><i>cached</i> (bool)</dt>
+<dd>
+flag indicating to apply the patch to the staging area
+</dd>
+<dt><i>reverse</i> (bool)</dt>
+<dd>
+flag indicating to apply the patch in reverse
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<a NAME="Git.gitApplyCheckPatches" ID="Git.gitApplyCheckPatches"></a>
+<h4>Git.gitApplyCheckPatches</h4>
+<b>gitApplyCheckPatches</b>(<i>projectDir, check=False</i>)
+<p>
+        Public method to apply a list of patch files or check, if they would
+        apply cleanly.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+directory name of the project
+</dd>
+<dt><i>check</i> (bool)</dt>
+<dd>
+flag indicating to perform a check operation
+</dd>
+</dl>
+<a NAME="Git.gitBisect" ID="Git.gitBisect"></a>
+<h4>Git.gitBisect</h4>
+<b>gitBisect</b>(<i>projectDir, subcommand</i>)
+<p>
+        Public method to perform bisect commands.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>subcommand</i> (str)</dt>
+<dd>
+name of the subcommand (one of 'start',
+            'start_extended', 'good', 'bad', 'skip' or 'reset')
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid bisect subcommand
+</dd>
+</dl>
+<a NAME="Git.gitBisectCreateReplayFile" ID="Git.gitBisectCreateReplayFile"></a>
+<h4>Git.gitBisectCreateReplayFile</h4>
+<b>gitBisectCreateReplayFile</b>(<i>projectDir</i>)
+<p>
+        Public method used to create a bisect replay file for the project.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitBisectEditReplayFile" ID="Git.gitBisectEditReplayFile"></a>
+<h4>Git.gitBisectEditReplayFile</h4>
+<b>gitBisectEditReplayFile</b>(<i>projectDir</i>)
+<p>
+        Public method used to edit a bisect replay file.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitBisectLogBrowser" ID="Git.gitBisectLogBrowser"></a>
+<h4>Git.gitBisectLogBrowser</h4>
+<b>gitBisectLogBrowser</b>(<i>projectDir</i>)
+<p>
+        Public method used to browse the bisect log of the project.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitBisectReplay" ID="Git.gitBisectReplay"></a>
+<h4>Git.gitBisectReplay</h4>
+<b>gitBisectReplay</b>(<i>projectDir</i>)
+<p>
+        Public method to replay a bisect session.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitBlame" ID="Git.gitBlame"></a>
+<h4>Git.gitBlame</h4>
+<b>gitBlame</b>(<i>name, skiplist=""</i>)
+<p>
+        Public method to show the output of the git blame command.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file name to show the annotations for
+</dd>
+<dt><i>skiplist</i> (str)</dt>
+<dd>
+name of a skip list file
+</dd>
+</dl>
+<a NAME="Git.gitBranch" ID="Git.gitBranch"></a>
+<h4>Git.gitBranch</h4>
+<b>gitBranch</b>(<i>name, revision=None, branchName=None, branchOp=None</i>)
+<p>
+        Public method used to create, delete or move a branch in the Git
+        repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be branched
+</dd>
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision to set tag for
+</dd>
+<dt><i>branchName</i> (str)</dt>
+<dd>
+name of the branch
+</dd>
+<dt><i>branchOp</i> (int)</dt>
+<dd>
+desired branch operation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a performed branch action and a flag indicating,
+            that the branch operation contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, bool)
+</dd>
+</dl>
+<a NAME="Git.gitBundle" ID="Git.gitBundle"></a>
+<h4>Git.gitBundle</h4>
+<b>gitBundle</b>(<i>projectDir</i>)
+<p>
+        Public method to create a bundle file.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitBundleFetch" ID="Git.gitBundleFetch"></a>
+<h4>Git.gitBundleFetch</h4>
+<b>gitBundleFetch</b>(<i>projectDir</i>)
+<p>
+        Public method to fetch a head of a bundle file into the local
+        repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitBundleListHeads" ID="Git.gitBundleListHeads"></a>
+<h4>Git.gitBundleListHeads</h4>
+<b>gitBundleListHeads</b>(<i>projectDir</i>)
+<p>
+        Public method to list the heads contained in a bundle file.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitBundlePull" ID="Git.gitBundlePull"></a>
+<h4>Git.gitBundlePull</h4>
+<b>gitBundlePull</b>(<i>projectDir</i>)
+<p>
+        Public method to pull a head of a bundle file into the local
+        repository and working area.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitCancelMerge" ID="Git.gitCancelMerge"></a>
+<h4>Git.gitCancelMerge</h4>
+<b>gitCancelMerge</b>(<i>name</i>)
+<p>
+        Public method to cancel an uncommitted or failed merge.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the cancellation contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitChangeRemoteCredentials" ID="Git.gitChangeRemoteCredentials"></a>
+<h4>Git.gitChangeRemoteCredentials</h4>
+<b>gitChangeRemoteCredentials</b>(<i>projectDir, remoteName, remoteUrl=""</i>)
+<p>
+        Public method to change the user credentials of a remote repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>remoteName</i> (str)</dt>
+<dd>
+name of the remote repository
+</dd>
+<dt><i>remoteUrl</i> (str)</dt>
+<dd>
+URL of the remote repository
+</dd>
+</dl>
+<a NAME="Git.gitChangeRemoteUrl" ID="Git.gitChangeRemoteUrl"></a>
+<h4>Git.gitChangeRemoteUrl</h4>
+<b>gitChangeRemoteUrl</b>(<i>projectDir, remoteName, remoteUrl=""</i>)
+<p>
+        Public method to change the URL of a remote repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>remoteName</i> (str)</dt>
+<dd>
+name of the remote repository
+</dd>
+<dt><i>remoteUrl</i> (str)</dt>
+<dd>
+URL of the remote repository
+</dd>
+</dl>
+<a NAME="Git.gitCherryPick" ID="Git.gitCherryPick"></a>
+<h4>Git.gitCherryPick</h4>
+<b>gitCherryPick</b>(<i>projectDir, commits=None</i>)
+<p>
+        Public method to cherry pick commits and apply them to the current
+        branch.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>commits</i> (list of str)</dt>
+<dd>
+list of commits to be applied
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitCherryPickAbort" ID="Git.gitCherryPickAbort"></a>
+<h4>Git.gitCherryPickAbort</h4>
+<b>gitCherryPickAbort</b>(<i>projectDir</i>)
+<p>
+        Public method to cancel the last copying session and return to
+        the previous state.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitCherryPickContinue" ID="Git.gitCherryPickContinue"></a>
+<h4>Git.gitCherryPickContinue</h4>
+<b>gitCherryPickContinue</b>(<i>projectDir</i>)
+<p>
+        Public method to continue the last copying session after conflicts
+        were resolved.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitCherryPickQuit" ID="Git.gitCherryPickQuit"></a>
+<h4>Git.gitCherryPickQuit</h4>
+<b>gitCherryPickQuit</b>(<i>projectDir</i>)
+<p>
+        Public method to quit the current copying operation.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitCommitMerge" ID="Git.gitCommitMerge"></a>
+<h4>Git.gitCommitMerge</h4>
+<b>gitCommitMerge</b>(<i>name</i>)
+<p>
+        Public method to commit a failed merge.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name
+</dd>
+</dl>
+<a NAME="Git.gitCopy" ID="Git.gitCopy"></a>
+<h4>Git.gitCopy</h4>
+<b>gitCopy</b>(<i>name, project</i>)
+<p>
+        Public method used to copy a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be copied
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitCreateArchive" ID="Git.gitCreateArchive"></a>
+<h4>Git.gitCreateArchive</h4>
+<b>gitCreateArchive</b>(<i>projectDir</i>)
+<p>
+        Public method to show some statistics of the local repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitCreateIgnoreFile" ID="Git.gitCreateIgnoreFile"></a>
+<h4>Git.gitCreateIgnoreFile</h4>
+<b>gitCreateIgnoreFile</b>(<i>name, autoAdd=False</i>)
+<p>
+        Public method to create the ignore file.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name to create the ignore file in
+</dd>
+<dt><i>autoAdd</i> (bool)</dt>
+<dd>
+flag indicating to add it automatically
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitDeleteRemoteBranch" ID="Git.gitDeleteRemoteBranch"></a>
+<h4>Git.gitDeleteRemoteBranch</h4>
+<b>gitDeleteRemoteBranch</b>(<i>name</i>)
+<p>
+        Public method to delete a branch from a remote repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name
+</dd>
+</dl>
+<a NAME="Git.gitDescribe" ID="Git.gitDescribe"></a>
+<h4>Git.gitDescribe</h4>
+<b>gitDescribe</b>(<i>projectDir, commits</i>)
+<p>
+        Public method to find the most recent tag reachable from each commit.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>commits</i> (list of str)</dt>
+<dd>
+list of commits to start the search from
+</dd>
+</dl>
+<a NAME="Git.gitEditConfig" ID="Git.gitEditConfig"></a>
+<h4>Git.gitEditConfig</h4>
+<b>gitEditConfig</b>(<i>projectDir</i>)
+<p>
+        Public method used to edit the repository configuration file.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitEditUserConfig" ID="Git.gitEditUserConfig"></a>
+<h4>Git.gitEditUserConfig</h4>
+<b>gitEditUserConfig</b>(<i></i>)
+<p>
+        Public method used to edit the user configuration file.
+</p>
+
+<a NAME="Git.gitExtendedDiff" ID="Git.gitExtendedDiff"></a>
+<h4>Git.gitExtendedDiff</h4>
+<b>gitExtendedDiff</b>(<i>name</i>)
+<p>
+        Public method used to view the difference of a file/directory to the
+        Git repository.
+</p>
+<p>
+        If name is a directory and is the project directory, all project files
+        are saved first. If name is a file (or list of files), which is/are
+        being edited and has unsaved modification, they can be saved or the
+        operation may be aborted.
+</p>
+<p>
+        This method gives the chance to enter the revisions to be compared.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be diffed
+</dd>
+</dl>
+<a NAME="Git.gitFetch" ID="Git.gitFetch"></a>
+<h4>Git.gitFetch</h4>
+<b>gitFetch</b>(<i>name</i>)
+<p>
+        Public method to fetch changes from a remote repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name
+</dd>
+</dl>
+<a NAME="Git.gitGetArchiveFormats" ID="Git.gitGetArchiveFormats"></a>
+<h4>Git.gitGetArchiveFormats</h4>
+<b>gitGetArchiveFormats</b>(<i>repodir</i>)
+<p>
+        Public method to get a list of supported archive formats.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of supported archive formats
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Git.gitGetBranchesList" ID="Git.gitGetBranchesList"></a>
+<h4>Git.gitGetBranchesList</h4>
+<b>gitGetBranchesList</b>(<i>repodir, withMain=False, allBranches=False, remotes=False</i>)
+<p>
+        Public method to get the list of branches.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+<dt><i>withMain</i> (bool)</dt>
+<dd>
+flag indicating to get 'main' as well
+</dd>
+<dt><i>allBranches</i> (bool)</dt>
+<dd>
+flag indicating to return all branches
+</dd>
+<dt><i>remotes</i> (bool)</dt>
+<dd>
+flag indicating to return remote branches only
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of branches
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Git.gitGetBundleHeads" ID="Git.gitGetBundleHeads"></a>
+<h4>Git.gitGetBundleHeads</h4>
+<b>gitGetBundleHeads</b>(<i>repodir, bundleFile</i>)
+<p>
+        Public method to get a list of heads contained in a bundle file.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+<dt><i>bundleFile</i> (str)</dt>
+<dd>
+file name of a git bundle file
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of heads
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Git.gitGetCurrentBranch" ID="Git.gitGetCurrentBranch"></a>
+<h4>Git.gitGetCurrentBranch</h4>
+<b>gitGetCurrentBranch</b>(<i>repodir</i>)
+<p>
+        Public method used to show the current branch of the working directory.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the current branch
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Git.gitGetRemoteBranchesList" ID="Git.gitGetRemoteBranchesList"></a>
+<h4>Git.gitGetRemoteBranchesList</h4>
+<b>gitGetRemoteBranchesList</b>(<i>repodir, remote</i>)
+<p>
+        Public method to get the list of a remote repository branches.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+<dt><i>remote</i> (str)</dt>
+<dd>
+remote repository name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of remote repository branches
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Git.gitGetRemoteUrl" ID="Git.gitGetRemoteUrl"></a>
+<h4>Git.gitGetRemoteUrl</h4>
+<b>gitGetRemoteUrl</b>(<i>repodir, remoteName</i>)
+<p>
+        Public method to get the URL of a remote repository.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+<dt><i>remoteName</i> (str)</dt>
+<dd>
+name of the remote repository
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+URL of the remote repository
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Git.gitGetRemoteUrlsList" ID="Git.gitGetRemoteUrlsList"></a>
+<h4>Git.gitGetRemoteUrlsList</h4>
+<b>gitGetRemoteUrlsList</b>(<i>repodir, forFetch=True</i>)
+<p>
+        Public method to get the list of remote repos and their URLs.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+<dt><i>forFetch</i> (str)</dt>
+<dd>
+flag indicating to get Fetch info
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples of remote repo name and repo URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [(str, str)]
+</dd>
+</dl>
+<a NAME="Git.gitGetRemotesList" ID="Git.gitGetRemotesList"></a>
+<h4>Git.gitGetRemotesList</h4>
+<b>gitGetRemotesList</b>(<i>repodir</i>)
+<p>
+        Public method to get the list of remote repos.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of remote repos
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Git.gitGetTagsList" ID="Git.gitGetTagsList"></a>
+<h4>Git.gitGetTagsList</h4>
+<b>gitGetTagsList</b>(<i>repodir</i>)
+<p>
+        Public method to get the list of tags.
+</p>
+
+<dl>
+
+<dt><i>repodir</i> (str)</dt>
+<dd>
+directory name of the repository
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tags or list of tuples of tag name and flag indicating
+            a local tag, if withType is True
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str or list of tuple of (str, bool)
+</dd>
+</dl>
+<a NAME="Git.gitHouseKeeping" ID="Git.gitHouseKeeping"></a>
+<h4>Git.gitHouseKeeping</h4>
+<b>gitHouseKeeping</b>(<i>projectDir</i>)
+<p>
+        Public method to cleanup and optimize the local repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitListTagBranch" ID="Git.gitListTagBranch"></a>
+<h4>Git.gitListTagBranch</h4>
+<b>gitListTagBranch</b>(<i>path, tags=True, listAll=True, merged=True</i>)
+<p>
+        Public method used to list the available tags or branches.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+directory name of the project
+</dd>
+<dt><i>tags</i> (bool)</dt>
+<dd>
+flag indicating listing of branches or tags
+            (False = branches, True = tags)
+</dd>
+<dt><i>listAll</i> (bool)</dt>
+<dd>
+flag indicating to show all tags or branches
+</dd>
+<dt><i>merged</i> (bool)</dt>
+<dd>
+flag indicating to show only merged or non-merged branches
+</dd>
+</dl>
+<a NAME="Git.gitNormalizeURL" ID="Git.gitNormalizeURL"></a>
+<h4>Git.gitNormalizeURL</h4>
+<b>gitNormalizeURL</b>(<i>url</i>)
+<p>
+        Public method to normalize a url for Git.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+url string
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+properly normalized url for git
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Git.gitPruneRemote" ID="Git.gitPruneRemote"></a>
+<h4>Git.gitPruneRemote</h4>
+<b>gitPruneRemote</b>(<i>projectDir, remoteName</i>)
+<p>
+        Public method to prune stale remote-tracking branches.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>remoteName</i> (str)</dt>
+<dd>
+name of the remote repository
+</dd>
+</dl>
+<a NAME="Git.gitPull" ID="Git.gitPull"></a>
+<h4>Git.gitPull</h4>
+<b>gitPull</b>(<i>name</i>)
+<p>
+        Public method used to pull changes from a remote Git repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name of the project to be pulled to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitPush" ID="Git.gitPush"></a>
+<h4>Git.gitPush</h4>
+<b>gitPush</b>(<i>name</i>)
+<p>
+        Public method used to push changes to a remote Git repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name of the project to be pushed from
+</dd>
+</dl>
+<a NAME="Git.gitReflogBrowser" ID="Git.gitReflogBrowser"></a>
+<h4>Git.gitReflogBrowser</h4>
+<b>gitReflogBrowser</b>(<i>projectDir</i>)
+<p>
+        Public method used to browse the reflog of the project.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitRemoveRemote" ID="Git.gitRemoveRemote"></a>
+<h4>Git.gitRemoveRemote</h4>
+<b>gitRemoveRemote</b>(<i>projectDir, remoteName</i>)
+<p>
+        Public method to remove a remote repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>remoteName</i> (str)</dt>
+<dd>
+name of the remote repository
+</dd>
+</dl>
+<a NAME="Git.gitRenameRemote" ID="Git.gitRenameRemote"></a>
+<h4>Git.gitRenameRemote</h4>
+<b>gitRenameRemote</b>(<i>projectDir, remoteName</i>)
+<p>
+        Public method to rename a remote repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>remoteName</i> (str)</dt>
+<dd>
+name of the remote repository
+</dd>
+</dl>
+<a NAME="Git.gitShortlog" ID="Git.gitShortlog"></a>
+<h4>Git.gitShortlog</h4>
+<b>gitShortlog</b>(<i>projectDir, commit</i>)
+<p>
+        Public method to show a short log suitable for inclusion in release
+        announcements.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>commit</i> (str)</dt>
+<dd>
+commit to start the log at
+</dd>
+</dl>
+<a NAME="Git.gitShowBranch" ID="Git.gitShowBranch"></a>
+<h4>Git.gitShowBranch</h4>
+<b>gitShowBranch</b>(<i>name</i>)
+<p>
+        Public method used to show the current branch of the working directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name
+</dd>
+</dl>
+<a NAME="Git.gitShowConfig" ID="Git.gitShowConfig"></a>
+<h4>Git.gitShowConfig</h4>
+<b>gitShowConfig</b>(<i>projectDir</i>)
+<p>
+        Public method to show the combined configuration.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitShowPatchesStatistics" ID="Git.gitShowPatchesStatistics"></a>
+<h4>Git.gitShowPatchesStatistics</h4>
+<b>gitShowPatchesStatistics</b>(<i>projectDir</i>)
+<p>
+        Public method to show statistics for a set of patch files.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+directory name of the project
+</dd>
+</dl>
+<a NAME="Git.gitShowRemote" ID="Git.gitShowRemote"></a>
+<h4>Git.gitShowRemote</h4>
+<b>gitShowRemote</b>(<i>projectDir, remoteName</i>)
+<p>
+        Public method to show information about a remote repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>remoteName</i> (str)</dt>
+<dd>
+name of the remote repository
+</dd>
+</dl>
+<a NAME="Git.gitShowRemotes" ID="Git.gitShowRemotes"></a>
+<h4>Git.gitShowRemotes</h4>
+<b>gitShowRemotes</b>(<i>projectDir</i>)
+<p>
+        Public method to show available remote repositories.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitStashApply" ID="Git.gitStashApply"></a>
+<h4>Git.gitStashApply</h4>
+<b>gitStashApply</b>(<i>projectDir, stashName=""</i>)
+<p>
+        Public method to apply a stash but keep it.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>stashName</i> (str)</dt>
+<dd>
+name of a stash
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the restore contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitStashBranch" ID="Git.gitStashBranch"></a>
+<h4>Git.gitStashBranch</h4>
+<b>gitStashBranch</b>(<i>projectDir, stashName=""</i>)
+<p>
+        Public method to create a branch from a stash.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>stashName</i> (str)</dt>
+<dd>
+name of a stash
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the restore contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitStashBrowser" ID="Git.gitStashBrowser"></a>
+<h4>Git.gitStashBrowser</h4>
+<b>gitStashBrowser</b>(<i>projectDir</i>)
+<p>
+        Public method used to browse the stashed changes.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitStashClear" ID="Git.gitStashClear"></a>
+<h4>Git.gitStashClear</h4>
+<b>gitStashClear</b>(<i>projectDir</i>)
+<p>
+        Public method to delete all stashes.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful deletion
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitStashDrop" ID="Git.gitStashDrop"></a>
+<h4>Git.gitStashDrop</h4>
+<b>gitStashDrop</b>(<i>projectDir, stashName=""</i>)
+<p>
+        Public method to delete a stash.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>stashName</i> (str)</dt>
+<dd>
+name of a stash
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful deletion
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitStashPop" ID="Git.gitStashPop"></a>
+<h4>Git.gitStashPop</h4>
+<b>gitStashPop</b>(<i>projectDir, stashName=""</i>)
+<p>
+        Public method to apply a stash and delete it.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>stashName</i> (str)</dt>
+<dd>
+name of a stash
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the restore contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitStashSave" ID="Git.gitStashSave"></a>
+<h4>Git.gitStashSave</h4>
+<b>gitStashSave</b>(<i>projectDir</i>)
+<p>
+        Public method to save the current changes to a new stash.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the save contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitStashShowPatch" ID="Git.gitStashShowPatch"></a>
+<h4>Git.gitStashShowPatch</h4>
+<b>gitStashShowPatch</b>(<i>projectDir, stashName=""</i>)
+<p>
+        Public method to show the contents of a stash.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>stashName</i> (str)</dt>
+<dd>
+name of a stash
+</dd>
+</dl>
+<a NAME="Git.gitStatistics" ID="Git.gitStatistics"></a>
+<h4>Git.gitStatistics</h4>
+<b>gitStatistics</b>(<i>projectDir</i>)
+<p>
+        Public method to show some statistics of the local repository.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitSubmoduleAdd" ID="Git.gitSubmoduleAdd"></a>
+<h4>Git.gitSubmoduleAdd</h4>
+<b>gitSubmoduleAdd</b>(<i>projectDir</i>)
+<p>
+        Public method to add a submodule to the project.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitSubmoduleDeinit" ID="Git.gitSubmoduleDeinit"></a>
+<h4>Git.gitSubmoduleDeinit</h4>
+<b>gitSubmoduleDeinit</b>(<i>projectDir</i>)
+<p>
+        Public method to unregister submodules.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitSubmoduleInit" ID="Git.gitSubmoduleInit"></a>
+<h4>Git.gitSubmoduleInit</h4>
+<b>gitSubmoduleInit</b>(<i>projectDir</i>)
+<p>
+        Public method to initialize one or all submodules.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitSubmoduleList" ID="Git.gitSubmoduleList"></a>
+<h4>Git.gitSubmoduleList</h4>
+<b>gitSubmoduleList</b>(<i>projectDir</i>)
+<p>
+        Public method to show a list of all submodules of the project.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitSubmoduleStatus" ID="Git.gitSubmoduleStatus"></a>
+<h4>Git.gitSubmoduleStatus</h4>
+<b>gitSubmoduleStatus</b>(<i>projectDir</i>)
+<p>
+        Public method to show the status of the submodules.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitSubmoduleSummary" ID="Git.gitSubmoduleSummary"></a>
+<h4>Git.gitSubmoduleSummary</h4>
+<b>gitSubmoduleSummary</b>(<i>projectDir</i>)
+<p>
+        Public method to show the status of the submodules.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitSubmoduleSync" ID="Git.gitSubmoduleSync"></a>
+<h4>Git.gitSubmoduleSync</h4>
+<b>gitSubmoduleSync</b>(<i>projectDir</i>)
+<p>
+        Public method to synchronize submodules.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitSubmoduleUpdate" ID="Git.gitSubmoduleUpdate"></a>
+<h4>Git.gitSubmoduleUpdate</h4>
+<b>gitSubmoduleUpdate</b>(<i>projectDir, initialize=False, remote=False</i>)
+<p>
+        Public method to update submodules.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+<dt><i>initialize</i> (bool)</dt>
+<dd>
+flag indicating an initialize and update operation
+</dd>
+<dt><i>remote</i> (bool)</dt>
+<dd>
+flag indicating a fetch and update operation
+</dd>
+</dl>
+<a NAME="Git.gitSubmoduleUpdateWithOptions" ID="Git.gitSubmoduleUpdateWithOptions"></a>
+<h4>Git.gitSubmoduleUpdateWithOptions</h4>
+<b>gitSubmoduleUpdateWithOptions</b>(<i>projectDir</i>)
+<p>
+        Public method to update submodules offering a dialog to select the
+        update options.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitUnstage" ID="Git.gitUnstage"></a>
+<h4>Git.gitUnstage</h4>
+<b>gitUnstage</b>(<i>name</i>)
+<p>
+        Public method used to unstage a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be reverted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.gitVerify" ID="Git.gitVerify"></a>
+<h4>Git.gitVerify</h4>
+<b>gitVerify</b>(<i>projectDir</i>)
+<p>
+        Public method to verify the connectivity and validity of objects
+        of the database.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitVerifyBundle" ID="Git.gitVerifyBundle"></a>
+<h4>Git.gitVerifyBundle</h4>
+<b>gitVerifyBundle</b>(<i>projectDir</i>)
+<p>
+        Public method to verify a bundle file.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.gitWorktreeManagement" ID="Git.gitWorktreeManagement"></a>
+<h4>Git.gitWorktreeManagement</h4>
+<b>gitWorktreeManagement</b>(<i>projectDir</i>)
+<p>
+        Public method to show the worktree list/management dialog.
+</p>
+
+<dl>
+
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+name of the project directory
+</dd>
+</dl>
+<a NAME="Git.initCommand" ID="Git.initCommand"></a>
+<h4>Git.initCommand</h4>
+<b>initCommand</b>(<i>command</i>)
+<p>
+        Public method to initialize a command arguments list.
+</p>
+
+<dl>
+
+<dt><i>command</i> (str)</dt>
+<dd>
+command name
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of command options
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Git.vcsAdd" ID="Git.vcsAdd"></a>
+<h4>Git.vcsAdd</h4>
+<b>vcsAdd</b>(<i>name, isDir=False, noDialog=False</i>)
+<p>
+        Public method used to add a file/directory to the Git repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be added
+</dd>
+<dt><i>isDir</i> (bool)</dt>
+<dd>
+flag indicating name is a directory
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<a NAME="Git.vcsAddBinary" ID="Git.vcsAddBinary"></a>
+<h4>Git.vcsAddBinary</h4>
+<b>vcsAddBinary</b>(<i>name, isDir=False</i>)
+<p>
+        Public method used to add a file/directory in binary mode to the
+        Git repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be added
+</dd>
+<dt><i>isDir</i> (bool)</dt>
+<dd>
+flag indicating name is a directory
+</dd>
+</dl>
+<a NAME="Git.vcsAddCommitMessage" ID="Git.vcsAddCommitMessage"></a>
+<h4>Git.vcsAddCommitMessage</h4>
+<b>vcsAddCommitMessage</b>(<i>message</i>)
+<p>
+        Public method to add a commit message to the list of saved messages.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be added
+</dd>
+</dl>
+<a NAME="Git.vcsAddTree" ID="Git.vcsAddTree"></a>
+<h4>Git.vcsAddTree</h4>
+<b>vcsAddTree</b>(<i>path</i>)
+<p>
+        Public method to add a directory tree rooted at path to the Git
+        repository.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str or list of str)</dt>
+<dd>
+root directory of the tree to be added
+</dd>
+</dl>
+<a NAME="Git.vcsAllRegisteredStates" ID="Git.vcsAllRegisteredStates"></a>
+<h4>Git.vcsAllRegisteredStates</h4>
+<b>vcsAllRegisteredStates</b>(<i>names, dname, shortcut=True</i>)
+<p>
+        Public method used to get the registered states of a number of files
+        in the vcs.
+</p>
+<p>
+        <b>Note:</b> If a shortcut is to be taken, the code will only check,
+        if the named directory has been scanned already. If so, it is assumed,
+        that the states for all files have been populated by the previous run.
+</p>
+
+<dl>
+
+<dt><i>names</i> (dict)</dt>
+<dd>
+dictionary with all filenames to be checked as keys
+</dd>
+<dt><i>dname</i> (str)</dt>
+<dd>
+directory to check in
+</dd>
+<dt><i>shortcut</i> (bool)</dt>
+<dd>
+flag indicating a shortcut should be taken (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the received dictionary completed with the VCS state or None in
+            order to signal an error
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="Git.vcsCheckout" ID="Git.vcsCheckout"></a>
+<h4>Git.vcsCheckout</h4>
+<b>vcsCheckout</b>(<i>vcsDataDict, projectDir, noDialog=False</i>)
+<p>
+        Public method used to check the project out of a Git repository
+        (clone).
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the checkout
+</dd>
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+project directory to create
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an execution without errors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.vcsCleanup" ID="Git.vcsCleanup"></a>
+<h4>Git.vcsCleanup</h4>
+<b>vcsCleanup</b>(<i>name</i>)
+<p>
+        Public method used to cleanup the working directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name to be cleaned up
+</dd>
+</dl>
+<a NAME="Git.vcsClearCommitMessages" ID="Git.vcsClearCommitMessages"></a>
+<h4>Git.vcsClearCommitMessages</h4>
+<b>vcsClearCommitMessages</b>(<i></i>)
+<p>
+        Public method to clear the list of saved messages.
+</p>
+
+<a NAME="Git.vcsCommandLine" ID="Git.vcsCommandLine"></a>
+<h4>Git.vcsCommandLine</h4>
+<b>vcsCommandLine</b>(<i>name</i>)
+<p>
+        Public method used to execute arbitrary Git commands.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name of the working directory
+</dd>
+</dl>
+<a NAME="Git.vcsCommit" ID="Git.vcsCommit"></a>
+<h4>Git.vcsCommit</h4>
+<b>vcsCommit</b>(<i>name, message="", noDialog=False, commitAll=True, amend=False</i>)
+<p>
+        Public method used to make the change of a file/directory permanent
+        in the Git repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name to be committed
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message for this operation
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+<dt><i>commitAll</i> (bool)</dt>
+<dd>
+flag indicating to commit all local changes
+</dd>
+<dt><i>amend</i> (bool)</dt>
+<dd>
+flag indicating to amend the HEAD commit
+</dd>
+</dl>
+<a NAME="Git.vcsCommitMessages" ID="Git.vcsCommitMessages"></a>
+<h4>Git.vcsCommitMessages</h4>
+<b>vcsCommitMessages</b>(<i></i>)
+<p>
+        Public method to get the list of saved commit messages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of saved commit messages
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Git.vcsConvertProject" ID="Git.vcsConvertProject"></a>
+<h4>Git.vcsConvertProject</h4>
+<b>vcsConvertProject</b>(<i>vcsDataDict, project, addAll=True</i>)
+<p>
+        Public method to convert an uncontrolled project to a version
+        controlled project.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the conversion
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>addAll</i> (bool)</dt>
+<dd>
+flag indicating to add all files to the repository
+</dd>
+</dl>
+<a NAME="Git.vcsDiff" ID="Git.vcsDiff"></a>
+<h4>Git.vcsDiff</h4>
+<b>vcsDiff</b>(<i>name</i>)
+<p>
+        Public method used to view the difference of a file/directory to the
+        Git repository.
+</p>
+<p>
+        If name is a directory and is the project directory, all project files
+        are saved first. If name is a file (or list of files), which is/are
+        being edited and has unsaved modification, they can be saved or the
+        operation may be aborted.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be diffed
+</dd>
+</dl>
+<a NAME="Git.vcsExists" ID="Git.vcsExists"></a>
+<h4>Git.vcsExists</h4>
+<b>vcsExists</b>(<i></i>)
+<p>
+        Public method used to test for the presence of the git executable.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existance and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="Git.vcsExport" ID="Git.vcsExport"></a>
+<h4>Git.vcsExport</h4>
+<b>vcsExport</b>(<i>vcsDataDict, projectDir</i>)
+<p>
+        Public method used to export a directory from the Git repository.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the checkout
+</dd>
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+project directory to create
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an execution without errors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.vcsForget" ID="Git.vcsForget"></a>
+<h4>Git.vcsForget</h4>
+<b>vcsForget</b>(<i>name</i>)
+<p>
+        Public method used to remove a file from the Mercurial repository.
+</p>
+<p>
+        This will not remove the file from the project directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name to be removed
+</dd>
+</dl>
+<a NAME="Git.vcsGetProjectBrowserHelper" ID="Git.vcsGetProjectBrowserHelper"></a>
+<h4>Git.vcsGetProjectBrowserHelper</h4>
+<b>vcsGetProjectBrowserHelper</b>(<i>browser, project, isTranslationsBrowser=False</i>)
+<p>
+        Public method to instantiate a helper object for the different
+        project browsers.
+</p>
+
+<dl>
+
+<dt><i>browser</i> (ProjectBaseBrowser)</dt>
+<dd>
+reference to the project browser object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>isTranslationsBrowser</i> (bool)</dt>
+<dd>
+flag indicating, the helper is requested
+            for the translations browser (this needs some special treatment)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the project browser helper object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GitProjectBrowserHelper
+</dd>
+</dl>
+<a NAME="Git.vcsGetProjectHelper" ID="Git.vcsGetProjectHelper"></a>
+<h4>Git.vcsGetProjectHelper</h4>
+<b>vcsGetProjectHelper</b>(<i>project</i>)
+<p>
+        Public method to instantiate a helper object for the project.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the project helper object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GitProjectHelper
+</dd>
+</dl>
+<a NAME="Git.vcsImport" ID="Git.vcsImport"></a>
+<h4>Git.vcsImport</h4>
+<b>vcsImport</b>(<i>vcsDataDict, projectDir, noDialog=False, addAll=True</i>)
+<p>
+        Public method used to import the project into the Git repository.
+</p>
+
+<dl>
+
+<dt><i>vcsDataDict</i> (dict)</dt>
+<dd>
+dictionary of data required for the import
+</dd>
+<dt><i>projectDir</i> (str)</dt>
+<dd>
+project directory
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations (unused)
+</dd>
+<dt><i>addAll</i> (bool)</dt>
+<dd>
+flag indicating to add all files to the repository
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating an execution without errors
+            and a flag indicating the version controll status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, bool)
+</dd>
+</dl>
+<a NAME="Git.vcsInit" ID="Git.vcsInit"></a>
+<h4>Git.vcsInit</h4>
+<b>vcsInit</b>(<i>_vcsDir, noDialog=False</i>)
+<p>
+        Public method used to initialize the Git repository.
+</p>
+<p>
+        The initialization is done, when a project is converted into a
+        Git controlled project. Therefore we always return TRUE without
+        doing anything.
+</p>
+
+<dl>
+
+<dt><i>_vcsDir</i> (str)</dt>
+<dd>
+name of the VCS directory (unused)
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+always True
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.vcsInitConfig" ID="Git.vcsInitConfig"></a>
+<h4>Git.vcsInitConfig</h4>
+<b>vcsInitConfig</b>(<i>project</i>)
+<p>
+        Public method to initialize the VCS configuration.
+</p>
+<p>
+        This method ensures, that an ignore file exists.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project
+</dd>
+</dl>
+<a NAME="Git.vcsLogBrowser" ID="Git.vcsLogBrowser"></a>
+<h4>Git.vcsLogBrowser</h4>
+<b>vcsLogBrowser</b>(<i>name, isFile=False</i>)
+<p>
+        Public method used to browse the log of a file/directory from the
+        Git repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to show the log of
+</dd>
+<dt><i>isFile</i> (bool)</dt>
+<dd>
+flag indicating log for a file is to be shown
+</dd>
+</dl>
+<a NAME="Git.vcsMerge" ID="Git.vcsMerge"></a>
+<h4>Git.vcsMerge</h4>
+<b>vcsMerge</b>(<i>name</i>)
+<p>
+        Public method used to merge a URL/revision into the local project.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be merged
+</dd>
+</dl>
+<a NAME="Git.vcsMove" ID="Git.vcsMove"></a>
+<h4>Git.vcsMove</h4>
+<b>vcsMove</b>(<i>name, project, target=None, noDialog=False</i>)
+<p>
+        Public method used to move a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be moved
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>target</i> (str)</dt>
+<dd>
+new name of the file/directory
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.vcsName" ID="Git.vcsName"></a>
+<h4>Git.vcsName</h4>
+<b>vcsName</b>(<i></i>)
+<p>
+        Public method returning the name of the vcs.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+always 'Git'
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Git.vcsNewProjectOptionsDialog" ID="Git.vcsNewProjectOptionsDialog"></a>
+<h4>Git.vcsNewProjectOptionsDialog</h4>
+<b>vcsNewProjectOptionsDialog</b>(<i>parent=None</i>)
+<p>
+        Public method to get a dialog to enter repository info for getting a
+        new project.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated options dialog
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GitNewProjectOptionsDialog
+</dd>
+</dl>
+<a NAME="Git.vcsOptionsDialog" ID="Git.vcsOptionsDialog"></a>
+<h4>Git.vcsOptionsDialog</h4>
+<b>vcsOptionsDialog</b>(<i>project, _archive, editable=False, parent=None</i>)
+<p>
+        Public method to get a dialog to enter repository info.
+</p>
+
+<dl>
+
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>_archive</i> (str)</dt>
+<dd>
+name of the project in the repository (unused)
+</dd>
+<dt><i>editable</i> (bool)</dt>
+<dd>
+flag indicating that the project name is editable (unused)
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated options dialog
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+GitOptionsDialog
+</dd>
+</dl>
+<a NAME="Git.vcsRegisteredState" ID="Git.vcsRegisteredState"></a>
+<h4>Git.vcsRegisteredState</h4>
+<b>vcsRegisteredState</b>(<i>name</i>)
+<p>
+        Public method used to get the registered state of a file in the vcs.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+filename to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+registered state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+VersionControlState
+</dd>
+</dl>
+<a NAME="Git.vcsRemove" ID="Git.vcsRemove"></a>
+<h4>Git.vcsRemove</h4>
+<b>vcsRemove</b>(<i>name, project=False, noDialog=False, stageOnly=False</i>)
+<p>
+        Public method used to remove a file/directory from the Git
+        repository.
+</p>
+<p>
+        The default operation is to remove the local copy as well.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name to be removed
+</dd>
+<dt><i>project</i> (bool)</dt>
+<dd>
+flag indicating deletion of a project tree (unused)
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+<dt><i>stageOnly</i> (bool)</dt>
+<dd>
+flag indicating to just remove the file from the
+            staging area
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating successful operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.vcsRepositoryInfos" ID="Git.vcsRepositoryInfos"></a>
+<h4>Git.vcsRepositoryInfos</h4>
+<b>vcsRepositoryInfos</b>(<i>ppath</i>)
+<p>
+        Public method to retrieve information about the repository.
+</p>
+
+<dl>
+
+<dt><i>ppath</i> (str)</dt>
+<dd>
+local path to get the repository infos
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string with ready formated info for display
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Git.vcsRevert" ID="Git.vcsRevert"></a>
+<h4>Git.vcsRevert</h4>
+<b>vcsRevert</b>(<i>name</i>)
+<p>
+        Public method used to revert changes made to a file/directory.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to be reverted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add
+            or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.vcsSbsDiff" ID="Git.vcsSbsDiff"></a>
+<h4>Git.vcsSbsDiff</h4>
+<b>vcsSbsDiff</b>(<i>name, extended=False, revisions=None</i>)
+<p>
+        Public method used to view the difference of a file to the Git
+        repository side-by-side.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file name to be diffed
+</dd>
+<dt><i>extended</i> (bool)</dt>
+<dd>
+flag indicating the extended variant
+</dd>
+<dt><i>revisions</i> (tuple of (str, str))</dt>
+<dd>
+tuple of two revisions
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid name parameter
+</dd>
+</dl>
+<a NAME="Git.vcsShutdown" ID="Git.vcsShutdown"></a>
+<h4>Git.vcsShutdown</h4>
+<b>vcsShutdown</b>(<i></i>)
+<p>
+        Public method used to shutdown the Git interface.
+</p>
+
+<a NAME="Git.vcsStatus" ID="Git.vcsStatus"></a>
+<h4>Git.vcsStatus</h4>
+<b>vcsStatus</b>(<i>name</i>)
+<p>
+        Public method used to view the status of files/directories in the
+        Git repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name(s) to show the status of
+</dd>
+</dl>
+<a NAME="Git.vcsSupportCommandOptions" ID="Git.vcsSupportCommandOptions"></a>
+<h4>Git.vcsSupportCommandOptions</h4>
+<b>vcsSupportCommandOptions</b>(<i></i>)
+<p>
+        Public method to signal the support of user settable command options.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the support  of user settable command options
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.vcsSwitch" ID="Git.vcsSwitch"></a>
+<h4>Git.vcsSwitch</h4>
+<b>vcsSwitch</b>(<i>name</i>)
+<p>
+        Public method used to switch a working directory to a different
+        revision.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name to be switched
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the switch contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.vcsTag" ID="Git.vcsTag"></a>
+<h4>Git.vcsTag</h4>
+<b>vcsTag</b>(<i>name, revision=None, tagName=None</i>)
+<p>
+        Public method used to set/remove a tag in the Git repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name to determine the repo root from
+</dd>
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision to set tag for
+</dd>
+<dt><i>tagName</i> (str)</dt>
+<dd>
+name of the tag
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a performed tag action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="Git.vcsUpdate" ID="Git.vcsUpdate"></a>
+<h4>Git.vcsUpdate</h4>
+<b>vcsUpdate</b>(<i>name, noDialog=False, revision=None</i>)
+<p>
+        Public method used to update a file/directory with the Git
+        repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str or list of str)</dt>
+<dd>
+file/directory name to be updated
+</dd>
+<dt><i>noDialog</i> (bool)</dt>
+<dd>
+flag indicating quiet operations
+</dd>
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision to update to
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the update contained an add or delete
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

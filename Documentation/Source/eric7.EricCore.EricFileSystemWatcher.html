@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricCore.EricFileSystemWatcher</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricCore.EricFileSystemWatcher</h1>
+<p>
+Module implementing a QFileSystemWatcher replacement based on the 'watchdog' package.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_GlobalFileSystemWatcher</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricFileSystemWatcher">EricFileSystemWatcher</a></td>
+<td>Class implementing a file system monitor based on the 'watchdog' package as a replacement for 'QFileSystemWatcher'.</td>
+</tr>
+<tr>
+<td><a href="#_EricFileSystemEventHandler">_EricFileSystemEventHandler</a></td>
+<td>Class implementing a QObject based file system event handler for watchdog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#instance">instance</a></td>
+<td>Function to get a reference to the global file system monitor object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricFileSystemWatcher" ID="EricFileSystemWatcher"></a>
+<h2>EricFileSystemWatcher</h2>
+<p>
+    Class implementing a file system monitor based on the 'watchdog' package as a
+    replacement for 'QFileSystemWatcher'.
+</p>
+<p>
+    This class has more fine grained signaling capability compared to
+    QFileSystemWatcher. The 'directoryChanged' and 'fileChanged' signals are emitted
+    to keep the API compatible with QFileSystemWatcher.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>directoryChanged(path: str)</dt>
+<dd>
+emitted when the directory at a given path is
+        modified or removed from disk
+</dd>
+<dt>directoryCreated(path: str)</dt>
+<dd>
+emitted when a directory is created
+</dd>
+<dt>directoryDeleted(path: str)</dt>
+<dd>
+emitted when a directory is removed from disk
+</dd>
+<dt>directoryModified(path: str)</dt>
+<dd>
+emitted when a directory is modified
+</dd>
+<dt>directoryMoved(srcPath: str, dstPath: str)</dt>
+<dd>
+emitted when the directory at a
+        given source path is renamed or moved to destination path
+</dd>
+<dt>error(errno: int, errmsg: str)</dt>
+<dd>
+emitted to indicate an OS error
+</dd>
+<dt>fileChanged(path: str)</dt>
+<dd>
+emitted when the file at a given path is modified
+        or removed from disk
+</dd>
+<dt>fileCreated(path: str)</dt>
+<dd>
+emitted when a file is created
+</dd>
+<dt>fileDeleted(path: str)</dt>
+<dd>
+emitted when a file is removed from disk
+</dd>
+<dt>fileModified(path: str)</dt>
+<dd>
+emitted when a file is modified
+</dd>
+<dt>fileMoved(srcPath: str, dstPath: str)</dt>
+<dd>
+emitted when the file at a
+        given source path is renamed or moved to destination path
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricFileSystemWatcher.__init__">EricFileSystemWatcher</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.__del__">__del__</a></td>
+<td>Special method called when an instance object is about to be destroyed.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.__directoryChanged">__directoryChanged</a></td>
+<td>Private slot handling any change of a directory at a given path.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.__fileChanged">__fileChanged</a></td>
+<td>Private slot handling any change of a file at a given path.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.addPath">addPath</a></td>
+<td>Public method to add the given path to the list of watched paths.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.addPaths">addPaths</a></td>
+<td>Public method to add each path of the given list to the file system watched.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.directories">directories</a></td>
+<td>Public method to return a list of paths to directories that are being watched.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.files">files</a></td>
+<td>Public method to return a list of paths to files that are being watched.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.paths">paths</a></td>
+<td>Public method to return a list of paths that are being watched.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.removePath">removePath</a></td>
+<td>Public method to remove a given path from the list of monitored paths.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.removePaths">removePaths</a></td>
+<td>Public method to remove the specified paths from the list of monitored paths.</td>
+</tr>
+<tr>
+<td><a href="#EricFileSystemWatcher.shutdown">shutdown</a></td>
+<td>Public method to shut down the file system watcher instance.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricFileSystemWatcher.__init__" ID="EricFileSystemWatcher.__init__"></a>
+<h4>EricFileSystemWatcher (Constructor)</h4>
+<b>EricFileSystemWatcher</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.__del__" ID="EricFileSystemWatcher.__del__"></a>
+<h4>EricFileSystemWatcher.__del__</h4>
+<b>__del__</b>(<i></i>)
+<p>
+        Special method called when an instance object is about to be destroyed.
+</p>
+
+<a NAME="EricFileSystemWatcher.__directoryChanged" ID="EricFileSystemWatcher.__directoryChanged"></a>
+<h4>EricFileSystemWatcher.__directoryChanged</h4>
+<b>__directoryChanged</b>(<i>path</i>)
+<p>
+        Private slot handling any change of a directory at a given path.
+</p>
+<p>
+        It emits the signal 'directoryChanged', if the path is in the list of
+        watched paths. This behavior is compatible with the QFileSystemWatcher signal
+        of identical name.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path name of the changed directory
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.__fileChanged" ID="EricFileSystemWatcher.__fileChanged"></a>
+<h4>EricFileSystemWatcher.__fileChanged</h4>
+<b>__fileChanged</b>(<i>path</i>)
+<p>
+        Private slot handling any change of a file at a given path.
+</p>
+<p>
+        It emits the signal 'fileChanged', if the path is in the list of
+        watched paths. This behavior is compatible with the QFileSystemWatcher signal
+        of identical name.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path name of the changed file
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.addPath" ID="EricFileSystemWatcher.addPath"></a>
+<h4>EricFileSystemWatcher.addPath</h4>
+<b>addPath</b>(<i>path, recursive=False</i>)
+<p>
+        Public method to add the given path to the list of watched paths.
+</p>
+<p>
+        If the given path is a directory, a recursive watch may be requested.
+        Otherwise only the given directory is watched for changes but none of its
+        subdirectories.
+</p>
+<p>
+        The path is not added, if it does not exist or if it is already being monitored
+        by the file system watcher.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+file or directory path to be added to the watched paths
+</dd>
+<dt><i>recursive</i> (bool (optional))</dt>
+<dd>
+flag indicating a watch for the complete tree rooted at the
+            given path (for directory paths only) (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful creation of a watch for the given path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.addPaths" ID="EricFileSystemWatcher.addPaths"></a>
+<h4>EricFileSystemWatcher.addPaths</h4>
+<b>addPaths</b>(<i>paths, recursive=False</i>)
+<p>
+        Public method to add each path of the given list to the file system watched.
+</p>
+<p>
+        If a path of the given paths list is a directory, a recursive watch may be
+        requested. Otherwise only the given directory is watched for changes but none
+        of its subdirectories. This applies to all directory paths of the given list.
+</p>
+<p>
+        A path of the list is not added, if it does not exist or if it is already being
+        monitored by the file system watcher.
+</p>
+
+<dl>
+
+<dt><i>paths</i> (list of str)</dt>
+<dd>
+list of file or directory paths to be added to the watched paths
+</dd>
+<dt><i>recursive</i> (bool (optional))</dt>
+<dd>
+flag indicating a watch for the complete tree rooted at the
+            given path (for directory paths only) (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of paths that could not be added to the list of monitored paths
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.directories" ID="EricFileSystemWatcher.directories"></a>
+<h4>EricFileSystemWatcher.directories</h4>
+<b>directories</b>(<i></i>)
+<p>
+        Public method to return a list of paths to directories that are being watched.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of watched directory paths
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.files" ID="EricFileSystemWatcher.files"></a>
+<h4>EricFileSystemWatcher.files</h4>
+<b>files</b>(<i></i>)
+<p>
+        Public method to return a list of paths to files that are being watched.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of watched file paths
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.paths" ID="EricFileSystemWatcher.paths"></a>
+<h4>EricFileSystemWatcher.paths</h4>
+<b>paths</b>(<i></i>)
+<p>
+        Public method to return a list of paths that are being watched.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all watched paths
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.removePath" ID="EricFileSystemWatcher.removePath"></a>
+<h4>EricFileSystemWatcher.removePath</h4>
+<b>removePath</b>(<i>path</i>)
+<p>
+        Public method to remove a given path from the list of monitored paths.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+directory or file path to be removed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful removal. The only reason for a failure is,
+            if the given path is not currently being monitored.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.removePaths" ID="EricFileSystemWatcher.removePaths"></a>
+<h4>EricFileSystemWatcher.removePaths</h4>
+<b>removePaths</b>(<i>paths</i>)
+<p>
+        Public method to remove the specified paths from the list of monitored paths.
+</p>
+
+<dl>
+
+<dt><i>paths</i> (list of str)</dt>
+<dd>
+list of directory or file paths to be removed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of paths that could not be removed from the list of monitored paths
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="EricFileSystemWatcher.shutdown" ID="EricFileSystemWatcher.shutdown"></a>
+<h4>EricFileSystemWatcher.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method to shut down the file system watcher instance.
+</p>
+<p>
+        This needs to be done in order to stop the monitoring threads doing their
+        work in the background. If this method was not called explicitly when the
+        instance is about to be destroyed, the special method '__del__' will do that.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_EricFileSystemEventHandler" ID="_EricFileSystemEventHandler"></a>
+<h2>_EricFileSystemEventHandler</h2>
+<p>
+    Class implementing a QObject based file system event handler for watchdog.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>directoryChanged(path: str)</dt>
+<dd>
+emitted when the directory at a given path is
+        modified or removed from disk
+</dd>
+<dt>directoryCreated(path: str)</dt>
+<dd>
+emitted when a directory is created
+</dd>
+<dt>directoryDeleted(path: str)</dt>
+<dd>
+emitted when a directory is removed from disk
+</dd>
+<dt>directoryModified(path: str)</dt>
+<dd>
+emitted when a directory is modified
+</dd>
+<dt>directoryMoved(srcPath: str, dstPath: str)</dt>
+<dd>
+emitted when the directory at a
+        given source path is renamed or moved to destination path
+</dd>
+<dt>fileChanged(path: str)</dt>
+<dd>
+emitted when the file at a given path is modified
+        or removed from disk
+</dd>
+<dt>fileCreated(path: str)</dt>
+<dd>
+emitted when a file is created
+</dd>
+<dt>fileDeleted(path: str)</dt>
+<dd>
+emitted when a file is removed from disk
+</dd>
+<dt>fileModified(path: str)</dt>
+<dd>
+emitted when a file is modified
+</dd>
+<dt>fileMoved(srcPath: str, dstPath: str)</dt>
+<dd>
+emitted when the file at a
+        given source path is renamed or moved to destination path
+</dd>
+</dl>
+<h3>Derived from</h3>
+QObject, FileSystemEventHandler
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#_EricFileSystemEventHandler.__init__">_EricFileSystemEventHandler</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#_EricFileSystemEventHandler.on_any_event">on_any_event</a></td>
+<td>Private method handling any file system event.</td>
+</tr>
+<tr>
+<td><a href="#_EricFileSystemEventHandler.on_created">on_created</a></td>
+<td>Private method to handle a creation event.</td>
+</tr>
+<tr>
+<td><a href="#_EricFileSystemEventHandler.on_deleted">on_deleted</a></td>
+<td>Private method to handle a deletion event.</td>
+</tr>
+<tr>
+<td><a href="#_EricFileSystemEventHandler.on_modified">on_modified</a></td>
+<td>Private method to handle a modification event.</td>
+</tr>
+<tr>
+<td><a href="#_EricFileSystemEventHandler.on_moved">on_moved</a></td>
+<td>Private method to handle a move or rename event.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="_EricFileSystemEventHandler.__init__" ID="_EricFileSystemEventHandler.__init__"></a>
+<h4>_EricFileSystemEventHandler (Constructor)</h4>
+<b>_EricFileSystemEventHandler</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<a NAME="_EricFileSystemEventHandler.on_any_event" ID="_EricFileSystemEventHandler.on_any_event"></a>
+<h4>_EricFileSystemEventHandler.on_any_event</h4>
+<b>on_any_event</b>(<i>event</i>)
+<p>
+        Private method handling any file system event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (watchdog.events.FileSystemEvent)</dt>
+<dd>
+event to be handled
+</dd>
+</dl>
+<a NAME="_EricFileSystemEventHandler.on_created" ID="_EricFileSystemEventHandler.on_created"></a>
+<h4>_EricFileSystemEventHandler.on_created</h4>
+<b>on_created</b>(<i>event</i>)
+<p>
+        Private method to handle a creation event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (watchdog.events.FileCreatedEvent or watchdog.event.DirCreatedEvent)</dt>
+<dd>
+event to be handled
+</dd>
+</dl>
+<a NAME="_EricFileSystemEventHandler.on_deleted" ID="_EricFileSystemEventHandler.on_deleted"></a>
+<h4>_EricFileSystemEventHandler.on_deleted</h4>
+<b>on_deleted</b>(<i>event</i>)
+<p>
+        Private method to handle a deletion event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (watchdog.events.FileDeletedEvent or watchdog.event.DirDeletedEvent)</dt>
+<dd>
+event to be handled
+</dd>
+</dl>
+<a NAME="_EricFileSystemEventHandler.on_modified" ID="_EricFileSystemEventHandler.on_modified"></a>
+<h4>_EricFileSystemEventHandler.on_modified</h4>
+<b>on_modified</b>(<i>event</i>)
+<p>
+        Private method to handle a modification event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (watchdog.events.FileModifiedEvent or watchdog.event.DirModifiedEvent)</dt>
+<dd>
+event to be handled
+</dd>
+</dl>
+<a NAME="_EricFileSystemEventHandler.on_moved" ID="_EricFileSystemEventHandler.on_moved"></a>
+<h4>_EricFileSystemEventHandler.on_moved</h4>
+<b>on_moved</b>(<i>event</i>)
+<p>
+        Private method to handle a move or rename event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (watchdog.events.FileMovedEvent or watchdog.event.DirMovedEvent)</dt>
+<dd>
+event to be handled
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="instance" ID="instance"></a>
+<h2>instance</h2>
+<b>instance</b>(<i></i>)
+<p>
+    Function to get a reference to the global file system monitor object.
+</p>
+<p>
+    If the global file system monitor does not exist yet, it will be created
+    automatically.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the global file system monitor object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+EricFileSystemWatcher
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

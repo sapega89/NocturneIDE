@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonSerialDeviceInterface</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonSerialDeviceInterface</h1>
+<p>
+Module  implementing an interface to talk to a connected MicroPython device via
+a serial link.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface">MicroPythonSerialDeviceInterface</a></td>
+<td>Class implementing an interface to talk to a connected MicroPython device via a serial link.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicroPythonSerialDeviceInterface" ID="MicroPythonSerialDeviceInterface"></a>
+<h2>MicroPythonSerialDeviceInterface</h2>
+<p>
+    Class implementing an interface to talk to a connected MicroPython device via
+    a serial link.
+</p>
+
+<h3>Derived from</h3>
+MicroPythonDeviceInterface
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__init__">MicroPythonSerialDeviceInterface</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__executeAsyncPaste">__executeAsyncPaste</a></td>
+<td>Private method to execute a series of commands over a period of time without returning any result (asynchronous execution).</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__executeAsyncRaw">__executeAsyncRaw</a></td>
+<td>Private method to execute a series of commands over a period of time without returning any result (asynchronous execution).</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__execute_paste">__execute_paste</a></td>
+<td>Private method to send commands to the connected device using 'paste' mode and return the result.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__execute_raw">__execute_raw</a></td>
+<td>Private method to send commands to the connected device using 'raw REPL' mode and return the result.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__pasteOff">__pasteOff</a></td>
+<td>Private method to switch 'paste' mode off.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__pasteOn">__pasteOn</a></td>
+<td>Private method to switch the connected device to 'paste' mode.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__rawOff">__rawOff</a></td>
+<td>Private method to switch 'raw' mode off.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__rawOn">__rawOn</a></td>
+<td>Private method to switch the connected device to 'raw' mode.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.__readSerial">__readSerial</a></td>
+<td>Private slot to read all available serial data and emit it with the "dataReceived" signal for further processing.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.connectToDevice">connectToDevice</a></td>
+<td>Public method to connect to the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.disconnectFromDevice">disconnectFromDevice</a></td>
+<td>Public slot to disconnect from the device.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.execute">execute</a></td>
+<td>Public method to send commands to the connected device and return the result.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.executeAsync">executeAsync</a></td>
+<td>Public method to execute a series of commands over a period of time without returning any result (asynchronous execution).</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot to handle a change of the preferences.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.isConnected">isConnected</a></td>
+<td>Public method to get the connection status.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.probeDevice">probeDevice</a></td>
+<td>Public method to check the device is responding.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonSerialDeviceInterface.write">write</a></td>
+<td>Public method to write data to the connected device.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonSerialDeviceInterface.__init__" ID="MicroPythonSerialDeviceInterface.__init__"></a>
+<h4>MicroPythonSerialDeviceInterface (Constructor)</h4>
+<b>MicroPythonSerialDeviceInterface</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.__executeAsyncPaste" ID="MicroPythonSerialDeviceInterface.__executeAsyncPaste"></a>
+<h4>MicroPythonSerialDeviceInterface.__executeAsyncPaste</h4>
+<b>__executeAsyncPaste</b>(<i>commandsList</i>)
+<p>
+        Private method to execute a series of commands over a period of time
+        without returning any result (asynchronous execution).
+</p>
+
+<dl>
+
+<dt><i>commandsList</i> (list of str)</dt>
+<dd>
+list of commands to be execute on the device
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.__executeAsyncRaw" ID="MicroPythonSerialDeviceInterface.__executeAsyncRaw"></a>
+<h4>MicroPythonSerialDeviceInterface.__executeAsyncRaw</h4>
+<b>__executeAsyncRaw</b>(<i>commandsList</i>)
+<p>
+        Private method to execute a series of commands over a period of time
+        without returning any result (asynchronous execution).
+</p>
+
+<dl>
+
+<dt><i>commandsList</i> (list of bytes)</dt>
+<dd>
+list of commands to be execute on the device
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.__execute_paste" ID="MicroPythonSerialDeviceInterface.__execute_paste"></a>
+<h4>MicroPythonSerialDeviceInterface.__execute_paste</h4>
+<b>__execute_paste</b>(<i>commands, timeout=0</i>)
+<p>
+        Private method to send commands to the connected device using 'paste' mode
+        and return the result.
+</p>
+<p>
+        If no serial connection is available, empty results will be returned.
+</p>
+
+<dl>
+
+<dt><i>commands</i> (str or list of str)</dt>
+<dd>
+list of commands to be executed
+</dd>
+<dt><i>timeout</i> (int (optional))</dt>
+<dd>
+per command timeout in milliseconds (0 for configured default)
+            (defaults to 0)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing stdout and stderr output of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bytes, bytes)
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.__execute_raw" ID="MicroPythonSerialDeviceInterface.__execute_raw"></a>
+<h4>MicroPythonSerialDeviceInterface.__execute_raw</h4>
+<b>__execute_raw</b>(<i>commands, timeout=0</i>)
+<p>
+        Private method to send commands to the connected device using 'raw REPL' mode
+        and return the result.
+</p>
+<p>
+        If no serial connection is available, empty results will be returned.
+</p>
+
+<dl>
+
+<dt><i>commands</i> (str or list of str)</dt>
+<dd>
+list of commands to be executed
+</dd>
+<dt><i>timeout</i> (int (optional))</dt>
+<dd>
+per command timeout in milliseconds (0 for configured default)
+            (defaults to 0)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing stdout and stderr output of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bytes, bytes)
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.__pasteOff" ID="MicroPythonSerialDeviceInterface.__pasteOff"></a>
+<h4>MicroPythonSerialDeviceInterface.__pasteOff</h4>
+<b>__pasteOff</b>(<i></i>)
+<p>
+        Private method to switch 'paste' mode off.
+</p>
+
+<a NAME="MicroPythonSerialDeviceInterface.__pasteOn" ID="MicroPythonSerialDeviceInterface.__pasteOn"></a>
+<h4>MicroPythonSerialDeviceInterface.__pasteOn</h4>
+<b>__pasteOn</b>(<i></i>)
+<p>
+        Private method to switch the connected device to 'paste' mode.
+</p>
+<p>
+        Note: switching to paste mode is done with synchronous writes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.__rawOff" ID="MicroPythonSerialDeviceInterface.__rawOff"></a>
+<h4>MicroPythonSerialDeviceInterface.__rawOff</h4>
+<b>__rawOff</b>(<i></i>)
+<p>
+        Private method to switch 'raw' mode off.
+</p>
+
+<a NAME="MicroPythonSerialDeviceInterface.__rawOn" ID="MicroPythonSerialDeviceInterface.__rawOn"></a>
+<h4>MicroPythonSerialDeviceInterface.__rawOn</h4>
+<b>__rawOn</b>(<i></i>)
+<p>
+        Private method to switch the connected device to 'raw' mode.
+</p>
+<p>
+        Note: switching to raw mode is done with synchronous writes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.__readSerial" ID="MicroPythonSerialDeviceInterface.__readSerial"></a>
+<h4>MicroPythonSerialDeviceInterface.__readSerial</h4>
+<b>__readSerial</b>(<i></i>)
+<p>
+        Private slot to read all available serial data and emit it with the
+        "dataReceived" signal for further processing.
+</p>
+
+<a NAME="MicroPythonSerialDeviceInterface.connectToDevice" ID="MicroPythonSerialDeviceInterface.connectToDevice"></a>
+<h4>MicroPythonSerialDeviceInterface.connectToDevice</h4>
+<b>connectToDevice</b>(<i>connection</i>)
+<p>
+        Public method to connect to the device.
+</p>
+
+<dl>
+
+<dt><i>connection</i> (str)</dt>
+<dd>
+name of the connection to be used
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success and an error message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.disconnectFromDevice" ID="MicroPythonSerialDeviceInterface.disconnectFromDevice"></a>
+<h4>MicroPythonSerialDeviceInterface.disconnectFromDevice</h4>
+<b>disconnectFromDevice</b>(<i></i>)
+<p>
+        Public slot to disconnect from the device.
+</p>
+
+<a NAME="MicroPythonSerialDeviceInterface.execute" ID="MicroPythonSerialDeviceInterface.execute"></a>
+<h4>MicroPythonSerialDeviceInterface.execute</h4>
+<b>execute</b>(<i>commands, *, mode="raw", timeout=0</i>)
+<p>
+        Public method to send commands to the connected device and return the
+        result.
+</p>
+<p>
+        If no serial connection is available, empty results will be returned.
+</p>
+
+<dl>
+
+<dt><i>commands</i> (str or list of str)</dt>
+<dd>
+list of commands to be executed
+</dd>
+<dt><i>mode=</i> (str)</dt>
+<dd>
+submit mode to be used (one of 'raw' or 'paste') (defaults to
+            'raw')
+</dd>
+<dt><i>timeout=</i> (int (optional))</dt>
+<dd>
+per command timeout in milliseconds (0 for configured default)
+            (defaults to 0)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing stdout and stderr output of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bytes, bytes)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised in case of an unsupported submit mode
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.executeAsync" ID="MicroPythonSerialDeviceInterface.executeAsync"></a>
+<h4>MicroPythonSerialDeviceInterface.executeAsync</h4>
+<b>executeAsync</b>(<i>commandsList, submitMode</i>)
+<p>
+        Public method to execute a series of commands over a period of time
+        without returning any result (asynchronous execution).
+</p>
+
+<dl>
+
+<dt><i>commandsList</i> (list of str)</dt>
+<dd>
+list of commands to be execute on the device
+</dd>
+<dt><i>submitMode</i> (str (one of 'raw' or 'paste'))</dt>
+<dd>
+mode to be used to submit the commands
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an unknown submit mode
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.handlePreferencesChanged" ID="MicroPythonSerialDeviceInterface.handlePreferencesChanged"></a>
+<h4>MicroPythonSerialDeviceInterface.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot to handle a change of the preferences.
+</p>
+
+<a NAME="MicroPythonSerialDeviceInterface.isConnected" ID="MicroPythonSerialDeviceInterface.isConnected"></a>
+<h4>MicroPythonSerialDeviceInterface.isConnected</h4>
+<b>isConnected</b>(<i></i>)
+<p>
+        Public method to get the connection status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the connection status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.probeDevice" ID="MicroPythonSerialDeviceInterface.probeDevice"></a>
+<h4>MicroPythonSerialDeviceInterface.probeDevice</h4>
+<b>probeDevice</b>(<i></i>)
+<p>
+        Public method to check the device is responding.
+</p>
+<p>
+        If the device has not been flashed with a MicroPython firmware, the
+        probe will fail.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a communicating MicroPython device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MicroPythonSerialDeviceInterface.write" ID="MicroPythonSerialDeviceInterface.write"></a>
+<h4>MicroPythonSerialDeviceInterface.write</h4>
+<b>write</b>(<i>data</i>)
+<p>
+        Public method to write data to the connected device.
+</p>
+
+<dl>
+
+<dt><i>data</i> (bytes or bytearray)</dt>
+<dd>
+data to be written
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

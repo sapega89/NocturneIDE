@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Network.IRC.IrcChannelWidget</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Network.IRC.IrcChannelWidget</h1>
+<p>
+Module implementing the IRC channel widget.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#IrcChannelWidget">IrcChannelWidget</a></td>
+<td>Class implementing the IRC channel widget.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem">IrcUserItem</a></td>
+<td>Class implementing a list widget item containing an IRC channel user.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="IrcChannelWidget" ID="IrcChannelWidget"></a>
+<h2>IrcChannelWidget</h2>
+<p>
+    Class implementing the IRC channel widget.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>awayCommand(str)</dt>
+<dd>
+emitted to set the away status via the /away
+        command
+</dd>
+<dt>channelClosed(str)</dt>
+<dd>
+emitted after the user has left the channel
+</dd>
+<dt>leaveAllChannels()</dt>
+<dd>
+emitted to leave all channels
+</dd>
+<dt>leaveChannels(list)</dt>
+<dd>
+emitted to leave a list of channels
+</dd>
+<dt>openPrivateChat(str)</dt>
+<dd>
+emitted to open a "channel" for private
+        messages
+</dd>
+<dt>sendCtcpReply(str, str)</dt>
+<dd>
+emitted to send a CTCP reply
+</dd>
+<dt>sendCtcpRequest(str, str, str)</dt>
+<dd>
+emitted to send a CTCP request
+</dd>
+<dt>sendData(str)</dt>
+<dd>
+emitted to send a message to the channel
+</dd>
+</dl>
+<h3>Derived from</h3>
+QWidget, Ui_IrcChannelWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>JoinIndicator</td></tr>
+<tr><td>LeaveIndicator</td></tr>
+<tr><td>MessageIndicator</td></tr>
+<tr><td>UrlRe</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IrcChannelWidget.__init__">IrcChannelWidget</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__addManagementMessage">__addManagementMessage</a></td>
+<td>Private method to add a channel management message to the list.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__appendMessage">__appendMessage</a></td>
+<td>Private slot to append a message.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__autoWhoEntry">__autoWhoEntry</a></td>
+<td>Private method to handle a WHO entry returned by the server as requested automatically.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__channelCreated">__channelCreated</a></td>
+<td>Private method to handle a channel created message.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__channelModes">__channelModes</a></td>
+<td>Private method to handle a message reporting the channel modes.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__channelUrl">__channelUrl</a></td>
+<td>Private method to handle a channel URL message.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__clearMessages">__clearMessages</a></td>
+<td>Private slot to clear the contents of the messages display.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__copyAllMessages">__copyAllMessages</a></td>
+<td>Private slot to copy the contents of the messages display to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__copyMessages">__copyMessages</a></td>
+<td>Private slot to copy the selection of the messages display to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__cutAllMessages">__cutAllMessages</a></td>
+<td>Private slot to cut the contents of the messages display to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__extractPrivilege">__extractPrivilege</a></td>
+<td>Private method to extract the user privileges out of the name.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__findUser">__findUser</a></td>
+<td>Private method to find the user in the list of users.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__handleCtcp">__handleCtcp</a></td>
+<td>Private method to handle a CTCP channel command.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__help">__help</a></td>
+<td>Private method to handle a help message.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__ignore">__ignore</a></td>
+<td>Private method to handle a channel message we are not interested in.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__ignoreUser">__ignoreUser</a></td>
+<td>Private slot to ignore a specific user.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__initMessagesMenu">__initMessagesMenu</a></td>
+<td>Private slot to initialize the context menu of the messages pane.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__initUsersMenu">__initUsersMenu</a></td>
+<td>Private slot to initialize the users list context menu.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__message">__message</a></td>
+<td>Private method to handle messages to the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__openPrivateChat">__openPrivateChat</a></td>
+<td>Private slot to open a chat with the selected user.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__pingUser">__pingUser</a></td>
+<td>Private slot to send a ping to a specific user.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__processUserMessage">__processUserMessage</a></td>
+<td>Private method to process a message entered by the user or via the user list context menu.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__saveMessages">__saveMessages</a></td>
+<td>Private slot to save the contents of the messages display.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__sendAutoWhoCommand">__sendAutoWhoCommand</a></td>
+<td>Private slot to send the WHO command to update the users list.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__sendUserMessage">__sendUserMessage</a></td>
+<td>Private slot to send a private message to a specific user.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__sendUserNotice">__sendUserNotice</a></td>
+<td>Private slot to send a notice message to a specific user.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__sendUserQuery">__sendUserQuery</a></td>
+<td>Private slot to send a query message to a specific user.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__setEditTopicButton">__setEditTopicButton</a></td>
+<td>Private method to set the visibility of the Edit Topic button.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__setTopic">__setTopic</a></td>
+<td>Private method to handle a topic change of the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__setUserPrivilege">__setUserPrivilege</a></td>
+<td>Private method to handle a change of user privileges for the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__topicCreated">__topicCreated</a></td>
+<td>Private method to handle a topic created message.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__updateChannelModes">__updateChannelModes</a></td>
+<td>Private method to handle a message reporting the channel modes.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__userAway">__userAway</a></td>
+<td>Private method to handle a topic change of the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__userJoin">__userJoin</a></td>
+<td>Private method to handle a user joining the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__userList">__userList</a></td>
+<td>Private method to handle the receipt of a list of users of the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__userNickChange">__userNickChange</a></td>
+<td>Private method to handle a nickname change of a user.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__userPart">__userPart</a></td>
+<td>Private method to handle a user leaving the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__userQuit">__userQuit</a></td>
+<td>Private method to handle a user logging off the server.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoEnd">__whoEnd</a></td>
+<td>Private method to handle the end of the WHO list.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoEntry">__whoEntry</a></td>
+<td>Private method to handle a WHO entry returned by the server as requested manually.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIs">__whoIs</a></td>
+<td>Private slot to get information about the selected user.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsAccount">__whoIsAccount</a></td>
+<td>Private method to handle the WHOIS account reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsActually">__whoIsActually</a></td>
+<td>Private method to handle the WHOIS actually reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsChannels">__whoIsChannels</a></td>
+<td>Private method to handle the WHOIS channels reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsConnection">__whoIsConnection</a></td>
+<td>Private method to handle the WHOIS connection reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsEnd">__whoIsEnd</a></td>
+<td>Private method to handle the end of WHOIS reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsHelper">__whoIsHelper</a></td>
+<td>Private method to handle the WHOIS helper reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsIdentify">__whoIsIdentify</a></td>
+<td>Private method to handle the WHOIS identify and identified replies.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsIdle">__whoIsIdle</a></td>
+<td>Private method to handle the WHOIS idle reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsOperator">__whoIsOperator</a></td>
+<td>Private method to handle the WHOIS operator reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsSecure">__whoIsSecure</a></td>
+<td>Private method to handle the WHOIS secure reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsServer">__whoIsServer</a></td>
+<td>Private method to handle the WHOIS server reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.__whoIsUser">__whoIsUser</a></td>
+<td>Private method to handle the WHOIS user reply.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.addMessage">addMessage</a></td>
+<td>Public method to add a message from external.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.addUsers">addUsers</a></td>
+<td>Public method to add users to the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.getUsersCount">getUsersCount</a></td>
+<td>Public method to get the users count of the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.handleMessage">handleMessage</a></td>
+<td>Public method to handle the message sent by the server.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.hideEvent">hideEvent</a></td>
+<td>Protected method handling hide events.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.initAutoWho">initAutoWho</a></td>
+<td>Public method to initialize the Auto Who system.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.leaveChannel">leaveChannel</a></td>
+<td>Public slot to leave the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.name">name</a></td>
+<td>Public method to get the name of the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.on_editTopicButton_clicked">on_editTopicButton_clicked</a></td>
+<td>Private slot to change the topic of the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.on_messageEdit_returnPressed">on_messageEdit_returnPressed</a></td>
+<td>Private slot to send a message to the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.on_messages_anchorClicked">on_messages_anchorClicked</a></td>
+<td>Private slot to open links in the default browser.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.on_messages_copyAvailable">on_messages_copyAvailable</a></td>
+<td>Private slot to react to text selection/deselection of the messages edit.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.on_messages_customContextMenuRequested">on_messages_customContextMenuRequested</a></td>
+<td>Private slot to show the context menu of the messages pane.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.on_usersList_customContextMenuRequested">on_usersList_customContextMenuRequested</a></td>
+<td>Private slot to show the context menu of the users list.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.partMessage">partMessage</a></td>
+<td>Public method to get the part message.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.requestLeave">requestLeave</a></td>
+<td>Public method to leave the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.setMarkerLine">setMarkerLine</a></td>
+<td>Public method to draw a line to mark the current position.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.setName">setName</a></td>
+<td>Public method to set the name of the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.setPartMessage">setPartMessage</a></td>
+<td>Public method to set the part message.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.setPrivate">setPrivate</a></td>
+<td>Public method to set the private chat mode.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.setPrivateInfo">setPrivateInfo</a></td>
+<td>Public method to set some info text for private chat mode.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.setUserName">setUserName</a></td>
+<td>Public method to set the user name for the channel.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.setUserPrivilegePrefix">setUserPrivilegePrefix</a></td>
+<td>Public method to set the user privilege to prefix mapping.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.showEvent">showEvent</a></td>
+<td>Protected method handling show events.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.unsetMarkerLine">unsetMarkerLine</a></td>
+<td>Public method to remove the marker line.</td>
+</tr>
+<tr>
+<td><a href="#IrcChannelWidget.userName">userName</a></td>
+<td>Public method to get the nick name of the user.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IrcChannelWidget.__init__" ID="IrcChannelWidget.__init__"></a>
+<h4>IrcChannelWidget (Constructor)</h4>
+<b>IrcChannelWidget</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__addManagementMessage" ID="IrcChannelWidget.__addManagementMessage"></a>
+<h4>IrcChannelWidget.__addManagementMessage</h4>
+<b>__addManagementMessage</b>(<i>indicator, message</i>)
+<p>
+        Private method to add a channel management message to the list.
+</p>
+
+<dl>
+
+<dt><i>indicator</i> (str)</dt>
+<dd>
+indicator to be shown
+</dd>
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be shown
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__appendMessage" ID="IrcChannelWidget.__appendMessage"></a>
+<h4>IrcChannelWidget.__appendMessage</h4>
+<b>__appendMessage</b>(<i>message</i>)
+<p>
+        Private slot to append a message.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be appended
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__autoWhoEntry" ID="IrcChannelWidget.__autoWhoEntry"></a>
+<h4>IrcChannelWidget.__autoWhoEntry</h4>
+<b>__autoWhoEntry</b>(<i>match</i>)
+<p>
+        Private method to handle a WHO entry returned by the server as
+        requested automatically.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__channelCreated" ID="IrcChannelWidget.__channelCreated"></a>
+<h4>IrcChannelWidget.__channelCreated</h4>
+<b>__channelCreated</b>(<i>match</i>)
+<p>
+        Private method to handle a channel created message.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__channelModes" ID="IrcChannelWidget.__channelModes"></a>
+<h4>IrcChannelWidget.__channelModes</h4>
+<b>__channelModes</b>(<i>match</i>)
+<p>
+        Private method to handle a message reporting the channel modes.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__channelUrl" ID="IrcChannelWidget.__channelUrl"></a>
+<h4>IrcChannelWidget.__channelUrl</h4>
+<b>__channelUrl</b>(<i>match</i>)
+<p>
+        Private method to handle a channel URL message.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__clearMessages" ID="IrcChannelWidget.__clearMessages"></a>
+<h4>IrcChannelWidget.__clearMessages</h4>
+<b>__clearMessages</b>(<i></i>)
+<p>
+        Private slot to clear the contents of the messages display.
+</p>
+
+<a NAME="IrcChannelWidget.__copyAllMessages" ID="IrcChannelWidget.__copyAllMessages"></a>
+<h4>IrcChannelWidget.__copyAllMessages</h4>
+<b>__copyAllMessages</b>(<i></i>)
+<p>
+        Private slot to copy the contents of the messages display to the
+        clipboard.
+</p>
+
+<a NAME="IrcChannelWidget.__copyMessages" ID="IrcChannelWidget.__copyMessages"></a>
+<h4>IrcChannelWidget.__copyMessages</h4>
+<b>__copyMessages</b>(<i></i>)
+<p>
+        Private slot to copy the selection of the messages display to the
+        clipboard.
+</p>
+
+<a NAME="IrcChannelWidget.__cutAllMessages" ID="IrcChannelWidget.__cutAllMessages"></a>
+<h4>IrcChannelWidget.__cutAllMessages</h4>
+<b>__cutAllMessages</b>(<i></i>)
+<p>
+        Private slot to cut the contents of the messages display to the
+        clipboard.
+</p>
+
+<a NAME="IrcChannelWidget.__extractPrivilege" ID="IrcChannelWidget.__extractPrivilege"></a>
+<h4>IrcChannelWidget.__extractPrivilege</h4>
+<b>__extractPrivilege</b>(<i>name</i>)
+<p>
+        Private method to extract the user privileges out of the name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+user name and prefixes
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a list of privileges and user name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, str)
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__findUser" ID="IrcChannelWidget.__findUser"></a>
+<h4>IrcChannelWidget.__findUser</h4>
+<b>__findUser</b>(<i>name</i>)
+<p>
+        Private method to find the user in the list of users.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+user name to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the list entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QListWidgetItem
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__handleCtcp" ID="IrcChannelWidget.__handleCtcp"></a>
+<h4>IrcChannelWidget.__handleCtcp</h4>
+<b>__handleCtcp</b>(<i>match</i>)
+<p>
+        Private method to handle a CTCP channel command.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+reference to the match object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__help" ID="IrcChannelWidget.__help"></a>
+<h4>IrcChannelWidget.__help</h4>
+<b>__help</b>(<i>match</i>)
+<p>
+        Private method to handle a help message.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__ignore" ID="IrcChannelWidget.__ignore"></a>
+<h4>IrcChannelWidget.__ignore</h4>
+<b>__ignore</b>(<i>match</i>)
+<p>
+        Private method to handle a channel message we are not interested in.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__ignoreUser" ID="IrcChannelWidget.__ignoreUser"></a>
+<h4>IrcChannelWidget.__ignoreUser</h4>
+<b>__ignoreUser</b>(<i></i>)
+<p>
+        Private slot to ignore a specific user.
+</p>
+
+<a NAME="IrcChannelWidget.__initMessagesMenu" ID="IrcChannelWidget.__initMessagesMenu"></a>
+<h4>IrcChannelWidget.__initMessagesMenu</h4>
+<b>__initMessagesMenu</b>(<i></i>)
+<p>
+        Private slot to initialize the context menu of the messages pane.
+</p>
+
+<a NAME="IrcChannelWidget.__initUsersMenu" ID="IrcChannelWidget.__initUsersMenu"></a>
+<h4>IrcChannelWidget.__initUsersMenu</h4>
+<b>__initUsersMenu</b>(<i></i>)
+<p>
+        Private slot to initialize the users list context menu.
+</p>
+
+<a NAME="IrcChannelWidget.__message" ID="IrcChannelWidget.__message"></a>
+<h4>IrcChannelWidget.__message</h4>
+<b>__message</b>(<i>match</i>)
+<p>
+        Private method to handle messages to the channel.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__openPrivateChat" ID="IrcChannelWidget.__openPrivateChat"></a>
+<h4>IrcChannelWidget.__openPrivateChat</h4>
+<b>__openPrivateChat</b>(<i></i>)
+<p>
+        Private slot to open a chat with the selected user.
+</p>
+
+<a NAME="IrcChannelWidget.__pingUser" ID="IrcChannelWidget.__pingUser"></a>
+<h4>IrcChannelWidget.__pingUser</h4>
+<b>__pingUser</b>(<i></i>)
+<p>
+        Private slot to send a ping to a specific user.
+</p>
+
+<a NAME="IrcChannelWidget.__processUserMessage" ID="IrcChannelWidget.__processUserMessage"></a>
+<h4>IrcChannelWidget.__processUserMessage</h4>
+<b>__processUserMessage</b>(<i>msg</i>)
+<p>
+        Private method to process a message entered by the user or via the
+        user list context menu.
+</p>
+
+<dl>
+
+<dt><i>msg</i> (str)</dt>
+<dd>
+message to be processed
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__saveMessages" ID="IrcChannelWidget.__saveMessages"></a>
+<h4>IrcChannelWidget.__saveMessages</h4>
+<b>__saveMessages</b>(<i></i>)
+<p>
+        Private slot to save the contents of the messages display.
+</p>
+
+<a NAME="IrcChannelWidget.__sendAutoWhoCommand" ID="IrcChannelWidget.__sendAutoWhoCommand"></a>
+<h4>IrcChannelWidget.__sendAutoWhoCommand</h4>
+<b>__sendAutoWhoCommand</b>(<i></i>)
+<p>
+        Private slot to send the WHO command to update the users list.
+</p>
+
+<a NAME="IrcChannelWidget.__sendUserMessage" ID="IrcChannelWidget.__sendUserMessage"></a>
+<h4>IrcChannelWidget.__sendUserMessage</h4>
+<b>__sendUserMessage</b>(<i></i>)
+<p>
+        Private slot to send a private message to a specific user.
+</p>
+
+<a NAME="IrcChannelWidget.__sendUserNotice" ID="IrcChannelWidget.__sendUserNotice"></a>
+<h4>IrcChannelWidget.__sendUserNotice</h4>
+<b>__sendUserNotice</b>(<i></i>)
+<p>
+        Private slot to send a notice message to a specific user.
+</p>
+
+<a NAME="IrcChannelWidget.__sendUserQuery" ID="IrcChannelWidget.__sendUserQuery"></a>
+<h4>IrcChannelWidget.__sendUserQuery</h4>
+<b>__sendUserQuery</b>(<i></i>)
+<p>
+        Private slot to send a query message to a specific user.
+</p>
+
+<a NAME="IrcChannelWidget.__setEditTopicButton" ID="IrcChannelWidget.__setEditTopicButton"></a>
+<h4>IrcChannelWidget.__setEditTopicButton</h4>
+<b>__setEditTopicButton</b>(<i></i>)
+<p>
+        Private method to set the visibility of the Edit Topic button.
+</p>
+
+<a NAME="IrcChannelWidget.__setTopic" ID="IrcChannelWidget.__setTopic"></a>
+<h4>IrcChannelWidget.__setTopic</h4>
+<b>__setTopic</b>(<i>match</i>)
+<p>
+        Private method to handle a topic change of the channel.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__setUserPrivilege" ID="IrcChannelWidget.__setUserPrivilege"></a>
+<h4>IrcChannelWidget.__setUserPrivilege</h4>
+<b>__setUserPrivilege</b>(<i>match</i>)
+<p>
+        Private method to handle a change of user privileges for the channel.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__topicCreated" ID="IrcChannelWidget.__topicCreated"></a>
+<h4>IrcChannelWidget.__topicCreated</h4>
+<b>__topicCreated</b>(<i>match</i>)
+<p>
+        Private method to handle a topic created message.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__updateChannelModes" ID="IrcChannelWidget.__updateChannelModes"></a>
+<h4>IrcChannelWidget.__updateChannelModes</h4>
+<b>__updateChannelModes</b>(<i>match</i>)
+<p>
+        Private method to handle a message reporting the channel modes.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__userAway" ID="IrcChannelWidget.__userAway"></a>
+<h4>IrcChannelWidget.__userAway</h4>
+<b>__userAway</b>(<i>match</i>)
+<p>
+        Private method to handle a topic change of the channel.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__userJoin" ID="IrcChannelWidget.__userJoin"></a>
+<h4>IrcChannelWidget.__userJoin</h4>
+<b>__userJoin</b>(<i>match</i>)
+<p>
+        Private method to handle a user joining the channel.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__userList" ID="IrcChannelWidget.__userList"></a>
+<h4>IrcChannelWidget.__userList</h4>
+<b>__userList</b>(<i>match</i>)
+<p>
+        Private method to handle the receipt of a list of users of the channel.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__userNickChange" ID="IrcChannelWidget.__userNickChange"></a>
+<h4>IrcChannelWidget.__userNickChange</h4>
+<b>__userNickChange</b>(<i>match</i>)
+<p>
+        Private method to handle a nickname change of a user.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__userPart" ID="IrcChannelWidget.__userPart"></a>
+<h4>IrcChannelWidget.__userPart</h4>
+<b>__userPart</b>(<i>match</i>)
+<p>
+        Private method to handle a user leaving the channel.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__userQuit" ID="IrcChannelWidget.__userQuit"></a>
+<h4>IrcChannelWidget.__userQuit</h4>
+<b>__userQuit</b>(<i>match</i>)
+<p>
+        Private method to handle a user logging off the server.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoEnd" ID="IrcChannelWidget.__whoEnd"></a>
+<h4>IrcChannelWidget.__whoEnd</h4>
+<b>__whoEnd</b>(<i>match</i>)
+<p>
+        Private method to handle the end of the WHO list.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoEntry" ID="IrcChannelWidget.__whoEntry"></a>
+<h4>IrcChannelWidget.__whoEntry</h4>
+<b>__whoEntry</b>(<i>match</i>)
+<p>
+        Private method to handle a WHO entry returned by the server as
+        requested manually.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIs" ID="IrcChannelWidget.__whoIs"></a>
+<h4>IrcChannelWidget.__whoIs</h4>
+<b>__whoIs</b>(<i></i>)
+<p>
+        Private slot to get information about the selected user.
+</p>
+
+<a NAME="IrcChannelWidget.__whoIsAccount" ID="IrcChannelWidget.__whoIsAccount"></a>
+<h4>IrcChannelWidget.__whoIsAccount</h4>
+<b>__whoIsAccount</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS account reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsActually" ID="IrcChannelWidget.__whoIsActually"></a>
+<h4>IrcChannelWidget.__whoIsActually</h4>
+<b>__whoIsActually</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS actually reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsChannels" ID="IrcChannelWidget.__whoIsChannels"></a>
+<h4>IrcChannelWidget.__whoIsChannels</h4>
+<b>__whoIsChannels</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS channels reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsConnection" ID="IrcChannelWidget.__whoIsConnection"></a>
+<h4>IrcChannelWidget.__whoIsConnection</h4>
+<b>__whoIsConnection</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS connection reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsEnd" ID="IrcChannelWidget.__whoIsEnd"></a>
+<h4>IrcChannelWidget.__whoIsEnd</h4>
+<b>__whoIsEnd</b>(<i>match</i>)
+<p>
+        Private method to handle the end of WHOIS reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsHelper" ID="IrcChannelWidget.__whoIsHelper"></a>
+<h4>IrcChannelWidget.__whoIsHelper</h4>
+<b>__whoIsHelper</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS helper reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsIdentify" ID="IrcChannelWidget.__whoIsIdentify"></a>
+<h4>IrcChannelWidget.__whoIsIdentify</h4>
+<b>__whoIsIdentify</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS identify and identified replies.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsIdle" ID="IrcChannelWidget.__whoIsIdle"></a>
+<h4>IrcChannelWidget.__whoIsIdle</h4>
+<b>__whoIsIdle</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS idle reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsOperator" ID="IrcChannelWidget.__whoIsOperator"></a>
+<h4>IrcChannelWidget.__whoIsOperator</h4>
+<b>__whoIsOperator</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS operator reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsSecure" ID="IrcChannelWidget.__whoIsSecure"></a>
+<h4>IrcChannelWidget.__whoIsSecure</h4>
+<b>__whoIsSecure</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS secure reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsServer" ID="IrcChannelWidget.__whoIsServer"></a>
+<h4>IrcChannelWidget.__whoIsServer</h4>
+<b>__whoIsServer</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS server reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.__whoIsUser" ID="IrcChannelWidget.__whoIsUser"></a>
+<h4>IrcChannelWidget.__whoIsUser</h4>
+<b>__whoIsUser</b>(<i>match</i>)
+<p>
+        Private method to handle the WHOIS user reply.
+</p>
+
+<dl>
+
+<dt><i>match</i> (re.Match)</dt>
+<dd>
+match object that matched the pattern
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating whether the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.addMessage" ID="IrcChannelWidget.addMessage"></a>
+<h4>IrcChannelWidget.addMessage</h4>
+<b>addMessage</b>(<i>sender, msg</i>)
+<p>
+        Public method to add a message from external.
+</p>
+
+<dl>
+
+<dt><i>sender</i> (str)</dt>
+<dd>
+nick name of the sender
+</dd>
+<dt><i>msg</i> (str)</dt>
+<dd>
+message received from sender
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.addUsers" ID="IrcChannelWidget.addUsers"></a>
+<h4>IrcChannelWidget.addUsers</h4>
+<b>addUsers</b>(<i>users</i>)
+<p>
+        Public method to add users to the channel.
+</p>
+
+<dl>
+
+<dt><i>users</i> (list of str)</dt>
+<dd>
+list of user names to add
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.getUsersCount" ID="IrcChannelWidget.getUsersCount"></a>
+<h4>IrcChannelWidget.getUsersCount</h4>
+<b>getUsersCount</b>(<i></i>)
+<p>
+        Public method to get the users count of the channel.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+users count of the channel
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.handleMessage" ID="IrcChannelWidget.handleMessage"></a>
+<h4>IrcChannelWidget.handleMessage</h4>
+<b>handleMessage</b>(<i>line</i>)
+<p>
+        Public method to handle the message sent by the server.
+</p>
+
+<dl>
+
+<dt><i>line</i> (str)</dt>
+<dd>
+server message
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the message was handled
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.hideEvent" ID="IrcChannelWidget.hideEvent"></a>
+<h4>IrcChannelWidget.hideEvent</h4>
+<b>hideEvent</b>(<i>_evt</i>)
+<p>
+        Protected method handling hide events.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QHideEvent)</dt>
+<dd>
+reference to the hide event (unused)
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.initAutoWho" ID="IrcChannelWidget.initAutoWho"></a>
+<h4>IrcChannelWidget.initAutoWho</h4>
+<b>initAutoWho</b>(<i></i>)
+<p>
+        Public method to initialize the Auto Who system.
+</p>
+
+<a NAME="IrcChannelWidget.leaveChannel" ID="IrcChannelWidget.leaveChannel"></a>
+<h4>IrcChannelWidget.leaveChannel</h4>
+<b>leaveChannel</b>(<i></i>)
+<p>
+        Public slot to leave the channel.
+</p>
+
+<a NAME="IrcChannelWidget.name" ID="IrcChannelWidget.name"></a>
+<h4>IrcChannelWidget.name</h4>
+<b>name</b>(<i></i>)
+<p>
+        Public method to get the name of the channel.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the channel
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.on_editTopicButton_clicked" ID="IrcChannelWidget.on_editTopicButton_clicked"></a>
+<h4>IrcChannelWidget.on_editTopicButton_clicked</h4>
+<b>on_editTopicButton_clicked</b>(<i></i>)
+<p>
+        Private slot to change the topic of the channel.
+</p>
+
+<a NAME="IrcChannelWidget.on_messageEdit_returnPressed" ID="IrcChannelWidget.on_messageEdit_returnPressed"></a>
+<h4>IrcChannelWidget.on_messageEdit_returnPressed</h4>
+<b>on_messageEdit_returnPressed</b>(<i></i>)
+<p>
+        Private slot to send a message to the channel.
+</p>
+
+<a NAME="IrcChannelWidget.on_messages_anchorClicked" ID="IrcChannelWidget.on_messages_anchorClicked"></a>
+<h4>IrcChannelWidget.on_messages_anchorClicked</h4>
+<b>on_messages_anchorClicked</b>(<i>url</i>)
+<p>
+        Private slot to open links in the default browser.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.on_messages_copyAvailable" ID="IrcChannelWidget.on_messages_copyAvailable"></a>
+<h4>IrcChannelWidget.on_messages_copyAvailable</h4>
+<b>on_messages_copyAvailable</b>(<i>yes</i>)
+<p>
+        Private slot to react to text selection/deselection of the messages
+        edit.
+</p>
+
+<dl>
+
+<dt><i>yes</i> (bool)</dt>
+<dd>
+flag signaling the availability of selected text
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.on_messages_customContextMenuRequested" ID="IrcChannelWidget.on_messages_customContextMenuRequested"></a>
+<h4>IrcChannelWidget.on_messages_customContextMenuRequested</h4>
+<b>on_messages_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu of the messages pane.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.on_usersList_customContextMenuRequested" ID="IrcChannelWidget.on_usersList_customContextMenuRequested"></a>
+<h4>IrcChannelWidget.on_usersList_customContextMenuRequested</h4>
+<b>on_usersList_customContextMenuRequested</b>(<i>pos</i>)
+<p>
+        Private slot to show the context menu of the users list.
+</p>
+
+<dl>
+
+<dt><i>pos</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.partMessage" ID="IrcChannelWidget.partMessage"></a>
+<h4>IrcChannelWidget.partMessage</h4>
+<b>partMessage</b>(<i></i>)
+<p>
+        Public method to get the part message.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+part message
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.requestLeave" ID="IrcChannelWidget.requestLeave"></a>
+<h4>IrcChannelWidget.requestLeave</h4>
+<b>requestLeave</b>(<i></i>)
+<p>
+        Public method to leave the channel.
+</p>
+
+<a NAME="IrcChannelWidget.setMarkerLine" ID="IrcChannelWidget.setMarkerLine"></a>
+<h4>IrcChannelWidget.setMarkerLine</h4>
+<b>setMarkerLine</b>(<i></i>)
+<p>
+        Public method to draw a line to mark the current position.
+</p>
+
+<a NAME="IrcChannelWidget.setName" ID="IrcChannelWidget.setName"></a>
+<h4>IrcChannelWidget.setName</h4>
+<b>setName</b>(<i>name</i>)
+<p>
+        Public method to set the name of the channel.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+of the channel
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.setPartMessage" ID="IrcChannelWidget.setPartMessage"></a>
+<h4>IrcChannelWidget.setPartMessage</h4>
+<b>setPartMessage</b>(<i>message</i>)
+<p>
+        Public method to set the part message.
+</p>
+
+<dl>
+
+<dt><i>message</i> (str)</dt>
+<dd>
+message to be used for PART messages
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.setPrivate" ID="IrcChannelWidget.setPrivate"></a>
+<h4>IrcChannelWidget.setPrivate</h4>
+<b>setPrivate</b>(<i>private, partner=""</i>)
+<p>
+        Public method to set the private chat mode.
+</p>
+
+<dl>
+
+<dt><i>private</i> (bool)</dt>
+<dd>
+flag indicating private chat mode
+</dd>
+<dt><i>partner</i> (str)</dt>
+<dd>
+name of the partner user
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.setPrivateInfo" ID="IrcChannelWidget.setPrivateInfo"></a>
+<h4>IrcChannelWidget.setPrivateInfo</h4>
+<b>setPrivateInfo</b>(<i>infoText</i>)
+<p>
+        Public method to set some info text for private chat mode.
+</p>
+
+<dl>
+
+<dt><i>infoText</i> (str)</dt>
+<dd>
+info text to be shown
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.setUserName" ID="IrcChannelWidget.setUserName"></a>
+<h4>IrcChannelWidget.setUserName</h4>
+<b>setUserName</b>(<i>name</i>)
+<p>
+        Public method to set the user name for the channel.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+user name for the channel
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.setUserPrivilegePrefix" ID="IrcChannelWidget.setUserPrivilegePrefix"></a>
+<h4>IrcChannelWidget.setUserPrivilegePrefix</h4>
+<b>setUserPrivilegePrefix</b>(<i>prefixes</i>)
+<p>
+        Public method to set the user privilege to prefix mapping.
+</p>
+
+<dl>
+
+<dt><i>prefixes</i> (dict)</dt>
+<dd>
+dictionary with privilege as key and prefix as value
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.showEvent" ID="IrcChannelWidget.showEvent"></a>
+<h4>IrcChannelWidget.showEvent</h4>
+<b>showEvent</b>(<i>_evt</i>)
+<p>
+        Protected method handling show events.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QShowEvent)</dt>
+<dd>
+reference to the show event (unused)
+</dd>
+</dl>
+<a NAME="IrcChannelWidget.unsetMarkerLine" ID="IrcChannelWidget.unsetMarkerLine"></a>
+<h4>IrcChannelWidget.unsetMarkerLine</h4>
+<b>unsetMarkerLine</b>(<i></i>)
+<p>
+        Public method to remove the marker line.
+</p>
+
+<a NAME="IrcChannelWidget.userName" ID="IrcChannelWidget.userName"></a>
+<h4>IrcChannelWidget.userName</h4>
+<b>userName</b>(<i></i>)
+<p>
+        Public method to get the nick name of the user.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+nick name of the user
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="IrcUserItem" ID="IrcUserItem"></a>
+<h2>IrcUserItem</h2>
+<p>
+    Class implementing a list widget item containing an IRC channel user.
+</p>
+
+<h3>Derived from</h3>
+QListWidgetItem
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Admin</td></tr>
+<tr><td>Away</td></tr>
+<tr><td>Halfop</td></tr>
+<tr><td>Normal</td></tr>
+<tr><td>Operator</td></tr>
+<tr><td>Owner</td></tr>
+<tr><td>PrivilegeMapping</td></tr>
+<tr><td>Voice</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#IrcUserItem.__init__">IrcUserItem</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.__awayIcon">__awayIcon</a></td>
+<td>Private method to convert an icon to an away icon.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.__setIcon">__setIcon</a></td>
+<td>Private method to set the icon dependent on user privileges.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.__setText">__setText</a></td>
+<td>Private method to set the user item text.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.canChangeTopic">canChangeTopic</a></td>
+<td>Public method to check, if the user is allowed to change the topic.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.changePrivilege">changePrivilege</a></td>
+<td>Public method to set or unset a user privilege.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.clearPrivileges">clearPrivileges</a></td>
+<td>Public method to clear the user privileges.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.isIgnored">isIgnored</a></td>
+<td>Public method to check, if this user is ignored.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.name">name</a></td>
+<td>Public method to get the user name.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.parseWhoFlags">parseWhoFlags</a></td>
+<td>Public method to parse the user flags reported by a WHO command.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.setIgnored">setIgnored</a></td>
+<td>Public method to set the user status to ignored.</td>
+</tr>
+<tr>
+<td><a href="#IrcUserItem.setName">setName</a></td>
+<td>Public method to set a new nick name.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="IrcUserItem.__init__" ID="IrcUserItem.__init__"></a>
+<h4>IrcUserItem (Constructor)</h4>
+<b>IrcUserItem</b>(<i>name, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+string with user name and privilege prefix
+</dd>
+<dt><i>parent</i> (QListWidget or QListWidgetItem)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="IrcUserItem.__awayIcon" ID="IrcUserItem.__awayIcon"></a>
+<h4>IrcUserItem.__awayIcon</h4>
+<b>__awayIcon</b>(<i>icon</i>)
+<p>
+        Private method to convert an icon to an away icon.
+</p>
+
+<dl>
+
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+icon to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+away icon
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QIcon
+</dd>
+</dl>
+<a NAME="IrcUserItem.__setIcon" ID="IrcUserItem.__setIcon"></a>
+<h4>IrcUserItem.__setIcon</h4>
+<b>__setIcon</b>(<i></i>)
+<p>
+        Private method to set the icon dependent on user privileges.
+</p>
+
+<a NAME="IrcUserItem.__setText" ID="IrcUserItem.__setText"></a>
+<h4>IrcUserItem.__setText</h4>
+<b>__setText</b>(<i></i>)
+<p>
+        Private method to set the user item text.
+</p>
+
+<a NAME="IrcUserItem.canChangeTopic" ID="IrcUserItem.canChangeTopic"></a>
+<h4>IrcUserItem.canChangeTopic</h4>
+<b>canChangeTopic</b>(<i></i>)
+<p>
+        Public method to check, if the user is allowed to change the topic.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the topic can be changed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcUserItem.changePrivilege" ID="IrcUserItem.changePrivilege"></a>
+<h4>IrcUserItem.changePrivilege</h4>
+<b>changePrivilege</b>(<i>privilege</i>)
+<p>
+        Public method to set or unset a user privilege.
+</p>
+
+<dl>
+
+<dt><i>privilege</i> (str)</dt>
+<dd>
+privilege to set or unset
+</dd>
+</dl>
+<a NAME="IrcUserItem.clearPrivileges" ID="IrcUserItem.clearPrivileges"></a>
+<h4>IrcUserItem.clearPrivileges</h4>
+<b>clearPrivileges</b>(<i></i>)
+<p>
+        Public method to clear the user privileges.
+</p>
+
+<a NAME="IrcUserItem.isIgnored" ID="IrcUserItem.isIgnored"></a>
+<h4>IrcUserItem.isIgnored</h4>
+<b>isIgnored</b>(<i></i>)
+<p>
+        Public method to check, if this user is ignored.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the ignored status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="IrcUserItem.name" ID="IrcUserItem.name"></a>
+<h4>IrcUserItem.name</h4>
+<b>name</b>(<i></i>)
+<p>
+        Public method to get the user name.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+user name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="IrcUserItem.parseWhoFlags" ID="IrcUserItem.parseWhoFlags"></a>
+<h4>IrcUserItem.parseWhoFlags</h4>
+<b>parseWhoFlags</b>(<i>flags</i>)
+<p>
+        Public method to parse the user flags reported by a WHO command.
+</p>
+
+<dl>
+
+<dt><i>flags</i> (str)</dt>
+<dd>
+user flags as reported by WHO
+</dd>
+</dl>
+<a NAME="IrcUserItem.setIgnored" ID="IrcUserItem.setIgnored"></a>
+<h4>IrcUserItem.setIgnored</h4>
+<b>setIgnored</b>(<i>ignored</i>)
+<p>
+        Public method to set the user status to ignored.
+</p>
+
+<dl>
+
+<dt><i>ignored</i> (bool)</dt>
+<dd>
+flag indicating the new ignored status
+</dd>
+</dl>
+<a NAME="IrcUserItem.setName" ID="IrcUserItem.setName"></a>
+<h4>IrcUserItem.setName</h4>
+<b>setName</b>(<i>name</i>)
+<p>
+        Public method to set a new nick name.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+new nick name for the user
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

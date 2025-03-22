@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsPySvn.SvnRepoBrowserDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsPySvn.SvnRepoBrowserDialog</h1>
+<p>
+Module implementing the subversion repository browser dialog.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SvnRepoBrowserDialog">SvnRepoBrowserDialog</a></td>
+<td>Class implementing the subversion repository browser dialog.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SvnRepoBrowserDialog" ID="SvnRepoBrowserDialog"></a>
+<h2>SvnRepoBrowserDialog</h2>
+<p>
+    Class implementing the subversion repository browser dialog.
+</p>
+
+<h3>Derived from</h3>
+QDialog, SvnDialogMixin, Ui_SvnRepoBrowserDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.__init__">SvnRepoBrowserDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.__generateItem">__generateItem</a></td>
+<td>Private method to generate a tree item in the repository tree.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.__listRepo">__listRepo</a></td>
+<td>Private method to perform the svn list command.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.__normalizeUrl">__normalizeUrl</a></td>
+<td>Private method to normalite the url.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the tree columns.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.__showError">__showError</a></td>
+<td>Private slot to show an error message.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.accept">accept</a></td>
+<td>Public slot called when the dialog is accepted.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.getSelectedUrl">getSelectedUrl</a></td>
+<td>Public method to retrieve the selected repository URL.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.on_repoTree_itemCollapsed">on_repoTree_itemCollapsed</a></td>
+<td>Private slot called when an item is collapsed.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.on_repoTree_itemExpanded">on_repoTree_itemExpanded</a></td>
+<td>Private slot called when an item is expanded.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.on_repoTree_itemSelectionChanged">on_repoTree_itemSelectionChanged</a></td>
+<td>Private slot called when the selection changes.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.on_urlCombo_currentIndexChanged">on_urlCombo_currentIndexChanged</a></td>
+<td>Private slot called, when a new repository URL is entered or selected.</td>
+</tr>
+<tr>
+<td><a href="#SvnRepoBrowserDialog.start">start</a></td>
+<td>Public slot to start the svn info command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SvnRepoBrowserDialog.__init__" ID="SvnRepoBrowserDialog.__init__"></a>
+<h4>SvnRepoBrowserDialog (Constructor)</h4>
+<b>SvnRepoBrowserDialog</b>(<i>vcs, mode="browse", parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Subversion)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>mode</i> (str)</dt>
+<dd>
+mode of the dialog ("browse" or "select")
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="SvnRepoBrowserDialog.__generateItem" ID="SvnRepoBrowserDialog.__generateItem"></a>
+<h4>SvnRepoBrowserDialog.__generateItem</h4>
+<b>__generateItem</b>(<i>parent, repopath, revision, author, size, date, nodekind, url</i>)
+<p>
+        Private method to generate a tree item in the repository tree.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QTreeWidget or QTreeWidgetItem)</dt>
+<dd>
+parent of the item to be created
+</dd>
+<dt><i>repopath</i> (str)</dt>
+<dd>
+path of the item
+</dd>
+<dt><i>revision</i> (str or pysvn.opt_revision_kind)</dt>
+<dd>
+revision info
+</dd>
+<dt><i>author</i> (str)</dt>
+<dd>
+author info
+</dd>
+<dt><i>size</i> (int)</dt>
+<dd>
+size info
+</dd>
+<dt><i>date</i> (int)</dt>
+<dd>
+date info
+</dd>
+<dt><i>nodekind</i> (pysvn.node_kind)</dt>
+<dd>
+node kind info
+</dd>
+<dt><i>url</i> (str)</dt>
+<dd>
+url of the entry
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the generated item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnRepoBrowserDialog.__listRepo" ID="SvnRepoBrowserDialog.__listRepo"></a>
+<h4>SvnRepoBrowserDialog.__listRepo</h4>
+<b>__listRepo</b>(<i>url, parent=None</i>)
+<p>
+        Private method to perform the svn list command.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+the repository URL to browser
+</dd>
+<dt><i>parent</i> (QTreeWidget or QTreeWidgetItem)</dt>
+<dd>
+reference to the item, the data should be appended to
+</dd>
+</dl>
+<a NAME="SvnRepoBrowserDialog.__normalizeUrl" ID="SvnRepoBrowserDialog.__normalizeUrl"></a>
+<h4>SvnRepoBrowserDialog.__normalizeUrl</h4>
+<b>__normalizeUrl</b>(<i>url</i>)
+<p>
+        Private method to normalite the url.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+the url to normalize
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+normalized URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SvnRepoBrowserDialog.__resizeColumns" ID="SvnRepoBrowserDialog.__resizeColumns"></a>
+<h4>SvnRepoBrowserDialog.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the tree columns.
+</p>
+
+<a NAME="SvnRepoBrowserDialog.__resort" ID="SvnRepoBrowserDialog.__resort"></a>
+<h4>SvnRepoBrowserDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="SvnRepoBrowserDialog.__showError" ID="SvnRepoBrowserDialog.__showError"></a>
+<h4>SvnRepoBrowserDialog.__showError</h4>
+<b>__showError</b>(<i>msg</i>)
+<p>
+        Private slot to show an error message.
+</p>
+
+<dl>
+
+<dt><i>msg</i> (str)</dt>
+<dd>
+error message to show
+</dd>
+</dl>
+<a NAME="SvnRepoBrowserDialog.accept" ID="SvnRepoBrowserDialog.accept"></a>
+<h4>SvnRepoBrowserDialog.accept</h4>
+<b>accept</b>(<i></i>)
+<p>
+        Public slot called when the dialog is accepted.
+</p>
+
+<a NAME="SvnRepoBrowserDialog.getSelectedUrl" ID="SvnRepoBrowserDialog.getSelectedUrl"></a>
+<h4>SvnRepoBrowserDialog.getSelectedUrl</h4>
+<b>getSelectedUrl</b>(<i></i>)
+<p>
+        Public method to retrieve the selected repository URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the selected repository URL
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="SvnRepoBrowserDialog.on_repoTree_itemCollapsed" ID="SvnRepoBrowserDialog.on_repoTree_itemCollapsed"></a>
+<h4>SvnRepoBrowserDialog.on_repoTree_itemCollapsed</h4>
+<b>on_repoTree_itemCollapsed</b>(<i>item</i>)
+<p>
+        Private slot called when an item is collapsed.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to be collapsed
+</dd>
+</dl>
+<a NAME="SvnRepoBrowserDialog.on_repoTree_itemExpanded" ID="SvnRepoBrowserDialog.on_repoTree_itemExpanded"></a>
+<h4>SvnRepoBrowserDialog.on_repoTree_itemExpanded</h4>
+<b>on_repoTree_itemExpanded</b>(<i>item</i>)
+<p>
+        Private slot called when an item is expanded.
+</p>
+
+<dl>
+
+<dt><i>item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the item to be expanded
+</dd>
+</dl>
+<a NAME="SvnRepoBrowserDialog.on_repoTree_itemSelectionChanged" ID="SvnRepoBrowserDialog.on_repoTree_itemSelectionChanged"></a>
+<h4>SvnRepoBrowserDialog.on_repoTree_itemSelectionChanged</h4>
+<b>on_repoTree_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot called when the selection changes.
+</p>
+
+<a NAME="SvnRepoBrowserDialog.on_urlCombo_currentIndexChanged" ID="SvnRepoBrowserDialog.on_urlCombo_currentIndexChanged"></a>
+<h4>SvnRepoBrowserDialog.on_urlCombo_currentIndexChanged</h4>
+<b>on_urlCombo_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot called, when a new repository URL is entered or selected.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+of the current item
+</dd>
+</dl>
+<a NAME="SvnRepoBrowserDialog.start" ID="SvnRepoBrowserDialog.start"></a>
+<h4>SvnRepoBrowserDialog.start</h4>
+<b>start</b>(<i>url</i>)
+<p>
+        Public slot to start the svn info command.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str)</dt>
+<dd>
+the repository URL to browser
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

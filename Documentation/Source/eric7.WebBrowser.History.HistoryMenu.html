@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.History.HistoryMenu</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.History.HistoryMenu</h1>
+<p>
+Module implementing the history menu.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HistoryMenu">HistoryMenu</a></td>
+<td>Class implementing the history menu.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenuModel">HistoryMenuModel</a></td>
+<td>Class implementing a model for the history menu.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMostVisitedMenu">HistoryMostVisitedMenu</a></td>
+<td>Class implementing the most visited history menu.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMostVisitedMenuModel">HistoryMostVisitedMenuModel</a></td>
+<td>Class implementing a model to show the most visited history entries.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HistoryMenu" ID="HistoryMenu"></a>
+<h2>HistoryMenu</h2>
+<p>
+    Class implementing the history menu.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>newBackgroundTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new
+        background tab
+</dd>
+<dt>newPrivateWindow(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new
+        private window
+</dd>
+<dt>newTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new tab
+</dd>
+<dt>newWindow(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new window
+</dd>
+<dt>openUrl(QUrl, str)</dt>
+<dd>
+emitted to open a URL in the current tab
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricModelMenu
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryMenu.__init__">HistoryMenu</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenu.__aboutToShowClosedTabsMenu">__aboutToShowClosedTabsMenu</a></td>
+<td>Private slot to populate the closed tabs menu.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenu.__activated">__activated</a></td>
+<td>Private slot handling the activated signal.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenu.__clearHistoryDialog">__clearHistoryDialog</a></td>
+<td>Private slot to clear the history.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenu.__closedTabAvailable">__closedTabAvailable</a></td>
+<td>Private slot to handle changes of the availability of closed tabs.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenu.postPopulated">postPopulated</a></td>
+<td>Public method to add any actions after the tree.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenu.prePopulated">prePopulated</a></td>
+<td>Public method to add any actions before the tree.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenu.setInitialActions">setInitialActions</a></td>
+<td>Public method to set the list of actions that should appear first in the menu.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenu.showHistoryDialog">showHistoryDialog</a></td>
+<td>Public slot to show the history dialog.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryMenu.__init__" ID="HistoryMenu.__init__"></a>
+<h4>HistoryMenu (Constructor)</h4>
+<b>HistoryMenu</b>(<i>parent=None, tabWidget=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+<dt><i>tabWidget</i> (WebBrowserTabWidget)</dt>
+<dd>
+reference to the tab widget managing the browser
+            tabs
+</dd>
+</dl>
+<a NAME="HistoryMenu.__aboutToShowClosedTabsMenu" ID="HistoryMenu.__aboutToShowClosedTabsMenu"></a>
+<h4>HistoryMenu.__aboutToShowClosedTabsMenu</h4>
+<b>__aboutToShowClosedTabsMenu</b>(<i></i>)
+<p>
+        Private slot to populate the closed tabs menu.
+</p>
+
+<a NAME="HistoryMenu.__activated" ID="HistoryMenu.__activated"></a>
+<h4>HistoryMenu.__activated</h4>
+<b>__activated</b>(<i>idx</i>)
+<p>
+        Private slot handling the activated signal.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+index of the activated item
+</dd>
+</dl>
+<a NAME="HistoryMenu.__clearHistoryDialog" ID="HistoryMenu.__clearHistoryDialog"></a>
+<h4>HistoryMenu.__clearHistoryDialog</h4>
+<b>__clearHistoryDialog</b>(<i></i>)
+<p>
+        Private slot to clear the history.
+</p>
+
+<a NAME="HistoryMenu.__closedTabAvailable" ID="HistoryMenu.__closedTabAvailable"></a>
+<h4>HistoryMenu.__closedTabAvailable</h4>
+<b>__closedTabAvailable</b>(<i>avail</i>)
+<p>
+        Private slot to handle changes of the availability of closed tabs.
+</p>
+
+<dl>
+
+<dt><i>avail</i> (bool)</dt>
+<dd>
+flag indicating the availability of closed tabs
+</dd>
+</dl>
+<a NAME="HistoryMenu.postPopulated" ID="HistoryMenu.postPopulated"></a>
+<h4>HistoryMenu.postPopulated</h4>
+<b>postPopulated</b>(<i></i>)
+<p>
+        Public method to add any actions after the tree.
+</p>
+
+<a NAME="HistoryMenu.prePopulated" ID="HistoryMenu.prePopulated"></a>
+<h4>HistoryMenu.prePopulated</h4>
+<b>prePopulated</b>(<i></i>)
+<p>
+        Public method to add any actions before the tree.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if any actions were added
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryMenu.setInitialActions" ID="HistoryMenu.setInitialActions"></a>
+<h4>HistoryMenu.setInitialActions</h4>
+<b>setInitialActions</b>(<i>actions</i>)
+<p>
+        Public method to set the list of actions that should appear first in
+        the menu.
+</p>
+
+<dl>
+
+<dt><i>actions</i> (list of QAction)</dt>
+<dd>
+list of initial actions
+</dd>
+</dl>
+<a NAME="HistoryMenu.showHistoryDialog" ID="HistoryMenu.showHistoryDialog"></a>
+<h4>HistoryMenu.showHistoryDialog</h4>
+<b>showHistoryDialog</b>(<i></i>)
+<p>
+        Public slot to show the history dialog.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HistoryMenuModel" ID="HistoryMenuModel"></a>
+<h2>HistoryMenuModel</h2>
+<p>
+    Class implementing a model for the history menu.
+</p>
+<p>
+    It maps the first bunch of items of the source model to the root.
+</p>
+
+<h3>Derived from</h3>
+QAbstractProxyModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>MOVEDROWS</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryMenuModel.__init__">HistoryMenuModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenuModel.bumpedRows">bumpedRows</a></td>
+<td>Public method to determine the number of rows moved to the root.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenuModel.columnCount">columnCount</a></td>
+<td>Public method to get the number of columns.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenuModel.index">index</a></td>
+<td>Public method to create an index.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenuModel.mapFromSource">mapFromSource</a></td>
+<td>Public method to map an index to the proxy model index.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenuModel.mapToSource">mapToSource</a></td>
+<td>Public method to map an index to the source model index.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenuModel.mimeData">mimeData</a></td>
+<td>Public method to return the mime data.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenuModel.parent">parent</a></td>
+<td>Public method to get the parent index.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMenuModel.rowCount">rowCount</a></td>
+<td>Public method to determine the number of rows.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryMenuModel.__init__" ID="HistoryMenuModel.__init__"></a>
+<h4>HistoryMenuModel (Constructor)</h4>
+<b>HistoryMenuModel</b>(<i>sourceModel, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>sourceModel</i> (QAbstractItemModel)</dt>
+<dd>
+reference to the source model
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="HistoryMenuModel.bumpedRows" ID="HistoryMenuModel.bumpedRows"></a>
+<h4>HistoryMenuModel.bumpedRows</h4>
+<b>bumpedRows</b>(<i></i>)
+<p>
+        Public method to determine the number of rows moved to the root.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of rows moved to the root
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HistoryMenuModel.columnCount" ID="HistoryMenuModel.columnCount"></a>
+<h4>HistoryMenuModel.columnCount</h4>
+<b>columnCount</b>(<i>parent=None</i>)
+<p>
+        Public method to get the number of columns.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of parent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of columns
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="HistoryMenuModel.index" ID="HistoryMenuModel.index"></a>
+<h4>HistoryMenuModel.index</h4>
+<b>index</b>(<i>row, column, parent=None</i>)
+<p>
+        Public method to create an index.
+</p>
+
+<dl>
+
+<dt><i>row</i> (int)</dt>
+<dd>
+row number for the index
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+column number for the index
+</dd>
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of the parent item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="HistoryMenuModel.mapFromSource" ID="HistoryMenuModel.mapFromSource"></a>
+<h4>HistoryMenuModel.mapFromSource</h4>
+<b>mapFromSource</b>(<i>sourceIndex</i>)
+<p>
+        Public method to map an index to the proxy model index.
+</p>
+
+<dl>
+
+<dt><i>sourceIndex</i> (QModelIndex)</dt>
+<dd>
+reference to a source model index
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+proxy model index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="HistoryMenuModel.mapToSource" ID="HistoryMenuModel.mapToSource"></a>
+<h4>HistoryMenuModel.mapToSource</h4>
+<b>mapToSource</b>(<i>proxyIndex</i>)
+<p>
+        Public method to map an index to the source model index.
+</p>
+
+<dl>
+
+<dt><i>proxyIndex</i> (QModelIndex)</dt>
+<dd>
+reference to a proxy model index
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+source model index
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="HistoryMenuModel.mimeData" ID="HistoryMenuModel.mimeData"></a>
+<h4>HistoryMenuModel.mimeData</h4>
+<b>mimeData</b>(<i>indexes</i>)
+<p>
+        Public method to return the mime data.
+</p>
+
+<dl>
+
+<dt><i>indexes</i> (QModelIndexList)</dt>
+<dd>
+list of indexes
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+mime data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMimeData
+</dd>
+</dl>
+<a NAME="HistoryMenuModel.parent" ID="HistoryMenuModel.parent"></a>
+<h4>HistoryMenuModel.parent</h4>
+<b>parent</b>(<i>index</i>)
+<p>
+        Public method to get the parent index.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of item to get parent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+index of parent
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QModelIndex
+</dd>
+</dl>
+<a NAME="HistoryMenuModel.rowCount" ID="HistoryMenuModel.rowCount"></a>
+<h4>HistoryMenuModel.rowCount</h4>
+<b>rowCount</b>(<i>parent=None</i>)
+<p>
+        Public method to determine the number of rows.
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QModelIndex)</dt>
+<dd>
+index of parent
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+number of rows
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HistoryMostVisitedMenu" ID="HistoryMostVisitedMenu"></a>
+<h2>HistoryMostVisitedMenu</h2>
+<p>
+    Class implementing the most visited history menu.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>newBackgroundTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new
+        background tab
+</dd>
+<dt>newPrivateWindow(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new
+        private window
+</dd>
+<dt>newTab(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new tab
+</dd>
+<dt>newWindow(QUrl, str)</dt>
+<dd>
+emitted to open a URL in a new window
+</dd>
+<dt>openUrl(QUrl, str)</dt>
+<dd>
+emitted to open a URL in the current tab
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricModelMenu
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryMostVisitedMenu.__init__">HistoryMostVisitedMenu</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryMostVisitedMenu.__activated">__activated</a></td>
+<td>Private slot handling the activated signal.</td>
+</tr>
+<tr>
+<td><a href="#HistoryMostVisitedMenu.prePopulated">prePopulated</a></td>
+<td>Public method to add any actions before the tree.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryMostVisitedMenu.__init__" ID="HistoryMostVisitedMenu.__init__"></a>
+<h4>HistoryMostVisitedMenu (Constructor)</h4>
+<b>HistoryMostVisitedMenu</b>(<i>count, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>count</i> (int)</dt>
+<dd>
+maximum number of entries to be shown
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="HistoryMostVisitedMenu.__activated" ID="HistoryMostVisitedMenu.__activated"></a>
+<h4>HistoryMostVisitedMenu.__activated</h4>
+<b>__activated</b>(<i>idx</i>)
+<p>
+        Private slot handling the activated signal.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+index of the activated item
+</dd>
+</dl>
+<a NAME="HistoryMostVisitedMenu.prePopulated" ID="HistoryMostVisitedMenu.prePopulated"></a>
+<h4>HistoryMostVisitedMenu.prePopulated</h4>
+<b>prePopulated</b>(<i></i>)
+<p>
+        Public method to add any actions before the tree.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating if any actions were added
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HistoryMostVisitedMenuModel" ID="HistoryMostVisitedMenuModel"></a>
+<h2>HistoryMostVisitedMenuModel</h2>
+<p>
+    Class implementing a model to show the most visited history entries.
+</p>
+
+<h3>Derived from</h3>
+QSortFilterProxyModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryMostVisitedMenuModel.__init__">HistoryMostVisitedMenuModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryMostVisitedMenuModel.lessThan">lessThan</a></td>
+<td>Public method used to sort the displayed items.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryMostVisitedMenuModel.__init__" ID="HistoryMostVisitedMenuModel.__init__"></a>
+<h4>HistoryMostVisitedMenuModel (Constructor)</h4>
+<b>HistoryMostVisitedMenuModel</b>(<i>sourceModel, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>sourceModel</i> (QAbstractItemModel)</dt>
+<dd>
+reference to the source model
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="HistoryMostVisitedMenuModel.lessThan" ID="HistoryMostVisitedMenuModel.lessThan"></a>
+<h4>HistoryMostVisitedMenuModel.lessThan</h4>
+<b>lessThan</b>(<i>left, right</i>)
+<p>
+        Public method used to sort the displayed items.
+</p>
+
+<dl>
+
+<dt><i>left</i> (QModelIndex)</dt>
+<dd>
+index of left item
+</dd>
+<dt><i>right</i> (QModelIndex)</dt>
+<dd>
+index of right item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+true, if left is less than right
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

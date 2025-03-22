@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.MicroPythonWindow</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.MicroPythonWindow</h1>
+<p>
+Module implementing the standalone MicroPython window.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SSL_AVAILABLE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonWindow">MicroPythonWindow</a></td>
+<td>Class implementing the standalone MicroPython window.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MicroPythonWindow" ID="MicroPythonWindow"></a>
+<h2>MicroPythonWindow</h2>
+<p>
+    Class implementing the standalone MicroPython window.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>editorCountChanged(count)</dt>
+<dd>
+emitted whenever the count of open editors
+        changed
+</dd>
+<dt>preferencesChanged()</dt>
+<dd>
+emitted after the preferences were changed
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MicroPythonWindow.__init__">MicroPythonWindow</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.__appFocusChanged">__appFocusChanged</a></td>
+<td>Private slot to track the application focus.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.__deviceDisconnect">__deviceDisconnect</a></td>
+<td>Private slot handling the device being disconnected.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.__editorClosing">__editorClosing</a></td>
+<td>Private method called, when an editor is closing.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.__preferencesChanged">__preferencesChanged</a></td>
+<td>Private slot to handle a change of the preferences.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.__sslErrors">__sslErrors</a></td>
+<td>Private slot to handle SSL errors.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.activeWindow">activeWindow</a></td>
+<td>Public method to get a reference to the active editor.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.addSideWidget">addSideWidget</a></td>
+<td>Public method to add a widget to the sides.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.closeEvent">closeEvent</a></td>
+<td>Protected event handler for the close event.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.getEditor">getEditor</a></td>
+<td>Public method to return the editor displaying the given file.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.getOpenEditorsCount">getOpenEditorsCount</a></td>
+<td>Public method to get the number of open editors.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.launchHelpViewer">launchHelpViewer</a></td>
+<td>Public slot to start the help viewer/web browser.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.networkAccessManager">networkAccessManager</a></td>
+<td>Public method to get a reference to the network access manager object.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.newEditorWithText">newEditorWithText</a></td>
+<td>Public method to generate a new editor with a given text and associated file name.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.removeSideWidget">removeSideWidget</a></td>
+<td>Public method to remove a widget added using addSideWidget().</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.showPreferences">showPreferences</a></td>
+<td>Public slot to set the preferences.</td>
+</tr>
+<tr>
+<td><a href="#MicroPythonWindow.showSideWidget">showSideWidget</a></td>
+<td>Public method to show a specific widget placed in the side widgets.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MicroPythonWindow.__init__" ID="MicroPythonWindow.__init__"></a>
+<h4>MicroPythonWindow (Constructor)</h4>
+<b>MicroPythonWindow</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.__appFocusChanged" ID="MicroPythonWindow.__appFocusChanged"></a>
+<h4>MicroPythonWindow.__appFocusChanged</h4>
+<b>__appFocusChanged</b>(<i>_old, now</i>)
+<p>
+        Private slot to track the application focus.
+</p>
+
+<dl>
+
+<dt><i>_old</i> (QWidget)</dt>
+<dd>
+reference to the widget loosing focus (unused)
+</dd>
+<dt><i>now</i> (QWidget)</dt>
+<dd>
+reference to the widget gaining focus
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.__deviceDisconnect" ID="MicroPythonWindow.__deviceDisconnect"></a>
+<h4>MicroPythonWindow.__deviceDisconnect</h4>
+<b>__deviceDisconnect</b>(<i></i>)
+<p>
+        Private slot handling the device being disconnected.
+</p>
+<p>
+        This closes all editors directly connected to the device about to
+        be disconnected.
+</p>
+
+<a NAME="MicroPythonWindow.__editorClosing" ID="MicroPythonWindow.__editorClosing"></a>
+<h4>MicroPythonWindow.__editorClosing</h4>
+<b>__editorClosing</b>(<i>editor</i>)
+<p>
+        Private method called, when an editor is closing.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (MiniEditor)</dt>
+<dd>
+reference to the closing editor
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.__preferencesChanged" ID="MicroPythonWindow.__preferencesChanged"></a>
+<h4>MicroPythonWindow.__preferencesChanged</h4>
+<b>__preferencesChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of the preferences.
+</p>
+
+<a NAME="MicroPythonWindow.__sslErrors" ID="MicroPythonWindow.__sslErrors"></a>
+<h4>MicroPythonWindow.__sslErrors</h4>
+<b>__sslErrors</b>(<i>reply, errors</i>)
+<p>
+        Private slot to handle SSL errors.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+<dt><i>errors</i> (list of QSslError)</dt>
+<dd>
+list of SSL errors
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.activeWindow" ID="MicroPythonWindow.activeWindow"></a>
+<h4>MicroPythonWindow.activeWindow</h4>
+<b>activeWindow</b>(<i></i>)
+<p>
+        Public method to get a reference to the active editor.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the active editor
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+MiniEditor
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.addSideWidget" ID="MicroPythonWindow.addSideWidget"></a>
+<h4>MicroPythonWindow.addSideWidget</h4>
+<b>addSideWidget</b>(<i>_side, widget, icon, label, </i>)
+<p>
+        Public method to add a widget to the sides.
+</p>
+
+<dl>
+
+<dt><i>_side</i> (UserInterfaceSide)</dt>
+<dd>
+side to add the widget to (unused)
+</dd>
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to add
+</dd>
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+icon to be used
+</dd>
+<dt><i>label</i> (str)</dt>
+<dd>
+label text to be shown
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.closeEvent" ID="MicroPythonWindow.closeEvent"></a>
+<h4>MicroPythonWindow.closeEvent</h4>
+<b>closeEvent</b>(<i>evt</i>)
+<p>
+        Protected event handler for the close event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QCloseEvent)</dt>
+<dd>
+reference to the close event
+            <br />This event is simply accepted after the history has been
+            saved and all window references have been deleted.
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.getEditor" ID="MicroPythonWindow.getEditor"></a>
+<h4>MicroPythonWindow.getEditor</h4>
+<b>getEditor</b>(<i>fn</i>)
+<p>
+        Public method to return the editor displaying the given file.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to look for
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.getOpenEditorsCount" ID="MicroPythonWindow.getOpenEditorsCount"></a>
+<h4>MicroPythonWindow.getOpenEditorsCount</h4>
+<b>getOpenEditorsCount</b>(<i></i>)
+<p>
+        Public method to get the number of open editors.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+number of open editors
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.launchHelpViewer" ID="MicroPythonWindow.launchHelpViewer"></a>
+<h4>MicroPythonWindow.launchHelpViewer</h4>
+<b>launchHelpViewer</b>(<i>url</i>)
+<p>
+        Public slot to start the help viewer/web browser.
+</p>
+
+<dl>
+
+<dt><i>url</i> (str or QUrl)</dt>
+<dd>
+URL to be opened
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.networkAccessManager" ID="MicroPythonWindow.networkAccessManager"></a>
+<h4>MicroPythonWindow.networkAccessManager</h4>
+<b>networkAccessManager</b>(<i></i>)
+<p>
+        Public method to get a reference to the network access manager object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the network access manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QNetworkAccessManager
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.newEditorWithText" ID="MicroPythonWindow.newEditorWithText"></a>
+<h4>MicroPythonWindow.newEditorWithText</h4>
+<b>newEditorWithText</b>(<i>text, language="", fileName=""</i>)
+<p>
+        Public method to generate a new editor with a given text and associated file
+        name.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text for the editor
+</dd>
+<dt><i>language</i> (str (optional))</dt>
+<dd>
+source language (defaults to "")
+</dd>
+<dt><i>fileName</i> (str (optional))</dt>
+<dd>
+associated file name (defaults to "")
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.removeSideWidget" ID="MicroPythonWindow.removeSideWidget"></a>
+<h4>MicroPythonWindow.removeSideWidget</h4>
+<b>removeSideWidget</b>(<i>widget</i>)
+<p>
+        Public method to remove a widget added using addSideWidget().
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to remove
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.showPreferences" ID="MicroPythonWindow.showPreferences"></a>
+<h4>MicroPythonWindow.showPreferences</h4>
+<b>showPreferences</b>(<i>pageName=None</i>)
+<p>
+        Public slot to set the preferences.
+</p>
+
+<dl>
+
+<dt><i>pageName</i> (str)</dt>
+<dd>
+name of the configuration page to show
+</dd>
+</dl>
+<a NAME="MicroPythonWindow.showSideWidget" ID="MicroPythonWindow.showSideWidget"></a>
+<h4>MicroPythonWindow.showSideWidget</h4>
+<b>showSideWidget</b>(<i>widget</i>)
+<p>
+        Public method to show a specific widget placed in the side widgets.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to be shown
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

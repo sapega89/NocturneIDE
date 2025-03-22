@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.MarkupProviders.MarkupBase</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.MarkupProviders.MarkupBase</h1>
+<p>
+Module implementing the base class for the markup providers.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#MarkupBase">MarkupBase</a></td>
+<td>Class implementing the base class for the markup providers.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createProvider">createProvider</a></td>
+<td>Function to instantiate a markup provider object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="MarkupBase" ID="MarkupBase"></a>
+<h2>MarkupBase</h2>
+<p>
+    Class implementing the base class for the markup providers.
+</p>
+<p>
+    Note: Derived classes need only implement those method they provide
+    functionality for. This base class implements do nothing variants for
+    all methods.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MarkupBase.__init__">MarkupBase</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.bold">bold</a></td>
+<td>Public method to generate bold text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.bulletedList">bulletedList</a></td>
+<td>Public method to generate bulleted list text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.code">code</a></td>
+<td>Public method to generate inline code text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.codeBlock">codeBlock</a></td>
+<td>Public method to generate code block text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasBold">hasBold</a></td>
+<td>Public method to indicate the availability of bold markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasBulletedList">hasBulletedList</a></td>
+<td>Public method to indicate the availability of bulleted list markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasCode">hasCode</a></td>
+<td>Public method to indicate the availability of inline code markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasCodeBlock">hasCodeBlock</a></td>
+<td>Public method to indicate the availability of code block markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasHyperlink">hasHyperlink</a></td>
+<td>Public method to indicate the availability of hyperlink markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasImage">hasImage</a></td>
+<td>Public method to indicate the availability of image markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasItalic">hasItalic</a></td>
+<td>Public method to indicate the availability of italic markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasLine">hasLine</a></td>
+<td>Public method to indicate the availability of a horizontal line markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasNumberedList">hasNumberedList</a></td>
+<td>Public method to indicate the availability of numbered list markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasQuote">hasQuote</a></td>
+<td>Public method to indicate the availability of block quote markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasStrikethrough">hasStrikethrough</a></td>
+<td>Public method to indicate the availability of strikethrough markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hasUnderline">hasUnderline</a></td>
+<td>Public method to indicate the availability of underline markup.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.header">header</a></td>
+<td>Public method to generate a header.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.headerLevels">headerLevels</a></td>
+<td>Public method to determine the available header levels.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.hyperlink">hyperlink</a></td>
+<td>Public method to generate hyperlink text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.image">image</a></td>
+<td>Public method to generate image text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.italic">italic</a></td>
+<td>Public method to generate italic text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.kind">kind</a></td>
+<td>Public method to get the markup kind.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.line">line</a></td>
+<td>Public method to generate a horizontal line text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.numberedList">numberedList</a></td>
+<td>Public method to generate numbered list text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.quote">quote</a></td>
+<td>Public method to generate block quote text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.strikethrough">strikethrough</a></td>
+<td>Public method to generate strikethrough text.</td>
+</tr>
+<tr>
+<td><a href="#MarkupBase.underline">underline</a></td>
+<td>Public method to generate underline text.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MarkupBase.__init__" ID="MarkupBase.__init__"></a>
+<h4>MarkupBase (Constructor)</h4>
+<b>MarkupBase</b>(<i></i>)
+<p>
+        Constructor
+</p>
+
+<a NAME="MarkupBase.bold" ID="MarkupBase.bold"></a>
+<h4>MarkupBase.bold</h4>
+<b>bold</b>(<i>editor</i>)
+<p>
+        Public method to generate bold text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.bulletedList" ID="MarkupBase.bulletedList"></a>
+<h4>MarkupBase.bulletedList</h4>
+<b>bulletedList</b>(<i>editor</i>)
+<p>
+        Public method to generate bulleted list text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.code" ID="MarkupBase.code"></a>
+<h4>MarkupBase.code</h4>
+<b>code</b>(<i>editor</i>)
+<p>
+        Public method to generate inline code text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.codeBlock" ID="MarkupBase.codeBlock"></a>
+<h4>MarkupBase.codeBlock</h4>
+<b>codeBlock</b>(<i>editor</i>)
+<p>
+        Public method to generate code block text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.hasBold" ID="MarkupBase.hasBold"></a>
+<h4>MarkupBase.hasBold</h4>
+<b>hasBold</b>(<i></i>)
+<p>
+        Public method to indicate the availability of bold markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of bold markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasBulletedList" ID="MarkupBase.hasBulletedList"></a>
+<h4>MarkupBase.hasBulletedList</h4>
+<b>hasBulletedList</b>(<i></i>)
+<p>
+        Public method to indicate the availability of bulleted list markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of bulleted list markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasCode" ID="MarkupBase.hasCode"></a>
+<h4>MarkupBase.hasCode</h4>
+<b>hasCode</b>(<i></i>)
+<p>
+        Public method to indicate the availability of inline code markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of inline code markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasCodeBlock" ID="MarkupBase.hasCodeBlock"></a>
+<h4>MarkupBase.hasCodeBlock</h4>
+<b>hasCodeBlock</b>(<i></i>)
+<p>
+        Public method to indicate the availability of code block markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of code block markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasHyperlink" ID="MarkupBase.hasHyperlink"></a>
+<h4>MarkupBase.hasHyperlink</h4>
+<b>hasHyperlink</b>(<i></i>)
+<p>
+        Public method to indicate the availability of hyperlink markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of hyperlink markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasImage" ID="MarkupBase.hasImage"></a>
+<h4>MarkupBase.hasImage</h4>
+<b>hasImage</b>(<i></i>)
+<p>
+        Public method to indicate the availability of image markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of image markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasItalic" ID="MarkupBase.hasItalic"></a>
+<h4>MarkupBase.hasItalic</h4>
+<b>hasItalic</b>(<i></i>)
+<p>
+        Public method to indicate the availability of italic markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of italic markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasLine" ID="MarkupBase.hasLine"></a>
+<h4>MarkupBase.hasLine</h4>
+<b>hasLine</b>(<i></i>)
+<p>
+        Public method to indicate the availability of a horizontal line markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of a horizontal line markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasNumberedList" ID="MarkupBase.hasNumberedList"></a>
+<h4>MarkupBase.hasNumberedList</h4>
+<b>hasNumberedList</b>(<i></i>)
+<p>
+        Public method to indicate the availability of numbered list markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of numbered list markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasQuote" ID="MarkupBase.hasQuote"></a>
+<h4>MarkupBase.hasQuote</h4>
+<b>hasQuote</b>(<i></i>)
+<p>
+        Public method to indicate the availability of block quote markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of block quote markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasStrikethrough" ID="MarkupBase.hasStrikethrough"></a>
+<h4>MarkupBase.hasStrikethrough</h4>
+<b>hasStrikethrough</b>(<i></i>)
+<p>
+        Public method to indicate the availability of strikethrough markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of strikethrough markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.hasUnderline" ID="MarkupBase.hasUnderline"></a>
+<h4>MarkupBase.hasUnderline</h4>
+<b>hasUnderline</b>(<i></i>)
+<p>
+        Public method to indicate the availability of underline markup.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of underline markup
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="MarkupBase.header" ID="MarkupBase.header"></a>
+<h4>MarkupBase.header</h4>
+<b>header</b>(<i>editor, level</i>)
+<p>
+        Public method to generate a header.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+<dt><i>level</i> (int)</dt>
+<dd>
+header level
+</dd>
+</dl>
+<a NAME="MarkupBase.headerLevels" ID="MarkupBase.headerLevels"></a>
+<h4>MarkupBase.headerLevels</h4>
+<b>headerLevels</b>(<i></i>)
+<p>
+        Public method to determine the available header levels.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+supported header levels
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="MarkupBase.hyperlink" ID="MarkupBase.hyperlink"></a>
+<h4>MarkupBase.hyperlink</h4>
+<b>hyperlink</b>(<i>editor</i>)
+<p>
+        Public method to generate hyperlink text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.image" ID="MarkupBase.image"></a>
+<h4>MarkupBase.image</h4>
+<b>image</b>(<i>editor</i>)
+<p>
+        Public method to generate image text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.italic" ID="MarkupBase.italic"></a>
+<h4>MarkupBase.italic</h4>
+<b>italic</b>(<i>editor</i>)
+<p>
+        Public method to generate italic text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.kind" ID="MarkupBase.kind"></a>
+<h4>MarkupBase.kind</h4>
+<b>kind</b>(<i></i>)
+<p>
+        Public method to get the markup kind.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+markup kind all lowercased
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="MarkupBase.line" ID="MarkupBase.line"></a>
+<h4>MarkupBase.line</h4>
+<b>line</b>(<i>editor</i>)
+<p>
+        Public method to generate a horizontal line text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.numberedList" ID="MarkupBase.numberedList"></a>
+<h4>MarkupBase.numberedList</h4>
+<b>numberedList</b>(<i>editor</i>)
+<p>
+        Public method to generate numbered list text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.quote" ID="MarkupBase.quote"></a>
+<h4>MarkupBase.quote</h4>
+<b>quote</b>(<i>editor</i>)
+<p>
+        Public method to generate block quote text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.strikethrough" ID="MarkupBase.strikethrough"></a>
+<h4>MarkupBase.strikethrough</h4>
+<b>strikethrough</b>(<i>editor</i>)
+<p>
+        Public method to generate strikethrough text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<a NAME="MarkupBase.underline" ID="MarkupBase.underline"></a>
+<h4>MarkupBase.underline</h4>
+<b>underline</b>(<i>editor</i>)
+<p>
+        Public method to generate underline text.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+reference to the editor to work on
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createProvider" ID="createProvider"></a>
+<h2>createProvider</h2>
+<b>createProvider</b>(<i></i>)
+<p>
+    Function to instantiate a markup provider object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated markup provider opject
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+MarkupBase
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

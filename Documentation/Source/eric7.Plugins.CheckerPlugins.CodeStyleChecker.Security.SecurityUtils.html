@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.SecurityUtils</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.Security.SecurityUtils</h1>
+<p>
+Module implementing utility functions used by the security checks.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#InvalidModulePathError">InvalidModulePathError</a></td>
+<td>Class defining an exception for invalid module paths.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_get">_get</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#calcLineRange">calcLineRange</a></td>
+<td>Function to calculate the line range for a subtree.</td>
+</tr>
+<tr>
+<td><a href="#concatString">concatString</a></td>
+<td>Function to build a string from an ast.BinOp chain.</td>
+</tr>
+<tr>
+<td><a href="#deepgetattr">deepgetattr</a></td>
+<td>Function to recurs through an attribute chain to get the ultimate value.</td>
+</tr>
+<tr>
+<td><a href="#escapedBytesRepresentation">escapedBytesRepresentation</a></td>
+<td>Function to escape bytes for comparison with other strings.</td>
+</tr>
+<tr>
+<td><a href="#getAttrQualName">getAttrQualName</a></td>
+<td>Function to get a the full name for the attribute node.</td>
+</tr>
+<tr>
+<td><a href="#getCallName">getCallName</a></td>
+<td>Function to extract the call name from an ast.Call node.</td>
+</tr>
+<tr>
+<td><a href="#getCalledName">getCalledName</a></td>
+<td>Function to get the function name from an ast.Call node.</td>
+</tr>
+<tr>
+<td><a href="#getModuleQualnameFromPath">getModuleQualnameFromPath</a></td>
+<td>Function to get the module's qualified name by analysis of the path.</td>
+</tr>
+<tr>
+<td><a href="#getQualAttr">getQualAttr</a></td>
+<td>Function to extract the qualified name from an ast.Attribute node.</td>
+</tr>
+<tr>
+<td><a href="#linerange">linerange</a></td>
+<td>Function to get line number range from a node.</td>
+</tr>
+<tr>
+<td><a href="#namespacePathJoin">namespacePathJoin</a></td>
+<td>Function to extend a given namespace path.</td>
+</tr>
+<tr>
+<td><a href="#namespacePathSplit">namespacePathSplit</a></td>
+<td>Function to split a namespace path into a head and tail.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="InvalidModulePathError" ID="InvalidModulePathError"></a>
+<h2>InvalidModulePathError</h2>
+<p>
+    Class defining an exception for invalid module paths.
+</p>
+
+<h3>Derived from</h3>
+Exception
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_get" ID="_get"></a>
+<h2>_get</h2>
+<b>_get</b>(<i>node, bits, stop=None</i>)
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="calcLineRange" ID="calcLineRange"></a>
+<h2>calcLineRange</h2>
+<b>calcLineRange</b>(<i>node</i>)
+<p>
+    Function to calculate the line range for a subtree.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+node to calculate the line range for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the start and end line of the subtree
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (int, int)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="concatString" ID="concatString"></a>
+<h2>concatString</h2>
+<b>concatString</b>(<i>node, stop=None</i>)
+<p>
+    Function to build a string from an ast.BinOp chain.
+</p>
+<p>
+    This will build a string from a series of ast.Constant nodes
+    wrapped in ast.BinOp nodes. Something like "a" + "b" + "c" or "a %s" % val
+    etc. The provided node can be any participant in the BinOp chain.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.BinOp or ast.Constant)</dt>
+<dd>
+node to be processed
+</dd>
+<dt><i>stop</i> (ast.BinOp or ast.Constant)</dt>
+<dd>
+base node to stop at
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the root node of the expression and the string
+        value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (ast.AST, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="deepgetattr" ID="deepgetattr"></a>
+<h2>deepgetattr</h2>
+<b>deepgetattr</b>(<i>obj, attr</i>)
+<p>
+    Function to recurs through an attribute chain to get the ultimate value.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (ast.Name or ast.Attribute)</dt>
+<dd>
+reference to the object to be recursed
+</dd>
+<dt><i>attr</i> (ast.Attribute)</dt>
+<dd>
+attribute chain to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+ultimate value
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+ast.AST
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="escapedBytesRepresentation" ID="escapedBytesRepresentation"></a>
+<h2>escapedBytesRepresentation</h2>
+<b>escapedBytesRepresentation</b>(<i>b</i>)
+<p>
+    Function to escape bytes for comparison with other strings.
+</p>
+<p>
+    In practice it turns control characters into acceptable codepoints then
+    encodes them into bytes again to turn unprintable bytes into printable
+    escape sequences.
+</p>
+<p>
+    This is safe to do for the whole range 0..255 and result matches
+    unicode_escape on a unicode string.
+</p>
+
+<dl>
+
+<dt><i>b</i> (bytes)</dt>
+<dd>
+bytes object to be escaped
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+escaped bytes object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bytes
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getAttrQualName" ID="getAttrQualName"></a>
+<h2>getAttrQualName</h2>
+<b>getAttrQualName</b>(<i>node, aliases</i>)
+<p>
+    Function to get a the full name for the attribute node.
+</p>
+<p>
+    This will resolve a pseudo-qualified name for the attribute
+    rooted at node as long as all the deeper nodes are Names or
+    Attributes. This will give you how the code referenced the name but
+    will not tell you what the name actually refers to. If we
+    encounter a node without a static name we punt with an
+    empty string. If this encounters something more complex, such as
+    foo.mylist[0](a,b) we just return empty string.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Attribute)</dt>
+<dd>
+attribute node to be treated
+</dd>
+<dt><i>aliases</i> (dict)</dt>
+<dd>
+dictionary of import aliases
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+qualified name of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getCallName" ID="getCallName"></a>
+<h2>getCallName</h2>
+<b>getCallName</b>(<i>node, aliases</i>)
+<p>
+    Function to extract the call name from an ast.Call node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+node to extract information from
+</dd>
+<dt><i>aliases</i> (dict)</dt>
+<dd>
+dictionary of import aliases
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the ast.Call node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getCalledName" ID="getCalledName"></a>
+<h2>getCalledName</h2>
+<b>getCalledName</b>(<i>node</i>)
+<p>
+    Function to get the function name from an ast.Call node.
+</p>
+<p>
+    An ast.Call node representing a method call will present differently to one
+    wrapping a function call: thing.call() vs call(). This helper will grab the
+    unqualified call name correctly in either case.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Call)</dt>
+<dd>
+reference to the call node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+function name of the node
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getModuleQualnameFromPath" ID="getModuleQualnameFromPath"></a>
+<h2>getModuleQualnameFromPath</h2>
+<b>getModuleQualnameFromPath</b>(<i>path</i>)
+<p>
+    Function to get the module's qualified name by analysis of the
+    path.
+</p>
+<p>
+    Resolve the absolute pathname and eliminate symlinks. This could result
+    in an incorrect name if symlinks are used to restructure the python lib
+    directory.
+</p>
+<p>
+    Starting from the right-most directory component look for __init__.py
+    in the directory component. If it exists then the directory name is
+    part of the module name. Move left to the subsequent directory
+    components until a directory is found without __init__.py.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the module to be analyzed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+qualified name of the module
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>InvalidModulePathError</b>:</dt>
+<dd>
+raised to indicate an invalid module path
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getQualAttr" ID="getQualAttr"></a>
+<h2>getQualAttr</h2>
+<b>getQualAttr</b>(<i>node, aliases</i>)
+<p>
+    Function to extract the qualified name from an ast.Attribute node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Attribute)</dt>
+<dd>
+node to extract information from
+</dd>
+<dt><i>aliases</i> (dict)</dt>
+<dd>
+dictionary of import aliases
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+qualified attribute name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="linerange" ID="linerange"></a>
+<h2>linerange</h2>
+<b>linerange</b>(<i>node</i>)
+<p>
+    Function to get line number range from a node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+node to extract a line range from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing the line number range
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="namespacePathJoin" ID="namespacePathJoin"></a>
+<h2>namespacePathJoin</h2>
+<b>namespacePathJoin</b>(<i>namespace, name</i>)
+<p>
+    Function to extend a given namespace path.
+</p>
+
+<dl>
+
+<dt><i>namespace</i> (str)</dt>
+<dd>
+namespace to be extended
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+node name to be appended
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+extended namespace
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="namespacePathSplit" ID="namespacePathSplit"></a>
+<h2>namespacePathSplit</h2>
+<b>namespacePathSplit</b>(<i>path</i>)
+<p>
+    Function to split a namespace path into a head and tail.
+</p>
+<p>
+    Tail will be the last namespace path component and head will
+    be everything leading up to that in the path. This is similar to
+    os.path.split.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+namespace path to be split
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing the namespace path head and tail
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

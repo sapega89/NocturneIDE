@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsSubversion.SvnStatusDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsSubversion.SvnStatusDialog</h1>
+<p>
+Module implementing a dialog to show the output of the svn status command
+process.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SvnStatusDialog">SvnStatusDialog</a></td>
+<td>Class implementing a dialog to show the output of the svn status command process.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SvnStatusDialog" ID="SvnStatusDialog"></a>
+<h2>SvnStatusDialog</h2>
+<p>
+    Class implementing a dialog to show the output of the svn status command
+    process.
+</p>
+
+<h3>Derived from</h3>
+QWidget, Ui_SvnStatusDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SvnStatusDialog.__init__">SvnStatusDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__add">__add</a></td>
+<td>Private slot to handle the Add context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__addToChangelist">__addToChangelist</a></td>
+<td>Private slot to add entries to a changelist.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__breakLock">__breakLock</a></td>
+<td>Private slot to handle the Break Lock context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__commit">__commit</a></td>
+<td>Private slot to handle the Commit context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__commitDeselectAll">__commitDeselectAll</a></td>
+<td>Private slot to deselect all entries from commit.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__commitSelect">__commitSelect</a></td>
+<td>Private slot to select or deselect all entries.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__commitSelectAll">__commitSelectAll</a></td>
+<td>Private slot to select all entries for commit.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__committed">__committed</a></td>
+<td>Private slot called after the commit has finished.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__diff">__diff</a></td>
+<td>Private slot to handle the Diff context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__finish">__finish</a></td>
+<td>Private slot called when the process finished or the user pressed the button.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__generateItem">__generateItem</a></td>
+<td>Private method to generate a status item in the status list.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__getChangelistItems">__getChangelistItems</a></td>
+<td>Private method to retrieve all entries, that are members of a changelist.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__getCommitableItems">__getCommitableItems</a></td>
+<td>Private method to retrieve all entries the user wants to commit.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__getLockActionItems">__getLockActionItems</a></td>
+<td>Private method to retrieve all emtries, that have a locked status.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__getMissingItems">__getMissingItems</a></td>
+<td>Private method to retrieve all entries, that have a missing status.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__getModifiedItems">__getModifiedItems</a></td>
+<td>Private method to retrieve all entries, that have a modified status.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__getNonChangelistItems">__getNonChangelistItems</a></td>
+<td>Private method to retrieve all entries, that are not members of a changelist.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__getUnversionedItems">__getUnversionedItems</a></td>
+<td>Private method to retrieve all entries, that have an unversioned status.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__lock">__lock</a></td>
+<td>Private slot to handle the Lock context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__procFinished">__procFinished</a></td>
+<td>Private slot connected to the finished signal.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__readStderr">__readStderr</a></td>
+<td>Private slot to handle the readyReadStandardError signal.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__readStdout">__readStdout</a></td>
+<td>Private slot to handle the readyReadStandardOutput signal.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__removeFromChangelist">__removeFromChangelist</a></td>
+<td>Private slot to remove entries from their change lists.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the list columns.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__restoreMissing">__restoreMissing</a></td>
+<td>Private slot to handle the Restore Missing context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__revert">__revert</a></td>
+<td>Private slot to handle the Revert context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__sbsDiff">__sbsDiff</a></td>
+<td>Private slot to handle the Side-by-Side Diff context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu of the status list.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__stealLock">__stealLock</a></td>
+<td>Private slot to handle the Break Lock context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__unlock">__unlock</a></td>
+<td>Private slot to handle the Unlock context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__updateButtons">__updateButtons</a></td>
+<td>Private method to update the VCS buttons status.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.__updateCommitButton">__updateCommitButton</a></td>
+<td>Private method to update the Commit button status.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.closeEvent">closeEvent</a></td>
+<td>Protected slot implementing a close event handler.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.keyPressEvent">keyPressEvent</a></td>
+<td>Protected slot to handle a key press event.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_addButton_clicked">on_addButton_clicked</a></td>
+<td>Private slot to handle the press of the Add button.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_buttonBox_clicked">on_buttonBox_clicked</a></td>
+<td>Private slot called by a button of the button box clicked.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_commitButton_clicked">on_commitButton_clicked</a></td>
+<td>Private slot to handle the press of the Commit button.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_diffButton_clicked">on_diffButton_clicked</a></td>
+<td>Private slot to handle the press of the Differences button.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_input_returnPressed">on_input_returnPressed</a></td>
+<td>Private slot to handle the press of the return key in the input field.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_passwordCheckBox_toggled">on_passwordCheckBox_toggled</a></td>
+<td>Private slot to handle the password checkbox toggled.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the status display.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_restoreButton_clicked">on_restoreButton_clicked</a></td>
+<td>Private slot to handle the press of the Restore button.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_revertButton_clicked">on_revertButton_clicked</a></td>
+<td>Private slot to handle the press of the Revert button.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_sbsDiffButton_clicked">on_sbsDiffButton_clicked</a></td>
+<td>Private slot to handle the press of the Side-by-Side Diff button.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_sendButton_clicked">on_sendButton_clicked</a></td>
+<td>Private slot to send the input to the subversion process.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_statusFilterCombo_activated">on_statusFilterCombo_activated</a></td>
+<td>Private slot to react to the selection of a status filter.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_statusList_itemChanged">on_statusList_itemChanged</a></td>
+<td>Private slot to act upon item changes.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.on_statusList_itemSelectionChanged">on_statusList_itemSelectionChanged</a></td>
+<td>Private slot to act upon changes of selected items.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusDialog.start">start</a></td>
+<td>Public slot to start the svn status command.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SvnStatusDialog.__init__" ID="SvnStatusDialog.__init__"></a>
+<h4>SvnStatusDialog (Constructor)</h4>
+<b>SvnStatusDialog</b>(<i>vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Subversion)</dt>
+<dd>
+reference to the vcs object
+</dd>
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__add" ID="SvnStatusDialog.__add"></a>
+<h4>SvnStatusDialog.__add</h4>
+<b>__add</b>(<i></i>)
+<p>
+        Private slot to handle the Add context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__addToChangelist" ID="SvnStatusDialog.__addToChangelist"></a>
+<h4>SvnStatusDialog.__addToChangelist</h4>
+<b>__addToChangelist</b>(<i></i>)
+<p>
+        Private slot to add entries to a changelist.
+</p>
+
+<a NAME="SvnStatusDialog.__breakLock" ID="SvnStatusDialog.__breakLock"></a>
+<h4>SvnStatusDialog.__breakLock</h4>
+<b>__breakLock</b>(<i></i>)
+<p>
+        Private slot to handle the Break Lock context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__commit" ID="SvnStatusDialog.__commit"></a>
+<h4>SvnStatusDialog.__commit</h4>
+<b>__commit</b>(<i></i>)
+<p>
+        Private slot to handle the Commit context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__commitDeselectAll" ID="SvnStatusDialog.__commitDeselectAll"></a>
+<h4>SvnStatusDialog.__commitDeselectAll</h4>
+<b>__commitDeselectAll</b>(<i></i>)
+<p>
+        Private slot to deselect all entries from commit.
+</p>
+
+<a NAME="SvnStatusDialog.__commitSelect" ID="SvnStatusDialog.__commitSelect"></a>
+<h4>SvnStatusDialog.__commitSelect</h4>
+<b>__commitSelect</b>(<i>selected</i>)
+<p>
+        Private slot to select or deselect all entries.
+</p>
+
+<dl>
+
+<dt><i>selected</i> (bool)</dt>
+<dd>
+commit selection state to be set
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__commitSelectAll" ID="SvnStatusDialog.__commitSelectAll"></a>
+<h4>SvnStatusDialog.__commitSelectAll</h4>
+<b>__commitSelectAll</b>(<i></i>)
+<p>
+        Private slot to select all entries for commit.
+</p>
+
+<a NAME="SvnStatusDialog.__committed" ID="SvnStatusDialog.__committed"></a>
+<h4>SvnStatusDialog.__committed</h4>
+<b>__committed</b>(<i></i>)
+<p>
+        Private slot called after the commit has finished.
+</p>
+
+<a NAME="SvnStatusDialog.__diff" ID="SvnStatusDialog.__diff"></a>
+<h4>SvnStatusDialog.__diff</h4>
+<b>__diff</b>(<i></i>)
+<p>
+        Private slot to handle the Diff context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__finish" ID="SvnStatusDialog.__finish"></a>
+<h4>SvnStatusDialog.__finish</h4>
+<b>__finish</b>(<i></i>)
+<p>
+        Private slot called when the process finished or the user pressed
+        the button.
+</p>
+
+<a NAME="SvnStatusDialog.__generateItem" ID="SvnStatusDialog.__generateItem"></a>
+<h4>SvnStatusDialog.__generateItem</h4>
+<b>__generateItem</b>(<i>status, propStatus, locked, history, switched, lockinfo, uptodate, revision, change, author, path, </i>)
+<p>
+        Private method to generate a status item in the status list.
+</p>
+
+<dl>
+
+<dt><i>status</i> (str)</dt>
+<dd>
+status indicator
+</dd>
+<dt><i>propStatus</i> (str)</dt>
+<dd>
+property status indicator
+</dd>
+<dt><i>locked</i> (str)</dt>
+<dd>
+locked indicator
+</dd>
+<dt><i>history</i> (str)</dt>
+<dd>
+history indicator
+</dd>
+<dt><i>switched</i> (str)</dt>
+<dd>
+switched indicator
+</dd>
+<dt><i>lockinfo</i> (str)</dt>
+<dd>
+lock indicator
+</dd>
+<dt><i>uptodate</i> (str)</dt>
+<dd>
+up to date indicator
+</dd>
+<dt><i>revision</i> (str)</dt>
+<dd>
+revision string
+</dd>
+<dt><i>change</i> (str)</dt>
+<dd>
+revision of last change
+</dd>
+<dt><i>author</i> (str)</dt>
+<dd>
+author of the last change
+</dd>
+<dt><i>path</i> (str)</dt>
+<dd>
+path of the file or directory
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__getChangelistItems" ID="SvnStatusDialog.__getChangelistItems"></a>
+<h4>SvnStatusDialog.__getChangelistItems</h4>
+<b>__getChangelistItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that are members of
+        a changelist.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items belonging to a changelist
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__getCommitableItems" ID="SvnStatusDialog.__getCommitableItems"></a>
+<h4>SvnStatusDialog.__getCommitableItems</h4>
+<b>__getCommitableItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries the user wants to commit.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items, the user has checked
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__getLockActionItems" ID="SvnStatusDialog.__getLockActionItems"></a>
+<h4>SvnStatusDialog.__getLockActionItems</h4>
+<b>__getLockActionItems</b>(<i>indicators</i>)
+<p>
+        Private method to retrieve all emtries, that have a locked status.
+</p>
+
+<dl>
+
+<dt><i>indicators</i> (list of str)</dt>
+<dd>
+list of indicators to check against
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a locked status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__getMissingItems" ID="SvnStatusDialog.__getMissingItems"></a>
+<h4>SvnStatusDialog.__getMissingItems</h4>
+<b>__getMissingItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a missing status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a missing status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__getModifiedItems" ID="SvnStatusDialog.__getModifiedItems"></a>
+<h4>SvnStatusDialog.__getModifiedItems</h4>
+<b>__getModifiedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have a modified status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with a modified status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__getNonChangelistItems" ID="SvnStatusDialog.__getNonChangelistItems"></a>
+<h4>SvnStatusDialog.__getNonChangelistItems</h4>
+<b>__getNonChangelistItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that are not members of
+        a changelist.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items not belonging to a changelist
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__getUnversionedItems" ID="SvnStatusDialog.__getUnversionedItems"></a>
+<h4>SvnStatusDialog.__getUnversionedItems</h4>
+<b>__getUnversionedItems</b>(<i></i>)
+<p>
+        Private method to retrieve all entries, that have an unversioned
+        status.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all items with an unversioned status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QTreeWidgetItem
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__lock" ID="SvnStatusDialog.__lock"></a>
+<h4>SvnStatusDialog.__lock</h4>
+<b>__lock</b>(<i></i>)
+<p>
+        Private slot to handle the Lock context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__procFinished" ID="SvnStatusDialog.__procFinished"></a>
+<h4>SvnStatusDialog.__procFinished</h4>
+<b>__procFinished</b>(<i>_exitCode, _exitStatus</i>)
+<p>
+        Private slot connected to the finished signal.
+</p>
+
+<dl>
+
+<dt><i>_exitCode</i> (int)</dt>
+<dd>
+exit code of the process (unused)
+</dd>
+<dt><i>_exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process (unused)
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__readStderr" ID="SvnStatusDialog.__readStderr"></a>
+<h4>SvnStatusDialog.__readStderr</h4>
+<b>__readStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardError signal.
+</p>
+<p>
+        It reads the error output of the process and inserts it into the
+        error pane.
+</p>
+
+<a NAME="SvnStatusDialog.__readStdout" ID="SvnStatusDialog.__readStdout"></a>
+<h4>SvnStatusDialog.__readStdout</h4>
+<b>__readStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStandardOutput signal.
+</p>
+<p>
+        It reads the output of the process, formats it and inserts it into
+        the contents pane.
+</p>
+
+<a NAME="SvnStatusDialog.__removeFromChangelist" ID="SvnStatusDialog.__removeFromChangelist"></a>
+<h4>SvnStatusDialog.__removeFromChangelist</h4>
+<b>__removeFromChangelist</b>(<i></i>)
+<p>
+        Private slot to remove entries from their change lists.
+</p>
+
+<a NAME="SvnStatusDialog.__resizeColumns" ID="SvnStatusDialog.__resizeColumns"></a>
+<h4>SvnStatusDialog.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the list columns.
+</p>
+
+<a NAME="SvnStatusDialog.__resort" ID="SvnStatusDialog.__resort"></a>
+<h4>SvnStatusDialog.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="SvnStatusDialog.__restoreMissing" ID="SvnStatusDialog.__restoreMissing"></a>
+<h4>SvnStatusDialog.__restoreMissing</h4>
+<b>__restoreMissing</b>(<i></i>)
+<p>
+        Private slot to handle the Restore Missing context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__revert" ID="SvnStatusDialog.__revert"></a>
+<h4>SvnStatusDialog.__revert</h4>
+<b>__revert</b>(<i></i>)
+<p>
+        Private slot to handle the Revert context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__sbsDiff" ID="SvnStatusDialog.__sbsDiff"></a>
+<h4>SvnStatusDialog.__sbsDiff</h4>
+<b>__sbsDiff</b>(<i></i>)
+<p>
+        Private slot to handle the Side-by-Side Diff context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__showContextMenu" ID="SvnStatusDialog.__showContextMenu"></a>
+<h4>SvnStatusDialog.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu of the status list.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.__stealLock" ID="SvnStatusDialog.__stealLock"></a>
+<h4>SvnStatusDialog.__stealLock</h4>
+<b>__stealLock</b>(<i></i>)
+<p>
+        Private slot to handle the Break Lock context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__unlock" ID="SvnStatusDialog.__unlock"></a>
+<h4>SvnStatusDialog.__unlock</h4>
+<b>__unlock</b>(<i></i>)
+<p>
+        Private slot to handle the Unlock context menu entry.
+</p>
+
+<a NAME="SvnStatusDialog.__updateButtons" ID="SvnStatusDialog.__updateButtons"></a>
+<h4>SvnStatusDialog.__updateButtons</h4>
+<b>__updateButtons</b>(<i></i>)
+<p>
+        Private method to update the VCS buttons status.
+</p>
+
+<a NAME="SvnStatusDialog.__updateCommitButton" ID="SvnStatusDialog.__updateCommitButton"></a>
+<h4>SvnStatusDialog.__updateCommitButton</h4>
+<b>__updateCommitButton</b>(<i></i>)
+<p>
+        Private method to update the Commit button status.
+</p>
+
+<a NAME="SvnStatusDialog.closeEvent" ID="SvnStatusDialog.closeEvent"></a>
+<h4>SvnStatusDialog.closeEvent</h4>
+<b>closeEvent</b>(<i>e</i>)
+<p>
+        Protected slot implementing a close event handler.
+</p>
+
+<dl>
+
+<dt><i>e</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.keyPressEvent" ID="SvnStatusDialog.keyPressEvent"></a>
+<h4>SvnStatusDialog.keyPressEvent</h4>
+<b>keyPressEvent</b>(<i>evt</i>)
+<p>
+        Protected slot to handle a key press event.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QKeyEvent)</dt>
+<dd>
+the key press event
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.on_addButton_clicked" ID="SvnStatusDialog.on_addButton_clicked"></a>
+<h4>SvnStatusDialog.on_addButton_clicked</h4>
+<b>on_addButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the press of the Add button.
+</p>
+
+<a NAME="SvnStatusDialog.on_buttonBox_clicked" ID="SvnStatusDialog.on_buttonBox_clicked"></a>
+<h4>SvnStatusDialog.on_buttonBox_clicked</h4>
+<b>on_buttonBox_clicked</b>(<i>button</i>)
+<p>
+        Private slot called by a button of the button box clicked.
+</p>
+
+<dl>
+
+<dt><i>button</i> (QAbstractButton)</dt>
+<dd>
+button that was clicked
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.on_commitButton_clicked" ID="SvnStatusDialog.on_commitButton_clicked"></a>
+<h4>SvnStatusDialog.on_commitButton_clicked</h4>
+<b>on_commitButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the press of the Commit button.
+</p>
+
+<a NAME="SvnStatusDialog.on_diffButton_clicked" ID="SvnStatusDialog.on_diffButton_clicked"></a>
+<h4>SvnStatusDialog.on_diffButton_clicked</h4>
+<b>on_diffButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the press of the Differences button.
+</p>
+
+<a NAME="SvnStatusDialog.on_input_returnPressed" ID="SvnStatusDialog.on_input_returnPressed"></a>
+<h4>SvnStatusDialog.on_input_returnPressed</h4>
+<b>on_input_returnPressed</b>(<i></i>)
+<p>
+        Private slot to handle the press of the return key in the input field.
+</p>
+
+<a NAME="SvnStatusDialog.on_passwordCheckBox_toggled" ID="SvnStatusDialog.on_passwordCheckBox_toggled"></a>
+<h4>SvnStatusDialog.on_passwordCheckBox_toggled</h4>
+<b>on_passwordCheckBox_toggled</b>(<i>isOn</i>)
+<p>
+        Private slot to handle the password checkbox toggled.
+</p>
+
+<dl>
+
+<dt><i>isOn</i> (bool)</dt>
+<dd>
+flag indicating the status of the check box
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.on_refreshButton_clicked" ID="SvnStatusDialog.on_refreshButton_clicked"></a>
+<h4>SvnStatusDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the status display.
+</p>
+
+<a NAME="SvnStatusDialog.on_restoreButton_clicked" ID="SvnStatusDialog.on_restoreButton_clicked"></a>
+<h4>SvnStatusDialog.on_restoreButton_clicked</h4>
+<b>on_restoreButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the press of the Restore button.
+</p>
+
+<a NAME="SvnStatusDialog.on_revertButton_clicked" ID="SvnStatusDialog.on_revertButton_clicked"></a>
+<h4>SvnStatusDialog.on_revertButton_clicked</h4>
+<b>on_revertButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the press of the Revert button.
+</p>
+
+<a NAME="SvnStatusDialog.on_sbsDiffButton_clicked" ID="SvnStatusDialog.on_sbsDiffButton_clicked"></a>
+<h4>SvnStatusDialog.on_sbsDiffButton_clicked</h4>
+<b>on_sbsDiffButton_clicked</b>(<i></i>)
+<p>
+        Private slot to handle the press of the Side-by-Side Diff button.
+</p>
+
+<a NAME="SvnStatusDialog.on_sendButton_clicked" ID="SvnStatusDialog.on_sendButton_clicked"></a>
+<h4>SvnStatusDialog.on_sendButton_clicked</h4>
+<b>on_sendButton_clicked</b>(<i></i>)
+<p>
+        Private slot to send the input to the subversion process.
+</p>
+
+<a NAME="SvnStatusDialog.on_statusFilterCombo_activated" ID="SvnStatusDialog.on_statusFilterCombo_activated"></a>
+<h4>SvnStatusDialog.on_statusFilterCombo_activated</h4>
+<b>on_statusFilterCombo_activated</b>(<i>index</i>)
+<p>
+        Private slot to react to the selection of a status filter.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+index of the selected entry
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.on_statusList_itemChanged" ID="SvnStatusDialog.on_statusList_itemChanged"></a>
+<h4>SvnStatusDialog.on_statusList_itemChanged</h4>
+<b>on_statusList_itemChanged</b>(<i>_item, column</i>)
+<p>
+        Private slot to act upon item changes.
+</p>
+
+<dl>
+
+<dt><i>_item</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the changed item (unused)
+</dd>
+<dt><i>column</i> (int)</dt>
+<dd>
+index of column that changed
+</dd>
+</dl>
+<a NAME="SvnStatusDialog.on_statusList_itemSelectionChanged" ID="SvnStatusDialog.on_statusList_itemSelectionChanged"></a>
+<h4>SvnStatusDialog.on_statusList_itemSelectionChanged</h4>
+<b>on_statusList_itemSelectionChanged</b>(<i></i>)
+<p>
+        Private slot to act upon changes of selected items.
+</p>
+
+<a NAME="SvnStatusDialog.start" ID="SvnStatusDialog.start"></a>
+<h4>SvnStatusDialog.start</h4>
+<b>start</b>(<i>fn</i>)
+<p>
+        Public slot to start the svn status command.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str or list of str)</dt>
+<dd>
+filename(s)/directoryname(s) to show the status of
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

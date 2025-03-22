@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsMercurial.QueuesExtension.queues</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsMercurial.QueuesExtension.queues</h1>
+<p>
+Module implementing the queues extension interface.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#QueueOperation">QueueOperation</a></td>
+<td>Class defining the supported queue operations.</td>
+</tr>
+<tr>
+<td><a href="#QueuePatchesListType">QueuePatchesListType</a></td>
+<td>Class defining the supported queue patch list types.</td>
+</tr>
+<tr>
+<td><a href="#Queues">Queues</a></td>
+<td>Class implementing the queues extension interface.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="QueueOperation" ID="QueueOperation"></a>
+<h2>QueueOperation</h2>
+<p>
+    Class defining the supported queue operations.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ACTIVATE</td></tr>
+<tr><td>DELETE</td></tr>
+<tr><td>GOTO</td></tr>
+<tr><td>POP</td></tr>
+<tr><td>PURGE</td></tr>
+<tr><td>PUSH</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="QueuePatchesListType" ID="QueuePatchesListType"></a>
+<h2>QueuePatchesListType</h2>
+<p>
+    Class defining the supported queue patch list types.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>APPLIED</td></tr>
+<tr><td>SERIES</td></tr>
+<tr><td>UNAPPLIED</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="Queues" ID="Queues"></a>
+<h2>Queues</h2>
+<p>
+    Class implementing the queues extension interface.
+</p>
+
+<h3>Derived from</h3>
+HgExtension
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#Queues.__init__">Queues</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#Queues.__getCommitMessage">__getCommitMessage</a></td>
+<td>Private method to get the commit message of the current patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.__getCurrentPatch">__getCurrentPatch</a></td>
+<td>Private method to get the name of the current patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.__getPatchesList">__getPatchesList</a></td>
+<td>Private method to get a list of patches of a given type.</td>
+</tr>
+<tr>
+<td><a href="#Queues.getGuardsList">getGuardsList</a></td>
+<td>Public method to get a list of all guards defined.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueCreateRenameQueue">hgQueueCreateRenameQueue</a></td>
+<td>Public method to create a new queue or rename the active queue.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueDeletePatch">hgQueueDeletePatch</a></td>
+<td>Public method to delete a selected unapplied patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueDeletePurgeActivateQueue">hgQueueDeletePurgeActivateQueue</a></td>
+<td>Public method to delete the reference to a queue and optionally remove the patch directory or set the active queue.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueFinishAppliedPatches">hgQueueFinishAppliedPatches</a></td>
+<td>Public method to finish all applied patches.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueFoldUnappliedPatches">hgQueueFoldUnappliedPatches</a></td>
+<td>Public method to fold patches into the current patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueGuardsDeactivate">hgQueueGuardsDeactivate</a></td>
+<td>Public method to deactivate all active guards.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueGuardsDefine">hgQueueGuardsDefine</a></td>
+<td>Public method to define guards for the current or a named patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueGuardsDropAll">hgQueueGuardsDropAll</a></td>
+<td>Public method to drop all guards of the current or a named patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueGuardsIdentifyActive">hgQueueGuardsIdentifyActive</a></td>
+<td>Public method to list all active guards.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueGuardsList">hgQueueGuardsList</a></td>
+<td>Public method to list the guards for the current or a named patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueGuardsListAll">hgQueueGuardsListAll</a></td>
+<td>Public method to list all guards of all patches.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueGuardsSetActive">hgQueueGuardsSetActive</a></td>
+<td>Public method to set the active guards.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueInit">hgQueueInit</a></td>
+<td>Public method to initialize a new queue repository.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueListPatches">hgQueueListPatches</a></td>
+<td>Public method to show a list of all patches.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueListQueues">hgQueueListQueues</a></td>
+<td>Public method to list available queues.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueNewPatch">hgQueueNewPatch</a></td>
+<td>Public method to create a new named patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueuePushPopPatches">hgQueuePushPopPatches</a></td>
+<td>Public method to push patches onto the stack or pop patches off the stack.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueRefreshPatch">hgQueueRefreshPatch</a></td>
+<td>Public method to refresh the current patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueRenamePatch">hgQueueRenamePatch</a></td>
+<td>Public method to rename the current or a selected patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueShowHeader">hgQueueShowHeader</a></td>
+<td>Public method to show the commit message of the current patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueShowPatch">hgQueueShowPatch</a></td>
+<td>Public method to show the contents of the current patch.</td>
+</tr>
+<tr>
+<td><a href="#Queues.hgQueueStatus">hgQueueStatus</a></td>
+<td>Public method used to view the status of a queue repository.</td>
+</tr>
+<tr>
+<td><a href="#Queues.shutdown">shutdown</a></td>
+<td>Public method used to shutdown the queues interface.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="Queues.__init__" ID="Queues.__init__"></a>
+<h4>Queues (Constructor)</h4>
+<b>Queues</b>(<i>vcs, ui=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>vcs</i> (Hg)</dt>
+<dd>
+reference to the Mercurial vcs object
+</dd>
+<dt><i>ui</i> (QWidget)</dt>
+<dd>
+reference to a UI widget (defaults to None)
+</dd>
+</dl>
+<a NAME="Queues.__getCommitMessage" ID="Queues.__getCommitMessage"></a>
+<h4>Queues.__getCommitMessage</h4>
+<b>__getCommitMessage</b>(<i></i>)
+<p>
+        Private method to get the commit message of the current patch.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the current patch
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Queues.__getCurrentPatch" ID="Queues.__getCurrentPatch"></a>
+<h4>Queues.__getCurrentPatch</h4>
+<b>__getCurrentPatch</b>(<i></i>)
+<p>
+        Private method to get the name of the current patch.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the current patch
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="Queues.__getPatchesList" ID="Queues.__getPatchesList"></a>
+<h4>Queues.__getPatchesList</h4>
+<b>__getPatchesList</b>(<i>listType, withSummary=False</i>)
+<p>
+        Private method to get a list of patches of a given type.
+</p>
+
+<dl>
+
+<dt><i>listType</i> (QueuePatchesListType)</dt>
+<dd>
+type of patches list to get
+</dd>
+<dt><i>withSummary</i> (bool)</dt>
+<dd>
+flag indicating to get a summary as well
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of patches
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid patch list type
+</dd>
+</dl>
+<a NAME="Queues.getGuardsList" ID="Queues.getGuardsList"></a>
+<h4>Queues.getGuardsList</h4>
+<b>getGuardsList</b>(<i>allGuards=True</i>)
+<p>
+        Public method to get a list of all guards defined.
+</p>
+
+<dl>
+
+<dt><i>allGuards</i> (bool)</dt>
+<dd>
+flag indicating to get all guards
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sorted list of guards
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="Queues.hgQueueCreateRenameQueue" ID="Queues.hgQueueCreateRenameQueue"></a>
+<h4>Queues.hgQueueCreateRenameQueue</h4>
+<b>hgQueueCreateRenameQueue</b>(<i>isCreate</i>)
+<p>
+        Public method to create a new queue or rename the active queue.
+</p>
+
+<dl>
+
+<dt><i>isCreate</i> (bool)</dt>
+<dd>
+flag indicating to create a new queue
+</dd>
+</dl>
+<a NAME="Queues.hgQueueDeletePatch" ID="Queues.hgQueueDeletePatch"></a>
+<h4>Queues.hgQueueDeletePatch</h4>
+<b>hgQueueDeletePatch</b>(<i></i>)
+<p>
+        Public method to delete a selected unapplied patch.
+</p>
+
+<a NAME="Queues.hgQueueDeletePurgeActivateQueue" ID="Queues.hgQueueDeletePurgeActivateQueue"></a>
+<h4>Queues.hgQueueDeletePurgeActivateQueue</h4>
+<b>hgQueueDeletePurgeActivateQueue</b>(<i>operation</i>)
+<p>
+        Public method to delete the reference to a queue and optionally
+        remove the patch directory or set the active queue.
+</p>
+
+<dl>
+
+<dt><i>operation</i> (QueueOperation)</dt>
+<dd>
+operation to be performed (PURGE, DELETE or ACTIVATE)
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid operation
+</dd>
+</dl>
+<a NAME="Queues.hgQueueFinishAppliedPatches" ID="Queues.hgQueueFinishAppliedPatches"></a>
+<h4>Queues.hgQueueFinishAppliedPatches</h4>
+<b>hgQueueFinishAppliedPatches</b>(<i></i>)
+<p>
+        Public method to finish all applied patches.
+</p>
+
+<a NAME="Queues.hgQueueFoldUnappliedPatches" ID="Queues.hgQueueFoldUnappliedPatches"></a>
+<h4>Queues.hgQueueFoldUnappliedPatches</h4>
+<b>hgQueueFoldUnappliedPatches</b>(<i></i>)
+<p>
+        Public method to fold patches into the current patch.
+</p>
+
+<a NAME="Queues.hgQueueGuardsDeactivate" ID="Queues.hgQueueGuardsDeactivate"></a>
+<h4>Queues.hgQueueGuardsDeactivate</h4>
+<b>hgQueueGuardsDeactivate</b>(<i></i>)
+<p>
+        Public method to deactivate all active guards.
+</p>
+
+<a NAME="Queues.hgQueueGuardsDefine" ID="Queues.hgQueueGuardsDefine"></a>
+<h4>Queues.hgQueueGuardsDefine</h4>
+<b>hgQueueGuardsDefine</b>(<i></i>)
+<p>
+        Public method to define guards for the current or a named patch.
+</p>
+
+<a NAME="Queues.hgQueueGuardsDropAll" ID="Queues.hgQueueGuardsDropAll"></a>
+<h4>Queues.hgQueueGuardsDropAll</h4>
+<b>hgQueueGuardsDropAll</b>(<i></i>)
+<p>
+        Public method to drop all guards of the current or a named patch.
+</p>
+
+<a NAME="Queues.hgQueueGuardsIdentifyActive" ID="Queues.hgQueueGuardsIdentifyActive"></a>
+<h4>Queues.hgQueueGuardsIdentifyActive</h4>
+<b>hgQueueGuardsIdentifyActive</b>(<i></i>)
+<p>
+        Public method to list all active guards.
+</p>
+
+<a NAME="Queues.hgQueueGuardsList" ID="Queues.hgQueueGuardsList"></a>
+<h4>Queues.hgQueueGuardsList</h4>
+<b>hgQueueGuardsList</b>(<i></i>)
+<p>
+        Public method to list the guards for the current or a named patch.
+</p>
+
+<a NAME="Queues.hgQueueGuardsListAll" ID="Queues.hgQueueGuardsListAll"></a>
+<h4>Queues.hgQueueGuardsListAll</h4>
+<b>hgQueueGuardsListAll</b>(<i></i>)
+<p>
+        Public method to list all guards of all patches.
+</p>
+
+<a NAME="Queues.hgQueueGuardsSetActive" ID="Queues.hgQueueGuardsSetActive"></a>
+<h4>Queues.hgQueueGuardsSetActive</h4>
+<b>hgQueueGuardsSetActive</b>(<i></i>)
+<p>
+        Public method to set the active guards.
+</p>
+
+<a NAME="Queues.hgQueueInit" ID="Queues.hgQueueInit"></a>
+<h4>Queues.hgQueueInit</h4>
+<b>hgQueueInit</b>(<i></i>)
+<p>
+        Public method to initialize a new queue repository.
+</p>
+
+<a NAME="Queues.hgQueueListPatches" ID="Queues.hgQueueListPatches"></a>
+<h4>Queues.hgQueueListPatches</h4>
+<b>hgQueueListPatches</b>(<i></i>)
+<p>
+        Public method to show a list of all patches.
+</p>
+
+<a NAME="Queues.hgQueueListQueues" ID="Queues.hgQueueListQueues"></a>
+<h4>Queues.hgQueueListQueues</h4>
+<b>hgQueueListQueues</b>(<i></i>)
+<p>
+        Public method to list available queues.
+</p>
+
+<a NAME="Queues.hgQueueNewPatch" ID="Queues.hgQueueNewPatch"></a>
+<h4>Queues.hgQueueNewPatch</h4>
+<b>hgQueueNewPatch</b>(<i></i>)
+<p>
+        Public method to create a new named patch.
+</p>
+
+<a NAME="Queues.hgQueuePushPopPatches" ID="Queues.hgQueuePushPopPatches"></a>
+<h4>Queues.hgQueuePushPopPatches</h4>
+<b>hgQueuePushPopPatches</b>(<i>operation, doAll=False, named=False, force=False</i>)
+<p>
+        Public method to push patches onto the stack or pop patches off the
+        stack.
+</p>
+
+<dl>
+
+<dt><i>operation</i> (QueueOperation)</dt>
+<dd>
+operation to be performed (POP, PUSH or GOTO)
+</dd>
+<dt><i>doAll</i> (bool)</dt>
+<dd>
+flag indicating to push/pop all
+</dd>
+<dt><i>named</i> (bool)</dt>
+<dd>
+flag indicating to push/pop until a named patch
+            is at the top of the stack
+</dd>
+<dt><i>force</i> (bool)</dt>
+<dd>
+flag indicating a forceful pop
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating that the project should be reread
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid operation
+</dd>
+</dl>
+<a NAME="Queues.hgQueueRefreshPatch" ID="Queues.hgQueueRefreshPatch"></a>
+<h4>Queues.hgQueueRefreshPatch</h4>
+<b>hgQueueRefreshPatch</b>(<i>editMessage=False</i>)
+<p>
+        Public method to refresh the current patch.
+</p>
+
+<dl>
+
+<dt><i>editMessage</i> (bool)</dt>
+<dd>
+flag indicating to edit the current
+            commit message
+</dd>
+</dl>
+<a NAME="Queues.hgQueueRenamePatch" ID="Queues.hgQueueRenamePatch"></a>
+<h4>Queues.hgQueueRenamePatch</h4>
+<b>hgQueueRenamePatch</b>(<i></i>)
+<p>
+        Public method to rename the current or a selected patch.
+</p>
+
+<a NAME="Queues.hgQueueShowHeader" ID="Queues.hgQueueShowHeader"></a>
+<h4>Queues.hgQueueShowHeader</h4>
+<b>hgQueueShowHeader</b>(<i></i>)
+<p>
+        Public method to show the commit message of the current patch.
+</p>
+
+<a NAME="Queues.hgQueueShowPatch" ID="Queues.hgQueueShowPatch"></a>
+<h4>Queues.hgQueueShowPatch</h4>
+<b>hgQueueShowPatch</b>(<i>name</i>)
+<p>
+        Public method to show the contents of the current patch.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+file/directory name
+</dd>
+</dl>
+<a NAME="Queues.hgQueueStatus" ID="Queues.hgQueueStatus"></a>
+<h4>Queues.hgQueueStatus</h4>
+<b>hgQueueStatus</b>(<i>name</i>)
+<p>
+        Public method used to view the status of a queue repository.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+directory name
+</dd>
+</dl>
+<a NAME="Queues.shutdown" ID="Queues.shutdown"></a>
+<h4>Queues.shutdown</h4>
+<b>shutdown</b>(<i></i>)
+<p>
+        Public method used to shutdown the queues interface.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

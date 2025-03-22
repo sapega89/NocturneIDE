@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.QScintilla.Lexers.LexerPygments</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.QScintilla.Lexers.LexerPygments</h1>
+<p>
+Module implementing a custom lexer using pygments.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>PYGMENTS_ATTRIBUTE</td></tr>
+<tr><td>PYGMENTS_BACKTICKSTRING</td></tr>
+<tr><td>PYGMENTS_BUILTIN</td></tr>
+<tr><td>PYGMENTS_CHAR</td></tr>
+<tr><td>PYGMENTS_CLASS</td></tr>
+<tr><td>PYGMENTS_COMMENT</td></tr>
+<tr><td>PYGMENTS_CONSTANT</td></tr>
+<tr><td>PYGMENTS_DECORATOR</td></tr>
+<tr><td>PYGMENTS_DEFAULT</td></tr>
+<tr><td>PYGMENTS_DELETED</td></tr>
+<tr><td>PYGMENTS_DOCSTRING</td></tr>
+<tr><td>PYGMENTS_DOUBLESTRING</td></tr>
+<tr><td>PYGMENTS_EMPHASIZE</td></tr>
+<tr><td>PYGMENTS_ENTITY</td></tr>
+<tr><td>PYGMENTS_ERROR</td></tr>
+<tr><td>PYGMENTS_ESCAPE</td></tr>
+<tr><td>PYGMENTS_EXCEPTION</td></tr>
+<tr><td>PYGMENTS_FUNCTION</td></tr>
+<tr><td>PYGMENTS_GENERIC_ERROR</td></tr>
+<tr><td>PYGMENTS_HASHBANG</td></tr>
+<tr><td>PYGMENTS_HEADING</td></tr>
+<tr><td>PYGMENTS_HEREDOC</td></tr>
+<tr><td>PYGMENTS_INSERTED</td></tr>
+<tr><td>PYGMENTS_KEYWORD</td></tr>
+<tr><td>PYGMENTS_LABEL</td></tr>
+<tr><td>PYGMENTS_LITERAL</td></tr>
+<tr><td>PYGMENTS_MULTILINECOMMENT</td></tr>
+<tr><td>PYGMENTS_NAMESPACE</td></tr>
+<tr><td>PYGMENTS_NUMBER</td></tr>
+<tr><td>PYGMENTS_OPERATOR</td></tr>
+<tr><td>PYGMENTS_OTHER</td></tr>
+<tr><td>PYGMENTS_OUTPUT</td></tr>
+<tr><td>PYGMENTS_PREPROCESSOR</td></tr>
+<tr><td>PYGMENTS_PROMPT</td></tr>
+<tr><td>PYGMENTS_PROPERTY</td></tr>
+<tr><td>PYGMENTS_PSEUDOKEYWORD</td></tr>
+<tr><td>PYGMENTS_PUNCTUATION</td></tr>
+<tr><td>PYGMENTS_REGEX</td></tr>
+<tr><td>PYGMENTS_RESERVEDKEYWORD</td></tr>
+<tr><td>PYGMENTS_SCALAR</td></tr>
+<tr><td>PYGMENTS_SINGLESTRING</td></tr>
+<tr><td>PYGMENTS_STRING</td></tr>
+<tr><td>PYGMENTS_STRONG</td></tr>
+<tr><td>PYGMENTS_SUBHEADING</td></tr>
+<tr><td>PYGMENTS_SYMBOL</td></tr>
+<tr><td>PYGMENTS_TAG</td></tr>
+<tr><td>PYGMENTS_TRACEBACK</td></tr>
+<tr><td>PYGMENTS_TYPEKEYWORD</td></tr>
+<tr><td>PYGMENTS_VARIABLE</td></tr>
+<tr><td>PYGMENTS_WHITESPACE</td></tr>
+<tr><td>PYGMENTS_WORD</td></tr>
+<tr><td>TOKEN_MAP</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#LexerPygments">LexerPygments</a></td>
+<td>Class implementing a custom lexer using pygments.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="LexerPygments" ID="LexerPygments"></a>
+<h2>LexerPygments</h2>
+<p>
+    Class implementing a custom lexer using pygments.
+</p>
+
+<h3>Derived from</h3>
+LexerContainer
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#LexerPygments.__init__">LexerPygments</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.__guessLexer">__guessLexer</a></td>
+<td>Private method to guess a pygments lexer.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.boxCommentStr">boxCommentStr</a></td>
+<td>Public method to return the box comment strings.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.canBlockComment">canBlockComment</a></td>
+<td>Public method to determine, whether the lexer language supports a block comment.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.canBoxComment">canBoxComment</a></td>
+<td>Public method to determine, whether the lexer language supports a box comment.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.canStreamComment">canStreamComment</a></td>
+<td>Public method to determine, whether the lexer language supports a stream comment.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.canStyle">canStyle</a></td>
+<td>Public method to check, if the lexer is able to style the text.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.commentStr">commentStr</a></td>
+<td>Public method to return the comment string.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.defaultColor">defaultColor</a></td>
+<td>Public method to get the default foreground color for a style.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.defaultEolFill">defaultEolFill</a></td>
+<td>Public method to get the default fill to eol flag.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.defaultFont">defaultFont</a></td>
+<td>Public method to get the default font for a style.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.defaultKeywords">defaultKeywords</a></td>
+<td>Public method to get the default keywords.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.defaultPaper">defaultPaper</a></td>
+<td>Public method to get the default background color for a style.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.description">description</a></td>
+<td>Public method returning the descriptions of the styles supported by the lexer.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.isCommentStyle">isCommentStyle</a></td>
+<td>Public method to check, if a style is a comment style.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.isStringStyle">isStringStyle</a></td>
+<td>Public method to check, if a style is a string style.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.language">language</a></td>
+<td>Public method returning the language of the lexer.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.name">name</a></td>
+<td>Public method to get the name of the pygments lexer.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.readSettings">readSettings</a></td>
+<td>Public method to read the lexer settings.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.streamCommentStr">streamCommentStr</a></td>
+<td>Public method to return the stream comment strings.</td>
+</tr>
+<tr>
+<td><a href="#LexerPygments.styleText">styleText</a></td>
+<td>Public method to perform the styling.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="LexerPygments.__init__" ID="LexerPygments.__init__"></a>
+<h4>LexerPygments (Constructor)</h4>
+<b>LexerPygments</b>(<i>parent=None, name=""</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+parent widget of this lexer
+</dd>
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the pygments lexer to use
+</dd>
+</dl>
+<a NAME="LexerPygments.__guessLexer" ID="LexerPygments.__guessLexer"></a>
+<h4>LexerPygments.__guessLexer</h4>
+<b>__guessLexer</b>(<i>text</i>)
+<p>
+        Private method to guess a pygments lexer.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to base guessing on
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the guessed lexer
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+pygments.lexer
+</dd>
+</dl>
+<a NAME="LexerPygments.boxCommentStr" ID="LexerPygments.boxCommentStr"></a>
+<h4>LexerPygments.boxCommentStr</h4>
+<b>boxCommentStr</b>(<i></i>)
+<p>
+        Public method to return the box comment strings.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the start, middle and end box comment strings
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict of {"start": str, "middle": str, "end": str}
+</dd>
+</dl>
+<a NAME="LexerPygments.canBlockComment" ID="LexerPygments.canBlockComment"></a>
+<h4>LexerPygments.canBlockComment</h4>
+<b>canBlockComment</b>(<i></i>)
+<p>
+        Public method to determine, whether the lexer language supports a
+        block comment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating block comment is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LexerPygments.canBoxComment" ID="LexerPygments.canBoxComment"></a>
+<h4>LexerPygments.canBoxComment</h4>
+<b>canBoxComment</b>(<i></i>)
+<p>
+        Public method to determine, whether the lexer language supports a
+        box comment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag box comment is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LexerPygments.canStreamComment" ID="LexerPygments.canStreamComment"></a>
+<h4>LexerPygments.canStreamComment</h4>
+<b>canStreamComment</b>(<i></i>)
+<p>
+        Public method to determine, whether the lexer language supports a
+        stream comment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating stream comment is available
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LexerPygments.canStyle" ID="LexerPygments.canStyle"></a>
+<h4>LexerPygments.canStyle</h4>
+<b>canStyle</b>(<i></i>)
+<p>
+        Public method to check, if the lexer is able to style the text.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the lexer capability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LexerPygments.commentStr" ID="LexerPygments.commentStr"></a>
+<h4>LexerPygments.commentStr</h4>
+<b>commentStr</b>(<i></i>)
+<p>
+        Public method to return the comment string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+comment string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LexerPygments.defaultColor" ID="LexerPygments.defaultColor"></a>
+<h4>LexerPygments.defaultColor</h4>
+<b>defaultColor</b>(<i>style</i>)
+<p>
+        Public method to get the default foreground color for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+foreground color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="LexerPygments.defaultEolFill" ID="LexerPygments.defaultEolFill"></a>
+<h4>LexerPygments.defaultEolFill</h4>
+<b>defaultEolFill</b>(<i>style</i>)
+<p>
+        Public method to get the default fill to eol flag.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+fill to eol flag
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LexerPygments.defaultFont" ID="LexerPygments.defaultFont"></a>
+<h4>LexerPygments.defaultFont</h4>
+<b>defaultFont</b>(<i>style</i>)
+<p>
+        Public method to get the default font for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+font
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QFont
+</dd>
+</dl>
+<a NAME="LexerPygments.defaultKeywords" ID="LexerPygments.defaultKeywords"></a>
+<h4>LexerPygments.defaultKeywords</h4>
+<b>defaultKeywords</b>(<i>_kwSet</i>)
+<p>
+        Public method to get the default keywords.
+</p>
+
+<dl>
+
+<dt><i>_kwSet</i> (int)</dt>
+<dd>
+number of the keyword set (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string giving the keywords or None
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LexerPygments.defaultPaper" ID="LexerPygments.defaultPaper"></a>
+<h4>LexerPygments.defaultPaper</h4>
+<b>defaultPaper</b>(<i>style</i>)
+<p>
+        Public method to get the default background color for a style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+background color
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QColor
+</dd>
+</dl>
+<a NAME="LexerPygments.description" ID="LexerPygments.description"></a>
+<h4>LexerPygments.description</h4>
+<b>description</b>(<i>style</i>)
+<p>
+        Public method returning the descriptions of the styles supported
+        by the lexer.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style number
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+description for the style
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LexerPygments.isCommentStyle" ID="LexerPygments.isCommentStyle"></a>
+<h4>LexerPygments.isCommentStyle</h4>
+<b>isCommentStyle</b>(<i>style</i>)
+<p>
+        Public method to check, if a style is a comment style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a comment style
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LexerPygments.isStringStyle" ID="LexerPygments.isStringStyle"></a>
+<h4>LexerPygments.isStringStyle</h4>
+<b>isStringStyle</b>(<i>style</i>)
+<p>
+        Public method to check, if a style is a string style.
+</p>
+
+<dl>
+
+<dt><i>style</i> (int)</dt>
+<dd>
+style to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a string style
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LexerPygments.language" ID="LexerPygments.language"></a>
+<h4>LexerPygments.language</h4>
+<b>language</b>(<i></i>)
+<p>
+        Public method returning the language of the lexer.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+language of the lexer
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LexerPygments.name" ID="LexerPygments.name"></a>
+<h4>LexerPygments.name</h4>
+<b>name</b>(<i></i>)
+<p>
+        Public method to get the name of the pygments lexer.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the pygments lexer
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LexerPygments.readSettings" ID="LexerPygments.readSettings"></a>
+<h4>LexerPygments.readSettings</h4>
+<b>readSettings</b>(<i>qs, prefix="/Scintilla"</i>)
+<p>
+        Public method to read the lexer settings.
+</p>
+<p>
+        Note: Overridden to treat the Pygments lexer specially.
+</p>
+
+<dl>
+
+<dt><i>qs</i> (QSettings)</dt>
+<dd>
+reference to the settings object
+</dd>
+<dt><i>prefix</i> (str (optional))</dt>
+<dd>
+prefix for the settings key (defaults to "/Scintilla")
+</dd>
+</dl>
+<a NAME="LexerPygments.streamCommentStr" ID="LexerPygments.streamCommentStr"></a>
+<h4>LexerPygments.streamCommentStr</h4>
+<b>streamCommentStr</b>(<i></i>)
+<p>
+        Public method to return the stream comment strings.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing the start and end stream comment strings
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict of {"start": str, "end": str}
+</dd>
+</dl>
+<a NAME="LexerPygments.styleText" ID="LexerPygments.styleText"></a>
+<h4>LexerPygments.styleText</h4>
+<b>styleText</b>(<i>_start, end</i>)
+<p>
+        Public method to perform the styling.
+</p>
+
+<dl>
+
+<dt><i>_start</i> (int)</dt>
+<dd>
+position of first character to be styled (unused)
+</dd>
+<dt><i>end</i> (int)</dt>
+<dd>
+position of last character to be styled
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

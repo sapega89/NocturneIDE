@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.EricWidgets.EricApplication</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.EricWidgets.EricApplication</h1>
+<p>
+Class implementing a specialized application class.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>ericApp</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#EricApplication">EricApplication</a></td>
+<td>Eric application class with an object registry.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="EricApplication" ID="EricApplication"></a>
+<h2>EricApplication</h2>
+<p>
+    Eric application class with an object registry.
+</p>
+
+<h3>Derived from</h3>
+QApplication
+<h3>Class Attributes</h3>
+<table>
+<tr><td>PaletteRoleMapping</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#EricApplication.__init__">EricApplication</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.__setPaletteFromStyleSheet">__setPaletteFromStyleSheet</a></td>
+<td>Private method to set the palette from a style sheet.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.getMainWindow">getMainWindow</a></td>
+<td>Public method to get a reference to the application main window.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.getObject">getObject</a></td>
+<td>Public method to get a reference to a registered object.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.getPluginObject">getPluginObject</a></td>
+<td>Public method to get a reference to a registered plugin object.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.getPluginObjectType">getPluginObjectType</a></td>
+<td>Public method to get the type of a registered plugin object.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.getPluginObjects">getPluginObjects</a></td>
+<td>Public method to get a list of (name, reference) pairs of all registered plugin objects.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.getStyleIconsPath">getStyleIconsPath</a></td>
+<td>Public method to get the path for the style icons.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.registerObject">registerObject</a></td>
+<td>Public method to register an object in the object registry.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.registerPluginObject">registerPluginObject</a></td>
+<td>Public method to register a plugin object in the object registry.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.setMainWindow">setMainWindow</a></td>
+<td>Public method to set the reference to the application main window.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.setStyleSheetFile">setStyleSheetFile</a></td>
+<td>Public method to read a QSS style sheet file and set the application style sheet based on its contents.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.unregisterPluginObject">unregisterPluginObject</a></td>
+<td>Public method to unregister a plugin object in the object registry.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.usesDarkPalette">usesDarkPalette</a></td>
+<td>Public method to check, if the application uses a palette with a dark background.</td>
+</tr>
+<tr>
+<td><a href="#EricApplication.usesSmallScreen">usesSmallScreen</a></td>
+<td>Public method to determine, if the application is used on a small screen.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="EricApplication.__init__" ID="EricApplication.__init__"></a>
+<h4>EricApplication (Constructor)</h4>
+<b>EricApplication</b>(<i>args</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>args</i> (argparse.Namespace)</dt>
+<dd>
+namespace object containing the parsed command line parameters
+</dd>
+</dl>
+<a NAME="EricApplication.__setPaletteFromStyleSheet" ID="EricApplication.__setPaletteFromStyleSheet"></a>
+<h4>EricApplication.__setPaletteFromStyleSheet</h4>
+<b>__setPaletteFromStyleSheet</b>(<i>styleSheet</i>)
+<p>
+        Private method to set the palette from a style sheet.
+</p>
+
+<dl>
+
+<dt><i>styleSheet</i> (str)</dt>
+<dd>
+style sheet
+</dd>
+</dl>
+<a NAME="EricApplication.getMainWindow" ID="EricApplication.getMainWindow"></a>
+<h4>EricApplication.getMainWindow</h4>
+<b>getMainWindow</b>(<i></i>)
+<p>
+        Public method to get a reference to the application main window.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the application main window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QWidget
+</dd>
+</dl>
+<a NAME="EricApplication.getObject" ID="EricApplication.getObject"></a>
+<h4>EricApplication.getObject</h4>
+<b>getObject</b>(<i>name</i>)
+<p>
+        Public method to get a reference to a registered object.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the registered object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>KeyError</b>:</dt>
+<dd>
+raised when the given name is not known
+</dd>
+</dl>
+<a NAME="EricApplication.getPluginObject" ID="EricApplication.getPluginObject"></a>
+<h4>EricApplication.getPluginObject</h4>
+<b>getPluginObject</b>(<i>name</i>)
+<p>
+        Public method to get a reference to a registered plugin object.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the plugin object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the registered plugin object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>KeyError</b>:</dt>
+<dd>
+raised when the given name is not known
+</dd>
+</dl>
+<a NAME="EricApplication.getPluginObjectType" ID="EricApplication.getPluginObjectType"></a>
+<h4>EricApplication.getPluginObjectType</h4>
+<b>getPluginObjectType</b>(<i>name</i>)
+<p>
+        Public method to get the type of a registered plugin object.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the plugin object
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+type of the plugin object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>KeyError</b>:</dt>
+<dd>
+raised when the given name is not known
+</dd>
+</dl>
+<a NAME="EricApplication.getPluginObjects" ID="EricApplication.getPluginObjects"></a>
+<h4>EricApplication.getPluginObjects</h4>
+<b>getPluginObjects</b>(<i></i>)
+<p>
+        Public method to get a list of (name, reference) pairs of all
+        registered plugin objects.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of (name, reference) pairs
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of (str, any)
+</dd>
+</dl>
+<a NAME="EricApplication.getStyleIconsPath" ID="EricApplication.getStyleIconsPath"></a>
+<h4>EricApplication.getStyleIconsPath</h4>
+<b>getStyleIconsPath</b>(<i>universal=False</i>)
+<p>
+        Public method to get the path for the style icons.
+</p>
+
+<dl>
+
+<dt><i>universal</i> (bool (optional))</dt>
+<dd>
+flag indicating a universal file path (defaults to
+            False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+directory path containing the style icons
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="EricApplication.registerObject" ID="EricApplication.registerObject"></a>
+<h4>EricApplication.registerObject</h4>
+<b>registerObject</b>(<i>name, objectRef</i>)
+<p>
+        Public method to register an object in the object registry.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the object
+</dd>
+<dt><i>objectRef</i> (Any)</dt>
+<dd>
+reference to the object
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>KeyError</b>:</dt>
+<dd>
+raised when the given name is already in use
+</dd>
+</dl>
+<a NAME="EricApplication.registerPluginObject" ID="EricApplication.registerPluginObject"></a>
+<h4>EricApplication.registerPluginObject</h4>
+<b>registerPluginObject</b>(<i>name, objectRef, pluginType=None</i>)
+<p>
+        Public method to register a plugin object in the object registry.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the plugin object
+</dd>
+<dt><i>objectRef</i> (Any)</dt>
+<dd>
+reference to the plugin object
+</dd>
+<dt><i>pluginType</i> (str)</dt>
+<dd>
+type of the plugin object
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>KeyError</b>:</dt>
+<dd>
+raised when the given name is already in use
+</dd>
+</dl>
+<a NAME="EricApplication.setMainWindow" ID="EricApplication.setMainWindow"></a>
+<h4>EricApplication.setMainWindow</h4>
+<b>setMainWindow</b>(<i>mainWindow</i>)
+<p>
+        Public method to set the reference to the application main window.
+</p>
+
+<dl>
+
+<dt><i>mainWindow</i> (QWidget)</dt>
+<dd>
+reference to the application main window
+</dd>
+</dl>
+<a NAME="EricApplication.setStyleSheetFile" ID="EricApplication.setStyleSheetFile"></a>
+<h4>EricApplication.setStyleSheetFile</h4>
+<b>setStyleSheetFile</b>(<i>filename</i>)
+<p>
+        Public method to read a QSS style sheet file and set the application
+        style sheet based on its contents.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the QSS style sheet file
+</dd>
+</dl>
+<a NAME="EricApplication.unregisterPluginObject" ID="EricApplication.unregisterPluginObject"></a>
+<h4>EricApplication.unregisterPluginObject</h4>
+<b>unregisterPluginObject</b>(<i>name</i>)
+<p>
+        Public method to unregister a plugin object in the object registry.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the plugin object
+</dd>
+</dl>
+<a NAME="EricApplication.usesDarkPalette" ID="EricApplication.usesDarkPalette"></a>
+<h4>EricApplication.usesDarkPalette</h4>
+<b>usesDarkPalette</b>(<i></i>)
+<p>
+        Public method to check, if the application uses a palette with a dark
+        background.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the use of a palette with a dark background
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="EricApplication.usesSmallScreen" ID="EricApplication.usesSmallScreen"></a>
+<h4>EricApplication.usesSmallScreen</h4>
+<b>usesSmallScreen</b>(<i></i>)
+<p>
+        Public method to determine, if the application is used on a small
+        screen.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the use of a small screen
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

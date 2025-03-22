@@ -1,0 +1,4102 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.UI.UserInterface</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.UI.UserInterface</h1>
+<p>
+Module implementing the main user interface.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SSL_AVAILABLE</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#UserInterface">UserInterface</a></td>
+<td>Class implementing the main user interface.</td>
+</tr>
+<tr>
+<td><a href="#UserInterfaceSide">UserInterfaceSide</a></td>
+<td>Class defining the supported sides of the user interface.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="UserInterface" ID="UserInterface"></a>
+<h2>UserInterface</h2>
+<p>
+    Class implementing the main user interface.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>appendStderr(str)</dt>
+<dd>
+emitted to write data to stderr logger
+</dd>
+<dt>appendStdout(str)</dt>
+<dd>
+emitted to write data to stdout logger
+</dd>
+<dt>mainPasswordChanged(str, str)</dt>
+<dd>
+emitted after the main
+        password has been changed with the old and the new password
+</dd>
+<dt>onlineStateChanged(online)</dt>
+<dd>
+emitted to indicate a change of the
+        network state
+</dd>
+<dt>preferencesChanged()</dt>
+<dd>
+emitted after the preferences were changed
+</dd>
+<dt>reloadAPIs()</dt>
+<dd>
+emitted to reload the api information
+</dd>
+<dt>showMenu(str, QMenu)</dt>
+<dd>
+emitted when a menu is about to be shown. The
+        name of the menu and a reference to the menu are given.
+</dd>
+</dl>
+<h3>Derived from</h3>
+EricMainWindow
+<h3>Class Attributes</h3>
+<table>
+<tr><td>ErrorLogFileName</td></tr>
+<tr><td>ReleaseMode</td></tr>
+<tr><td>maxFilePathLen</td></tr>
+<tr><td>maxMenuFilePathLen</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#UserInterface.__init__">UserInterface</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__TBMenuTriggered">__TBMenuTriggered</a></td>
+<td>Private method to handle the toggle of a toolbar via the Window-> Toolbars submenu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__TBPopupMenuTriggered">__TBPopupMenuTriggered</a></td>
+<td>Private method to handle the toggle of a toolbar via the QMainWindow Toolbars popup menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__TRPreviewer">__TRPreviewer</a></td>
+<td>Private slot to start the Translation Previewer executable.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__UIPreviewer">__UIPreviewer</a></td>
+<td>Private slot to start the UI Previewer executable.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateBrowser">__activateBrowser</a></td>
+<td>Private slot to handle the activation of the file browser.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateCondaWidget">__activateCondaWidget</a></td>
+<td>Private slot to handle the activation of the Conda manager widget.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateFindFileWidget">__activateFindFileWidget</a></td>
+<td>Private slot to activate the Find In Files widget.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateFindLocationWidget">__activateFindLocationWidget</a></td>
+<td>Private method to activate the Find File widget.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateHelpViewerWidget">__activateHelpViewerWidget</a></td>
+<td>Private method to activate the embedded Help Viewer window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateIRC">__activateIRC</a></td>
+<td>Private slot to handle the activation of the IRC window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateLogViewer">__activateLogViewer</a></td>
+<td>Private slot to handle the activation of the Log Viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateMicroPython">__activateMicroPython</a></td>
+<td>Private slot to handle the activation of the MicroPython widget.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateMultiProjectBrowser">__activateMultiProjectBrowser</a></td>
+<td>Private slot to handle the activation of the project browser.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateNumbersViewer">__activateNumbersViewer</a></td>
+<td>Private slot to handle the activation of the Numbers Viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activatePipWidget">__activatePipWidget</a></td>
+<td>Private slot to handle the activation of the PyPI manager widget.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateProjectBrowser">__activateProjectBrowser</a></td>
+<td>Private slot to handle the activation of the project browser.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateShell">__activateShell</a></td>
+<td>Private slot to handle the activation of the Shell window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateSymbolsViewer">__activateSymbolsViewer</a></td>
+<td>Private slot to handle the activation of the Symbols Viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateTaskViewer">__activateTaskViewer</a></td>
+<td>Private slot to handle the activation of the Task Viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateTemplateViewer">__activateTemplateViewer</a></td>
+<td>Private slot to handle the activation of the Template Viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateVcsStatusList">__activateVcsStatusList</a></td>
+<td>Private slot to activate the VCS Status List.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateViewProfile">__activateViewProfile</a></td>
+<td>Private slot to activate a view profile.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__activateViewmanager">__activateViewmanager</a></td>
+<td>Private slot to handle the activation of the current editor.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__assistant">__assistant</a></td>
+<td>Private slot to start the Qt-Assistant executable.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__bottomSidebarCurrentChanged">__bottomSidebarCurrentChanged</a></td>
+<td>Private slot handling a change of the current index of the Bottom Sidebar.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__checkActions">__checkActions</a></td>
+<td>Private slot to check some actions for their enable/disable status.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__checkCrashSessionExists">__checkCrashSessionExists</a></td>
+<td>Private method to check for the existence of crash session files and select the one to open.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__chmViewer">__chmViewer</a></td>
+<td>Private slot to start the win help viewer to show *.chm files.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__cleanCrashSessions">__cleanCrashSessions</a></td>
+<td>Private slot to clean all stale crash sessions.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__clearPrivateData">__clearPrivateData</a></td>
+<td>Private slot to clear the private data lists.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__commitData">__commitData</a></td>
+<td>Private slot to commit unsaved data when instructed by the desktop session manager.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__compareFiles">__compareFiles</a></td>
+<td>Private slot to handle the Compare Files dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__compareFilesSbs">__compareFilesSbs</a></td>
+<td>Private slot to handle the Compare Files dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__configShortcuts">__configShortcuts</a></td>
+<td>Private slot to configure the keyboard shortcuts.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__configToolBars">__configToolBars</a></td>
+<td>Private slot to configure the various toolbars.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__configViewProfiles">__configViewProfiles</a></td>
+<td>Private slot to configure the various view profiles.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__connectToWebBrowser">__connectToWebBrowser</a></td>
+<td>Private method to connect to a started web browser.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__copyVersions">__copyVersions</a></td>
+<td>Private method to generated version information and copy that to the clipboard.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__crashSessionFilePath">__crashSessionFilePath</a></td>
+<td>Private method to generate a path name for a unique crash session file.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__createDockWindow">__createDockWindow</a></td>
+<td>Private method to create a dock window with common properties.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__createLayout">__createLayout</a></td>
+<td>Private method to create the layout of the various windows.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__createObjects">__createObjects</a></td>
+<td>Private method to create the various application objects.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__createSidebarsLayout">__createSidebarsLayout</a></td>
+<td>Private method to create the Sidebars layout.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__createTestingDialog">__createTestingDialog</a></td>
+<td>Private slot to generate the testing dialog on demand.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__createToolboxesLayout">__createToolboxesLayout</a></td>
+<td>Private method to create the Toolboxes layout.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__customViewer">__customViewer</a></td>
+<td>Private slot to start a custom viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__debuggingDone">__debuggingDone</a></td>
+<td>Private slot to handle the end of a debugging session.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__debuggingStarted">__debuggingStarted</a></td>
+<td>Private slot to handle the start of a debugging session.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__deinstallPlugin">__deinstallPlugin</a></td>
+<td>Private slot to show a dialog to uninstall a plugin.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__deleteCrashSession">__deleteCrashSession</a></td>
+<td>Private slot to delete the crash session file.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__designer">__designer</a></td>
+<td>Private slot to start the Qt-Designer executable.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__editPixmap">__editPixmap</a></td>
+<td>Private slot to show a pixmap in a dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__editorOpened">__editorOpened</a></td>
+<td>Private slot to handle the editorOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__exportPreferences">__exportPreferences</a></td>
+<td>Private slot to export the current preferences.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__exportShortcuts">__exportShortcuts</a></td>
+<td>Private slot to export the keyboard shortcuts.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__exportTheme">__exportTheme</a></td>
+<td>Private slot to export the current theme to a file.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__getCrashedSessions">__getCrashedSessions</a></td>
+<td>Private method to get a list of crash session file paths of crashed sessions.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__getFloatingGeometry">__getFloatingGeometry</a></td>
+<td>Private method to get the geometry of a floating windows.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__hToolboxCurrentChanged">__hToolboxCurrentChanged</a></td>
+<td>Private slot handling a change of the current index of the Horizontal Toolbox.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__hasErrorLog">__hasErrorLog</a></td>
+<td>Private method to check, if an error log file exists.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__helpViewer">__helpViewer</a></td>
+<td>Private slot to start an empty help viewer/web browser.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__importPreferences">__importPreferences</a></td>
+<td>Private slot to from eric7 import Preferences.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__importShortcuts">__importShortcuts</a></td>
+<td>Private slot to import the keyboard shortcuts.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__importTheme">__importTheme</a></td>
+<td>Private slot to import a previously exported theme.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initActions">__initActions</a></td>
+<td>Private method to define the user interface actions.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initDebugToolbarsLayout">__initDebugToolbarsLayout</a></td>
+<td>Private slot to initialize the toolbars layout for the debug profile.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initEricDocAction">__initEricDocAction</a></td>
+<td>Private slot to initialize the action to show the eric documentation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initExternalToolsActions">__initExternalToolsActions</a></td>
+<td>Private slot to create actions for the configured external tools.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initMenus">__initMenus</a></td>
+<td>Private slot to create the menus.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initPySideDocActions">__initPySideDocActions</a></td>
+<td>Private slot to initialize the actions to show the PySide documentation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initPythonDocActions">__initPythonDocActions</a></td>
+<td>Private slot to initialize the actions to show the Python documentation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initQtDocActions">__initQtDocActions</a></td>
+<td>Private slot to initialize the action to show the Qt documentation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initStatusbar">__initStatusbar</a></td>
+<td>Private slot to set up the status bar.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initToolbars">__initToolbars</a></td>
+<td>Private slot to create the toolbars.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__initToolsMenus">__initToolsMenus</a></td>
+<td>Private slot to initialize the various tool menus.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__installDownloadedPlugins">__installDownloadedPlugins</a></td>
+<td>Private slot to handle the installation of plugins downloaded via the plugin repository viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__installPlugins">__installPlugins</a></td>
+<td>Private slot to show a dialog to install a new plugin.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__ircAutoConnected">__ircAutoConnected</a></td>
+<td>Private slot handling the automatic connection of the IRC client.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__lastEditorClosed">__lastEditorClosed</a></td>
+<td>Private slot to handle the lastEditorClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__launchExternalWebBrowser">__launchExternalWebBrowser</a></td>
+<td>Private method to start an external web browser and communicate with it.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__linguist">__linguist</a></td>
+<td>Private slot to start the Qt-Linguist executable.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__loadCrashSession">__loadCrashSession</a></td>
+<td>Private slot to load a crash session.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__loadSessionFromFile">__loadSessionFromFile</a></td>
+<td>Private slot to load a session from disk.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__mainPasswordChanged">__mainPasswordChanged</a></td>
+<td>Private slot to handle the change of the main password.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__newProject">__newProject</a></td>
+<td>Private slot to handle the NewProject signal.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__newWindow">__newWindow</a></td>
+<td>Private slot to start a new instance of eric.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__onlineStateChanged">__onlineStateChanged</a></td>
+<td>Private slot handling changes in online state.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__openHexEditor">__openHexEditor</a></td>
+<td>Private slot to open the hex editor window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__openMiniEditor">__openMiniEditor</a></td>
+<td>Private slot to show a mini editor window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__openOnStartup">__openOnStartup</a></td>
+<td>Private method to open the last file, project or multiproject.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__openPdfViewer">__openPdfViewer</a></td>
+<td>Private slot to open the PDF viewer window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__performUpgrade">__performUpgrade</a></td>
+<td>Private method to perform the requested upgrade operation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__pluginInstallFinished">__pluginInstallFinished</a></td>
+<td>Private slot to handle the finishing of the plugin install dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__pluginsConfigure">__pluginsConfigure</a></td>
+<td>Private slot to show the plugin manager configuration page.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__populateToolbarsMenu">__populateToolbarsMenu</a></td>
+<td>Private method to populate a toolbars menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__preferencesChanged">__preferencesChanged</a></td>
+<td>Private slot to handle a change of the preferences.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__processToolStderr">__processToolStderr</a></td>
+<td>Private slot to handle the readyReadStderr signal of a tool process.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__processToolStdout">__processToolStdout</a></td>
+<td>Private slot to handle the readyReadStdout signal of a tool process.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__programChange">__programChange</a></td>
+<td>Private slot to handle the programChange signal.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__projectClosed">__projectClosed</a></td>
+<td>Private slot to handle the projectClosed signal.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__projectOpened">__projectOpened</a></td>
+<td>Private slot to handle the projectOpened signal.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__quit">__quit</a></td>
+<td>Private method to quit the application.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__readCrashSession">__readCrashSession</a></td>
+<td>Private method to check for and read a crash session.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__readSession">__readSession</a></td>
+<td>Private slot to read in the session file (.esj).</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__readTasks">__readTasks</a></td>
+<td>Private slot to read in the tasks file (.etj).</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__reloadAPIs">__reloadAPIs</a></td>
+<td>Private slot to reload the api information.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__reportBug">__reportBug</a></td>
+<td>Private slot to handle the Report Bug dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__requestFeature">__requestFeature</a></td>
+<td>Private slot to handle the Feature Request dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__rerunFailedTests">__rerunFailedTests</a></td>
+<td>Private slot to display the testing dialog and rerun all failed tests of the last run.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__restart">__restart</a></td>
+<td>Private method to restart the application.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__restartTest">__restartTest</a></td>
+<td>Private slot to display the testing dialog and rerun the last test run.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__saveCurrentViewProfile">__saveCurrentViewProfile</a></td>
+<td>Private slot to save the window geometries of the active profile.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__saveSessionToFile">__saveSessionToFile</a></td>
+<td>Private slot to save a session to disk.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__setEditProfile">__setEditProfile</a></td>
+<td>Private slot to activate the edit view profile.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__setWindowCaption">__setWindowCaption</a></td>
+<td>Private method to set the caption of the Main Window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__setupDockWindow">__setupDockWindow</a></td>
+<td>Private method to configure the dock window created with __createDockWindow().</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showCertificatesDialog">__showCertificatesDialog</a></td>
+<td>Private slot to show the certificates management dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showEricDoc">__showEricDoc</a></td>
+<td>Private slot to show the Eric documentation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showErrorLog">__showErrorLog</a></td>
+<td>Private slot to show the most recent error log message.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showExternalTools">__showExternalTools</a></td>
+<td>Private slot to display a dialog show a list of external tools used by eric.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showExtrasMenu">__showExtrasMenu</a></td>
+<td>Private slot to display the Extras menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showFileMenu">__showFileMenu</a></td>
+<td>Private slot to display the File menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showHelpMenu">__showHelpMenu</a></td>
+<td>Private slot to display the Help menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showInstallInfo">__showInstallInfo</a></td>
+<td>Private slot to show a dialog containing information about the installation process.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showNext">__showNext</a></td>
+<td>Private slot used to show the next tab or file.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showPixmap">__showPixmap</a></td>
+<td>Private slot to show a pixmap in a dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showPluginInfo">__showPluginInfo</a></td>
+<td>Private slot to show the plugin info dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showPluginToolsMenu">__showPluginToolsMenu</a></td>
+<td>Private slot to show the Plugin Tools menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showPluginsAvailable">__showPluginsAvailable</a></td>
+<td>Private slot to show the plugins available for download.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showPrevious">__showPrevious</a></td>
+<td>Private slot used to show the previous tab or file.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showPyQtDoc">__showPyQtDoc</a></td>
+<td>Private slot to show the PyQt5/6 documentation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showPySideDoc">__showPySideDoc</a></td>
+<td>Private slot to show the PySide2/PySide6 documentation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showPythonDoc">__showPythonDoc</a></td>
+<td>Private slot to show the Python 3 documentation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showQtDoc">__showQtDoc</a></td>
+<td>Private method to show the Qt documentation.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showSessionsMenu">__showSessionsMenu</a></td>
+<td>Private slot to mofify the state of some session actions.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showSettingsMenu">__showSettingsMenu</a></td>
+<td>Private slot to show the Settings menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showSubWindowMenu">__showSubWindowMenu</a></td>
+<td>Private slot to display the Window menu of the Window menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showSvg">__showSvg</a></td>
+<td>Private slot to show a SVG file in a dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showSystemEmailClient">__showSystemEmailClient</a></td>
+<td>Private slot to show the system email dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showToolGroupsMenu">__showToolGroupsMenu</a></td>
+<td>Private slot to display the Tool Groups menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showToolbarsMenu">__showToolbarsMenu</a></td>
+<td>Private slot to display the Toolbars menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showUml">__showUml</a></td>
+<td>Private slot to show an eric graphics file in a dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showUserToolsMenu">__showUserToolsMenu</a></td>
+<td>Private slot to display the User Tools menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showVersions">__showVersions</a></td>
+<td>Private slot to handle the Versions dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showWindowMenu">__showWindowMenu</a></td>
+<td>Private slot to display the Window menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__showWizardsMenu">__showWizardsMenu</a></td>
+<td>Private slot to display the Wizards menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__shutdown">__shutdown</a></td>
+<td>Private method to perform all necessary steps to close down the IDE.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__snapshot">__snapshot</a></td>
+<td>Private slot to start the snapshot tool.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__sqlBrowser">__sqlBrowser</a></td>
+<td>Private slot to start the SQL browser tool.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__sslErrors">__sslErrors</a></td>
+<td>Private slot to handle SSL errors.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__startFido2SecurityKeyMgmt">__startFido2SecurityKeyMgmt</a></td>
+<td>Private slot to start the FIDO2 Security Key Management.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__startTestProject">__startTestProject</a></td>
+<td>Private slot for displaying the testing dialog and run the test for the current project.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__startTestScript">__startTestScript</a></td>
+<td>Private slot for displaying the testing dialog and run the current script.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__startTesting">__startTesting</a></td>
+<td>Private slot for displaying the testing dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__startToolProcess">__startToolProcess</a></td>
+<td>Private slot to start an external tool process.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__startWebBrowser">__startWebBrowser</a></td>
+<td>Private slot to start the eric web browser.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__switchTab">__switchTab</a></td>
+<td>Private slot used to switch between the current and the previous current tab.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__testingStopped">__testingStopped</a></td>
+<td>Private slot to handle the end of a test run.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toggleBottomSidebar">__toggleBottomSidebar</a></td>
+<td>Private slot to handle the toggle of the bottom sidebar window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toggleHorizontalToolbox">__toggleHorizontalToolbox</a></td>
+<td>Private slot to handle the toggle of the Horizontal Toolbox window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toggleLeftSidebar">__toggleLeftSidebar</a></td>
+<td>Private slot to handle the toggle of the left sidebar window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toggleLeftToolbox">__toggleLeftToolbox</a></td>
+<td>Private slot to handle the toggle of the Left Toolbox window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toggleRightSidebar">__toggleRightSidebar</a></td>
+<td>Private slot to handle the toggle of the right sidebar window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toggleRightToolbox">__toggleRightToolbox</a></td>
+<td>Private slot to handle the toggle of the Right Toolbox window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toggleWindow">__toggleWindow</a></td>
+<td>Private method to toggle a workspace editor window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toolActionTriggered">__toolActionTriggered</a></td>
+<td>Private slot called by external tools toolbar actions.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toolExecute">__toolExecute</a></td>
+<td>Private slot to execute a particular tool.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toolFinished">__toolFinished</a></td>
+<td>Private slot to handle the finished signal of a tool process.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toolGroupSelected">__toolGroupSelected</a></td>
+<td>Private slot to set the current tool group.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toolGroupsConfiguration">__toolGroupsConfiguration</a></td>
+<td>Private slot to handle the tool groups configuration menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__toolsConfiguration">__toolsConfiguration</a></td>
+<td>Private slot to handle the tools configuration menu entry.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__updateExternalToolsActions">__updateExternalToolsActions</a></td>
+<td>Private method to update the external tools actions for the current tool group.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__webBrowser">__webBrowser</a></td>
+<td>Private slot to start the eric web browser.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__webBrowserFinished">__webBrowserFinished</a></td>
+<td>Private slot handling the end of the external web browser process.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__webBrowserShutdown">__webBrowserShutdown</a></td>
+<td>Private method to shut down the web browser.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__whatsThis">__whatsThis</a></td>
+<td>Private slot called in to enter Whats This mode.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__writeCrashSession">__writeCrashSession</a></td>
+<td>Private slot to write a crash session file.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__writeSession">__writeSession</a></td>
+<td>Private slot to write the session data to a JSON file (.esj).</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.__writeTasks">__writeTasks</a></td>
+<td>Private slot to write the tasks data to a JSON file (.etj).</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.activateCodeDocumentationViewer">activateCodeDocumentationViewer</a></td>
+<td>Public slot to handle the activation of the Code Documentation Viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.activateCooperationViewer">activateCooperationViewer</a></td>
+<td>Public slot to handle the activation of the cooperation window.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.activateDebugViewer">activateDebugViewer</a></td>
+<td>Public slot to handle the activation of the debug viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.activateLeftRightSidebarWidget">activateLeftRightSidebarWidget</a></td>
+<td>Public method to activate the given widget in the left or right sidebar.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.activatePluginRepositoryViewer">activatePluginRepositoryViewer</a></td>
+<td>Public slot to activate the plugin repository viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.activateVirtualenvManager">activateVirtualenvManager</a></td>
+<td>Public slot to activate the virtual environments manager widget.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.addEricActions">addEricActions</a></td>
+<td>Public method to add actions to the list of actions.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.addSideWidget">addSideWidget</a></td>
+<td>Public method to add a widget to the sides.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.appendToStderr">appendToStderr</a></td>
+<td>Public slot to append text to the stderr log viewer tab.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.appendToStdout">appendToStdout</a></td>
+<td>Public slot to append text to the stdout log viewer tab.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.autoConnectIrc">autoConnectIrc</a></td>
+<td>Public method to initiate the IRC auto connection.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.checkConfigurationStatus">checkConfigurationStatus</a></td>
+<td>Public method to check, if eric has been configured.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.checkForErrorLog">checkForErrorLog</a></td>
+<td>Public method to check for the presence of an error log and ask the user, what to do with it.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.checkPluginUpdatesAvailable">checkPluginUpdatesAvailable</a></td>
+<td>Public method to check the availability of updates of plug-ins.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.checkProjectsWorkspace">checkProjectsWorkspace</a></td>
+<td>Public method to check, if a projects workspace has been configured.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.closeEvent">closeEvent</a></td>
+<td>Protected event handler for the close event.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.createPopupMenu">createPopupMenu</a></td>
+<td>Public method to create the toolbars menu for Qt.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.documentationViewer">documentationViewer</a></td>
+<td>Public method to provide a reference to the code documentation viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.dragEnterEvent">dragEnterEvent</a></td>
+<td>Protected method to handle the drag enter event.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.dragLeaveEvent">dragLeaveEvent</a></td>
+<td>Protected method to handle the drag leave event.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.dragMoveEvent">dragMoveEvent</a></td>
+<td>Protected method to handle the drag move event.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.dropEvent">dropEvent</a></td>
+<td>Protected method to handle the drop event.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getActions">getActions</a></td>
+<td>Public method to get a list of all actions.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getLayoutType">getLayoutType</a></td>
+<td>Public method to get the current layout type.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getLocale">getLocale</a></td>
+<td>Public method to get the locale of the IDE.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getMenu">getMenu</a></td>
+<td>Public method to get a reference to a specific menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getMenuAction">getMenuAction</a></td>
+<td>Public method to get a reference to an action of a menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getMenuBarAction">getMenuBarAction</a></td>
+<td>Public method to get a reference to an action of the main menu.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getOriginalPathString">getOriginalPathString</a></td>
+<td>Public method to get the original PATH environment variable (i.e.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getToolbar">getToolbar</a></td>
+<td>Public method to get a reference to a specific toolbar.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getToolbarsByCategory">getToolbarsByCategory</a></td>
+<td>Public method to get a list of toolbars belonging to a given toolbar category.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.getViewProfile">getViewProfile</a></td>
+<td>Public method to get the current view profile.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.handleUrl">handleUrl</a></td>
+<td>Public slot to handle opening a URL.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.isEricServerConnected">isEricServerConnected</a></td>
+<td>Public method to check, if a connection to an eric-ide server has been established.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.isOnline">isOnline</a></td>
+<td>Public method to get the online state.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.launchHelpViewer">launchHelpViewer</a></td>
+<td>Public slot to start the help viewer/web browser.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.networkAccessManager">networkAccessManager</a></td>
+<td>Public method to get a reference to the network access manager object.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.performVersionCheck">performVersionCheck</a></td>
+<td>Public method to check for an update even if not installed via PyPI.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.processArgs">processArgs</a></td>
+<td>Public method to process the command line args passed to the UI.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.processInstallInfoFile">processInstallInfoFile</a></td>
+<td>Public method to process the file containing installation information.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.registerToolbar">registerToolbar</a></td>
+<td>Public method to register a toolbar.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.removeEricActions">removeEricActions</a></td>
+<td>Public method to remove actions from the list of actions.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.removeSideWidget">removeSideWidget</a></td>
+<td>Public method to remove a widget added using addSideWidget().</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.reregisterToolbar">reregisterToolbar</a></td>
+<td>Public method to change the visible text for the named toolbar.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.setDebugProfile">setDebugProfile</a></td>
+<td>Public slot to activate the debug view profile.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.setLeftRightSidebarWidgetIcon">setLeftRightSidebarWidgetIcon</a></td>
+<td>Public method to set the icon of the given widget in the left or right sidebar.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showEmailDialog">showEmailDialog</a></td>
+<td>Public slot to show the email dialog in a given mode.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showEvent">showEvent</a></td>
+<td>Protected method to handle the show event.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showFindFileByNameDialog">showFindFileByNameDialog</a></td>
+<td>Public slot to show the Find File by Name dialog.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showFindFilesWidget">showFindFilesWidget</a></td>
+<td>Public slot to show the Find In Files widget.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showFindLocationWidget">showFindLocationWidget</a></td>
+<td>Public method to show the Find File widget.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showLogViewer">showLogViewer</a></td>
+<td>Public method to show the Log-Viewer.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showNotification">showNotification</a></td>
+<td>Public method to show a desktop notification.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showPreferences">showPreferences</a></td>
+<td>Public slot to set the preferences.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showReplaceFilesWidget">showReplaceFilesWidget</a></td>
+<td>Public slot to show the Find In Files widget in replace mode.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.showSideWidget">showSideWidget</a></td>
+<td>Public method to show a specific widget placed in the side widgets.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.unregisterToolbar">unregisterToolbar</a></td>
+<td>Public method to unregister a toolbar.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.upgradeEric">upgradeEric</a></td>
+<td>Public slot to upgrade the eric-ide package of the eric7 environment.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.upgradeEricPyQt">upgradeEricPyQt</a></td>
+<td>Public slot to upgrade the eric-ide and PyQt packages of the eric7 environment.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.upgradePyQt">upgradePyQt</a></td>
+<td>Public slot to upgrade the PyQt packages of the eric7 environment.</td>
+</tr>
+<tr>
+<td><a href="#UserInterface.versionIsNewer">versionIsNewer</a></td>
+<td>Public method to check, if the eric version is good compared to the required version.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="UserInterface.__init__" ID="UserInterface.__init__"></a>
+<h4>UserInterface (Constructor)</h4>
+<b>UserInterface</b>(<i>app, locale, splash, plugin, disabledPlugins, noOpenAtStartup, noCrashOpenAtStartup, disableCrashSession, restartArguments, originalPathString, </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>app</i> (EricApplication)</dt>
+<dd>
+reference to the application object
+</dd>
+<dt><i>locale</i> (str)</dt>
+<dd>
+locale to be used by the UI
+</dd>
+<dt><i>splash</i> (UI.SplashScreen.SplashScreen)</dt>
+<dd>
+reference to the splashscreen
+</dd>
+<dt><i>plugin</i> (str)</dt>
+<dd>
+filename of a plug-in to be loaded (used for plugin
+            development)
+</dd>
+<dt><i>disabledPlugins</i> (list of str)</dt>
+<dd>
+list of plug-ins that have been disabled via
+            the command line parameters '--disable-plugin='
+</dd>
+<dt><i>noOpenAtStartup</i> (bool)</dt>
+<dd>
+flag indicating that the open at startup option
+            should not be executed
+</dd>
+<dt><i>noCrashOpenAtStartup</i> (bool)</dt>
+<dd>
+flag indicating to ignore any crash session
+            file found at statup
+</dd>
+<dt><i>disableCrashSession</i> (bool)</dt>
+<dd>
+flag indicating to disable the crash session
+            support
+</dd>
+<dt><i>restartArguments</i> (list of str)</dt>
+<dd>
+list of command line parameters to be used for
+            a restart
+</dd>
+<dt><i>originalPathString</i> (str)</dt>
+<dd>
+original PATH environment variable
+</dd>
+</dl>
+<a NAME="UserInterface.__TBMenuTriggered" ID="UserInterface.__TBMenuTriggered"></a>
+<h4>UserInterface.__TBMenuTriggered</h4>
+<b>__TBMenuTriggered</b>(<i>act</i>)
+<p>
+        Private method to handle the toggle of a toolbar via the Window->
+        Toolbars submenu.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that was triggered
+</dd>
+</dl>
+<a NAME="UserInterface.__TBPopupMenuTriggered" ID="UserInterface.__TBPopupMenuTriggered"></a>
+<h4>UserInterface.__TBPopupMenuTriggered</h4>
+<b>__TBPopupMenuTriggered</b>(<i>act</i>)
+<p>
+        Private method to handle the toggle of a toolbar via the QMainWindow
+        Toolbars popup menu.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that was triggered
+</dd>
+</dl>
+<a NAME="UserInterface.__TRPreviewer" ID="UserInterface.__TRPreviewer"></a>
+<h4>UserInterface.__TRPreviewer</h4>
+<b>__TRPreviewer</b>(<i>fileNames=None, ignore=False</i>)
+<p>
+        Private slot to start the Translation Previewer executable.
+</p>
+
+<dl>
+
+<dt><i>fileNames</i> (list of str)</dt>
+<dd>
+filenames of forms and/or translations to be previewed
+</dd>
+<dt><i>ignore</i> (bool)</dt>
+<dd>
+flag indicating non existing files should be ignored
+</dd>
+</dl>
+<a NAME="UserInterface.__UIPreviewer" ID="UserInterface.__UIPreviewer"></a>
+<h4>UserInterface.__UIPreviewer</h4>
+<b>__UIPreviewer</b>(<i>fn=None</i>)
+<p>
+        Private slot to start the UI Previewer executable.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the form to be previewed
+</dd>
+</dl>
+<a NAME="UserInterface.__activateBrowser" ID="UserInterface.__activateBrowser"></a>
+<h4>UserInterface.__activateBrowser</h4>
+<b>__activateBrowser</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the file browser.
+</p>
+
+<a NAME="UserInterface.__activateCondaWidget" ID="UserInterface.__activateCondaWidget"></a>
+<h4>UserInterface.__activateCondaWidget</h4>
+<b>__activateCondaWidget</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the Conda manager widget.
+</p>
+
+<a NAME="UserInterface.__activateFindFileWidget" ID="UserInterface.__activateFindFileWidget"></a>
+<h4>UserInterface.__activateFindFileWidget</h4>
+<b>__activateFindFileWidget</b>(<i></i>)
+<p>
+        Private slot to activate the Find In Files widget.
+</p>
+
+<a NAME="UserInterface.__activateFindLocationWidget" ID="UserInterface.__activateFindLocationWidget"></a>
+<h4>UserInterface.__activateFindLocationWidget</h4>
+<b>__activateFindLocationWidget</b>(<i></i>)
+<p>
+        Private method to activate the Find File widget.
+</p>
+
+<a NAME="UserInterface.__activateHelpViewerWidget" ID="UserInterface.__activateHelpViewerWidget"></a>
+<h4>UserInterface.__activateHelpViewerWidget</h4>
+<b>__activateHelpViewerWidget</b>(<i>urlStr=None</i>)
+<p>
+        Private method to activate the embedded Help Viewer window.
+</p>
+
+<dl>
+
+<dt><i>urlStr</i> (str)</dt>
+<dd>
+URL to be shown
+</dd>
+</dl>
+<a NAME="UserInterface.__activateIRC" ID="UserInterface.__activateIRC"></a>
+<h4>UserInterface.__activateIRC</h4>
+<b>__activateIRC</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the IRC window.
+</p>
+
+<a NAME="UserInterface.__activateLogViewer" ID="UserInterface.__activateLogViewer"></a>
+<h4>UserInterface.__activateLogViewer</h4>
+<b>__activateLogViewer</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the Log Viewer.
+</p>
+
+<a NAME="UserInterface.__activateMicroPython" ID="UserInterface.__activateMicroPython"></a>
+<h4>UserInterface.__activateMicroPython</h4>
+<b>__activateMicroPython</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the MicroPython widget.
+</p>
+
+<a NAME="UserInterface.__activateMultiProjectBrowser" ID="UserInterface.__activateMultiProjectBrowser"></a>
+<h4>UserInterface.__activateMultiProjectBrowser</h4>
+<b>__activateMultiProjectBrowser</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the project browser.
+</p>
+
+<a NAME="UserInterface.__activateNumbersViewer" ID="UserInterface.__activateNumbersViewer"></a>
+<h4>UserInterface.__activateNumbersViewer</h4>
+<b>__activateNumbersViewer</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the Numbers Viewer.
+</p>
+
+<a NAME="UserInterface.__activatePipWidget" ID="UserInterface.__activatePipWidget"></a>
+<h4>UserInterface.__activatePipWidget</h4>
+<b>__activatePipWidget</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the PyPI manager widget.
+</p>
+
+<a NAME="UserInterface.__activateProjectBrowser" ID="UserInterface.__activateProjectBrowser"></a>
+<h4>UserInterface.__activateProjectBrowser</h4>
+<b>__activateProjectBrowser</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the project browser.
+</p>
+
+<a NAME="UserInterface.__activateShell" ID="UserInterface.__activateShell"></a>
+<h4>UserInterface.__activateShell</h4>
+<b>__activateShell</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the Shell window.
+</p>
+
+<a NAME="UserInterface.__activateSymbolsViewer" ID="UserInterface.__activateSymbolsViewer"></a>
+<h4>UserInterface.__activateSymbolsViewer</h4>
+<b>__activateSymbolsViewer</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the Symbols Viewer.
+</p>
+
+<a NAME="UserInterface.__activateTaskViewer" ID="UserInterface.__activateTaskViewer"></a>
+<h4>UserInterface.__activateTaskViewer</h4>
+<b>__activateTaskViewer</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the Task Viewer.
+</p>
+
+<a NAME="UserInterface.__activateTemplateViewer" ID="UserInterface.__activateTemplateViewer"></a>
+<h4>UserInterface.__activateTemplateViewer</h4>
+<b>__activateTemplateViewer</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the Template Viewer.
+</p>
+
+<a NAME="UserInterface.__activateVcsStatusList" ID="UserInterface.__activateVcsStatusList"></a>
+<h4>UserInterface.__activateVcsStatusList</h4>
+<b>__activateVcsStatusList</b>(<i></i>)
+<p>
+        Private slot to activate the VCS Status List.
+</p>
+
+<a NAME="UserInterface.__activateViewProfile" ID="UserInterface.__activateViewProfile"></a>
+<h4>UserInterface.__activateViewProfile</h4>
+<b>__activateViewProfile</b>(<i>name, save=True</i>)
+<p>
+        Private slot to activate a view profile.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the profile to be activated
+</dd>
+<dt><i>save</i> (bool)</dt>
+<dd>
+flag indicating that the current profile should
+            be saved
+</dd>
+</dl>
+<a NAME="UserInterface.__activateViewmanager" ID="UserInterface.__activateViewmanager"></a>
+<h4>UserInterface.__activateViewmanager</h4>
+<b>__activateViewmanager</b>(<i></i>)
+<p>
+        Private slot to handle the activation of the current editor.
+</p>
+
+<a NAME="UserInterface.__assistant" ID="UserInterface.__assistant"></a>
+<h4>UserInterface.__assistant</h4>
+<b>__assistant</b>(<i>home=None</i>)
+<p>
+        Private slot to start the Qt-Assistant executable.
+</p>
+
+<dl>
+
+<dt><i>home</i> (str)</dt>
+<dd>
+full pathname of a file to display
+</dd>
+</dl>
+<a NAME="UserInterface.__bottomSidebarCurrentChanged" ID="UserInterface.__bottomSidebarCurrentChanged"></a>
+<h4>UserInterface.__bottomSidebarCurrentChanged</h4>
+<b>__bottomSidebarCurrentChanged</b>(<i>index</i>)
+<p>
+        Private slot handling a change of the current index of the Bottom Sidebar.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+current index of the bottom sidebar
+</dd>
+</dl>
+<a NAME="UserInterface.__checkActions" ID="UserInterface.__checkActions"></a>
+<h4>UserInterface.__checkActions</h4>
+<b>__checkActions</b>(<i>editor</i>)
+<p>
+        Private slot to check some actions for their enable/disable status.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (Editor)</dt>
+<dd>
+editor window
+</dd>
+</dl>
+<a NAME="UserInterface.__checkCrashSessionExists" ID="UserInterface.__checkCrashSessionExists"></a>
+<h4>UserInterface.__checkCrashSessionExists</h4>
+<b>__checkCrashSessionExists</b>(<i></i>)
+<p>
+        Private method to check for the existence of crash session files and
+        select the one to open.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+file path of the crash session file to open. An empty string indicates
+            that no crash session file should be opened or exists.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UserInterface.__chmViewer" ID="UserInterface.__chmViewer"></a>
+<h4>UserInterface.__chmViewer</h4>
+<b>__chmViewer</b>(<i>home=None</i>)
+<p>
+        Private slot to start the win help viewer to show *.chm files.
+</p>
+
+<dl>
+
+<dt><i>home</i> (str)</dt>
+<dd>
+full pathname of a file to display
+</dd>
+</dl>
+<a NAME="UserInterface.__cleanCrashSessions" ID="UserInterface.__cleanCrashSessions"></a>
+<h4>UserInterface.__cleanCrashSessions</h4>
+<b>__cleanCrashSessions</b>(<i></i>)
+<p>
+        Private slot to clean all stale crash sessions.
+</p>
+
+<a NAME="UserInterface.__clearPrivateData" ID="UserInterface.__clearPrivateData"></a>
+<h4>UserInterface.__clearPrivateData</h4>
+<b>__clearPrivateData</b>(<i></i>)
+<p>
+        Private slot to clear the private data lists.
+</p>
+
+<a NAME="UserInterface.__commitData" ID="UserInterface.__commitData"></a>
+<h4>UserInterface.__commitData</h4>
+<b>__commitData</b>(<i>manager: QSessionManager</i>)
+<p>
+        Private slot to commit unsaved data when instructed by the desktop
+        session manager.
+</p>
+
+<dl>
+
+<dt><i>manager</i> (QSessionManager)</dt>
+<dd>
+reference to the desktop session manager
+</dd>
+</dl>
+<a NAME="UserInterface.__compareFiles" ID="UserInterface.__compareFiles"></a>
+<h4>UserInterface.__compareFiles</h4>
+<b>__compareFiles</b>(<i></i>)
+<p>
+        Private slot to handle the Compare Files dialog.
+</p>
+
+<a NAME="UserInterface.__compareFilesSbs" ID="UserInterface.__compareFilesSbs"></a>
+<h4>UserInterface.__compareFilesSbs</h4>
+<b>__compareFilesSbs</b>(<i></i>)
+<p>
+        Private slot to handle the Compare Files dialog.
+</p>
+
+<a NAME="UserInterface.__configShortcuts" ID="UserInterface.__configShortcuts"></a>
+<h4>UserInterface.__configShortcuts</h4>
+<b>__configShortcuts</b>(<i></i>)
+<p>
+        Private slot to configure the keyboard shortcuts.
+</p>
+
+<a NAME="UserInterface.__configToolBars" ID="UserInterface.__configToolBars"></a>
+<h4>UserInterface.__configToolBars</h4>
+<b>__configToolBars</b>(<i></i>)
+<p>
+        Private slot to configure the various toolbars.
+</p>
+
+<a NAME="UserInterface.__configViewProfiles" ID="UserInterface.__configViewProfiles"></a>
+<h4>UserInterface.__configViewProfiles</h4>
+<b>__configViewProfiles</b>(<i></i>)
+<p>
+        Private slot to configure the various view profiles.
+</p>
+
+<a NAME="UserInterface.__connectToWebBrowser" ID="UserInterface.__connectToWebBrowser"></a>
+<h4>UserInterface.__connectToWebBrowser</h4>
+<b>__connectToWebBrowser</b>(<i>process</i>)
+<p>
+        Private method to connect to a started web browser.
+</p>
+
+<dl>
+
+<dt><i>process</i> (QProcess)</dt>
+<dd>
+reference to the started web browser process
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+error indication (1 = connection not possible, 0 = ok,
+            -1 = server exited with an error code)
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="UserInterface.__copyVersions" ID="UserInterface.__copyVersions"></a>
+<h4>UserInterface.__copyVersions</h4>
+<b>__copyVersions</b>(<i></i>)
+<p>
+        Private method to generated version information and copy that to the clipboard.
+</p>
+
+<a NAME="UserInterface.__crashSessionFilePath" ID="UserInterface.__crashSessionFilePath"></a>
+<h4>UserInterface.__crashSessionFilePath</h4>
+<b>__crashSessionFilePath</b>(<i>globPattern=False</i>)
+<p>
+        Private method to generate a path name for a unique crash session file.
+</p>
+
+<dl>
+
+<dt><i>globPattern</i> (bool (optional))</dt>
+<dd>
+flag indicating to get the glob pattern for crash
+            session files (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+crash session file path
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UserInterface.__createDockWindow" ID="UserInterface.__createDockWindow"></a>
+<h4>UserInterface.__createDockWindow</h4>
+<b>__createDockWindow</b>(<i>name</i>)
+<p>
+        Private method to create a dock window with common properties.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+object name of the new dock window
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the generated dock window
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QDockWindow
+</dd>
+</dl>
+<a NAME="UserInterface.__createLayout" ID="UserInterface.__createLayout"></a>
+<h4>UserInterface.__createLayout</h4>
+<b>__createLayout</b>(<i></i>)
+<p>
+        Private method to create the layout of the various windows.
+</p>
+
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an invalid layout type
+</dd>
+</dl>
+<a NAME="UserInterface.__createObjects" ID="UserInterface.__createObjects"></a>
+<h4>UserInterface.__createObjects</h4>
+<b>__createObjects</b>(<i></i>)
+<p>
+        Private method to create the various application objects.
+</p>
+
+<a NAME="UserInterface.__createSidebarsLayout" ID="UserInterface.__createSidebarsLayout"></a>
+<h4>UserInterface.__createSidebarsLayout</h4>
+<b>__createSidebarsLayout</b>(<i></i>)
+<p>
+        Private method to create the Sidebars layout.
+</p>
+
+<a NAME="UserInterface.__createTestingDialog" ID="UserInterface.__createTestingDialog"></a>
+<h4>UserInterface.__createTestingDialog</h4>
+<b>__createTestingDialog</b>(<i></i>)
+<p>
+        Private slot to generate the testing dialog on demand.
+</p>
+
+<a NAME="UserInterface.__createToolboxesLayout" ID="UserInterface.__createToolboxesLayout"></a>
+<h4>UserInterface.__createToolboxesLayout</h4>
+<b>__createToolboxesLayout</b>(<i></i>)
+<p>
+        Private method to create the Toolboxes layout.
+</p>
+
+<a NAME="UserInterface.__customViewer" ID="UserInterface.__customViewer"></a>
+<h4>UserInterface.__customViewer</h4>
+<b>__customViewer</b>(<i>home=None</i>)
+<p>
+        Private slot to start a custom viewer.
+</p>
+
+<dl>
+
+<dt><i>home</i> (str)</dt>
+<dd>
+full pathname of a file to display
+</dd>
+</dl>
+<a NAME="UserInterface.__debuggingDone" ID="UserInterface.__debuggingDone"></a>
+<h4>UserInterface.__debuggingDone</h4>
+<b>__debuggingDone</b>(<i></i>)
+<p>
+        Private slot to handle the end of a debugging session.
+</p>
+
+<a NAME="UserInterface.__debuggingStarted" ID="UserInterface.__debuggingStarted"></a>
+<h4>UserInterface.__debuggingStarted</h4>
+<b>__debuggingStarted</b>(<i></i>)
+<p>
+        Private slot to handle the start of a debugging session.
+</p>
+
+<a NAME="UserInterface.__deinstallPlugin" ID="UserInterface.__deinstallPlugin"></a>
+<h4>UserInterface.__deinstallPlugin</h4>
+<b>__deinstallPlugin</b>(<i></i>)
+<p>
+        Private slot to show a dialog to uninstall a plugin.
+</p>
+
+<a NAME="UserInterface.__deleteCrashSession" ID="UserInterface.__deleteCrashSession"></a>
+<h4>UserInterface.__deleteCrashSession</h4>
+<b>__deleteCrashSession</b>(<i></i>)
+<p>
+        Private slot to delete the crash session file.
+</p>
+
+<a NAME="UserInterface.__designer" ID="UserInterface.__designer"></a>
+<h4>UserInterface.__designer</h4>
+<b>__designer</b>(<i>fn=None</i>)
+<p>
+        Private slot to start the Qt-Designer executable.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the form to be opened
+</dd>
+</dl>
+<a NAME="UserInterface.__editPixmap" ID="UserInterface.__editPixmap"></a>
+<h4>UserInterface.__editPixmap</h4>
+<b>__editPixmap</b>(<i>fn=""</i>)
+<p>
+        Private slot to show a pixmap in a dialog.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str (optional))</dt>
+<dd>
+path of the file to show (defaults to "")
+</dd>
+</dl>
+<a NAME="UserInterface.__editorOpened" ID="UserInterface.__editorOpened"></a>
+<h4>UserInterface.__editorOpened</h4>
+<b>__editorOpened</b>(<i>fn</i>)
+<p>
+        Private slot to handle the editorOpened signal.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the opened editor
+</dd>
+</dl>
+<a NAME="UserInterface.__exportPreferences" ID="UserInterface.__exportPreferences"></a>
+<h4>UserInterface.__exportPreferences</h4>
+<b>__exportPreferences</b>(<i></i>)
+<p>
+        Private slot to export the current preferences.
+</p>
+
+<a NAME="UserInterface.__exportShortcuts" ID="UserInterface.__exportShortcuts"></a>
+<h4>UserInterface.__exportShortcuts</h4>
+<b>__exportShortcuts</b>(<i></i>)
+<p>
+        Private slot to export the keyboard shortcuts.
+</p>
+
+<a NAME="UserInterface.__exportTheme" ID="UserInterface.__exportTheme"></a>
+<h4>UserInterface.__exportTheme</h4>
+<b>__exportTheme</b>(<i></i>)
+<p>
+        Private slot to export the current theme to a file.
+</p>
+
+<a NAME="UserInterface.__getCrashedSessions" ID="UserInterface.__getCrashedSessions"></a>
+<h4>UserInterface.__getCrashedSessions</h4>
+<b>__getCrashedSessions</b>(<i></i>)
+<p>
+        Private method to get a list of crash session file paths of crashed sessions.
+</p>
+<p>
+        Note: Crashed sessions are those, whose PID does not exist anymore.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of crashed session file paths
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="UserInterface.__getFloatingGeometry" ID="UserInterface.__getFloatingGeometry"></a>
+<h4>UserInterface.__getFloatingGeometry</h4>
+<b>__getFloatingGeometry</b>(<i>w</i>)
+<p>
+        Private method to get the geometry of a floating windows.
+</p>
+
+<dl>
+
+<dt><i>w</i> (QWidget)</dt>
+<dd>
+reference to the widget to be saved
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list giving the widget's geometry and its visibility
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of [int, int, int, int, bool]
+</dd>
+</dl>
+<a NAME="UserInterface.__hToolboxCurrentChanged" ID="UserInterface.__hToolboxCurrentChanged"></a>
+<h4>UserInterface.__hToolboxCurrentChanged</h4>
+<b>__hToolboxCurrentChanged</b>(<i>index</i>)
+<p>
+        Private slot handling a change of the current index of the Horizontal Toolbox.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+current index of the horizontal toolbox
+</dd>
+</dl>
+<a NAME="UserInterface.__hasErrorLog" ID="UserInterface.__hasErrorLog"></a>
+<h4>UserInterface.__hasErrorLog</h4>
+<b>__hasErrorLog</b>(<i></i>)
+<p>
+        Private method to check, if an error log file exists.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of an error log file
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.__helpViewer" ID="UserInterface.__helpViewer"></a>
+<h4>UserInterface.__helpViewer</h4>
+<b>__helpViewer</b>(<i></i>)
+<p>
+        Private slot to start an empty help viewer/web browser.
+</p>
+
+<a NAME="UserInterface.__importPreferences" ID="UserInterface.__importPreferences"></a>
+<h4>UserInterface.__importPreferences</h4>
+<b>__importPreferences</b>(<i></i>)
+<p>
+        Private slot to from eric7 import Preferences.
+</p>
+
+<a NAME="UserInterface.__importShortcuts" ID="UserInterface.__importShortcuts"></a>
+<h4>UserInterface.__importShortcuts</h4>
+<b>__importShortcuts</b>(<i></i>)
+<p>
+        Private slot to import the keyboard shortcuts.
+</p>
+
+<a NAME="UserInterface.__importTheme" ID="UserInterface.__importTheme"></a>
+<h4>UserInterface.__importTheme</h4>
+<b>__importTheme</b>(<i></i>)
+<p>
+        Private slot to import a previously exported theme.
+</p>
+
+<a NAME="UserInterface.__initActions" ID="UserInterface.__initActions"></a>
+<h4>UserInterface.__initActions</h4>
+<b>__initActions</b>(<i></i>)
+<p>
+        Private method to define the user interface actions.
+</p>
+
+<a NAME="UserInterface.__initDebugToolbarsLayout" ID="UserInterface.__initDebugToolbarsLayout"></a>
+<h4>UserInterface.__initDebugToolbarsLayout</h4>
+<b>__initDebugToolbarsLayout</b>(<i></i>)
+<p>
+        Private slot to initialize the toolbars layout for the debug profile.
+</p>
+
+<a NAME="UserInterface.__initEricDocAction" ID="UserInterface.__initEricDocAction"></a>
+<h4>UserInterface.__initEricDocAction</h4>
+<b>__initEricDocAction</b>(<i></i>)
+<p>
+        Private slot to initialize the action to show the eric documentation.
+</p>
+
+<a NAME="UserInterface.__initExternalToolsActions" ID="UserInterface.__initExternalToolsActions"></a>
+<h4>UserInterface.__initExternalToolsActions</h4>
+<b>__initExternalToolsActions</b>(<i></i>)
+<p>
+        Private slot to create actions for the configured external tools.
+</p>
+
+<a NAME="UserInterface.__initMenus" ID="UserInterface.__initMenus"></a>
+<h4>UserInterface.__initMenus</h4>
+<b>__initMenus</b>(<i></i>)
+<p>
+        Private slot to create the menus.
+</p>
+
+<a NAME="UserInterface.__initPySideDocActions" ID="UserInterface.__initPySideDocActions"></a>
+<h4>UserInterface.__initPySideDocActions</h4>
+<b>__initPySideDocActions</b>(<i></i>)
+<p>
+        Private slot to initialize the actions to show the PySide
+        documentation.
+</p>
+
+<a NAME="UserInterface.__initPythonDocActions" ID="UserInterface.__initPythonDocActions"></a>
+<h4>UserInterface.__initPythonDocActions</h4>
+<b>__initPythonDocActions</b>(<i></i>)
+<p>
+        Private slot to initialize the actions to show the Python
+        documentation.
+</p>
+
+<a NAME="UserInterface.__initQtDocActions" ID="UserInterface.__initQtDocActions"></a>
+<h4>UserInterface.__initQtDocActions</h4>
+<b>__initQtDocActions</b>(<i></i>)
+<p>
+        Private slot to initialize the action to show the Qt documentation.
+</p>
+
+<a NAME="UserInterface.__initStatusbar" ID="UserInterface.__initStatusbar"></a>
+<h4>UserInterface.__initStatusbar</h4>
+<b>__initStatusbar</b>(<i></i>)
+<p>
+        Private slot to set up the status bar.
+</p>
+
+<a NAME="UserInterface.__initToolbars" ID="UserInterface.__initToolbars"></a>
+<h4>UserInterface.__initToolbars</h4>
+<b>__initToolbars</b>(<i></i>)
+<p>
+        Private slot to create the toolbars.
+</p>
+
+<a NAME="UserInterface.__initToolsMenus" ID="UserInterface.__initToolsMenus"></a>
+<h4>UserInterface.__initToolsMenus</h4>
+<b>__initToolsMenus</b>(<i>menu</i>)
+<p>
+        Private slot to initialize the various tool menus.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the parent menu
+</dd>
+</dl>
+<a NAME="UserInterface.__installDownloadedPlugins" ID="UserInterface.__installDownloadedPlugins"></a>
+<h4>UserInterface.__installDownloadedPlugins</h4>
+<b>__installDownloadedPlugins</b>(<i></i>)
+<p>
+        Private slot to handle the installation of plugins downloaded via the
+        plugin repository viewer.
+</p>
+
+<a NAME="UserInterface.__installPlugins" ID="UserInterface.__installPlugins"></a>
+<h4>UserInterface.__installPlugins</h4>
+<b>__installPlugins</b>(<i>pluginFileNames=None</i>)
+<p>
+        Private slot to show a dialog to install a new plugin.
+</p>
+
+<dl>
+
+<dt><i>pluginFileNames</i> (list of str)</dt>
+<dd>
+list of plugin files suggested for
+            installation
+</dd>
+</dl>
+<a NAME="UserInterface.__ircAutoConnected" ID="UserInterface.__ircAutoConnected"></a>
+<h4>UserInterface.__ircAutoConnected</h4>
+<b>__ircAutoConnected</b>(<i></i>)
+<p>
+        Private slot handling the automatic connection of the IRC client.
+</p>
+
+<a NAME="UserInterface.__lastEditorClosed" ID="UserInterface.__lastEditorClosed"></a>
+<h4>UserInterface.__lastEditorClosed</h4>
+<b>__lastEditorClosed</b>(<i></i>)
+<p>
+        Private slot to handle the lastEditorClosed signal.
+</p>
+
+<a NAME="UserInterface.__launchExternalWebBrowser" ID="UserInterface.__launchExternalWebBrowser"></a>
+<h4>UserInterface.__launchExternalWebBrowser</h4>
+<b>__launchExternalWebBrowser</b>(<i>home, searchWord=None</i>)
+<p>
+        Private method to start an external web browser and communicate with
+        it.
+</p>
+
+<dl>
+
+<dt><i>home</i> (str)</dt>
+<dd>
+filename of file to be shown or URL to be opened
+</dd>
+<dt><i>searchWord</i> (str)</dt>
+<dd>
+word to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful launch
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.__linguist" ID="UserInterface.__linguist"></a>
+<h4>UserInterface.__linguist</h4>
+<b>__linguist</b>(<i>fn=None</i>)
+<p>
+        Private slot to start the Qt-Linguist executable.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the translation file to be opened
+</dd>
+</dl>
+<a NAME="UserInterface.__loadCrashSession" ID="UserInterface.__loadCrashSession"></a>
+<h4>UserInterface.__loadCrashSession</h4>
+<b>__loadCrashSession</b>(<i></i>)
+<p>
+        Private slot to load a crash session.
+</p>
+
+<a NAME="UserInterface.__loadSessionFromFile" ID="UserInterface.__loadSessionFromFile"></a>
+<h4>UserInterface.__loadSessionFromFile</h4>
+<b>__loadSessionFromFile</b>(<i></i>)
+<p>
+        Private slot to load a session from disk.
+</p>
+
+<a NAME="UserInterface.__mainPasswordChanged" ID="UserInterface.__mainPasswordChanged"></a>
+<h4>UserInterface.__mainPasswordChanged</h4>
+<b>__mainPasswordChanged</b>(<i>oldPassword, newPassword</i>)
+<p>
+        Private slot to handle the change of the main password.
+</p>
+
+<dl>
+
+<dt><i>oldPassword</i> (str)</dt>
+<dd>
+current main password
+</dd>
+<dt><i>newPassword</i> (str)</dt>
+<dd>
+new main password
+</dd>
+</dl>
+<a NAME="UserInterface.__newProject" ID="UserInterface.__newProject"></a>
+<h4>UserInterface.__newProject</h4>
+<b>__newProject</b>(<i></i>)
+<p>
+        Private slot to handle the NewProject signal.
+</p>
+
+<a NAME="UserInterface.__newWindow" ID="UserInterface.__newWindow"></a>
+<h4>UserInterface.__newWindow</h4>
+<b>__newWindow</b>(<i></i>)
+<p>
+        Private slot to start a new instance of eric.
+</p>
+
+<a NAME="UserInterface.__onlineStateChanged" ID="UserInterface.__onlineStateChanged"></a>
+<h4>UserInterface.__onlineStateChanged</h4>
+<b>__onlineStateChanged</b>(<i>online</i>)
+<p>
+        Private slot handling changes in online state.
+</p>
+
+<dl>
+
+<dt><i>online</i> (bool)</dt>
+<dd>
+flag indicating the online state
+</dd>
+</dl>
+<a NAME="UserInterface.__openHexEditor" ID="UserInterface.__openHexEditor"></a>
+<h4>UserInterface.__openHexEditor</h4>
+<b>__openHexEditor</b>(<i>fn=""</i>)
+<p>
+        Private slot to open the hex editor window.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str (optional))</dt>
+<dd>
+path of the file to show (defaults to "")
+</dd>
+</dl>
+<a NAME="UserInterface.__openMiniEditor" ID="UserInterface.__openMiniEditor"></a>
+<h4>UserInterface.__openMiniEditor</h4>
+<b>__openMiniEditor</b>(<i></i>)
+<p>
+        Private slot to show a mini editor window.
+</p>
+
+<a NAME="UserInterface.__openOnStartup" ID="UserInterface.__openOnStartup"></a>
+<h4>UserInterface.__openOnStartup</h4>
+<b>__openOnStartup</b>(<i>startupType=None</i>)
+<p>
+        Private method to open the last file, project or multiproject.
+</p>
+
+<dl>
+
+<dt><i>startupType</i> (str)</dt>
+<dd>
+type of startup requested (one of
+            "Nothing", "File", "Project", "MultiProject" or "Session")
+</dd>
+</dl>
+<a NAME="UserInterface.__openPdfViewer" ID="UserInterface.__openPdfViewer"></a>
+<h4>UserInterface.__openPdfViewer</h4>
+<b>__openPdfViewer</b>(<i>fn=""</i>)
+<p>
+        Private slot to open the PDF viewer window.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str (optional))</dt>
+<dd>
+path of the file to show (defaults to "")
+</dd>
+</dl>
+<a NAME="UserInterface.__performUpgrade" ID="UserInterface.__performUpgrade"></a>
+<h4>UserInterface.__performUpgrade</h4>
+<b>__performUpgrade</b>(<i>upgradeType, startup=False</i>)
+<p>
+        Private method to perform the requested upgrade operation.
+</p>
+<p>
+        This action needs to shut down eric first, start a non-PyQt application
+        performing the upgrade of the PyQt packages via pip and restart eric
+        with the passed arguments. The upgrade process is not visible.
+</p>
+
+<dl>
+
+<dt><i>upgradeType</i> (str)</dt>
+<dd>
+upgrade operation (one of 'eric', 'ericpyqt',
+            'pyqt')
+</dd>
+<dt><i>startup</i> (bool (optional))</dt>
+<dd>
+flag indicating a call during the IDE startup (defaults to False)
+</dd>
+</dl>
+<a NAME="UserInterface.__pluginInstallFinished" ID="UserInterface.__pluginInstallFinished"></a>
+<h4>UserInterface.__pluginInstallFinished</h4>
+<b>__pluginInstallFinished</b>(<i></i>)
+<p>
+        Private slot to handle the finishing of the plugin install dialog.
+</p>
+
+<a NAME="UserInterface.__pluginsConfigure" ID="UserInterface.__pluginsConfigure"></a>
+<h4>UserInterface.__pluginsConfigure</h4>
+<b>__pluginsConfigure</b>(<i></i>)
+<p>
+        Private slot to show the plugin manager configuration page.
+</p>
+
+<a NAME="UserInterface.__populateToolbarsMenu" ID="UserInterface.__populateToolbarsMenu"></a>
+<h4>UserInterface.__populateToolbarsMenu</h4>
+<b>__populateToolbarsMenu</b>(<i>menu</i>)
+<p>
+        Private method to populate a toolbars menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the menu to be populated
+</dd>
+</dl>
+<a NAME="UserInterface.__preferencesChanged" ID="UserInterface.__preferencesChanged"></a>
+<h4>UserInterface.__preferencesChanged</h4>
+<b>__preferencesChanged</b>(<i></i>)
+<p>
+        Private slot to handle a change of the preferences.
+</p>
+
+<a NAME="UserInterface.__processToolStderr" ID="UserInterface.__processToolStderr"></a>
+<h4>UserInterface.__processToolStderr</h4>
+<b>__processToolStderr</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStderr signal of a tool process.
+</p>
+
+<a NAME="UserInterface.__processToolStdout" ID="UserInterface.__processToolStdout"></a>
+<h4>UserInterface.__processToolStdout</h4>
+<b>__processToolStdout</b>(<i></i>)
+<p>
+        Private slot to handle the readyReadStdout signal of a tool process.
+</p>
+
+<a NAME="UserInterface.__programChange" ID="UserInterface.__programChange"></a>
+<h4>UserInterface.__programChange</h4>
+<b>__programChange</b>(<i>fn</i>)
+<p>
+        Private slot to handle the programChange signal.
+</p>
+<p>
+        This primarily is here to set the currentProg variable.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename to be set as current prog
+</dd>
+</dl>
+<a NAME="UserInterface.__projectClosed" ID="UserInterface.__projectClosed"></a>
+<h4>UserInterface.__projectClosed</h4>
+<b>__projectClosed</b>(<i></i>)
+<p>
+        Private slot to handle the projectClosed signal.
+</p>
+
+<a NAME="UserInterface.__projectOpened" ID="UserInterface.__projectOpened"></a>
+<h4>UserInterface.__projectOpened</h4>
+<b>__projectOpened</b>(<i></i>)
+<p>
+        Private slot to handle the projectOpened signal.
+</p>
+
+<a NAME="UserInterface.__quit" ID="UserInterface.__quit"></a>
+<h4>UserInterface.__quit</h4>
+<b>__quit</b>(<i></i>)
+<p>
+        Private method to quit the application.
+</p>
+
+<a NAME="UserInterface.__readCrashSession" ID="UserInterface.__readCrashSession"></a>
+<h4>UserInterface.__readCrashSession</h4>
+<b>__readCrashSession</b>(<i></i>)
+<p>
+        Private method to check for and read a crash session.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a crash session file was found and read
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.__readSession" ID="UserInterface.__readSession"></a>
+<h4>UserInterface.__readSession</h4>
+<b>__readSession</b>(<i>filename=""</i>)
+<p>
+        Private slot to read in the session file (.esj).
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of a session file to read
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.__readTasks" ID="UserInterface.__readTasks"></a>
+<h4>UserInterface.__readTasks</h4>
+<b>__readTasks</b>(<i></i>)
+<p>
+        Private slot to read in the tasks file (.etj).
+</p>
+
+<a NAME="UserInterface.__reloadAPIs" ID="UserInterface.__reloadAPIs"></a>
+<h4>UserInterface.__reloadAPIs</h4>
+<b>__reloadAPIs</b>(<i></i>)
+<p>
+        Private slot to reload the api information.
+</p>
+
+<a NAME="UserInterface.__reportBug" ID="UserInterface.__reportBug"></a>
+<h4>UserInterface.__reportBug</h4>
+<b>__reportBug</b>(<i></i>)
+<p>
+        Private slot to handle the Report Bug dialog.
+</p>
+
+<a NAME="UserInterface.__requestFeature" ID="UserInterface.__requestFeature"></a>
+<h4>UserInterface.__requestFeature</h4>
+<b>__requestFeature</b>(<i></i>)
+<p>
+        Private slot to handle the Feature Request dialog.
+</p>
+
+<a NAME="UserInterface.__rerunFailedTests" ID="UserInterface.__rerunFailedTests"></a>
+<h4>UserInterface.__rerunFailedTests</h4>
+<b>__rerunFailedTests</b>(<i></i>)
+<p>
+        Private slot to display the testing dialog and rerun all failed tests
+        of the last run.
+</p>
+
+<a NAME="UserInterface.__restart" ID="UserInterface.__restart"></a>
+<h4>UserInterface.__restart</h4>
+<b>__restart</b>(<i>ask=False</i>)
+<p>
+        Private method to restart the application.
+</p>
+
+<dl>
+
+<dt><i>ask</i> (bool)</dt>
+<dd>
+flag indicating to ask the user for permission
+</dd>
+</dl>
+<a NAME="UserInterface.__restartTest" ID="UserInterface.__restartTest"></a>
+<h4>UserInterface.__restartTest</h4>
+<b>__restartTest</b>(<i></i>)
+<p>
+        Private slot to display the testing dialog and rerun the last
+        test run.
+</p>
+
+<a NAME="UserInterface.__saveCurrentViewProfile" ID="UserInterface.__saveCurrentViewProfile"></a>
+<h4>UserInterface.__saveCurrentViewProfile</h4>
+<b>__saveCurrentViewProfile</b>(<i>save</i>)
+<p>
+        Private slot to save the window geometries of the active profile.
+</p>
+
+<dl>
+
+<dt><i>save</i> (bool)</dt>
+<dd>
+flag indicating that the current profile should
+            be saved
+</dd>
+</dl>
+<a NAME="UserInterface.__saveSessionToFile" ID="UserInterface.__saveSessionToFile"></a>
+<h4>UserInterface.__saveSessionToFile</h4>
+<b>__saveSessionToFile</b>(<i></i>)
+<p>
+        Private slot to save a session to disk.
+</p>
+
+<a NAME="UserInterface.__setEditProfile" ID="UserInterface.__setEditProfile"></a>
+<h4>UserInterface.__setEditProfile</h4>
+<b>__setEditProfile</b>(<i>save=True</i>)
+<p>
+        Private slot to activate the edit view profile.
+</p>
+
+<dl>
+
+<dt><i>save</i> (bool)</dt>
+<dd>
+flag indicating that the current profile should
+            be saved
+</dd>
+</dl>
+<a NAME="UserInterface.__setWindowCaption" ID="UserInterface.__setWindowCaption"></a>
+<h4>UserInterface.__setWindowCaption</h4>
+<b>__setWindowCaption</b>(<i>editor=None, project=None</i>)
+<p>
+        Private method to set the caption of the Main Window.
+</p>
+
+<dl>
+
+<dt><i>editor</i> (str)</dt>
+<dd>
+filename to be displayed
+</dd>
+<dt><i>project</i> (str)</dt>
+<dd>
+project name to be displayed
+</dd>
+</dl>
+<a NAME="UserInterface.__setupDockWindow" ID="UserInterface.__setupDockWindow"></a>
+<h4>UserInterface.__setupDockWindow</h4>
+<b>__setupDockWindow</b>(<i>dock, where, widget, caption</i>)
+<p>
+        Private method to configure the dock window created with
+        __createDockWindow().
+</p>
+
+<dl>
+
+<dt><i>dock</i> (QDockWindow)</dt>
+<dd>
+the dock window
+</dd>
+<dt><i>where</i> (Qt.DockWidgetArea)</dt>
+<dd>
+dock area to be docked to
+</dd>
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+widget to be shown in the dock window
+</dd>
+<dt><i>caption</i> (str)</dt>
+<dd>
+caption of the dock window
+</dd>
+</dl>
+<a NAME="UserInterface.__showCertificatesDialog" ID="UserInterface.__showCertificatesDialog"></a>
+<h4>UserInterface.__showCertificatesDialog</h4>
+<b>__showCertificatesDialog</b>(<i></i>)
+<p>
+        Private slot to show the certificates management dialog.
+</p>
+
+<a NAME="UserInterface.__showEricDoc" ID="UserInterface.__showEricDoc"></a>
+<h4>UserInterface.__showEricDoc</h4>
+<b>__showEricDoc</b>(<i></i>)
+<p>
+        Private slot to show the Eric documentation.
+</p>
+
+<a NAME="UserInterface.__showErrorLog" ID="UserInterface.__showErrorLog"></a>
+<h4>UserInterface.__showErrorLog</h4>
+<b>__showErrorLog</b>(<i></i>)
+<p>
+        Private slot to show the most recent error log message.
+</p>
+
+<a NAME="UserInterface.__showExternalTools" ID="UserInterface.__showExternalTools"></a>
+<h4>UserInterface.__showExternalTools</h4>
+<b>__showExternalTools</b>(<i></i>)
+<p>
+        Private slot to display a dialog show a list of external tools used
+        by eric.
+</p>
+
+<a NAME="UserInterface.__showExtrasMenu" ID="UserInterface.__showExtrasMenu"></a>
+<h4>UserInterface.__showExtrasMenu</h4>
+<b>__showExtrasMenu</b>(<i></i>)
+<p>
+        Private slot to display the Extras menu.
+</p>
+
+<a NAME="UserInterface.__showFileMenu" ID="UserInterface.__showFileMenu"></a>
+<h4>UserInterface.__showFileMenu</h4>
+<b>__showFileMenu</b>(<i></i>)
+<p>
+        Private slot to display the File menu.
+</p>
+
+<a NAME="UserInterface.__showHelpMenu" ID="UserInterface.__showHelpMenu"></a>
+<h4>UserInterface.__showHelpMenu</h4>
+<b>__showHelpMenu</b>(<i></i>)
+<p>
+        Private slot to display the Help menu.
+</p>
+
+<a NAME="UserInterface.__showInstallInfo" ID="UserInterface.__showInstallInfo"></a>
+<h4>UserInterface.__showInstallInfo</h4>
+<b>__showInstallInfo</b>(<i></i>)
+<p>
+        Private slot to show a dialog containing information about the
+        installation process.
+</p>
+
+<a NAME="UserInterface.__showNext" ID="UserInterface.__showNext"></a>
+<h4>UserInterface.__showNext</h4>
+<b>__showNext</b>(<i></i>)
+<p>
+        Private slot used to show the next tab or file.
+</p>
+
+<a NAME="UserInterface.__showPixmap" ID="UserInterface.__showPixmap"></a>
+<h4>UserInterface.__showPixmap</h4>
+<b>__showPixmap</b>(<i>fn</i>)
+<p>
+        Private slot to show a pixmap in a dialog.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str (optional))</dt>
+<dd>
+path of the file to show (defaults to "")
+</dd>
+</dl>
+<a NAME="UserInterface.__showPluginInfo" ID="UserInterface.__showPluginInfo"></a>
+<h4>UserInterface.__showPluginInfo</h4>
+<b>__showPluginInfo</b>(<i></i>)
+<p>
+        Private slot to show the plugin info dialog.
+</p>
+
+<a NAME="UserInterface.__showPluginToolsMenu" ID="UserInterface.__showPluginToolsMenu"></a>
+<h4>UserInterface.__showPluginToolsMenu</h4>
+<b>__showPluginToolsMenu</b>(<i></i>)
+<p>
+        Private slot to show the Plugin Tools menu.
+</p>
+
+<a NAME="UserInterface.__showPluginsAvailable" ID="UserInterface.__showPluginsAvailable"></a>
+<h4>UserInterface.__showPluginsAvailable</h4>
+<b>__showPluginsAvailable</b>(<i></i>)
+<p>
+        Private slot to show the plugins available for download.
+</p>
+
+<a NAME="UserInterface.__showPrevious" ID="UserInterface.__showPrevious"></a>
+<h4>UserInterface.__showPrevious</h4>
+<b>__showPrevious</b>(<i></i>)
+<p>
+        Private slot used to show the previous tab or file.
+</p>
+
+<a NAME="UserInterface.__showPyQtDoc" ID="UserInterface.__showPyQtDoc"></a>
+<h4>UserInterface.__showPyQtDoc</h4>
+<b>__showPyQtDoc</b>(<i>variant=5</i>)
+<p>
+        Private slot to show the PyQt5/6 documentation.
+</p>
+
+<dl>
+
+<dt><i>variant</i> (int or str)</dt>
+<dd>
+PyQt variant to show documentation for (5 or 6)
+</dd>
+</dl>
+<a NAME="UserInterface.__showPySideDoc" ID="UserInterface.__showPySideDoc"></a>
+<h4>UserInterface.__showPySideDoc</h4>
+<b>__showPySideDoc</b>(<i>variant=2</i>)
+<p>
+        Private slot to show the PySide2/PySide6 documentation.
+</p>
+
+<dl>
+
+<dt><i>variant</i> (int or str)</dt>
+<dd>
+PySide variant (2 or 6)
+</dd>
+</dl>
+<a NAME="UserInterface.__showPythonDoc" ID="UserInterface.__showPythonDoc"></a>
+<h4>UserInterface.__showPythonDoc</h4>
+<b>__showPythonDoc</b>(<i></i>)
+<p>
+        Private slot to show the Python 3 documentation.
+</p>
+
+<a NAME="UserInterface.__showQtDoc" ID="UserInterface.__showQtDoc"></a>
+<h4>UserInterface.__showQtDoc</h4>
+<b>__showQtDoc</b>(<i>version</i>)
+<p>
+        Private method to show the Qt documentation.
+</p>
+
+<dl>
+
+<dt><i>version</i> (int)</dt>
+<dd>
+Qt version to show documentation for
+</dd>
+</dl>
+<a NAME="UserInterface.__showSessionsMenu" ID="UserInterface.__showSessionsMenu"></a>
+<h4>UserInterface.__showSessionsMenu</h4>
+<b>__showSessionsMenu</b>(<i></i>)
+<p>
+        Private slot to mofify the state of some session actions.
+</p>
+
+<a NAME="UserInterface.__showSettingsMenu" ID="UserInterface.__showSettingsMenu"></a>
+<h4>UserInterface.__showSettingsMenu</h4>
+<b>__showSettingsMenu</b>(<i></i>)
+<p>
+        Private slot to show the Settings menu.
+</p>
+
+<a NAME="UserInterface.__showSubWindowMenu" ID="UserInterface.__showSubWindowMenu"></a>
+<h4>UserInterface.__showSubWindowMenu</h4>
+<b>__showSubWindowMenu</b>(<i></i>)
+<p>
+        Private slot to display the Window menu of the Window menu.
+</p>
+
+<a NAME="UserInterface.__showSvg" ID="UserInterface.__showSvg"></a>
+<h4>UserInterface.__showSvg</h4>
+<b>__showSvg</b>(<i>fn</i>)
+<p>
+        Private slot to show a SVG file in a dialog.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+filename of the file to show
+</dd>
+</dl>
+<a NAME="UserInterface.__showSystemEmailClient" ID="UserInterface.__showSystemEmailClient"></a>
+<h4>UserInterface.__showSystemEmailClient</h4>
+<b>__showSystemEmailClient</b>(<i>mode, attachFile=None, deleteAttachFile=False</i>)
+<p>
+        Private slot to show the system email dialog.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (str)</dt>
+<dd>
+mode of the email dialog ("bug" or "feature")
+</dd>
+<dt><i>attachFile</i> (str)</dt>
+<dd>
+name of a file to put into the body of the
+            email
+</dd>
+<dt><i>deleteAttachFile</i> (bool)</dt>
+<dd>
+flag indicating to delete the file after
+            it has been read
+</dd>
+</dl>
+<a NAME="UserInterface.__showToolGroupsMenu" ID="UserInterface.__showToolGroupsMenu"></a>
+<h4>UserInterface.__showToolGroupsMenu</h4>
+<b>__showToolGroupsMenu</b>(<i></i>)
+<p>
+        Private slot to display the Tool Groups menu.
+</p>
+
+<a NAME="UserInterface.__showToolbarsMenu" ID="UserInterface.__showToolbarsMenu"></a>
+<h4>UserInterface.__showToolbarsMenu</h4>
+<b>__showToolbarsMenu</b>(<i></i>)
+<p>
+        Private slot to display the Toolbars menu.
+</p>
+
+<a NAME="UserInterface.__showUml" ID="UserInterface.__showUml"></a>
+<h4>UserInterface.__showUml</h4>
+<b>__showUml</b>(<i>fn</i>)
+<p>
+        Private slot to show an eric graphics file in a dialog.
+</p>
+
+<dl>
+
+<dt><i>fn</i> (str)</dt>
+<dd>
+name of the file to be shown
+</dd>
+</dl>
+<a NAME="UserInterface.__showUserToolsMenu" ID="UserInterface.__showUserToolsMenu"></a>
+<h4>UserInterface.__showUserToolsMenu</h4>
+<b>__showUserToolsMenu</b>(<i></i>)
+<p>
+        Private slot to display the User Tools menu.
+</p>
+
+<a NAME="UserInterface.__showVersions" ID="UserInterface.__showVersions"></a>
+<h4>UserInterface.__showVersions</h4>
+<b>__showVersions</b>(<i></i>)
+<p>
+        Private slot to handle the Versions dialog.
+</p>
+
+<a NAME="UserInterface.__showWindowMenu" ID="UserInterface.__showWindowMenu"></a>
+<h4>UserInterface.__showWindowMenu</h4>
+<b>__showWindowMenu</b>(<i></i>)
+<p>
+        Private slot to display the Window menu.
+</p>
+
+<a NAME="UserInterface.__showWizardsMenu" ID="UserInterface.__showWizardsMenu"></a>
+<h4>UserInterface.__showWizardsMenu</h4>
+<b>__showWizardsMenu</b>(<i></i>)
+<p>
+        Private slot to display the Wizards menu.
+</p>
+
+<a NAME="UserInterface.__shutdown" ID="UserInterface.__shutdown"></a>
+<h4>UserInterface.__shutdown</h4>
+<b>__shutdown</b>(<i></i>)
+<p>
+        Private method to perform all necessary steps to close down the IDE.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.__snapshot" ID="UserInterface.__snapshot"></a>
+<h4>UserInterface.__snapshot</h4>
+<b>__snapshot</b>(<i></i>)
+<p>
+        Private slot to start the snapshot tool.
+</p>
+
+<a NAME="UserInterface.__sqlBrowser" ID="UserInterface.__sqlBrowser"></a>
+<h4>UserInterface.__sqlBrowser</h4>
+<b>__sqlBrowser</b>(<i></i>)
+<p>
+        Private slot to start the SQL browser tool.
+</p>
+
+<a NAME="UserInterface.__sslErrors" ID="UserInterface.__sslErrors"></a>
+<h4>UserInterface.__sslErrors</h4>
+<b>__sslErrors</b>(<i>reply, errors</i>)
+<p>
+        Private slot to handle SSL errors.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+<dt><i>errors</i> (list of QSslError)</dt>
+<dd>
+list of SSL errors
+</dd>
+</dl>
+<a NAME="UserInterface.__startFido2SecurityKeyMgmt" ID="UserInterface.__startFido2SecurityKeyMgmt"></a>
+<h4>UserInterface.__startFido2SecurityKeyMgmt</h4>
+<b>__startFido2SecurityKeyMgmt</b>(<i></i>)
+<p>
+        Private slot to start the FIDO2 Security Key Management.
+</p>
+
+<a NAME="UserInterface.__startTestProject" ID="UserInterface.__startTestProject"></a>
+<h4>UserInterface.__startTestProject</h4>
+<b>__startTestProject</b>(<i></i>)
+<p>
+        Private slot for displaying the testing dialog and run the test for
+        the current project.
+</p>
+
+<a NAME="UserInterface.__startTestScript" ID="UserInterface.__startTestScript"></a>
+<h4>UserInterface.__startTestScript</h4>
+<b>__startTestScript</b>(<i>testFile=None</i>)
+<p>
+        Private slot for displaying the testing dialog and run the current
+        script.
+</p>
+
+<dl>
+
+<dt><i>testFile</i> (str)</dt>
+<dd>
+file containing the tests to be run
+</dd>
+</dl>
+<a NAME="UserInterface.__startTesting" ID="UserInterface.__startTesting"></a>
+<h4>UserInterface.__startTesting</h4>
+<b>__startTesting</b>(<i></i>)
+<p>
+        Private slot for displaying the testing dialog.
+</p>
+
+<a NAME="UserInterface.__startToolProcess" ID="UserInterface.__startToolProcess"></a>
+<h4>UserInterface.__startToolProcess</h4>
+<b>__startToolProcess</b>(<i>tool</i>)
+<p>
+        Private slot to start an external tool process.
+</p>
+
+<dl>
+
+<dt><i>tool</i> (dict)</dt>
+<dd>
+dictionary of tool entries
+</dd>
+</dl>
+<a NAME="UserInterface.__startWebBrowser" ID="UserInterface.__startWebBrowser"></a>
+<h4>UserInterface.__startWebBrowser</h4>
+<b>__startWebBrowser</b>(<i></i>)
+<p>
+        Private slot to start the eric web browser.
+</p>
+
+<a NAME="UserInterface.__switchTab" ID="UserInterface.__switchTab"></a>
+<h4>UserInterface.__switchTab</h4>
+<b>__switchTab</b>(<i></i>)
+<p>
+        Private slot used to switch between the current and the previous
+        current tab.
+</p>
+
+<a NAME="UserInterface.__testingStopped" ID="UserInterface.__testingStopped"></a>
+<h4>UserInterface.__testingStopped</h4>
+<b>__testingStopped</b>(<i></i>)
+<p>
+        Private slot to handle the end of a test run.
+</p>
+
+<a NAME="UserInterface.__toggleBottomSidebar" ID="UserInterface.__toggleBottomSidebar"></a>
+<h4>UserInterface.__toggleBottomSidebar</h4>
+<b>__toggleBottomSidebar</b>(<i></i>)
+<p>
+        Private slot to handle the toggle of the bottom sidebar window.
+</p>
+
+<a NAME="UserInterface.__toggleHorizontalToolbox" ID="UserInterface.__toggleHorizontalToolbox"></a>
+<h4>UserInterface.__toggleHorizontalToolbox</h4>
+<b>__toggleHorizontalToolbox</b>(<i></i>)
+<p>
+        Private slot to handle the toggle of the Horizontal Toolbox window.
+</p>
+
+<a NAME="UserInterface.__toggleLeftSidebar" ID="UserInterface.__toggleLeftSidebar"></a>
+<h4>UserInterface.__toggleLeftSidebar</h4>
+<b>__toggleLeftSidebar</b>(<i></i>)
+<p>
+        Private slot to handle the toggle of the left sidebar window.
+</p>
+
+<a NAME="UserInterface.__toggleLeftToolbox" ID="UserInterface.__toggleLeftToolbox"></a>
+<h4>UserInterface.__toggleLeftToolbox</h4>
+<b>__toggleLeftToolbox</b>(<i></i>)
+<p>
+        Private slot to handle the toggle of the Left Toolbox window.
+</p>
+
+<a NAME="UserInterface.__toggleRightSidebar" ID="UserInterface.__toggleRightSidebar"></a>
+<h4>UserInterface.__toggleRightSidebar</h4>
+<b>__toggleRightSidebar</b>(<i></i>)
+<p>
+        Private slot to handle the toggle of the right sidebar window.
+</p>
+
+<a NAME="UserInterface.__toggleRightToolbox" ID="UserInterface.__toggleRightToolbox"></a>
+<h4>UserInterface.__toggleRightToolbox</h4>
+<b>__toggleRightToolbox</b>(<i></i>)
+<p>
+        Private slot to handle the toggle of the Right Toolbox window.
+</p>
+
+<a NAME="UserInterface.__toggleWindow" ID="UserInterface.__toggleWindow"></a>
+<h4>UserInterface.__toggleWindow</h4>
+<b>__toggleWindow</b>(<i>w</i>)
+<p>
+        Private method to toggle a workspace editor window.
+</p>
+
+<dl>
+
+<dt><i>w</i> (Editor)</dt>
+<dd>
+reference to the workspace editor window
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, if the window was shown
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.__toolActionTriggered" ID="UserInterface.__toolActionTriggered"></a>
+<h4>UserInterface.__toolActionTriggered</h4>
+<b>__toolActionTriggered</b>(<i>act</i>)
+<p>
+        Private slot called by external tools toolbar actions.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that triggered the slot
+</dd>
+</dl>
+<a NAME="UserInterface.__toolExecute" ID="UserInterface.__toolExecute"></a>
+<h4>UserInterface.__toolExecute</h4>
+<b>__toolExecute</b>(<i>act</i>)
+<p>
+        Private slot to execute a particular tool.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that was triggered
+</dd>
+</dl>
+<a NAME="UserInterface.__toolFinished" ID="UserInterface.__toolFinished"></a>
+<h4>UserInterface.__toolFinished</h4>
+<b>__toolFinished</b>(<i>exitCode, exitStatus</i>)
+<p>
+        Private slot to handle the finished signal of a tool process.
+</p>
+
+<dl>
+
+<dt><i>exitCode</i> (int)</dt>
+<dd>
+exit code of the process
+</dd>
+<dt><i>exitStatus</i> (QProcess.ExitStatus)</dt>
+<dd>
+exit status of the process
+</dd>
+</dl>
+<a NAME="UserInterface.__toolGroupSelected" ID="UserInterface.__toolGroupSelected"></a>
+<h4>UserInterface.__toolGroupSelected</h4>
+<b>__toolGroupSelected</b>(<i>act</i>)
+<p>
+        Private slot to set the current tool group.
+</p>
+
+<dl>
+
+<dt><i>act</i> (QAction)</dt>
+<dd>
+reference to the action that was triggered
+</dd>
+</dl>
+<a NAME="UserInterface.__toolGroupsConfiguration" ID="UserInterface.__toolGroupsConfiguration"></a>
+<h4>UserInterface.__toolGroupsConfiguration</h4>
+<b>__toolGroupsConfiguration</b>(<i></i>)
+<p>
+        Private slot to handle the tool groups configuration menu entry.
+</p>
+
+<a NAME="UserInterface.__toolsConfiguration" ID="UserInterface.__toolsConfiguration"></a>
+<h4>UserInterface.__toolsConfiguration</h4>
+<b>__toolsConfiguration</b>(<i></i>)
+<p>
+        Private slot to handle the tools configuration menu entry.
+</p>
+
+<a NAME="UserInterface.__updateExternalToolsActions" ID="UserInterface.__updateExternalToolsActions"></a>
+<h4>UserInterface.__updateExternalToolsActions</h4>
+<b>__updateExternalToolsActions</b>(<i></i>)
+<p>
+        Private method to update the external tools actions for the current
+        tool group.
+</p>
+
+<a NAME="UserInterface.__webBrowser" ID="UserInterface.__webBrowser"></a>
+<h4>UserInterface.__webBrowser</h4>
+<b>__webBrowser</b>(<i>home=""</i>)
+<p>
+        Private slot to start the eric web browser.
+</p>
+
+<dl>
+
+<dt><i>home</i> (str)</dt>
+<dd>
+full pathname of a file to display
+</dd>
+</dl>
+<a NAME="UserInterface.__webBrowserFinished" ID="UserInterface.__webBrowserFinished"></a>
+<h4>UserInterface.__webBrowserFinished</h4>
+<b>__webBrowserFinished</b>(<i></i>)
+<p>
+        Private slot handling the end of the external web browser process.
+</p>
+
+<a NAME="UserInterface.__webBrowserShutdown" ID="UserInterface.__webBrowserShutdown"></a>
+<h4>UserInterface.__webBrowserShutdown</h4>
+<b>__webBrowserShutdown</b>(<i></i>)
+<p>
+        Private method to shut down the web browser.
+</p>
+
+<a NAME="UserInterface.__whatsThis" ID="UserInterface.__whatsThis"></a>
+<h4>UserInterface.__whatsThis</h4>
+<b>__whatsThis</b>(<i></i>)
+<p>
+        Private slot called in to enter Whats This mode.
+</p>
+
+<a NAME="UserInterface.__writeCrashSession" ID="UserInterface.__writeCrashSession"></a>
+<h4>UserInterface.__writeCrashSession</h4>
+<b>__writeCrashSession</b>(<i></i>)
+<p>
+        Private slot to write a crash session file.
+</p>
+
+<a NAME="UserInterface.__writeSession" ID="UserInterface.__writeSession"></a>
+<h4>UserInterface.__writeSession</h4>
+<b>__writeSession</b>(<i>filename=""</i>)
+<p>
+        Private slot to write the session data to a JSON file (.esj).
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of a session file to write
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.__writeTasks" ID="UserInterface.__writeTasks"></a>
+<h4>UserInterface.__writeTasks</h4>
+<b>__writeTasks</b>(<i></i>)
+<p>
+        Private slot to write the tasks data to a JSON file (.etj).
+</p>
+
+<a NAME="UserInterface.activateCodeDocumentationViewer" ID="UserInterface.activateCodeDocumentationViewer"></a>
+<h4>UserInterface.activateCodeDocumentationViewer</h4>
+<b>activateCodeDocumentationViewer</b>(<i>switchFocus=True</i>)
+<p>
+        Public slot to handle the activation of the Code Documentation Viewer.
+</p>
+
+<dl>
+
+<dt><i>switchFocus</i> (bool)</dt>
+<dd>
+flag indicating to transfer the input focus
+</dd>
+</dl>
+<a NAME="UserInterface.activateCooperationViewer" ID="UserInterface.activateCooperationViewer"></a>
+<h4>UserInterface.activateCooperationViewer</h4>
+<b>activateCooperationViewer</b>(<i></i>)
+<p>
+        Public slot to handle the activation of the cooperation window.
+</p>
+
+<a NAME="UserInterface.activateDebugViewer" ID="UserInterface.activateDebugViewer"></a>
+<h4>UserInterface.activateDebugViewer</h4>
+<b>activateDebugViewer</b>(<i></i>)
+<p>
+        Public slot to handle the activation of the debug viewer.
+</p>
+
+<a NAME="UserInterface.activateLeftRightSidebarWidget" ID="UserInterface.activateLeftRightSidebarWidget"></a>
+<h4>UserInterface.activateLeftRightSidebarWidget</h4>
+<b>activateLeftRightSidebarWidget</b>(<i>widget</i>)
+<p>
+        Public method to activate the given widget in the left or right
+        sidebar.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to be activated
+</dd>
+</dl>
+<a NAME="UserInterface.activatePluginRepositoryViewer" ID="UserInterface.activatePluginRepositoryViewer"></a>
+<h4>UserInterface.activatePluginRepositoryViewer</h4>
+<b>activatePluginRepositoryViewer</b>(<i></i>)
+<p>
+        Public slot to activate the plugin repository viewer.
+</p>
+
+<a NAME="UserInterface.activateVirtualenvManager" ID="UserInterface.activateVirtualenvManager"></a>
+<h4>UserInterface.activateVirtualenvManager</h4>
+<b>activateVirtualenvManager</b>(<i></i>)
+<p>
+        Public slot to activate the virtual environments manager widget.
+</p>
+
+<a NAME="UserInterface.addEricActions" ID="UserInterface.addEricActions"></a>
+<h4>UserInterface.addEricActions</h4>
+<b>addEricActions</b>(<i>actions, actionType</i>)
+<p>
+        Public method to add actions to the list of actions.
+</p>
+
+<dl>
+
+<dt><i>actions</i> (list of EricAction)</dt>
+<dd>
+list of actions to be added
+</dd>
+<dt><i>actionType</i> (str)</dt>
+<dd>
+string denoting the action set to add to.
+            It must be one of "ui" or "wizards".
+</dd>
+</dl>
+<a NAME="UserInterface.addSideWidget" ID="UserInterface.addSideWidget"></a>
+<h4>UserInterface.addSideWidget</h4>
+<b>addSideWidget</b>(<i>side, widget, icon, label</i>)
+<p>
+        Public method to add a widget to the sides.
+</p>
+
+<dl>
+
+<dt><i>side</i> (UserInterfaceSide)</dt>
+<dd>
+side to add the widget to
+</dd>
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to add
+</dd>
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+icon to be used
+</dd>
+<dt><i>label</i> (str)</dt>
+<dd>
+label text to be shown
+</dd>
+</dl>
+<a NAME="UserInterface.appendToStderr" ID="UserInterface.appendToStderr"></a>
+<h4>UserInterface.appendToStderr</h4>
+<b>appendToStderr</b>(<i>s</i>)
+<p>
+        Public slot to append text to the stderr log viewer tab.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+output to be appended
+</dd>
+</dl>
+<a NAME="UserInterface.appendToStdout" ID="UserInterface.appendToStdout"></a>
+<h4>UserInterface.appendToStdout</h4>
+<b>appendToStdout</b>(<i>s</i>)
+<p>
+        Public slot to append text to the stdout log viewer tab.
+</p>
+
+<dl>
+
+<dt><i>s</i> (str)</dt>
+<dd>
+output to be appended
+</dd>
+</dl>
+<a NAME="UserInterface.autoConnectIrc" ID="UserInterface.autoConnectIrc"></a>
+<h4>UserInterface.autoConnectIrc</h4>
+<b>autoConnectIrc</b>(<i></i>)
+<p>
+        Public method to initiate the IRC auto connection.
+</p>
+
+<a NAME="UserInterface.checkConfigurationStatus" ID="UserInterface.checkConfigurationStatus"></a>
+<h4>UserInterface.checkConfigurationStatus</h4>
+<b>checkConfigurationStatus</b>(<i></i>)
+<p>
+        Public method to check, if eric has been configured. If it is not,
+        the configuration dialog is shown.
+</p>
+
+<a NAME="UserInterface.checkForErrorLog" ID="UserInterface.checkForErrorLog"></a>
+<h4>UserInterface.checkForErrorLog</h4>
+<b>checkForErrorLog</b>(<i></i>)
+<p>
+        Public method to check for the presence of an error log and ask the
+        user, what to do with it.
+</p>
+
+<a NAME="UserInterface.checkPluginUpdatesAvailable" ID="UserInterface.checkPluginUpdatesAvailable"></a>
+<h4>UserInterface.checkPluginUpdatesAvailable</h4>
+<b>checkPluginUpdatesAvailable</b>(<i></i>)
+<p>
+        Public method to check the availability of updates of plug-ins.
+</p>
+
+<a NAME="UserInterface.checkProjectsWorkspace" ID="UserInterface.checkProjectsWorkspace"></a>
+<h4>UserInterface.checkProjectsWorkspace</h4>
+<b>checkProjectsWorkspace</b>(<i></i>)
+<p>
+        Public method to check, if a projects workspace has been configured. If
+        it has not, a dialog is shown.
+</p>
+
+<a NAME="UserInterface.closeEvent" ID="UserInterface.closeEvent"></a>
+<h4>UserInterface.closeEvent</h4>
+<b>closeEvent</b>(<i>event</i>)
+<p>
+        Protected event handler for the close event.
+</p>
+<p>
+        This event handler saves the preferences.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QCloseEvent)</dt>
+<dd>
+close event
+</dd>
+</dl>
+<a NAME="UserInterface.createPopupMenu" ID="UserInterface.createPopupMenu"></a>
+<h4>UserInterface.createPopupMenu</h4>
+<b>createPopupMenu</b>(<i></i>)
+<p>
+        Public method to create the toolbars menu for Qt.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+toolbars menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="UserInterface.documentationViewer" ID="UserInterface.documentationViewer"></a>
+<h4>UserInterface.documentationViewer</h4>
+<b>documentationViewer</b>(<i></i>)
+<p>
+        Public method to provide a reference to the code documentation viewer.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the code documentation viewer
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+CodeDocumentationViewer
+</dd>
+</dl>
+<a NAME="UserInterface.dragEnterEvent" ID="UserInterface.dragEnterEvent"></a>
+<h4>UserInterface.dragEnterEvent</h4>
+<b>dragEnterEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the drag enter event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDragEnterEvent)</dt>
+<dd>
+the drag enter event
+</dd>
+</dl>
+<a NAME="UserInterface.dragLeaveEvent" ID="UserInterface.dragLeaveEvent"></a>
+<h4>UserInterface.dragLeaveEvent</h4>
+<b>dragLeaveEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the drag leave event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDragLeaveEvent)</dt>
+<dd>
+the drag leave event
+</dd>
+</dl>
+<a NAME="UserInterface.dragMoveEvent" ID="UserInterface.dragMoveEvent"></a>
+<h4>UserInterface.dragMoveEvent</h4>
+<b>dragMoveEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the drag move event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDragMoveEvent)</dt>
+<dd>
+the drag move event
+</dd>
+</dl>
+<a NAME="UserInterface.dropEvent" ID="UserInterface.dropEvent"></a>
+<h4>UserInterface.dropEvent</h4>
+<b>dropEvent</b>(<i>event</i>)
+<p>
+        Protected method to handle the drop event.
+</p>
+
+<dl>
+
+<dt><i>event</i> (QDropEvent)</dt>
+<dd>
+the drop event
+</dd>
+</dl>
+<a NAME="UserInterface.getActions" ID="UserInterface.getActions"></a>
+<h4>UserInterface.getActions</h4>
+<b>getActions</b>(<i>actionType</i>)
+<p>
+        Public method to get a list of all actions.
+</p>
+
+<dl>
+
+<dt><i>actionType</i> (str)</dt>
+<dd>
+string denoting the action set to get.
+            It must be one of "ui" or "wizards".
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of all actions
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of EricAction
+</dd>
+</dl>
+<a NAME="UserInterface.getLayoutType" ID="UserInterface.getLayoutType"></a>
+<h4>UserInterface.getLayoutType</h4>
+<b>getLayoutType</b>(<i></i>)
+<p>
+        Public method to get the current layout type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current layout type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UserInterface.getLocale" ID="UserInterface.getLocale"></a>
+<h4>UserInterface.getLocale</h4>
+<b>getLocale</b>(<i></i>)
+<p>
+        Public method to get the locale of the IDE.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+locale of the IDE
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UserInterface.getMenu" ID="UserInterface.getMenu"></a>
+<h4>UserInterface.getMenu</h4>
+<b>getMenu</b>(<i>name</i>)
+<p>
+        Public method to get a reference to a specific menu.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the menu
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the menu
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QMenu
+</dd>
+</dl>
+<a NAME="UserInterface.getMenuAction" ID="UserInterface.getMenuAction"></a>
+<h4>UserInterface.getMenuAction</h4>
+<b>getMenuAction</b>(<i>menuName, actionName</i>)
+<p>
+        Public method to get a reference to an action of a menu.
+</p>
+
+<dl>
+
+<dt><i>menuName</i> (str)</dt>
+<dd>
+name of the menu to search in
+</dd>
+<dt><i>actionName</i> (str)</dt>
+<dd>
+object name of the action to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the menu action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAction
+</dd>
+</dl>
+<a NAME="UserInterface.getMenuBarAction" ID="UserInterface.getMenuBarAction"></a>
+<h4>UserInterface.getMenuBarAction</h4>
+<b>getMenuBarAction</b>(<i>menuName</i>)
+<p>
+        Public method to get a reference to an action of the main menu.
+</p>
+
+<dl>
+
+<dt><i>menuName</i> (str)</dt>
+<dd>
+name of the menu to search in
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the menu bar action
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QAction
+</dd>
+</dl>
+<a NAME="UserInterface.getOriginalPathString" ID="UserInterface.getOriginalPathString"></a>
+<h4>UserInterface.getOriginalPathString</h4>
+<b>getOriginalPathString</b>(<i></i>)
+<p>
+        Public method to get the original PATH environment variable
+        (i.e. before modifications by eric and PyQt5).
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+original PATH environment variable
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UserInterface.getToolbar" ID="UserInterface.getToolbar"></a>
+<h4>UserInterface.getToolbar</h4>
+<b>getToolbar</b>(<i>name</i>)
+<p>
+        Public method to get a reference to a specific toolbar.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the toolbar
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the toolbar entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, QToolBar)
+</dd>
+</dl>
+<a NAME="UserInterface.getToolbarsByCategory" ID="UserInterface.getToolbarsByCategory"></a>
+<h4>UserInterface.getToolbarsByCategory</h4>
+<b>getToolbarsByCategory</b>(<i>category</i>)
+<p>
+        Public method to get a list of toolbars belonging to a given toolbar
+        category.
+</p>
+
+<dl>
+
+<dt><i>category</i> (str)</dt>
+<dd>
+toolbar category
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of toolbars
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of QToolBar
+</dd>
+</dl>
+<a NAME="UserInterface.getViewProfile" ID="UserInterface.getViewProfile"></a>
+<h4>UserInterface.getViewProfile</h4>
+<b>getViewProfile</b>(<i></i>)
+<p>
+        Public method to get the current view profile.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+the name of the current view profile
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="UserInterface.handleUrl" ID="UserInterface.handleUrl"></a>
+<h4>UserInterface.handleUrl</h4>
+<b>handleUrl</b>(<i>url</i>)
+<p>
+        Public slot to handle opening a URL.
+</p>
+
+<dl>
+
+<dt><i>url</i> (QUrl)</dt>
+<dd>
+URL to be shown
+</dd>
+</dl>
+<a NAME="UserInterface.isEricServerConnected" ID="UserInterface.isEricServerConnected"></a>
+<h4>UserInterface.isEricServerConnected</h4>
+<b>isEricServerConnected</b>(<i></i>)
+<p>
+        Public method to check, if a connection to an eric-ide server has been
+        established.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the interface connection state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.isOnline" ID="UserInterface.isOnline"></a>
+<h4>UserInterface.isOnline</h4>
+<b>isOnline</b>(<i></i>)
+<p>
+        Public method to get the online state.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+online state
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.launchHelpViewer" ID="UserInterface.launchHelpViewer"></a>
+<h4>UserInterface.launchHelpViewer</h4>
+<b>launchHelpViewer</b>(<i>home, searchWord=None</i>)
+<p>
+        Public slot to start the help viewer/web browser.
+</p>
+
+<dl>
+
+<dt><i>home</i> (str or QUrl)</dt>
+<dd>
+filename of file to be shown or URL to be opened
+</dd>
+<dt><i>searchWord</i> (str)</dt>
+<dd>
+word to search for
+</dd>
+</dl>
+<a NAME="UserInterface.networkAccessManager" ID="UserInterface.networkAccessManager"></a>
+<h4>UserInterface.networkAccessManager</h4>
+<b>networkAccessManager</b>(<i></i>)
+<p>
+        Public method to get a reference to the network access manager object.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the network access manager object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QNetworkAccessManager
+</dd>
+</dl>
+<a NAME="UserInterface.performVersionCheck" ID="UserInterface.performVersionCheck"></a>
+<h4>UserInterface.performVersionCheck</h4>
+<b>performVersionCheck</b>(<i>startup=False</i>)
+<p>
+        Public method to check for an update even if not installed via PyPI.
+</p>
+
+<dl>
+
+<dt><i>startup</i> (bool (optional))</dt>
+<dd>
+flag indicating a call during the IDE startup (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an upgrade is available and was selected by the user
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.processArgs" ID="UserInterface.processArgs"></a>
+<h4>UserInterface.processArgs</h4>
+<b>processArgs</b>(<i>args</i>)
+<p>
+        Public method to process the command line args passed to the UI.
+</p>
+
+<dl>
+
+<dt><i>args</i> (argparse.Namespace)</dt>
+<dd>
+namespace object containing the parsed command line
+            parameters
+</dd>
+</dl>
+<a NAME="UserInterface.processInstallInfoFile" ID="UserInterface.processInstallInfoFile"></a>
+<h4>UserInterface.processInstallInfoFile</h4>
+<b>processInstallInfoFile</b>(<i></i>)
+<p>
+        Public method to process the file containing installation information.
+</p>
+
+<a NAME="UserInterface.registerToolbar" ID="UserInterface.registerToolbar"></a>
+<h4>UserInterface.registerToolbar</h4>
+<b>registerToolbar</b>(<i>name, text, toolbar, category=""</i>)
+<p>
+        Public method to register a toolbar.
+</p>
+<p>
+        This method must be called in order to make a toolbar manageable by the
+        UserInterface object.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the toolbar. This is used as the key into
+            the dictionary of toolbar references.
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+user visible text for the toolbar entry
+</dd>
+<dt><i>toolbar</i> (QToolBar)</dt>
+<dd>
+reference to the toolbar to be registered
+</dd>
+<dt><i>category</i> (str)</dt>
+<dd>
+toolbar category
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>KeyError</b>:</dt>
+<dd>
+raised, if a toolbar with the given name was
+            already registered
+</dd>
+</dl>
+<a NAME="UserInterface.removeEricActions" ID="UserInterface.removeEricActions"></a>
+<h4>UserInterface.removeEricActions</h4>
+<b>removeEricActions</b>(<i>actions, actionType="ui"</i>)
+<p>
+        Public method to remove actions from the list of actions.
+</p>
+
+<dl>
+
+<dt><i>actions</i> (list of EricActio)</dt>
+<dd>
+list of actions
+</dd>
+<dt><i>actionType</i> (str)</dt>
+<dd>
+string denoting the action set to remove from.
+            It must be one of "ui" or "wizards".
+</dd>
+</dl>
+<a NAME="UserInterface.removeSideWidget" ID="UserInterface.removeSideWidget"></a>
+<h4>UserInterface.removeSideWidget</h4>
+<b>removeSideWidget</b>(<i>widget</i>)
+<p>
+        Public method to remove a widget added using addSideWidget().
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to remove
+</dd>
+</dl>
+<a NAME="UserInterface.reregisterToolbar" ID="UserInterface.reregisterToolbar"></a>
+<h4>UserInterface.reregisterToolbar</h4>
+<b>reregisterToolbar</b>(<i>name, text, category=""</i>)
+<p>
+        Public method to change the visible text for the named toolbar.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the toolbar to be changed
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+new user visible text for the toolbar entry
+</dd>
+<dt><i>category</i> (str)</dt>
+<dd>
+new toolbar category for the toolbar entry
+</dd>
+</dl>
+<a NAME="UserInterface.setDebugProfile" ID="UserInterface.setDebugProfile"></a>
+<h4>UserInterface.setDebugProfile</h4>
+<b>setDebugProfile</b>(<i>save=True</i>)
+<p>
+        Public slot to activate the debug view profile.
+</p>
+
+<dl>
+
+<dt><i>save</i> (bool)</dt>
+<dd>
+flag indicating that the current profile should
+            be saved
+</dd>
+</dl>
+<a NAME="UserInterface.setLeftRightSidebarWidgetIcon" ID="UserInterface.setLeftRightSidebarWidgetIcon"></a>
+<h4>UserInterface.setLeftRightSidebarWidgetIcon</h4>
+<b>setLeftRightSidebarWidgetIcon</b>(<i>widget, icon</i>)
+<p>
+        Public method to set the icon of the given widget in the left or right
+        sidebar.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to set the icon for
+</dd>
+<dt><i>icon</i> (QIcon)</dt>
+<dd>
+icon to be set
+</dd>
+</dl>
+<a NAME="UserInterface.showEmailDialog" ID="UserInterface.showEmailDialog"></a>
+<h4>UserInterface.showEmailDialog</h4>
+<b>showEmailDialog</b>(<i>mode, attachFile=None, deleteAttachFile=False</i>)
+<p>
+        Public slot to show the email dialog in a given mode.
+</p>
+
+<dl>
+
+<dt><i>mode</i> (str)</dt>
+<dd>
+mode of the email dialog ("bug" or "feature")
+</dd>
+<dt><i>attachFile</i> (str)</dt>
+<dd>
+name of a file to attach to the email
+</dd>
+<dt><i>deleteAttachFile</i> (bool)</dt>
+<dd>
+flag indicating to delete the attached file
+            after it has been sent
+</dd>
+</dl>
+<a NAME="UserInterface.showEvent" ID="UserInterface.showEvent"></a>
+<h4>UserInterface.showEvent</h4>
+<b>showEvent</b>(<i>_evt</i>)
+<p>
+        Protected method to handle the show event.
+</p>
+
+<dl>
+
+<dt><i>_evt</i> (QShowEvent)</dt>
+<dd>
+reference to the show event (unused)
+</dd>
+</dl>
+<a NAME="UserInterface.showFindFileByNameDialog" ID="UserInterface.showFindFileByNameDialog"></a>
+<h4>UserInterface.showFindFileByNameDialog</h4>
+<b>showFindFileByNameDialog</b>(<i></i>)
+<p>
+        Public slot to show the Find File by Name dialog.
+</p>
+
+<a NAME="UserInterface.showFindFilesWidget" ID="UserInterface.showFindFilesWidget"></a>
+<h4>UserInterface.showFindFilesWidget</h4>
+<b>showFindFilesWidget</b>(<i>txt="", searchDir="", openFiles=False</i>)
+<p>
+        Public slot to show the Find In Files widget.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str (optional))</dt>
+<dd>
+text to search for (defaults to "")
+</dd>
+<dt><i>searchDir</i> (str (optional))</dt>
+<dd>
+directory to search in (defaults to "")
+</dd>
+<dt><i>openFiles</i> (bool (optional))</dt>
+<dd>
+flag indicating to operate on open files only
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="UserInterface.showFindLocationWidget" ID="UserInterface.showFindLocationWidget"></a>
+<h4>UserInterface.showFindLocationWidget</h4>
+<b>showFindLocationWidget</b>(<i></i>)
+<p>
+        Public method to show the Find File widget.
+</p>
+
+<a NAME="UserInterface.showLogViewer" ID="UserInterface.showLogViewer"></a>
+<h4>UserInterface.showLogViewer</h4>
+<b>showLogViewer</b>(<i></i>)
+<p>
+        Public method to show the Log-Viewer.
+</p>
+
+<a NAME="UserInterface.showNotification" ID="UserInterface.showNotification"></a>
+<h4>UserInterface.showNotification</h4>
+<b>showNotification</b>(<i>icon, heading, text, kind=NotificationTypes.INFORMATION, timeout=None</i>)
+<p>
+        Public method to show a desktop notification.
+</p>
+
+<dl>
+
+<dt><i>icon</i> (QPixmap)</dt>
+<dd>
+icon to be shown in the notification
+</dd>
+<dt><i>heading</i> (str)</dt>
+<dd>
+heading of the notification
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text of the notification
+</dd>
+<dt><i>kind</i> (NotificationTypes)</dt>
+<dd>
+kind of notification to be shown
+</dd>
+<dt><i>timeout</i> (int)</dt>
+<dd>
+time in seconds the notification should be shown
+            (None = use configured timeout, 0 = indefinitely)
+</dd>
+</dl>
+<a NAME="UserInterface.showPreferences" ID="UserInterface.showPreferences"></a>
+<h4>UserInterface.showPreferences</h4>
+<b>showPreferences</b>(<i>pageName=None</i>)
+<p>
+        Public slot to set the preferences.
+</p>
+
+<dl>
+
+<dt><i>pageName</i> (str)</dt>
+<dd>
+name of the configuration page to show
+</dd>
+</dl>
+<a NAME="UserInterface.showReplaceFilesWidget" ID="UserInterface.showReplaceFilesWidget"></a>
+<h4>UserInterface.showReplaceFilesWidget</h4>
+<b>showReplaceFilesWidget</b>(<i>txt="", searchDir="", openFiles=False</i>)
+<p>
+        Public slot to show the Find In Files widget in replace mode.
+</p>
+
+<dl>
+
+<dt><i>txt</i> (str (optional))</dt>
+<dd>
+text to search for (defaults to "")
+</dd>
+<dt><i>searchDir</i> (str (optional))</dt>
+<dd>
+directory to search in (defaults to "")
+</dd>
+<dt><i>openFiles</i> (bool (optional))</dt>
+<dd>
+flag indicating to operate on open files only
+            (defaults to False)
+</dd>
+</dl>
+<a NAME="UserInterface.showSideWidget" ID="UserInterface.showSideWidget"></a>
+<h4>UserInterface.showSideWidget</h4>
+<b>showSideWidget</b>(<i>widget</i>)
+<p>
+        Public method to show a specific widget placed in the side widgets.
+</p>
+
+<dl>
+
+<dt><i>widget</i> (QWidget)</dt>
+<dd>
+reference to the widget to be shown
+</dd>
+</dl>
+<a NAME="UserInterface.unregisterToolbar" ID="UserInterface.unregisterToolbar"></a>
+<h4>UserInterface.unregisterToolbar</h4>
+<b>unregisterToolbar</b>(<i>name</i>)
+<p>
+        Public method to unregister a toolbar.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the toolbar
+</dd>
+</dl>
+<a NAME="UserInterface.upgradeEric" ID="UserInterface.upgradeEric"></a>
+<h4>UserInterface.upgradeEric</h4>
+<b>upgradeEric</b>(<i></i>)
+<p>
+        Public slot to upgrade the eric-ide package of the eric7 environment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful upgrade
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.upgradeEricPyQt" ID="UserInterface.upgradeEricPyQt"></a>
+<h4>UserInterface.upgradeEricPyQt</h4>
+<b>upgradeEricPyQt</b>(<i></i>)
+<p>
+        Public slot to upgrade the eric-ide and PyQt packages of the eric7
+        environment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful upgrade
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.upgradePyQt" ID="UserInterface.upgradePyQt"></a>
+<h4>UserInterface.upgradePyQt</h4>
+<b>upgradePyQt</b>(<i></i>)
+<p>
+        Public slot to upgrade the PyQt packages of the eric7 environment.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a successful upgrade
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="UserInterface.versionIsNewer" ID="UserInterface.versionIsNewer"></a>
+<h4>UserInterface.versionIsNewer</h4>
+<b>versionIsNewer</b>(<i>required, snapshot=None</i>)
+<p>
+        Public method to check, if the eric version is good compared to
+        the required version.
+</p>
+
+<dl>
+
+<dt><i>required</i> (str)</dt>
+<dd>
+required version
+</dd>
+<dt><i>snapshot</i> (str)</dt>
+<dd>
+required snapshot version
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating, that the version is newer than the required one
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="UserInterfaceSide" ID="UserInterfaceSide"></a>
+<h2>UserInterfaceSide</h2>
+<p>
+    Class defining the supported sides of the user interface.
+</p>
+
+<h3>Derived from</h3>
+enum.Enum
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Bottom</td></tr>
+<tr><td>Left</td></tr>
+<tr><td>Right</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Graphics.PackageDiagramBuilder</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Graphics.PackageDiagramBuilder</h1>
+<p>
+Module implementing a dialog showing an UML like class diagram of a package.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#PackageDiagramBuilder">PackageDiagramBuilder</a></td>
+<td>Class implementing a builder for UML like class diagrams of a package.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="PackageDiagramBuilder" ID="PackageDiagramBuilder"></a>
+<h2>PackageDiagramBuilder</h2>
+<p>
+    Class implementing a builder for UML like class diagrams of a package.
+</p>
+
+<h3>Derived from</h3>
+UMLDiagramBuilder
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#PackageDiagramBuilder.__init__">PackageDiagramBuilder</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.__addExternalClass">__addExternalClass</a></td>
+<td>Private method to add a class defined outside the module.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.__addLocalClass">__addLocalClass</a></td>
+<td>Private method to add a class defined in the module.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.__addPackage">__addPackage</a></td>
+<td>Private method to add a package to the diagram.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.__arrangeClasses">__arrangeClasses</a></td>
+<td>Private method to arrange the shapes on the canvas.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.__buildModulesDict">__buildModulesDict</a></td>
+<td>Private method to build a dictionary of modules contained in the package.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.__buildSubpackagesDict">__buildSubpackagesDict</a></td>
+<td>Private method to build a dictionary of sub-packages contained in this package.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.__createAssociations">__createAssociations</a></td>
+<td>Private method to generate the associations between the class shapes.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.__getCurrentShape">__getCurrentShape</a></td>
+<td>Private method to get the named shape.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.buildDiagram">buildDiagram</a></td>
+<td>Public method to build the class shapes of the package diagram.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.fromDict">fromDict</a></td>
+<td>Public method to populate the class with data persisted by 'toDict()'.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.initialize">initialize</a></td>
+<td>Public method to initialize the object.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.parsePersistenceData">parsePersistenceData</a></td>
+<td>Public method to parse persisted data.</td>
+</tr>
+<tr>
+<td><a href="#PackageDiagramBuilder.toDict">toDict</a></td>
+<td>Public method to collect data to be persisted.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="PackageDiagramBuilder.__init__" ID="PackageDiagramBuilder.__init__"></a>
+<h4>PackageDiagramBuilder (Constructor)</h4>
+<b>PackageDiagramBuilder</b>(<i>dialog, view, project, package, noAttrs=False</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>dialog</i> (UMLDialog)</dt>
+<dd>
+reference to the UML dialog
+</dd>
+<dt><i>view</i> (UMLGraphicsView)</dt>
+<dd>
+reference to the view object
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>package</i> (str)</dt>
+<dd>
+name of a python package to be shown
+</dd>
+<dt><i>noAttrs</i> (bool)</dt>
+<dd>
+flag indicating, that no attributes should be shown
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.__addExternalClass" ID="PackageDiagramBuilder.__addExternalClass"></a>
+<h4>PackageDiagramBuilder.__addExternalClass</h4>
+<b>__addExternalClass</b>(<i>_class, x, y</i>)
+<p>
+        Private method to add a class defined outside the module.
+</p>
+<p>
+        If the canvas is too small to take the shape, it
+        is enlarged.
+</p>
+
+<dl>
+
+<dt><i>_class</i> (ModuleParser.Class)</dt>
+<dd>
+class to be shown
+</dd>
+<dt><i>x</i> (float)</dt>
+<dd>
+x-coordinate
+</dd>
+<dt><i>y</i> (float)</dt>
+<dd>
+y-coordinate
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.__addLocalClass" ID="PackageDiagramBuilder.__addLocalClass"></a>
+<h4>PackageDiagramBuilder.__addLocalClass</h4>
+<b>__addLocalClass</b>(<i>className, _class, x, y, isRbModule=False</i>)
+<p>
+        Private method to add a class defined in the module.
+</p>
+
+<dl>
+
+<dt><i>className</i> (str)</dt>
+<dd>
+name of the class to be as a dictionary key
+</dd>
+<dt><i>_class</i> (ModuleParser.Class)</dt>
+<dd>
+class to be shown
+</dd>
+<dt><i>x</i> (float)</dt>
+<dd>
+x-coordinate
+</dd>
+<dt><i>y</i> (float)</dt>
+<dd>
+y-coordinate
+</dd>
+<dt><i>isRbModule</i> (bool)</dt>
+<dd>
+flag indicating a Ruby module
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.__addPackage" ID="PackageDiagramBuilder.__addPackage"></a>
+<h4>PackageDiagramBuilder.__addPackage</h4>
+<b>__addPackage</b>(<i>name, modules, x, y</i>)
+<p>
+        Private method to add a package to the diagram.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+package name to be shown
+</dd>
+<dt><i>modules</i> (list of str)</dt>
+<dd>
+list of module names contained in the package
+</dd>
+<dt><i>x</i> (float)</dt>
+<dd>
+x-coordinate
+</dd>
+<dt><i>y</i> (float)</dt>
+<dd>
+y-coordinate
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.__arrangeClasses" ID="PackageDiagramBuilder.__arrangeClasses"></a>
+<h4>PackageDiagramBuilder.__arrangeClasses</h4>
+<b>__arrangeClasses</b>(<i>nodes, routes, whiteSpaceFactor=1.2</i>)
+<p>
+        Private method to arrange the shapes on the canvas.
+</p>
+<p>
+        The algorithm is borrowed from Boa Constructor.
+</p>
+
+<dl>
+
+<dt><i>nodes</i> (list of str)</dt>
+<dd>
+list of nodes to arrange
+</dd>
+<dt><i>routes</i> (list of tuple of (str, str))</dt>
+<dd>
+list of routes
+</dd>
+<dt><i>whiteSpaceFactor</i> (float)</dt>
+<dd>
+factor to increase whitespace between
+            items
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.__buildModulesDict" ID="PackageDiagramBuilder.__buildModulesDict"></a>
+<h4>PackageDiagramBuilder.__buildModulesDict</h4>
+<b>__buildModulesDict</b>(<i></i>)
+<p>
+        Private method to build a dictionary of modules contained in the
+        package.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary of modules contained in the package
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.__buildSubpackagesDict" ID="PackageDiagramBuilder.__buildSubpackagesDict"></a>
+<h4>PackageDiagramBuilder.__buildSubpackagesDict</h4>
+<b>__buildSubpackagesDict</b>(<i></i>)
+<p>
+        Private method to build a dictionary of sub-packages contained in this
+        package.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary of sub-packages contained in this package
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.__createAssociations" ID="PackageDiagramBuilder.__createAssociations"></a>
+<h4>PackageDiagramBuilder.__createAssociations</h4>
+<b>__createAssociations</b>(<i>routes</i>)
+<p>
+        Private method to generate the associations between the class shapes.
+</p>
+
+<dl>
+
+<dt><i>routes</i> (list of tuple of (str, str))</dt>
+<dd>
+list of relationsships
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.__getCurrentShape" ID="PackageDiagramBuilder.__getCurrentShape"></a>
+<h4>PackageDiagramBuilder.__getCurrentShape</h4>
+<b>__getCurrentShape</b>(<i>name</i>)
+<p>
+        Private method to get the named shape.
+</p>
+
+<dl>
+
+<dt><i>name</i> (str)</dt>
+<dd>
+name of the shape
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+shape
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+QCanvasItem
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.buildDiagram" ID="PackageDiagramBuilder.buildDiagram"></a>
+<h4>PackageDiagramBuilder.buildDiagram</h4>
+<b>buildDiagram</b>(<i></i>)
+<p>
+        Public method to build the class shapes of the package diagram.
+</p>
+<p>
+        The algorithm is borrowed from Boa Constructor.
+</p>
+
+<a NAME="PackageDiagramBuilder.fromDict" ID="PackageDiagramBuilder.fromDict"></a>
+<h4>PackageDiagramBuilder.fromDict</h4>
+<b>fromDict</b>(<i>_version, data</i>)
+<p>
+        Public method to populate the class with data persisted by 'toDict()'.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>data</i> (dict)</dt>
+<dd>
+dictionary containing the persisted data
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating success and an info
+            message in case the diagram belongs to a different project
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.initialize" ID="PackageDiagramBuilder.initialize"></a>
+<h4>PackageDiagramBuilder.initialize</h4>
+<b>initialize</b>(<i></i>)
+<p>
+        Public method to initialize the object.
+</p>
+
+<a NAME="PackageDiagramBuilder.parsePersistenceData" ID="PackageDiagramBuilder.parsePersistenceData"></a>
+<h4>PackageDiagramBuilder.parsePersistenceData</h4>
+<b>parsePersistenceData</b>(<i>_version, data</i>)
+<p>
+        Public method to parse persisted data.
+</p>
+
+<dl>
+
+<dt><i>_version</i> (str)</dt>
+<dd>
+version of the data (unused)
+</dd>
+<dt><i>data</i> (str)</dt>
+<dd>
+persisted data to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="PackageDiagramBuilder.toDict" ID="PackageDiagramBuilder.toDict"></a>
+<h4>PackageDiagramBuilder.toDict</h4>
+<b>toDict</b>(<i></i>)
+<p>
+        Public method to collect data to be persisted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+dictionary containing data to be persisted
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+dict
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

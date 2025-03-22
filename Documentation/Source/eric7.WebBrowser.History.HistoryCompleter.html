@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.WebBrowser.History.HistoryCompleter</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.WebBrowser.History.HistoryCompleter</h1>
+<p>
+Module implementing a special completer for the history.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#HistoryCompleter">HistoryCompleter</a></td>
+<td>Class implementing a completer for the browser history.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionModel">HistoryCompletionModel</a></td>
+<td>Class implementing a special model for history based completions.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionView">HistoryCompletionView</a></td>
+<td>Class implementing a special completer view for history based completions.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="HistoryCompleter" ID="HistoryCompleter"></a>
+<h2>HistoryCompleter</h2>
+<p>
+    Class implementing a completer for the browser history.
+</p>
+
+<h3>Derived from</h3>
+QCompleter
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryCompleter.__init__">HistoryCompleter</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompleter.__updateFilter">__updateFilter</a></td>
+<td>Private slot to update the search string.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompleter.pathFromIndex">pathFromIndex</a></td>
+<td>Public method to get a path for a given index.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompleter.splitPath">splitPath</a></td>
+<td>Public method to split the given path into strings, that are used to match at each level in the model.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryCompleter.__init__" ID="HistoryCompleter.__init__"></a>
+<h4>HistoryCompleter (Constructor)</h4>
+<b>HistoryCompleter</b>(<i>model, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>model</i> (QAbstractItemModel)</dt>
+<dd>
+reference to the model
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="HistoryCompleter.__updateFilter" ID="HistoryCompleter.__updateFilter"></a>
+<h4>HistoryCompleter.__updateFilter</h4>
+<b>__updateFilter</b>(<i></i>)
+<p>
+        Private slot to update the search string.
+</p>
+
+<a NAME="HistoryCompleter.pathFromIndex" ID="HistoryCompleter.pathFromIndex"></a>
+<h4>HistoryCompleter.pathFromIndex</h4>
+<b>pathFromIndex</b>(<i>idx</i>)
+<p>
+        Public method to get a path for a given index.
+</p>
+
+<dl>
+
+<dt><i>idx</i> (QModelIndex)</dt>
+<dd>
+reference to the index
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+the actual URL from the history
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HistoryCompleter.splitPath" ID="HistoryCompleter.splitPath"></a>
+<h4>HistoryCompleter.splitPath</h4>
+<b>splitPath</b>(<i>path</i>)
+<p>
+        Public method to split the given path into strings, that are used to
+        match at each level in the model.
+</p>
+
+<dl>
+
+<dt><i>path</i> (str)</dt>
+<dd>
+path to be split
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of path elements
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HistoryCompletionModel" ID="HistoryCompletionModel"></a>
+<h2>HistoryCompletionModel</h2>
+<p>
+    Class implementing a special model for history based completions.
+</p>
+
+<h3>Derived from</h3>
+QSortFilterProxyModel
+<h3>Class Attributes</h3>
+<table>
+<tr><td>HistoryCompletionRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryCompletionModel.__init__">HistoryCompletionModel</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionModel.data">data</a></td>
+<td>Public method to get data from the model.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionModel.filterAcceptsRow">filterAcceptsRow</a></td>
+<td>Public method to determine, if the row is acceptable.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionModel.isValid">isValid</a></td>
+<td>Public method to check the model for validity.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionModel.lessThan">lessThan</a></td>
+<td>Public method used to sort the displayed items.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionModel.searchString">searchString</a></td>
+<td>Public method to get the current search string.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionModel.setSearchString">setSearchString</a></td>
+<td>Public method to set the current search string.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionModel.setValid">setValid</a></td>
+<td>Public method to set the model's validity.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryCompletionModel.__init__" ID="HistoryCompletionModel.__init__"></a>
+<h4>HistoryCompletionModel (Constructor)</h4>
+<b>HistoryCompletionModel</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="HistoryCompletionModel.data" ID="HistoryCompletionModel.data"></a>
+<h4>HistoryCompletionModel.data</h4>
+<b>data</b>(<i>index, role=Qt.ItemDataRole.DisplayRole</i>)
+<p>
+        Public method to get data from the model.
+</p>
+
+<dl>
+
+<dt><i>index</i> (QModelIndex)</dt>
+<dd>
+index of history entry to get data for
+</dd>
+<dt><i>role</i> (int)</dt>
+<dd>
+data role
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+history entry data
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<a NAME="HistoryCompletionModel.filterAcceptsRow" ID="HistoryCompletionModel.filterAcceptsRow"></a>
+<h4>HistoryCompletionModel.filterAcceptsRow</h4>
+<b>filterAcceptsRow</b>(<i>sourceRow, sourceParent</i>)
+<p>
+        Public method to determine, if the row is acceptable.
+</p>
+
+<dl>
+
+<dt><i>sourceRow</i> (int)</dt>
+<dd>
+row number in the source model
+</dd>
+<dt><i>sourceParent</i> (QModelIndex)</dt>
+<dd>
+index of the source item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating acceptance
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryCompletionModel.isValid" ID="HistoryCompletionModel.isValid"></a>
+<h4>HistoryCompletionModel.isValid</h4>
+<b>isValid</b>(<i></i>)
+<p>
+        Public method to check the model for validity.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a valid status
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryCompletionModel.lessThan" ID="HistoryCompletionModel.lessThan"></a>
+<h4>HistoryCompletionModel.lessThan</h4>
+<b>lessThan</b>(<i>left, right</i>)
+<p>
+        Public method used to sort the displayed items.
+</p>
+<p>
+        It implements a special sorting function based on the history entry's
+        frequency giving a bonus to hits that match on a word boundary so that
+        e.g. "dot.python-projects.org" is a better result for typing "dot" than
+        "slashdot.org". However, it only looks for the string in the host name,
+        not the entire URL, since while it makes sense to e.g. give
+        "www.phoronix.com" a bonus for "ph", it does NOT make sense to give
+        "www.yadda.com/foo.php" the bonus.
+</p>
+
+<dl>
+
+<dt><i>left</i> (QModelIndex)</dt>
+<dd>
+index of left item
+</dd>
+<dt><i>right</i> (QModelIndex)</dt>
+<dd>
+index of right item
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+true, if left is less than right
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="HistoryCompletionModel.searchString" ID="HistoryCompletionModel.searchString"></a>
+<h4>HistoryCompletionModel.searchString</h4>
+<b>searchString</b>(<i></i>)
+<p>
+        Public method to get the current search string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+current search string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="HistoryCompletionModel.setSearchString" ID="HistoryCompletionModel.setSearchString"></a>
+<h4>HistoryCompletionModel.setSearchString</h4>
+<b>setSearchString</b>(<i>sstring</i>)
+<p>
+        Public method to set the current search string.
+</p>
+
+<dl>
+
+<dt><i>sstring</i> (str)</dt>
+<dd>
+new search string
+</dd>
+</dl>
+<a NAME="HistoryCompletionModel.setValid" ID="HistoryCompletionModel.setValid"></a>
+<h4>HistoryCompletionModel.setValid</h4>
+<b>setValid</b>(<i>valid</i>)
+<p>
+        Public method to set the model's validity.
+</p>
+
+<dl>
+
+<dt><i>valid</i> (bool)</dt>
+<dd>
+flag indicating the new valid status
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="HistoryCompletionView" ID="HistoryCompletionView"></a>
+<h2>HistoryCompletionView</h2>
+<p>
+    Class implementing a special completer view for history based completions.
+</p>
+
+<h3>Derived from</h3>
+QTableView
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#HistoryCompletionView.__init__">HistoryCompletionView</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionView.resizeEvent">resizeEvent</a></td>
+<td>Protected method handling resize events.</td>
+</tr>
+<tr>
+<td><a href="#HistoryCompletionView.sizeHintForRow">sizeHintForRow</a></td>
+<td>Public method to give a size hint for rows.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="HistoryCompletionView.__init__" ID="HistoryCompletionView.__init__"></a>
+<h4>HistoryCompletionView (Constructor)</h4>
+<b>HistoryCompletionView</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+reference to the parent widget
+</dd>
+</dl>
+<a NAME="HistoryCompletionView.resizeEvent" ID="HistoryCompletionView.resizeEvent"></a>
+<h4>HistoryCompletionView.resizeEvent</h4>
+<b>resizeEvent</b>(<i>evt</i>)
+<p>
+        Protected method handling resize events.
+</p>
+
+<dl>
+
+<dt><i>evt</i> (QResizeEvent)</dt>
+<dd>
+reference to the resize event
+</dd>
+</dl>
+<a NAME="HistoryCompletionView.sizeHintForRow" ID="HistoryCompletionView.sizeHintForRow"></a>
+<h4>HistoryCompletionView.sizeHintForRow</h4>
+<b>sizeHintForRow</b>(<i>_row</i>)
+<p>
+        Public method to give a size hint for rows.
+</p>
+
+<dl>
+
+<dt><i>_row</i> (int)</dt>
+<dd>
+row number (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+desired row height
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

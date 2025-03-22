@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.UiExtensionPlugins.Translator.TranslatorEngines.LibreTranslateEngine</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.UiExtensionPlugins.Translator.TranslatorEngines.LibreTranslateEngine</h1>
+<p>
+Module implementing the LibreTranslate translation engine.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#LibreTranslateEngine">LibreTranslateEngine</a></td>
+<td>Class implementing the translation engine for the LibreTranslate service.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createEngine">createEngine</a></td>
+<td>Function to instantiate a translator engine object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="LibreTranslateEngine" ID="LibreTranslateEngine"></a>
+<h2>LibreTranslateEngine</h2>
+<p>
+    Class implementing the translation engine for the LibreTranslate service.
+</p>
+
+<h3>Derived from</h3>
+TranslationEngine
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#LibreTranslateEngine.__init__">LibreTranslateEngine</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#LibreTranslateEngine.__getTranslationModels">__getTranslationModels</a></td>
+<td>Private method to get the translation models supported by IBM Watson Language Translator.</td>
+</tr>
+<tr>
+<td><a href="#LibreTranslateEngine.__getTranslationModelsReplyFinished">__getTranslationModelsReplyFinished</a></td>
+<td>Private slot handling the receipt of the available translations.</td>
+</tr>
+<tr>
+<td><a href="#LibreTranslateEngine.engineName">engineName</a></td>
+<td>Public method to return the name of the engine.</td>
+</tr>
+<tr>
+<td><a href="#LibreTranslateEngine.getTranslation">getTranslation</a></td>
+<td>Public method to translate the given text.</td>
+</tr>
+<tr>
+<td><a href="#LibreTranslateEngine.hasTTS">hasTTS</a></td>
+<td>Public method indicating the Text-to-Speech capability.</td>
+</tr>
+<tr>
+<td><a href="#LibreTranslateEngine.supportedLanguages">supportedLanguages</a></td>
+<td>Public method to get the supported languages.</td>
+</tr>
+<tr>
+<td><a href="#LibreTranslateEngine.supportedTargetLanguages">supportedTargetLanguages</a></td>
+<td>Public method to get a list of supported target languages for an original language.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="LibreTranslateEngine.__init__" ID="LibreTranslateEngine.__init__"></a>
+<h4>LibreTranslateEngine (Constructor)</h4>
+<b>LibreTranslateEngine</b>(<i>plugin, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>plugin</i> (TranslatorPlugin)</dt>
+<dd>
+reference to the plugin object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="LibreTranslateEngine.__getTranslationModels" ID="LibreTranslateEngine.__getTranslationModels"></a>
+<h4>LibreTranslateEngine.__getTranslationModels</h4>
+<b>__getTranslationModels</b>(<i></i>)
+<p>
+        Private method to get the translation models supported by IBM Watson
+        Language Translator.
+</p>
+
+<a NAME="LibreTranslateEngine.__getTranslationModelsReplyFinished" ID="LibreTranslateEngine.__getTranslationModelsReplyFinished"></a>
+<h4>LibreTranslateEngine.__getTranslationModelsReplyFinished</h4>
+<b>__getTranslationModelsReplyFinished</b>(<i>reply</i>)
+<p>
+        Private slot handling the receipt of the available translations.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the network reply object
+</dd>
+</dl>
+<a NAME="LibreTranslateEngine.engineName" ID="LibreTranslateEngine.engineName"></a>
+<h4>LibreTranslateEngine.engineName</h4>
+<b>engineName</b>(<i></i>)
+<p>
+        Public method to return the name of the engine.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+engine name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="LibreTranslateEngine.getTranslation" ID="LibreTranslateEngine.getTranslation"></a>
+<h4>LibreTranslateEngine.getTranslation</h4>
+<b>getTranslation</b>(<i>requestObject, text, originalLanguage, translationLanguage</i>)
+<p>
+        Public method to translate the given text.
+</p>
+
+<dl>
+
+<dt><i>requestObject</i> (TranslatorRequest)</dt>
+<dd>
+reference to the request object
+</dd>
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be translated
+</dd>
+<dt><i>originalLanguage</i> (str)</dt>
+<dd>
+language code of the original
+</dd>
+<dt><i>translationLanguage</i> (str)</dt>
+<dd>
+language code of the translation
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of translated text and flag indicating success
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (str, bool)
+</dd>
+</dl>
+<a NAME="LibreTranslateEngine.hasTTS" ID="LibreTranslateEngine.hasTTS"></a>
+<h4>LibreTranslateEngine.hasTTS</h4>
+<b>hasTTS</b>(<i></i>)
+<p>
+        Public method indicating the Text-to-Speech capability.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the Text-to-Speech capability
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="LibreTranslateEngine.supportedLanguages" ID="LibreTranslateEngine.supportedLanguages"></a>
+<h4>LibreTranslateEngine.supportedLanguages</h4>
+<b>supportedLanguages</b>(<i></i>)
+<p>
+        Public method to get the supported languages.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+list of supported language codes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="LibreTranslateEngine.supportedTargetLanguages" ID="LibreTranslateEngine.supportedTargetLanguages"></a>
+<h4>LibreTranslateEngine.supportedTargetLanguages</h4>
+<b>supportedTargetLanguages</b>(<i>original</i>)
+<p>
+        Public method to get a list of supported target languages for an
+        original language.
+</p>
+
+<dl>
+
+<dt><i>original</i> (str)</dt>
+<dd>
+original language
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of supported target languages for the given original
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createEngine" ID="createEngine"></a>
+<h2>createEngine</h2>
+<b>createEngine</b>(<i>plugin, parent=None</i>)
+<p>
+    Function to instantiate a translator engine object.
+</p>
+
+<dl>
+
+<dt><i>plugin</i> (TranslatorPlugin)</dt>
+<dd>
+reference to the plugin object
+</dd>
+<dt><i>parent</i> (QObject (optional))</dt>
+<dd>
+reference to the parent object (defaults to None)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated translator engine object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+IbmWatsonEngine
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

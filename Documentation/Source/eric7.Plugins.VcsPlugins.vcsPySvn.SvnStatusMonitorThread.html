@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.VcsPlugins.vcsPySvn.SvnStatusMonitorThread</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.VcsPlugins.vcsPySvn.SvnStatusMonitorThread</h1>
+<p>
+Module implementing the VCS status monitor thread class for Subversion.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#SvnStatusMonitorThread">SvnStatusMonitorThread</a></td>
+<td>Class implementing the VCS status monitor thread class for Subversion.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="SvnStatusMonitorThread" ID="SvnStatusMonitorThread"></a>
+<h2>SvnStatusMonitorThread</h2>
+<p>
+    Class implementing the VCS status monitor thread class for Subversion.
+</p>
+
+<h3>Derived from</h3>
+VcsStatusMonitorThread
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SvnStatusMonitorThread.__init__">SvnStatusMonitorThread</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusMonitorThread.__clientLoginCallback">__clientLoginCallback</a></td>
+<td>Private method called by the client to get login information.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusMonitorThread.__clientSslServerTrustPromptCallback">__clientSslServerTrustPromptCallback</a></td>
+<td>Private method called by the client to request acceptance for a ssl server certificate.</td>
+</tr>
+<tr>
+<td><a href="#SvnStatusMonitorThread._performMonitor">_performMonitor</a></td>
+<td>Protected method implementing the monitoring action.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SvnStatusMonitorThread.__init__" ID="SvnStatusMonitorThread.__init__"></a>
+<h4>SvnStatusMonitorThread (Constructor)</h4>
+<b>SvnStatusMonitorThread</b>(<i>interval, project, vcs, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>interval</i> (int)</dt>
+<dd>
+new interval in seconds
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+<dt><i>vcs</i> (Subversion)</dt>
+<dd>
+reference to the version control object
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="SvnStatusMonitorThread.__clientLoginCallback" ID="SvnStatusMonitorThread.__clientLoginCallback"></a>
+<h4>SvnStatusMonitorThread.__clientLoginCallback</h4>
+<b>__clientLoginCallback</b>(<i></i>)
+<p>
+        Private method called by the client to get login information.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of four values (retcode, username, password, save).
+            Retcode should be True, if username and password should be used
+            by subversion, username and password contain the relevant data
+            as strings and save is a flag indicating, that username and
+            password should be saved. Always returns (False, "", "", False).
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str, str, bool)
+</dd>
+</dl>
+<a NAME="SvnStatusMonitorThread.__clientSslServerTrustPromptCallback" ID="SvnStatusMonitorThread.__clientSslServerTrustPromptCallback"></a>
+<h4>SvnStatusMonitorThread.__clientSslServerTrustPromptCallback</h4>
+<b>__clientSslServerTrustPromptCallback</b>(<i></i>)
+<p>
+        Private method called by the client to request acceptance for a
+        ssl server certificate.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of three values (retcode, acceptedFailures, save).
+            Retcode should be true, if the certificate should be accepted,
+            acceptedFailures should indicate the accepted certificate failures
+            and save should be True, if subversion should save the certificate.
+            Always returns (False, 0, False).
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, int, bool)
+</dd>
+</dl>
+<a NAME="SvnStatusMonitorThread._performMonitor" ID="SvnStatusMonitorThread._performMonitor"></a>
+<h4>SvnStatusMonitorThread._performMonitor</h4>
+<b>_performMonitor</b>(<i></i>)
+<p>
+        Protected method implementing the monitoring action.
+</p>
+<p>
+        This method populates the statusList member variable
+        with a list of strings giving the status in the first column and the
+        path relative to the project directory starting with the third column.
+        The allowed status flags are:
+        <ul>
+            <li>"A" path was added but not yet committed</li>
+            <li>"M" path has local changes</li>
+            <li>"O" path was removed</li>
+            <li>"R" path was deleted and then re-added</li>
+            <li>"U" path needs an update</li>
+            <li>"Z" path contains a conflict</li>
+            <li>"?" path is not tracked</li>
+            <li>"!" path is missing</li>
+            <li>" " path is back at normal</li>
+        </ul>
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of flag indicating successful operation and a status message
+            in case of non successful operation
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

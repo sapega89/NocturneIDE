@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.NameOrder.NameOrderChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.NameOrder.NameOrderChecker</h1>
+<p>
+Module implementing a checker for import statements.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#NameOrderChecker">NameOrderChecker</a></td>
+<td>Class implementing a checker for name ordering.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="NameOrderChecker" ID="NameOrderChecker"></a>
+<h2>NameOrderChecker</h2>
+<p>
+    Class implementing a checker for name ordering.
+</p>
+<p>
+    Note: Name ordering is checked for import statements, the '__all__' statement
+    and exception names of exception handlers.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Codes</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NameOrderChecker.__init__">NameOrderChecker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__atoi">__atoi</a></td>
+<td>Private method to convert the given text to an integer number.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__checkNameOrder">__checkNameOrder</a></td>
+<td>Private method to check the order of import statements and handled exceptions.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__error">__error</a></td>
+<td>Private method to record an issue.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__findErrorInAll">__findErrorInAll</a></td>
+<td>Private method to check the '__all__' node for errors.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__findExceptionListErrors">__findExceptionListErrors</a></td>
+<td>Private method to check the exception node for errors.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__findExceptionListNodes">__findExceptionListNodes</a></td>
+<td>Private method to find all exception types handled by given tree.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__findExceptionListStr">__findExceptionListStr</a></td>
+<td>Private method to get the exception name out of an exception handler type node.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__findNodes">__findNodes</a></td>
+<td>Private method to find all import and import from nodes of the given tree.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__ignoreCode">__ignoreCode</a></td>
+<td>Private method to check if the message code should be ignored.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__naturalKeys">__naturalKeys</a></td>
+<td>Private method to generate keys for natural sorting.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.__naturally">__naturally</a></td>
+<td>Private method to sort the given list of names naturally.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.keyCallback">keyCallback</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.moduleKey">moduleKey</a></td>
+<td>Public method to generate a key for the given module name.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.run">run</a></td>
+<td>Public method to check the given source against miscellaneous conditions.</td>
+</tr>
+<tr>
+<td><a href="#NameOrderChecker.sorted">sorted</a></td>
+<td>Public method to sort the given list of names.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NameOrderChecker.__init__" ID="NameOrderChecker.__init__"></a>
+<h4>NameOrderChecker (Constructor)</h4>
+<b>NameOrderChecker</b>(<i>source, filename, tree, select, ignore, expected, repeat, args</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str)</dt>
+<dd>
+source code to be checked
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>tree</i> (ast.Module)</dt>
+<dd>
+AST tree of the source code
+</dd>
+<dt><i>select</i> (list of str)</dt>
+<dd>
+list of selected codes
+</dd>
+<dt><i>ignore</i> (list of str)</dt>
+<dd>
+list of codes to be ignored
+</dd>
+<dt><i>expected</i> (list of str)</dt>
+<dd>
+list of expected codes
+</dd>
+<dt><i>repeat</i> (bool)</dt>
+<dd>
+flag indicating to report each occurrence of a code
+</dd>
+<dt><i>args</i> (dict)</dt>
+<dd>
+dictionary of arguments for the various checks
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__atoi" ID="NameOrderChecker.__atoi"></a>
+<h4>NameOrderChecker.__atoi</h4>
+<b>__atoi</b>(<i>text</i>)
+<p>
+        Private method to convert the given text to an integer number.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+integer number
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__checkNameOrder" ID="NameOrderChecker.__checkNameOrder"></a>
+<h4>NameOrderChecker.__checkNameOrder</h4>
+<b>__checkNameOrder</b>(<i></i>)
+<p>
+        Private method to check the order of import statements and handled exceptions.
+</p>
+
+<a NAME="NameOrderChecker.__error" ID="NameOrderChecker.__error"></a>
+<h4>NameOrderChecker.__error</h4>
+<b>__error</b>(<i>lineNumber, offset, code, *args</i>)
+<p>
+        Private method to record an issue.
+</p>
+
+<dl>
+
+<dt><i>lineNumber</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+position within line of the issue
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+message code
+</dd>
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments for the message
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__findErrorInAll" ID="NameOrderChecker.__findErrorInAll"></a>
+<h4>NameOrderChecker.__findErrorInAll</h4>
+<b>__findErrorInAll</b>(<i>node</i>)
+<p>
+        Private method to check the '__all__' node for errors.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.List or ast.Tuple)</dt>
+<dd>
+reference to the '__all__' node
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a reference to the node an error code and the error
+            arguments
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (ast.List | ast.Tuple, str, str)
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__findExceptionListErrors" ID="NameOrderChecker.__findExceptionListErrors"></a>
+<h4>NameOrderChecker.__findExceptionListErrors</h4>
+<b>__findExceptionListErrors</b>(<i>nodes</i>)
+<p>
+        Private method to check the exception node for errors.
+</p>
+
+<dl>
+
+<dt><i>nodes</i> (list of ast.List or ast.Tuple)</dt>
+<dd>
+list of exception nodes
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+DESCRIPTION
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+TYPE
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__findExceptionListNodes" ID="NameOrderChecker.__findExceptionListNodes"></a>
+<h4>NameOrderChecker.__findExceptionListNodes</h4>
+<b>__findExceptionListNodes</b>(<i>tree</i>)
+<p>
+        Private method to find all exception types handled by given tree.
+</p>
+
+<dl>
+
+<dt><i>tree</i> (ast.AST)</dt>
+<dd>
+reference to the ast node tree to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of exception types
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of ast.Name
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__findExceptionListStr" ID="NameOrderChecker.__findExceptionListStr"></a>
+<h4>NameOrderChecker.__findExceptionListStr</h4>
+<b>__findExceptionListStr</b>(<i>node</i>)
+<p>
+        Private method to get the exception name out of an exception handler type node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.Name or ast.Attribute)</dt>
+<dd>
+node to be treated
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string containing the exception name
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__findNodes" ID="NameOrderChecker.__findNodes"></a>
+<h4>NameOrderChecker.__findNodes</h4>
+<b>__findNodes</b>(<i>tree</i>)
+<p>
+        Private method to find all import and import from nodes of the given
+        tree.
+</p>
+
+<dl>
+
+<dt><i>tree</i> (ast.AST)</dt>
+<dd>
+reference to the ast node tree to be parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a list of import nodes, the '__all__' node and
+            exception nodes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (ast.Import | ast.ImportFrom, ast.List | ast.Tuple,
+            ast.List | ast.Tuple)
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__ignoreCode" ID="NameOrderChecker.__ignoreCode"></a>
+<h4>NameOrderChecker.__ignoreCode</h4>
+<b>__ignoreCode</b>(<i>code</i>)
+<p>
+        Private method to check if the message code should be ignored.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+message code to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore the given code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__naturalKeys" ID="NameOrderChecker.__naturalKeys"></a>
+<h4>NameOrderChecker.__naturalKeys</h4>
+<b>__naturalKeys</b>(<i>text</i>)
+<p>
+        Private method to generate keys for natural sorting.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+text to generate a key for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+key for natural sorting
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str or int
+</dd>
+</dl>
+<a NAME="NameOrderChecker.__naturally" ID="NameOrderChecker.__naturally"></a>
+<h4>NameOrderChecker.__naturally</h4>
+<b>__naturally</b>(<i>toSort, key=None, reverse=False</i>)
+<p>
+        Private method to sort the given list of names naturally.
+</p>
+<p>
+        Note: Natural sorting maintains the sort order of numbers (i.e.
+            [Q1, Q10, Q2] is sorted as [Q1, Q2, Q10] while the Python
+            standard sort would yield [Q1, Q10, Q2].
+</p>
+
+<dl>
+
+<dt><i>toSort</i> (list of str)</dt>
+<dd>
+list of names to be sorted
+</dd>
+<dt><i>key</i> (function (optional))</dt>
+<dd>
+function to generate keys (defaults to None)
+</dd>
+<dt><i>reverse</i> (bool (optional))</dt>
+<dd>
+flag indicating a reverse sort (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sorted list of names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="NameOrderChecker.keyCallback" ID="NameOrderChecker.keyCallback"></a>
+<h4>NameOrderChecker.keyCallback</h4>
+<b>keyCallback</b>(<i></i>)
+
+<a NAME="NameOrderChecker.moduleKey" ID="NameOrderChecker.moduleKey"></a>
+<h4>NameOrderChecker.moduleKey</h4>
+<b>moduleKey</b>(<i>moduleName, subImports=False</i>)
+<p>
+        Public method to generate a key for the given module name.
+</p>
+
+<dl>
+
+<dt><i>moduleName</i> (str)</dt>
+<dd>
+module name
+</dd>
+<dt><i>subImports</i> (bool (optional))</dt>
+<dd>
+flag indicating a sub import like in
+            'from foo import bar, baz' (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+generated key
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="NameOrderChecker.run" ID="NameOrderChecker.run"></a>
+<h4>NameOrderChecker.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method to check the given source against miscellaneous
+        conditions.
+</p>
+
+<a NAME="NameOrderChecker.sorted" ID="NameOrderChecker.sorted"></a>
+<h4>NameOrderChecker.sorted</h4>
+<b>sorted</b>(<i>toSort, key=None, reverse=False</i>)
+<p>
+        Public method to sort the given list of names.
+</p>
+
+<dl>
+
+<dt><i>toSort</i> (list of str)</dt>
+<dd>
+list of names to be sorted
+</dd>
+<dt><i>key</i> (function (optional))</dt>
+<dd>
+function to generate keys (defaults to None)
+</dd>
+<dt><i>reverse</i> (bool (optional))</dt>
+<dd>
+flag indicating a reverse sort (defaults to False)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+sorted list of names
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

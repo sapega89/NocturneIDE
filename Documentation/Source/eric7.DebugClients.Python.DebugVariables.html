@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.DebugClients.Python.DebugVariables</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.DebugClients.Python.DebugVariables</h1>
+<p>
+Module implementing classes and functions to dump variable contents.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>_MapCount</td></tr>
+<tr><td>_TryArray</td></tr>
+<tr><td>_TypeMap</td></tr>
+<tr><td>arrayResolver</td></tr>
+<tr><td>defaultResolver</td></tr>
+<tr><td>dictResolver</td></tr>
+<tr><td>dictViewResolver</td></tr>
+<tr><td>listResolver</td></tr>
+<tr><td>multiValueDictResolver</td></tr>
+<tr><td>ndarrayResolver</td></tr>
+<tr><td>qtResolver</td></tr>
+<tr><td>setResolver</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ArrayResolver">ArrayResolver</a></td>
+<td>Class used to resolve from array.array including some meta data.</td>
+</tr>
+<tr>
+<td><a href="#BaseResolver">BaseResolver</a></td>
+<td>Base class of the resolver class tree.</td>
+</tr>
+<tr>
+<td><a href="#DefaultResolver">DefaultResolver</a></td>
+<td>Class used to resolve the default way.</td>
+</tr>
+<tr>
+<td><a href="#DictResolver">DictResolver</a></td>
+<td>Class used to resolve from a dictionary.</td>
+</tr>
+<tr>
+<td><a href="#DictViewResolver">DictViewResolver</a></td>
+<td>Class used to resolve from dict views.</td>
+</tr>
+<tr>
+<td><a href="#ListResolver">ListResolver</a></td>
+<td>Class used to resolve from a tuple or list.</td>
+</tr>
+<tr>
+<td><a href="#MultiValueDictResolver">MultiValueDictResolver</a></td>
+<td>Class used to resolve from Django multi value dictionaries.</td>
+</tr>
+<tr>
+<td><a href="#NdArrayResolver">NdArrayResolver</a></td>
+<td>Class used to resolve from numpy ndarray including some meta data.</td>
+</tr>
+<tr>
+<td><a href="#QtResolver">QtResolver</a></td>
+<td>Class used to resolve the Qt implementations.</td>
+</tr>
+<tr>
+<td><a href="#SetResolver">SetResolver</a></td>
+<td>Class used to resolve from a set or frozenset.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#_initTypeMap">_initTypeMap</a></td>
+<td>Protected function to initialize the type map.</td>
+</tr>
+<tr>
+<td><a href="#getResolver">getResolver</a></td>
+<td>Public method to get the resolver based on the type info of an object.</td>
+</tr>
+<tr>
+<td><a href="#updateTypeMap">updateTypeMap</a></td>
+<td>Public function to update the type map based on module imports.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ArrayResolver" ID="ArrayResolver"></a>
+<h2>ArrayResolver</h2>
+<p>
+    Class used to resolve from array.array including some meta data.
+</p>
+
+<h3>Derived from</h3>
+BaseResolver
+<h3>Class Attributes</h3>
+<table>
+<tr><td>TypeCodeMap</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ArrayResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+<tr>
+<td><a href="#ArrayResolver.resolve">resolve</a></td>
+<td>Public method to get an attribute from a variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ArrayResolver.getVariableList" ID="ArrayResolver.getVariableList"></a>
+<h4>ArrayResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple containing the batch start index and a list
+            containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, list)
+</dd>
+</dl>
+<a NAME="ArrayResolver.resolve" ID="ArrayResolver.resolve"></a>
+<h4>ArrayResolver.resolve</h4>
+<b>resolve</b>(<i>var, attribute</i>)
+<p>
+        Public method to get an attribute from a variable.
+</p>
+
+<dl>
+
+<dt><i>var</i> (array.array)</dt>
+<dd>
+variable to extract an attribute or value from
+</dd>
+<dt><i>attribute</i> (str)</dt>
+<dd>
+id of the value to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="BaseResolver" ID="BaseResolver"></a>
+<h2>BaseResolver</h2>
+<p>
+    Base class of the resolver class tree.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#BaseResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+<tr>
+<td><a href="#BaseResolver.resolve">resolve</a></td>
+<td>Public method to get an attribute from a variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="BaseResolver.getVariableList" ID="BaseResolver.getVariableList"></a>
+<h4>BaseResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list
+</dd>
+</dl>
+<a NAME="BaseResolver.resolve" ID="BaseResolver.resolve"></a>
+<h4>BaseResolver.resolve</h4>
+<b>resolve</b>(<i>var, attribute</i>)
+<p>
+        Public method to get an attribute from a variable.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to extract an attribute or value from
+</dd>
+<dt><i>attribute</i> (str)</dt>
+<dd>
+name of the attribute to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DefaultResolver" ID="DefaultResolver"></a>
+<h2>DefaultResolver</h2>
+<p>
+    Class used to resolve the default way.
+</p>
+
+<h3>Derived from</h3>
+BaseResolver
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DefaultResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DefaultResolver.getVariableList" ID="DefaultResolver.getVariableList"></a>
+<h4>DefaultResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple containing the batch start index and a list
+            containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, list)
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DictResolver" ID="DictResolver"></a>
+<h2>DictResolver</h2>
+<p>
+    Class used to resolve from a dictionary.
+</p>
+
+<h3>Derived from</h3>
+BaseResolver
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DictResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+<tr>
+<td><a href="#DictResolver.keyToStr">keyToStr</a></td>
+<td>Public method to get a string representation for a key.</td>
+</tr>
+<tr>
+<td><a href="#DictResolver.resolve">resolve</a></td>
+<td>Public method to get an attribute from a variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DictResolver.getVariableList" ID="DictResolver.getVariableList"></a>
+<h4>DictResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple containing the batch start index and a list
+            containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, list)
+</dd>
+</dl>
+<a NAME="DictResolver.keyToStr" ID="DictResolver.keyToStr"></a>
+<h4>DictResolver.keyToStr</h4>
+<b>keyToStr</b>(<i>key</i>)
+<p>
+        Public method to get a string representation for a key.
+</p>
+
+<dl>
+
+<dt><i>key</i> (Any)</dt>
+<dd>
+key to be converted
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+string representation of the given key
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DictResolver.resolve" ID="DictResolver.resolve"></a>
+<h4>DictResolver.resolve</h4>
+<b>resolve</b>(<i>var, attribute</i>)
+<p>
+        Public method to get an attribute from a variable.
+</p>
+
+<dl>
+
+<dt><i>var</i> (dict)</dt>
+<dd>
+variable to extract an attribute or value from
+</dd>
+<dt><i>attribute</i> (str)</dt>
+<dd>
+name of the attribute to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DictViewResolver" ID="DictViewResolver"></a>
+<h2>DictViewResolver</h2>
+<p>
+    Class used to resolve from dict views.
+</p>
+
+<h3>Derived from</h3>
+ListResolver
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DictViewResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+<tr>
+<td><a href="#DictViewResolver.resolve">resolve</a></td>
+<td>Public method to get an attribute from a variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DictViewResolver.getVariableList" ID="DictViewResolver.getVariableList"></a>
+<h4>DictViewResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple containing the batch start index and a list
+            containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, list)
+</dd>
+</dl>
+<a NAME="DictViewResolver.resolve" ID="DictViewResolver.resolve"></a>
+<h4>DictViewResolver.resolve</h4>
+<b>resolve</b>(<i>var, attribute</i>)
+<p>
+        Public method to get an attribute from a variable.
+</p>
+
+<dl>
+
+<dt><i>var</i> (dict_items, dict_keys or dict_values)</dt>
+<dd>
+variable to extract an attribute or value from
+</dd>
+<dt><i>attribute</i> (str)</dt>
+<dd>
+id of the value to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="ListResolver" ID="ListResolver"></a>
+<h2>ListResolver</h2>
+<p>
+    Class used to resolve from a tuple or list.
+</p>
+
+<h3>Derived from</h3>
+BaseResolver
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ListResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+<tr>
+<td><a href="#ListResolver.resolve">resolve</a></td>
+<td>Public method to get an attribute from a variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ListResolver.getVariableList" ID="ListResolver.getVariableList"></a>
+<h4>ListResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple containing the batch start index and a list
+            containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, list)
+</dd>
+</dl>
+<a NAME="ListResolver.resolve" ID="ListResolver.resolve"></a>
+<h4>ListResolver.resolve</h4>
+<b>resolve</b>(<i>var, attribute</i>)
+<p>
+        Public method to get an attribute from a variable.
+</p>
+
+<dl>
+
+<dt><i>var</i> (tuple or list)</dt>
+<dd>
+variable to extract an attribute or value from
+</dd>
+<dt><i>attribute</i> (str)</dt>
+<dd>
+name of the attribute to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="MultiValueDictResolver" ID="MultiValueDictResolver"></a>
+<h2>MultiValueDictResolver</h2>
+<p>
+    Class used to resolve from Django multi value dictionaries.
+</p>
+
+<h3>Derived from</h3>
+DictResolver
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#MultiValueDictResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+<tr>
+<td><a href="#MultiValueDictResolver.resolve">resolve</a></td>
+<td>Public method to get an attribute from a variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="MultiValueDictResolver.getVariableList" ID="MultiValueDictResolver.getVariableList"></a>
+<h4>MultiValueDictResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple containing the batch start index and a list
+            containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, list)
+</dd>
+</dl>
+<a NAME="MultiValueDictResolver.resolve" ID="MultiValueDictResolver.resolve"></a>
+<h4>MultiValueDictResolver.resolve</h4>
+<b>resolve</b>(<i>var, attribute</i>)
+<p>
+        Public method to get an attribute from a variable.
+</p>
+
+<dl>
+
+<dt><i>var</i> (MultiValueDict)</dt>
+<dd>
+variable to extract an attribute or value from
+</dd>
+<dt><i>attribute</i> (str)</dt>
+<dd>
+name of the attribute to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="NdArrayResolver" ID="NdArrayResolver"></a>
+<h2>NdArrayResolver</h2>
+<p>
+    Class used to resolve from numpy ndarray including some meta data.
+</p>
+
+<h3>Derived from</h3>
+BaseResolver
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#NdArrayResolver.__isNumeric">__isNumeric</a></td>
+<td>Private method to check, if an array is of a numeric type.</td>
+</tr>
+<tr>
+<td><a href="#NdArrayResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+<tr>
+<td><a href="#NdArrayResolver.resolve">resolve</a></td>
+<td>Public method to get an attribute from a variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="NdArrayResolver.__isNumeric" ID="NdArrayResolver.__isNumeric"></a>
+<h4>NdArrayResolver.__isNumeric</h4>
+<b>__isNumeric</b>(<i>arr</i>)
+<p>
+        Private method to check, if an array is of a numeric type.
+</p>
+
+<dl>
+
+<dt><i>arr</i> (ndarray)</dt>
+<dd>
+array to check
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a numeric array
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="NdArrayResolver.getVariableList" ID="NdArrayResolver.getVariableList"></a>
+<h4>NdArrayResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple containing the batch start index and a list
+            containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, list)
+</dd>
+</dl>
+<a NAME="NdArrayResolver.resolve" ID="NdArrayResolver.resolve"></a>
+<h4>NdArrayResolver.resolve</h4>
+<b>resolve</b>(<i>var, attribute</i>)
+<p>
+        Public method to get an attribute from a variable.
+</p>
+
+<dl>
+
+<dt><i>var</i> (ndarray)</dt>
+<dd>
+variable to extract an attribute or value from
+</dd>
+<dt><i>attribute</i> (str)</dt>
+<dd>
+id of the value to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="QtResolver" ID="QtResolver"></a>
+<h2>QtResolver</h2>
+<p>
+    Class used to resolve the Qt implementations.
+</p>
+
+<h3>Derived from</h3>
+BaseResolver
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#QtResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+<tr>
+<td><a href="#QtResolver.resolve">resolve</a></td>
+<td>Public method to get an attribute from a variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="QtResolver.getVariableList" ID="QtResolver.getVariableList"></a>
+<h4>QtResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple containing the batch start index and a list
+            containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, list)
+</dd>
+</dl>
+<a NAME="QtResolver.resolve" ID="QtResolver.resolve"></a>
+<h4>QtResolver.resolve</h4>
+<b>resolve</b>(<i>var, attribute</i>)
+<p>
+        Public method to get an attribute from a variable.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Qt objects)</dt>
+<dd>
+variable to extract an attribute or value from
+</dd>
+<dt><i>attribute</i> (str)</dt>
+<dd>
+name of the attribute to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="SetResolver" ID="SetResolver"></a>
+<h2>SetResolver</h2>
+<p>
+    Class used to resolve from a set or frozenset.
+</p>
+
+<h3>Derived from</h3>
+BaseResolver
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#SetResolver.getVariableList">getVariableList</a></td>
+<td>Public method to get the attributes of a variable as a list.</td>
+</tr>
+<tr>
+<td><a href="#SetResolver.resolve">resolve</a></td>
+<td>Public method to get an attribute from a variable.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="SetResolver.getVariableList" ID="SetResolver.getVariableList"></a>
+<h4>SetResolver.getVariableList</h4>
+<b>getVariableList</b>(<i>var</i>)
+<p>
+        Public method to get the attributes of a variable as a list.
+</p>
+
+<dl>
+
+<dt><i>var</i> (Any)</dt>
+<dd>
+variable to be converted
+</dd>
+</dl>
+<dl>
+<dt>Yield:</dt>
+<dd>
+tuple containing the batch start index and a list
+            containing the variable attributes
+</dd>
+</dl>
+<dl>
+<dt>Yield Type:</dt>
+<dd>
+tuple of (int, list)
+</dd>
+</dl>
+<a NAME="SetResolver.resolve" ID="SetResolver.resolve"></a>
+<h4>SetResolver.resolve</h4>
+<b>resolve</b>(<i>var, attribute</i>)
+<p>
+        Public method to get an attribute from a variable.
+</p>
+
+<dl>
+
+<dt><i>var</i> (tuple or list)</dt>
+<dd>
+variable to extract an attribute or value from
+</dd>
+<dt><i>attribute</i> (str)</dt>
+<dd>
+id of the value to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+value of the attribute
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Any
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="_initTypeMap" ID="_initTypeMap"></a>
+<h2>_initTypeMap</h2>
+<b>_initTypeMap</b>(<i></i>)
+<p>
+    Protected function to initialize the type map.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getResolver" ID="getResolver"></a>
+<h2>getResolver</h2>
+<b>getResolver</b>(<i>obj</i>)
+<p>
+    Public method to get the resolver based on the type info of an object.
+</p>
+
+<dl>
+
+<dt><i>obj</i> (Any)</dt>
+<dd>
+object to get resolver for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+resolver
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+BaseResolver
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="updateTypeMap" ID="updateTypeMap"></a>
+<h2>updateTypeMap</h2>
+<b>updateTypeMap</b>(<i></i>)
+<p>
+    Public function to update the type map based on module imports.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

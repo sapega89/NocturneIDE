@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Tasks.TaskViewer</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Tasks.TaskViewer</h1>
+<p>
+Module implementing a task viewer and associated classes.
+</p>
+<p>
+Tasks can be defined manually or automatically. Automatically
+generated tasks are derived from a comment with a special
+introductory text. This text is configurable.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#ProjectTaskExtractionThread">ProjectTaskExtractionThread</a></td>
+<td>Class implementing a thread to extract tasks related to a project.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer">TaskViewer</a></td>
+<td>Class implementing the task viewer.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="ProjectTaskExtractionThread" ID="ProjectTaskExtractionThread"></a>
+<h2>ProjectTaskExtractionThread</h2>
+<p>
+    Class implementing a thread to extract tasks related to a project.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>taskFound(str, str, int, TaskType)</dt>
+<dd>
+emitted with the task
+        description, the file name, the line number and task type to signal
+        the presence of a task
+</dd>
+</dl>
+<h3>Derived from</h3>
+QThread
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#ProjectTaskExtractionThread.__init__">ProjectTaskExtractionThread</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#ProjectTaskExtractionThread.requestInterrupt">requestInterrupt</a></td>
+<td>Public method to request iterruption of the thread.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTaskExtractionThread.run">run</a></td>
+<td>Public thread method to scan the given files.</td>
+</tr>
+<tr>
+<td><a href="#ProjectTaskExtractionThread.scan">scan</a></td>
+<td>Public method to scan the given list of files for tasks.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="ProjectTaskExtractionThread.__init__" ID="ProjectTaskExtractionThread.__init__"></a>
+<h4>ProjectTaskExtractionThread (Constructor)</h4>
+<b>ProjectTaskExtractionThread</b>(<i>parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="ProjectTaskExtractionThread.requestInterrupt" ID="ProjectTaskExtractionThread.requestInterrupt"></a>
+<h4>ProjectTaskExtractionThread.requestInterrupt</h4>
+<b>requestInterrupt</b>(<i></i>)
+<p>
+        Public method to request iterruption of the thread.
+</p>
+
+<a NAME="ProjectTaskExtractionThread.run" ID="ProjectTaskExtractionThread.run"></a>
+<h4>ProjectTaskExtractionThread.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public thread method to scan the given files.
+</p>
+
+<a NAME="ProjectTaskExtractionThread.scan" ID="ProjectTaskExtractionThread.scan"></a>
+<h4>ProjectTaskExtractionThread.scan</h4>
+<b>scan</b>(<i>markers, files</i>)
+<p>
+        Public method to scan the given list of files for tasks.
+</p>
+
+<dl>
+
+<dt><i>markers</i> (dict of lists of str)</dt>
+<dd>
+dictionary of defined task markers
+</dd>
+<dt><i>files</i> (list of str)</dt>
+<dd>
+list of file names to be scanned
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="TaskViewer" ID="TaskViewer"></a>
+<h2>TaskViewer</h2>
+<p>
+    Class implementing the task viewer.
+</p>
+
+<h3>Signals</h3>
+<dl>
+
+<dt>displayFile(str, int)</dt>
+<dd>
+emitted to go to a file task
+</dd>
+</dl>
+<h3>Derived from</h3>
+QTreeWidget
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#TaskViewer.__init__">TaskViewer</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__activateFilter">__activateFilter</a></td>
+<td>Private slot to handle the "Filtered display" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__checkTopLevelItems">__checkTopLevelItems</a></td>
+<td>Private slot to check the 'Extracted Tasks' item for children.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__configure">__configure</a></td>
+<td>Private method to open the configuration dialog.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__configureFilter">__configureFilter</a></td>
+<td>Private slot to handle the "Configure filter" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__configureProjectTasksScanOptions">__configureProjectTasksScanOptions</a></td>
+<td>Private slot to configure scan options for project tasks.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__copyTask">__copyTask</a></td>
+<td>Private slot to handle the "Copy" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__deleteCompleted">__deleteCompleted</a></td>
+<td>Private slot to handle the "Delete Completed Tasks" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__deleteSubTasks">__deleteSubTasks</a></td>
+<td>Private method to delete all sub-tasks.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__deleteTask">__deleteTask</a></td>
+<td>Private slot to delete a task.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__editTaskProperties">__editTaskProperties</a></td>
+<td>Private slot to handle the "Properties" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__generateTopLevelItems">__generateTopLevelItems</a></td>
+<td>Private method to generate the 'Extracted Tasks' item.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__goToTask">__goToTask</a></td>
+<td>Private slot to handle the "Go To" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__markCompleted">__markCompleted</a></td>
+<td>Private slot to handle the "Mark Completed" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__newSubTask">__newSubTask</a></td>
+<td>Private slot to handle the "New Sub-Task" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__newTask">__newTask</a></td>
+<td>Private slot to handle the "New Task" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__pasteMainTask">__pasteMainTask</a></td>
+<td>Private slot to handle the "Paste as Main Task" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__pasteTask">__pasteTask</a></td>
+<td>Private slot to handle the "Paste" context menu entry.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__refreshDisplay">__refreshDisplay</a></td>
+<td>Private method to refresh the display.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__resizeColumns">__resizeColumns</a></td>
+<td>Private method to resize the list columns.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__resort">__resort</a></td>
+<td>Private method to resort the tree.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__showContextMenu">__showContextMenu</a></td>
+<td>Private slot to show the context menu of the list.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.__taskItemActivated">__taskItemActivated</a></td>
+<td>Private slot to handle the activation of an item.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.addFileTask">addFileTask</a></td>
+<td>Public slot to add a file related task.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.addTask">addTask</a></td>
+<td>Public slot to add a task.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.clearFileTasks">clearFileTasks</a></td>
+<td>Public slot to clear all tasks related to a file.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.clearProjectTasks">clearProjectTasks</a></td>
+<td>Public slot to clear project related tasks.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.clearTasks">clearTasks</a></td>
+<td>Public slot to clear all tasks from display.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.containsTask">containsTask</a></td>
+<td>Public method to test, if a task is already in the tasks list.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.findParentTask">findParentTask</a></td>
+<td>Public method to find a parent task by its ID.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.getGlobalTasks">getGlobalTasks</a></td>
+<td>Public method to retrieve all non project related tasks.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.getProjectTasks">getProjectTasks</a></td>
+<td>Public method to retrieve all project related tasks.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.getTasksScanFilter">getTasksScanFilter</a></td>
+<td>Public method to get the project scan filter.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.handlePreferencesChanged">handlePreferencesChanged</a></td>
+<td>Public slot to react to changes of the preferences.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.regenerateProjectTasks">regenerateProjectTasks</a></td>
+<td>Public slot to regenerate project related tasks.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.saveProjectTasks">saveProjectTasks</a></td>
+<td>Public method to write the project tasks.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.setProjectOpen">setProjectOpen</a></td>
+<td>Public slot to set the project status.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.setTasksScanFilter">setTasksScanFilter</a></td>
+<td>Public method to set the project scan filter.</td>
+</tr>
+<tr>
+<td><a href="#TaskViewer.stopProjectTaskExtraction">stopProjectTaskExtraction</a></td>
+<td>Public method to stop the project task extraction thread.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="TaskViewer.__init__" ID="TaskViewer.__init__"></a>
+<h4>TaskViewer (Constructor)</h4>
+<b>TaskViewer</b>(<i>parent, project</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>parent</i> (QWidget)</dt>
+<dd>
+the parent
+</dd>
+<dt><i>project</i> (Project)</dt>
+<dd>
+reference to the project object
+</dd>
+</dl>
+<a NAME="TaskViewer.__activateFilter" ID="TaskViewer.__activateFilter"></a>
+<h4>TaskViewer.__activateFilter</h4>
+<b>__activateFilter</b>(<i>on</i>)
+<p>
+        Private slot to handle the "Filtered display" context menu entry.
+</p>
+
+<dl>
+
+<dt><i>on</i> (bool)</dt>
+<dd>
+flag indicating the filter state
+</dd>
+</dl>
+<a NAME="TaskViewer.__checkTopLevelItems" ID="TaskViewer.__checkTopLevelItems"></a>
+<h4>TaskViewer.__checkTopLevelItems</h4>
+<b>__checkTopLevelItems</b>(<i></i>)
+<p>
+        Private slot to check the 'Extracted Tasks' item for children.
+</p>
+
+<a NAME="TaskViewer.__configure" ID="TaskViewer.__configure"></a>
+<h4>TaskViewer.__configure</h4>
+<b>__configure</b>(<i></i>)
+<p>
+        Private method to open the configuration dialog.
+</p>
+
+<a NAME="TaskViewer.__configureFilter" ID="TaskViewer.__configureFilter"></a>
+<h4>TaskViewer.__configureFilter</h4>
+<b>__configureFilter</b>(<i></i>)
+<p>
+        Private slot to handle the "Configure filter" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__configureProjectTasksScanOptions" ID="TaskViewer.__configureProjectTasksScanOptions"></a>
+<h4>TaskViewer.__configureProjectTasksScanOptions</h4>
+<b>__configureProjectTasksScanOptions</b>(<i></i>)
+<p>
+        Private slot to configure scan options for project tasks.
+</p>
+
+<a NAME="TaskViewer.__copyTask" ID="TaskViewer.__copyTask"></a>
+<h4>TaskViewer.__copyTask</h4>
+<b>__copyTask</b>(<i></i>)
+<p>
+        Private slot to handle the "Copy" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__deleteCompleted" ID="TaskViewer.__deleteCompleted"></a>
+<h4>TaskViewer.__deleteCompleted</h4>
+<b>__deleteCompleted</b>(<i></i>)
+<p>
+        Private slot to handle the "Delete Completed Tasks" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__deleteSubTasks" ID="TaskViewer.__deleteSubTasks"></a>
+<h4>TaskViewer.__deleteSubTasks</h4>
+<b>__deleteSubTasks</b>(<i>task</i>)
+<p>
+        Private method to delete all sub-tasks.
+</p>
+
+<dl>
+
+<dt><i>task</i> (Task)</dt>
+<dd>
+task to delete sub-tasks of
+</dd>
+</dl>
+<a NAME="TaskViewer.__deleteTask" ID="TaskViewer.__deleteTask"></a>
+<h4>TaskViewer.__deleteTask</h4>
+<b>__deleteTask</b>(<i>task=None</i>)
+<p>
+        Private slot to delete a task.
+</p>
+
+<dl>
+
+<dt><i>task</i> (Task)</dt>
+<dd>
+task to be deleted
+</dd>
+</dl>
+<a NAME="TaskViewer.__editTaskProperties" ID="TaskViewer.__editTaskProperties"></a>
+<h4>TaskViewer.__editTaskProperties</h4>
+<b>__editTaskProperties</b>(<i></i>)
+<p>
+        Private slot to handle the "Properties" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__generateTopLevelItems" ID="TaskViewer.__generateTopLevelItems"></a>
+<h4>TaskViewer.__generateTopLevelItems</h4>
+<b>__generateTopLevelItems</b>(<i></i>)
+<p>
+        Private method to generate the 'Extracted Tasks' item.
+</p>
+
+<a NAME="TaskViewer.__goToTask" ID="TaskViewer.__goToTask"></a>
+<h4>TaskViewer.__goToTask</h4>
+<b>__goToTask</b>(<i></i>)
+<p>
+        Private slot to handle the "Go To" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__markCompleted" ID="TaskViewer.__markCompleted"></a>
+<h4>TaskViewer.__markCompleted</h4>
+<b>__markCompleted</b>(<i></i>)
+<p>
+        Private slot to handle the "Mark Completed" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__newSubTask" ID="TaskViewer.__newSubTask"></a>
+<h4>TaskViewer.__newSubTask</h4>
+<b>__newSubTask</b>(<i></i>)
+<p>
+        Private slot to handle the "New Sub-Task" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__newTask" ID="TaskViewer.__newTask"></a>
+<h4>TaskViewer.__newTask</h4>
+<b>__newTask</b>(<i></i>)
+<p>
+        Private slot to handle the "New Task" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__pasteMainTask" ID="TaskViewer.__pasteMainTask"></a>
+<h4>TaskViewer.__pasteMainTask</h4>
+<b>__pasteMainTask</b>(<i></i>)
+<p>
+        Private slot to handle the "Paste as Main Task" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__pasteTask" ID="TaskViewer.__pasteTask"></a>
+<h4>TaskViewer.__pasteTask</h4>
+<b>__pasteTask</b>(<i></i>)
+<p>
+        Private slot to handle the "Paste" context menu entry.
+</p>
+
+<a NAME="TaskViewer.__refreshDisplay" ID="TaskViewer.__refreshDisplay"></a>
+<h4>TaskViewer.__refreshDisplay</h4>
+<b>__refreshDisplay</b>(<i></i>)
+<p>
+        Private method to refresh the display.
+</p>
+
+<a NAME="TaskViewer.__resizeColumns" ID="TaskViewer.__resizeColumns"></a>
+<h4>TaskViewer.__resizeColumns</h4>
+<b>__resizeColumns</b>(<i></i>)
+<p>
+        Private method to resize the list columns.
+</p>
+
+<a NAME="TaskViewer.__resort" ID="TaskViewer.__resort"></a>
+<h4>TaskViewer.__resort</h4>
+<b>__resort</b>(<i></i>)
+<p>
+        Private method to resort the tree.
+</p>
+
+<a NAME="TaskViewer.__showContextMenu" ID="TaskViewer.__showContextMenu"></a>
+<h4>TaskViewer.__showContextMenu</h4>
+<b>__showContextMenu</b>(<i>coord</i>)
+<p>
+        Private slot to show the context menu of the list.
+</p>
+
+<dl>
+
+<dt><i>coord</i> (QPoint)</dt>
+<dd>
+the position of the mouse pointer
+</dd>
+</dl>
+<a NAME="TaskViewer.__taskItemActivated" ID="TaskViewer.__taskItemActivated"></a>
+<h4>TaskViewer.__taskItemActivated</h4>
+<b>__taskItemActivated</b>(<i>itm, _col</i>)
+<p>
+        Private slot to handle the activation of an item.
+</p>
+
+<dl>
+
+<dt><i>itm</i> (QTreeWidgetItem)</dt>
+<dd>
+reference to the activated item
+</dd>
+<dt><i>_col</i> (int)</dt>
+<dd>
+column the item was activated in (unused)
+</dd>
+</dl>
+<a NAME="TaskViewer.addFileTask" ID="TaskViewer.addFileTask"></a>
+<h4>TaskViewer.addFileTask</h4>
+<b>addFileTask</b>(<i>summary, filename, lineno, taskType=TaskType.TODO, description=""</i>)
+<p>
+        Public slot to add a file related task.
+</p>
+
+<dl>
+
+<dt><i>summary</i> (str)</dt>
+<dd>
+summary text of the task
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+filename containing the task
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number containing the task
+</dd>
+<dt><i>taskType</i> (TaskType)</dt>
+<dd>
+type of the task
+</dd>
+<dt><i>description</i> (str)</dt>
+<dd>
+explanatory text of the task
+</dd>
+</dl>
+<a NAME="TaskViewer.addTask" ID="TaskViewer.addTask"></a>
+<h4>TaskViewer.addTask</h4>
+<b>addTask</b>(<i>summary, priority=TaskPriority.NORMAL, filename="", lineno=0, completed=False, _time=0, isProjectTask=False, taskType=TaskType.TODO, description="", uid="", parentTask=None, </i>)
+<p>
+        Public slot to add a task.
+</p>
+
+<dl>
+
+<dt><i>summary</i> (str)</dt>
+<dd>
+summary text of the task
+</dd>
+<dt><i>priority</i> (TaskPriority)</dt>
+<dd>
+priority of the task
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+filename containing the task
+</dd>
+<dt><i>lineno</i> (int)</dt>
+<dd>
+line number containing the task
+</dd>
+<dt><i>completed</i> (bool)</dt>
+<dd>
+flag indicating completion status
+</dd>
+<dt><i>_time</i> (float)</dt>
+<dd>
+creation time of the task (if 0 use current time)
+</dd>
+<dt><i>isProjectTask</i> (bool)</dt>
+<dd>
+flag indicating a task related to the current
+            project
+</dd>
+<dt><i>taskType</i> (TaskType)</dt>
+<dd>
+type of the task
+</dd>
+<dt><i>description</i> (str)</dt>
+<dd>
+explanatory text of the task
+</dd>
+<dt><i>uid</i> (str)</dt>
+<dd>
+unique id of the task
+</dd>
+<dt><i>parentTask</i> (Task or str)</dt>
+<dd>
+reference to the parent task item or the UID of the
+            parent task
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the task item
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Task
+</dd>
+</dl>
+<a NAME="TaskViewer.clearFileTasks" ID="TaskViewer.clearFileTasks"></a>
+<h4>TaskViewer.clearFileTasks</h4>
+<b>clearFileTasks</b>(<i>filename, conditionally=False</i>)
+<p>
+        Public slot to clear all tasks related to a file.
+</p>
+
+<dl>
+
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the file
+</dd>
+<dt><i>conditionally</i> (bool)</dt>
+<dd>
+flag indicating to clear the tasks of the file
+            checking some conditions
+</dd>
+</dl>
+<a NAME="TaskViewer.clearProjectTasks" ID="TaskViewer.clearProjectTasks"></a>
+<h4>TaskViewer.clearProjectTasks</h4>
+<b>clearProjectTasks</b>(<i>fileOnly=False</i>)
+<p>
+        Public slot to clear project related tasks.
+</p>
+
+<dl>
+
+<dt><i>fileOnly</i> (bool)</dt>
+<dd>
+flag indicating to clear only file related project tasks
+</dd>
+</dl>
+<a NAME="TaskViewer.clearTasks" ID="TaskViewer.clearTasks"></a>
+<h4>TaskViewer.clearTasks</h4>
+<b>clearTasks</b>(<i></i>)
+<p>
+        Public slot to clear all tasks from display.
+</p>
+
+<a NAME="TaskViewer.containsTask" ID="TaskViewer.containsTask"></a>
+<h4>TaskViewer.containsTask</h4>
+<b>containsTask</b>(<i>taskToTest</i>)
+<p>
+        Public method to test, if a task is already in the tasks list.
+</p>
+
+<dl>
+
+<dt><i>taskToTest</i> (Task)</dt>
+<dd>
+task to look for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the existence of the task
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="TaskViewer.findParentTask" ID="TaskViewer.findParentTask"></a>
+<h4>TaskViewer.findParentTask</h4>
+<b>findParentTask</b>(<i>parentUid</i>)
+<p>
+        Public method to find a parent task by its ID.
+</p>
+
+<dl>
+
+<dt><i>parentUid</i> (str)</dt>
+<dd>
+uid of the parent task
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the task
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+Task
+</dd>
+</dl>
+<a NAME="TaskViewer.getGlobalTasks" ID="TaskViewer.getGlobalTasks"></a>
+<h4>TaskViewer.getGlobalTasks</h4>
+<b>getGlobalTasks</b>(<i></i>)
+<p>
+        Public method to retrieve all non project related tasks.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+copy of tasks
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of Task
+</dd>
+</dl>
+<a NAME="TaskViewer.getProjectTasks" ID="TaskViewer.getProjectTasks"></a>
+<h4>TaskViewer.getProjectTasks</h4>
+<b>getProjectTasks</b>(<i></i>)
+<p>
+        Public method to retrieve all project related tasks.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+copy of tasks
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of Task
+</dd>
+</dl>
+<a NAME="TaskViewer.getTasksScanFilter" ID="TaskViewer.getTasksScanFilter"></a>
+<h4>TaskViewer.getTasksScanFilter</h4>
+<b>getTasksScanFilter</b>(<i></i>)
+<p>
+        Public method to get the project scan filter.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+project scan filter
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="TaskViewer.handlePreferencesChanged" ID="TaskViewer.handlePreferencesChanged"></a>
+<h4>TaskViewer.handlePreferencesChanged</h4>
+<b>handlePreferencesChanged</b>(<i></i>)
+<p>
+        Public slot to react to changes of the preferences.
+</p>
+
+<a NAME="TaskViewer.regenerateProjectTasks" ID="TaskViewer.regenerateProjectTasks"></a>
+<h4>TaskViewer.regenerateProjectTasks</h4>
+<b>regenerateProjectTasks</b>(<i>quiet=False</i>)
+<p>
+        Public slot to regenerate project related tasks.
+</p>
+
+<dl>
+
+<dt><i>quiet</i> (bool)</dt>
+<dd>
+flag indicating quiet operation
+</dd>
+</dl>
+<a NAME="TaskViewer.saveProjectTasks" ID="TaskViewer.saveProjectTasks"></a>
+<h4>TaskViewer.saveProjectTasks</h4>
+<b>saveProjectTasks</b>(<i></i>)
+<p>
+        Public method to write the project tasks.
+</p>
+
+<a NAME="TaskViewer.setProjectOpen" ID="TaskViewer.setProjectOpen"></a>
+<h4>TaskViewer.setProjectOpen</h4>
+<b>setProjectOpen</b>(<i>o=False</i>)
+<p>
+        Public slot to set the project status.
+</p>
+
+<dl>
+
+<dt><i>o</i> (bool)</dt>
+<dd>
+flag indicating the project status
+</dd>
+</dl>
+<a NAME="TaskViewer.setTasksScanFilter" ID="TaskViewer.setTasksScanFilter"></a>
+<h4>TaskViewer.setTasksScanFilter</h4>
+<b>setTasksScanFilter</b>(<i>filterStr: str</i>)
+<p>
+        Public method to set the project scan filter.
+</p>
+
+<dl>
+
+<dt><i>filterStr</i> (str)</dt>
+<dd>
+project scan filter
+</dd>
+</dl>
+<a NAME="TaskViewer.stopProjectTaskExtraction" ID="TaskViewer.stopProjectTaskExtraction"></a>
+<h4>TaskViewer.stopProjectTaskExtraction</h4>
+<b>stopProjectTaskExtraction</b>(<i></i>)
+<p>
+        Public method to stop the project task extraction thread.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

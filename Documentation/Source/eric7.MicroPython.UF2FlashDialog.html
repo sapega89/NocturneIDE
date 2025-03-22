@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.UF2FlashDialog</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.UF2FlashDialog</h1>
+<p>
+Module implementing a dialog to flash any UF2 capable device.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>SupportedUF2Boards</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#UF2FlashDialog">UF2FlashDialog</a></td>
+<td>Class implementing a dialog to flash any UF2 capable device.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#getFoundDevices">getFoundDevices</a></td>
+<td>Function to get the list of known serial devices supporting UF2.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="UF2FlashDialog" ID="UF2FlashDialog"></a>
+<h2>UF2FlashDialog</h2>
+<p>
+    Class implementing a dialog to flash any UF2 capable device.
+</p>
+
+<h3>Derived from</h3>
+QDialog, Ui_UF2FlashDialog
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DeviceTypeRole</td></tr>
+<tr><td>DeviceVidPidRole</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#UF2FlashDialog.__init__">UF2FlashDialog</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.__populate">__populate</a></td>
+<td>Private method to (re-)populate the dialog.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.__showAllInstructions">__showAllInstructions</a></td>
+<td>Private method to show instructions for resetting devices to bootloader mode.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.__showManualInstructions">__showManualInstructions</a></td>
+<td>Private method to show instructions for flashing devices manually.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.__showMultipleVolumesInformation">__showMultipleVolumesInformation</a></td>
+<td>Private method to show information because multiple devices of the same type are ready for flashing.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.__showNoVolumeInformation">__showNoVolumeInformation</a></td>
+<td>Private method to show information about the expected boot volume(s).</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.__showSpecificInstructions">__showSpecificInstructions</a></td>
+<td>Private method to show instructions for resetting devices to bootloader mode for a list of detected devices.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.__showTypedInstructions">__showTypedInstructions</a></td>
+<td>Private method to show instructions for resetting devices to bootloader mode for a specific board type.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.__updateFlashButton">__updateFlashButton</a></td>
+<td>Private method to update the state of the Flash button and the retest button.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.on_bootPicker_textChanged">on_bootPicker_textChanged</a></td>
+<td>Private slot handling a change of the boot volume.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.on_devicesComboBox_currentIndexChanged">on_devicesComboBox_currentIndexChanged</a></td>
+<td>Private slot to handle the selection of a board.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.on_firmwarePicker_textChanged">on_firmwarePicker_textChanged</a></td>
+<td>Private slot handling a change of the firmware file.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.on_flashButton_clicked">on_flashButton_clicked</a></td>
+<td>Private slot to flash the selected MicroPython or CircuitPython firmware onto the device.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.on_refreshButton_clicked">on_refreshButton_clicked</a></td>
+<td>Private slot to refresh the dialog.</td>
+</tr>
+<tr>
+<td><a href="#UF2FlashDialog.on_searchBootButton_clicked">on_searchBootButton_clicked</a></td>
+<td>Private slot to look for all known boot paths and present a list to select from.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="UF2FlashDialog.__init__" ID="UF2FlashDialog.__init__"></a>
+<h4>UF2FlashDialog (Constructor)</h4>
+<b>UF2FlashDialog</b>(<i>boardType="", parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>boardType</i> (str)</dt>
+<dd>
+specific board type to show the dialog for
+</dd>
+<dt><i>parent</i> (QWidget (optional))</dt>
+<dd>
+reference to the parent widget (defaults to None)
+</dd>
+</dl>
+<a NAME="UF2FlashDialog.__populate" ID="UF2FlashDialog.__populate"></a>
+<h4>UF2FlashDialog.__populate</h4>
+<b>__populate</b>(<i></i>)
+<p>
+        Private method to (re-)populate the dialog.
+</p>
+
+<a NAME="UF2FlashDialog.__showAllInstructions" ID="UF2FlashDialog.__showAllInstructions"></a>
+<h4>UF2FlashDialog.__showAllInstructions</h4>
+<b>__showAllInstructions</b>(<i></i>)
+<p>
+        Private method to show instructions for resetting devices to bootloader
+        mode.
+</p>
+
+<a NAME="UF2FlashDialog.__showManualInstructions" ID="UF2FlashDialog.__showManualInstructions"></a>
+<h4>UF2FlashDialog.__showManualInstructions</h4>
+<b>__showManualInstructions</b>(<i></i>)
+<p>
+        Private method to show instructions for flashing devices manually.
+</p>
+
+<a NAME="UF2FlashDialog.__showMultipleVolumesInformation" ID="UF2FlashDialog.__showMultipleVolumesInformation"></a>
+<h4>UF2FlashDialog.__showMultipleVolumesInformation</h4>
+<b>__showMultipleVolumesInformation</b>(<i>volumePaths</i>)
+<p>
+        Private method to show information because multiple devices of the
+        same type are ready for flashing.
+</p>
+<p>
+        Note: This is a dangerous situation!
+</p>
+
+<dl>
+
+<dt><i>volumePaths</i> (list of str)</dt>
+<dd>
+list of volume paths
+</dd>
+</dl>
+<a NAME="UF2FlashDialog.__showNoVolumeInformation" ID="UF2FlashDialog.__showNoVolumeInformation"></a>
+<h4>UF2FlashDialog.__showNoVolumeInformation</h4>
+<b>__showNoVolumeInformation</b>(<i>volumes, boardType</i>)
+<p>
+        Private method to show information about the expected boot volume(s).
+</p>
+
+<dl>
+
+<dt><i>volumes</i> (list of str)</dt>
+<dd>
+list of expected volume names
+</dd>
+<dt><i>boardType</i> (str)</dt>
+<dd>
+type of the board to show instructions for
+</dd>
+</dl>
+<a NAME="UF2FlashDialog.__showSpecificInstructions" ID="UF2FlashDialog.__showSpecificInstructions"></a>
+<h4>UF2FlashDialog.__showSpecificInstructions</h4>
+<b>__showSpecificInstructions</b>(<i>devices</i>)
+<p>
+        Private method to show instructions for resetting devices to bootloader
+        mode for a list of detected devices.
+</p>
+
+<dl>
+
+<dt><i>devices</i> (list of str)</dt>
+<dd>
+list of detected devices
+</dd>
+</dl>
+<a NAME="UF2FlashDialog.__showTypedInstructions" ID="UF2FlashDialog.__showTypedInstructions"></a>
+<h4>UF2FlashDialog.__showTypedInstructions</h4>
+<b>__showTypedInstructions</b>(<i>boardType</i>)
+<p>
+        Private method to show instructions for resetting devices to bootloader
+        mode for a specific board type.
+</p>
+
+<dl>
+
+<dt><i>boardType</i> (str)</dt>
+<dd>
+type of the board to show instructions for
+</dd>
+</dl>
+<a NAME="UF2FlashDialog.__updateFlashButton" ID="UF2FlashDialog.__updateFlashButton"></a>
+<h4>UF2FlashDialog.__updateFlashButton</h4>
+<b>__updateFlashButton</b>(<i></i>)
+<p>
+        Private method to update the state of the Flash button and the retest
+        button.
+</p>
+
+<a NAME="UF2FlashDialog.on_bootPicker_textChanged" ID="UF2FlashDialog.on_bootPicker_textChanged"></a>
+<h4>UF2FlashDialog.on_bootPicker_textChanged</h4>
+<b>on_bootPicker_textChanged</b>(<i>text</i>)
+<p>
+        Private slot handling a change of the boot volume.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+current text of the boot volume edit
+</dd>
+</dl>
+<a NAME="UF2FlashDialog.on_devicesComboBox_currentIndexChanged" ID="UF2FlashDialog.on_devicesComboBox_currentIndexChanged"></a>
+<h4>UF2FlashDialog.on_devicesComboBox_currentIndexChanged</h4>
+<b>on_devicesComboBox_currentIndexChanged</b>(<i>index</i>)
+<p>
+        Private slot to handle the selection of a board.
+</p>
+
+<dl>
+
+<dt><i>index</i> (int)</dt>
+<dd>
+selected index
+</dd>
+</dl>
+<a NAME="UF2FlashDialog.on_firmwarePicker_textChanged" ID="UF2FlashDialog.on_firmwarePicker_textChanged"></a>
+<h4>UF2FlashDialog.on_firmwarePicker_textChanged</h4>
+<b>on_firmwarePicker_textChanged</b>(<i>text</i>)
+<p>
+        Private slot handling a change of the firmware file.
+</p>
+
+<dl>
+
+<dt><i>text</i> (str)</dt>
+<dd>
+current text of the firmware edit
+</dd>
+</dl>
+<a NAME="UF2FlashDialog.on_flashButton_clicked" ID="UF2FlashDialog.on_flashButton_clicked"></a>
+<h4>UF2FlashDialog.on_flashButton_clicked</h4>
+<b>on_flashButton_clicked</b>(<i></i>)
+<p>
+        Private slot to flash the selected MicroPython or CircuitPython
+        firmware onto the device.
+</p>
+
+<a NAME="UF2FlashDialog.on_refreshButton_clicked" ID="UF2FlashDialog.on_refreshButton_clicked"></a>
+<h4>UF2FlashDialog.on_refreshButton_clicked</h4>
+<b>on_refreshButton_clicked</b>(<i></i>)
+<p>
+        Private slot to refresh the dialog.
+</p>
+
+<a NAME="UF2FlashDialog.on_searchBootButton_clicked" ID="UF2FlashDialog.on_searchBootButton_clicked"></a>
+<h4>UF2FlashDialog.on_searchBootButton_clicked</h4>
+<b>on_searchBootButton_clicked</b>(<i></i>)
+<p>
+        Private slot to look for all known boot paths and present a list to select from.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="getFoundDevices" ID="getFoundDevices"></a>
+<h2>getFoundDevices</h2>
+<b>getFoundDevices</b>(<i>boardType=""</i>)
+<p>
+    Function to get the list of known serial devices supporting UF2.
+</p>
+
+<dl>
+
+<dt><i>boardType</i> (str)</dt>
+<dd>
+specific board type to search for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+list of tuples with the board type, the port description, the
+        VID and PID
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of tuple of (str, str, (int, int))
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

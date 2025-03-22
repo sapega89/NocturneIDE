@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.Plugins.CheckerPlugins.CodeStyleChecker.DocStyle.DocStyleChecker</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.Plugins.CheckerPlugins.CodeStyleChecker.DocStyle.DocStyleChecker</h1>
+<p>
+Module implementing a checker for documentation string conventions.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#DocStyleChecker">DocStyleChecker</a></td>
+<td>Class implementing a checker for documentation string conventions.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleContext">DocStyleContext</a></td>
+<td>Class implementing the source context.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="DocStyleChecker" ID="DocStyleChecker"></a>
+<h2>DocStyleChecker</h2>
+<p>
+    Class implementing a checker for documentation string conventions.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>Codes</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DocStyleChecker.__init__">DocStyleChecker</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkBackslashes">__checkBackslashes</a></td>
+<td>Private method to check, that all docstrings containing backslashes are surrounded by raw triple double quotes.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkBlankAfterLastParagraph">__checkBlankAfterLastParagraph</a></td>
+<td>Private method to check, that the last paragraph of docstrings is followed by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkBlankAfterSummary">__checkBlankAfterSummary</a></td>
+<td>Private method to check, that docstring summaries are followed by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkBlankBeforeAndAfterClass">__checkBlankBeforeAndAfterClass</a></td>
+<td>Private method to check, that class docstrings have one blank line around them.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkClassDocstring">__checkClassDocstring</a></td>
+<td>Private method to check, that all public functions and methods have a docstring.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEndsWithPeriod">__checkEndsWithPeriod</a></td>
+<td>Private method to check, that docstring summaries end with a period.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricBlankAfterSummary">__checkEricBlankAfterSummary</a></td>
+<td>Private method to check, that docstring summaries are followed by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricDocumentationDeprecatedTags">__checkEricDocumentationDeprecatedTags</a></td>
+<td>Private method to check the use of deprecated documentation tags.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricDocumentationIndent">__checkEricDocumentationIndent</a></td>
+<td>Private method to check the the correct indentation of the tag lines.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricDocumentationSequence">__checkEricDocumentationSequence</a></td>
+<td>Private method to check, that method docstring follows the correct sequence of entries (e.g.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricEndsWithPeriod">__checkEricEndsWithPeriod</a></td>
+<td>Private method to check, that docstring summaries end with a period.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricException">__checkEricException</a></td>
+<td>Private method to check, that docstrings contain an &#64;exception line if they raise an exception and don't otherwise.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricFunctionArguments">__checkEricFunctionArguments</a></td>
+<td>Private method to check, that docstrings contain an &#64;param and/or &#64;keyparam line for each argument.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricNBlankAfterLastParagraph">__checkEricNBlankAfterLastParagraph</a></td>
+<td>Private method to check, that the last paragraph of docstrings is not followed by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricNoBlankBeforeAndAfterClassOrFunction">__checkEricNoBlankBeforeAndAfterClassOrFunction</a></td>
+<td>Private method to check, that class and function/method docstrings have no blank line around them.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricQuotesOnSeparateLines">__checkEricQuotesOnSeparateLines</a></td>
+<td>Private method to check, that leading and trailing quotes are on a line by themselves.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricReturn">__checkEricReturn</a></td>
+<td>Private method to check, that docstrings contain an &#64;return line if they return anything and don't otherwise.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricSignal">__checkEricSignal</a></td>
+<td>Private method to check, that docstrings contain an &#64;signal line if they define signals and don't otherwise.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricSummary">__checkEricSummary</a></td>
+<td>Private method to check, that method docstring summaries start with specific words.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkEricYield">__checkEricYield</a></td>
+<td>Private method to check, that docstrings contain an &#64;yield line if they return anything and don't otherwise.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkFunctionDocstring">__checkFunctionDocstring</a></td>
+<td>Private method to check, that all public functions and methods have a docstring.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkImperativeMood">__checkImperativeMood</a></td>
+<td>Private method to check, that docstring summaries are in imperative mood.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkIndent">__checkIndent</a></td>
+<td>Private method to check, that docstrings are properly indented.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkModulesDocstrings">__checkModulesDocstrings</a></td>
+<td>Private method to check, if the module has a docstring.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkNoBlankLineBefore">__checkNoBlankLineBefore</a></td>
+<td>Private method to check, that function/method docstrings are not preceded by a blank line.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkNoSignature">__checkNoSignature</a></td>
+<td>Private method to check, that docstring summaries don't repeat the function's signature.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkOneLiner">__checkOneLiner</a></td>
+<td>Private method to check, that one-liner docstrings fit on one line with quotes.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkReturnType">__checkReturnType</a></td>
+<td>Private method to check, that docstrings mention the return value type.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkSummary">__checkSummary</a></td>
+<td>Private method to check, that docstring summaries contain some text.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__checkTripleDoubleQuotes">__checkTripleDoubleQuotes</a></td>
+<td>Private method to check, that all docstrings are surrounded by triple double quotes.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__error">__error</a></td>
+<td>Private method to record an issue.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__getArgNames">__getArgNames</a></td>
+<td>Private method to get the argument names of a function node.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__getSummaryLine">__getSummaryLine</a></td>
+<td>Private method to extract the summary line.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__getSummaryLines">__getSummaryLines</a></td>
+<td>Private method to extract the summary lines.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__ignoreCode">__ignoreCode</a></td>
+<td>Private method to check if the error code should be ignored.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__parseClasses">__parseClasses</a></td>
+<td>Private method to extract top-level classes.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__parseContexts">__parseContexts</a></td>
+<td>Private method to extract a context from the source.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__parseDocstring">__parseDocstring</a></td>
+<td>Private method to extract a docstring given `def` or `class` source.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__parseFunctions">__parseFunctions</a></td>
+<td>Private method to extract top-level functions.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__parseMethods">__parseMethods</a></td>
+<td>Private method to extract methods of all classes.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__parseModuleDocstring">__parseModuleDocstring</a></td>
+<td>Private method to extract a docstring given a module source.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__parseTopLevel">__parseTopLevel</a></td>
+<td>Private method to extract top-level functions or classes.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__readline">__readline</a></td>
+<td>Private method to get the next line from the source.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__resetReadline">__resetReadline</a></td>
+<td>Private method to reset the internal readline function.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.__skipIndentedBlock">__skipIndentedBlock</a></td>
+<td>Private method to skip over an indented block of source code.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleChecker.run">run</a></td>
+<td>Public method to check the given source for violations of doc string conventions.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DocStyleChecker.__init__" ID="DocStyleChecker.__init__"></a>
+<h4>DocStyleChecker (Constructor)</h4>
+<b>DocStyleChecker</b>(<i>source, filename, select, ignore, expected, repeat, maxLineLength=88, docType="pep257", </i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str)</dt>
+<dd>
+source code to be checked
+</dd>
+<dt><i>filename</i> (str)</dt>
+<dd>
+name of the source file
+</dd>
+<dt><i>select</i> (list of str)</dt>
+<dd>
+list of selected codes
+</dd>
+<dt><i>ignore</i> (list of str)</dt>
+<dd>
+list of codes to be ignored
+</dd>
+<dt><i>expected</i> (list of str)</dt>
+<dd>
+list of expected codes
+</dd>
+<dt><i>repeat</i> (bool)</dt>
+<dd>
+flag indicating to report each occurrence of a code
+</dd>
+<dt><i>maxLineLength</i> (int)</dt>
+<dd>
+allowed line length
+</dd>
+<dt><i>docType</i> (str)</dt>
+<dd>
+type of the documentation strings (one of 'eric' or 'pep257')
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkBackslashes" ID="DocStyleChecker.__checkBackslashes"></a>
+<h4>DocStyleChecker.__checkBackslashes</h4>
+<b>__checkBackslashes</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that all docstrings containing
+        backslashes are surrounded by raw triple double quotes.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkBlankAfterLastParagraph" ID="DocStyleChecker.__checkBlankAfterLastParagraph"></a>
+<h4>DocStyleChecker.__checkBlankAfterLastParagraph</h4>
+<b>__checkBlankAfterLastParagraph</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that the last paragraph of docstrings is
+        followed by a blank line.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkBlankAfterSummary" ID="DocStyleChecker.__checkBlankAfterSummary"></a>
+<h4>DocStyleChecker.__checkBlankAfterSummary</h4>
+<b>__checkBlankAfterSummary</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that docstring summaries are followed
+        by a blank line.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkBlankBeforeAndAfterClass" ID="DocStyleChecker.__checkBlankBeforeAndAfterClass"></a>
+<h4>DocStyleChecker.__checkBlankBeforeAndAfterClass</h4>
+<b>__checkBlankBeforeAndAfterClass</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that class docstrings have one
+        blank line around them.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkClassDocstring" ID="DocStyleChecker.__checkClassDocstring"></a>
+<h4>DocStyleChecker.__checkClassDocstring</h4>
+<b>__checkClassDocstring</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that all public functions and methods
+        have a docstring.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEndsWithPeriod" ID="DocStyleChecker.__checkEndsWithPeriod"></a>
+<h4>DocStyleChecker.__checkEndsWithPeriod</h4>
+<b>__checkEndsWithPeriod</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that docstring summaries end with a period.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricBlankAfterSummary" ID="DocStyleChecker.__checkEricBlankAfterSummary"></a>
+<h4>DocStyleChecker.__checkEricBlankAfterSummary</h4>
+<b>__checkEricBlankAfterSummary</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that docstring summaries are followed
+        by a blank line.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricDocumentationDeprecatedTags" ID="DocStyleChecker.__checkEricDocumentationDeprecatedTags"></a>
+<h4>DocStyleChecker.__checkEricDocumentationDeprecatedTags</h4>
+<b>__checkEricDocumentationDeprecatedTags</b>(<i>docstringContext, _context, </i>)
+<p>
+        Private method to check the use of deprecated documentation tags.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricDocumentationIndent" ID="DocStyleChecker.__checkEricDocumentationIndent"></a>
+<h4>DocStyleChecker.__checkEricDocumentationIndent</h4>
+<b>__checkEricDocumentationIndent</b>(<i>docstringContext, _context, </i>)
+<p>
+        Private method to check the the correct indentation of the tag lines.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricDocumentationSequence" ID="DocStyleChecker.__checkEricDocumentationSequence"></a>
+<h4>DocStyleChecker.__checkEricDocumentationSequence</h4>
+<b>__checkEricDocumentationSequence</b>(<i>docstringContext, _context, </i>)
+<p>
+        Private method to check, that method docstring follows the correct sequence
+        of entries (e.g. @param is followed by @type).
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricEndsWithPeriod" ID="DocStyleChecker.__checkEricEndsWithPeriod"></a>
+<h4>DocStyleChecker.__checkEricEndsWithPeriod</h4>
+<b>__checkEricEndsWithPeriod</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that docstring summaries end with a period.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricException" ID="DocStyleChecker.__checkEricException"></a>
+<h4>DocStyleChecker.__checkEricException</h4>
+<b>__checkEricException</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that docstrings contain an &#64;exception line
+        if they raise an exception and don't otherwise.
+</p>
+<p>
+        Note: This method also checks the raised and documented exceptions for
+        completeness (i.e. raised exceptions that are not documented or
+        documented exceptions that are not raised)
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricFunctionArguments" ID="DocStyleChecker.__checkEricFunctionArguments"></a>
+<h4>DocStyleChecker.__checkEricFunctionArguments</h4>
+<b>__checkEricFunctionArguments</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that docstrings contain an &#64;param and/or
+        &#64;keyparam line for each argument.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricNBlankAfterLastParagraph" ID="DocStyleChecker.__checkEricNBlankAfterLastParagraph"></a>
+<h4>DocStyleChecker.__checkEricNBlankAfterLastParagraph</h4>
+<b>__checkEricNBlankAfterLastParagraph</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that the last paragraph of docstrings is
+        not followed by a blank line.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricNoBlankBeforeAndAfterClassOrFunction" ID="DocStyleChecker.__checkEricNoBlankBeforeAndAfterClassOrFunction"></a>
+<h4>DocStyleChecker.__checkEricNoBlankBeforeAndAfterClassOrFunction</h4>
+<b>__checkEricNoBlankBeforeAndAfterClassOrFunction</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that class and function/method docstrings
+        have no blank line around them.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricQuotesOnSeparateLines" ID="DocStyleChecker.__checkEricQuotesOnSeparateLines"></a>
+<h4>DocStyleChecker.__checkEricQuotesOnSeparateLines</h4>
+<b>__checkEricQuotesOnSeparateLines</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that leading and trailing quotes are on
+        a line by themselves.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricReturn" ID="DocStyleChecker.__checkEricReturn"></a>
+<h4>DocStyleChecker.__checkEricReturn</h4>
+<b>__checkEricReturn</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that docstrings contain an &#64;return line
+        if they return anything and don't otherwise.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricSignal" ID="DocStyleChecker.__checkEricSignal"></a>
+<h4>DocStyleChecker.__checkEricSignal</h4>
+<b>__checkEricSignal</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that docstrings contain an &#64;signal line
+        if they define signals and don't otherwise.
+</p>
+<p>
+        Note: This method also checks the defined and documented signals for
+        completeness (i.e. defined signals that are not documented or
+        documented signals that are not defined)
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricSummary" ID="DocStyleChecker.__checkEricSummary"></a>
+<h4>DocStyleChecker.__checkEricSummary</h4>
+<b>__checkEricSummary</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that method docstring summaries start with
+        specific words.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkEricYield" ID="DocStyleChecker.__checkEricYield"></a>
+<h4>DocStyleChecker.__checkEricYield</h4>
+<b>__checkEricYield</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that docstrings contain an &#64;yield line
+        if they return anything and don't otherwise.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkFunctionDocstring" ID="DocStyleChecker.__checkFunctionDocstring"></a>
+<h4>DocStyleChecker.__checkFunctionDocstring</h4>
+<b>__checkFunctionDocstring</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that all public functions and methods
+        have a docstring.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkImperativeMood" ID="DocStyleChecker.__checkImperativeMood"></a>
+<h4>DocStyleChecker.__checkImperativeMood</h4>
+<b>__checkImperativeMood</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that docstring summaries are in
+        imperative mood.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkIndent" ID="DocStyleChecker.__checkIndent"></a>
+<h4>DocStyleChecker.__checkIndent</h4>
+<b>__checkIndent</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that docstrings are properly indented.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkModulesDocstrings" ID="DocStyleChecker.__checkModulesDocstrings"></a>
+<h4>DocStyleChecker.__checkModulesDocstrings</h4>
+<b>__checkModulesDocstrings</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, if the module has a docstring.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkNoBlankLineBefore" ID="DocStyleChecker.__checkNoBlankLineBefore"></a>
+<h4>DocStyleChecker.__checkNoBlankLineBefore</h4>
+<b>__checkNoBlankLineBefore</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that function/method docstrings are not
+        preceded by a blank line.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkNoSignature" ID="DocStyleChecker.__checkNoSignature"></a>
+<h4>DocStyleChecker.__checkNoSignature</h4>
+<b>__checkNoSignature</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that docstring summaries don't repeat
+        the function's signature.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkOneLiner" ID="DocStyleChecker.__checkOneLiner"></a>
+<h4>DocStyleChecker.__checkOneLiner</h4>
+<b>__checkOneLiner</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that one-liner docstrings fit on
+        one line with quotes.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkReturnType" ID="DocStyleChecker.__checkReturnType"></a>
+<h4>DocStyleChecker.__checkReturnType</h4>
+<b>__checkReturnType</b>(<i>docstringContext, context</i>)
+<p>
+        Private method to check, that docstrings mention the return value type.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkSummary" ID="DocStyleChecker.__checkSummary"></a>
+<h4>DocStyleChecker.__checkSummary</h4>
+<b>__checkSummary</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that docstring summaries contain some text.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__checkTripleDoubleQuotes" ID="DocStyleChecker.__checkTripleDoubleQuotes"></a>
+<h4>DocStyleChecker.__checkTripleDoubleQuotes</h4>
+<b>__checkTripleDoubleQuotes</b>(<i>docstringContext, _context</i>)
+<p>
+        Private method to check, that all docstrings are surrounded
+        by triple double quotes.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+<dt><i>_context</i> (DocStyleContext)</dt>
+<dd>
+context of the docstring (unused)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__error" ID="DocStyleChecker.__error"></a>
+<h4>DocStyleChecker.__error</h4>
+<b>__error</b>(<i>lineNumber, offset, code, *args</i>)
+<p>
+        Private method to record an issue.
+</p>
+
+<dl>
+
+<dt><i>lineNumber</i> (int)</dt>
+<dd>
+line number of the issue
+</dd>
+<dt><i>offset</i> (int)</dt>
+<dd>
+position within line of the issue
+</dd>
+<dt><i>code</i> (str)</dt>
+<dd>
+message code
+</dd>
+<dt><i>args</i> (list)</dt>
+<dd>
+arguments for the message
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__getArgNames" ID="DocStyleChecker.__getArgNames"></a>
+<h4>DocStyleChecker.__getArgNames</h4>
+<b>__getArgNames</b>(<i>node</i>)
+<p>
+        Private method to get the argument names of a function node.
+</p>
+
+<dl>
+
+<dt><i>node</i> (ast.AST)</dt>
+<dd>
+AST node to extract arguments names from
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple of two list of argument names, one for arguments
+            and one for keyword arguments
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (list of str, list of str)
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__getSummaryLine" ID="DocStyleChecker.__getSummaryLine"></a>
+<h4>DocStyleChecker.__getSummaryLine</h4>
+<b>__getSummaryLine</b>(<i>docstringContext</i>)
+<p>
+        Private method to extract the summary line.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+summary line (string) and the line it was found on
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__getSummaryLines" ID="DocStyleChecker.__getSummaryLines"></a>
+<h4>DocStyleChecker.__getSummaryLines</h4>
+<b>__getSummaryLines</b>(<i>docstringContext</i>)
+<p>
+        Private method to extract the summary lines.
+</p>
+
+<dl>
+
+<dt><i>docstringContext</i> (DocStyleContext)</dt>
+<dd>
+docstring context
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+summary lines (list of string) and the line it was found on
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__ignoreCode" ID="DocStyleChecker.__ignoreCode"></a>
+<h4>DocStyleChecker.__ignoreCode</h4>
+<b>__ignoreCode</b>(<i>code</i>)
+<p>
+        Private method to check if the error code should be ignored.
+</p>
+
+<dl>
+
+<dt><i>code</i> (str)</dt>
+<dd>
+message code to check for
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating to ignore the given code
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__parseClasses" ID="DocStyleChecker.__parseClasses"></a>
+<h4>DocStyleChecker.__parseClasses</h4>
+<b>__parseClasses</b>(<i></i>)
+<p>
+        Private method to extract top-level classes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+extracted class contexts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of DocStyleContext
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__parseContexts" ID="DocStyleChecker.__parseContexts"></a>
+<h4>DocStyleChecker.__parseContexts</h4>
+<b>__parseContexts</b>(<i>kind</i>)
+<p>
+        Private method to extract a context from the source.
+</p>
+
+<dl>
+
+<dt><i>kind</i> (str)</dt>
+<dd>
+kind of context to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+requested contexts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of DocStyleContext
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__parseDocstring" ID="DocStyleChecker.__parseDocstring"></a>
+<h4>DocStyleChecker.__parseDocstring</h4>
+<b>__parseDocstring</b>(<i>context, what=""</i>)
+<p>
+        Private method to extract a docstring given `def` or `class` source.
+</p>
+
+<dl>
+
+<dt><i>context</i> (DocStyleContext)</dt>
+<dd>
+context data to get the docstring from
+</dd>
+<dt><i>what</i> (str)</dt>
+<dd>
+string denoting what is being parsed
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+context of extracted docstring
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+DocStyleContext
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__parseFunctions" ID="DocStyleChecker.__parseFunctions"></a>
+<h4>DocStyleChecker.__parseFunctions</h4>
+<b>__parseFunctions</b>(<i></i>)
+<p>
+        Private method to extract top-level functions.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+extracted function contexts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of DocStyleContext
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__parseMethods" ID="DocStyleChecker.__parseMethods"></a>
+<h4>DocStyleChecker.__parseMethods</h4>
+<b>__parseMethods</b>(<i></i>)
+<p>
+        Private method to extract methods of all classes.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+extracted method contexts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of DocStyleContext
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__parseModuleDocstring" ID="DocStyleChecker.__parseModuleDocstring"></a>
+<h4>DocStyleChecker.__parseModuleDocstring</h4>
+<b>__parseModuleDocstring</b>(<i>source</i>)
+<p>
+        Private method to extract a docstring given a module source.
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str)</dt>
+<dd>
+source to parse
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+context of extracted docstring
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+DocStyleContext
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__parseTopLevel" ID="DocStyleChecker.__parseTopLevel"></a>
+<h4>DocStyleChecker.__parseTopLevel</h4>
+<b>__parseTopLevel</b>(<i>keyword</i>)
+<p>
+        Private method to extract top-level functions or classes.
+</p>
+
+<dl>
+
+<dt><i>keyword</i> (str)</dt>
+<dd>
+keyword signaling what to extract
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+extracted function or class contexts
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of DocStyleContext
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__readline" ID="DocStyleChecker.__readline"></a>
+<h4>DocStyleChecker.__readline</h4>
+<b>__readline</b>(<i></i>)
+<p>
+        Private method to get the next line from the source.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+next line of source
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DocStyleChecker.__resetReadline" ID="DocStyleChecker.__resetReadline"></a>
+<h4>DocStyleChecker.__resetReadline</h4>
+<b>__resetReadline</b>(<i></i>)
+<p>
+        Private method to reset the internal readline function.
+</p>
+
+<a NAME="DocStyleChecker.__skipIndentedBlock" ID="DocStyleChecker.__skipIndentedBlock"></a>
+<h4>DocStyleChecker.__skipIndentedBlock</h4>
+<b>__skipIndentedBlock</b>(<i>tokenGenerator</i>)
+<p>
+        Private method to skip over an indented block of source code.
+</p>
+
+<dl>
+
+<dt><i>tokenGenerator</i> (str iterator)</dt>
+<dd>
+token generator
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+last token of the indented block
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple
+</dd>
+</dl>
+<a NAME="DocStyleChecker.run" ID="DocStyleChecker.run"></a>
+<h4>DocStyleChecker.run</h4>
+<b>run</b>(<i></i>)
+<p>
+        Public method to check the given source for violations of doc string
+        conventions.
+</p>
+
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="DocStyleContext" ID="DocStyleContext"></a>
+<h2>DocStyleContext</h2>
+<p>
+    Class implementing the source context.
+</p>
+
+<h3>Derived from</h3>
+None
+<h3>Class Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#DocStyleContext.__init__">DocStyleContext</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#DocStyleContext.contextType">contextType</a></td>
+<td>Public method to get the context type.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleContext.end">end</a></td>
+<td>Public method to get the end line number.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleContext.indent">indent</a></td>
+<td>Public method to get the indentation of the first line.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleContext.setSpecial">setSpecial</a></td>
+<td>Public method to set a special attribute for the context.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleContext.source">source</a></td>
+<td>Public method to get the source.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleContext.special">special</a></td>
+<td>Public method to get the special context attribute string.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleContext.ssource">ssource</a></td>
+<td>Public method to get the joined source lines.</td>
+</tr>
+<tr>
+<td><a href="#DocStyleContext.start">start</a></td>
+<td>Public method to get the start line number.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="DocStyleContext.__init__" ID="DocStyleContext.__init__"></a>
+<h4>DocStyleContext (Constructor)</h4>
+<b>DocStyleContext</b>(<i>source, startLine, contextType</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>source</i> (list of str or str)</dt>
+<dd>
+source code of the context
+</dd>
+<dt><i>startLine</i> (int)</dt>
+<dd>
+line number the context starts in the source
+</dd>
+<dt><i>contextType</i> (str)</dt>
+<dd>
+type of the context object
+</dd>
+</dl>
+<a NAME="DocStyleContext.contextType" ID="DocStyleContext.contextType"></a>
+<h4>DocStyleContext.contextType</h4>
+<b>contextType</b>(<i></i>)
+<p>
+        Public method to get the context type.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+context type
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DocStyleContext.end" ID="DocStyleContext.end"></a>
+<h4>DocStyleContext.end</h4>
+<b>end</b>(<i></i>)
+<p>
+        Public method to get the end line number.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+end line number
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<a NAME="DocStyleContext.indent" ID="DocStyleContext.indent"></a>
+<h4>DocStyleContext.indent</h4>
+<b>indent</b>(<i></i>)
+<p>
+        Public method to get the indentation of the first line.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+indentation string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DocStyleContext.setSpecial" ID="DocStyleContext.setSpecial"></a>
+<h4>DocStyleContext.setSpecial</h4>
+<b>setSpecial</b>(<i>special</i>)
+<p>
+        Public method to set a special attribute for the context.
+</p>
+
+<dl>
+
+<dt><i>special</i> (str)</dt>
+<dd>
+attribute string
+</dd>
+</dl>
+<a NAME="DocStyleContext.source" ID="DocStyleContext.source"></a>
+<h4>DocStyleContext.source</h4>
+<b>source</b>(<i></i>)
+<p>
+        Public method to get the source.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+source
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+list of str
+</dd>
+</dl>
+<a NAME="DocStyleContext.special" ID="DocStyleContext.special"></a>
+<h4>DocStyleContext.special</h4>
+<b>special</b>(<i></i>)
+<p>
+        Public method to get the special context attribute string.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+attribute string
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DocStyleContext.ssource" ID="DocStyleContext.ssource"></a>
+<h4>DocStyleContext.ssource</h4>
+<b>ssource</b>(<i></i>)
+<p>
+        Public method to get the joined source lines.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+source
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="DocStyleContext.start" ID="DocStyleContext.start"></a>
+<h4>DocStyleContext.start</h4>
+<b>start</b>(<i></i>)
+<p>
+        Public method to get the start line number.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+start line number
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+int
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>

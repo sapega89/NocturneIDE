@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html><head>
+<title>eric7.MicroPython.Devices.STLinkDevices</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a NAME="top" ID="top"></a>
+<h1>eric7.MicroPython.Devices.STLinkDevices</h1>
+<p>
+Module implementing the device interface class for STM32 STLink boards.
+</p>
+
+<h3>Global Attributes</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Classes</h3>
+<table>
+<tr>
+<td><a href="#STLinkDevice">STLinkDevice</a></td>
+<td>Class implementing the device for PyBoard boards.</td>
+</tr>
+</table>
+
+<h3>Functions</h3>
+<table>
+<tr>
+<td><a href="#createDevice">createDevice</a></td>
+<td>Function to instantiate a MicroPython device object.</td>
+</tr>
+</table>
+
+<hr />
+<hr />
+<a NAME="STLinkDevice" ID="STLinkDevice"></a>
+<h2>STLinkDevice</h2>
+<p>
+    Class implementing the device for PyBoard boards.
+</p>
+
+<h3>Derived from</h3>
+BaseDevice
+<h3>Class Attributes</h3>
+<table>
+<tr><td>DeviceVolumeName</td></tr>
+</table>
+
+<h3>Class Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+<h3>Methods</h3>
+<table>
+<tr>
+<td><a href="#STLinkDevice.__init__">STLinkDevice</a></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__createSTLinkMenu">__createSTLinkMenu</a></td>
+<td>Private method to create the STLink submenu.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__deviceVolumeMounted">__deviceVolumeMounted</a></td>
+<td>Private method to check, if the device volume is mounted.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__findWorkspace">__findWorkspace</a></td>
+<td>Private method to find the workspace directory.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__firmwareVersionResponse">__firmwareVersionResponse</a></td>
+<td>Private slot handling the response of the latest version request.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__flashMicroPython">__flashMicroPython</a></td>
+<td>Private slot to flash a MicroPython firmware.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__resetDevice">__resetDevice</a></td>
+<td>Private slot to reset the connected device.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__showDeviceInfo">__showDeviceInfo</a></td>
+<td>Private slot to show some information about connected STLink devices.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__showFirmwareVersions">__showFirmwareVersions</a></td>
+<td>Private slot to show the firmware version of the connected device and the available firmware version.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__stflashAvailable">__stflashAvailable</a></td>
+<td>Private method to check the availability of the 'st-flash' firmware flashing tool.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__stinfoAvailable">__stinfoAvailable</a></td>
+<td>Private method to check the availability of the 'st-info' tool.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.__stlinkToolAvailable">__stlinkToolAvailable</a></td>
+<td>Private method to check the availability of the given STLink tool.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.addDeviceMenuEntries">addDeviceMenuEntries</a></td>
+<td>Public method to add device specific entries to the given menu.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.canRunScript">canRunScript</a></td>
+<td>Public method to determine, if a script can be executed.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.canStartFileManager">canStartFileManager</a></td>
+<td>Public method to determine, if a File Manager can be started.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.canStartPlotter">canStartPlotter</a></td>
+<td>Public method to determine, if a Plotter can be started.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.canStartRepl">canStartRepl</a></td>
+<td>Public method to determine, if a REPL can be started.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.deviceName">deviceName</a></td>
+<td>Public method to get the name of the device.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.forceInterrupt">forceInterrupt</a></td>
+<td>Public method to determine the need for an interrupt when opening the serial connection.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.getDocumentationUrl">getDocumentationUrl</a></td>
+<td>Public method to get the device documentation URL.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.getFirmwareUrl">getFirmwareUrl</a></td>
+<td>Public method to get the device firmware download URL.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.getWorkspace">getWorkspace</a></td>
+<td>Public method to get the workspace directory.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.hasFlashMenuEntry">hasFlashMenuEntry</a></td>
+<td>Public method to check, if the device has its own flash menu entry.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.runScript">runScript</a></td>
+<td>Public method to run the given Python script.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.setButtons">setButtons</a></td>
+<td>Public method to enable the supported action buttons.</td>
+</tr>
+<tr>
+<td><a href="#STLinkDevice.supportsLocalFileAccess">supportsLocalFileAccess</a></td>
+<td>Public method to indicate file access via a local directory.</td>
+</tr>
+</table>
+
+<h3>Static Methods</h3>
+<table>
+<tr><td>None</td></tr>
+</table>
+
+
+<a NAME="STLinkDevice.__init__" ID="STLinkDevice.__init__"></a>
+<h4>STLinkDevice (Constructor)</h4>
+<b>STLinkDevice</b>(<i>microPythonWidget, deviceType, parent=None</i>)
+<p>
+        Constructor
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>parent</i> (QObject)</dt>
+<dd>
+reference to the parent object
+</dd>
+</dl>
+<a NAME="STLinkDevice.__createSTLinkMenu" ID="STLinkDevice.__createSTLinkMenu"></a>
+<h4>STLinkDevice.__createSTLinkMenu</h4>
+<b>__createSTLinkMenu</b>(<i></i>)
+<p>
+        Private method to create the STLink submenu.
+</p>
+
+<a NAME="STLinkDevice.__deviceVolumeMounted" ID="STLinkDevice.__deviceVolumeMounted"></a>
+<h4>STLinkDevice.__deviceVolumeMounted</h4>
+<b>__deviceVolumeMounted</b>(<i></i>)
+<p>
+        Private method to check, if the device volume is mounted.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicated a mounted device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="STLinkDevice.__findWorkspace" ID="STLinkDevice.__findWorkspace"></a>
+<h4>STLinkDevice.__findWorkspace</h4>
+<b>__findWorkspace</b>(<i>silent=False</i>)
+<p>
+        Private method to find the workspace directory.
+</p>
+
+<dl>
+
+<dt><i>silent</i> (bool)</dt>
+<dd>
+flag indicating silent operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+workspace directory used for saving files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="STLinkDevice.__firmwareVersionResponse" ID="STLinkDevice.__firmwareVersionResponse"></a>
+<h4>STLinkDevice.__firmwareVersionResponse</h4>
+<b>__firmwareVersionResponse</b>(<i>reply</i>)
+<p>
+        Private slot handling the response of the latest version request.
+</p>
+
+<dl>
+
+<dt><i>reply</i> (QNetworkReply)</dt>
+<dd>
+reference to the reply object
+</dd>
+</dl>
+<a NAME="STLinkDevice.__flashMicroPython" ID="STLinkDevice.__flashMicroPython"></a>
+<h4>STLinkDevice.__flashMicroPython</h4>
+<b>__flashMicroPython</b>(<i></i>)
+<p>
+        Private slot to flash a MicroPython firmware.
+</p>
+
+<a NAME="STLinkDevice.__resetDevice" ID="STLinkDevice.__resetDevice"></a>
+<h4>STLinkDevice.__resetDevice</h4>
+<b>__resetDevice</b>(<i></i>)
+<p>
+        Private slot to reset the connected device.
+</p>
+
+<a NAME="STLinkDevice.__showDeviceInfo" ID="STLinkDevice.__showDeviceInfo"></a>
+<h4>STLinkDevice.__showDeviceInfo</h4>
+<b>__showDeviceInfo</b>(<i></i>)
+<p>
+        Private slot to show some information about connected STLink devices.
+</p>
+
+<a NAME="STLinkDevice.__showFirmwareVersions" ID="STLinkDevice.__showFirmwareVersions"></a>
+<h4>STLinkDevice.__showFirmwareVersions</h4>
+<b>__showFirmwareVersions</b>(<i></i>)
+<p>
+        Private slot to show the firmware version of the connected device and the
+        available firmware version.
+</p>
+
+<a NAME="STLinkDevice.__stflashAvailable" ID="STLinkDevice.__stflashAvailable"></a>
+<h4>STLinkDevice.__stflashAvailable</h4>
+<b>__stflashAvailable</b>(<i></i>)
+<p>
+        Private method to check the availability of the 'st-flash' firmware flashing
+        tool.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of the 'st-flash' firmware flashing
+            tool
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="STLinkDevice.__stinfoAvailable" ID="STLinkDevice.__stinfoAvailable"></a>
+<h4>STLinkDevice.__stinfoAvailable</h4>
+<b>__stinfoAvailable</b>(<i></i>)
+<p>
+        Private method to check the availability of the 'st-info' tool.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of the 'st-info' tool
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="STLinkDevice.__stlinkToolAvailable" ID="STLinkDevice.__stlinkToolAvailable"></a>
+<h4>STLinkDevice.__stlinkToolAvailable</h4>
+<b>__stlinkToolAvailable</b>(<i>toolname</i>)
+<p>
+        Private method to check the availability of the given STLink tool.
+</p>
+<p>
+        Note: supported tools are st-info and st-flash
+</p>
+
+<dl>
+
+<dt><i>toolname</i> (str)</dt>
+<dd>
+name of the tool to be checked
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating the availability of the given STLink tool
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<dl>
+
+<dt>Raises <b>ValueError</b>:</dt>
+<dd>
+raised to indicate an illegal tool name
+</dd>
+</dl>
+<a NAME="STLinkDevice.addDeviceMenuEntries" ID="STLinkDevice.addDeviceMenuEntries"></a>
+<h4>STLinkDevice.addDeviceMenuEntries</h4>
+<b>addDeviceMenuEntries</b>(<i>menu</i>)
+<p>
+        Public method to add device specific entries to the given menu.
+</p>
+
+<dl>
+
+<dt><i>menu</i> (QMenu)</dt>
+<dd>
+reference to the context menu
+</dd>
+</dl>
+<a NAME="STLinkDevice.canRunScript" ID="STLinkDevice.canRunScript"></a>
+<h4>STLinkDevice.canRunScript</h4>
+<b>canRunScript</b>(<i></i>)
+<p>
+        Public method to determine, if a script can be executed.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="STLinkDevice.canStartFileManager" ID="STLinkDevice.canStartFileManager"></a>
+<h4>STLinkDevice.canStartFileManager</h4>
+<b>canStartFileManager</b>(<i></i>)
+<p>
+        Public method to determine, if a File Manager can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            File Manager and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="STLinkDevice.canStartPlotter" ID="STLinkDevice.canStartPlotter"></a>
+<h4>STLinkDevice.canStartPlotter</h4>
+<b>canStartPlotter</b>(<i></i>)
+<p>
+        Public method to determine, if a Plotter can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a
+            Plotter and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="STLinkDevice.canStartRepl" ID="STLinkDevice.canStartRepl"></a>
+<h4>STLinkDevice.canStartRepl</h4>
+<b>canStartRepl</b>(<i></i>)
+<p>
+        Public method to determine, if a REPL can be started.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+tuple containing a flag indicating it is safe to start a REPL
+            and a reason why it cannot.
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+tuple of (bool, str)
+</dd>
+</dl>
+<a NAME="STLinkDevice.deviceName" ID="STLinkDevice.deviceName"></a>
+<h4>STLinkDevice.deviceName</h4>
+<b>deviceName</b>(<i></i>)
+<p>
+        Public method to get the name of the device.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+name of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="STLinkDevice.forceInterrupt" ID="STLinkDevice.forceInterrupt"></a>
+<h4>STLinkDevice.forceInterrupt</h4>
+<b>forceInterrupt</b>(<i></i>)
+<p>
+        Public method to determine the need for an interrupt when opening the
+        serial connection.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating an interrupt is needed
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="STLinkDevice.getDocumentationUrl" ID="STLinkDevice.getDocumentationUrl"></a>
+<h4>STLinkDevice.getDocumentationUrl</h4>
+<b>getDocumentationUrl</b>(<i></i>)
+<p>
+        Public method to get the device documentation URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+documentation URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="STLinkDevice.getFirmwareUrl" ID="STLinkDevice.getFirmwareUrl"></a>
+<h4>STLinkDevice.getFirmwareUrl</h4>
+<b>getFirmwareUrl</b>(<i></i>)
+<p>
+        Public method to get the device firmware download URL.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+firmware download URL of the device
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="STLinkDevice.getWorkspace" ID="STLinkDevice.getWorkspace"></a>
+<h4>STLinkDevice.getWorkspace</h4>
+<b>getWorkspace</b>(<i>silent=False</i>)
+<p>
+        Public method to get the workspace directory.
+</p>
+
+<dl>
+
+<dt><i>silent</i> (bool)</dt>
+<dd>
+flag indicating silent operations
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+workspace directory used for saving files
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+str
+</dd>
+</dl>
+<a NAME="STLinkDevice.hasFlashMenuEntry" ID="STLinkDevice.hasFlashMenuEntry"></a>
+<h4>STLinkDevice.hasFlashMenuEntry</h4>
+<b>hasFlashMenuEntry</b>(<i></i>)
+<p>
+        Public method to check, if the device has its own flash menu entry.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating a specific flash menu entry
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<a NAME="STLinkDevice.runScript" ID="STLinkDevice.runScript"></a>
+<h4>STLinkDevice.runScript</h4>
+<b>runScript</b>(<i>script</i>)
+<p>
+        Public method to run the given Python script.
+</p>
+
+<dl>
+
+<dt><i>script</i> (str)</dt>
+<dd>
+script to be executed
+</dd>
+</dl>
+<a NAME="STLinkDevice.setButtons" ID="STLinkDevice.setButtons"></a>
+<h4>STLinkDevice.setButtons</h4>
+<b>setButtons</b>(<i></i>)
+<p>
+        Public method to enable the supported action buttons.
+</p>
+
+<a NAME="STLinkDevice.supportsLocalFileAccess" ID="STLinkDevice.supportsLocalFileAccess"></a>
+<h4>STLinkDevice.supportsLocalFileAccess</h4>
+<b>supportsLocalFileAccess</b>(<i></i>)
+<p>
+        Public method to indicate file access via a local directory.
+</p>
+
+<dl>
+<dt>Return:</dt>
+<dd>
+flag indicating file access via local directory
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+bool
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+<hr />
+<a NAME="createDevice" ID="createDevice"></a>
+<h2>createDevice</h2>
+<b>createDevice</b>(<i>microPythonWidget, deviceType, _vid, _pid, _boardName, _serialNumber</i>)
+<p>
+    Function to instantiate a MicroPython device object.
+</p>
+
+<dl>
+
+<dt><i>microPythonWidget</i> (MicroPythonWidget)</dt>
+<dd>
+reference to the main MicroPython widget
+</dd>
+<dt><i>deviceType</i> (str)</dt>
+<dd>
+device type assigned to this device interface
+</dd>
+<dt><i>_vid</i> (int)</dt>
+<dd>
+vendor ID (unused)
+</dd>
+<dt><i>_pid</i> (int)</dt>
+<dd>
+product ID (unused)
+</dd>
+<dt><i>_boardName</i> (str)</dt>
+<dd>
+name of the board (unused)
+</dd>
+<dt><i>_serialNumber</i> (str)</dt>
+<dd>
+serial number of the board (unused)
+</dd>
+</dl>
+<dl>
+<dt>Return:</dt>
+<dd>
+reference to the instantiated device object
+</dd>
+</dl>
+<dl>
+<dt>Return Type:</dt>
+<dd>
+PyBoardDevice
+</dd>
+</dl>
+<div align="right"><a href="#top">Up</a></div>
+<hr />
+</body></html>
