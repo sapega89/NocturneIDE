@@ -30,15 +30,15 @@ from PyQt6.QtWidgets import (
     QTreeView,
 )
 
-from eric7 import Preferences
-from eric7.EricGui import EricPixmapCache
-from eric7.EricWidgets import EricFileDialog, EricMessageBox
-from eric7.EricWidgets.EricApplication import ericApp
-from eric7.Project.ProjectBrowserModel import ProjectBrowserSimpleDirectoryItem
-from eric7.RemoteServerInterface import EricServerFileDialog
-from eric7.SystemUtilities import FileSystemUtilities
-from eric7.UI.DeleteFilesConfirmationDialog import DeleteFilesConfirmationDialog
-from eric7.Utilities import MimeTypes
+import Preferences
+from EricGui import EricPixmapCache
+from EricWidgets import EricFileDialog, EricMessageBox
+from EricWidgets.EricApplication import ericApp
+from Project.ProjectBrowserModel import ProjectBrowserSimpleDirectoryItem
+from RemoteServerInterface import EricServerFileDialog
+from SystemUtilities import FileSystemUtilities
+from UI.DeleteFilesConfirmationDialog import DeleteFilesConfirmationDialog
+from Utilities import MimeTypes
 
 from .BrowserModel import (
     BrowserClassAttributeItem,

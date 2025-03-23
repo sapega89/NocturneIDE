@@ -68,7 +68,7 @@ def createArgparseNamespace():
     @return created argument parser object
     @rtype argparse.ArgumentParser
     """
-    from eric7.__version__ import Version
+    from __version__ import Version
 
     # 1. create the argument parser
     parser = argparse.ArgumentParser(
@@ -192,7 +192,7 @@ splash = None
 inMainLoop = False
 app = None
 
-from eric7 import EricUtilities
+import EricUtilities
 
 if args.config:
     EricUtilities.setConfigDir(args.config)
@@ -215,14 +215,14 @@ if args.settings:
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, settingsDir
     )
 
-from eric7.EricWidgets.EricApplication import EricApplication
+from EricWidgets.EricApplication import EricApplication
 
 
 def handleSingleApplication():
     """
     Global function to handle the single application mode.
     """
-    from eric7.EricWidgets.EricSingleApplication import EricSingleApplicationClient
+    from EricWidgets.EricSingleApplication import EricSingleApplicationClient
 
     client = EricSingleApplicationClient()
     res = client.connect()
@@ -247,8 +247,8 @@ def excepthook(excType, excValue, tracebackobj):
     @param tracebackobj traceback object
     @type Traceback
     """
-    from eric7 import EricUtilities, Utilities
-    from eric7.UI.Info import BugAddress
+    import EricUtilities, Utilities
+    from UI.Info import BugAddress
 
     # Workaround for a strange issue with QScintilla
     if str(excValue) == "unable to convert a QVariant back to a Python object":
@@ -326,8 +326,8 @@ def main():
     """
     Main entry point into the application.
     """
-    from eric7.SystemUtilities import OSUtilities, QtUtilities
-    from eric7.Toolbox import Startup
+    from SystemUtilities import OSUtilities, QtUtilities
+    from Toolbox import Startup
 
     global app, args, mainWindow, splash, restartArgs, inMainLoop
 
@@ -360,7 +360,7 @@ def main():
     app = EricApplication(args)
 
     logging.getLogger(__name__).debug("Importing Preferences")
-    from eric7 import Preferences  # __IGNORE_WARNING_I101__
+    import Preferences  # __IGNORE_WARNING_I101__
 
     if Preferences.getUI("SingleApplicationMode"):
         handleSingleApplication()
@@ -372,7 +372,7 @@ def main():
     Startup.initializeResourceSearchPath(app)
 
     # generate and show a splash window, if not suppressed
-    from eric7.UI.SplashScreen import (  # __IGNORE_WARNING_I101__
+    from UI.SplashScreen import (  # __IGNORE_WARNING_I101__
         NoneSplashScreen,
         SplashScreen,
     )
@@ -403,7 +403,7 @@ def main():
     loc = Startup.loadTranslators(qtTransDir, app, ("qscintilla",))
 
     # generate a graphical error handler
-    from eric7.EricWidgets import EricErrorMessage  # __IGNORE_WARNING_I101__
+    from EricWidgets import EricErrorMessage  # __IGNORE_WARNING_I101__
 
     eMsg = EricErrorMessage.qtHandler(
         minSeverity=Preferences.getUI("MinimumMessageTypeSeverity")
@@ -411,7 +411,7 @@ def main():
     eMsg.setMinimumSize(600, 400)
 
     # Initialize SSL stuff
-    from eric7.EricNetwork.EricSslUtilities import initSSL  # __IGNORE_WARNING_I101__
+    from EricNetwork.EricSslUtilities import initSSL  # __IGNORE_WARNING_I101__
 
     initSSL()
 
@@ -420,7 +420,7 @@ def main():
 
     # We can only import these after creating the EricApplication because they
     # make Qt calls that need the EricApplication to exist.
-    from eric7.UI.UserInterface import UserInterface  # __IGNORE_WARNING_I101__
+    from UI.UserInterface import UserInterface  # __IGNORE_WARNING_I101__
 
     splash.showMessage(
         QCoreApplication.translate("eric7_ide", "Generating Main Window...")

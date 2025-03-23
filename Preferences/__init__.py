@@ -47,17 +47,17 @@ try:
 except ImportError:
     QWebEngineSettings = None
 
-from eric7 import EricUtilities, Globals
-from eric7.EricCore import EricPreferences
-from eric7.EricUtilities import toBool, toByteArray, toDict, toList  # noqa
-from eric7.EricUtilities.crypto import pwConvert
-from eric7.EricUtilities.crypto.py3PBKDF2 import hashPassword
-from eric7.EricWidgets import EricFileDialog
-from eric7.EricWidgets.EricApplication import ericApp
-from eric7.EricWidgets.EricIconBar import EricIconBar
-from eric7.QScintilla.QsciScintillaCompat import QsciScintillaPrintColorMode
-from eric7.QScintilla.Shell import ShellHistoryStyle
-from eric7.SystemUtilities import OSUtilities, PythonUtilities, QtUtilities
+import EricUtilities, Globals
+from EricCore import EricPreferences
+from EricUtilities import toBool, toByteArray, toDict, toList  # noqa
+from EricUtilities.crypto import pwConvert
+from EricUtilities.crypto.py3PBKDF2 import hashPassword
+from EricWidgets import EricFileDialog
+from EricWidgets.EricApplication import ericApp
+from EricWidgets.EricIconBar import EricIconBar
+from QScintilla.QsciScintillaCompat import QsciScintillaPrintColorMode
+from QScintilla.Shell import ShellHistoryStyle
+from SystemUtilities import OSUtilities, PythonUtilities, QtUtilities
 
 
 class Prefs:
@@ -1852,7 +1852,7 @@ def initPreferences(withMigration=False):
         (defaults to False)
     @type bool (optional)
     """
-    from eric7.EricWidgets.EricApplication import ericApp
+    from EricWidgets.EricApplication import ericApp
 
     Prefs.settings = QSettings(
         QSettings.Format.IniFormat,
@@ -2062,7 +2062,7 @@ def getDebugger(key):
             try:
                 virtualenvManager = ericApp().getObject("VirtualEnvManager")
             except KeyError:
-                from eric7.VirtualEnv.VirtualenvManager import (  # noqa: I101
+                from VirtualEnv.VirtualenvManager import (  # noqa: I101
                     VirtualenvManager,
                 )
 
@@ -2686,7 +2686,7 @@ def getEditorLexerAssocs():
     @return a reference to the list of lexer associations
     @rtype dict of str
     """
-    from eric7.QScintilla import Lexers
+    from QScintilla import Lexers
 
     editorLexerAssoc = {}
     Prefs.settings.beginGroup("Editor/LexerAssociations")
@@ -3416,7 +3416,7 @@ def getSystem(key):
     @return the requested system setting
     @rtype Any
     """
-    from eric7.Utilities import supportedCodecs
+    from Utilities import supportedCodecs
 
     if key in ["StringEncoding", "IOEncoding"]:
         encoding = Prefs.settings.value("System/" + key, Prefs.sysDefaults[key])
@@ -4334,7 +4334,7 @@ def convertPasswords(oldPassword, newPassword):
     @param newPassword new password
     @type str
     """
-    from eric7.EricUtilities.crypto import pwRecode
+    from EricUtilities.crypto import pwRecode
 
     for key in ["MailServerPassword"]:
         Prefs.settings.setValue(

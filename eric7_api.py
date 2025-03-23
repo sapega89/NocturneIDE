@@ -18,11 +18,11 @@ import glob
 import os
 import sys
 
-from eric7 import DocumentationTools
-from eric7.__version__ import Version
-from eric7.DocumentationTools.APIGenerator import APIGenerator
-from eric7.SystemUtilities import FileSystemUtilities, OSUtilities
-from eric7.Utilities import ModuleParser
+import DocumentationTools
+from .__version__ import Version
+from .DocumentationTools.APIGenerator import APIGenerator
+from .SystemUtilities import FileSystemUtilities, OSUtilities
+from .Utilities import ModuleParser
 
 
 def createArgumentParser():

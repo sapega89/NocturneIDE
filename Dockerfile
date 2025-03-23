@@ -22,21 +22,22 @@ RUN apt-get update && apt-get install -y \
     libx11-xcb1 \
     mesa-utils \
     libglu1-mesa \
+    mesa-va-drivers \
+    mesa-vulkan-drivers \
+    libgl1-mesa-dri\
     && rm -rf /var/lib/apt/lists/*
 
+ENV PATH=/root/.local/bin:$PATH
 ENV LIBGL_ALWAYS_SOFTWARE=1
+ENV PYTHONPATH=/workspace/eric7:$PYTHONPATH
 
 RUN pip install --upgrade pip \
-    && pip install --prefer-binary eric-ide \
     && pip install llama-cpp-python deep-translator \
+    && pip install -r /tmp/requirements.txt\
     && eric7_post_install
 
 # ❗ Опціонально встановити із requirements.txt
 COPY requirements.txt /tmp/
-RUN pip install -r /tmp/requirements.txt || true
-
-# ❗ Додай ~/.local/bin до PATH
-ENV PATH=/root/.local/bin:$PATH
 
 # ❗ Робоча директорія
 WORKDIR /workspace

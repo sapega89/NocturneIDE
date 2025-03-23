@@ -87,11 +87,11 @@ def windowsDesktopEntries():
         the link target and the icon target
     @rtype list of tuples of (str, str, str)
     """
-    import eric7
+    from . import __file__
 
     majorVersion, minorVersion = sys.version_info[:2]
     scriptsDir = sysconfig.get_path("scripts")
-    iconsDir = os.path.join(os.path.dirname(eric7.__file__), "pixmaps")
+    iconsDir = os.path.join(os.path.dirname(__file__), "pixmaps")
     entriesTemplates = [
         (
             "eric7 IDE (Python {0}.{1}).lnk",
@@ -158,9 +158,8 @@ def copyLinuxMetaData():
     """
     Function to copy the meta data files.
     """
-    import eric7
 
-    ericDir = os.path.dirname(eric7.__file__)
+    ericDir = os.path.dirname(__file__)
     scriptsDir = sysconfig.get_path("scripts")
     dstDir = os.path.join(os.path.expanduser("~"), ".local", "share")
     iconsDir = os.path.join(ericDir, "pixmaps")

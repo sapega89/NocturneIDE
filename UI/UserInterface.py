@@ -22,7 +22,6 @@ import shutil
 import sys
 
 import psutil
-# from UI.ai_core import ask_ai
 from PyQt6 import sip
 from PyQt6.Qsci import QSCINTILLA_VERSION_STR, QsciScintilla
 from PyQt6.QtCore import (
@@ -60,7 +59,7 @@ from PyQt6.QtWidgets import (
     QToolBar,
     QVBoxLayout,
     QWhatsThis,
-    QWidget, QMessageBox, QPushButton, QTextEdit,
+    QWidget, QMessageBox,
 )
 
 from eric7 import EricUtilities, Globals, Preferences, Testing, Utilities
@@ -110,6 +109,7 @@ from eric7.VirtualEnv.VirtualenvManager import VirtualenvManager
 from .Info import BugAddress, FeatureAddress, Program
 from .NotificationWidget import NotificationTypes
 from .ai_core import ask_ai
+from .main import AIAssistantPanel
 
 try:
     from eric7.EricNetwork.EricSslErrorHandler import (
@@ -120,6 +120,8 @@ try:
     SSL_AVAILABLE = True
 except ImportError:
     SSL_AVAILABLE = False
+
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 
 class UserInterfaceSide(enum.Enum):
@@ -164,14 +166,10 @@ class UserInterface(EricMainWindow):
 
     ErrorLogFileName = "eric7_error.log"
 
-
     def analyze_code(self):
         """
         Ищет QsciScintilla редактор и анализирует код.
         """
-        from PyQt6.QtWidgets import QMessageBox
-        from PyQt6.Qsci import QsciScintilla
-
         try:
             splitter = self.centralWidget()
             editor = splitter.findChild(QsciScintilla)
@@ -179,10 +177,12 @@ class UserInterface(EricMainWindow):
             if editor:
                 code = editor.text()  # QsciScintilla использует .text()
                 response = ask_ai(code)
+                from PyQt6.QtWidgets import QMessageBox
                 QMessageBox.information(self, "AI Code Analysis", response)
             else:
                 QMessageBox.warning(self, "No Code", "Редактор не найден.")
         except Exception as e:
+            from PyQt6.QtWidgets import QMessageBox
             QMessageBox.critical(self, "Error", f"Error accessing editor: {str(e)}")
 
     def __init__(
@@ -5252,11 +5252,6 @@ class UserInterface(EricMainWindow):
         btMenu.addAction(self.webBrowserAct)
         if self.securityKeyMgmtAct is not None:
             btMenu.addAction(self.securityKeyMgmtAct)
-        
-            # ✅ Додаємо пункт для AI Code Analyzer
-        aiAnalyzeAction = QAction("Analyze Code with AI", self)
-        aiAnalyzeAction.triggered.connect(self.analyze_code)  # Підключаємо функцію
-        btMenu.addAction(aiAnalyzeAction)  # Додаємо в Builtin Tools
 
         ptMenu = QMenu(self.tr("&Plugin Tools"), self)
         ptMenu.aboutToShow.connect(self.__showPluginToolsMenu)
@@ -5272,6 +5267,7 @@ class UserInterface(EricMainWindow):
         self.__menus["builtin_tools"] = btMenu
         self.__menus["plugin_tools"] = ptMenu
         self.__menus["user_tools"] = utMenu
+
 
     def __showPluginToolsMenu(self):
         """

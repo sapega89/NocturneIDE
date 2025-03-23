@@ -26,7 +26,7 @@ def createArgparseNamespace():
     @return created argument parser object
     @rtype argparse.ArgumentParser
     """
-    from eric7.__version__ import Version
+    from __version__ import Version
 
     # 1. create the argument parser
     parser = argparse.ArgumentParser(
@@ -65,7 +65,7 @@ def createArgparseNamespace():
 
 args = createArgparseNamespace()
 if args.config:
-    from eric7 import EricUtilities
+    import EricUtilities
 
     EricUtilities.setConfigDir(args.config)
 if args.settings:
@@ -78,9 +78,9 @@ if args.settings:
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, settingsDir
     )
 
-from eric7.EricWidgets.EricApplication import EricApplication
-from eric7.Toolbox import Startup
-from eric7.Tools.TRSingleApplication import TRSingleApplicationClient
+from EricWidgets.EricApplication import EricApplication
+from Toolbox import Startup
+from Tools.TRSingleApplication import TRSingleApplicationClient
 
 app = None
 
@@ -94,7 +94,7 @@ def createMainWidget(args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from eric7.Tools.TRPreviewer import TRPreviewer
+    from Tools.TRPreviewer import TRPreviewer
 
     previewer = TRPreviewer(args.file, None, "TRPreviewer")
 

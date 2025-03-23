@@ -25,7 +25,7 @@ def createArgparseNamespace():
     @return created argument parser object
     @rtype argparse.ArgumentParser
     """
-    from eric7.__version__ import Version
+    from __version__ import Version
 
     # 1. create the argument parser
     parser = argparse.ArgumentParser(

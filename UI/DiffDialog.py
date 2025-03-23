@@ -18,11 +18,11 @@ from PyQt6.QtCore import QEvent, QTimer, pyqtSlot
 from PyQt6.QtGui import QTextCursor
 from PyQt6.QtWidgets import QApplication, QDialogButtonBox, QWidget
 
-from eric7 import Preferences
-from eric7.EricWidgets import EricFileDialog, EricMessageBox
-from eric7.EricWidgets.EricMainWindow import EricMainWindow
-from eric7.EricWidgets.EricPathPicker import EricPathPickerModes
-from eric7.SystemUtilities import FileSystemUtilities
+import Preferences
+from EricWidgets import EricFileDialog, EricMessageBox
+from EricWidgets.EricMainWindow import EricMainWindow
+from EricWidgets.EricPathPicker import EricPathPickerModes
+from SystemUtilities import FileSystemUtilities
 
 from .DiffHighlighter import DiffHighlighter
 from .Ui_DiffDialog import Ui_DiffDialog

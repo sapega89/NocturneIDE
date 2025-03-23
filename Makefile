@@ -1,4 +1,4 @@
-.PHONY: build run stop clean rebuild
+.PHONY: build rebuild run stop clean
 
 build:
 	docker-compose build
