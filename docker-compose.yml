@@ -4,8 +4,12 @@ services:
   eric7:
     build: .
     container_name: eric7_ide
+    env_file:
+      - .env
     environment:
       - DISPLAY=${DISPLAY}
+      - MODEL_URL=${MODEL_URL}
+      - MODEL_DIR=${MODEL_DIR}
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./:/workspace
