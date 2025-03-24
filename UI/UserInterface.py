@@ -106,9 +106,9 @@ from Testing.TestingWidget import clearSavedHistories
 from Utilities.BackgroundService import BackgroundService
 from VirtualEnv.VirtualenvManager import VirtualenvManager
 
-from Info import BugAddress, FeatureAddress, Program
-from NotificationWidget import NotificationTypes
-from ai_core import ask_ai
+from UI.Info import BugAddress, FeatureAddress, Program
+from UI.NotificationWidget import NotificationTypes
+from UI.ai_core import ask_ai
 
 try:
     from EricNetwork.EricSslErrorHandler import (
