@@ -20,7 +20,7 @@ import os
 import sys
 import time
 import traceback
-
+from EricWidgets.EricApplication import EricApplication
 
 originalPathString = os.getenv("PATH")
 
@@ -214,8 +214,6 @@ if args.settings:
     QSettings.setPath(
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, settingsDir
     )
-
-from EricWidgets.EricApplication import EricApplication
 
 
 def handleSingleApplication():

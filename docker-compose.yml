@@ -18,12 +18,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./:/workspace
     working_dir: /workspace
-    command: >
-      watchmedo auto-restart
-      --directory=.
-      --pattern=*.py
-      --recursive
-      -- python3 -m eric7_ide
+    command: python3 eric7_ide.py
     network_mode: host
     stdin_open: true
     tty: true

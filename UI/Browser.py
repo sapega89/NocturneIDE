@@ -40,7 +40,7 @@ from SystemUtilities import FileSystemUtilities
 from UI.DeleteFilesConfirmationDialog import DeleteFilesConfirmationDialog
 from Utilities import MimeTypes
 
-from .BrowserModel import (
+from UI.BrowserModel import (
     BrowserClassAttributeItem,
     BrowserClassItem,
     BrowserDirectoryItem,
@@ -54,7 +54,7 @@ from .BrowserModel import (
     BrowserSimpleDirectoryItem,
     BrowserSysPathItem,
 )
-from .BrowserSortFilterProxyModel import BrowserSortFilterProxyModel
+from UI.BrowserSortFilterProxyModel import BrowserSortFilterProxyModel
 
 
 class Browser(QTreeView):
