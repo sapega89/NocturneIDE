@@ -26,14 +26,14 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from eric7 import EricUtilities, Preferences, Utilities
-from eric7.EricGui import EricPixmapCache
-from eric7.EricWidgets import EricMessageBox
-from eric7.EricWidgets.EricApplication import ericApp
-from eric7.EricWidgets.EricPathPicker import EricPathPickerModes
-from eric7.SystemUtilities import FileSystemUtilities
+import EricUtilities, Preferences, Utilities
+from EricGui import EricPixmapCache
+from EricWidgets import EricMessageBox
+from EricWidgets.EricApplication import ericApp
+from EricWidgets.EricPathPicker import EricPathPickerModes
+from SystemUtilities import FileSystemUtilities
 
-from .Ui_FindFileWidget import Ui_FindFileWidget
+from Ui_FindFileWidget import Ui_FindFileWidget
 
 
 class FindFileWidget(QWidget, Ui_FindFileWidget):

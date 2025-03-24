@@ -63,56 +63,55 @@ from PyQt6.QtWidgets import (
 )
 
 from eric7 import EricUtilities, Globals, Preferences, Testing, Utilities
-from eric7.__version__ import Version, VersionOnly
-from eric7.CondaInterface.Conda import Conda
-from eric7.Debugger.DebugServer import DebugServer
-from eric7.Debugger.DebugUI import DebugUI
-from eric7.EricCore import EricFileSystemWatcher, EricPreferences
-from eric7.EricCore.EricStdRedirector import EricStdRedirector
-from eric7.EricGui import EricPixmapCache
-from eric7.EricGui.EricAction import EricAction, createActionGroup
-from eric7.EricNetwork.EricNetworkIcon import EricNetworkIcon
-from eric7.EricNetwork.EricNetworkProxyFactory import (
+from __version__ import Version, VersionOnly
+from CondaInterface.Conda import Conda
+from Debugger.DebugServer import DebugServer
+from Debugger.DebugUI import DebugUI
+from EricCore import EricFileSystemWatcher, EricPreferences
+from EricCore.EricStdRedirector import EricStdRedirector
+from EricGui import EricPixmapCache
+from EricGui.EricAction import EricAction, createActionGroup
+from EricNetwork.EricNetworkIcon import EricNetworkIcon
+from EricNetwork.EricNetworkProxyFactory import (
     EricNetworkProxyFactory,
     proxyAuthenticationRequired,
 )
-from eric7.EricWidgets import EricErrorMessage, EricFileDialog, EricMessageBox
-from eric7.EricWidgets.EricApplication import ericApp
-from eric7.EricWidgets.EricClickableLabel import EricClickableLabel
-from eric7.EricWidgets.EricListSelectionDialog import EricListSelectionDialog
-from eric7.EricWidgets.EricMainWindow import EricMainWindow
-from eric7.EricWidgets.EricSingleApplication import EricSingleApplicationServer
-from eric7.EricWidgets.EricToolBarManager import EricToolBarManager
-from eric7.EricWidgets.EricZoomWidget import EricZoomWidget
-from eric7.Globals import getConfig
-from eric7.MultiProject.MultiProject import MultiProject
-from eric7.PipInterface.Pip import Pip
-from eric7.PluginManager.PluginManager import PluginManager
-from eric7.PluginManager.PluginRepositoryDialog import PluginRepositoryDownloadCleanup
-from eric7.Preferences import Shortcuts
-from eric7.Project.Project import Project
-from eric7.QScintilla.SpellChecker import SpellChecker
-from eric7.RemoteServerInterface.EricServerInterface import EricServerInterface
-from eric7.Sessions.SessionFile import SessionFile
-from eric7.SystemUtilities import (
+from EricWidgets import EricErrorMessage, EricFileDialog, EricMessageBox
+from EricWidgets.EricApplication import ericApp
+from EricWidgets.EricClickableLabel import EricClickableLabel
+from EricWidgets.EricListSelectionDialog import EricListSelectionDialog
+from EricWidgets.EricMainWindow import EricMainWindow
+from EricWidgets.EricSingleApplication import EricSingleApplicationServer
+from EricWidgets.EricToolBarManager import EricToolBarManager
+from EricWidgets.EricZoomWidget import EricZoomWidget
+from Globals import getConfig
+from MultiProject.MultiProject import MultiProject
+from PipInterface.Pip import Pip
+from PluginManager.PluginManager import PluginManager
+from PluginManager.PluginRepositoryDialog import PluginRepositoryDownloadCleanup
+from Preferences import Shortcuts
+from Project.Project import Project
+from QScintilla.SpellChecker import SpellChecker
+from RemoteServerInterface.EricServerInterface import EricServerInterface
+from Sessions.SessionFile import SessionFile
+from SystemUtilities import (
     DesktopUtilities,
     FileSystemUtilities,
     OSUtilities,
     PythonUtilities,
     QtUtilities,
 )
-from eric7.Tasks.TasksFile import TasksFile
-from eric7.Testing.TestingWidget import clearSavedHistories
-from eric7.Utilities.BackgroundService import BackgroundService
-from eric7.VirtualEnv.VirtualenvManager import VirtualenvManager
+from Tasks.TasksFile import TasksFile
+from Testing.TestingWidget import clearSavedHistories
+from Utilities.BackgroundService import BackgroundService
+from VirtualEnv.VirtualenvManager import VirtualenvManager
 
-from .Info import BugAddress, FeatureAddress, Program
-from .NotificationWidget import NotificationTypes
-from .ai_core import ask_ai
-from .main import AIAssistantPanel
+from Info import BugAddress, FeatureAddress, Program
+from NotificationWidget import NotificationTypes
+from ai_core import ask_ai
 
 try:
-    from eric7.EricNetwork.EricSslErrorHandler import (
+    from EricNetwork.EricSslErrorHandler import (
         EricSslErrorHandler,
         EricSslErrorState,
     )
@@ -360,7 +359,7 @@ class UserInterface(EricMainWindow):
         )
 
         with contextlib.suppress(ImportError, AttributeError):
-            from eric7.EricWidgets.EricSpellCheckedTextEdit import (  # noqa: I101
+            from EricWidgets.EricSpellCheckedTextEdit import (  # noqa: I101
                 SpellCheckMixin,
             )
 
@@ -809,15 +808,15 @@ class UserInterface(EricMainWindow):
         Private method to create the various application objects.
         """
         from eric7 import ViewManager
-        from eric7.Debugger.DebugViewer import DebugViewer
-        from eric7.JediInterface.AssistantJedi import AssistantJedi
-        from eric7.MultiProject.MultiProjectBrowser import MultiProjectBrowser
-        from eric7.PluginManager.PluginRepositoryDialog import PluginRepositoryWidget
-        from eric7.Project.ProjectBrowser import ProjectBrowser
-        from eric7.QScintilla.Shell import ShellAssembly
-        from eric7.Tasks.TaskViewer import TaskViewer
-        from eric7.VCS.StatusWidget import StatusWidget
-        from eric7.VirtualEnv.VirtualenvManagerWidgets import VirtualenvManagerWidget
+        from Debugger.DebugViewer import DebugViewer
+        from JediInterface.AssistantJedi import AssistantJedi
+        from MultiProject.MultiProjectBrowser import MultiProjectBrowser
+        from PluginManager.PluginRepositoryDialog import PluginRepositoryWidget
+        from Project.ProjectBrowser import ProjectBrowser
+        from QScintilla.Shell import ShellAssembly
+        from Tasks.TaskViewer import TaskViewer
+        from VCS.StatusWidget import StatusWidget
+        from VirtualEnv.VirtualenvManagerWidgets import VirtualenvManagerWidget
 
         from .LogView import LogViewer
         from .Previewer import Previewer
@@ -872,7 +871,7 @@ class UserInterface(EricMainWindow):
         if Preferences.getUI("ShowTemplateViewer"):
             # Create the template viewer part of the user interface
             logging.getLogger(__name__).debug("Creating Template Viewer...")
-            from eric7.Templates.TemplateViewer import TemplateViewer  # noqa: I101
+            from Templates.TemplateViewer import TemplateViewer  # noqa: I101
 
             self.templateViewer = TemplateViewer(None, self.viewmanager)
         else:
@@ -912,7 +911,7 @@ class UserInterface(EricMainWindow):
         if Preferences.getUI("ShowPyPIPackageManager"):
             # Create the PyPI package manager
             logging.getLogger(__name__).debug("Creating PyPI Package Manager...")
-            from eric7.PipInterface.PipPackagesWidget import (  # noqa: I101
+            from PipInterface.PipPackagesWidget import (  # noqa: I101
                 PipPackagesWidget,
             )
 
@@ -924,7 +923,7 @@ class UserInterface(EricMainWindow):
         if Preferences.getUI("ShowCondaPackageManager"):
             # Create the conda package manager
             logging.getLogger(__name__).debug("Creating Conda Package Manager...")
-            from eric7.CondaInterface.CondaPackagesWidget import (  # noqa: I101
+            from CondaInterface.CondaPackagesWidget import (  # noqa: I101
                 CondaPackagesWidget,
             )
 
@@ -936,7 +935,7 @@ class UserInterface(EricMainWindow):
         if Preferences.getUI("ShowCooperation"):
             # Create the chat part of the user interface
             logging.getLogger(__name__).debug("Creating Chat Widget...")
-            from eric7.Cooperation.ChatWidget import ChatWidget  # noqa: I101
+            from Cooperation.ChatWidget import ChatWidget  # noqa: I101
 
             self.cooperation = ChatWidget(self)
         else:
@@ -946,7 +945,7 @@ class UserInterface(EricMainWindow):
         if Preferences.getUI("ShowIrc"):
             # Create the IRC part of the user interface
             logging.getLogger(__name__).debug("Creating IRC Widget...")
-            from eric7.Network.IRC.IrcWidget import IrcWidget  # noqa: I101
+            from Network.IRC.IrcWidget import IrcWidget  # noqa: I101
 
             self.irc = IrcWidget(self)
         else:
@@ -956,7 +955,7 @@ class UserInterface(EricMainWindow):
         if Preferences.getUI("ShowMicroPython"):
             # Create the MicroPython part of the user interface
             logging.getLogger(__name__).debug("Creating MicroPython Widget...")
-            from eric7.MicroPython.MicroPythonWidget import (  # noqa: I101
+            from MicroPython.MicroPythonWidget import (  # noqa: I101
                 MicroPythonWidget,
             )
 
@@ -1043,7 +1042,7 @@ class UserInterface(EricMainWindow):
         ):
             # Create the embedded help viewer
             logging.getLogger(__name__).debug("Creating Internal Help Viewer...")
-            from eric7.HelpViewer.HelpViewerWidget import HelpViewerWidget  # noqa: I101
+            from HelpViewer.HelpViewerWidget import HelpViewerWidget  # noqa: I101
 
             self.__helpViewerWidget = HelpViewerWidget(self)
         else:
@@ -1105,7 +1104,7 @@ class UserInterface(EricMainWindow):
         """
         Private method to create the Toolboxes layout.
         """
-        from eric7.EricWidgets.EricToolBox import (
+        from EricWidgets.EricToolBox import (
             EricHorizontalToolBox,
             EricVerticalToolBox,
         )
@@ -1302,7 +1301,7 @@ class UserInterface(EricMainWindow):
         """
         Private method to create the Sidebars layout.
         """
-        from eric7.EricWidgets.EricSideBar import EricSideBar, EricSideBarSide
+        from EricWidgets.EricSideBar import EricSideBar, EricSideBarSide
 
         logging.getLogger(__name__).debug("Creating Sidebars Layout...")
 
@@ -4380,7 +4379,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to set up the status bar.
         """
-        from eric7.VCS.StatusMonitorLed import StatusMonitorLedWidget
+        from VCS.StatusMonitorLed import StatusMonitorLedWidget
 
         self.__statusBar = self.statusBar()
         self.__statusBar.setSizeGripEnabled(True)
@@ -4675,7 +4674,7 @@ class UserInterface(EricMainWindow):
 
         # webengine (chromium) version
         with contextlib.suppress(ImportError):
-            from eric7.WebBrowser.Tools import (  # __IGNORE_WARNING_I101__
+            from WebBrowser.Tools import (  # __IGNORE_WARNING_I101__
                 WebBrowserTools,
             )
 
@@ -4880,7 +4879,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to show a mini editor window.
         """
-        from eric7.QScintilla.MiniEditor import MiniEditor
+        from QScintilla.MiniEditor import MiniEditor
 
         editor = MiniEditor(parent=self)
         editor.show()
@@ -6073,7 +6072,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to handle the tools configuration menu entry.
         """
-        from eric7.Preferences.ToolConfigurationDialog import ToolConfigurationDialog
+        from Preferences.ToolConfigurationDialog import ToolConfigurationDialog
 
         dlg = ToolConfigurationDialog(
             self.toolGroups[self.currentToolGroup][1], parent=self
@@ -6086,7 +6085,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to handle the tool groups configuration menu entry.
         """
-        from eric7.Preferences.ToolGroupConfigurationDialog import (
+        from Preferences.ToolGroupConfigurationDialog import (
             ToolGroupConfigurationDialog,
         )
 
@@ -6100,7 +6099,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to generate the testing dialog on demand.
         """
-        from eric7.Testing.TestingWidget import TestingWidget
+        from Testing.TestingWidget import TestingWidget
 
         if self.__testingWidget is None:
             self.__testingWidget = TestingWidget()
@@ -6571,7 +6570,7 @@ class UserInterface(EricMainWindow):
         @param fn path of the file to show (defaults to "")
         @type str (optional)
         """
-        from eric7.HexEdit.HexEditMainWindow import HexEditMainWindow
+        from HexEdit.HexEditMainWindow import HexEditMainWindow
 
         dlg = HexEditMainWindow(fn, self, fromEric=True, project=self.project)
         dlg.show()
@@ -6585,7 +6584,7 @@ class UserInterface(EricMainWindow):
         @param fn path of the file to show (defaults to "")
         @type str (optional)
         """
-        from eric7.PdfViewer.PdfViewerWindow import PdfViewerWindow
+        from PdfViewer.PdfViewerWindow import PdfViewerWindow
 
         dlg = PdfViewerWindow(fn, self, fromEric=True, project=self.project)
         dlg.show()
@@ -6599,7 +6598,7 @@ class UserInterface(EricMainWindow):
         @param fn path of the file to show (defaults to "")
         @type str (optional)
         """
-        from eric7.IconEditor.IconEditorWindow import IconEditorWindow
+        from IconEditor.IconEditorWindow import IconEditorWindow
 
         dlg = IconEditorWindow(fn, self, fromEric=True, project=self.project)
         dlg.show()
@@ -6612,7 +6611,7 @@ class UserInterface(EricMainWindow):
         @param fn path of the file to show (defaults to "")
         @type str (optional)
         """
-        from eric7.Graphics.PixmapDiagram import PixmapDiagram
+        from Graphics.PixmapDiagram import PixmapDiagram
 
         dlg = PixmapDiagram(fn, self)
         if dlg.getStatus():
@@ -6626,7 +6625,7 @@ class UserInterface(EricMainWindow):
         @param fn filename of the file to show
         @type str
         """
-        from eric7.Graphics.SvgDiagram import SvgDiagram
+        from Graphics.SvgDiagram import SvgDiagram
 
         dlg = SvgDiagram(fn, self)
         dlg.show()
@@ -6639,7 +6638,7 @@ class UserInterface(EricMainWindow):
         @param fn name of the file to be shown
         @type str
         """
-        from eric7.Graphics.UMLDialog import UMLDialog, UMLDialogType
+        from Graphics.UMLDialog import UMLDialog, UMLDialogType
 
         dlg = UMLDialog(UMLDialogType.NO_DIAGRAM, self.project, parent=self)
         if dlg.load(fn):
@@ -7202,7 +7201,7 @@ class UserInterface(EricMainWindow):
         @return flag indicating a successful launch
         @rtype bool
         """
-        from eric7.WebBrowser import WebBrowserArgumentsCreator
+        from WebBrowser import WebBrowserArgumentsCreator
 
         clientArgs = []
         if searchWord:
@@ -7267,7 +7266,7 @@ class UserInterface(EricMainWindow):
             -1 = server exited with an error code)
         @rtype int
         """
-        from eric7.WebBrowser.WebBrowserSingleApplication import (
+        from WebBrowser.WebBrowserSingleApplication import (
             WebBrowserSingleApplicationClient,
         )
 
@@ -7313,7 +7312,7 @@ class UserInterface(EricMainWindow):
         """
         Private method to shut down the web browser.
         """
-        from eric7.WebBrowser import WebBrowserArgumentsCreator
+        from WebBrowser import WebBrowserArgumentsCreator
 
         args = WebBrowserArgumentsCreator.createArgparseNamespace(["--shutdown"])
         self.__webBrowserClient.processArgs(args, disconnect=False)
@@ -7350,7 +7349,7 @@ class UserInterface(EricMainWindow):
         @param pageName name of the configuration page to show
         @type str
         """
-        from eric7.Preferences.ConfigurationDialog import ConfigurationDialog
+        from Preferences.ConfigurationDialog import ConfigurationDialog
 
         if self.__configurationDialog is None:
             # only one invocation at a time is allowed
@@ -7410,7 +7409,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to export the current theme to a file.
         """
-        from eric7.Preferences.ThemeManager import ThemeManager
+        from Preferences.ThemeManager import ThemeManager
 
         ThemeManager().exportTheme()
 
@@ -7419,7 +7418,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to import a previously exported theme.
         """
-        from eric7.Preferences.ThemeManager import ThemeManager
+        from Preferences.ThemeManager import ThemeManager
 
         if ThemeManager().importTheme():
             self.__preferencesChanged()
@@ -7429,7 +7428,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to handle a change of the preferences.
         """
-        from eric7.HexEdit.HexEditMainWindow import HexEditMainWindow
+        from HexEdit.HexEditMainWindow import HexEditMainWindow
 
         self.setStyle(
             styleName=Preferences.getUI("Style"),
@@ -7478,7 +7477,7 @@ class UserInterface(EricMainWindow):
         )
 
         with contextlib.suppress(ImportError, AttributeError):
-            from eric7.EricWidgets.EricSpellCheckedTextEdit import (  # noqa: I101
+            from EricWidgets.EricSpellCheckedTextEdit import (  # noqa: I101
                 SpellCheckMixin,
             )
 
@@ -7528,7 +7527,7 @@ class UserInterface(EricMainWindow):
         Preferences.convertPasswords(oldPassword, newPassword)
         variant = Globals.getWebBrowserSupport()
         if variant == "QtWebEngine":
-            from eric7.WebBrowser.Passwords.PasswordManager import (  # noqa: I101
+            from WebBrowser.Passwords.PasswordManager import (  # noqa: I101
                 PasswordManager,
             )
 
@@ -7547,7 +7546,7 @@ class UserInterface(EricMainWindow):
         Private slot to display a dialog show a list of external tools used
         by eric.
         """
-        from eric7.Preferences.ProgramsDialog import ProgramsDialog
+        from Preferences.ProgramsDialog import ProgramsDialog
 
         if self.programsDialog is None:
             self.programsDialog = ProgramsDialog(self)
@@ -7557,7 +7556,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to configure the various view profiles.
         """
-        from eric7.Preferences.ViewProfileDialog import ViewProfileDialog
+        from Preferences.ViewProfileDialog import ViewProfileDialog
 
         dlg = ViewProfileDialog(
             self.__layoutType,
@@ -7579,7 +7578,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to configure the various toolbars.
         """
-        from eric7.EricWidgets.EricToolBarDialog import EricToolBarDialog
+        from EricWidgets.EricToolBarDialog import EricToolBarDialog
 
         dlg = EricToolBarDialog(self.toolbarManager, parent=self)
         if dlg.exec() == QDialog.DialogCode.Accepted:
@@ -7589,7 +7588,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to configure the keyboard shortcuts.
         """
-        from eric7.Preferences.ShortcutsDialog import ShortcutsDialog
+        from Preferences.ShortcutsDialog import ShortcutsDialog
 
         if self.shortcutsDialog is None:
             self.shortcutsDialog = ShortcutsDialog(self)
@@ -7652,7 +7651,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to show the certificates management dialog.
         """
-        from eric7.EricNetwork.EricSslCertificatesDialog import (
+        from EricNetwork.EricSslCertificatesDialog import (
             EricSslCertificatesDialog,
         )
 
@@ -8280,7 +8279,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to show the plugin info dialog.
         """
-        from eric7.PluginManager.PluginInfoDialog import PluginInfoDialog
+        from PluginManager.PluginInfoDialog import PluginInfoDialog
 
         self.__pluginInfoDialog = PluginInfoDialog(self.pluginManager, self)
         self.__pluginInfoDialog.show()
@@ -8294,7 +8293,7 @@ class UserInterface(EricMainWindow):
             installation
         @type list of str
         """
-        from eric7.PluginManager.PluginInstallDialog import PluginInstallDialog
+        from PluginManager.PluginInstallDialog import PluginInstallDialog
 
         self.__pluginInstallDialog = PluginInstallDialog(
             self.pluginManager,
@@ -8326,7 +8325,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to show a dialog to uninstall a plugin.
         """
-        from eric7.PluginManager.PluginUninstallDialog import PluginUninstallDialog
+        from PluginManager.PluginUninstallDialog import PluginUninstallDialog
 
         dlg = PluginUninstallDialog(self.pluginManager, parent=self)
         dlg.exec()
@@ -8341,7 +8340,7 @@ class UserInterface(EricMainWindow):
         """
         Private slot to show the plugins available for download.
         """
-        from eric7.PluginManager.PluginRepositoryDialog import PluginRepositoryDialog
+        from PluginManager.PluginRepositoryDialog import PluginRepositoryDialog
 
         dlg = PluginRepositoryDialog(self.pluginManager, parent=self)
         res = dlg.exec()

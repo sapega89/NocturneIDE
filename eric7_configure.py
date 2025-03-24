@@ -71,7 +71,7 @@ if args.settings:
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, SettingsDir
     )
 
-from eric7.Toolbox import Startup
+from Toolbox import Startup
 
 
 def createMainWidget(_args):
@@ -84,7 +84,7 @@ def createMainWidget(_args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from eric7.Preferences.ConfigurationDialog import ConfigurationWindow
+    from Preferences.ConfigurationDialog import ConfigurationWindow
 
     w = ConfigurationWindow()
     w.show()

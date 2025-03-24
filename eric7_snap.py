@@ -25,7 +25,7 @@ def createArgparseNamespace():
     @return created argument parser object
     @rtype argparse.ArgumentParser
     """
-    from .__version__ import Version
+    from __version__ import Version
 
     # 1. create the argument parser
     parser = argparse.ArgumentParser(
@@ -86,7 +86,7 @@ def createMainWidget(_args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from eric7.Snapshot.SnapWidget import SnapWidget
+    from Snapshot.SnapWidget import SnapWidget
 
     return SnapWidget()
 

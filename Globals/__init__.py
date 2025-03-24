@@ -15,7 +15,7 @@ import os
 
 from PyQt6.QtCore import QProcess, qVersion
 
-from eric7.EricUtilities import (  # noqa
+from EricUtilities import (  # noqa
     dataString,
     getConfigDir,
     setConfigDir,
@@ -28,10 +28,10 @@ from eric7.EricUtilities import (  # noqa
     versionIsValid,
     versionToTuple,
 )
-from eric7.SystemUtilities import PythonUtilities
+from SystemUtilities import PythonUtilities
 
 try:
-    from eric7.eric7config import getConfig
+    from eric7config import getConfig
 except ImportError:
     from eric7config import getConfig
 
@@ -88,7 +88,7 @@ def getWebBrowserSupport():
     @rtype str
     """
     try:
-        from eric7.eric7config import getConfig  # __IGNORE_WARNING_I101__
+        from eric7config import getConfig  # __IGNORE_WARNING_I101__
     except ImportError:
         from eric7config import getConfig  # __IGNORE_WARNING_I10__
 

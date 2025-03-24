@@ -78,7 +78,7 @@ if args.settings:
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, SettingsDir
     )
 
-from eric7.Toolbox import Startup
+from Toolbox import Startup
 
 # make Python debug client available as a package repository (needed for 'coverage')
 sys.path.insert(2, os.path.join(os.path.dirname(__file__), "DebugClients", "Python"))
@@ -93,7 +93,7 @@ def createMainWidget(args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from eric7.Testing.TestingWidget import TestingWindow
+    from Testing.TestingWidget import TestingWindow
 
     return TestingWindow(args.file)
 

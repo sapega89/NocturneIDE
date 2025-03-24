@@ -26,7 +26,7 @@ def createArgparseNamespace():
     @return created argument parser object
     @rtype argparse.ArgumentParser
     """
-    from .__version__ import Version
+    from __version__ import Version
 
     # 1. create the argument parser
     parser = argparse.ArgumentParser(
@@ -78,7 +78,7 @@ if args.settings:
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, SettingsDir
     )
 
-from eric7.Toolbox import Startup
+from Toolbox import Startup
 
 
 def createMainWidget(args):
@@ -90,7 +90,7 @@ def createMainWidget(args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from eric7.HexEdit.HexEditMainWindow import HexEditMainWindow
+    from HexEdit.HexEditMainWindow import HexEditMainWindow
 
     editor = HexEditMainWindow(args.file if args.file else "", None)
     return editor

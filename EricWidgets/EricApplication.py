@@ -19,7 +19,7 @@ from PyQt6.QtWidgets import QApplication
 if not QCoreApplication.testAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts):
     QCoreApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts, True)
 
-from . import EricMessageBox
+import EricMessageBox
 
 
 class EricApplication(QApplication):

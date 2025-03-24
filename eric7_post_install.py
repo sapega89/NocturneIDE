@@ -87,7 +87,6 @@ def windowsDesktopEntries():
         the link target and the icon target
     @rtype list of tuples of (str, str, str)
     """
-    from . import __file__
 
     majorVersion, minorVersion = sys.version_info[:2]
     scriptsDir = sysconfig.get_path("scripts")

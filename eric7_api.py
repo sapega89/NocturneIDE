@@ -19,10 +19,10 @@ import os
 import sys
 
 import DocumentationTools
-from .__version__ import Version
-from .DocumentationTools.APIGenerator import APIGenerator
-from .SystemUtilities import FileSystemUtilities, OSUtilities
-from .Utilities import ModuleParser
+from __version__ import Version
+from DocumentationTools.APIGenerator import APIGenerator
+from SystemUtilities import FileSystemUtilities, OSUtilities
+from Utilities import ModuleParser
 
 
 def createArgumentParser():
