@@ -60,7 +60,7 @@ def createArgparseNamespace():
 
 args = createArgparseNamespace()
 if args.config:
-    from eric7 import EricUtilities
+    import EricUtilities
 
     EricUtilities.setConfigDir(args.config)
 if args.settings:
@@ -73,7 +73,7 @@ if args.settings:
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, SettingsDir
     )
 
-from eric7.Toolbox import Startup
+from Toolbox import Startup
 
 
 def createMainWidget(_args):
@@ -86,7 +86,7 @@ def createMainWidget(_args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from eric7.PluginManager.PluginRepositoryDialog import PluginRepositoryWindow
+    from PluginManager.PluginRepositoryDialog import PluginRepositoryWindow
 
     return PluginRepositoryWindow(None)
 
