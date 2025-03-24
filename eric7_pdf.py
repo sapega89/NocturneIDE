@@ -65,7 +65,7 @@ def createArgparseNamespace():
 
 args = createArgparseNamespace()
 if args.config:
-    from eric7 import EricUtilities
+    import EricUtilities
 
     EricUtilities.setConfigDir(args.config)
 if args.settings:
