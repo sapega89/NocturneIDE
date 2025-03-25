@@ -25,6 +25,9 @@ RUN apt-get update && apt-get install -y \
     mesa-va-drivers \
     mesa-vulkan-drivers \
     libgl1-mesa-dri\
+    libgl1-mesa-glx \
+    libglx-mesa0 \
+    libosmesa6\
     && rm -rf /var/lib/apt/lists/*
 
 ENV PATH=/root/.local/bin:$PATH
@@ -35,7 +38,7 @@ ENV PYTHONPATH="${PYTHONPATH:-}:/workspace"
 COPY requirements.txt /tmp/
 
 RUN pip install --upgrade pip \
-    && pip install llama-cpp-python deep-translator \
+    && pip install llama-cpp-python\
     && pip install -r /tmp/requirements.txt\
     && eric7_post_install
 
