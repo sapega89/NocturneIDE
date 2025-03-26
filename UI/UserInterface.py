@@ -22,7 +22,6 @@ import shutil
 import sys
 
 import psutil
-# from UI.ai_core import ask_ai
 from PyQt6 import sip
 from PyQt6.Qsci import QSCINTILLA_VERSION_STR, QsciScintilla
 from PyQt6.QtCore import (
@@ -109,7 +108,9 @@ from eric7.VirtualEnv.VirtualenvManager import VirtualenvManager
 
 from .Info import BugAddress, FeatureAddress, Program
 from .NotificationWidget import NotificationTypes
-from .ai_core import ask_ai
+from eric7.UI.ai_core import ask_ai
+
+from eric7.UI.main import AIAssistantPanel
 
 try:
     from eric7.EricNetwork.EricSslErrorHandler import (
@@ -164,26 +165,19 @@ class UserInterface(EricMainWindow):
 
     ErrorLogFileName = "eric7_error.log"
 
-
     def analyze_code(self):
         """
-        Ищет QsciScintilla редактор и анализирует код.
+        Відкриває панель AI-помічника праворуч.
         """
-        from PyQt6.QtWidgets import QMessageBox
-        from PyQt6.Qsci import QsciScintilla
-
         try:
-            splitter = self.centralWidget()
-            editor = splitter.findChild(QsciScintilla)
-
-            if editor:
-                code = editor.text()  # QsciScintilla использует .text()
-                response = ask_ai(code)
-                QMessageBox.information(self, "AI Code Analysis", response)
-            else:
-                QMessageBox.warning(self, "No Code", "Редактор не найден.")
+            if not hasattr(self, "ai_panel") or self.ai_panel is None:
+                self.ai_panel = AIAssistantPanel(self)
+                self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.ai_panel)
+            self.ai_panel.show()
+            self.ai_panel.raise_()
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"Error accessing editor: {str(e)}")
+            from PyQt6.QtWidgets import QMessageBox
+            QMessageBox.critical(self, "AI Error", str(e))
 
     def __init__(
         self,

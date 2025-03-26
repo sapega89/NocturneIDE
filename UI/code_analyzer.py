@@ -1,4 +1,5 @@
-from ai_core import ask_ai
+from eric7.UI.ai_core import ask_ai
+
 
 def analyze_code(code):
     # Додаємо інструкцію для AI

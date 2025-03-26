@@ -1,6 +1,7 @@
 import os
 import requests
 from deep_translator import GoogleTranslator
+from PyQt6.QtCore import QThread, pyqtSignal
 
 MODEL_URL = os.getenv(
     "MODEL_URL",
@@ -9,6 +10,7 @@ MODEL_URL = os.getenv(
 MODEL_DIR = os.getenv("MODEL_DIR", os.path.join(os.path.dirname(__file__), "models"))
 MODEL_FILENAME = os.getenv("MODEL_FILENAME", "falcon-7b-instruct.Q4_0.gguf")
 MODEL_PATH = os.path.join(MODEL_DIR, MODEL_FILENAME)
+
 
 def ensure_model_exists():
     os.makedirs(MODEL_DIR, exist_ok=True)

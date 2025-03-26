@@ -3,18 +3,22 @@ version: '3.8'
 services:
   eric7:
     build: .
-    container_name: eric7_ide
+    container_name: eric7
     env_file:
       - .env
     environment:
       - DISPLAY=${DISPLAY}
       - MODEL_URL=${MODEL_URL}
       - MODEL_DIR=${MODEL_DIR}
+      - MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
+      - EGL_PLATFORM=surfaceless
+      - QTWEBENGINE_CHROMIUM_FLAGS=--no-sandbox
+      - LIBGL_DEBUG=verbose glxinfo
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./:/workspace
+      - ./:/workspace/eric7
     working_dir: /workspace
-    command: python3 -m eric7_ide
+    command: python3 -m eric7
     network_mode: host
     stdin_open: true
     tty: true
