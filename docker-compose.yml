@@ -7,18 +7,14 @@ services:
     env_file:
       - .env
     environment:
-      DISPLAY: ${DISPLAY}
-      LIBGL_ALWAYS_SOFTWARE: "1"
-      MESA_LOADER_DRIVER_OVERRIDE: "softpipe"
-      QTWEBENGINE_CHROMIUM_FLAGS: "--no-sandbox --disable-gpu"
-      QT_X11_NO_MITSHM: "1"
-      MODEL_URL: ${MODEL_URL}
-      MODEL_DIR: ${MODEL_DIR}
+      - DISPLAY=${DISPLAY}
+      - MODEL_URL=${MODEL_URL}
+      - MODEL_DIR=${MODEL_DIR}
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./:/workspace
     working_dir: /workspace
-    command: python3 eric7_ide.py
+    command: python3 -m eric7_ide
     network_mode: host
     stdin_open: true
     tty: true

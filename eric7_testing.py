@@ -26,7 +26,7 @@ def createArgparseNamespace():
     @return created argument parser object
     @rtype argparse.ArgumentParser
     """
-    from .__version__ import Version
+    from eric7.__version__ import Version
 
     # 1. create the argument parser
     parser = argparse.ArgumentParser(
@@ -65,7 +65,7 @@ def createArgparseNamespace():
 
 args = createArgparseNamespace()
 if args.config:
-    import EricUtilities
+    from eric7 import EricUtilities
 
     EricUtilities.setConfigDir(args.config)
 if args.settings:
@@ -78,7 +78,7 @@ if args.settings:
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, SettingsDir
     )
 
-from Toolbox import Startup
+from eric7.Toolbox import Startup
 
 # make Python debug client available as a package repository (needed for 'coverage')
 sys.path.insert(2, os.path.join(os.path.dirname(__file__), "DebugClients", "Python"))
@@ -93,7 +93,7 @@ def createMainWidget(args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from Testing.TestingWidget import TestingWindow
+    from eric7.Testing.TestingWidget import TestingWindow
 
     return TestingWindow(args.file)
 

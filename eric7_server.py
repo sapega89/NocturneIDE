@@ -16,8 +16,8 @@ import argparse
 import socket
 import sys
 
-from __version__ import Version
-from RemoteServer.EricServer import EricServer
+from eric7.__version__ import Version
+from eric7.RemoteServer.EricServer import EricServer
 
 
 def createArgumentParser():

@@ -1,9 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QDockWidget, QTextEdit, QPushButton, QVBoxLayout, QWidget
 from PyQt6.QtCore import Qt
-
-from UI.ai_core import ask_ai
-
+from ai_core import ask_ai  # Синхронна функція
 
 class AIAssistantPanel(QDockWidget):
     def __init__(self, parent=None):

@@ -17,8 +17,8 @@ import sys
 
 from PyQt6.QtGui import QGuiApplication
 
-import EricUtilities
-from WebBrowser.WebBrowserArgumentsCreator import createArgparseNamespace
+from eric7 import EricUtilities
+from eric7.WebBrowser.WebBrowserArgumentsCreator import createArgparseNamespace
 
 args = createArgparseNamespace()
 if args.config:
@@ -45,7 +45,7 @@ except ImportError:
         from PyQt6.QtCore import QTimer
         from PyQt6.QtWidgets import QApplication
 
-        from EricWidgets import EricMessageBox
+        from eric7.EricWidgets import EricMessageBox
 
         app = QApplication([])
         QTimer.singleShot(
@@ -60,9 +60,9 @@ except ImportError:
         app.exec()
     sys.exit(100)
 
-from EricWidgets.EricApplication import EricApplication  # noqa: NO101
-from Toolbox import Startup
-from WebBrowser.WebBrowserSingleApplication import (
+from eric7.EricWidgets.EricApplication import EricApplication  # noqa: NO101
+from eric7.Toolbox import Startup
+from eric7.WebBrowser.WebBrowserSingleApplication import (
     WebBrowserSingleApplicationClient,
 )
 
@@ -76,7 +76,7 @@ def createMainWidget(args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from WebBrowser.WebBrowserWindow import WebBrowserWindow
+    from eric7.WebBrowser.WebBrowserWindow import WebBrowserWindow
 
     browser = WebBrowserWindow(
         args.home,

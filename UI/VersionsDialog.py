@@ -13,11 +13,11 @@ from PyQt6.QtCore import Qt, pyqtSlot
 from PyQt6.QtGui import QGuiApplication
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox
 
-from EricGui.EricOverrideCursor import EricOverrideCursor
-from EricWidgets import EricMessageBox
-from EricWidgets.EricApplication import ericApp
+from eric7.EricGui.EricOverrideCursor import EricOverrideCursor
+from eric7.EricWidgets import EricMessageBox
+from eric7.EricWidgets.EricApplication import ericApp
 
-from Ui_VersionsDialog import Ui_VersionsDialog
+from .Ui_VersionsDialog import Ui_VersionsDialog
 
 
 class VersionsDialog(QDialog, Ui_VersionsDialog):

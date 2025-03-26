@@ -19,14 +19,14 @@ import os
 import shutil
 import sys
 
-from __version__ import Version
-from DocumentationTools import TemplatesListsStyleCSS
-from DocumentationTools.Config import eric7docDefaultColors
-from DocumentationTools.IndexGenerator import IndexGenerator
-from DocumentationTools.ModuleDocumentor import ModuleDocument
-from DocumentationTools.QtHelpGenerator import QtHelpGenerator
-from SystemUtilities import FileSystemUtilities, OSUtilities
-from Utilities import ModuleParser
+from eric7.__version__ import Version
+from eric7.DocumentationTools import TemplatesListsStyleCSS
+from eric7.DocumentationTools.Config import eric7docDefaultColors
+from eric7.DocumentationTools.IndexGenerator import IndexGenerator
+from eric7.DocumentationTools.ModuleDocumentor import ModuleDocument
+from eric7.DocumentationTools.QtHelpGenerator import QtHelpGenerator
+from eric7.SystemUtilities import FileSystemUtilities, OSUtilities
+from eric7.Utilities import ModuleParser
 
 # list of supported filename extensions
 supportedExtensions = [".py", ".pyw", ".ptl", ".rb"]

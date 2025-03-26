@@ -16,13 +16,13 @@ from PyQt6.QtWidgets import (
     QTreeWidgetItem,
 )
 
-from EricGui import EricPixmapCache
-from EricGui.EricOverrideCursor import EricOverrideCursor
-from EricWidgets import EricMessageBox
+from eric7.EricGui import EricPixmapCache
+from eric7.EricGui.EricOverrideCursor import EricOverrideCursor
+from eric7.EricWidgets import EricMessageBox
 
-from Fido2Management import Fido2DeviceError, Fido2Management, Fido2PinError
-from Fido2PinDialog import Fido2PinDialog, Fido2PinDialogMode
-from Ui_Fido2ManagementDialog import Ui_Fido2ManagementDialog
+from .Fido2Management import Fido2DeviceError, Fido2Management, Fido2PinError
+from .Fido2PinDialog import Fido2PinDialog, Fido2PinDialogMode
+from .Ui_Fido2ManagementDialog import Ui_Fido2ManagementDialog
 
 
 class Fido2ManagementDialog(QDialog, Ui_Fido2ManagementDialog):
@@ -256,7 +256,7 @@ class Fido2ManagementDialog(QDialog, Ui_Fido2ManagementDialog):
         """
         Private slot to show some info about the selected security key.
         """
-        from Fido2InfoDialog import Fido2InfoDialog
+        from .Fido2InfoDialog import Fido2InfoDialog
 
         securityKey = self.securityKeysComboBox.currentData()
         dlg = Fido2InfoDialog(
@@ -528,7 +528,7 @@ class Fido2ManagementDialog(QDialog, Ui_Fido2ManagementDialog):
         """
         Private slot to edit the selected passkey.
         """
-        from Fido2PasskeyEditDialog import Fido2PasskeyEditDialog
+        from .Fido2PasskeyEditDialog import Fido2PasskeyEditDialog
 
         selectedItem = self.passkeysList.selectedItems()[0]
         dlg = Fido2PasskeyEditDialog(

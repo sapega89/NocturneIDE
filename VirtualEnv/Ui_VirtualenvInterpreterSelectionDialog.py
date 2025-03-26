@@ -56,4 +56,4 @@ class Ui_VirtualenvInterpreterSelectionDialog(object):
         self.label_2.setText(_translate("VirtualenvInterpreterSelectionDialog", "Name:"))
         self.label.setText(_translate("VirtualenvInterpreterSelectionDialog", "Enter interpreter for virtual environment:"))
         self.pythonExecPicker.setToolTip(_translate("VirtualenvInterpreterSelectionDialog", "Enter the Python interpreter of the virtual environment"))
-from EricWidgets.EricPathPicker import EricComboPathPicker
+from eric7.EricWidgets.EricPathPicker import EricComboPathPicker

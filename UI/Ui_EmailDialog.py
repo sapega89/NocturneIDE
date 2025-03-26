@@ -108,4 +108,4 @@ class Ui_EmailDialog(object):
         self.deleteButton.setToolTip(_translate("EmailDialog", "Delete the selected entry from the list of attachments"))
         self.deleteButton.setText(_translate("EmailDialog", "&Delete"))
         self.deleteButton.setShortcut(_translate("EmailDialog", "Alt+D"))
-from EricWidgets.EricSpellCheckedTextEdit import EricSpellCheckedTextEdit
+from eric7.EricWidgets.EricSpellCheckedTextEdit import EricSpellCheckedTextEdit

@@ -9,7 +9,7 @@ Module implementing a dialog to confirm deletion of multiple files.
 
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox
 
-from Ui_DeleteFilesConfirmationDialog import Ui_DeleteFilesConfirmationDialog
+from .Ui_DeleteFilesConfirmationDialog import Ui_DeleteFilesConfirmationDialog
 
 
 class DeleteFilesConfirmationDialog(QDialog, Ui_DeleteFilesConfirmationDialog):

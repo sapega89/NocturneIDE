@@ -24,12 +24,12 @@ from PyQt6.QtCore import (
 from PyQt6.QtGui import QFont, QImageReader
 from PyQt6.QtWidgets import QApplication
 
-import Preferences
-from EricCore import EricFileSystemWatcher
-from EricGui import EricPixmapCache
-from SystemUtilities import FileSystemUtilities
-from Utilities import ClassBrowsers
-from Utilities.ClassBrowsers import ClbrBaseClasses
+from eric7 import Preferences
+from eric7.EricCore import EricFileSystemWatcher
+from eric7.EricGui import EricPixmapCache
+from eric7.SystemUtilities import FileSystemUtilities
+from eric7.Utilities import ClassBrowsers
+from eric7.Utilities.ClassBrowsers import ClbrBaseClasses
 
 
 class BrowserItemType(enum.Enum):
@@ -786,7 +786,7 @@ class BrowserModel(QAbstractItemModel):
         @param repopulate flag indicating a repopulation
         @type bool
         """
-        from Utilities import ClassBrowsers
+        from eric7.Utilities import ClassBrowsers
 
         moduleName = parentItem.moduleName()
         fileName = parentItem.fileName()

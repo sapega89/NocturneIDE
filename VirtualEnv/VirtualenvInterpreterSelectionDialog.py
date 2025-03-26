@@ -17,7 +17,7 @@ from PyQt6.QtWidgets import QDialog, QDialogButtonBox
 from eric7.EricWidgets.EricPathPicker import EricPathPickerModes
 from eric7.SystemUtilities import OSUtilities
 
-from Ui_VirtualenvInterpreterSelectionDialog import (
+from .Ui_VirtualenvInterpreterSelectionDialog import (
     Ui_VirtualenvInterpreterSelectionDialog,
 )
 

@@ -6,6 +6,7 @@
 """
 Main script to enable starting eric7 with 'python -m eric7'.
 """
-import eric7_ide
+
+from eric7 import eric7_ide
 
 eric7_ide.main()

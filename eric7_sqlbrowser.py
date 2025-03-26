@@ -25,7 +25,7 @@ def createArgparseNamespace():
     @return created argument parser object
     @rtype argparse.ArgumentParser
     """
-    from __version__ import Version
+    from eric7.__version__ import Version
 
     # 1. create the argument parser
     parser = argparse.ArgumentParser(
@@ -65,7 +65,7 @@ def createArgparseNamespace():
 
 args = createArgparseNamespace()
 if args.config:
-    import EricUtilities
+    from eric7 import EricUtilities
 
     EricUtilities.setConfigDir(args.config)
 if args.settings:
@@ -78,7 +78,7 @@ if args.settings:
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, SettingsDir
     )
 
-from Toolbox import Startup
+from eric7.Toolbox import Startup
 
 
 def createMainWidget(args):
@@ -90,7 +90,7 @@ def createMainWidget(args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from SqlBrowser.SqlBrowser import SqlBrowser
+    from eric7.SqlBrowser.SqlBrowser import SqlBrowser
 
     browser = SqlBrowser(args.connection)
 

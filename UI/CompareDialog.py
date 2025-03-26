@@ -16,11 +16,11 @@ from PyQt6.QtCore import QEvent, QTimer, pyqtSlot
 from PyQt6.QtGui import QBrush, QFontMetrics, QTextCursor
 from PyQt6.QtWidgets import QApplication, QDialogButtonBox, QWidget
 
-import Preferences
-from EricGui import EricPixmapCache
-from EricWidgets import EricMessageBox
-from EricWidgets.EricMainWindow import EricMainWindow
-from EricWidgets.EricPathPicker import EricPathPickerModes
+from eric7 import Preferences
+from eric7.EricGui import EricPixmapCache
+from eric7.EricWidgets import EricMessageBox
+from eric7.EricWidgets.EricMainWindow import EricMainWindow
+from eric7.EricWidgets.EricPathPicker import EricPathPickerModes
 
 from .Ui_CompareDialog import Ui_CompareDialog
 

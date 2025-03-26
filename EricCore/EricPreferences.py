@@ -11,9 +11,9 @@ import sys
 
 from PyQt6.QtCore import QCoreApplication, QDir, QSettings
 
-import EricUtilities
-from EricNetwork.EricFtp import EricFtpProxyType
-from EricUtilities.crypto import pwConvert
+from eric7 import EricUtilities
+from eric7.EricNetwork.EricFtp import EricFtpProxyType
+from eric7.EricUtilities.crypto import pwConvert
 
 # names of the various settings objects
 settingsNameOrganization = "Eric7"
@@ -183,7 +183,7 @@ def convertPasswords(oldPassword, newPassword):
     @param newPassword new password
     @type str
     """
-    from EricUtilities.crypto import pwRecode
+    from eric7.EricUtilities.crypto import pwRecode
 
     for key in [
         "ProxyPassword/Http",

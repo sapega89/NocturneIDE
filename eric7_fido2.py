@@ -28,7 +28,7 @@ def createArgparseNamespace():
     @return created argument parser object
     @rtype argparse.ArgumentParser
     """
-    from __version__ import Version
+    from eric7.__version__ import Version
 
     # 1. create the argument parser
     parser = argparse.ArgumentParser(
@@ -79,7 +79,7 @@ if importlib.util.find_spec("fido2") is None:
     from PyQt6.QtCore import QTimer
     from PyQt6.QtWidgets import QApplication
 
-    from EricWidgets import EricMessageBox
+    from eric7.EricWidgets import EricMessageBox
 
     app = QApplication([])
     QTimer.singleShot(
@@ -93,7 +93,7 @@ if importlib.util.find_spec("fido2") is None:
     app.exec()
     sys.exit(100)
 
-from Toolbox import Startup
+from eric7.Toolbox import Startup
 
 
 def createMainWidget(_args):
@@ -106,7 +106,7 @@ def createMainWidget(_args):
     @return reference to the main widget
     @rtype QWidget
     """
-    from WebBrowser.WebAuth.Fido2ManagementDialog import Fido2ManagementDialog
+    from eric7.WebBrowser.WebAuth.Fido2ManagementDialog import Fido2ManagementDialog
 
     return Fido2ManagementDialog(standalone=True)
 

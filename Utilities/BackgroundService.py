@@ -20,10 +20,10 @@ from PyQt6.QtCore import QProcess, QThread, QTimer, pyqtSignal
 from PyQt6.QtNetwork import QHostAddress, QTcpServer
 from PyQt6.QtWidgets import QApplication
 
-import Preferences
-from EricWidgets import EricMessageBox
-from EricWidgets.EricApplication import ericApp
-from SystemUtilities import FileSystemUtilities, PythonUtilities
+from eric7 import Preferences
+from eric7.EricWidgets import EricMessageBox
+from eric7.EricWidgets.EricApplication import ericApp
+from eric7.SystemUtilities import FileSystemUtilities, PythonUtilities
 
 
 class BackgroundService(QTcpServer):
