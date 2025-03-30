@@ -74,4 +74,4 @@ Please review our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## 📄 License
 
-[GPL3](LICENSE)
+This project is licensed under the GNU General Public License v3.0 — see the [LICENSE](LICENSE) file for details.
