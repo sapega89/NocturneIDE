@@ -47,6 +47,10 @@ make clean
 - Docker & Docker Compose
 
 ---
+## 📋 Project Management
+
+Track our development progress and upcoming tasks on our [Kanban Project Board](https://github.com/users/sapega89/projects/1/views/1).
+
 
 ## 📌 Future Plans
 
@@ -62,8 +66,12 @@ Contributions and ideas are welcome! Feel free to open an issue or submit a PR.
 
 ---
 
+## 📜 Code of Conduct
+
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+---
+
 ## 📄 License
 
 [MIT](LICENSE)
-
-
