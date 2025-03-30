@@ -1,35 +1,69 @@
-# Eric7 IDE in Docker
+# 🚀 Eric7 IDE with Integrated AI Assistant
 
-This project sets up the Eric7 Python IDE inside a Docker container with GUI support.
+A convenient setup of Eric7 IDE combined with a built-in AI coding assistant, provided via Docker for easy and quick deployment.
 
-## 🚀 Usage
+---
 
-### Build the container
+## ✨ Features
+
+- Eric7 IDE in Docker with GUI support
+- Built-in AI Assistant powered by Falcon (llama-cpp-python)
+- Future support for installation via `pip` and standalone setup
+
+---
+
+## Quick Start with Docker
+
+### Build
 ```bash
 make build
 ```
 
-### Rebuild without cache
+### Rebuild (no cache)
 ```bash
 make rebuild
 ```
 
-### Run Eric7
+### ▶️ Launch Eric7 IDE
 ```bash
 make run
 ```
 
-### Stop the container
+### ⏹️ Stop Container
 ```bash
 make stop
 ```
 
-### Remove container + image
+### 🧹 Cleanup (Remove container + image)
 ```bash
 make clean
 ```
 
-## 🧱 Requirements
+---
 
-- Linux with X11 or Windows with X-server (like VcXsrv)
+## Requirements
+
+- Linux with X11 or Windows with an X-server (VcXsrv recommended)
 - Docker & Docker Compose
+
+---
+
+## 📌 Future Plans
+
+- [ ] Installation via `pip` with `setup.py`
+- [ ] Comprehensive user documentation
+- [ ] Plugin support for easier integration with Eric7
+
+---
+
+## 🤝 Contributing
+
+Contributions and ideas are welcome! Feel free to open an issue or submit a PR.
+
+---
+
+## 📄 License
+
+[MIT](LICENSE)
+
+
