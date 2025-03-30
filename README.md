@@ -74,4 +74,4 @@ Please review our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## 📄 License
 
-[MIT](LICENSE)
+[GPL3](LICENSE)
