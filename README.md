@@ -75,3 +75,5 @@ Please review our [Code of Conduct](CODE_OF_CONDUCT.md).
 ## 📄 License
 
 [GPL3](LICENSE)
+
+Created by [Andrey Emelyanenko](https://github.com/sapega89)
