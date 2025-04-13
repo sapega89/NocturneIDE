@@ -72,6 +72,12 @@ Please review our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ---
 
+## 📋 Topics
+
+ide, ai-assistant, voice-control, accessibility, blind-developers
+
+---
+
 ## 📄 License
 
 [GPL3](LICENSE)
